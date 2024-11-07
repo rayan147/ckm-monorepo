@@ -1,0 +1,1 @@
+import{k as r,l as c,m as s,E as i,o as h,v as m,w as p}from"./runtime.-IAcHVGa.js";function l(o,t,f){r&&c();var n=o,a,e;s(()=>{a!==(a=t())&&(e&&(p(e),e=null),a&&(e=h(()=>f(n,a))))},i),r&&(n=m)}export{l as c};

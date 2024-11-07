@@ -1,0 +1,29 @@
+{
+  "name": "@ckm/db",
+  "version": "0.0.0",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "tsup",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push --skip-generate"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.22.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.3.1",
+    "prisma": "^5.22.0",
+    "tsup": "^8.3.0",
+    "zod": "^3.23.8",
+    "zod-prisma-types": "^3.1.8"
+  }
+}

@@ -1,0 +1,956 @@
+// This is your Prisma schema file,
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["tracing", "postgresqlExtensions"]
+}
+
+generator zod {
+  provider               = "zod-prisma-types"
+  output                 = "../src/generated/zod" // Goes to zod-schemas
+  createInputTypes       = true
+  createModelTypes       = true
+  addInputTypeValidation = true
+  addIncludeType         = true
+  addSelectType          = true
+  modelPrefix            = "Zod"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Integrating POS Data
+// Purpose: to store sales data  from the POS system for accurate calculations,
+// insights, and add inventory adjustments
+
+model SalesTransactions {
+  id               Int        @id @default(autoincrement())
+  posTransactionID String?    @unique
+  restaurantId     Int
+  restaurant       Restaurant @relation(fields: [restaurantId], references: [id])
+  menuItemId       Int
+  menuItem         MenuItem   @relation(fields: [menuItemId], references: [id])
+  price            Float
+  total            Float
+  transactionDate  DateTime
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+
+  @@map("salesTransactions")
+}
+
+enum ChecklistItemType {
+  BOOLEAN // Yes/No questions
+  NUMERIC // Number values (like temperatures)
+  TEXT // Written responses
+  TEMPERATURE // Specifically for temperature checks
+  PHOTO // Required photo documentation
+}
+
+// Menu Organization
+model MenuCategory {
+  id           Int        @id @default(autoincrement())
+  name         String
+  description  String?
+  displayOrder Int // For ordering categories in the menu
+  menuId       Int
+  menu         Menu       @relation(fields: [menuId], references: [id])
+  menuItems    MenuItem[]
+  isActive     Boolean    @default(true)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  @@unique([menuId, name])
+  @@map("menuCategory")
+}
+
+model RecipeVersion {
+  id            Int                 @id @default(autoincrement())
+  recipeId      Int
+  recipe        Recipe              @relation(fields: [recipeId], references: [id])
+  versionNumber Int
+  description   String?
+  changes       String? // Description of changes from previous version
+  ingredients   RecipeIngredient[]
+  instructions  RecipeInstruction[]
+  isActive      Boolean             @default(false)
+  createdById   Int
+  createdBy     User                @relation(fields: [createdById], references: [id])
+  approvedById  Int?
+  approvedBy    User?               @relation("RecipeApprover", fields: [approvedById], references: [id])
+  approvedAt    DateTime?
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+
+  @@unique([recipeId, versionNumber])
+  @@map("recipeVersion")
+}
+
+// Equipment Management
+model Equipment {
+  id              Int               @id @default(autoincrement())
+  name            String
+  description     String?
+  model           String?
+  serialNumber    String?
+  purchaseDate    DateTime?
+  lastMaintenance DateTime?
+  nextMaintenance DateTime?
+  status          EquipmentStatus   @default(ACTIVE)
+  location        String?
+  restaurantId    Int
+  restaurant      Restaurant        @relation(fields: [restaurantId], references: [id])
+  recipes         RecipeEquipment[]
+  maintenanceLogs MaintenanceLog[]
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+
+  @@map("equipment")
+}
+
+model RecipeEquipment {
+  id          Int       @id @default(autoincrement())
+  recipeId    Int
+  recipe      Recipe    @relation(fields: [recipeId], references: [id])
+  equipmentId Int
+  equipment   Equipment @relation(fields: [equipmentId], references: [id])
+  notes       String?
+
+  @@unique([recipeId, equipmentId])
+  @@map("recipeEquipment")
+}
+
+model MaintenanceLog {
+  id          Int             @id @default(autoincrement())
+  equipmentId Int
+  equipment   Equipment       @relation(fields: [equipmentId], references: [id])
+  date        DateTime
+  type        MaintenanceType
+  description String
+  cost        Float?
+  performedBy String
+  notes       String?
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  @@map("maintenanceLog")
+}
+
+// Quality Control
+model QualityChecklist {
+  id           Int                 @id @default(autoincrement())
+  name         String
+  description  String?
+  restaurantId Int
+  restaurant   Restaurant          @relation(fields: [restaurantId], references: [id])
+  items        ChecklistItem[]
+  completions  ChecklistComplete[]
+  frequency    ChecklistFrequency  @default(DAILY)
+  isActive     Boolean             @default(true)
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+
+  @@map("qualityChecklist")
+}
+
+model ChecklistItem {
+  id             Int                     @id @default(autoincrement())
+  checklistId    Int
+  checklist      QualityChecklist        @relation(fields: [checklistId], references: [id])
+  description    String
+  order          Int
+  type           ChecklistItemType
+  requiredPhotos Boolean                 @default(false)
+  completions    ChecklistItemComplete[]
+  createdAt      DateTime                @default(now())
+  updatedAt      DateTime                @updatedAt
+
+  @@map("checklistItem")
+}
+
+model ChecklistComplete {
+  id            Int                     @id @default(autoincrement())
+  checklistId   Int
+  checklist     QualityChecklist        @relation(fields: [checklistId], references: [id])
+  completedById Int
+  completedBy   User                    @relation(fields: [completedById], references: [id])
+  date          DateTime
+  items         ChecklistItemComplete[]
+  notes         String?
+  createdAt     DateTime                @default(now())
+  updatedAt     DateTime                @updatedAt
+
+  @@map("checklistComplete")
+}
+
+model ChecklistItemComplete {
+  id                  Int               @id @default(autoincrement())
+  checklistCompleteId Int
+  checklistComplete   ChecklistComplete @relation(fields: [checklistCompleteId], references: [id])
+  checklistItemId     Int
+  checklistItem       ChecklistItem     @relation(fields: [checklistItemId], references: [id])
+  status              ChecklistStatus
+  notes               String?
+  photoUrls           String[]
+  createdAt           DateTime          @default(now())
+  updatedAt           DateTime          @updatedAt
+
+  @@map("checklistItemComplete")
+}
+
+// Supplier Price Tracking
+model SupplierPriceHistory {
+  id           Int        @id @default(autoincrement())
+  vendorId     Int
+  vendor       Vendor     @relation(fields: [vendorId], references: [id])
+  ingredientId Int
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+  price        Float
+  unit         String
+  startDate    DateTime
+  endDate      DateTime?
+  notes        String?
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  @@map("supplierPriceHistory")
+}
+
+// Customer Feedback
+model CustomerFeedback {
+  id            Int            @id @default(autoincrement())
+  restaurantId  Int
+  restaurant    Restaurant     @relation(fields: [restaurantId], references: [id])
+  menuItemId    Int?
+  menuItem      MenuItem?      @relation(fields: [menuItemId], references: [id])
+  rating        Int // 1-5 rating
+  comment       String?
+  source        FeedbackSource
+  tags          String[] // Array of feedback categories/tags
+  status        FeedbackStatus @default(NEW)
+  responseText  String?
+  respondedAt   DateTime?
+  respondedById Int?
+  respondedBy   User?          @relation(fields: [respondedById], references: [id])
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  @@map("customerFeedback")
+}
+
+// Dietary Restrictions
+model DietaryRestriction {
+  id          Int          @id @default(autoincrement())
+  name        String       @unique
+  description String?
+  icon        String?
+  menuItems   MenuItem[]
+  recipes     Recipe[]
+  ingredients Ingredient[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@map("dietaryRestriction")
+}
+
+// Additional Enums
+enum EquipmentStatus {
+  ACTIVE
+  MAINTENANCE
+  REPAIR
+  RETIRED
+}
+
+enum MaintenanceType {
+  ROUTINE
+  REPAIR
+  INSPECTION
+  CLEANING
+  CALIBRATION
+}
+
+enum ChecklistFrequency {
+  DAILY
+  WEEKLY
+  MONTHLY
+  QUARTERLY
+  CUSTOM
+}
+
+enum ChecklistStatus {
+  COMPLETED
+  FAILED
+  SKIPPED
+  NEEDS_ATTENTION
+}
+
+enum FeedbackSource {
+  IN_PERSON
+  ONLINE
+  MOBILE_APP
+  THIRD_PARTY
+}
+
+enum FeedbackStatus {
+  NEW
+  IN_PROGRESS
+  RESPONDED
+  CLOSED
+  FLAGGED
+}
+
+// Recipe Organization and Versioning
+model RecipeTag {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?
+  recipes     Recipe[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("recipeTag")
+}
+
+// Sales and Leftovers Tracking
+//Purpose: to track Leftovers after service for waste managment and cost optimization
+
+model LeftoverItem {
+  id           Int        @id @default(autoincrement())
+  restaurantId Int
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  date         DateTime
+  menuItemId   Int
+  menuItem     MenuItem   @relation(fields: [menuItemId], references: [id])
+  quantity     Int
+  reason       String
+  recordedById Int
+  recordedBy   User       @relation(fields: [recordedById], references: [id])
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+//  Waste Tracking
+//  Purpose: To record and analyze waste for inventory management and cost reduction.
+
+model WasteRecord {
+  id           Int        @id @default(autoincrement())
+  restaurantId Int
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  date         DateTime
+  ingredientId Int
+  ingrediente  Ingredient @relation(fields: [ingredientId], references: [id])
+  quantity     Float
+  unit         String
+  reason       String
+  recordedById Int
+  recordedBy   User       @relation(fields: [recordedById], references: [id])
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+//Production Sheets
+//Purpose: To plan and manage daily production tasks.
+
+model ProductionPlan {
+  id           Int                  @id @default(autoincrement())
+  restaurantId Int
+  restaurant   Restaurant           @relation(fields: [restaurantId], references: [id])
+  date         DateTime
+  createdById  Int
+  createdBy    User                 @relation(fields: [createdById], references: [id])
+  items        ProductionPlanItem[]
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+}
+
+model ProductionPlanItem {
+  id               Int            @id @default(autoincrement())
+  productionPlanId Int
+  productionPlan   ProductionPlan @relation(fields: [productionPlanId], references: [id])
+  recipeId         Int
+  recipe           Recipe         @relation(fields: [recipeId], references: [id])
+  quantity         Int
+  unit             String
+  assignedToId     Int?
+  assignedTo       User?          @relation(fields: [assignedToId], references: [id])
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+}
+
+enum ProductionStatus {
+  PLANNED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+//Time Tracking and Productivity Analysis
+//Purpose: To track tasks during shifts for productivity analysis.
+model ShiftTask {
+  id        Int      @id @default(autoincrement())
+  shiftId   Int
+  shift     Shift    @relation(fields: [shiftId], references: [id], onDelete: Cascade)
+  taskType  TaskType
+  startTime DateTime
+  endTime   DateTime
+  duration  Int // duration in minutes
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum TaskType {
+  PREP
+  COOKING
+  CLEANING
+  INVENTORY
+  OTHER
+}
+
+//AI-Driven Scheduling
+//Purpose: To manage staff availability and scheduling constraints for smart scheduling.
+
+model Availability {
+  id        Int       @id @default(autoincrement())
+  userId    Int
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  dayOfWeek DayOfWeek
+  startTime DateTime
+  endTime   DateTime
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model SchedulingConstraint {
+  id              Int            @id @default(autoincrement())
+  userId          Int
+  user            User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date            DateTime
+  constraintsType ConstraintType
+  startTime       DateTime
+  endTime         DateTime
+  notes           String?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+}
+
+enum DayOfWeek {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+}
+
+enum ConstraintType {
+  UNAVAILABLE
+  PREFERRED
+}
+
+//Inventory Withdrawals
+//Purpose: To record inventory usage for accurate stock levels
+
+model InventoryWithdrawal {
+  id              Int           @id @default(autoincrement())
+  inventoryItemId Int
+  inventoryItem   InventoryItem @relation(fields: [inventoryItemId], references: [id])
+  dateTime        DateTime
+  quantity        Float
+  unit            String
+  recipeId        Int?
+  recipe          Recipe?       @relation(fields: [recipeId], references: [id])
+  createdById     Int
+  createdBy       User          @relation(fields: [createdById], references: [id])
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+//Allergen Information
+//Purpose: To manage allergen data for ingredients and recipes.
+
+model Allergen {
+  id          Int                  @id @default(autoincrement())
+  name        String               @unique
+  description String?
+  ingredients IngredientAllergen[]
+}
+
+model IngredientAllergen {
+  id           Int        @id @default(autoincrement())
+  ingredientId Int
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+  allergenId   Int
+  allergen     Allergen   @relation(fields: [allergenId], references: [id])
+}
+
+//Nutritional Recommendations
+//Purpose: To store recommendations based on nutritional analysis.
+model NutritionalRecommendation {
+  id             Int      @id @default(autoincrement())
+  menuItemId     Int
+  menuItem       MenuItem @relation(fields: [menuItemId], references: [id])
+  recommendation String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model EarlyAccess {
+  id          Int      @id @default(autoincrement())
+  email       String   @unique
+  isEmailSent Boolean
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("earlyAccess")
+}
+
+model Organization {
+  id          Int          @id @default(autoincrement())
+  name        String       @unique
+  imageUrl    String?
+  restaurants Restaurant[]
+  users       User[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@map("organization")
+}
+
+model Restaurant {
+  id                Int                 @id @default(autoincrement())
+  name              String
+  imageUrl          String?
+  address           String
+  city              String
+  zipCode           String
+  state             String
+  owner             String
+  organizationId    Int?
+  organization      Organization?       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  users             User[]
+  cookbooks         CookBook[]
+  inventory         Inventory?
+  orders            Order[]
+  foodCost          Float?
+  recipes           Recipe[]
+  menus             Menu[]
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  isDeleted         Boolean             @default(false)
+  deleted           DateTime?
+  salesTransactions SalesTransactions[]
+  leftoverItem      LeftoverItem[]
+  wasteRecord       WasteRecord[]
+  productionPlan    ProductionPlan[]
+  equipment         Equipment[]
+  qualityChecklist  QualityChecklist[]
+  qustomerFeedback  CustomerFeedback[]
+
+  @@index([name])
+  @@map("restaurant")
+}
+
+model User {
+  id                     Int                    @id @default(autoincrement())
+  email                  String                 @unique
+  sub                    Int?                   @unique
+  passwordHash           String
+  firstName              String
+  lastName               String
+  profileImage           String?
+  verified               Boolean                @default(false)
+  role                   UserRole
+  organizationId         Int?
+  organization           Organization?          @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  restaurantId           Int?
+  restaurant             Restaurant?            @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+  shifts                 Shift[]
+  prepItems              PrepItem[]
+  inventoryUpdates       InventoryItem[]        @relation("InventoryItemUpdater")
+  sessions               Session[]
+  passwordResets         PasswordReset[]
+  createdAt              DateTime               @default(now())
+  updatedAt              DateTime               @updatedAt
+  leftoverItem           LeftoverItem[]
+  wasteRecord            WasteRecord[]
+  productionPlan         ProductionPlan[]
+  productionPlanItem     ProductionPlanItem[]
+  availability           Availability[]
+  schedulingConstraint   SchedulingConstraint[]
+  inventoryWithdrawal    InventoryWithdrawal[]
+  checklistComplete      ChecklistComplete[]
+  customerFeedback       CustomerFeedback[]
+  recipeVersionsCreated  RecipeVersion[]
+  recipeVersionsApproved RecipeVersion[]        @relation("RecipeApprover")
+
+  @@index([email])
+  @@index([firstName, lastName])
+  @@map("user")
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  userId    Int
+  code      String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([token, code])
+  @@map("session")
+}
+
+model CookBook {
+  id           Int         @id @default(autoincrement())
+  name         String
+  imageUrl     String?
+  category     String
+  recipes      Recipe[]
+  restaurantId Int?
+  restaurant   Restaurant? @relation(fields: [restaurantId], references: [id])
+
+  @@index([name])
+  @@map("cookbook")
+}
+
+model Recipe {
+  id                  Int                   @id @default(autoincrement())
+  name                String
+  imageUrl            String[]
+  description         String?
+  servings            Int
+  cookTime            Int
+  prepTime            Int
+  frequency           Int?
+  restaurantId        Int
+  restaurant          Restaurant            @relation(fields: [restaurantId], references: [id])
+  cookBookId          Int
+  cookBook            CookBook              @relation(fields: [cookBookId], references: [id])
+  ingredients         RecipeIngredient[]
+  instructions        RecipeInstruction[]
+  menuItems           MenuItem[]
+  foodCostHistory     FoodCostHistory[]
+  prepHistory         PrepHistory[]
+  prepBoards          PrepBoard[]
+  prepItems           PrepItem[]
+  foodCost            Float?
+  isDeleted           Boolean               @default(false)
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
+  MenuItemRecipe      MenuItemRecipe[]
+  ProductionPlanItem  ProductionPlanItem[]
+  InventoryWithdrawal InventoryWithdrawal[]
+  tags                RecipeTag[]
+  versions            RecipeVersion[]
+  equipment           RecipeEquipment[]
+  dietaryRestrictions DietaryRestriction[]
+
+  @@index([name])
+  @@map("recipe")
+}
+
+model Ingredient {
+  id                   Int                    @id @default(autoincrement())
+  name                 String                 @unique
+  category             String
+  price                Float
+  // ediablePortion    Float?
+  // asPerchase        Float?
+  recipeIngredients    RecipeIngredient[]
+  inventoryItems       InventoryItem[]
+  orderItems           OrderItem[]
+  vendors              Vendor[]
+  //  position          Int?
+  // embedding         Unsupported("vector(1024)")?
+  WasteRecord          WasteRecord[]
+  IngredientAllergen   IngredientAllergen[]
+  SupplierPriceHistory SupplierPriceHistory[]
+  DietaryRestriction   DietaryRestriction?    @relation(fields: [dietaryRestrictionId], references: [id])
+  dietaryRestrictionId Int?
+
+  //@@index([position])
+  @@map("ingredient")
+}
+
+model RecipeIngredient {
+  id              Int            @id @default(autoincrement())
+  recipeId        Int
+  recipe          Recipe         @relation(fields: [recipeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  ingredientId    Int
+  ingredient      Ingredient     @relation(fields: [ingredientId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  quantity        Float
+  unit            String
+  joinAt          DateTime       @default(now())
+  RecipeVersion   RecipeVersion? @relation(fields: [recipeVersionId], references: [id])
+  recipeVersionId Int?
+
+  @@unique([recipeId, ingredientId])
+  @@map("recipeIngredient")
+}
+
+model RecipeInstruction {
+  id              Int            @id @default(autoincrement())
+  recipeId        Int
+  recipe          Recipe         @relation(fields: [recipeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  stepNumber      Int
+  instruction     String
+  imageUrl        String?
+  RecipeVersion   RecipeVersion? @relation(fields: [recipeVersionId], references: [id])
+  recipeVersionId Int?
+
+  @@unique([recipeId, stepNumber])
+  @@map("recipeInstruction")
+}
+
+model Inventory {
+  id           Int             @id @default(autoincrement())
+  restaurantId Int             @unique
+  restaurant   Restaurant      @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+  items        InventoryItem[]
+
+  @@map("inventory")
+}
+
+model InventoryItem {
+  id                  Int                   @id @default(autoincrement())
+  inventoryId         Int
+  inventory           Inventory             @relation(fields: [inventoryId], references: [id])
+  ingredientId        Int
+  ingredient          Ingredient            @relation(fields: [ingredientId], references: [id])
+  quantity            Float
+  unit                String
+  minQuantity         Float
+  restockThreshold    Float
+  lastUpdatedById     Int?
+  lastUpdatedBy       User?                 @relation("InventoryItemUpdater", fields: [lastUpdatedById], references: [id], onDelete: SetNull)
+  lastUpdated         DateTime              @updatedAt
+  InventoryWithdrawal InventoryWithdrawal[]
+
+  @@index([inventoryId, ingredientId])
+  @@map("inventoryItem")
+}
+
+model Order {
+  id           Int         @id @default(autoincrement())
+  restaurantId Int
+  restaurant   Restaurant  @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+  vendorId     Int
+  vendor       Vendor      @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  status       OrderStatus
+  items        OrderItem[]
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  @@map("order")
+}
+
+model OrderItem {
+  id           Int        @id @default(autoincrement())
+  orderId      Int
+  order        Order      @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  ingredientId Int
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+  quantity     Float
+  unit         String
+  price        Float
+
+  @@map("orderItem")
+}
+
+model Vendor {
+  id                   Int                    @id @default(autoincrement())
+  name                 String                 @unique
+  contact              String
+  email                String                 @unique
+  phone                String
+  orders               Order[]
+  ingredients          Ingredient[]
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime               @updatedAt
+  supplierPriceHistory SupplierPriceHistory[]
+
+  @@map("vendor")
+}
+
+model Shift {
+  id        Int         @id @default(autoincrement())
+  userId    Int
+  user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  startTime DateTime
+  endTime   DateTime
+  status    ShiftStatus
+  ShiftTask ShiftTask[]
+
+  @@map("shift")
+}
+
+model PrepBoard {
+  id        Int        @id @default(autoincrement())
+  name      String
+  status    PrepStatus
+  recipes   Recipe[]
+  prepItems PrepItem[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@map("prepBoard")
+}
+
+model PrepItem {
+  id           Int        @id @default(autoincrement())
+  prepBoardId  Int
+  prepBoard    PrepBoard  @relation(fields: [prepBoardId], references: [id])
+  recipeId     Int
+  recipe       Recipe     @relation(fields: [recipeId], references: [id])
+  quantity     Int
+  status       PrepStatus
+  assignedToId Int
+  assignedTo   User       @relation(fields: [assignedToId], references: [id], onDelete: Cascade)
+
+  @@map("prepItem")
+}
+
+model PasswordReset {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("passwordReset")
+}
+
+model Menu {
+  id           Int            @id @default(autoincrement())
+  name         String
+  restaurantId Int
+  restaurant   Restaurant     @relation(fields: [restaurantId], references: [id])
+  menuItems    MenuItem[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  MenuCategory MenuCategory[]
+
+  @@map("menu")
+}
+
+model MenuItemRecipe {
+  id         Int      @id @default(autoincrement())
+  menuItemId Int
+  menuItem   MenuItem @relation(fields: [menuItemId], references: [id])
+  recipeId   Int
+  recipe     Recipe   @relation(fields: [recipeId], references: [id])
+  joinAt     DateTime @default(now())
+
+  @@unique([menuItemId, recipeId])
+  @@map("menuItemRecipe")
+}
+
+model MenuItem {
+  id                        Int                         @id @default(autoincrement())
+  name                      String
+  description               String?
+  price                     Float
+  foodCost                  Float
+  recipeIds                 Int[]
+  recipeServingsAmount      Float[]
+  recipeServingsCost        Float[]
+  allergens                 String[]
+  nutritionalInfoId         Int?                        @unique
+  nutritionalInfo           NutritionalInfo?
+  menuId                    Int
+  menu                      Menu                        @relation(fields: [menuId], references: [id])
+  recipes                   Recipe[]
+  menuItemRecipe            MenuItemRecipe[]
+  createdAt                 DateTime                    @default(now())
+  updatedAt                 DateTime                    @updatedAt
+  salesTransactions         SalesTransactions[]
+  leftoverItem              LeftoverItem[]
+  nutritionalRecommendation NutritionalRecommendation[]
+  categoryId                Int?
+  category                  MenuCategory?               @relation(fields: [categoryId], references: [id])
+  feedback                  CustomerFeedback[]
+  dietaryRestrictions       DietaryRestriction[]
+
+  @@map("menuItem")
+}
+
+model NutritionalInfo {
+  id            Int       @id @default(autoincrement())
+  menuItemId    Int?      @unique
+  menuItem      MenuItem? @relation(fields: [menuItemId], references: [id])
+  calories      Float
+  fat           Float
+  saturatedFat  Float
+  transFat      Float
+  cholesterol   Float
+  sodium        Float
+  carbohydrates Float
+  fiber         Float
+  sugar         Float
+  protein       Float
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@map("nutritionalInfo")
+}
+
+model FoodCostHistory {
+  id        Int      @id @default(autoincrement())
+  recipeId  Int
+  recipe    Recipe   @relation(fields: [recipeId], references: [id])
+  cost      Float
+  date      DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("foodCostHistory")
+}
+
+model PrepHistory {
+  id        Int      @id @default(autoincrement())
+  recipeId  Int
+  recipe    Recipe   @relation(fields: [recipeId], references: [id])
+  quantity  Int
+  date      DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("prepHistory")
+}
+
+enum UserRole {
+  ADMIN
+  MANAGER
+  CHEF
+  STAFF
+  VENDOR
+}
+
+enum OrderStatus {
+  PENDING
+  APPROVED
+  ORDERED
+  RECEIVED
+  CANCELLED
+}
+
+enum ShiftStatus {
+  SCHEDULED
+  COMPLETED
+  CANCELLED
+}
+
+enum PrepStatus {
+  COMPLETED
+  CANCELLED
+  MISSING_ITEM
+  PENDING
+  ON_PROGRESS
+  POSTPONE
+}

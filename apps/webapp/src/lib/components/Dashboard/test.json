@@ -1,0 +1,117 @@
+{
+	"volume": {
+		"gallon": {
+			"abbreviation": "gal",
+			"quart": 4,
+			"pint": 8,
+			"cup": 16,
+			"fluidOunce": 128,
+			"tablespoon": 256,
+			"teaspoon": 768,
+			"liter": 3.78541,
+			"milliliter": 3785.41
+		},
+		"quart": {
+			"abbreviation": "qt",
+			"pint": 2,
+			"cup": 4,
+			"fluidOunce": 32,
+			"tablespoon": 64,
+			"teaspoon": 192,
+			"liter": 0.946353,
+			"milliliter": 946.353
+		},
+		"pint": {
+			"abbreviation": "pt",
+			"cup": 2,
+			"fluidOunce": 16,
+			"tablespoon": 32,
+			"teaspoon": 96,
+			"liter": 0.473176,
+			"milliliter": 473.176
+		},
+		"cup": {
+			"abbreviation": "c",
+			"fluidOunce": 8,
+			"tablespoon": 16,
+			"teaspoon": 48,
+			"liter": 0.236588,
+			"milliliter": 236.588
+		},
+		"fluidOunce": {
+			"abbreviation": "fl oz",
+			"tablespoon": 2,
+			"teaspoon": 6,
+			"liter": 0.0295735,
+			"milliliter": 29.5735
+		},
+		"tablespoon": {
+			"abbreviation": "tbsp",
+			"teaspoon": 3,
+			"liter": 0.0147868,
+			"milliliter": 14.7868
+		},
+		"teaspoon": {
+			"abbreviation": "tsp",
+			"liter": 0.00492892,
+			"milliliter": 4.92892
+		},
+		"liter": {
+			"abbreviation": "L",
+			"milliliter": 1000
+		},
+		"milliliter": {
+			"abbreviation": "ml"
+		}
+	},
+	"weight": {
+		"kilogram": {
+			"abbreviation": "kg",
+			"gram": 1000,
+			"pound": 2.20462,
+			"ounce": 35.274
+		},
+		"gram": {
+			"abbreviation": "g",
+			"milligram": 1000,
+			"pound": 0.00220462,
+			"ounce": 0.035274
+		},
+		"milligram": {
+			"abbreviation": "mg"
+		},
+		"pound": {
+			"abbreviation": "lb",
+			"ounce": 16
+		},
+		"ounce": {
+			"abbreviation": "oz"
+		}
+	},
+	"length": {
+		"meter": {
+			"abbreviation": "m",
+			"centimeter": 100,
+			"millimeter": 1000,
+			"inch": 39.3701,
+			"foot": 3.28084
+		},
+		"centimeter": {
+			"abbreviation": "cm",
+			"millimeter": 10,
+			"inch": 0.393701
+		},
+		"millimeter": {
+			"abbreviation": "mm",
+			"inch": 0.0393701
+		},
+		"inch": {
+			"abbreviation": "in",
+			"foot": 0.0833333
+		},
+		"foot": {
+			"abbreviation": "ft",
+			"inch": 12
+		}
+	}
+}

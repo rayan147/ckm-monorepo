@@ -1,6 +1,7 @@
 {
   "private": true,
   "scripts": {
+    "clean": "rm -rf node_modules dist build .turbo apps/webapp/.svelte-kit node_modules/.prisma",
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",

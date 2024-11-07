@@ -1,0 +1,23 @@
+{
+  "name": "@ckm/lib-api",
+  "version": "0.0.1",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts",
+    "prepare": "pnpm run build"
+  },
+  "dependencies": {
+    "@ckm/contracts": "workspace:*",
+    "@ckm/db": "workspace:*",
+    "@ts-rest/core": "^3.30.4",
+    "@ts-rest/react-query": "^3.30.4"
+  },
+  "devDependencies": {
+    "tsup": "^8.3.0"
+  }
+}

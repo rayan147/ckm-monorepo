@@ -1,0 +1,26 @@
+{
+  "name": "@ckm/contracts",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "@ts-rest/core": "^3.30.4",
+    "tsup": "^8.3.0",
+    "typescript": "^5.6.3",
+    "zod": "^3.22.4"
+  },
+  "dependencies": {
+    "@ckm/db": "workspace:*",
+    "@ckm/types": "workspace:*",
+    "tsc": "^2.0.4"
+  }
+}
