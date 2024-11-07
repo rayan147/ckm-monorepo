@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 export const envSchema = z.object({
   PORT: z.coerce.number().optional().default(3000),
-  DATABASE_URL: z.string(),
+  DATABASE_URL: z.string().default('postgresql://ckm:ckm@localhost:5433/ckm?schema=public'),
   ENCRYPTION_PASSWORD: z.string(),
   JWT_SECRET_KEY: z.string(),
   AWS_REGION: z.string(),

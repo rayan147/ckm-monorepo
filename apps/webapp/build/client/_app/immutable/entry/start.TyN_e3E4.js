@@ -1,0 +1,1 @@
+import{b as a}from"../chunks/entry.1xPhGmJB.js";export{a as start};

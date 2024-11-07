@@ -4,7 +4,7 @@ exports.envSchema = void 0;
 const zod_1 = require("zod");
 exports.envSchema = zod_1.z.object({
     PORT: zod_1.z.coerce.number().optional().default(3000),
-    DATABASE_URL: zod_1.z.string(),
+    DATABASE_URL: zod_1.z.string().default('postgresql://ckm:ckm@localhost:5433/ckm?schema=public'),
     ENCRYPTION_PASSWORD: zod_1.z.string(),
     JWT_SECRET_KEY: zod_1.z.string(),
     AWS_REGION: zod_1.z.string(),

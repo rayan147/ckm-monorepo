@@ -9,7 +9,6 @@ export default defineConfig({
   optimizeDeps: {
     include: [
       '@ckm/db',
-      '@ckm/db',
       '@ckm/contract',
       '@ckm/lib-api',
       '@ckm/types',
@@ -18,12 +17,13 @@ export default defineConfig({
   ssr: {
     noExternal: [
       '@ckm/db',
-      '@ckm/db',
       '@ckm/contract',
       '@ckm/lib-api',
       '@ckm/types',
       '@prisma/client',
-    ]
-  }
+    ],
+    external: ['@prisma/client'],
+
+  },
 });
 

@@ -36,6 +36,8 @@ async function bootstrap() {
     // allowedHeaders: ['Content-Type', 'Accept', 'Authorization'],
   });
 
+  const database_url = configService.get('DATABASE_URL')
+  console.log({ database_url })
   await app.listen(port);
 }
 bootstrap();

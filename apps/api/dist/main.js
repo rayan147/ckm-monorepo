@@ -32,6 +32,8 @@ async function bootstrap() {
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
         credentials: true,
     });
+    const database_url = configService.get('DATABASE_URL');
+    console.log({ database_url });
     await app.listen(port);
 }
 bootstrap();
