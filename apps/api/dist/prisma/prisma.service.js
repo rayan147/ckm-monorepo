@@ -7,18 +7,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PrismaService = void 0;
-exports.getExtendedClient = getExtendedClient;
 const common_1 = require("@nestjs/common");
 const db_1 = require("@ckm/db");
-const extension_optimize_1 = require("@prisma/extension-optimize");
-function getExtendedClient() {
-    const client = () => new db_1.PrismaClient().$extends((0, extension_optimize_1.withOptimize)());
-    return class {
-        constructor() {
-            return client();
-        }
-    };
-}
 let PrismaService = class PrismaService extends db_1.PrismaClient {
     async onModuleInit() {
         await this.$connect();

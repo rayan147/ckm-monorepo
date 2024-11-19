@@ -17,8 +17,6 @@ import * as E from 'fp-ts/Either';
 import * as O from 'fp-ts/Option';
 import * as IO from 'fp-ts/IO';
 import * as T from 'fp-ts/lib/Task';
-import path from 'path';
-import fs from 'fs';
 import { v4 as uuidv4 } from 'uuid';
 import { EnvService } from 'src/env/env.service';
 
@@ -30,8 +28,8 @@ interface JwtPayload {
 
 @Injectable()
 export class AuthService {
-  private readonly emailTemplate: string;
-  private readonly codeTemplate: string;
+  private readonly passwordResetTemplate: string;
+  private readonly verificationCodeTemplate: string;
 
   constructor(
     private userService: UserService,
@@ -40,21 +38,87 @@ export class AuthService {
     private pinpointService: PinpointService,
     private envService: EnvService,
   ) {
-    // Load the email template
-    this.emailTemplate = fs.readFileSync(
-      path.join(
-        process.cwd(),
-        './src/auth/templates/password-reset-email.html',
-      ),
-      'utf8',
-    );
-    this.codeTemplate = fs.readFileSync(
-      path.join(
-        process.cwd(),
-        './src/auth/templates/verification-code-email.html',
-      ),
-      'utf8',
-    );
+    this.passwordResetTemplate = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Reset</title>
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f8f8f8; border-radius: 5px;">
+        <tr>
+            <td style="padding: 20px;">
+                <h1 style="color: #4a4a4a; text-align: center;">Password Reset Request</h1>
+                <p style="margin-bottom: 20px;">Hello,</p>
+                <p>We received a request to reset your password. If you didn't make this request, you can ignore this email.</p>
+                <p>To reset your password, click the button below:</p>
+                <table width="100%" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td align="center" style="padding: 20px 0;">
+                            <a href="{{resetLink}}" style="background-color: #4CAF50; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Reset Password</a>
+                        </td>
+                    </tr>
+                </table>
+                <p>This link will expire in 1 hour for security reasons.</p>
+                <p>If you're having trouble clicking the button, copy and paste the URL below into your web browser:</p>
+                <p style="word-break: break-all; color: #4a4a4a;">{{resetLink}}</p>
+                <p style="margin-top: 20px;">Best regards,<br>Your App Team</p>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+    `;
+
+
+    this.verificationCodeTemplate = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification Code</title>
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background-color: #f4f4f4;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+        <tr>
+            <td style="padding: 40px;">
+                <table width="100%" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td align="center" style="padding-bottom: 30px;">
+                            <img src="./images/chef.svg" alt="Logo" style="max-width: 100px; height: auto;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h1 style="color: #2c3e50; text-align: center; margin-bottom: 30px; font-size: 28px;">Verification Code</h1>
+                            <p style="margin-bottom: 20px; font-size: 16px;">Hello,</p>
+                            <p style="margin-bottom: 30px; font-size: 16px;">We received a request to send you a verification code. If you didn't make this request, you can ignore this email.</p>
+                            <table width="100%" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td align="center" style="padding: 20px 0;">
+                                        <div style="background-color: #3498db; color: white; padding: 15px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 24px; display: inline-block;">{{verificationCode}}</div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <p style="margin-top: 30px; font-size: 16px;">If you have any questions, please don't hesitate to contact our support team.</p>
+                            <p style="margin-top: 30px; font-size: 16px;">Best regards,<br>Your App Team</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="background-color: #2c3e50; color: #ffffff; text-align: center; padding: 20px; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px;">
+                <p style="margin: 0; font-size: 14px;">&copy; 2024 Your App. All rights reserved.</p>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+    `;
   }
 
   private generateVerificationCode: IO.IO<string> = IO.of(() =>
@@ -94,7 +158,7 @@ export class AuthService {
     const performLoginProcess = (user: Omit<User, 'passwordHash'>) => {
       const verificationCode = this.generateVerificationCode();
       const access_uuid = uuidv4();
-      const htmlBody = this.codeTemplate.replace(
+      const htmlBody = this.verificationCodeTemplate.replace(
         /{{verificationCode}}/g,
         verificationCode,
       );
@@ -203,7 +267,7 @@ export class AuthService {
     const performLoginProcess = (user: Omit<User, 'passwordHash'>) => {
       const verificationCode = this.generateVerificationCode();
       const access_uuid = uuidv4();
-      const htmlBody = this.codeTemplate.replace(
+      const htmlBody = this.verificationCodeTemplate.replace(
         /{{verificationCode}}/g,
         verificationCode,
       );
@@ -337,7 +401,7 @@ export class AuthService {
       const resetToken = this.jwtService.sign(payload, { expiresIn: '1h' });
       const resetLink = `http://localhost:3000/reset-password?token=${resetToken}`;
 
-      const htmlBody = this.emailTemplate.replace(/{{resetLink}}/g, resetLink);
+      const htmlBody = this.passwordResetTemplate.replace(/{{resetLink}}/g, resetLink);
 
       return pipe(
         TE.tryCatch(

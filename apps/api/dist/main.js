@@ -28,9 +28,10 @@ async function bootstrap() {
     const port = configService.get('PORT');
     const corsOrigin = configService.get('CORS_ORIGIN');
     app.enableCors({
-        origin: true,
+        origin: corsOrigin === '*' ? '*' : corsOrigin.split(','),
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
         credentials: true,
+        allowedHeaders: ['Content-Type', 'Accept', 'Authorization'],
     });
     const database_url = configService.get('DATABASE_URL');
     console.log({ database_url });

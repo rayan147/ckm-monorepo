@@ -2,6 +2,7 @@
 generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["tracing", "postgresqlExtensions"]
+  binaryTargets   = ["native", "debian-openssl-3.0.x"]
 }
 
 generator zod {
@@ -954,3 +955,4 @@ enum PrepStatus {
   ON_PROGRESS
   POSTPONE
 }
+

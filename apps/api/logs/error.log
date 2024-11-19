@@ -1,0 +1,8 @@
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.cookBook.create()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/cookbook/cookbook.service.ts:19:41\n\n  16   data: Prisma.CookBookUncheckedCreateInput,\n  17 ): Promise<CookBook> {\n  18   try {\n→ 19     return await this.prisma.cookBook.create(\nForeign key constraint violated: `cookbook_restaurantId_fkey (index)`",
+  "level": "error",
+  "message": "Failed to create cookbook: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T19:13:21.537Z"
+}

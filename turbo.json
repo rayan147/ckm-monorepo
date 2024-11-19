@@ -9,8 +9,8 @@
     },
     "build": {
       "dependsOn": [
-        "^db:generate",
-        "^build"
+        "^build",
+        "^db:generate"
       ],
       "inputs": [
         "$TURBO_DEFAULT",
@@ -18,7 +18,10 @@
       ],
       "outputs": [
         ".svelte-kit/**",
-        ".vercel/**"
+        ".vercel/**",
+        "dist/**",
+        "build/**",
+        "api/**"
       ]
     },
     "lint": {},

@@ -8,8 +8,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts",
-    "prepare": "pnpm run build"
+    "build": "tsup src/index.ts --format esm,cjs --dts"
   },
   "dependencies": {
     "@ckm/contracts": "workspace:*",

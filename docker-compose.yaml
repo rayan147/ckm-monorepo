@@ -1,0 +1,40 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./apps/api/.env
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://ckm:ckm@postgres:5432/ckm?schema=public
+    networks:
+      - ckm-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  postgres:
+    image: postgres:15-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-ckm}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ckm}
+      POSTGRES_DB: ${POSTGRES_DB:-ckm}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ckm"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+
+networks:
+  ckm-network:
+    driver: bridge

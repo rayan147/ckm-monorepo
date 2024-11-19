@@ -1,0 +1,37 @@
+# Dependencies
+node_modules
+.pnpm-store
+
+# Source control
+.git
+.gitignore
+
+# Build outputs
+dist
+build
+.next
+.turbo
+
+# Environment and config files
+.env*
+.dockerignore
+Dockerfile*
+
+# Development files
+README.md
+*.log
+*.md
+.editorconfig
+.prettierrc
+.eslintrc
+
+# Testing
+coverage
+*.test.*
+test
+tests
+
+# Cache
+.cache
+.npm
+.pnpm-debug.log

@@ -54,3 +54,333 @@
   "service": "LoggingService",
   "timestamp": "2024-11-07T12:34:03.440Z"
 }
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T12:36:13.852Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T12:36:29.658Z"
+}
+{
+  "context": "ShiftController",
+  "level": "info",
+  "message": "Received request to get shifts",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T12:45:49.517Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Fetching shifts with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T12:45:49.518Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Retrieved 0 shifts",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T12:45:49.533Z"
+}
+{
+  "context": "ShiftController",
+  "level": "info",
+  "message": "Received request to get shifts",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T12:45:55.525Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Fetching shifts with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T12:45:55.526Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Retrieved 0 shifts",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T12:45:55.528Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T13:33:47.834Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T13:33:47.855Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T13:33:47.866Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T13:33:47.867Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T13:33:52.251Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T13:33:52.269Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T13:33:52.286Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T13:33:52.287Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T18:40:39.173Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T18:40:39.221Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T18:40:39.240Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T18:40:39.241Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T18:45:21.035Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T18:45:21.057Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T18:45:21.070Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T18:45:21.071Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T19:13:02.200Z"
+}
+{
+  "context": "ShiftController",
+  "level": "info",
+  "message": "Received request to get shifts",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T19:13:05.960Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Fetching shifts with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T19:13:05.961Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Retrieved 105 shifts",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T19:13:05.977Z"
+}
+{
+  "context": "ShiftController",
+  "level": "info",
+  "message": "Received request to delete shift with ID 81",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T19:13:13.990Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Deleting shift with ID 81",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T19:13:13.991Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Shift with ID 81 deleted successfully",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T19:13:13.996Z"
+}
+{
+  "context": "ShiftController",
+  "level": "info",
+  "message": "Received request to delete shift with ID 81",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T19:13:13.998Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Deleting shift with ID 81",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T19:13:13.998Z"
+}
+{
+  "context": "PrismaError",
+  "level": "warn",
+  "message": "Failed to delete shift with ID 81: \nInvalid `this.prisma.shift.delete()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/shifts/shifts.service.ts:89:51\n\n  86 async deleteShift(id: number): Promise<Shift> {\n  87   this.logger.log(`Deleting shift with ID ${id}`);\n  88   try {\n→ 89     const shift = await this.prisma.shift.delete(\nAn operation failed because it depends on one or more records that were required but not found. Record to delete does not exist.",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T19:13:14.008Z"
+}
+{
+  "context": "ShiftController",
+  "level": "info",
+  "message": "Received request to get shifts",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T19:13:14.011Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Fetching shifts with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T19:13:14.012Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Retrieved 104 shifts",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T19:13:14.015Z"
+}
+{
+  "context": "ShiftController",
+  "level": "info",
+  "message": "Received request to get shifts",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T19:13:14.019Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Fetching shifts with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T19:13:14.020Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Retrieved 104 shifts",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T19:13:14.022Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T19:13:16.903Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T19:13:18.307Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T19:13:18.308Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T19:13:18.956Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T19:13:18.956Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to create cookbook",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T19:13:21.529Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.cookBook.create()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/cookbook/cookbook.service.ts:19:41\n\n  16   data: Prisma.CookBookUncheckedCreateInput,\n  17 ): Promise<CookBook> {\n  18   try {\n→ 19     return await this.prisma.cookBook.create(\nForeign key constraint violated: `cookbook_restaurantId_fkey (index)`",
+  "level": "error",
+  "message": "Failed to create cookbook: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2024-11-07T19:13:21.537Z"
+}

@@ -1,0 +1,29 @@
+# Dependencies
+node_modules
+.pnpm-store
+
+# Source control
+.git
+.gitignore
+.github
+
+# Environment and config
+.env
+.env.*
+.dockerignore
+Dockerfile
+
+# Documentation
+*.md
+*.mdx
+
+# Development
+.vscode
+.idea
+*.log
+coverage
+
+# Don't ignore these
+!packages/*/src
+!apps/*/src
+!prisma

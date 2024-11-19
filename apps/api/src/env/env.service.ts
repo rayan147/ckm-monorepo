@@ -10,11 +10,12 @@ import { Env } from './env';
 export class EnvService implements OnModuleInit {
   private secretsManagerValues: Partial<Env> = {};
 
-  constructor(private configService: ConfigService<Env, true>) {}
+  constructor(private configService: ConfigService<Env, true>) { }
 
   async onModuleInit() {
     if (this.configService.get('NODE_ENV') === 'production') {
-      await this.loadFromSecretsManager();
+      // await this.loadFromSecretsManager();
+      console.log(`Need to implement to get the secret from secretsManagerValues and loaded in .env`)
     }
   }
 

@@ -29,11 +29,11 @@ async function bootstrap() {
   // CORS configuration
   const corsOrigin = configService.get('CORS_ORIGIN');
   app.enableCors({
-    // origin: corsOrigin === '*' ? '*' : corsOrigin.split(','),
-    origin: true,
+    origin: corsOrigin === '*' ? '*' : corsOrigin.split(','),
+    // origin: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     credentials: true,
-    // allowedHeaders: ['Content-Type', 'Accept', 'Authorization'],
+    allowedHeaders: ['Content-Type', 'Accept', 'Authorization'],
   });
 
   const database_url = configService.get('DATABASE_URL')

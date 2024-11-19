@@ -20,7 +20,7 @@ export const envSchema = z.object({
     'http://localhost:5175',
     'http://localhost:5176',
     'https://ckm.rayanr.com',
-    'http://10.0.0.18',
+    'http://10.0.0.8',
     '*',
   ]).default('http://localhost:5175'),
   KMS_CUSTOMER_KEY: z.string(),

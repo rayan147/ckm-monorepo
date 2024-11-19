@@ -2,7 +2,7 @@ import { zodSchemas } from '@ckm/db';
 import { z } from 'zod';
 import { initContract } from '@ts-rest/core';
 
-import { Prisma } from '@ckm/db';
+// import { Prisma } from '@ckm/db';
 
 const c = initContract();
 

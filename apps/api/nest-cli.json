@@ -7,8 +7,7 @@
     "deleteOutDir": true,
     "assets": [
       {
-        "include": "src/early-access/template/**/*",
-        "watchAssets": true,
+        "include": "src/early-access/templates/**/*",
         "outDir": "dist/early-access/templates"
       }
     ],
