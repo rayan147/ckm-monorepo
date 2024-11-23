@@ -17,7 +17,7 @@ WORKDIR /app
 COPY . .
 
 # Install dependencies
-RUN pnpm install
+RUN pnpm install && pnpm fetch
 
 # Generate Prisma Client
 RUN pnpm --filter=@ckm/db run db:generate
