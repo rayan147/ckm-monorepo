@@ -23,11 +23,10 @@ RUN pnpm install && pnpm fetch
 RUN pnpm --filter=@ckm/db run db:generate
 
 # Build the project
-RUN pnpm run build --filter=@ckm/contracts... --loglevel=debug || { echo 'contracts build failed'; exit 1; }
-RUN pnpm run build --filter=@ckm/db... --loglevel=debug || { echo 'db build failed'; exit 1; }
-RUN pnpm run build --filter=@ckm/lib-api... --loglevel=debug || { echo 'lib-api build failed'; exit 1; }
-RUN pnpm run build --filter=api... --loglevel=debug || { echo 'api build failed'; exit 1; }
-
+RUN pnpm run build --filter=@ckm/contracts... && \
+  pnpm run build --filter=@ckm/db... && \
+  pnpm run build --filter=@ckm/lib-api... && \
+  pnpm run build --filter=api...
 
 # Runner stage
 FROM base AS runner
