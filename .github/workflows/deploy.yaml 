@@ -1,0 +1,23 @@
+name: Build and Deploy
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Build and push Docker image
+      run: |
+        docker build -t your-registry/myapp:${{ github.sha }} .
+        docker push your-registry/myapp:${{ github.sha }}
+    
+    - name: Update deployment
+      run: |
+        git clone https://github.com/yourusername/ckm-infra.git
+        cd ckm-infra
+        kustomize edit set image myapp=your-registry/myapp:${{ github.sha }}
+        git commit -am "Update image to ${{ github.sha }}"
+        git push
