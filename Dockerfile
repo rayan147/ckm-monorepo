@@ -12,12 +12,11 @@ RUN apk update && \
 # Builder stage
 FROM base AS builder
 WORKDIR /app
-
+# Copy only package files first to leverage caching
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install && pnpm fetch
 # Copy all files
 COPY . .
-
-# Install dependencies
-RUN pnpm install && pnpm fetch
 
 # Generate Prisma Client
 RUN pnpm --filter=@ckm/db run db:generate
