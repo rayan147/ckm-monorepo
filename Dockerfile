@@ -22,11 +22,11 @@ COPY . .
 RUN pnpm --filter=@ckm/db run db:generate
 
 # Build the project
-RUN pnpm run build --filter=@ckm/contracts... --loglevel=debug || { echo 'contracts build failed'; exit 1; }
-RUN pnpm run build --filter=@ckm/db... --loglevel=debug || { echo 'db build failed'; exit 1; }
-RUN pnpm run build --filter=@ckm/lib-api... --loglevel=debug || { echo 'lib-api build failed'; exit 1; }
-RUN pnpm run build --filter=api... --loglevel=debug || { echo 'api build failed'; exit 1; }
-
+# Build the project with correct argument passing
+RUN pnpm run build --filter=@ckm/db... -- --loglevel=debug || { echo 'db build failed'; exit 1; }
+RUN pnpm run build --filter=@ckm/contracts... -- --loglevel=debug || { echo 'contracts build failed'; exit 1; }
+RUN pnpm run build --filter=@ckm/lib-api... -- --loglevel=debug || { echo 'lib-api build failed'; exit 1; }
+RUN pnpm run build --filter=api... -- --loglevel=debug || { echo 'api build failed'; exit 1; }
 
 # Runner stage
 FROM base AS runner
