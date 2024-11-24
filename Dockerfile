@@ -2,8 +2,7 @@
 FROM node:18-alpine AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable
-RUN corepack prepare pnpm@8.15.6 --activate
+RUN corepack enable && corepack prepare pnpm@8.15.6 --activate
 
 # Install system dependencies
 RUN apk update && \
@@ -12,21 +11,23 @@ RUN apk update && \
 # Builder stage
 FROM base AS builder
 WORKDIR /app
-# Copy only package files first to leverage caching
-COPY package.json pnpm-lock.yaml ./
-RUN pnpm install && pnpm fetch
+COPY  package.json  pnpm-lock.yaml ./
+
 # Copy all files
+
+# Install dependencies
+RUN pnpm install -g turbo &&  pnpm install && pnpm fetch
 COPY . .
 
 # Generate Prisma Client
 RUN pnpm --filter=@ckm/db run db:generate
 
 # Build the project
-# Build the project with correct argument passing
-RUN pnpm run build --filter=@ckm/db... -- --loglevel=debug || { echo 'db build failed'; exit 1; }
-RUN pnpm run build --filter=@ckm/contracts... -- --loglevel=debug || { echo 'contracts build failed'; exit 1; }
-RUN pnpm run build --filter=@ckm/lib-api... -- --loglevel=debug || { echo 'lib-api build failed'; exit 1; }
-RUN pnpm run build --filter=api... -- --loglevel=debug || { echo 'api build failed'; exit 1; }
+# RUN pnpm run build --filter=@ckm/contracts... && \
+#   pnpm run build --filter=@ckm/db... && \
+#   pnpm run build --filter=@ckm/lib-api... && \
+#   pnpm run build --filter=api...
+RUN turbo run build
 
 # Runner stage
 FROM base AS runner
