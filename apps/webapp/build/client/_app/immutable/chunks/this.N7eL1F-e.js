@@ -1,1 +1,0 @@
-import{i as q,j as T,u as c,q as j,S as x}from"./runtime.-IAcHVGa.js";function k(i,r){return i===r||(i==null?void 0:i[x])===r}function B(i={},r,S,h){return q(()=>{var s,f;return T(()=>{s=f,f=(h==null?void 0:h())||[],c(()=>{i!==S(...f)&&(r(i,...f),s&&k(S(...s),i)&&r(null,...s))})}),()=>{j(()=>{f&&k(S(...f),i)&&r(null,...f)})}}),i}export{B as b};

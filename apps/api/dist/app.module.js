@@ -44,7 +44,6 @@ const prep_board_module_1 = require("./prep-board/prep-board.module");
 const auth_module_1 = require("./auth/auth.module");
 const i18n_service_1 = require("./i18n/i18n.service");
 const i18n_module_1 = require("./i18n/i18n.module");
-const pinpoint_module_1 = require("./pinpoint/pinpoint.module");
 const helpers_module_1 = require("./helpers/helpers.module");
 const aws_module_1 = require("./helpers/aws/aws.module");
 const early_access_module_1 = require("./early-access/early-access.module");
@@ -87,7 +86,6 @@ exports.AppModule = AppModule = __decorate([
             prep_board_module_1.PrepBoardModule,
             auth_module_1.AuthModule,
             i18n_module_1.I18nModule,
-            pinpoint_module_1.PinpointModule,
             helpers_module_1.HelpersModule,
             aws_module_1.AwsModule,
             early_access_module_1.EarlyAccessModule,

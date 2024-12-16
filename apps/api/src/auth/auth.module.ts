@@ -9,13 +9,14 @@ import { AuthController } from './auth.controller';
 import { JwtStrategy } from './jwt.strategy';
 import { I18nModule } from 'src/i18n/i18n.module';
 import { RoleGuard } from '../guards/role.guard';
-import { PinpointModule } from 'src/pinpoint/pinpoint.module';
 import { EnvModule } from 'src/env/env.module';
 import { EnvService } from 'src/env/env.service';
+import { AuthSessionsService } from './utils/auth.sessions.service';
+import { AwsModule } from 'src/helpers/aws/aws.module';
 
 @Module({
   imports: [
-    PinpointModule,
+    AwsModule,
     I18nModule,
     forwardRef(() => UsersModule),
     PrismaModule,
@@ -30,7 +31,7 @@ import { EnvService } from 'src/env/env.service';
       })
     }))
   ],
-  providers: [AuthService, JwtStrategy, RoleGuard],
+  providers: [AuthService, JwtStrategy, RoleGuard, AuthSessionsService],
   controllers: [AuthController],
   exports: [AuthService],
 })

@@ -10,7 +10,7 @@ exports.envSchema = zod_1.z.object({
     AWS_REGION: zod_1.z.string(),
     AWS_ACCESS_KEY_ID: zod_1.z.string(),
     AWS_SECRET_ACCESS_KEY: zod_1.z.string(),
-    NODE_ENV: zod_1.z.enum(['development', 'production', 'performance']),
+    NODE_ENV: zod_1.z.enum(['dev', 'prod', 'staging']),
     AWS_SECRETS_NAME: zod_1.z.string(),
     PINPOINT_PROJECT_ID: zod_1.z.string(),
     PINPOINT_FROM_EMAIL: zod_1.z.string().email(),
@@ -28,5 +28,6 @@ exports.envSchema = zod_1.z.object({
     KMS_CUSTOMER_KEY: zod_1.z.string(),
     OPENAI_API_KEY: zod_1.z.string(),
     RECIPE_IMAGES_BUCKET: zod_1.z.string(),
+    AWS_ROLE_ARN: zod_1.z.string()
 });
 //# sourceMappingURL=env.js.map

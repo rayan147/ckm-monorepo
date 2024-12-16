@@ -31,34 +31,29 @@ var __importStar = (this && this.__importStar) || function (mod) {
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
+const db_1 = require("@ckm/db");
 const common_1 = require("@nestjs/common");
 const jwt_1 = require("@nestjs/jwt");
-const users_service_1 = require("../users/users.service");
-const prisma_service_1 = require("../prisma/prisma.service");
-const db_1 = require("@ckm/db");
-const pinpoint_service_1 = require("../pinpoint/pinpoint.service");
 const bcrypt = __importStar(require("bcrypt"));
-const function_1 = require("fp-ts/function");
-const TE = __importStar(require("fp-ts/TaskEither"));
 const E = __importStar(require("fp-ts/Either"));
+const function_1 = require("fp-ts/function");
 const IO = __importStar(require("fp-ts/IO"));
 const T = __importStar(require("fp-ts/lib/Task"));
-const path_1 = __importDefault(require("path"));
-const fs_1 = __importDefault(require("fs"));
+const TE = __importStar(require("fp-ts/TaskEither"));
 const uuid_1 = require("uuid");
-const env_service_1 = require("../env/env.service");
+const prisma_service_1 = require("../prisma/prisma.service");
+const users_service_1 = require("../users/users.service");
+const auth_sessions_service_1 = require("./utils/auth.sessions.service");
+const pinpoint_service_1 = require("../helpers/aws/pinpoint.service");
 let AuthService = class AuthService {
-    constructor(userService, prisma, jwtService, pinpointService, envService) {
+    constructor(authSession, userService, prisma, jwtService, pinpointService) {
+        this.authSession = authSession;
         this.userService = userService;
         this.prisma = prisma;
         this.jwtService = jwtService;
         this.pinpointService = pinpointService;
-        this.envService = envService;
         this.generateVerificationCode = IO.of(() => Math.floor(100000 + Math.random() * 900000).toString())();
         this.validateUser = (email, password) => {
             const performValidatePassword = (user) => (0, function_1.pipe)(TE.tryCatch(() => bcrypt.compare(password, user.passwordHash), E.toError), TE.chainW(TE.fromPredicate((isValid) => isValid, () => new common_1.InternalServerErrorException('Invalid credentials'))), TE.map(() => user));
@@ -66,17 +61,10 @@ let AuthService = class AuthService {
         };
         this.login = (email, password) => {
             const performLoginProcess = (user) => {
-                const verificationCode = this.generateVerificationCode();
-                const access_uuid = (0, uuid_1.v4)();
-                const htmlBody = this.codeTemplate.replace(/{{verificationCode}}/g, verificationCode);
-                return (0, function_1.pipe)(TE.tryCatch(() => this.prisma.session.create({
-                    data: {
-                        userId: user.id,
-                        code: verificationCode,
-                        token: access_uuid,
-                        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-                    },
-                }), E.toError), TE.chainFirst(() => TE.tryCatch(() => this.pinpointService.sendEmail(user.email, 'Verification Code Request', htmlBody), E.toError)), TE.map((user) => user));
+                return (0, function_1.pipe)(TE.Do, TE.bind('verificationCode', () => TE.tryCatch(() => Promise.resolve(this.authSession.generateVerifactionCode()), E.toError)), TE.bind('token', () => TE.tryCatch(() => Promise.resolve(this.authSession.generateSessionToken()), E.toError)), TE.bind('session', ({ verificationCode, token }) => {
+                    const htmlBody = this.verificationCodeTemplate.replace(/{{verificationCode}}/g, verificationCode);
+                    return (0, function_1.pipe)(TE.tryCatch(() => this.authSession.createSession(token, user.id), E.toError), TE.chainFirst((session) => TE.tryCatch(() => this.pinpointService.sendEmail(user.email, 'Verification Code Request', htmlBody), E.toError)));
+                }), TE.map(({ session }) => session));
             };
             return (0, function_1.pipe)(this.validateUser(email, password), TE.flatMap((user) => performLoginProcess(user)), TE.map((session) => ({
                 code: session.code,
@@ -117,7 +105,7 @@ let AuthService = class AuthService {
             const performLoginProcess = (user) => {
                 const verificationCode = this.generateVerificationCode();
                 const access_uuid = (0, uuid_1.v4)();
-                const htmlBody = this.codeTemplate.replace(/{{verificationCode}}/g, verificationCode);
+                const htmlBody = this.verificationCodeTemplate.replace(/{{verificationCode}}/g, verificationCode);
                 return (0, function_1.pipe)(TE.tryCatch(() => this.prisma.session.create({
                     data: {
                         userId: user.id,
@@ -154,7 +142,7 @@ let AuthService = class AuthService {
                 };
                 const resetToken = this.jwtService.sign(payload, { expiresIn: '1h' });
                 const resetLink = `http://localhost:3000/reset-password?token=${resetToken}`;
-                const htmlBody = this.emailTemplate.replace(/{{resetLink}}/g, resetLink);
+                const htmlBody = this.passwordResetTemplate.replace(/{{resetLink}}/g, resetLink);
                 return (0, function_1.pipe)(TE.tryCatch(() => this.prisma.passwordReset.create({
                     data: {
                         userId: user.id,
@@ -177,17 +165,94 @@ let AuthService = class AuthService {
         })))), TE.flatMap((user) => TE.tryCatch(() => this.prisma.passwordReset.deleteMany({
             where: { userId: user.id },
         }), () => new common_1.UnauthorizedException('Failed to delete password reset tokens'))), TE.map(() => ({ message: 'Password successfully reset' })));
-        this.emailTemplate = fs_1.default.readFileSync(path_1.default.join(process.cwd(), './src/auth/templates/password-reset-email.html'), 'utf8');
-        this.codeTemplate = fs_1.default.readFileSync(path_1.default.join(process.cwd(), './src/auth/templates/verification-code-email.html'), 'utf8');
+        this.passwordResetTemplate = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Reset</title>
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f8f8f8; border-radius: 5px;">
+        <tr>
+            <td style="padding: 20px;">
+                <h1 style="color: #4a4a4a; text-align: center;">Password Reset Request</h1>
+                <p style="margin-bottom: 20px;">Hello,</p>
+                <p>We received a request to reset your password. If you didn't make this request, you can ignore this email.</p>
+                <p>To reset your password, click the button below:</p>
+                <table width="100%" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td align="center" style="padding: 20px 0;">
+                            <a href="{{resetLink}}" style="background-color: #4CAF50; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Reset Password</a>
+                        </td>
+                    </tr>
+                </table>
+                <p>This link will expire in 1 hour for security reasons.</p>
+                <p>If you're having trouble clicking the button, copy and paste the URL below into your web browser:</p>
+                <p style="word-break: break-all; color: #4a4a4a;">{{resetLink}}</p>
+                <p style="margin-top: 20px;">Best regards,<br>Your App Team</p>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+    `;
+        this.verificationCodeTemplate = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification Code</title>
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background-color: #f4f4f4;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+        <tr>
+            <td style="padding: 40px;">
+                <table width="100%" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td align="center" style="padding-bottom: 30px;">
+                            <img src="./images/chef.svg" alt="Logo" style="max-width: 100px; height: auto;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h1 style="color: #2c3e50; text-align: center; margin-bottom: 30px; font-size: 28px;">Verification Code</h1>
+                            <p style="margin-bottom: 20px; font-size: 16px;">Hello,</p>
+                            <p style="margin-bottom: 30px; font-size: 16px;">We received a request to send you a verification code. If you didn't make this request, you can ignore this email.</p>
+                            <table width="100%" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td align="center" style="padding: 20px 0;">
+                                        <div style="background-color: #3498db; color: white; padding: 15px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 24px; display: inline-block;">{{verificationCode}}</div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <p style="margin-top: 30px; font-size: 16px;">If you have any questions, please don't hesitate to contact our support team.</p>
+                            <p style="margin-top: 30px; font-size: 16px;">Best regards,<br>Your App Team</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="background-color: #2c3e50; color: #ffffff; text-align: center; padding: 20px; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px;">
+                <p style="margin: 0; font-size: 14px;">&copy; 2024 Your App. All rights reserved.</p>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+    `;
     }
 };
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [users_service_1.UserService,
+    __metadata("design:paramtypes", [auth_sessions_service_1.AuthSessionsService,
+        users_service_1.UserService,
         prisma_service_1.PrismaService,
         jwt_1.JwtService,
-        pinpoint_service_1.PinpointService,
-        env_service_1.EnvService])
+        pinpoint_service_1.PinpointService])
 ], AuthService);
 //# sourceMappingURL=auth.service.js.map

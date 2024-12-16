@@ -1,24 +1,22 @@
+import { Prisma, Session, User, UserRole } from '@ckm/db';
 import {
   Injectable,
   InternalServerErrorException,
-  NotFoundException,
-  UnauthorizedException,
+  UnauthorizedException
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { UserService } from '../users/users.service';
-import { PrismaService } from '../prisma/prisma.service';
-import { Prisma, UserRole } from '@ckm/db';
-import { PinpointService } from 'src/pinpoint/pinpoint.service';
 import * as bcrypt from 'bcrypt';
-import { User, Session } from '@ckm/db';
-import { pipe } from 'fp-ts/function';
-import * as TE from 'fp-ts/TaskEither';
 import * as E from 'fp-ts/Either';
-import * as O from 'fp-ts/Option';
+import { pipe } from 'fp-ts/function';
 import * as IO from 'fp-ts/IO';
 import * as T from 'fp-ts/lib/Task';
+import * as O from 'fp-ts/Option';
+import * as TE from 'fp-ts/TaskEither';
 import { v4 as uuidv4 } from 'uuid';
-import { EnvService } from 'src/env/env.service';
+import { PrismaService } from '../prisma/prisma.service';
+import { UserService } from '../users/users.service';
+import { AuthSessionsService } from './utils/auth.sessions.service';
+import { PinpointService } from 'src/helpers/aws/pinpoint.service';
 
 interface JwtPayload {
   email: string;
@@ -32,11 +30,11 @@ export class AuthService {
   private readonly verificationCodeTemplate: string;
 
   constructor(
+    private authSession: AuthSessionsService,
     private userService: UserService,
     private prisma: PrismaService,
     private jwtService: JwtService,
     private pinpointService: PinpointService,
-    private envService: EnvService,
   ) {
     this.passwordResetTemplate = `
 <!DOCTYPE html>
@@ -154,40 +152,55 @@ export class AuthService {
   login = (
     email: string,
     password: string,
-  ): TE.TaskEither<Error, { code: string }> => {
-    const performLoginProcess = (user: Omit<User, 'passwordHash'>) => {
-      const verificationCode = this.generateVerificationCode();
-      const access_uuid = uuidv4();
-      const htmlBody = this.verificationCodeTemplate.replace(
-        /{{verificationCode}}/g,
-        verificationCode,
-      );
-
+  ): TE.TaskEither<Error, { code: string; message: string }> => {
+    const performLoginProcess = (
+      user: Omit<User, 'passwordHash'>
+    ): TE.TaskEither<Error, Session> => {
       return pipe(
-        TE.tryCatch(
-          () =>
-            this.prisma.session.create({
-              data: {
-                userId: user.id,
-                code: verificationCode,
-                token: access_uuid,
-                expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
-              },
-            }),
-          E.toError,
+        TE.Do,
+        // Get the verification code (string)
+        TE.bind('verificationCode', () =>
+          TE.tryCatch<Error, string>(
+            () => Promise.resolve(this.authSession.generateVerifactionCode()),
+            E.toError
+          )
         ),
-        TE.chainFirst(() =>
+        // Get the session token (string)
+        TE.bind('token', () =>
           TE.tryCatch(
-            () =>
-              this.pinpointService.sendEmail(
-                user.email,
-                'Verification Code Request',
-                htmlBody,
-              ),
-            E.toError,
-          ),
+            () => Promise.resolve(this.authSession.generateSessionToken()),
+            E.toError
+          )
         ),
-        TE.map((user) => user),
+        // Now that we have verificationCode and token as strings, we can build the HTML and create a session
+        TE.bind('session', ({ verificationCode, token }) => {
+          const htmlBody = this.verificationCodeTemplate.replace(
+            /{{verificationCode}}/g,
+            verificationCode
+          );
+
+          return pipe(
+            // Create the session
+            TE.tryCatch<Error, Session>(
+              () => this.authSession.createSession(token, user.id),
+              E.toError
+            ),
+            // Send the email after session is created
+            TE.chainFirst((session) =>
+              TE.tryCatch(
+                () =>
+                  this.pinpointService.sendEmail(
+                    user.email,
+                    'Verification Code Request',
+                    htmlBody
+                  ),
+                E.toError
+              )
+            )
+          );
+        }),
+        // Finally, return the session
+        TE.map(({ session }) => session)
       );
     };
 
@@ -197,9 +210,10 @@ export class AuthService {
       TE.map((session) => ({
         code: session.code,
         message: 'Password reset email sent',
-      })),
+      }))
     );
   };
+
 
   verifyLoginCode = (
     code: string,

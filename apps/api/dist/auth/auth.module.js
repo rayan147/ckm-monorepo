@@ -17,16 +17,17 @@ const auth_controller_1 = require("./auth.controller");
 const jwt_strategy_1 = require("./jwt.strategy");
 const i18n_module_1 = require("../i18n/i18n.module");
 const role_guard_1 = require("../guards/role.guard");
-const pinpoint_module_1 = require("../pinpoint/pinpoint.module");
 const env_module_1 = require("../env/env.module");
 const env_service_1 = require("../env/env.service");
+const auth_sessions_service_1 = require("./utils/auth.sessions.service");
+const aws_module_1 = require("../helpers/aws/aws.module");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
 exports.AuthModule = AuthModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            pinpoint_module_1.PinpointModule,
+            aws_module_1.AwsModule,
             i18n_module_1.I18nModule,
             (0, common_1.forwardRef)(() => users_module_1.UsersModule),
             prisma_module_1.PrismaModule,
@@ -41,7 +42,7 @@ exports.AuthModule = AuthModule = __decorate([
                 })
             }))
         ],
-        providers: [auth_service_1.AuthService, jwt_strategy_1.JwtStrategy, role_guard_1.RoleGuard],
+        providers: [auth_service_1.AuthService, jwt_strategy_1.JwtStrategy, role_guard_1.RoleGuard, auth_sessions_service_1.AuthSessionsService],
         controllers: [auth_controller_1.AuthController],
         exports: [auth_service_1.AuthService],
     })

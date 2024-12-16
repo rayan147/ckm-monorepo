@@ -35,7 +35,6 @@ import { PrepBoardModule } from './prep-board/prep-board.module';
 import { AuthModule } from './auth/auth.module';
 import { I18nService } from './i18n/i18n.service';
 import { I18nModule } from './i18n/i18n.module';
-import { PinpointModule } from './pinpoint/pinpoint.module';
 import { HelpersModule } from './helpers/helpers.module';
 import { AwsModule } from './helpers/aws/aws.module';
 import { EarlyAccessModule } from './early-access/early-access.module';
@@ -75,7 +74,6 @@ import { AiassistantModule } from './aiassistant/aiassistant.module';
     PrepBoardModule,
     AuthModule,
     I18nModule,
-    PinpointModule,
     HelpersModule,
     AwsModule,
     EarlyAccessModule,
@@ -116,4 +114,4 @@ import { AiassistantModule } from './aiassistant/aiassistant.module';
     AiassistantService,
   ],
 })
-export class AppModule {}
+export class AppModule { }

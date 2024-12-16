@@ -6,3 +6,11 @@
   "service": "LoggingService",
   "timestamp": "2024-11-07T19:13:21.537Z"
 }
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.prepBoard.delete()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/prep-board/prep-board.service.ts:84:48\n\n  81 \n  82 async deletePrepBoard(id: number): Promise<PrepBoard> {\n  83   try {\n→ 84     return await this.prisma.prepBoard.delete(\nForeign key constraint violated: `prepItem_prepBoardId_fkey (index)`",
+  "level": "error",
+  "message": "Failed to delete prep board with ID 1: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2024-12-16T18:11:59.292Z"
+}

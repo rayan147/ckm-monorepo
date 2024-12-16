@@ -14,14 +14,23 @@ const common_1 = require("@nestjs/common");
 const client_kms_1 = require("@aws-sdk/client-kms");
 const client_kms_2 = require("@aws-sdk/client-kms");
 const env_service_1 = require("../../env/env.service");
+const aws_credentials_service_1 = require("./aws-credentials.service");
 let KmsService = class KmsService {
-    constructor(envService) {
+    constructor(envService, awsCredentialsService) {
         this.envService = envService;
+        this.awsCredentialsService = awsCredentialsService;
+    }
+    async onModuleInit() {
+        await this.initializeKmsClient();
+    }
+    async initializeKmsClient() {
+        const credentials = await this.awsCredentialsService.getCredentials();
         this.kmsClient = new client_kms_1.KMSClient({
             region: this.envService.get('AWS_REGION'),
             credentials: {
-                accessKeyId: this.envService.get('AWS_ACCESS_KEY_ID'),
-                secretAccessKey: this.envService.get('AWS_SECRET_ACCESS_KEY'),
+                accessKeyId: credentials.accessKeyId,
+                secretAccessKey: credentials.secretAccessKey,
+                sessionToken: credentials.sessionToken,
             },
         });
     }
@@ -55,6 +64,6 @@ let KmsService = class KmsService {
 exports.KmsService = KmsService;
 exports.KmsService = KmsService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [env_service_1.EnvService])
+    __metadata("design:paramtypes", [env_service_1.EnvService, aws_credentials_service_1.AwsCredentialsService])
 ], KmsService);
 //# sourceMappingURL=kms.aws.service.js.map

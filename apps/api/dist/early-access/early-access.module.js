@@ -10,7 +10,7 @@ exports.EarlyAccessModule = void 0;
 const common_1 = require("@nestjs/common");
 const early_access_controller_1 = require("./early-access.controller");
 const early_access_service_1 = require("./early-access.service");
-const pinpoint_module_1 = require("../pinpoint/pinpoint.module");
+const aws_module_1 = require("../helpers/aws/aws.module");
 let EarlyAccessModule = class EarlyAccessModule {
 };
 exports.EarlyAccessModule = EarlyAccessModule;
@@ -18,7 +18,7 @@ exports.EarlyAccessModule = EarlyAccessModule = __decorate([
     (0, common_1.Module)({
         controllers: [early_access_controller_1.EarlyAccessController],
         providers: [early_access_service_1.EarlyAccessService],
-        imports: [pinpoint_module_1.PinpointModule],
+        imports: [aws_module_1.AwsModule],
     })
 ], EarlyAccessModule);
 //# sourceMappingURL=early-access.module.js.map

@@ -11,14 +11,16 @@ const common_1 = require("@nestjs/common");
 const s3_aws_service_1 = require("./s3.aws.service");
 const kms_aws_service_1 = require("./kms.aws.service");
 const env_service_1 = require("../../env/env.service");
+const pinpoint_service_1 = require("./pinpoint.service");
+const aws_credentials_service_1 = require("./aws-credentials.service");
 let AwsModule = class AwsModule {
 };
 exports.AwsModule = AwsModule;
 exports.AwsModule = AwsModule = __decorate([
     (0, common_1.Global)(),
     (0, common_1.Module)({
-        providers: [s3_aws_service_1.S3Service, kms_aws_service_1.KmsService, env_service_1.EnvService],
-        exports: [s3_aws_service_1.S3Service, kms_aws_service_1.KmsService],
+        providers: [s3_aws_service_1.S3Service, kms_aws_service_1.KmsService, env_service_1.EnvService, pinpoint_service_1.PinpointService, aws_credentials_service_1.AwsCredentialsService],
+        exports: [s3_aws_service_1.S3Service, kms_aws_service_1.KmsService, pinpoint_service_1.PinpointService, aws_credentials_service_1.AwsCredentialsService],
     })
 ], AwsModule);
 //# sourceMappingURL=aws.module.js.map

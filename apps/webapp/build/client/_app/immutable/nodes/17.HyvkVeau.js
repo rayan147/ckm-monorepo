@@ -1,1 +1,0 @@
-import"../chunks/disclose-version.bJ1TNjgf.js";import{e}from"../chunks/runtime.-IAcHVGa.js";import{a as r,t}from"../chunks/template.2JA4nrVh.js";var m=t('<a href="/" class="home">Home</a> <div class="h2">Profile</div>',1);function n(a){var o=m();e(2),r(a,o)}export{n as component};

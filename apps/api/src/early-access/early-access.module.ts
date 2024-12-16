@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { EarlyAccessController } from './early-access.controller';
 import { EarlyAccessService } from './early-access.service';
-import { PinpointModule } from 'src/pinpoint/pinpoint.module';
+import { AwsModule } from 'src/helpers/aws/aws.module';
 
 @Module({
   controllers: [EarlyAccessController],
   providers: [EarlyAccessService],
-  imports: [PinpointModule],
+  imports: [AwsModule],
 })
-export class EarlyAccessModule {}
+export class EarlyAccessModule { }

@@ -33,15 +33,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.JwtStrategy = void 0;
-const passport_jwt_1 = require("passport-jwt");
-const passport_1 = require("@nestjs/passport");
 const common_1 = require("@nestjs/common");
-const prisma_service_1 = require("../prisma/prisma.service");
-const TE = __importStar(require("fp-ts/TaskEither"));
+const passport_1 = require("@nestjs/passport");
 const E = __importStar(require("fp-ts/Either"));
 const function_1 = require("fp-ts/function");
 const O = __importStar(require("fp-ts/Option"));
+const TE = __importStar(require("fp-ts/TaskEither"));
+const passport_jwt_1 = require("passport-jwt");
 const env_service_1 = require("../env/env.service");
+const prisma_service_1 = require("../prisma/prisma.service");
 let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(passport_jwt_1.Strategy) {
     constructor(prisma, envService) {
         super({

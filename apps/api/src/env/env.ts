@@ -8,7 +8,7 @@ export const envSchema = z.object({
   AWS_REGION: z.string(),
   AWS_ACCESS_KEY_ID: z.string(),
   AWS_SECRET_ACCESS_KEY: z.string(),
-  NODE_ENV: z.enum(['development', 'production', 'performance']),
+  NODE_ENV: z.enum(['dev', 'prod', 'staging']),
   AWS_SECRETS_NAME: z.string(),
   PINPOINT_PROJECT_ID: z.string(),
   PINPOINT_FROM_EMAIL: z.string().email(),
@@ -26,6 +26,7 @@ export const envSchema = z.object({
   KMS_CUSTOMER_KEY: z.string(),
   OPENAI_API_KEY: z.string(),
   RECIPE_IMAGES_BUCKET: z.string(),
+  AWS_ROLE_ARN: z.string()
 });
 
 export type Env = z.infer<typeof envSchema>;

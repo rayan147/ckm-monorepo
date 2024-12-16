@@ -7,17 +7,28 @@ import {
 } from '@aws-sdk/client-kms';
 import { DataKeySpec } from '@aws-sdk/client-kms';
 import { EnvService } from '../../env/env.service';
+import { AwsCredentialsService } from './aws-credentials.service';
 
 @Injectable()
 export class KmsService {
-  private kmsClient: KMSClient;
+  private kmsClient!: KMSClient;
 
-  constructor(private envService: EnvService) {
+  constructor(private envService: EnvService, private awsCredentialsService: AwsCredentialsService) {
+  }
+
+  async onModuleInit() {
+    await this.initializeKmsClient();
+  }
+
+  private async initializeKmsClient() {
+    const credentials = await this.awsCredentialsService.getCredentials();
+
     this.kmsClient = new KMSClient({
       region: this.envService.get('AWS_REGION'),
       credentials: {
-        accessKeyId: this.envService.get('AWS_ACCESS_KEY_ID'),
-        secretAccessKey: this.envService.get('AWS_SECRET_ACCESS_KEY'),
+        accessKeyId: credentials.accessKeyId,
+        secretAccessKey: credentials.secretAccessKey,
+        sessionToken: credentials.sessionToken,
       },
     });
   }

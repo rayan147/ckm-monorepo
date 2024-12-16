@@ -1,6 +1,6 @@
 import { zodSchemas } from '@ckm/db';
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { PinpointService } from '../pinpoint/pinpoint.service';
+import { PinpointService } from '../helpers/aws/pinpoint.service'
 import { EarlyAccess, } from '@ckm/db';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { LoggingService } from 'src/logging/logging.service';
