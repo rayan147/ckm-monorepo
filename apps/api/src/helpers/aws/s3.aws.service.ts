@@ -7,22 +7,34 @@ import {
 } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { EnvService } from '../../env/env.service';
+import { AwsCredentialsService } from './aws-credentials.service';
 
 
 
 @Injectable()
 export class S3Service {
-  private s3Client: S3Client;
+  private s3Client!: S3Client;
 
-  constructor(private envService: EnvService) {
+  constructor(private envService: EnvService, private awsCredentialsService: AwsCredentialsService) { }
+  async onModuleInit() {
+    await this.initalizeS3Client()
+  }
+
+  private async initalizeS3Client() {
+
+    const credentials = await this.awsCredentialsService.getCredentials();
+
     this.s3Client = new S3Client({
       region: this.envService.get('AWS_REGION'),
       credentials: {
-        accessKeyId: this.envService.get('AWS_ACCESS_KEY_ID'),
-        secretAccessKey: this.envService.get('AWS_SECRET_ACCESS_KEY'),
+        accessKeyId: credentials.accessKeyId,
+        secretAccessKey: credentials.secretAccessKey,
+        sessionToken: credentials.sessionToken,
       },
     });
   }
+
+
 
   async uploadFile(
     bucketName: string,

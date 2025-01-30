@@ -31,17 +31,23 @@ var __importStar = (this && this.__importStar) || function (mod) {
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const db_1 = require("@ckm/db");
 const common_1 = require("@nestjs/common");
 const jwt_1 = require("@nestjs/jwt");
 const bcrypt = __importStar(require("bcrypt"));
-const E = __importStar(require("fp-ts/Either"));
-const function_1 = require("fp-ts/function");
-const IO = __importStar(require("fp-ts/IO"));
-const T = __importStar(require("fp-ts/lib/Task"));
-const TE = __importStar(require("fp-ts/TaskEither"));
 const uuid_1 = require("uuid");
 const prisma_service_1 = require("../prisma/prisma.service");
 const users_service_1 = require("../users/users.service");
@@ -54,117 +60,6 @@ let AuthService = class AuthService {
         this.prisma = prisma;
         this.jwtService = jwtService;
         this.pinpointService = pinpointService;
-        this.generateVerificationCode = IO.of(() => Math.floor(100000 + Math.random() * 900000).toString())();
-        this.validateUser = (email, password) => {
-            const performValidatePassword = (user) => (0, function_1.pipe)(TE.tryCatch(() => bcrypt.compare(password, user.passwordHash), E.toError), TE.chainW(TE.fromPredicate((isValid) => isValid, () => new common_1.InternalServerErrorException('Invalid credentials'))), TE.map(() => user));
-            return (0, function_1.pipe)(this.userService.getUserByEmail(email), TE.chainW((user) => performValidatePassword(user)), TE.map((user) => user));
-        };
-        this.login = (email, password) => {
-            const performLoginProcess = (user) => {
-                return (0, function_1.pipe)(TE.Do, TE.bind('verificationCode', () => TE.tryCatch(() => Promise.resolve(this.authSession.generateVerifactionCode()), E.toError)), TE.bind('token', () => TE.tryCatch(() => Promise.resolve(this.authSession.generateSessionToken()), E.toError)), TE.bind('session', ({ verificationCode, token }) => {
-                    const htmlBody = this.verificationCodeTemplate.replace(/{{verificationCode}}/g, verificationCode);
-                    return (0, function_1.pipe)(TE.tryCatch(() => this.authSession.createSession(token, user.id), E.toError), TE.chainFirst((session) => TE.tryCatch(() => this.pinpointService.sendEmail(user.email, 'Verification Code Request', htmlBody), E.toError)));
-                }), TE.map(({ session }) => session));
-            };
-            return (0, function_1.pipe)(this.validateUser(email, password), TE.flatMap((user) => performLoginProcess(user)), TE.map((session) => ({
-                code: session.code,
-                message: 'Password reset email sent',
-            })));
-        };
-        this.verifyLoginCode = (code) => {
-            const findUserByCode = (code) => {
-                return TE.tryCatch(() => this.prisma.session.findUnique({
-                    where: { code: code },
-                    include: { user: true },
-                }), E.toError);
-            };
-            const performVerifyingProcess = (session) => {
-                const payload = {
-                    email: session.user.email,
-                    sub: session.user.id,
-                    type: 'verify_user',
-                };
-                console.log({ payload });
-                const accessToken = this.jwtService.sign(payload);
-                return TE.tryCatch(() => this.prisma.session.update({
-                    where: {
-                        code: code,
-                    },
-                    data: {
-                        token: accessToken,
-                    },
-                    include: { user: true },
-                }), E.toError);
-            };
-            return (0, function_1.pipe)(findUserByCode(code), TE.chainW(TE.fromNullable(new common_1.UnauthorizedException('Session not found'))), TE.chainW((session) => performVerifyingProcess(session)), TE.map((session) => ({
-                accessToken: session.token,
-                user: Object.assign(Object.assign({}, session.user), { passwordHash: undefined }),
-            })));
-        };
-        this.resendCode = (email) => {
-            const performLoginProcess = (user) => {
-                const verificationCode = this.generateVerificationCode();
-                const access_uuid = (0, uuid_1.v4)();
-                const htmlBody = this.verificationCodeTemplate.replace(/{{verificationCode}}/g, verificationCode);
-                return (0, function_1.pipe)(TE.tryCatch(() => this.prisma.session.create({
-                    data: {
-                        userId: user.id,
-                        code: verificationCode,
-                        token: access_uuid,
-                        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-                    },
-                }), E.toError), TE.chainFirst(() => TE.tryCatch(() => this.pinpointService.sendEmail(user.email, 'Verification Code Request', htmlBody), E.toError)), TE.map((user) => user));
-            };
-            return (0, function_1.pipe)(this.userService.getUserByEmail(email), TE.flatMap((user) => performLoginProcess(user)), TE.map((session) => ({
-                code: session.code,
-                message: 'Code has been sent',
-            })));
-        };
-        this.register = (data) => {
-            const userExist = (email) => (0, function_1.pipe)(this.userService.getUserByEmail(email), TE.match(() => false, () => true));
-            return (0, function_1.pipe)(userExist(data.email), T.flatMap((exists) => exists
-                ? TE.left(new Error('User exists'))
-                : this.userService.createUser(data)));
-        };
-        this.changePassword = (userId, oldPassword, newPassword) => (0, function_1.pipe)(this.userService.getUser(userId), TE.flatMap((user) => (0, function_1.pipe)(this.validateUser(user.email, oldPassword), TE.tryCatchK(() => bcrypt.hash(newPassword, 10), E.toError))), TE.flatMap((hashedPassword) => this.userService.updateUser(userId, { passwordHash: hashedPassword })), TE.mapLeft((error) => {
-            console.error('Error in changePassword:', error);
-            return error;
-        }));
-        this.logout = (userId, sessionToken) => this.userService.deleteSession(userId, sessionToken);
-        this.hasRole = (userId, requiredRole) => (0, function_1.pipe)(this.userService.getUser(userId), TE.map((user) => user.role === requiredRole));
-        this.changeUserRole = (adminUserId, targetUserId, newRole) => (0, function_1.pipe)(this.hasRole(adminUserId, db_1.UserRole.ADMIN), TE.chainW(TE.fromPredicate((isAdmin) => isAdmin, () => new common_1.InternalServerErrorException('Only admins can change user roles'))), TE.flatMap(() => this.userService.updateUserRole(targetUserId, newRole)));
-        this.forgotPassword = (email) => {
-            const performTokenRest = (user) => {
-                const payload = {
-                    email: user.email,
-                    sub: user.id,
-                    type: 'password_reset',
-                };
-                const resetToken = this.jwtService.sign(payload, { expiresIn: '1h' });
-                const resetLink = `http://localhost:3000/reset-password?token=${resetToken}`;
-                const htmlBody = this.passwordResetTemplate.replace(/{{resetLink}}/g, resetLink);
-                return (0, function_1.pipe)(TE.tryCatch(() => this.prisma.passwordReset.create({
-                    data: {
-                        userId: user.id,
-                        token: resetToken,
-                        expiresAt: new Date(Date.now() + 60 * 60 * 1000),
-                    },
-                }), E.toError), TE.chainFirst(() => TE.tryCatch(() => this.pinpointService.sendEmail(user.email, 'Password Reset Request', htmlBody, `To reset your password, please visit: ${resetLink}`), E.toError)), TE.map(() => ({ message: 'Password reset email sent' })));
-            };
-            return (0, function_1.pipe)(this.userService.getUserByEmail(email), TE.chainW((user) => performTokenRest(user)));
-        };
-        this.resetPassword = (resetToken, newPassword) => (0, function_1.pipe)(TE.tryCatch(() => this.prisma.passwordReset.findUnique({
-            where: { token: resetToken },
-            include: { user: true },
-        }), () => new common_1.UnauthorizedException('Failed to fetch reset token')), TE.chain(TE.fromNullable(new common_1.UnauthorizedException('Invalid reset token'))), TE.chain((reset) => reset.expiresAt > new Date()
-            ? TE.right(reset)
-            : TE.left(new common_1.UnauthorizedException('Expired reset token'))), TE.chain((reset) => (0, function_1.pipe)(TE.tryCatch(() => Promise.resolve(this.jwtService.verify(resetToken)), () => new common_1.UnauthorizedException('Invalid JWT token')), TE.chain((payload) => payload.type === 'password_reset' && payload.sub === reset.user.id
-            ? TE.right(reset.user)
-            : TE.left(new common_1.UnauthorizedException('Invalid token type or user mismatch'))))), TE.chain((user) => (0, function_1.pipe)(TE.tryCatch(() => bcrypt.hash(newPassword, 10), () => new common_1.UnauthorizedException('Failed to hash password')), TE.chain((hashedPassword) => this.userService.updateUser(user.id, {
-            passwordHash: hashedPassword,
-        })))), TE.flatMap((user) => TE.tryCatch(() => this.prisma.passwordReset.deleteMany({
-            where: { userId: user.id },
-        }), () => new common_1.UnauthorizedException('Failed to delete password reset tokens'))), TE.map(() => ({ message: 'Password successfully reset' })));
         this.passwordResetTemplate = `
 <!DOCTYPE html>
 <html lang="en">
@@ -244,6 +139,168 @@ let AuthService = class AuthService {
 </body>
 </html>
     `;
+    }
+    async validateUser(email, password) {
+        const user = await this.userService.getUserByEmail(email);
+        if (!user) {
+            throw new common_1.UnauthorizedException('Invalid credentials');
+        }
+        const isValid = await bcrypt.compare(password, user.passwordHash);
+        if (!isValid) {
+            throw new common_1.UnauthorizedException('Invalid credentials');
+        }
+        const { passwordHash } = user, rest = __rest(user, ["passwordHash"]);
+        return rest;
+    }
+    async login(email, password) {
+        const user = await this.validateUser(email, password);
+        const verificationCode = await this.authSession.generateVerifactionCode();
+        const token = await this.authSession.generateSessionToken();
+        const htmlBody = this.verificationCodeTemplate.replace(/{{verificationCode}}/g, verificationCode);
+        const session = await this.authSession.createSession(token, user.id);
+        await this.pinpointService.sendEmail(user.email, 'Verification Code Request', htmlBody);
+        return {
+            code: session.code,
+            message: 'Password reset email sent',
+        };
+    }
+    async verifyLoginCode(code) {
+        const session = await this.prisma.session.findUnique({
+            where: { code },
+            include: { user: true },
+        });
+        if (!session) {
+            throw new common_1.UnauthorizedException('Session not found');
+        }
+        const payload = {
+            email: session.user.email,
+            sub: session.user.id,
+            type: 'verify_user',
+        };
+        const accessToken = this.jwtService.sign(payload);
+        const updatedSession = await this.prisma.session.update({
+            where: { code },
+            data: { token: accessToken },
+            include: { user: true },
+        });
+        const _a = updatedSession.user, { passwordHash } = _a, restUser = __rest(_a, ["passwordHash"]);
+        return { accessToken: updatedSession.token, user: restUser };
+    }
+    async resendCode(email) {
+        const user = await this.userService.getUserByEmail(email);
+        if (!user) {
+            throw new common_1.UnauthorizedException('User not found');
+        }
+        const verificationCode = await this.authSession.generateVerifactionCode();
+        const access_uuid = (0, uuid_1.v4)();
+        const htmlBody = this.verificationCodeTemplate.replace(/{{verificationCode}}/g, verificationCode);
+        const session = await this.prisma.session.create({
+            data: {
+                userId: user.id,
+                code: verificationCode,
+                token: access_uuid,
+                expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+            },
+        });
+        await this.pinpointService.sendEmail(user.email, 'Verification Code Request', htmlBody);
+        return {
+            code: session.code,
+            message: 'Code has been sent',
+        };
+    }
+    async register(data) {
+        const existingUser = await this.userService.getUserByEmail(data.email);
+        if (existingUser) {
+            throw new Error('User exists');
+        }
+        return this.userService.createUser(data);
+    }
+    async changePassword(userId, oldPassword, newPassword) {
+        try {
+            const user = await this.userService.getUser(userId);
+            if (!user) {
+                throw new common_1.NotFoundException('User not found');
+            }
+            await this.validateUser(user.email, oldPassword);
+            const hashedPassword = await bcrypt.hash(newPassword, 10);
+            const updatedUser = await this.userService.updateUser(userId, {
+                passwordHash: hashedPassword,
+            });
+            return updatedUser;
+        }
+        catch (error) {
+            console.error('Error in changePassword:', error);
+            throw error;
+        }
+    }
+    async logout(userId, sessionToken) {
+        await this.userService.deleteSession(userId, sessionToken);
+    }
+    async hasRole(userId, requiredRole) {
+        const user = await this.userService.getUser(userId);
+        if (!user) {
+            throw new common_1.NotFoundException('User not found');
+        }
+        return user.role === requiredRole;
+    }
+    async changeUserRole(adminUserId, targetUserId, newRole) {
+        const isAdmin = await this.hasRole(adminUserId, db_1.UserRole.ADMIN);
+        if (!isAdmin) {
+            throw new common_1.InternalServerErrorException('Only admins can change user roles');
+        }
+        return this.userService.updateUserRole(targetUserId, newRole);
+    }
+    async forgotPassword(email) {
+        const user = await this.userService.getUserByEmail(email);
+        if (!user) {
+            throw new common_1.NotFoundException('User not found');
+        }
+        const payload = {
+            email: user.email,
+            sub: user.id,
+            type: 'password_reset',
+        };
+        const resetToken = this.jwtService.sign(payload, { expiresIn: '1h' });
+        const resetLink = `http://localhost:3000/reset-password?token=${resetToken}`;
+        const htmlBody = this.passwordResetTemplate.replace(/{{resetLink}}/g, resetLink);
+        await this.prisma.passwordReset.create({
+            data: {
+                userId: user.id,
+                token: resetToken,
+                expiresAt: new Date(Date.now() + 60 * 60 * 1000),
+            },
+        });
+        await this.pinpointService.sendEmail(user.email, 'Password Reset Request', htmlBody, `To reset your password, please visit: ${resetLink}`);
+        return { message: 'Password reset email sent' };
+    }
+    async resetPassword(resetToken, newPassword) {
+        const reset = await this.prisma.passwordReset.findUnique({
+            where: { token: resetToken },
+            include: { user: true },
+        });
+        if (!reset) {
+            throw new common_1.UnauthorizedException('Invalid reset token');
+        }
+        if (reset.expiresAt < new Date()) {
+            throw new common_1.UnauthorizedException('Expired reset token');
+        }
+        try {
+            const payload = this.jwtService.verify(resetToken);
+            if (payload.type !== 'password_reset' || payload.sub !== reset.user.id) {
+                throw new common_1.UnauthorizedException('Invalid token type or user mismatch');
+            }
+        }
+        catch (error) {
+            throw new common_1.UnauthorizedException('Invalid JWT token');
+        }
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        await this.userService.updateUser(reset.user.id, {
+            passwordHash: hashedPassword,
+        });
+        await this.prisma.passwordReset.deleteMany({
+            where: { userId: reset.user.id },
+        });
+        return { message: 'Password successfully reset' };
     }
 };
 exports.AuthService = AuthService;

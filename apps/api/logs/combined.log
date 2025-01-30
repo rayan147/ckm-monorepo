@@ -1456,3 +1456,3132 @@
   "service": "LoggingService",
   "timestamp": "2024-12-16T18:12:13.021Z"
 }
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2024-12-18T23:05:26.450Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2024-12-18T23:05:32.755Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2024-12-18T23:05:32.794Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2024-12-18T23:05:32.820Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2024-12-18T23:05:32.822Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2024-12-18T23:05:36.292Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2024-12-18T23:05:36.304Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2024-12-18T23:05:36.316Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2024-12-18T23:05:36.317Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2024-12-18T23:45:32.819Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2024-12-18T23:45:32.870Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2024-12-18T23:45:32.890Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2024-12-18T23:45:32.891Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2024-12-20T23:56:03.250Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2024-12-20T23:56:03.302Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2024-12-20T23:56:03.319Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2024-12-20T23:56:03.321Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2024-12-20T23:57:30.897Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2024-12-20T23:57:30.908Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2024-12-20T23:57:30.919Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2024-12-20T23:57:30.919Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2024-12-21T00:31:02.736Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2024-12-21T00:31:02.770Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2024-12-21T00:31:02.785Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2024-12-21T00:31:02.785Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2024-12-21T20:00:05.222Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2024-12-21T20:00:05.276Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2024-12-21T20:00:05.294Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2024-12-21T20:00:05.296Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2024-12-23T13:57:25.158Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2024-12-23T13:57:25.201Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2024-12-23T13:57:25.217Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2024-12-23T13:57:25.219Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2024-12-23T14:15:39.792Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2024-12-23T14:15:39.818Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2024-12-23T14:15:39.828Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2024-12-23T14:15:39.828Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2024-12-23T15:35:54.246Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2024-12-23T15:35:54.290Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2024-12-23T15:35:54.309Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2024-12-23T15:35:54.311Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-03T16:22:46.573Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-03T16:22:46.596Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-03T16:22:46.611Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-03T16:22:46.612Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-03T17:15:30.852Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-03T17:15:30.875Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-03T17:15:30.888Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-03T17:15:30.888Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-04T21:41:52.339Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-04T21:41:52.382Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-04T21:41:52.396Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-04T21:41:52.398Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-04T21:42:47.056Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-04T21:42:47.070Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-04T21:42:47.080Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-04T21:42:47.080Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-04T23:09:56.428Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-04T23:09:56.452Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-04T23:09:56.463Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-04T23:09:56.464Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:31:26.630Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:31:26.660Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:31:26.675Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:31:26.676Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:33:13.159Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:33:13.176Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:33:13.187Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:33:13.187Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:33:14.854Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:33:14.866Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:33:14.876Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:33:14.877Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:34:35.861Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:34:35.873Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:34:35.883Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:34:35.883Z"
+}
+{
+  "context": "ShiftController",
+  "level": "info",
+  "message": "Received request to get shifts",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:34:44.010Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Fetching shifts with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:34:44.011Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Retrieved 104 shifts",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:34:44.022Z"
+}
+{
+  "context": "ShiftController",
+  "level": "info",
+  "message": "Received request to get shifts",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:35:01.642Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Fetching shifts with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:35:01.642Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Retrieved 104 shifts",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:35:01.647Z"
+}
+{
+  "context": "ShiftController",
+  "level": "info",
+  "message": "Received request to get shifts",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:35:05.628Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Fetching shifts with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:35:05.629Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Retrieved 104 shifts",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:35:05.633Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:51:16.923Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:51:16.950Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:51:16.962Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:51:16.962Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:51:17.249Z"
+}
+{
+  "context": "ShiftController",
+  "level": "info",
+  "message": "Received request to get shifts",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:51:18.103Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Fetching shifts with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:51:18.104Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Retrieved 104 shifts",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:51:18.110Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:51:19.228Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:51:19.239Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:51:19.250Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:51:19.250Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:51:21.589Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:51:21.599Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:51:21.609Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:51:21.610Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:52:58.860Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:52:58.873Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:52:58.883Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:52:58.884Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:53:36.703Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:53:36.715Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:53:36.727Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:53:36.728Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:58:14.404Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:58:14.427Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:58:14.439Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:58:14.439Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:58:17.980Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:58:18.765Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:58:18.781Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:58:18.789Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-07T21:58:18.790Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T11:20:10.163Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T11:20:10.201Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T11:20:10.214Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T11:20:10.215Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T11:29:01.063Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T11:29:01.087Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T11:29:01.099Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T11:29:01.099Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T11:29:04.733Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T11:29:04.765Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T11:29:04.776Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T11:29:04.777Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T11:32:58.289Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T11:32:58.305Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T11:32:58.320Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T11:32:58.321Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T11:38:43.797Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T11:38:43.820Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T11:38:43.835Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T11:38:43.835Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T11:45:48.878Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T11:45:48.904Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T11:45:48.914Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T11:45:48.915Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T11:46:36.526Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:02:28.289Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:02:28.310Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:02:28.322Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:02:28.323Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:04:12.408Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:04:12.421Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:04:12.433Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:04:12.433Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:10:28.582Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:10:28.605Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:10:28.619Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:10:28.620Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:11:57.320Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:11:57.337Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:11:57.347Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:11:57.347Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:13:15.981Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:13:15.998Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:13:16.011Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:13:16.012Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:13:18.430Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to create prep board",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:13:24.675Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:13:24.706Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:25:03.917Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:25:03.941Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:25:03.953Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:25:03.954Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:25:11.957Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to create prep board",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:25:24.689Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:25:24.704Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to delete prep board with ID 3",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:25:29.319Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.prepBoard.delete()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/prep-board/prep-board.service.ts:84:48\n\n  81 \n  82 async deletePrepBoard(id: number): Promise<PrepBoard> {\n  83   try {\n→ 84     return await this.prisma.prepBoard.delete(\nForeign key constraint violated: `prepItem_prepBoardId_fkey (index)`",
+  "level": "error",
+  "message": "Failed to delete prep board with ID 3: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:25:29.356Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:25:29.369Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:27:13.905Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:27:13.917Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:27:13.927Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:27:13.927Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:29:34.289Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:29:34.300Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:29:34.310Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:29:34.310Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:29:38.292Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to delete prep board with ID 1",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:29:49.928Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.prepBoard.delete()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/prep-board/prep-board.service.ts:84:48\n\n  81 \n  82 async deletePrepBoard(id: number): Promise<PrepBoard> {\n  83   try {\n→ 84     return await this.prisma.prepBoard.delete(\nForeign key constraint violated: `prepItem_prepBoardId_fkey (index)`",
+  "level": "error",
+  "message": "Failed to delete prep board with ID 1: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:29:49.940Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:29:49.951Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:30:18.075Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to delete prep board with ID 1",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:30:30.258Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.prepBoard.delete()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/prep-board/prep-board.service.ts:84:48\n\n  81 \n  82 async deletePrepBoard(id: number): Promise<PrepBoard> {\n  83   try {\n→ 84     return await this.prisma.prepBoard.delete(\nForeign key constraint violated: `prepItem_prepBoardId_fkey (index)`",
+  "level": "error",
+  "message": "Failed to delete prep board with ID 1: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:30:30.270Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:30:30.281Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:30:36.255Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:30:36.279Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:30:36.290Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:30:36.291Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:30:37.758Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to delete prep board with ID 1",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:30:40.491Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.prepBoard.delete()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/prep-board/prep-board.service.ts:84:48\n\n  81 \n  82 async deletePrepBoard(id: number): Promise<PrepBoard> {\n  83   try {\n→ 84     return await this.prisma.prepBoard.delete(\nForeign key constraint violated: `prepItem_prepBoardId_fkey (index)`",
+  "level": "error",
+  "message": "Failed to delete prep board with ID 1: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:30:40.500Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:30:40.510Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to delete prep board with ID 5",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:30:49.099Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:30:49.115Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to delete prep board with ID 3",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:30:56.402Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.prepBoard.delete()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/prep-board/prep-board.service.ts:84:48\n\n  81 \n  82 async deletePrepBoard(id: number): Promise<PrepBoard> {\n  83   try {\n→ 84     return await this.prisma.prepBoard.delete(\nForeign key constraint violated: `prepItem_prepBoardId_fkey (index)`",
+  "level": "error",
+  "message": "Failed to delete prep board with ID 3: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:30:56.411Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:30:56.420Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to delete prep board with ID 4",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:52:27.139Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:52:27.170Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to create prep board",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:57:29.954Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:57:29.993Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:06:53.523Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:06:53.556Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:06:53.569Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:06:53.570Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:07:01.764Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to create prep board",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:07:11.031Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:07:11.048Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:13:10.803Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:13:10.826Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:13:10.838Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:13:10.838Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:13:59.956Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:13:59.973Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:13:59.993Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:13:59.994Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:14:29.486Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:14:29.501Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:14:29.511Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:14:29.512Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:15:13.493Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:15:13.505Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:15:13.519Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:15:13.519Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:17:08.735Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:17:08.747Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:17:08.759Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:17:08.759Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:17:32.154Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:17:32.165Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:17:32.181Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:17:32.182Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:19:54.881Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:19:54.908Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:19:54.919Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:19:54.920Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:25:44.606Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:25:44.627Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:25:44.642Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:25:44.642Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:25:53.233Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:25:53.248Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:25:53.259Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:25:53.259Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:26:01.754Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to delete prep board with ID 3",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:26:09.723Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.prepBoard.delete()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/prep-board/prep-board.service.ts:84:48\n\n  81 \n  82 async deletePrepBoard(id: number): Promise<PrepBoard> {\n  83   try {\n→ 84     return await this.prisma.prepBoard.delete(\nForeign key constraint violated: `prepItem_prepBoardId_fkey (index)`",
+  "level": "error",
+  "message": "Failed to delete prep board with ID 3: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:26:09.745Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:26:09.753Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to delete prep board with ID 7",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:26:14.598Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:26:14.631Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to create prep board",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:26:37.454Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:26:37.470Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to delete prep board with ID 6",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:26:43.148Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:26:43.162Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to delete prep board with ID 3",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:26:51.005Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.prepBoard.delete()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/prep-board/prep-board.service.ts:84:48\n\n  81 \n  82 async deletePrepBoard(id: number): Promise<PrepBoard> {\n  83   try {\n→ 84     return await this.prisma.prepBoard.delete(\nForeign key constraint violated: `prepItem_prepBoardId_fkey (index)`",
+  "level": "error",
+  "message": "Failed to delete prep board with ID 3: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:26:51.016Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:26:51.023Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:01:04.316Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:01:04.342Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:01:04.358Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:01:04.359Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:01:06.172Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:01:18.224Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:01:18.237Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:01:18.248Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:01:18.248Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:01:27.553Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:01:27.566Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:01:27.576Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:01:27.577Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:01:28.837Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to delete prep board with ID 3",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:01:32.318Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.prepBoard.delete()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/prep-board/prep-board.service.ts:84:48\n\n  81 \n  82 async deletePrepBoard(id: number): Promise<PrepBoard> {\n  83   try {\n→ 84     return await this.prisma.prepBoard.delete(\nForeign key constraint violated: `prepItem_prepBoardId_fkey (index)`",
+  "level": "error",
+  "message": "Failed to delete prep board with ID 3: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:01:32.331Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:01:32.338Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:13:51.888Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:13:51.915Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:13:51.929Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:13:51.930Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:13:52.953Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to create prep board",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:13:56.877Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:13:56.896Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:14:02.376Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:14:02.391Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:14:02.404Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:14:02.404Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:14:03.748Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to delete prep board with ID 8",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:14:11.971Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:14:11.988Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to delete prep board with ID 3",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:14:15.110Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.prepBoard.delete()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/prep-board/prep-board.service.ts:84:48\n\n  81 \n  82 async deletePrepBoard(id: number): Promise<PrepBoard> {\n  83   try {\n→ 84     return await this.prisma.prepBoard.delete(\nForeign key constraint violated: `prepItem_prepBoardId_fkey (index)`",
+  "level": "error",
+  "message": "Failed to delete prep board with ID 3: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:14:15.127Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:14:15.136Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to create prep board",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:14:19.218Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:14:19.233Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to delete prep board with ID 1",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:14:26.147Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.prepBoard.delete()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/prep-board/prep-board.service.ts:84:48\n\n  81 \n  82 async deletePrepBoard(id: number): Promise<PrepBoard> {\n  83   try {\n→ 84     return await this.prisma.prepBoard.delete(\nForeign key constraint violated: `prepItem_prepBoardId_fkey (index)`",
+  "level": "error",
+  "message": "Failed to delete prep board with ID 1: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:14:26.155Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:14:26.162Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to delete prep board with ID 10",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:14:30.826Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:14:30.842Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:14:56.261Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:14:56.279Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:14:56.289Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:14:56.289Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:15:20.582Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:15:20.593Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:15:20.603Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:15:20.603Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:15:22.389Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to create prep board",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:15:28.609Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:15:28.621Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to delete prep board with ID 3",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:15:44.044Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.prepBoard.delete()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/prep-board/prep-board.service.ts:84:48\n\n  81 \n  82 async deletePrepBoard(id: number): Promise<PrepBoard> {\n  83   try {\n→ 84     return await this.prisma.prepBoard.delete(\nForeign key constraint violated: `prepItem_prepBoardId_fkey (index)`",
+  "level": "error",
+  "message": "Failed to delete prep board with ID 3: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:15:44.053Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:15:44.060Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:28:05.495Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:28:05.518Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:28:05.531Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:28:05.531Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:34:40.582Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:34:40.605Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:34:40.615Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:34:40.615Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:34:40.731Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to delete prep board with ID 11",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:34:43.794Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:34:43.629Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:34:57.793Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:34:57.808Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:34:57.818Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:34:57.819Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:34:59.328Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to delete prep board with ID 9",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:35:01.980Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:35:02.001Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:35:17.193Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:35:17.206Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:35:17.216Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:35:17.216Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:35:18.361Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to delete prep board with ID 3",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:35:21.725Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.prepBoard.delete()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/prep-board/prep-board.service.ts:84:48\n\n  81 \n  82 async deletePrepBoard(id: number): Promise<PrepBoard> {\n  83   try {\n→ 84     return await this.prisma.prepBoard.delete(\nForeign key constraint violated: `prepItem_prepBoardId_fkey (index)`",
+  "level": "error",
+  "message": "Failed to delete prep board with ID 3: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:35:21.735Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:35:21.743Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to delete prep board with ID 1",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:35:30.669Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.prepBoard.delete()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/prep-board/prep-board.service.ts:84:48\n\n  81 \n  82 async deletePrepBoard(id: number): Promise<PrepBoard> {\n  83   try {\n→ 84     return await this.prisma.prepBoard.delete(\nForeign key constraint violated: `prepItem_prepBoardId_fkey (index)`",
+  "level": "error",
+  "message": "Failed to delete prep board with ID 1: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:35:30.678Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:35:30.684Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:38:29.704Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:38:29.717Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:38:29.728Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:38:29.728Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:40:05.182Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:40:05.205Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:40:05.217Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:40:05.217Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:41:20.532Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:41:20.547Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:41:20.556Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:41:20.557Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:41:28.518Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:41:28.531Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:41:28.541Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:41:28.541Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:03:22.245Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:03:24.190Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:03:24.218Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:03:24.232Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:03:24.233Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:03:25.941Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:04:39.120Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:04:39.133Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:04:39.144Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:04:39.145Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:04:43.758Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to create prep board",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:04:57.948Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:04:57.966Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:05:38.136Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:05:44.500Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:05:44.514Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:05:44.524Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:05:44.525Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:05:52.932Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:07:33.108Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:07:33.120Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:07:33.130Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:07:33.131Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:07:38.060Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:07:39.441Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:07:39.452Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:07:39.461Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:07:39.461Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:07:39.996Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:07:39.604Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:07:39.617Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:07:39.624Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:07:39.625Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:07:40.062Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:07:41.063Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:07:41.075Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:07:41.088Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:07:41.089Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:07:41.801Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:09:40.401Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:09:40.422Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:09:40.445Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:09:40.456Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:09:40.457Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to create prep board",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:09:52.058Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:09:52.075Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:10:49.352Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:10:49.366Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:10:49.379Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:10:49.379Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:10:49.402Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:13:32.564Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:13:32.577Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:13:32.588Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:13:32.588Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:13:37.612Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:13:37.625Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:13:37.635Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:13:37.636Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:13:38.584Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to create prep board",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:13:44.419Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:13:44.432Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:14:01.480Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:14:01.492Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:14:01.502Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:14:01.502Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:14:01.552Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to create prep board",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:14:06.312Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:14:06.329Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to delete prep board with ID 15",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:14:13.528Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:14:13.552Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to delete prep board with ID 3",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:14:16.408Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.prepBoard.delete()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/prep-board/prep-board.service.ts:84:48\n\n  81 \n  82 async deletePrepBoard(id: number): Promise<PrepBoard> {\n  83   try {\n→ 84     return await this.prisma.prepBoard.delete(\nForeign key constraint violated: `prepItem_prepBoardId_fkey (index)`",
+  "level": "error",
+  "message": "Failed to delete prep board with ID 3: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:14:16.425Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:14:16.434Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:15:11.911Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:15:11.933Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:15:11.945Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:15:11.945Z"
+}
+{
+  "context": "PrepBoardController",
+  "level": "info",
+  "message": "Received request to get prep boards",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:15:12.617Z"
+}

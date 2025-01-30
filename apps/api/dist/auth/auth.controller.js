@@ -1,32 +1,9 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
 };
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
@@ -49,8 +26,6 @@ const nest_1 = require("@ts-rest/nest");
 const contracts_1 = require("@ckm/contracts");
 const auth_service_1 = require("./auth.service");
 const i18n_service_1 = require("../i18n/i18n.service");
-const function_1 = require("fp-ts/function");
-const TE = __importStar(require("fp-ts/TaskEither"));
 let AuthController = class AuthController {
     constructor(authService, i18nService) {
         this.authService = authService;
@@ -58,96 +33,143 @@ let AuthController = class AuthController {
     }
     async resendCode() {
         return (0, nest_1.tsRestHandler)(contracts_1.contract.auth.resendCode, async ({ body }) => {
-            return (0, function_1.pipe)(this.authService.resendCode(body.email), TE.matchW((error) => ({
-                status: 401,
-                body: { message: error.message },
-            }), (result) => ({
-                status: 200,
-                body: result,
-            })))();
+            try {
+                const result = await this.authService.resendCode(body.email);
+                return {
+                    status: 200,
+                    body: result,
+                };
+            }
+            catch (error) {
+                return {
+                    status: 401,
+                    body: { message: error.message },
+                };
+            }
         });
     }
     async login() {
         return (0, nest_1.tsRestHandler)(contracts_1.contract.auth.login, async ({ body }) => {
-            return (0, function_1.pipe)(this.authService.login(body.email, body.password), TE.matchW((error) => ({
-                status: 401,
-                body: { message: error.message },
-            }), (result) => ({
-                status: 200,
-                body: result,
-            })))();
+            try {
+                const result = await this.authService.login(body.email, body.password);
+                return {
+                    status: 200,
+                    body: result,
+                };
+            }
+            catch (error) {
+                return {
+                    status: 401,
+                    body: { message: error.message },
+                };
+            }
         });
     }
     async verifyLoginCode() {
         return (0, nest_1.tsRestHandler)(contracts_1.contract.auth.verifyLoginCode, async ({ body }) => {
-            return (0, function_1.pipe)(this.authService.verifyLoginCode(body.code), TE.matchW((error) => ({
-                status: 401,
-                body: { message: error.message },
-            }), (result) => ({
-                status: 200,
-                body: result,
-            })))();
+            try {
+                const result = await this.authService.verifyLoginCode(body.code);
+                return {
+                    status: 200,
+                    body: result,
+                };
+            }
+            catch (error) {
+                return {
+                    status: 401,
+                    body: { message: error.message },
+                };
+            }
         });
     }
     async register() {
         return (0, nest_1.tsRestHandler)(contracts_1.contract.auth.register, async ({ body }) => {
-            return (0, function_1.pipe)(this.authService.register(body), TE.matchW((error) => ({
-                status: 400,
-                body: { message: error.message },
-            }), (user) => {
-                const { passwordHash } = user, result = __rest(user, ["passwordHash"]);
-                return { status: 201, body: result };
-            }))();
+            try {
+                const user = await this.authService.register(body);
+                const { passwordHash } = user, restUser = __rest(user, ["passwordHash"]);
+                return {
+                    status: 201,
+                    body: restUser,
+                };
+            }
+            catch (error) {
+                return {
+                    status: 400,
+                    body: { message: error.message },
+                };
+            }
         });
     }
     async changePassword() {
         return (0, nest_1.tsRestHandler)(contracts_1.contract.auth.changePassword, async ({ body, params }) => {
-            return (0, function_1.pipe)(this.authService.changePassword(params.userId, body.oldPassword, body.newPassword), TE.matchW((error) => ({
-                status: 400,
-                body: { message: error.message },
-            }), () => ({
-                status: 200,
-                body: {
-                    message: this.i18nService.translate('AUTH.CHANGE_PASSWORD.SUCCESS'),
-                },
-            })))();
+            try {
+                await this.authService.changePassword(params.userId, body.oldPassword, body.newPassword);
+                return {
+                    status: 200,
+                    body: {
+                        message: this.i18nService.translate('AUTH.CHANGE_PASSWORD.SUCCESS'),
+                    },
+                };
+            }
+            catch (error) {
+                return {
+                    status: 400,
+                    body: { message: error.message },
+                };
+            }
         });
     }
     async logout() {
         return (0, nest_1.tsRestHandler)(contracts_1.contract.auth.logout, async ({ body }) => {
-            return (0, function_1.pipe)(this.authService.logout(body.userId, body.accessToken), TE.matchW((error) => ({
-                status: 400,
-                body: {
-                    message: error.message,
-                },
-            }), () => ({
-                status: 200,
-                body: {
-                    message: this.i18nService.translate('AUTH.LOGOUT.SUCCESS'),
-                },
-            })))();
+            try {
+                await this.authService.logout(body.userId, body.accessToken);
+                return {
+                    status: 200,
+                    body: {
+                        message: this.i18nService.translate('AUTH.LOGOUT.SUCCESS'),
+                    },
+                };
+            }
+            catch (error) {
+                return {
+                    status: 400,
+                    body: { message: error.message },
+                };
+            }
         });
     }
     async forgotPassword() {
         return (0, nest_1.tsRestHandler)(contracts_1.contract.auth.forgotPassword, async ({ body }) => {
-            return (0, function_1.pipe)(this.authService.forgotPassword(body.email), TE.matchW((error) => ({
-                status: 400,
-                body: { message: error.message },
-            }), (result) => ({
-                status: 200,
-                body: result,
-            })))();
+            try {
+                const result = await this.authService.forgotPassword(body.email);
+                return {
+                    status: 200,
+                    body: result,
+                };
+            }
+            catch (error) {
+                return {
+                    status: 400,
+                    body: { message: error.message },
+                };
+            }
         });
     }
     async resetPassword() {
         return (0, nest_1.tsRestHandler)(contracts_1.contract.auth.resetPassword, async ({ body }) => {
-            return (0, function_1.pipe)(this.authService.resetPassword(body.resetToken, body.newPassword), TE.matchW((error) => ({
-                status: 400,
-                body: { message: error.message },
-            }), (result) => ({
-                status: 200,
-                body: result,
-            })))();
+            try {
+                const result = await this.authService.resetPassword(body.resetToken, body.newPassword);
+                return {
+                    status: 200,
+                    body: result,
+                };
+            }
+            catch (error) {
+                return {
+                    status: 400,
+                    body: { message: error.message },
+                };
+            }
         });
     }
 };

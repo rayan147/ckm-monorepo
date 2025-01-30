@@ -89,6 +89,9 @@ let AuthSessionsService = class AuthSessionsService {
         }
         return { session, user };
     }
+    async invalidateSession(sessionId) {
+        await this.prisma.session.delete({ where: { id: sessionId } });
+    }
 };
 exports.AuthSessionsService = AuthSessionsService;
 exports.AuthSessionsService = AuthSessionsService = __decorate([

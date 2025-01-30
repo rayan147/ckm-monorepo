@@ -47,69 +47,96 @@ exports.UserService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma/prisma.service");
 const bcrypt = __importStar(require("bcrypt"));
-const function_1 = require("fp-ts/function");
-const TE = __importStar(require("fp-ts/TaskEither"));
-const E = __importStar(require("fp-ts/Either"));
-const O = __importStar(require("fp-ts/Option"));
 let UserService = class UserService {
     constructor(prisma) {
         this.prisma = prisma;
-        this.getUserByEmail = (email) => {
-            const performGetUserByEmail = TE.tryCatchK((email) => this.prisma.user.findUnique({ where: { email } }), E.toError);
-            return (0, function_1.pipe)(email, performGetUserByEmail, TE.flatMap(TE.fromNullable(new common_1.NotFoundException('User not found'))));
-        };
-        this.getUser = (id) => {
-            const performGetUser = TE.tryCatchK((id) => this.prisma.user.findUnique({ where: { id } }), E.toError);
-            return (0, function_1.pipe)(id, performGetUser, TE.flatMap(TE.fromNullable(new common_1.NotFoundException('User not found'))));
-        };
-        this.getUsers = (params) => {
-            const { skip, take, orderBy } = params;
-            const performGetUsers = TE.tryCatchK(() => this.prisma.user.findMany({
-                skip,
-                take,
-                orderBy: orderBy ? { [orderBy]: 'asc' } : undefined,
-            }), E.toError);
-            return (0, function_1.pipe)(params, performGetUsers);
-        };
-        this.createUser = (data) => {
-            const hashPassword = (userData) => TE.tryCatch(() => bcrypt.hash(data.passwordHash, 10), E.toError);
-            const performUserCreation = (passwordHash) => (userData) => {
-                return TE.tryCatch(async () => {
-                    const { restaurantId, organizationId } = userData, rest = __rest(userData, ["restaurantId", "organizationId"]);
-                    let createData = Object.assign(Object.assign({}, rest), { passwordHash });
-                    if (organizationId) {
-                        createData.organization = { connect: { id: organizationId } };
-                    }
-                    if (restaurantId) {
-                        createData.restaurant = { connect: { id: restaurantId } };
-                    }
-                    return this.prisma.user.create({ data: createData });
-                }, E.toError);
-            };
-            return (0, function_1.pipe)(data, hashPassword, TE.flatMap((password) => (0, function_1.pipe)(data, performUserCreation(password))));
-        };
-        this.updateUser = (userId, data) => {
-            const performUpdate = (id) => (data) => (0, function_1.pipe)(TE.tryCatch(() => this.prisma.user.update({
+    }
+    async getUserByEmail(email) {
+        const user = await this.prisma.user.findUnique({ where: { email } });
+        if (!user) {
+            throw new common_1.NotFoundException('User not found');
+        }
+        return user;
+    }
+    async getUser(id) {
+        const user = await this.prisma.user.findUnique({ where: { id } });
+        if (!user) {
+            throw new common_1.NotFoundException('User not found');
+        }
+        return user;
+    }
+    async getUsers(params) {
+        const { skip, take, orderBy } = params;
+        return this.prisma.user.findMany({
+            skip,
+            take,
+            orderBy: orderBy ? { [orderBy]: 'asc' } : undefined,
+        });
+    }
+    async createUser(data) {
+        try {
+            const hashedPassword = await bcrypt.hash(data.passwordHash, 10);
+            const { restaurantId, organizationId } = data, rest = __rest(data, ["restaurantId", "organizationId"]);
+            const createData = Object.assign(Object.assign({}, rest), { passwordHash: hashedPassword });
+            if (organizationId) {
+                createData.organization = { connect: { id: organizationId } };
+            }
+            if (restaurantId) {
+                createData.restaurant = { connect: { id: restaurantId } };
+            }
+            return await this.prisma.user.create({ data: createData });
+        }
+        catch (error) {
+            throw new common_1.InternalServerErrorException(error);
+        }
+    }
+    async updateUser(userId, data) {
+        try {
+            return await this.prisma.user.update({
+                where: { id: userId },
                 data,
-                where: { id },
-            }), E.toError));
-            return (0, function_1.pipe)(data, performUpdate(userId));
-        };
-        this.deleteUser = (userId) => {
-            const performUserDeletion = TE.tryCatchK((id) => this.prisma.user.delete({ where: { id } }), E.toError);
-            return (0, function_1.pipe)(userId, performUserDeletion);
-        };
-        this.deleteSession = (userId, sessionToken) => {
-            const performUserDeletionSession = (userId) => (sessionToken) => TE.tryCatch(() => this.prisma.session.delete({
-                where: { token: sessionToken, userId: userId },
-            }), E.toError);
-            return (0, function_1.pipe)(sessionToken, performUserDeletionSession(userId), TE.map(() => O.none));
-        };
-        this.updateUserRole = (userId, newRole) => (0, function_1.pipe)(TE.tryCatch(() => this.prisma.user.update({
-            where: { id: userId },
-            data: { role: newRole },
-        }), E.toError));
-        this.getUsersByRole = (role) => (0, function_1.pipe)(TE.tryCatch(() => this.prisma.user.findMany({ where: { role } }), E.toError));
+            });
+        }
+        catch (error) {
+            throw new common_1.InternalServerErrorException(error);
+        }
+    }
+    async deleteUser(userId) {
+        try {
+            return await this.prisma.user.delete({ where: { id: userId } });
+        }
+        catch (error) {
+            throw new common_1.InternalServerErrorException(error);
+        }
+    }
+    async deleteSession(userId, sessionToken) {
+        try {
+            await this.prisma.session.delete({
+                where: { token: sessionToken },
+            });
+        }
+        catch (error) {
+            throw new common_1.InternalServerErrorException(error);
+        }
+    }
+    async updateUserRole(userId, newRole) {
+        try {
+            return await this.prisma.user.update({
+                where: { id: userId },
+                data: { role: newRole },
+            });
+        }
+        catch (error) {
+            throw new common_1.InternalServerErrorException(error);
+        }
+    }
+    async getUsersByRole(role) {
+        try {
+            return await this.prisma.user.findMany({ where: { role } });
+        }
+        catch (error) {
+            throw new common_1.InternalServerErrorException(error);
+        }
     }
 };
 exports.UserService = UserService;

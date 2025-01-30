@@ -1,5 +1,4 @@
 import {
-  BadRequestException,
   Injectable,
   InternalServerErrorException,
   NotFoundException,
@@ -7,164 +6,154 @@ import {
 import { PrismaService } from '../prisma/prisma.service';
 import { User, Prisma, UserRole } from '@ckm/db';
 import * as bcrypt from 'bcrypt';
-import { pipe, flow } from 'fp-ts/function';
-import * as TE from 'fp-ts/TaskEither';
-import * as E from 'fp-ts/Either';
-import * as O from 'fp-ts/Option';
 
 @Injectable()
 export class UserService {
   constructor(private prisma: PrismaService) { }
 
-  getUserByEmail = (email: string): TE.TaskEither<Error, User> => {
-    const performGetUserByEmail = TE.tryCatchK(
-      (email: string) => this.prisma.user.findUnique({ where: { email } }),
-      E.toError,
-    );
+  /**
+   * Retrieves a user by their email.
+   * @throws {NotFoundException} if no user is found.
+   */
+  async getUserByEmail(email: string): Promise<User> {
+    const user = await this.prisma.user.findUnique({ where: { email } });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    return user;
+  }
 
-    return pipe(
-      email,
-      performGetUserByEmail,
-      TE.flatMap(TE.fromNullable(new NotFoundException('User not found'))),
-    );
-  };
+  /**
+   * Retrieves a user by their ID.
+   * @throws {NotFoundException} if no user is found.
+   */
+  async getUser(id: number): Promise<User> {
+    const user = await this.prisma.user.findUnique({ where: { id } });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    return user;
+  }
 
-  getUser = (id: number): TE.TaskEither<Error, User> => {
-    const performGetUser = TE.tryCatchK(
-      (id: number) => this.prisma.user.findUnique({ where: { id } }),
-      E.toError,
-    );
-
-    return pipe(
-      id,
-      performGetUser,
-      TE.flatMap(TE.fromNullable(new NotFoundException('User not found'))),
-    );
-  };
-
-  getUsers = (params: {
+  /**
+   * Retrieves a list of users, optionally paginated and sorted.
+   */
+  async getUsers(params: {
     skip?: number;
     take?: number;
     orderBy?: keyof User;
-  }): TE.TaskEither<Error, User[]> => {
+  }): Promise<User[]> {
     const { skip, take, orderBy } = params;
-    const performGetUsers = TE.tryCatchK(
-      () =>
-        this.prisma.user.findMany({
-          skip,
-          take,
-          orderBy: orderBy ? { [orderBy]: 'asc' } : undefined,
-        }),
-      E.toError,
-    );
+    return this.prisma.user.findMany({
+      skip,
+      take,
+      orderBy: orderBy ? { [orderBy]: 'asc' } : undefined,
+    });
+  }
 
-    return pipe(params, performGetUsers);
-  };
-
-  createUser = (
+  /**
+   * Creates a new user.
+   * Automatically hashes the provided `passwordHash` value before storing.
+   */
+  async createUser(
     data: Omit<Prisma.UserCreateInput, 'restaurant' | 'organization'> & {
       restaurantId?: number | null;
       organizationId?: number | null;
     },
-  ): TE.TaskEither<Error, User> => {
-    const hashPassword = (userData: typeof data) =>
-      TE.tryCatch(() => bcrypt.hash(data.passwordHash, 10), E.toError);
+  ): Promise<User> {
+    try {
+      // 1. Hash the password
+      const hashedPassword = await bcrypt.hash(data.passwordHash, 10);
 
-    const performUserCreation =
-      (passwordHash: string) => (userData: typeof data) => {
-        return TE.tryCatch(async () => {
-          const { restaurantId, organizationId, ...rest } = userData;
-          let createData: Prisma.UserCreateInput = { ...rest, passwordHash };
-
-          if (organizationId) {
-            createData.organization = { connect: { id: organizationId } }
-          }
-
-          if (restaurantId) {
-            createData.restaurant = { connect: { id: restaurantId } }
-          }
-
-          return this.prisma.user.create({ data: createData });
-        }, E.toError);
+      // 2. Build the creation data
+      const { restaurantId, organizationId, ...rest } = data;
+      const createData: Prisma.UserCreateInput = {
+        ...rest,
+        passwordHash: hashedPassword,
       };
 
-    return pipe(
-      data,
-      hashPassword,
-      TE.flatMap((password) => pipe(data, performUserCreation(password))),
-    );
-  };
+      if (organizationId) {
+        createData.organization = { connect: { id: organizationId } };
+      }
+      if (restaurantId) {
+        createData.restaurant = { connect: { id: restaurantId } };
+      }
 
-  updateUser = (
+      // 3. Create the user
+      return await this.prisma.user.create({ data: createData });
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
+  }
+
+  /**
+   * Updates an existing user.
+   */
+  async updateUser(
     userId: number,
     data: Prisma.UserUpdateInput,
-  ): TE.TaskEither<Error, User> => {
-    const performUpdate = (id: number) => (data: Prisma.UserUpdateInput) =>
-      pipe(
-        TE.tryCatch(
-          () =>
-            this.prisma.user.update({
-              data,
-              where: { id },
-            }),
-          E.toError,
-        ),
-      );
+  ): Promise<User> {
+    try {
+      return await this.prisma.user.update({
+        where: { id: userId },
+        data,
+      });
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
+  }
 
-    return pipe(data, performUpdate(userId));
-  };
+  /**
+   * Deletes a user by ID.
+   */
+  async deleteUser(userId: number): Promise<User> {
+    try {
+      return await this.prisma.user.delete({ where: { id: userId } });
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
+  }
 
-  deleteUser = (userId: number): TE.TaskEither<Error, User> => {
-    const performUserDeletion = TE.tryCatchK(
-      (id: number) => this.prisma.user.delete({ where: { id } }),
-      E.toError,
-    );
+  /**
+   * Deletes a user's session, given a user ID and session token.
+   * Adjust according to your schema's unique constraints.
+   */
+  async deleteSession(userId: number, sessionToken: string): Promise<void> {
+    // If your Prisma schema has a unique composite or uses `token` as unique,
+    // adjust accordingly:
+    try {
+      await this.prisma.session.delete({
+        where: { token: sessionToken },
+      });
+    } catch (error) {
+      // Decide if you want to ignore this or throw if session not found:
+      throw new InternalServerErrorException(error);
+    }
+  }
 
-    return pipe(userId, performUserDeletion);
-  };
+  /**
+   * Updates a user's role.
+   */
+  async updateUserRole(userId: number, newRole: UserRole): Promise<User> {
+    try {
+      return await this.prisma.user.update({
+        where: { id: userId },
+        data: { role: newRole },
+      });
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
+  }
 
-  deleteSession = (
-    userId: number,
-    sessionToken: string,
-  ): TE.TaskEither<Error, O.Option<null>> => {
-    const performUserDeletionSession =
-      (userId: number) => (sessionToken: string) =>
-        TE.tryCatch(
-          () =>
-            this.prisma.session.delete({
-              where: { token: sessionToken, userId: userId },
-            }),
-          E.toError,
-        );
-
-    return pipe(
-      sessionToken,
-      performUserDeletionSession(userId),
-      TE.map(() => O.none),
-    );
-  };
-
-  updateUserRole = (
-    userId: number,
-    newRole: UserRole,
-  ): TE.TaskEither<Error, User> =>
-    pipe(
-      TE.tryCatch(
-        () =>
-          this.prisma.user.update({
-            where: { id: userId },
-            data: { role: newRole },
-          }),
-        E.toError,
-      ),
-    );
-
-  // New method to get users by role
-  getUsersByRole = (role: UserRole): TE.TaskEither<Error, User[]> =>
-    pipe(
-      TE.tryCatch(
-        () => this.prisma.user.findMany({ where: { role } }),
-        E.toError,
-      ),
-    );
+  /**
+   * Retrieves all users with a given role.
+   */
+  async getUsersByRole(role: UserRole): Promise<User[]> {
+    try {
+      return await this.prisma.user.findMany({ where: { role } });
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
+  }
 }
+

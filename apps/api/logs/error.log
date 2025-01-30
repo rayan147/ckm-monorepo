@@ -14,3 +14,115 @@
   "service": "LoggingService",
   "timestamp": "2024-12-16T18:11:59.292Z"
 }
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.prepBoard.delete()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/prep-board/prep-board.service.ts:84:48\n\n  81 \n  82 async deletePrepBoard(id: number): Promise<PrepBoard> {\n  83   try {\n→ 84     return await this.prisma.prepBoard.delete(\nForeign key constraint violated: `prepItem_prepBoardId_fkey (index)`",
+  "level": "error",
+  "message": "Failed to delete prep board with ID 3: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:25:29.356Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.prepBoard.delete()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/prep-board/prep-board.service.ts:84:48\n\n  81 \n  82 async deletePrepBoard(id: number): Promise<PrepBoard> {\n  83   try {\n→ 84     return await this.prisma.prepBoard.delete(\nForeign key constraint violated: `prepItem_prepBoardId_fkey (index)`",
+  "level": "error",
+  "message": "Failed to delete prep board with ID 1: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:29:49.940Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.prepBoard.delete()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/prep-board/prep-board.service.ts:84:48\n\n  81 \n  82 async deletePrepBoard(id: number): Promise<PrepBoard> {\n  83   try {\n→ 84     return await this.prisma.prepBoard.delete(\nForeign key constraint violated: `prepItem_prepBoardId_fkey (index)`",
+  "level": "error",
+  "message": "Failed to delete prep board with ID 1: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:30:30.270Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.prepBoard.delete()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/prep-board/prep-board.service.ts:84:48\n\n  81 \n  82 async deletePrepBoard(id: number): Promise<PrepBoard> {\n  83   try {\n→ 84     return await this.prisma.prepBoard.delete(\nForeign key constraint violated: `prepItem_prepBoardId_fkey (index)`",
+  "level": "error",
+  "message": "Failed to delete prep board with ID 1: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:30:40.500Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.prepBoard.delete()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/prep-board/prep-board.service.ts:84:48\n\n  81 \n  82 async deletePrepBoard(id: number): Promise<PrepBoard> {\n  83   try {\n→ 84     return await this.prisma.prepBoard.delete(\nForeign key constraint violated: `prepItem_prepBoardId_fkey (index)`",
+  "level": "error",
+  "message": "Failed to delete prep board with ID 3: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T12:30:56.411Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.prepBoard.delete()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/prep-board/prep-board.service.ts:84:48\n\n  81 \n  82 async deletePrepBoard(id: number): Promise<PrepBoard> {\n  83   try {\n→ 84     return await this.prisma.prepBoard.delete(\nForeign key constraint violated: `prepItem_prepBoardId_fkey (index)`",
+  "level": "error",
+  "message": "Failed to delete prep board with ID 3: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:26:09.745Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.prepBoard.delete()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/prep-board/prep-board.service.ts:84:48\n\n  81 \n  82 async deletePrepBoard(id: number): Promise<PrepBoard> {\n  83   try {\n→ 84     return await this.prisma.prepBoard.delete(\nForeign key constraint violated: `prepItem_prepBoardId_fkey (index)`",
+  "level": "error",
+  "message": "Failed to delete prep board with ID 3: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T13:26:51.016Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.prepBoard.delete()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/prep-board/prep-board.service.ts:84:48\n\n  81 \n  82 async deletePrepBoard(id: number): Promise<PrepBoard> {\n  83   try {\n→ 84     return await this.prisma.prepBoard.delete(\nForeign key constraint violated: `prepItem_prepBoardId_fkey (index)`",
+  "level": "error",
+  "message": "Failed to delete prep board with ID 3: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:01:32.331Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.prepBoard.delete()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/prep-board/prep-board.service.ts:84:48\n\n  81 \n  82 async deletePrepBoard(id: number): Promise<PrepBoard> {\n  83   try {\n→ 84     return await this.prisma.prepBoard.delete(\nForeign key constraint violated: `prepItem_prepBoardId_fkey (index)`",
+  "level": "error",
+  "message": "Failed to delete prep board with ID 3: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:14:15.127Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.prepBoard.delete()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/prep-board/prep-board.service.ts:84:48\n\n  81 \n  82 async deletePrepBoard(id: number): Promise<PrepBoard> {\n  83   try {\n→ 84     return await this.prisma.prepBoard.delete(\nForeign key constraint violated: `prepItem_prepBoardId_fkey (index)`",
+  "level": "error",
+  "message": "Failed to delete prep board with ID 1: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:14:26.155Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.prepBoard.delete()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/prep-board/prep-board.service.ts:84:48\n\n  81 \n  82 async deletePrepBoard(id: number): Promise<PrepBoard> {\n  83   try {\n→ 84     return await this.prisma.prepBoard.delete(\nForeign key constraint violated: `prepItem_prepBoardId_fkey (index)`",
+  "level": "error",
+  "message": "Failed to delete prep board with ID 3: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:15:44.053Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.prepBoard.delete()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/prep-board/prep-board.service.ts:84:48\n\n  81 \n  82 async deletePrepBoard(id: number): Promise<PrepBoard> {\n  83   try {\n→ 84     return await this.prisma.prepBoard.delete(\nForeign key constraint violated: `prepItem_prepBoardId_fkey (index)`",
+  "level": "error",
+  "message": "Failed to delete prep board with ID 3: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:35:21.735Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.prepBoard.delete()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/prep-board/prep-board.service.ts:84:48\n\n  81 \n  82 async deletePrepBoard(id: number): Promise<PrepBoard> {\n  83   try {\n→ 84     return await this.prisma.prepBoard.delete(\nForeign key constraint violated: `prepItem_prepBoardId_fkey (index)`",
+  "level": "error",
+  "message": "Failed to delete prep board with ID 1: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T14:35:30.678Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.prepBoard.delete()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/prep-board/prep-board.service.ts:84:48\n\n  81 \n  82 async deletePrepBoard(id: number): Promise<PrepBoard> {\n  83   try {\n→ 84     return await this.prisma.prepBoard.delete(\nForeign key constraint violated: `prepItem_prepBoardId_fkey (index)`",
+  "level": "error",
+  "message": "Failed to delete prep board with ID 3: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-01-08T19:14:16.425Z"
+}

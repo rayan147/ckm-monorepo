@@ -14,14 +14,23 @@ const common_1 = require("@nestjs/common");
 const client_s3_1 = require("@aws-sdk/client-s3");
 const s3_request_presigner_1 = require("@aws-sdk/s3-request-presigner");
 const env_service_1 = require("../../env/env.service");
+const aws_credentials_service_1 = require("./aws-credentials.service");
 let S3Service = class S3Service {
-    constructor(envService) {
+    constructor(envService, awsCredentialsService) {
         this.envService = envService;
+        this.awsCredentialsService = awsCredentialsService;
+    }
+    async onModuleInit() {
+        await this.initalizeS3Client();
+    }
+    async initalizeS3Client() {
+        const credentials = await this.awsCredentialsService.getCredentials();
         this.s3Client = new client_s3_1.S3Client({
             region: this.envService.get('AWS_REGION'),
             credentials: {
-                accessKeyId: this.envService.get('AWS_ACCESS_KEY_ID'),
-                secretAccessKey: this.envService.get('AWS_SECRET_ACCESS_KEY'),
+                accessKeyId: credentials.accessKeyId,
+                secretAccessKey: credentials.secretAccessKey,
+                sessionToken: credentials.sessionToken,
             },
         });
     }
@@ -53,6 +62,6 @@ let S3Service = class S3Service {
 exports.S3Service = S3Service;
 exports.S3Service = S3Service = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [env_service_1.EnvService])
+    __metadata("design:paramtypes", [env_service_1.EnvService, aws_credentials_service_1.AwsCredentialsService])
 ], S3Service);
 //# sourceMappingURL=s3.aws.service.js.map

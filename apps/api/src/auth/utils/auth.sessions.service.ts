@@ -77,6 +77,7 @@ export class AuthSessionsService {
     const { sha256 } = await import("@oslojs/crypto/sha2");
     const { encodeHexLowerCase } = await import("@oslojs/encoding");
     const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
+
     const session = await this.prisma.session.findUnique({
       where: { id: sessionId }
     })
@@ -112,6 +113,10 @@ export class AuthSessionsService {
 
     }
     return { session, user }
+  }
+
+  async invalidateSession(sessionId: string): Promise<void> {
+    await this.prisma.session.delete({ where: { id: sessionId } });
   }
 
 } //#endregion

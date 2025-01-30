@@ -1,17 +1,12 @@
-import { Prisma, Session, User, UserRole } from '@ckm/db';
+import { Prisma, User, UserRole } from '@ckm/db';
 import {
   Injectable,
   InternalServerErrorException,
-  UnauthorizedException
+  NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import * as E from 'fp-ts/Either';
-import { pipe } from 'fp-ts/function';
-import * as IO from 'fp-ts/IO';
-import * as T from 'fp-ts/lib/Task';
-import * as O from 'fp-ts/Option';
-import * as TE from 'fp-ts/TaskEither';
 import { v4 as uuidv4 } from 'uuid';
 import { PrismaService } from '../prisma/prisma.service';
 import { UserService } from '../users/users.service';
@@ -21,7 +16,7 @@ import { PinpointService } from 'src/helpers/aws/pinpoint.service';
 interface JwtPayload {
   email: string;
   sub: number;
-  type: string;
+  type: string; // e.g., 'verify_user' or 'password_reset'
 }
 
 @Injectable()
@@ -69,7 +64,6 @@ export class AuthService {
 </body>
 </html>
     `;
-
 
     this.verificationCodeTemplate = `
 <!DOCTYPE html>
@@ -119,399 +113,298 @@ export class AuthService {
     `;
   }
 
-  private generateVerificationCode: IO.IO<string> = IO.of(() =>
-    Math.floor(100000 + Math.random() * 900000).toString(),
-  )();
-
-  validateUser = (
+  /**
+   * Validate a user's email and password.
+   * @throws UnauthorizedException if the credentials are invalid.
+   */
+  async validateUser(
     email: string,
     password: string,
-  ): TE.TaskEither<Error, Omit<User, 'passwordHash'>> => {
-    const performValidatePassword = (user: User) =>
-      pipe(
-        TE.tryCatch(
-          () => bcrypt.compare(password, user.passwordHash),
-          E.toError,
-        ),
-        TE.chainW(
-          TE.fromPredicate(
-            (isValid) => isValid,
-            () => new InternalServerErrorException('Invalid credentials'),
-          ),
-        ),
-        TE.map(() => user),
-      );
+  ): Promise<Omit<User, 'passwordHash'>> {
+    const user = await this.userService.getUserByEmail(email);
+    if (!user) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
 
-    return pipe(
-      this.userService.getUserByEmail(email),
-      TE.chainW((user) => performValidatePassword(user)),
-      TE.map((user) => user),
-    );
-  };
+    const isValid = await bcrypt.compare(password, user.passwordHash);
+    if (!isValid) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
 
-  login = (
-    email: string,
-    password: string,
-  ): TE.TaskEither<Error, { code: string; message: string }> => {
-    const performLoginProcess = (
-      user: Omit<User, 'passwordHash'>
-    ): TE.TaskEither<Error, Session> => {
-      return pipe(
-        TE.Do,
-        // Get the verification code (string)
-        TE.bind('verificationCode', () =>
-          TE.tryCatch<Error, string>(
-            () => Promise.resolve(this.authSession.generateVerifactionCode()),
-            E.toError
-          )
-        ),
-        // Get the session token (string)
-        TE.bind('token', () =>
-          TE.tryCatch(
-            () => Promise.resolve(this.authSession.generateSessionToken()),
-            E.toError
-          )
-        ),
-        // Now that we have verificationCode and token as strings, we can build the HTML and create a session
-        TE.bind('session', ({ verificationCode, token }) => {
-          const htmlBody = this.verificationCodeTemplate.replace(
-            /{{verificationCode}}/g,
-            verificationCode
-          );
-
-          return pipe(
-            // Create the session
-            TE.tryCatch<Error, Session>(
-              () => this.authSession.createSession(token, user.id),
-              E.toError
-            ),
-            // Send the email after session is created
-            TE.chainFirst((session) =>
-              TE.tryCatch(
-                () =>
-                  this.pinpointService.sendEmail(
-                    user.email,
-                    'Verification Code Request',
-                    htmlBody
-                  ),
-                E.toError
-              )
-            )
-          );
-        }),
-        // Finally, return the session
-        TE.map(({ session }) => session)
-      );
-    };
-
-    return pipe(
-      this.validateUser(email, password),
-      TE.flatMap((user) => performLoginProcess(user)),
-      TE.map((session) => ({
-        code: session.code,
-        message: 'Password reset email sent',
-      }))
-    );
-  };
-
-
-  verifyLoginCode = (
-    code: string,
-  ): TE.TaskEither<
-    Error,
-    { accessToken: string; user: Omit<User, 'passwordHash'> }
-  > => {
-    const findUserByCode = (code: string) => {
-      return TE.tryCatch(
-        () =>
-          this.prisma.session.findUnique({
-            where: { code: code },
-            include: { user: true },
-          }),
-        E.toError,
-      );
-    };
-
-    const performVerifyingProcess = (
-      session: {
-        user: User;
-      } & Session,
-    ) => {
-      const payload = {
-        email: session.user.email,
-        sub: session.user.id,
-        type: 'verify_user',
-      } satisfies JwtPayload;
-
-      console.log({ payload })
-
-      const accessToken = this.jwtService.sign(payload);
-
-      return TE.tryCatch(
-        () =>
-          this.prisma.session.update({
-            where: {
-              code: code,
-            },
-            data: {
-              token: accessToken,
-            },
-            include: { user: true }, // Include user in the updated session
-          }),
-        E.toError,
-      );
-    };
-
-    return pipe(
-      findUserByCode(code),
-      TE.chainW(
-        TE.fromNullable(new UnauthorizedException('Session not found')),
-      ),
-      TE.chainW((session) => performVerifyingProcess(session)),
-      TE.map((session) => ({
-        accessToken: session.token,
-        user: { ...session.user, passwordHash: undefined },
-      })),
-    );
-  };
-
-  resendCode = (
-    email: string
-  ): TE.TaskEither<Error, { code: string }> => {
-    const performLoginProcess = (user: Omit<User, 'passwordHash'>) => {
-      const verificationCode = this.generateVerificationCode();
-      const access_uuid = uuidv4();
-      const htmlBody = this.verificationCodeTemplate.replace(
-        /{{verificationCode}}/g,
-        verificationCode,
-      );
-
-      return pipe(
-        TE.tryCatch(
-          () =>
-            this.prisma.session.create({
-              data: {
-                userId: user.id,
-                code: verificationCode,
-                token: access_uuid,
-                expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
-              },
-            }),
-          E.toError,
-        ),
-        TE.chainFirst(() =>
-          TE.tryCatch(
-            () =>
-              this.pinpointService.sendEmail(
-                user.email,
-                'Verification Code Request',
-                htmlBody,
-              ),
-            E.toError,
-          ),
-        ),
-        TE.map((user) => user),
-      );
-    };
-
-    return pipe(
-      this.userService.getUserByEmail(email),
-      TE.flatMap((user) => performLoginProcess(user)),
-      TE.map((session) => ({
-        code: session.code,
-        message: 'Code has been sent',
-      })),
-    );
-
+    const { passwordHash, ...rest } = user;
+    return rest;
   }
 
-  register = (
-    data: Prisma.UserCreateInput,
-  ): TE.TaskEither<Error, User> => {
-    const userExist = (email: string): T.Task<boolean> =>
-      pipe(
-        this.userService.getUserByEmail(email),
-        TE.match(
-          () => false,
-          () => true,
-        ),
-      );
-    return pipe(
-      userExist(data.email),
-      T.flatMap((exists) =>
-        exists
-          ? TE.left(new Error('User exists'))
-          : this.userService.createUser(data),
-      ),
-    );
-  };
+  /**
+   * Logs the user in by validating credentials, creating a session, and emailing a verification code.
+   */
+  async login(
+    email: string,
+    password: string,
+  ): Promise<{ code: string; message: string }> {
+    // 1. Validate user
+    const user = await this.validateUser(email, password);
 
-  changePassword = (
+    // 2. Generate a verification code and session token
+    const verificationCode = await this.authSession.generateVerifactionCode();
+    const token = await this.authSession.generateSessionToken();
+
+    // 3. Prepare and send the email
+    const htmlBody = this.verificationCodeTemplate.replace(
+      /{{verificationCode}}/g,
+      verificationCode,
+    );
+
+    // 4. Create the session
+    const session = await this.authSession.createSession(token, user.id);
+
+    // 5. Send email with the code
+    await this.pinpointService.sendEmail(
+      user.email,
+      'Verification Code Request',
+      htmlBody,
+    );
+
+    return {
+      code: session.code,
+      message: 'Password reset email sent',
+    };
+  }
+
+  /**
+   * Verifies a login code and issues a signed JWT.
+   * @throws UnauthorizedException if session/code is invalid.
+   */
+  async verifyLoginCode(
+    code: string,
+  ): Promise<{ accessToken: string; user: Omit<User, 'passwordHash'> }> {
+    const session = await this.prisma.session.findUnique({
+      where: { code },
+      include: { user: true },
+    });
+    if (!session) {
+      throw new UnauthorizedException('Session not found');
+    }
+
+    const payload: JwtPayload = {
+      email: session.user.email,
+      sub: session.user.id,
+      type: 'verify_user',
+    };
+
+    const accessToken = this.jwtService.sign(payload);
+
+    // Update the session in DB with the new token
+    const updatedSession = await this.prisma.session.update({
+      where: { code },
+      data: { token: accessToken },
+      include: { user: true },
+    });
+
+    const { passwordHash, ...restUser } = updatedSession.user;
+    return { accessToken: updatedSession.token, user: restUser };
+  }
+
+  /**
+   * Resends a verification code to the user.
+   */
+  async resendCode(email: string): Promise<{ code: string; message: string }> {
+    const user = await this.userService.getUserByEmail(email);
+    if (!user) {
+      throw new UnauthorizedException('User not found');
+    }
+
+    const verificationCode = await this.authSession.generateVerifactionCode();
+    const access_uuid = uuidv4();
+    const htmlBody = this.verificationCodeTemplate.replace(
+      /{{verificationCode}}/g,
+      verificationCode,
+    );
+
+    const session = await this.prisma.session.create({
+      data: {
+        userId: user.id,
+        code: verificationCode,
+        token: access_uuid,
+        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+      },
+    });
+
+    await this.pinpointService.sendEmail(
+      user.email,
+      'Verification Code Request',
+      htmlBody,
+    );
+
+    return {
+      code: session.code,
+      message: 'Code has been sent',
+    };
+  }
+
+  /**
+   * Registers a new user, if one with the same email does not already exist.
+   */
+  async register(data: Prisma.UserCreateInput): Promise<User> {
+    const existingUser = await this.userService.getUserByEmail(data.email);
+    if (existingUser) {
+      throw new Error('User exists');
+    }
+    return this.userService.createUser(data);
+  }
+
+  /**
+   * Changes a user's password, given the old password checks out.
+   */
+  async changePassword(
     userId: number,
     oldPassword: string,
     newPassword: string,
-  ): TE.TaskEither<Error, User> =>
-    pipe(
-      this.userService.getUser(userId),
-      TE.flatMap((user) =>
-        pipe(
-          this.validateUser(user.email, oldPassword),
-          TE.tryCatchK(() => bcrypt.hash(newPassword, 10), E.toError),
-        ),
-      ),
-      TE.flatMap((hashedPassword) =>
-        this.userService.updateUser(userId, { passwordHash: hashedPassword }),
-      ),
-      TE.mapLeft((error) => {
-        console.error('Error in changePassword:', error);
-        return error;
-      }),
-    );
+  ): Promise<User> {
+    try {
+      const user = await this.userService.getUser(userId);
+      if (!user) {
+        throw new NotFoundException('User not found');
+      }
 
-  logout = (
+      // Validate old password
+      // (If validateUser doesn't throw, the password is correct)
+      await this.validateUser(user.email, oldPassword);
+
+      // Hash the new password and update the user
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+      const updatedUser = await this.userService.updateUser(userId, {
+        passwordHash: hashedPassword,
+      });
+
+      return updatedUser;
+    } catch (error) {
+      console.error('Error in changePassword:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Logs the user out by deleting their session token.
+   * Adjust return type according to how deleteSession is implemented.
+   */
+  async logout(
     userId: number,
     sessionToken: string,
-  ): TE.TaskEither<Error, O.Option<null>> =>
-    this.userService.deleteSession(userId, sessionToken);
+  ): Promise<void> {
+    await this.userService.deleteSession(userId, sessionToken);
+  }
 
-  hasRole = (
-    userId: number,
-    requiredRole: UserRole,
-  ): TE.TaskEither<Error, boolean> =>
-    pipe(
-      this.userService.getUser(userId),
-      TE.map((user) => user.role === requiredRole),
-    );
+  /**
+   * Checks if a user has a required role.
+   */
+  async hasRole(userId: number, requiredRole: UserRole): Promise<boolean> {
+    const user = await this.userService.getUser(userId);
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    return user.role === requiredRole;
+  }
 
-  changeUserRole = (
+  /**
+   * Changes another user's role, provided the acting user is an admin.
+   */
+  async changeUserRole(
     adminUserId: number,
     targetUserId: number,
     newRole: UserRole,
-  ): TE.TaskEither<Error, User> =>
-    pipe(
-      this.hasRole(adminUserId, UserRole.ADMIN),
-      TE.chainW(
-        TE.fromPredicate(
-          (isAdmin) => isAdmin,
-          () =>
-            new InternalServerErrorException(
-              'Only admins can change user roles',
-            ),
-        ),
-      ),
-      TE.flatMap(() => this.userService.updateUserRole(targetUserId, newRole)),
-    );
+  ): Promise<User> {
+    const isAdmin = await this.hasRole(adminUserId, UserRole.ADMIN);
+    if (!isAdmin) {
+      throw new InternalServerErrorException('Only admins can change user roles');
+    }
 
-  forgotPassword = (
-    email: string,
-  ): TE.TaskEither<Error, { message: string }> => {
-    const performTokenRest = (user: User) => {
-      const payload = {
-        email: user.email,
-        sub: user.id,
-        type: 'password_reset',
-      } satisfies JwtPayload;
+    return this.userService.updateUserRole(targetUserId, newRole);
+  }
 
-      const resetToken = this.jwtService.sign(payload, { expiresIn: '1h' });
-      const resetLink = `http://localhost:3000/reset-password?token=${resetToken}`;
+  /**
+   * Initiates a "forgot password" process by creating a reset token, storing it, and emailing the user.
+   */
+  async forgotPassword(email: string): Promise<{ message: string }> {
+    const user = await this.userService.getUserByEmail(email);
+    if (!user) {
+      // You could decide to make this a silent fail to avoid leaking emails
+      throw new NotFoundException('User not found');
+    }
 
-      const htmlBody = this.passwordResetTemplate.replace(/{{resetLink}}/g, resetLink);
-
-      return pipe(
-        TE.tryCatch(
-          () =>
-            this.prisma.passwordReset.create({
-              data: {
-                userId: user.id,
-                token: resetToken,
-                expiresAt: new Date(Date.now() + 60 * 60 * 1000), // 1 hour
-              },
-            }),
-          E.toError,
-        ),
-        TE.chainFirst(() =>
-          TE.tryCatch(
-            () =>
-              this.pinpointService.sendEmail(
-                user.email,
-                'Password Reset Request',
-                htmlBody,
-                `To reset your password, please visit: ${resetLink}`,
-              ),
-            E.toError,
-          ),
-        ),
-        TE.map(() => ({ message: 'Password reset email sent' })),
-      );
+    const payload: JwtPayload = {
+      email: user.email,
+      sub: user.id,
+      type: 'password_reset',
     };
+    // Expires in 1 hour
+    const resetToken = this.jwtService.sign(payload, { expiresIn: '1h' });
+    const resetLink = `http://localhost:3000/reset-password?token=${resetToken}`;
 
-    return pipe(
-      this.userService.getUserByEmail(email),
-      TE.chainW((user) => performTokenRest(user)),
+    const htmlBody = this.passwordResetTemplate.replace(/{{resetLink}}/g, resetLink);
+
+    await this.prisma.passwordReset.create({
+      data: {
+        userId: user.id,
+        token: resetToken,
+        expiresAt: new Date(Date.now() + 60 * 60 * 1000), // 1 hour
+      },
+    });
+
+    // Send the reset link via email
+    await this.pinpointService.sendEmail(
+      user.email,
+      'Password Reset Request',
+      htmlBody,
+      `To reset your password, please visit: ${resetLink}`,
     );
-  };
-  resetPassword = (
+
+    return { message: 'Password reset email sent' };
+  }
+
+  /**
+   * Resets the user's password after verifying the reset token.
+   */
+  async resetPassword(
     resetToken: string,
     newPassword: string,
-  ): TE.TaskEither<Error, { message: string }> =>
-    pipe(
-      TE.tryCatch(
-        () =>
-          this.prisma.passwordReset.findUnique({
-            where: { token: resetToken },
-            include: { user: true },
-          }),
-        () => new UnauthorizedException('Failed to fetch reset token'),
-      ),
-      TE.chain(
-        TE.fromNullable(new UnauthorizedException('Invalid reset token')),
-      ),
-      TE.chain((reset) =>
-        reset.expiresAt > new Date()
-          ? TE.right(reset)
-          : TE.left(new UnauthorizedException('Expired reset token')),
-      ),
-      TE.chain((reset) =>
-        pipe(
-          TE.tryCatch(
-            () => Promise.resolve(this.jwtService.verify(resetToken)),
-            () => new UnauthorizedException('Invalid JWT token'),
-          ),
-          TE.chain((payload) =>
-            payload.type === 'password_reset' && payload.sub === reset.user.id
-              ? TE.right(reset.user)
-              : TE.left(
-                new UnauthorizedException(
-                  'Invalid token type or user mismatch',
-                ),
-              ),
-          ),
-        ),
-      ),
+  ): Promise<{ message: string }> {
+    // 1. Find the reset token in the DB
+    const reset = await this.prisma.passwordReset.findUnique({
+      where: { token: resetToken },
+      include: { user: true },
+    });
+    if (!reset) {
+      throw new UnauthorizedException('Invalid reset token');
+    }
 
-      TE.chain((user) =>
-        pipe(
-          TE.tryCatch(
-            () => bcrypt.hash(newPassword, 10),
-            () => new UnauthorizedException('Failed to hash password'),
-          ),
-          TE.chain((hashedPassword) =>
-            this.userService.updateUser(user.id, {
-              passwordHash: hashedPassword,
-            }),
-          ),
-        ),
-      ),
-      TE.flatMap((user) =>
-        TE.tryCatch(
-          () =>
-            this.prisma.passwordReset.deleteMany({
-              where: { userId: user.id },
-            }),
-          () =>
-            new UnauthorizedException('Failed to delete password reset tokens'),
-        ),
-      ),
-      TE.map(() => ({ message: 'Password successfully reset' })),
-    );
-} // end of region
+    // 2. Check if the token is expired
+    if (reset.expiresAt < new Date()) {
+      throw new UnauthorizedException('Expired reset token');
+    }
+
+    // 3. Verify the token's payload
+    try {
+      const payload = this.jwtService.verify(resetToken) as JwtPayload;
+      if (payload.type !== 'password_reset' || payload.sub !== reset.user.id) {
+        throw new UnauthorizedException('Invalid token type or user mismatch');
+      }
+    } catch (error) {
+      throw new UnauthorizedException('Invalid JWT token');
+    }
+
+    // 4. Hash the new password and update the user
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    await this.userService.updateUser(reset.user.id, {
+      passwordHash: hashedPassword,
+    });
+
+    // 5. Delete all password reset records for this user
+    await this.prisma.passwordReset.deleteMany({
+      where: { userId: reset.user.id },
+    });
+
+    return { message: 'Password successfully reset' };
+  }
+}
+
