@@ -10,6 +10,7 @@ const env_service_1 = require("./env/env.service");
 const swagger_1 = require("@nestjs/swagger");
 const language_interceptor_1 = require("./i18n/language.interceptor");
 const i18n_service_1 = require("./i18n/i18n.service");
+const express_1 = __importDefault(require("express"));
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule, {
         logger: ['error', 'warn', 'log', 'debug', 'verbose'],
@@ -32,9 +33,11 @@ async function bootstrap() {
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
         credentials: true,
         allowedHeaders: ['Content-Type', 'Accept', 'Authorization'],
+        exposedHeaders: ['set-cookie']
     });
+    app.use(express_1.default.urlencoded({ extended: true, limit: "1kb" }));
+    app.use(express_1.default.json({ limit: "1kb" }));
     const database_url = configService.get('DATABASE_URL');
-    console.log({ database_url });
     await app.listen(port);
 }
 bootstrap();

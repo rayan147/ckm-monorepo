@@ -5,6 +5,10 @@ import { EnvService } from './env/env.service';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { LanguageInterceptor } from './i18n/language.interceptor';
 import { I18nService } from './i18n/i18n.service';
+import  cookieParser from 'cookie-parser';
+import { doubleCsrf } from 'csrf-csrf';
+import express  from 'express';
+
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -26,7 +30,7 @@ async function bootstrap() {
 
   const configService = app.get(EnvService);
   const port = configService.get('PORT');
-  // CORS configuration
+   // 1. Enable CORS for SvelteKit frontend
   const corsOrigin = configService.get('CORS_ORIGIN');
   app.enableCors({
     origin: corsOrigin === '*' ? '*' : corsOrigin.split(','),
@@ -34,10 +38,15 @@ async function bootstrap() {
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     credentials: true,
     allowedHeaders: ['Content-Type', 'Accept', 'Authorization'],
+    exposedHeaders: ['set-cookie']
   });
 
+
+
+app.use(express.urlencoded({ extended: true, limit: "1kb" }));
+app.use(express.json({ limit: "1kb" }));
+
   const database_url = configService.get('DATABASE_URL')
-  console.log({ database_url })
   await app.listen(port);
 }
 bootstrap();

@@ -5,6 +5,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
@@ -60,7 +66,23 @@ const open_aiservice_service_1 = require("./open-aiservice/open-aiservice.servic
 const aiassistant_service_1 = require("./aiassistant/aiassistant.service");
 const aiassistant_controller_1 = require("./aiassistant/aiassistant.controller");
 const aiassistant_module_1 = require("./aiassistant/aiassistant.module");
+const throttler_1 = require("@nestjs/throttler");
+const csrf_module_1 = require("./csrf/csrf.module");
+const env_service_1 = require("./env/env.service");
+const csrf_config_1 = require("./csrf/csrf.config");
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
 let AppModule = class AppModule {
+    constructor(envService) {
+        this.envService = envService;
+    }
+    configure(consumer) {
+        const { doubleCsrfProtection } = (0, csrf_config_1.createCsrfUtilities)(this.envService);
+        consumer.apply((0, cookie_parser_1.default)())
+            .forRoutes('*')
+            .apply(doubleCsrfProtection)
+            .exclude('csrf')
+            .forRoutes('*');
+    }
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
@@ -70,6 +92,10 @@ exports.AppModule = AppModule = __decorate([
                 isGlobal: true,
                 validate: (env) => env_1.envSchema.parse(env),
             }),
+            throttler_1.ThrottlerModule.forRoot([{
+                    ttl: 6000,
+                    limit: 10
+                }]),
             users_module_1.UsersModule,
             prisma_module_1.PrismaModule,
             vendor_module_1.VendorModule,
@@ -96,6 +122,7 @@ exports.AppModule = AppModule = __decorate([
             ingredient_module_1.IngredientModule,
             prep_item_module_1.PrepItemModule,
             aiassistant_module_1.AiassistantModule,
+            csrf_module_1.CsrfModule,
         ],
         controllers: [
             app_controller_1.AppController,
@@ -125,6 +152,7 @@ exports.AppModule = AppModule = __decorate([
             open_aiservice_service_1.OpenAiserviceService,
             aiassistant_service_1.AiassistantService,
         ],
-    })
+    }),
+    __metadata("design:paramtypes", [env_service_1.EnvService])
 ], AppModule);
 //# sourceMappingURL=app.module.js.map

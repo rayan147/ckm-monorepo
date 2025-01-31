@@ -4,6 +4,7 @@ import { contract } from '@ckm/contracts';
 import { AuthService } from './auth.service';
 import { I18nService } from '../i18n/i18n.service';
 
+
 @Controller()
 export class AuthController {
   constructor(

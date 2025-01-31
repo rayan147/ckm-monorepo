@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
@@ -51,6 +51,13 @@ import { OpenAiserviceService } from './open-aiservice/open-aiservice.service';
 import { AiassistantService } from './aiassistant/aiassistant.service';
 import { AiassistantController } from './aiassistant/aiassistant.controller';
 import { AiassistantModule } from './aiassistant/aiassistant.module';
+import { ThrottlerModule } from '@nestjs/throttler'
+import { CsrfController } from './csrf/csrf.controller';
+import { CsrfModule } from './csrf/csrf.module';
+import { EnvService } from './env/env.service';
+import { createCsrfUtilities } from './csrf/csrf.config';
+import cookieParser from 'cookie-parser';
+
 
 @Module({
   imports: [
@@ -58,6 +65,10 @@ import { AiassistantModule } from './aiassistant/aiassistant.module';
       isGlobal: true,
       validate: (env) => envSchema.parse(env),
     }),
+    ThrottlerModule.forRoot([{
+      ttl: 6000,
+      limit: 10
+    }]),
     UsersModule,
     PrismaModule,
     VendorModule,
@@ -84,6 +95,7 @@ import { AiassistantModule } from './aiassistant/aiassistant.module';
     IngredientModule,
     PrepItemModule,
     AiassistantModule,
+    CsrfModule,
   ],
   controllers: [
     AppController,
@@ -114,4 +126,20 @@ import { AiassistantModule } from './aiassistant/aiassistant.module';
     AiassistantService,
   ],
 })
-export class AppModule { }
+export class AppModule {
+  /**
+   *
+   */
+  constructor(private envService: EnvService) { }
+  configure(consumer: MiddlewareConsumer) {
+    const { doubleCsrfProtection } = createCsrfUtilities(this.envService);
+
+    consumer.apply(cookieParser())
+      .forRoutes('*')
+      .apply(doubleCsrfProtection)
+      .exclude('csrf')
+      .forRoutes('*')
+
+
+  }
+}
