@@ -3,6 +3,9 @@
   import { Search } from 'lucide-svelte';
   import * as Table from '$lib/components/ui/table';
   import type { PageProps } from './$types';
+
+  let { data }: PageProps = $props();
+  console.log(data);
 </script>
 
 <section class="w-full flex justify-center mt-10">
@@ -25,12 +28,14 @@
       </Table.Row>
     </Table.Header>
     <Table.Body>
-      <Table.Row>
-        <Table.Cell class="font-medium">INV001</Table.Cell>
-        <Table.Cell>Paid</Table.Cell>
-        <Table.Cell>Credit Card</Table.Cell>
-        <Table.Cell class="text-right">$250.00</Table.Cell>
-      </Table.Row>
+      {#each data.recipes as { id, name }, i (id)}
+        <Table.Row>
+          <Table.Cell class="font-medium">{name}</Table.Cell>
+          <Table.Cell>Paid</Table.Cell>
+          <Table.Cell>Credit Card</Table.Cell>
+          <Table.Cell class="text-right">$250.00</Table.Cell>
+        </Table.Row>
+      {/each}
     </Table.Body>
   </Table.Root>
 </section>
