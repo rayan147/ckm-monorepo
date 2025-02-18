@@ -6,11 +6,15 @@ type VerifyLoginCodeResponse = {
   user: Omit<User, 'passwordHash'>;
 };
 
-export const login = async (email: string, password: string): Promise<string | null> => {
+export const login = async (email: string, password: string, csrfToken: string): Promise<string | null> => {
+  console.log('CSRF Token:', csrfToken);
   const { status, body } = await api.auth.login({
     body: {
       email,
       password
+    },
+    extraHeaders: {
+      "x-csrf-token": csrfToken
     }
   });
 
@@ -26,8 +30,6 @@ export const verifyLoginCode = async (code: string): Promise<VerifyLoginCodeResp
       code
     }
   });
-
-  console.log({ status, body })
 
   if (status === 200) {
     return body;

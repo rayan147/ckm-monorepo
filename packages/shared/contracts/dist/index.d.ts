@@ -3720,10 +3720,13 @@ declare const contract: {
             responses: {
                 200: zod.ZodObject<{
                     code: zod.ZodString;
+                    csrfToken: zod.ZodOptional<zod.ZodString>;
                 }, "strip", zod.ZodTypeAny, {
                     code: string;
+                    csrfToken?: string | undefined;
                 }, {
                     code: string;
+                    csrfToken?: string | undefined;
                 }>;
                 401: zod.ZodObject<{
                     message: zod.ZodString;

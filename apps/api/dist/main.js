@@ -32,12 +32,11 @@ async function bootstrap() {
         origin: corsOrigin === '*' ? '*' : corsOrigin.split(','),
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
         credentials: true,
-        allowedHeaders: ['Content-Type', 'Accept', 'Authorization'],
+        allowedHeaders: ['Content-Type', 'Accept', 'Authorization', 'x-csrf-token'],
         exposedHeaders: ['set-cookie']
     });
     app.use(express_1.default.urlencoded({ extended: true, limit: "1kb" }));
     app.use(express_1.default.json({ limit: "1kb" }));
-    const database_url = configService.get('DATABASE_URL');
     await app.listen(port);
 }
 bootstrap();

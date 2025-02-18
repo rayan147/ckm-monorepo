@@ -13,6 +13,7 @@ import { EnvModule } from 'src/env/env.module';
 import { EnvService } from 'src/env/env.service';
 import { AuthSessionsService } from './utils/auth.sessions.service';
 import { AwsModule } from 'src/helpers/aws/aws.module';
+import { CsrfGuard } from 'src/csrf/csrf.guard';
 
 @Module({
   imports: [
@@ -31,7 +32,7 @@ import { AwsModule } from 'src/helpers/aws/aws.module';
       })
     }))
   ],
-  providers: [AuthService, JwtStrategy, RoleGuard, AuthSessionsService],
+  providers: [AuthService, JwtStrategy, RoleGuard, AuthSessionsService, CsrfGuard],
   controllers: [AuthController],
   exports: [AuthService],
 })

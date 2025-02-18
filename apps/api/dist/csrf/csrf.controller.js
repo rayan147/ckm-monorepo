@@ -18,12 +18,23 @@ const csrf_config_1 = require("./csrf.config");
 const env_service_1 = require("../env/env.service");
 let CsrfController = class CsrfController {
     constructor(envService) {
-        this.envService = envService;
         this.csrfUtilities = (0, csrf_config_1.createCsrfUtilities)(envService);
     }
     getCsrfToken(req, res) {
-        const token = this.csrfUtilities.generateToken(req, res);
-        res.json({ csrfToken: token });
+        try {
+            const csrfToken = this.csrfUtilities.generateToken(req, res);
+            console.log('Generated CSRF Token:', csrfToken);
+            console.log('Set-Cookie Header:', res.getHeaders()['set-cookie']);
+            if (csrfToken) {
+                res.json({
+                    csrfToken,
+                    status: 200,
+                });
+            }
+        }
+        catch (error) {
+            res.status(400).json({ message: 'Failed to generate CSRF token' });
+        }
     }
 };
 exports.CsrfController = CsrfController;

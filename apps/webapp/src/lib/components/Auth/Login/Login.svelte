@@ -43,7 +43,13 @@
   const handleVerifySuccess = async (result: ActionResult) => {
     const { data } = result;
     if (data?.type === 'success' && data?.location && data?.user) {
-      localStorage.setItem('auth', JSON.stringify({ isAuthenticated: true }));
+      localStorage.setItem(
+        'auth',
+        JSON.stringify({
+          isAuthenticated: true,
+          username: `${data.user.firstName}${data.user.lastName}`
+        })
+      );
       email = data.email || '';
       await goto(data.location);
     }

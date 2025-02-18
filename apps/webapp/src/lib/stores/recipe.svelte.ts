@@ -1,16 +1,15 @@
 // recipe.svelte.ts
-import { zodSchemas } from '@ckm/db';
 import { type Conversion, conversions } from '$lib/utils/ingredientsConversion';
-import type { RecipeFormData, Recipe } from '@ckm/types';
 import { api } from '@ckm/lib-api';
 import convertUnitsHelper, { isWeightUnit } from '$lib/utils/unitConvertionVolumeToWeight';
 import { recipeStore } from '$lib/stores/recipeStore';
+import type { Recipe, RecipeFormData } from '@ckm/types';
 
 type ViewState = 'list' | 'create' | 'edit' | 'view';
 
 export class RecipeState {
   // State variables
-  recipes = $state<Recipe[]>([]);
+  recipes = $state([]);
   searchTerm = $state('');
   currentView: ViewState = $state('list');
   currentRecipe: RecipeFormData | null = $state(null);
@@ -18,9 +17,9 @@ export class RecipeState {
   loading = $state(false);
 
   // Additional data
-  restaurants = $state<zodSchemas.Restaurant[]>([]);
-  cookBooks = $state<zodSchemas.CookBook[]>([]);
-  ingredientsList = $state<zodSchemas.Ingredient[]>([]);
+  restaurants = $state([]);
+  cookBooks = $state([]);
+  ingredientsList = $state([]);
 
   // Step management
   currentStep = $state(1);

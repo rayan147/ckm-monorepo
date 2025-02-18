@@ -1,10 +1,9 @@
 import { writable } from 'svelte/store';
 import { api } from '@ckm/lib-api';
 //import type { Recipe } from '@ckm/db';
-import type { Recipe } from '@ckm/db';
 
 interface RecipeState {
-  recipes: Recipe[];
+  recipes: [];
   loading: boolean;
   error: string | null;
   totalCount: number;

@@ -21,6 +21,7 @@ const env_module_1 = require("../env/env.module");
 const env_service_1 = require("../env/env.service");
 const auth_sessions_service_1 = require("./utils/auth.sessions.service");
 const aws_module_1 = require("../helpers/aws/aws.module");
+const csrf_guard_1 = require("../csrf/csrf.guard");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
@@ -42,7 +43,7 @@ exports.AuthModule = AuthModule = __decorate([
                 })
             }))
         ],
-        providers: [auth_service_1.AuthService, jwt_strategy_1.JwtStrategy, role_guard_1.RoleGuard, auth_sessions_service_1.AuthSessionsService],
+        providers: [auth_service_1.AuthService, jwt_strategy_1.JwtStrategy, role_guard_1.RoleGuard, auth_sessions_service_1.AuthSessionsService, csrf_guard_1.CsrfGuard],
         controllers: [auth_controller_1.AuthController],
         exports: [auth_service_1.AuthService],
     })

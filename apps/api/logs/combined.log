@@ -4585,3 +4585,1536 @@
   "service": "LoggingService",
   "timestamp": "2025-01-08T19:15:12.617Z"
 }
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T15:49:23.777Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T15:49:23.805Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T15:49:23.824Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T15:49:23.825Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:00:26.824Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:00:26.859Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:00:26.873Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:00:26.875Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:00:33.423Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:00:33.438Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:00:33.454Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:00:33.455Z"
+}
+{
+  "context": "ShiftController",
+  "level": "info",
+  "message": "Received request to get shifts",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:00:45.463Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Fetching shifts with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:00:45.464Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Retrieved 104 shifts",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:00:45.474Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:01:15.632Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:01:15.645Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:01:15.658Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:01:15.658Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:01:17.704Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"f\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:01:17.705Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:01:17.713Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"fd\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:01:17.714Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:01:19.461Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"f\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:01:19.461Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:01:22.518Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"r\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:01:22.518Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:01:22.873Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"ru\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:01:22.874Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:01:23.327Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"rus\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:01:23.327Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:01:23.328Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"rusd\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:01:23.329Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:01:24.471Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"rus\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:01:24.472Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:01:27.538Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"rust\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:01:27.538Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:01:27.846Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"rusti\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:01:27.846Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:03:36.795Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:03:36.807Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:03:36.817Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:03:36.817Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:03:40.359Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:03:40.370Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:03:40.380Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:03:40.380Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:03:42.269Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:03:42.279Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:03:42.289Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:03:42.290Z"
+}
+{
+  "context": "ShiftController",
+  "level": "info",
+  "message": "Received request to get shifts",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:04:35.393Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Fetching shifts with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:04:35.394Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Retrieved 104 shifts",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:04:35.400Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:04:36.618Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:04:38.619Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:04:38.619Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:04:39.507Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:04:39.508Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:04:48.245Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:04:48.256Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:04:48.266Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:04:48.266Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:32:28.492Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:32:28.516Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:32:28.528Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:32:28.529Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:32:29.889Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:32:29.905Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:32:29.915Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T18:32:29.915Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T19:40:26.822Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T19:40:26.861Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T19:40:26.883Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T19:40:26.884Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:08:29.715Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:08:29.743Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:08:29.770Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:08:29.771Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:09:08.985Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:09:08.999Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:09:09.009Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:09:09.009Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:23:58.300Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:23:58.328Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:23:58.343Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:23:58.344Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:24:05.515Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:24:05.529Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:24:05.541Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:24:05.542Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:24:54.546Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:24:54.566Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:24:54.567Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:25:33.409Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:25:33.424Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:25:33.436Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:25:33.437Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:26:39.404Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"d\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:26:39.405Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:26:39.408Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"df\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:26:39.408Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:26:40.784Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"d\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:26:40.785Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:27:12.123Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:27:12.140Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:27:12.152Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:27:12.152Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:27:30.166Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:27:30.176Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:27:30.184Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:27:30.184Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:28:40.637Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:28:40.649Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:28:40.657Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:28:40.657Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:30:27.121Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:30:27.122Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:30:36.977Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:30:36.986Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:30:36.995Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:30:36.995Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:37:05.234Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"d\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:37:05.235Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:37:08.620Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"g\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:37:08.621Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:37:08.855Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"gg\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:37:08.856Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:37:09.676Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"ggg\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:37:09.677Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:38:15.110Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:38:15.122Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:38:15.130Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:38:15.130Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:38:39.720Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:38:39.735Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:38:39.747Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T20:38:39.748Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T21:16:30.535Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T21:16:30.565Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T21:16:30.581Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T21:16:30.582Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T21:38:42.576Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T21:38:42.604Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T21:38:42.625Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T21:38:42.626Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T21:39:38.013Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T21:39:38.029Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T21:39:38.040Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T21:39:38.040Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T21:39:52.744Z"
+}
+{
+  "context": "IngredientController",
+  "level": "info",
+  "message": "Received request to get ingredients",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T21:39:52.764Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T21:39:52.777Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-02T21:39:52.777Z"
+}
+{
+  "context": "ShiftController",
+  "level": "info",
+  "message": "Received request to get shifts",
+  "service": "LoggingService",
+  "timestamp": "2025-02-04T20:09:23.637Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Fetching shifts with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-04T20:09:23.639Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Retrieved 104 shifts",
+  "service": "LoggingService",
+  "timestamp": "2025-02-04T20:09:23.681Z"
+}
+{
+  "context": "ShiftController",
+  "level": "info",
+  "message": "Received request to get shifts",
+  "service": "LoggingService",
+  "timestamp": "2025-02-04T20:09:29.598Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Fetching shifts with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-04T20:09:29.598Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Retrieved 104 shifts",
+  "service": "LoggingService",
+  "timestamp": "2025-02-04T20:09:29.603Z"
+}
+{
+  "context": "ShiftController",
+  "level": "info",
+  "message": "Received request to get shifts",
+  "service": "LoggingService",
+  "timestamp": "2025-02-04T20:09:29.922Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Fetching shifts with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-04T20:09:29.922Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Retrieved 104 shifts",
+  "service": "LoggingService",
+  "timestamp": "2025-02-04T20:09:29.926Z"
+}
+{
+  "context": "ShiftController",
+  "level": "info",
+  "message": "Received request to get shifts",
+  "service": "LoggingService",
+  "timestamp": "2025-02-04T20:09:34.173Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Fetching shifts with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-04T20:09:34.173Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Retrieved 104 shifts",
+  "service": "LoggingService",
+  "timestamp": "2025-02-04T20:09:34.177Z"
+}
+{
+  "context": "ShiftController",
+  "level": "info",
+  "message": "Received request to get shifts",
+  "service": "LoggingService",
+  "timestamp": "2025-02-04T20:09:34.482Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Fetching shifts with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-04T20:09:34.483Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Retrieved 104 shifts",
+  "service": "LoggingService",
+  "timestamp": "2025-02-04T20:09:34.486Z"
+}
+{
+  "context": "CookBookController",
+  "level": "info",
+  "message": "Received request to get cookbooks",
+  "service": "LoggingService",
+  "timestamp": "2025-02-04T20:09:35.613Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-04T20:09:37.789Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-04T20:09:37.790Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-04T20:09:39.370Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-04T20:09:39.370Z"
+}
+{
+  "context": "ShiftController",
+  "level": "info",
+  "message": "Received request to get shifts",
+  "service": "LoggingService",
+  "timestamp": "2025-02-15T22:46:56.409Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Fetching shifts with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-15T22:46:56.412Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Retrieved 104 shifts",
+  "service": "LoggingService",
+  "timestamp": "2025-02-15T22:46:56.429Z"
+}
+{
+  "context": "ShiftController",
+  "level": "info",
+  "message": "Received request to get shifts",
+  "service": "LoggingService",
+  "timestamp": "2025-02-15T22:53:36.857Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Fetching shifts with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-15T22:53:36.860Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Retrieved 104 shifts",
+  "service": "LoggingService",
+  "timestamp": "2025-02-15T22:53:36.873Z"
+}
+{
+  "context": "ShiftController",
+  "level": "info",
+  "message": "Received request to get shifts",
+  "service": "LoggingService",
+  "timestamp": "2025-02-18T19:24:20.796Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Fetching shifts with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-18T19:24:20.799Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Retrieved 104 shifts",
+  "service": "LoggingService",
+  "timestamp": "2025-02-18T19:24:20.828Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-18T20:15:12.983Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-18T20:15:13.003Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-18T20:15:17.686Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-18T20:15:17.687Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-18T20:15:44.541Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-18T20:15:44.544Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-18T20:15:48.925Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-18T20:15:48.925Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-18T20:16:09.190Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-18T20:16:09.191Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-18T20:16:15.538Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-18T20:16:15.538Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-18T20:17:07.542Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-18T20:17:07.543Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-18T20:17:12.010Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-18T20:17:12.010Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-18T20:17:20.909Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-18T20:17:20.910Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-18T20:17:25.301Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-18T20:17:25.302Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-18T20:17:26.497Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-18T20:17:26.497Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-18T20:17:28.616Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-18T20:17:28.616Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-18T20:19:11.230Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-18T20:19:11.230Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-18T20:19:15.717Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-18T20:19:15.718Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-18T20:19:16.902Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-18T20:19:16.903Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-18T20:19:19.494Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-18T20:19:19.495Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-18T20:19:35.347Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-18T20:19:35.348Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-18T20:19:39.904Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-18T20:19:39.905Z"
+}

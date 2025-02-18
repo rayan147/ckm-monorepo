@@ -23,6 +23,9 @@ let CsrfGuard = class CsrfGuard {
     }
     canActivate(context) {
         const request = context.switchToHttp().getRequest();
+        console.log('CSRF Guard Executed');
+        console.log('CSRF Token from Header:', request.headers['x-csrf-token']);
+        console.log('CSRF Cookie:', request.cookies['__Host-psifi.x-csrf-token']);
         try {
             this.validateRequest(request);
             return true;

@@ -12,7 +12,11 @@ const createCsrfUtilities = (envService) => {
             path: '/',
             secure: envService.get('NODE_ENV') === 'prod',
         },
-        getTokenFromRequest: (req) => req.headers['x-csrf-token'],
+        getTokenFromRequest: (req) => {
+            console.log('CSRF Token from Header:', req.headers['x-csrf-token']);
+            console.log('CSRF Cookie:', req.cookies['__Host-psifi.x-csrf-token']);
+            return req.headers['x-csrf-token'];
+        },
     });
 };
 exports.createCsrfUtilities = createCsrfUtilities;

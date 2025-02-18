@@ -1,7 +1,8 @@
 <script lang="ts">
   import Login from '$lib/components/Auth/Login/Login.svelte';
-  import Chef from '$lib/components/chef.svelte';
-  let { data, form } = $props();
+  import Chef from '$lib/images/chef.svelte';
+
+  let { form } = $props();
 </script>
 
 <div class="flex items-center justify-center min-h-screen bg-gray-100">
@@ -9,6 +10,6 @@
     <div class="flex justify-center mb-6">
       <Chef />
     </div>
-    <Login {data} {form} />
+    <Login {form} />
   </div>
 </div>

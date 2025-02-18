@@ -25,6 +25,7 @@ export const authContract = c.router({
     responses: {
       200: z.object({
         code: z.string(),
+        csrfToken: z.string().optional(),
       }),
       401: z.object({ message: z.string() }),
     },

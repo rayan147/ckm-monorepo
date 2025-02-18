@@ -5057,7 +5057,8 @@ var authContract = c10.router({
     path: "/auth/login",
     responses: {
       200: z.object({
-        code: z.string()
+        code: z.string(),
+        csrfToken: z.string().optional()
       }),
       401: z.object({ message: z.string() })
     },

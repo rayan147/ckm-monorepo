@@ -9,6 +9,15 @@ export const actions = {
     const email = data.get('email')?.toString();
     const password = data.get('password')?.toString();
 
+
+    const res = await fetch('http://localhost:3000/csrf', {
+      credentials: 'include'
+    })
+    const { csrfToken, status } = await res.json()
+
+
+    if (status !== 200) error(401, `Not Authorized`)
+
     // Check for null/undefined values
     if (!email || !password) {
       return fail(400, {
@@ -28,8 +37,9 @@ export const actions = {
       });
     }
 
+    console.log(csrfToken)
     try {
-      const response = await login(email, password);
+      const response = await login(email, password, csrfToken);
 
       if (!response) {
         return fail(401, {

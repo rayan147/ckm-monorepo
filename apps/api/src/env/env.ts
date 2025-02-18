@@ -27,7 +27,8 @@ export const envSchema = z.object({
   OPENAI_API_KEY: z.string(),
   RECIPE_IMAGES_BUCKET: z.string(),
   AWS_ROLE_ARN: z.string(),
-  CSRF_SECRET: z.string()
+  CSRF_SECRET: z.string(),
+  COOKIE_SECRET: z.string()
 });
 
 export type Env = z.infer<typeof envSchema>;
