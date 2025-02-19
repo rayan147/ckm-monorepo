@@ -1,5 +1,5 @@
 <script>
-  import { page } from '$app/stores';
+  import { page } from '$app/state';
   import Chef from '$lib/images/chef.svelte';
   import {
     Home,
@@ -75,14 +75,14 @@
         <a
           href={item.href}
           class="group flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 ease-in-out
-            {$page.url.pathname === item.href
+            {page.url.pathname === item.href
             ? 'bg-white bg-opacity-10 text-white shadow-md'
             : 'text-gray-300 hover:bg-white hover:bg-opacity-5 hover:text-white'}"
-          aria-current={$page.url.pathname === item.href ? 'page' : undefined}
+          aria-current={page.url.pathname === item.href ? 'page' : undefined}
         >
           <item.icon
             class="w-5 h-5 mr-3 flex-shrink-0 transition-colors duration-200
-              {$page.url.pathname === item.href
+              {page.url.pathname === item.href
               ? 'text-blue-300'
               : 'text-gray-400 group-hover:text-blue-300'}"
             aria-hidden="true"

@@ -20,7 +20,14 @@ export const load: PageLoad = async ({ url, params }) => {
     });
     if (status !== 200) error(400, { message: `Not found` })
 
-    return body
+    return {
+      ...body,
+      pagination: {
+        currentPage: page,
+        perPage,
+        totalPages: Math.ceil(body.totalCount / perPage)
+      }
+    }
 
   } catch (err) {
     if (err instanceof Error) {
