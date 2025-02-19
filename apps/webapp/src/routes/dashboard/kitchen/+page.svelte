@@ -5,10 +5,10 @@
   import type { PageProps } from './$types';
   import * as Pagination from '$lib/components/ui/pagination';
   import { goto } from '$app/navigation';
-  import { page } from '$app/stores';
+  import { page } from '$app/state';
 
   let { data }: PageProps = $props();
-  let searchTerm = $page.url.searchParams.get('search') || '';
+  let searchTerm = $state(page.url.searchParams.get('search') || '');
 
   // Handle search input
   function handleSearch() {
@@ -20,7 +20,7 @@
 
   // Handle page change
   function handlePageChange(newPage: number) {
-    const params = new URLSearchParams($page.url.searchParams);
+    const params = new URLSearchParams(page.url.searchParams);
     params.set('page', newPage.toString());
     goto(`?${params.toString()}`);
   }
