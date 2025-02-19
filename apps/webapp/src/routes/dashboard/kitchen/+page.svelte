@@ -68,43 +68,45 @@
 
 <!-- Pagination -->
 <section class="mt-6 flex justify-center">
-  <Pagination.Root
-    count={data.totalCount}
-    perPage={data.pagination.perPage}
-    currentPage={data.pagination.currentPage}
-    let:pages
-    let:currentPage
-  >
-    <Pagination.Content>
-      <Pagination.Item>
-        <Pagination.PrevButton
-          on:click={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-        />
-      </Pagination.Item>
-      {#each pages as page (page.key)}
-        {#if page.type === 'ellipsis'}
-          <Pagination.Item>
-            <Pagination.Ellipsis />
-          </Pagination.Item>
-        {:else}
-          <Pagination.Item isVisible={true}>
-            <Pagination.Link
-              {page}
-              isActive={currentPage === page.value}
-              on:click={() => handlePageChange(page.value)}
-            >
-              {page.value}
-            </Pagination.Link>
-          </Pagination.Item>
-        {/if}
-      {/each}
-      <Pagination.Item>
-        <Pagination.NextButton
-          on:click={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage === Math.ceil(data.totalCount / data.pagination.perPage)}
-        />
-      </Pagination.Item>
-    </Pagination.Content>
-  </Pagination.Root>
+  {#if data && data.pagination}
+    <Pagination.Root
+      count={data.totalCount}
+      perPage={data.pagination.perPage}
+      currentPage={data.pagination.currentPage}
+      let:pages
+      let:currentPage
+    >
+      <Pagination.Content>
+        <Pagination.Item>
+          <Pagination.PrevButton
+            on:click={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          />
+        </Pagination.Item>
+        {#each pages as page (page.key)}
+          {#if page.type === 'ellipsis'}
+            <Pagination.Item>
+              <Pagination.Ellipsis />
+            </Pagination.Item>
+          {:else}
+            <Pagination.Item isVisible={true}>
+              <Pagination.Link
+                {page}
+                isActive={currentPage === page.value}
+                onclick={() => handlePageChange(page.value)}
+              >
+                {page.value}
+              </Pagination.Link>
+            </Pagination.Item>
+          {/if}
+        {/each}
+        <Pagination.Item>
+          <Pagination.NextButton
+            onclick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === Math.ceil(data.totalCount / data.pagination.perPage)}
+          />
+        </Pagination.Item>
+      </Pagination.Content>
+    </Pagination.Root>
+  {/if}
 </section>
