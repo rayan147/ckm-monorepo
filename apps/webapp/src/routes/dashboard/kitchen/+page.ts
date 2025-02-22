@@ -2,7 +2,6 @@ import { api } from "@ckm/lib-api";
 import type { PageLoad } from "./$types";
 import { error } from '@sveltejs/kit';
 
-
 export const load: PageLoad = async ({ url, params }) => {
   try {
     // The formula is: skip = (page - 1) * perPage
@@ -18,7 +17,7 @@ export const load: PageLoad = async ({ url, params }) => {
         searchTerm: searchTerm || undefined,
       }
     });
-    if (status !== 200) error(400, { message: `Not found` })
+    if (status !== 200 || body === undefined) error(400, { message: `Not found` })
 
     return {
       ...body,
@@ -35,3 +34,5 @@ export const load: PageLoad = async ({ url, params }) => {
     }
   }
 }
+
+

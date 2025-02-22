@@ -136,9 +136,9 @@ export class AppModule {
 
     consumer.apply(cookieParser())
       .forRoutes('*')
-      .apply(doubleCsrfProtection)
-      .exclude('csrf')
-      .forRoutes('*')
+    // .apply(doubleCsrfProtection)
+    // .exclude('csrf')
+    // .forRoutes('*')
 
 
   }

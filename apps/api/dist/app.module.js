@@ -78,9 +78,6 @@ let AppModule = class AppModule {
     configure(consumer) {
         const { doubleCsrfProtection } = (0, csrf_config_1.createCsrfUtilities)(this.envService);
         consumer.apply((0, cookie_parser_1.default)())
-            .forRoutes('*')
-            .apply(doubleCsrfProtection)
-            .exclude('csrf')
             .forRoutes('*');
     }
 };

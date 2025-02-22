@@ -483,6 +483,9 @@ importers:
       lucide-svelte:
         specifier: ^0.441.0
         version: 0.441.0(svelte@5.2.2)
+      mode-watcher:
+        specifier: ^0.5.1
+        version: 0.5.1(svelte@5.2.2)
       postcss:
         specifier: ^8.4.45
         version: 8.4.49
@@ -498,6 +501,9 @@ importers:
       svelte-check:
         specifier: ^3.6.0
         version: 3.8.6(@babel/core@7.26.0)(postcss-load-config@4.0.2(postcss@8.4.49)(ts-node@10.9.2(@types/node@20.17.6)(typescript@5.6.3)))(postcss@8.4.49)(svelte@5.2.2)
+      svelte-sonner:
+        specifier: ^0.3.28
+        version: 0.3.28(svelte@5.2.2)
       tailwind-merge:
         specifier: ^2.5.4
         version: 2.5.4
@@ -2531,8 +2537,8 @@ packages:
   '@prisma/debug@6.3.0':
     resolution: {integrity: sha512-m1lQv//0Rc5RG8TBpNUuLCxC35Ghi5XfpPmL83Gh04/GICHD2J5H2ndMlaljrUNaQDF9dOxIuFAYP1rE9wkXkg==}
 
-  '@prisma/debug@6.4.0':
-    resolution: {integrity: sha512-zXsLpNXLypdThJjItqk0u/3uitcD9+9rNynZPPu4Xp7664yp8VbxCGTVBS696vA0e3kw0Xv/4muR+cNHkxspcw==}
+  '@prisma/debug@6.4.1':
+    resolution: {integrity: sha512-Q9xk6yjEGIThjSD8zZegxd5tBRNHYd13GOIG0nLsanbTXATiPXCLyvlYEfvbR2ft6dlRsziQXfQGxAgv7zcMUA==}
 
   '@prisma/engines-version@6.3.0-17.acc0b9dd43eb689cbd20c9470515d719db10d0b0':
     resolution: {integrity: sha512-R/ZcMuaWZT2UBmgX3Ko6PAV3f8//ZzsjRIG1eKqp3f2rqEqVtCv+mtzuH2rBPUC9ujJ5kCb9wwpxeyCkLcHVyA==}
@@ -2543,14 +2549,14 @@ packages:
   '@prisma/engines@6.3.0':
     resolution: {integrity: sha512-RXqYhlZb9sx/xkUfYIZuEPn7sT0WgTxNOuEYQ7AGw3IMpP9QGVEDVsluc/GcNkM8NTJszeqk8AplJzI9lm7Jxw==}
 
-  '@prisma/engines@6.4.0':
-    resolution: {integrity: sha512-SeUigmWj0uhnSjYKWkG//Gzj4XHy6bi1TXgTZ+pPujxGELJgOvecgaA/bHmWokyHPnbYWRaoSwQDxPjihYzSZg==}
+  '@prisma/engines@6.4.1':
+    resolution: {integrity: sha512-KldENzMHtKYwsOSLThghOIdXOBEsfDuGSrxAZjMnimBiDKd3AE4JQ+Kv+gBD/x77WoV9xIPf25GXMWffXZ17BA==}
 
   '@prisma/fetch-engine@6.3.0':
     resolution: {integrity: sha512-GBy0iT4f1mH31ePzfcpVSUa7JLRTeq4914FG2vR3LqDwRweSm4ja1o5flGDz+eVIa/BNYfkBvRRxv4D6ve6Eew==}
 
-  '@prisma/fetch-engine@6.4.0':
-    resolution: {integrity: sha512-CN/Qb/+n+15gfhN0ipeUcGu/oGw7HIwVw4DCKD11190dneVGpa+n0wxwXTFJlV0vkAeSBSkQ3y1ugKAa5s/VPg==}
+  '@prisma/fetch-engine@6.4.1':
+    resolution: {integrity: sha512-uZ5hVeTmDspx7KcaRCNoXmcReOD+84nwlO2oFvQPRQh9xiFYnnUKDz7l9bLxp8t4+25CsaNlgrgilXKSQwrIGQ==}
 
   '@prisma/generator-helper@5.22.0':
     resolution: {integrity: sha512-LwqcBQ5/QsuAaLNQZAIVIAJDJBMjHwMwn16e06IYx/3Okj/xEEfw9IvrqB2cJCl3b2mCBlh3eVH0w9WGmi4aHg==}
@@ -2558,8 +2564,8 @@ packages:
   '@prisma/get-platform@6.3.0':
     resolution: {integrity: sha512-V8zZ1d0xfyi6FjpNP4AcYuwSpGcdmu35OXWnTPm8IW594PYALzKXHwIa9+o0f+Lo9AecFWrwrwaoYe56UNfTtQ==}
 
-  '@prisma/get-platform@6.4.0':
-    resolution: {integrity: sha512-khANH9QbCRhFWiGj3qmR0clxLTU76Cimxf4JAhjhtpsc1jdG1A9geGe0kU4WAQ1YpiKFJ10s9j2wbbE/jSP99Q==}
+  '@prisma/get-platform@6.4.1':
+    resolution: {integrity: sha512-gXqZaDI5scDkBF8oza7fOD3Q3QMD0e0rBynlzDDZdTWbWmzjuW58PRZtj+jkvKje2+ZigCWkH8SsWZAsH6q1Yw==}
 
   '@rollup/plugin-commonjs@28.0.1':
     resolution: {integrity: sha512-+tNWdlWKbpB3WgBN7ijjYkq9X5uhjmcvyjEght4NmH5fAU++zfQzAJ6wumLS+dNcvwEZhKx2Z+skY8m7v0wGSA==}
@@ -5485,6 +5491,11 @@ packages:
   mlly@1.7.3:
     resolution: {integrity: sha512-xUsx5n/mN0uQf4V548PKQ+YShA4/IW0KI1dZhrNrPCLG+xizETbHTkOa1f8/xut9JRPp8kQuMnz0oqwkTiLo/A==}
 
+  mode-watcher@0.5.1:
+    resolution: {integrity: sha512-adEC6T7TMX/kzQlaO/MtiQOSFekZfQu4MC+lXyoceQG+U5sKpJWZ4yKXqw846ExIuWJgedkOIPqAYYRk/xHm+w==}
+    peerDependencies:
+      svelte: ^4.0.0 || ^5.0.0-next.1
+
   moment@2.30.1:
     resolution: {integrity: sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==}
 
@@ -5950,8 +5961,8 @@ packages:
       typescript:
         optional: true
 
-  prisma@6.4.0:
-    resolution: {integrity: sha512-UxEaEo1ajnEvwT9UQRyRfq0zZ9pvOmlZ6kShY8Hgu4jxgkHo1mg85IEP8yBgFRiRBA2o2OIt1nxzcllt86D4Mw==}
+  prisma@6.4.1:
+    resolution: {integrity: sha512-q2uJkgXnua/jj66mk6P9bX/zgYJFI/jn4Yp0aS6SPRrjH/n6VyOV7RDe1vHD0DX8Aanx4MvgmUPPoYnR6MJnPg==}
     engines: {node: '>=18.18'}
     hasBin: true
     peerDependencies:
@@ -6420,6 +6431,11 @@ packages:
         optional: true
       typescript:
         optional: true
+
+  svelte-sonner@0.3.28:
+    resolution: {integrity: sha512-K3AmlySeFifF/cKgsYNv5uXqMVNln0NBAacOYgmkQStLa/UoU0LhfAACU6Gr+YYC8bOCHdVmFNoKuDbMEsppJg==}
+    peerDependencies:
+      svelte: ^3.0.0 || ^4.0.0 || ^5.0.0-next.1
 
   svelte2tsx@0.7.26:
     resolution: {integrity: sha512-cBGGZ3Hejuh9gYICQcGKg1zyYhrzZR04iTUdP5pD+CIbjoZiyzS4cpCi4IHh0PA2Vf6cFuwVRmDs9wnOfJotJA==}
@@ -9618,7 +9634,7 @@ snapshots:
 
   '@prisma/debug@6.3.0': {}
 
-  '@prisma/debug@6.4.0': {}
+  '@prisma/debug@6.4.1': {}
 
   '@prisma/engines-version@6.3.0-17.acc0b9dd43eb689cbd20c9470515d719db10d0b0': {}
 
@@ -9631,12 +9647,12 @@ snapshots:
       '@prisma/fetch-engine': 6.3.0
       '@prisma/get-platform': 6.3.0
 
-  '@prisma/engines@6.4.0':
+  '@prisma/engines@6.4.1':
     dependencies:
-      '@prisma/debug': 6.4.0
+      '@prisma/debug': 6.4.1
       '@prisma/engines-version': 6.4.0-29.a9055b89e58b4b5bfb59600785423b1db3d0e75d
-      '@prisma/fetch-engine': 6.4.0
-      '@prisma/get-platform': 6.4.0
+      '@prisma/fetch-engine': 6.4.1
+      '@prisma/get-platform': 6.4.1
 
   '@prisma/fetch-engine@6.3.0':
     dependencies:
@@ -9644,11 +9660,11 @@ snapshots:
       '@prisma/engines-version': 6.3.0-17.acc0b9dd43eb689cbd20c9470515d719db10d0b0
       '@prisma/get-platform': 6.3.0
 
-  '@prisma/fetch-engine@6.4.0':
+  '@prisma/fetch-engine@6.4.1':
     dependencies:
-      '@prisma/debug': 6.4.0
+      '@prisma/debug': 6.4.1
       '@prisma/engines-version': 6.4.0-29.a9055b89e58b4b5bfb59600785423b1db3d0e75d
-      '@prisma/get-platform': 6.4.0
+      '@prisma/get-platform': 6.4.1
 
   '@prisma/generator-helper@5.22.0':
     dependencies:
@@ -9658,9 +9674,9 @@ snapshots:
     dependencies:
       '@prisma/debug': 6.3.0
 
-  '@prisma/get-platform@6.4.0':
+  '@prisma/get-platform@6.4.1':
     dependencies:
-      '@prisma/debug': 6.4.0
+      '@prisma/debug': 6.4.1
 
   '@rollup/plugin-commonjs@28.0.1(rollup@4.27.2)':
     dependencies:
@@ -13517,6 +13533,10 @@ snapshots:
       pkg-types: 1.2.1
       ufo: 1.5.4
 
+  mode-watcher@0.5.1(svelte@5.2.2):
+    dependencies:
+      svelte: 5.2.2
+
   moment@2.30.1: {}
 
   mri@1.2.0: {}
@@ -13930,7 +13950,7 @@ snapshots:
     dependencies:
       '@prisma/client': 6.3.0(prisma@6.3.0(typescript@5.6.3))(typescript@5.6.3)
       openai: 4.72.0(zod@3.23.8)
-      prisma: 6.4.0(typescript@5.6.3)
+      prisma: 6.4.1(typescript@5.6.3)
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -13944,9 +13964,9 @@ snapshots:
       fsevents: 2.3.3
       typescript: 5.6.3
 
-  prisma@6.4.0(typescript@5.6.3):
+  prisma@6.4.1(typescript@5.6.3):
     dependencies:
-      '@prisma/engines': 6.4.0
+      '@prisma/engines': 6.4.1
       esbuild: 0.24.0
       esbuild-register: 3.6.0(esbuild@0.24.0)
     optionalDependencies:
@@ -14466,6 +14486,10 @@ snapshots:
       postcss: 8.4.49
       postcss-load-config: 4.0.2(postcss@8.4.49)(ts-node@10.9.2(@types/node@20.17.6)(typescript@5.6.3))
       typescript: 5.6.3
+
+  svelte-sonner@0.3.28(svelte@5.2.2):
+    dependencies:
+      svelte: 5.2.2
 
   svelte2tsx@0.7.26(svelte@5.2.2)(typescript@5.6.3):
     dependencies:

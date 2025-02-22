@@ -2,6 +2,7 @@
   import '../../app.css';
   import Header from '$lib/components/Header.svelte';
   import Sidebar from '$lib/components/Navbar/Sidebar.svelte';
+  import { Toaster } from '$lib/components/ui/sonner';
 
   let { children } = $props();
 </script>
@@ -12,6 +13,7 @@
     <Header />
     <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
       <div class="container px-6 py-8 mx-auto">
+        <Toaster />
         {@render children?.()}
       </div>
     </main>
