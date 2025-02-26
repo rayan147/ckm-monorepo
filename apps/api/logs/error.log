@@ -134,3 +134,27 @@
   "service": "LoggingService",
   "timestamp": "2025-02-22T20:31:30.588Z"
 }
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.recipe.findMany()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/recipe/recipe.service.ts:211:28\n\n  208 \n  209 const [totalCount, recipes] = await Promise.all([\n  210   this.prisma.recipe.count({ where }),\n→ 211   this.prisma.recipe.findMany(\nThe column `recipe.imageUrl` does not exist in the current database.",
+  "level": "error",
+  "message": "Failed to fetch recipes: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-02-26T12:03:15.730Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.recipe.findMany()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/recipe/recipe.service.ts:211:28\n\n  208 \n  209 const [totalCount, recipes] = await Promise.all([\n  210   this.prisma.recipe.count({ where }),\n→ 211   this.prisma.recipe.findMany(\nThe column `recipe.imageUrl` does not exist in the current database.",
+  "level": "error",
+  "message": "Failed to fetch recipes: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-02-26T12:03:25.280Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.recipe.findMany()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/recipe/recipe.service.ts:211:28\n\n  208 \n  209 const [totalCount, recipes] = await Promise.all([\n  210   this.prisma.recipe.count({ where }),\n→ 211   this.prisma.recipe.findMany(\nThe column `recipe.imageUrl` does not exist in the current database.",
+  "level": "error",
+  "message": "Failed to fetch recipes: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-02-26T12:03:35.883Z"
+}

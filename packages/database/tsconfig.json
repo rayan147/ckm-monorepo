@@ -12,7 +12,8 @@
     "skipLibCheck": true
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "src/generated/**/*" // Add this line explicitly
   ],
   "exclude": [
     "node_modules"

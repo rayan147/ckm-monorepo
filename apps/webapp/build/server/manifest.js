@@ -10,30 +10,28 @@ return {
 	assets: new Set(["favicon.png"]),
 	mimeTypes: {".png":"image/png"},
 	_: {
-		client: {"start":"_app/immutable/entry/start.CHTNsPq5.js","app":"_app/immutable/entry/app.BTQrNu01.js","imports":["_app/immutable/entry/start.CHTNsPq5.js","_app/immutable/chunks/entry.CkrHRABC.js","_app/immutable/chunks/runtime.D5Eo_qK5.js","_app/immutable/chunks/index.BFqC5wTN.js","_app/immutable/chunks/index.D7Bi-O10.js","_app/immutable/chunks/utils.StPNKlDT.js","_app/immutable/entry/app.BTQrNu01.js","_app/immutable/chunks/legacy-client.C4n4vyWt.js","_app/immutable/chunks/runtime.D5Eo_qK5.js","_app/immutable/chunks/index.BFqC5wTN.js","_app/immutable/chunks/render.DvwA5x7Y.js","_app/immutable/chunks/template.crdunwoG.js","_app/immutable/chunks/disclose-version.Bg9kRutz.js","_app/immutable/chunks/if.CJDxwfmJ.js","_app/immutable/chunks/svelte-component.B6ZBFQpJ.js","_app/immutable/chunks/proxy.COwzr3C4.js","_app/immutable/chunks/this.D1O0NcWZ.js","_app/immutable/chunks/props.hcWm1i0A.js","_app/immutable/chunks/store.B2k5Mcgv.js","_app/immutable/chunks/utils.StPNKlDT.js","_app/immutable/chunks/index-client.h3VPn9dO.js"],"stylesheets":[],"fonts":[],"uses_env_dynamic_public":false},
+		client: {start:"_app/immutable/entry/start.GQMw9in3.js",app:"_app/immutable/entry/app.BR0R2NGw.js",imports:["_app/immutable/entry/start.GQMw9in3.js","_app/immutable/chunks/BZStufSk.js","_app/immutable/chunks/QVhOFtx3.js","_app/immutable/chunks/BFqC5wTN.js","_app/immutable/chunks/BF8fzuhZ.js","_app/immutable/entry/app.BR0R2NGw.js","_app/immutable/chunks/YUCeb19p.js","_app/immutable/chunks/QVhOFtx3.js","_app/immutable/chunks/BFqC5wTN.js","_app/immutable/chunks/pZ_1hlpI.js","_app/immutable/chunks/DbEcWxDY.js","_app/immutable/chunks/Bg9kRutz.js","_app/immutable/chunks/D4qc5GMp.js","_app/immutable/chunks/mgwE69oG.js","_app/immutable/chunks/BesO7yXd.js","_app/immutable/chunks/lhJE1U24.js","_app/immutable/chunks/BF8fzuhZ.js","_app/immutable/chunks/Dzvo0kDF.js"],stylesheets:[],fonts:[],uses_env_dynamic_public:false},
 		nodes: [
-			__memo(() => import('./chunks/0-DpKvKUDG.js')),
-			__memo(() => import('./chunks/1-CdmGWxDU.js')),
-			__memo(() => import('./chunks/2-v9f-5jT2.js')),
-			__memo(() => import('./chunks/3-BrgOv9l1.js')),
-			__memo(() => import('./chunks/4-DDyzZNiR.js')),
-			__memo(() => import('./chunks/5-L3jAFpEa.js')),
-			__memo(() => import('./chunks/6-Cgxyoqmv.js')),
-			__memo(() => import('./chunks/7-C0mHY1p-.js')),
-			__memo(() => import('./chunks/8-3NSPP_h3.js')),
-			__memo(() => import('./chunks/9-iCxyj4fs.js')),
-			__memo(() => import('./chunks/10-CxTRkeQk.js')),
-			__memo(() => import('./chunks/11-DkYylgWU.js')),
-			__memo(() => import('./chunks/12-DL9_H32w.js')),
-			__memo(() => import('./chunks/13-DozwabNM.js')),
-			__memo(() => import('./chunks/14-CkgeptZQ.js')),
-			__memo(() => import('./chunks/15-D_Y3XjPN.js')),
-			__memo(() => import('./chunks/16-KB66GgXC.js')),
-			__memo(() => import('./chunks/17-DzuKo9zM.js')),
-			__memo(() => import('./chunks/18-S4p6bAaN.js')),
-			__memo(() => import('./chunks/19-U98ELD2p.js')),
-			__memo(() => import('./chunks/20-DYGcMB0R.js')),
-			__memo(() => import('./chunks/21-C_Cicbgr.js'))
+			__memo(() => import('./chunks/0-D4_WCPWx.js')),
+			__memo(() => import('./chunks/1-C8ul9-AR.js')),
+			__memo(() => import('./chunks/2-BGvpuT6y.js')),
+			__memo(() => import('./chunks/3-CQfstCni.js')),
+			__memo(() => import('./chunks/4-Da2JAIKZ.js')),
+			__memo(() => import('./chunks/5-D5PIWfE6.js')),
+			__memo(() => import('./chunks/6-mi8ih8fS.js')),
+			__memo(() => import('./chunks/7-BbGja7Hd.js')),
+			__memo(() => import('./chunks/8-C95BKmKe.js')),
+			__memo(() => import('./chunks/9-Dz-U6c84.js')),
+			__memo(() => import('./chunks/10-Hgw7GG9j.js')),
+			__memo(() => import('./chunks/11-TtsY5DCY.js')),
+			__memo(() => import('./chunks/12-D1Q6Bu_m.js')),
+			__memo(() => import('./chunks/13-Q9dwwvI8.js')),
+			__memo(() => import('./chunks/14-DcuCHQ_x.js')),
+			__memo(() => import('./chunks/15-Dc0AokPh.js')),
+			__memo(() => import('./chunks/16-BEQ7rUz0.js')),
+			__memo(() => import('./chunks/17-a-luO3h5.js')),
+			__memo(() => import('./chunks/18-CaZchm20.js')),
+			__memo(() => import('./chunks/19-CefyZ6G8.js'))
 		],
 		routes: [
 			{
@@ -55,7 +53,7 @@ return {
 				pattern: /^\/api\/auth\/logout\/?$/,
 				params: [],
 				page: null,
-				endpoint: __memo(() => import('./chunks/_server.ts-BAyYaZUb.js'))
+				endpoint: __memo(() => import('./chunks/_server.ts-BRTHZLWU.js'))
 			},
 			{
 				id: "/dashboard",
@@ -79,80 +77,66 @@ return {
 				endpoint: null
 			},
 			{
-				id: "/dashboard/inventory/orders",
-				pattern: /^\/dashboard\/inventory\/orders\/?$/,
+				id: "/dashboard/kitchen",
+				pattern: /^\/dashboard\/kitchen\/?$/,
 				params: [],
 				page: { layouts: [0,2,], errors: [1,,], leaf: 11 },
 				endpoint: null
 			},
 			{
-				id: "/dashboard/kitchen",
-				pattern: /^\/dashboard\/kitchen\/?$/,
-				params: [],
+				id: "/dashboard/kitchen/recipe/[id]",
+				pattern: /^\/dashboard\/kitchen\/recipe\/([^/]+?)\/?$/,
+				params: [{"name":"id","optional":false,"rest":false,"chained":false}],
 				page: { layouts: [0,2,], errors: [1,,], leaf: 12 },
-				endpoint: null
-			},
-			{
-				id: "/dashboard/kitchen/prep-boards",
-				pattern: /^\/dashboard\/kitchen\/prep-boards\/?$/,
-				params: [],
-				page: { layouts: [0,2,], errors: [1,,], leaf: 13 },
-				endpoint: null
-			},
-			{
-				id: "/dashboard/kitchen/recipes",
-				pattern: /^\/dashboard\/kitchen\/recipes\/?$/,
-				params: [],
-				page: { layouts: [0,2,], errors: [1,,], leaf: 14 },
 				endpoint: null
 			},
 			{
 				id: "/dashboard/menus",
 				pattern: /^\/dashboard\/menus\/?$/,
 				params: [],
-				page: { layouts: [0,2,], errors: [1,,], leaf: 15 },
+				page: { layouts: [0,2,], errors: [1,,], leaf: 13 },
 				endpoint: null
 			},
 			{
 				id: "/dashboard/organization",
 				pattern: /^\/dashboard\/organization\/?$/,
 				params: [],
-				page: { layouts: [0,2,], errors: [1,,], leaf: 16 },
+				page: { layouts: [0,2,], errors: [1,,], leaf: 14 },
 				endpoint: null
 			},
 			{
 				id: "/dashboard/profile",
 				pattern: /^\/dashboard\/profile\/?$/,
 				params: [],
-				page: { layouts: [0,2,], errors: [1,,], leaf: 17 },
+				page: { layouts: [0,2,], errors: [1,,], leaf: 15 },
 				endpoint: null
 			},
 			{
 				id: "/dashboard/schedules",
 				pattern: /^\/dashboard\/schedules\/?$/,
 				params: [],
-				page: { layouts: [0,2,], errors: [1,,], leaf: 18 },
+				page: { layouts: [0,2,], errors: [1,,], leaf: 16 },
 				endpoint: null
 			},
 			{
 				id: "/dashboard/settings",
 				pattern: /^\/dashboard\/settings\/?$/,
 				params: [],
-				page: { layouts: [0,2,], errors: [1,,], leaf: 19 },
+				page: { layouts: [0,2,], errors: [1,,], leaf: 17 },
 				endpoint: null
 			},
 			{
 				id: "/dashboard/staff",
 				pattern: /^\/dashboard\/staff\/?$/,
 				params: [],
-				page: { layouts: [0,2,], errors: [1,,], leaf: 20 },
+				page: { layouts: [0,2,], errors: [1,,], leaf: 18 },
 				endpoint: null
 			},
 			{
 				id: "/docs/[...slug]",
 				pattern: /^\/docs(?:\/(.*))?\/?$/,
 				params: [{"name":"slug","optional":false,"rest":true,"chained":true}],
-				page: { layouts: [0,], errors: [1,], leaf: 21 },
+				page: { layouts: [0,], errors: [1,], leaf: 19 },
 				endpoint: null
 			},
 			{
@@ -177,6 +161,7 @@ return {
 				endpoint: null
 			}
 		],
+		prerendered_routes: new Set([]),
 		matchers: async () => {
 			
 			return {  };

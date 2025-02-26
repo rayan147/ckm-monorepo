@@ -2097,6 +2097,7 @@ declare const api: {
             status: 200;
             body: {
                 code: string;
+                csrfToken?: string | undefined;
             };
             headers: Headers;
         } | {

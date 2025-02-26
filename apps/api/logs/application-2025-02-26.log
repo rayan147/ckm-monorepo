@@ -1,0 +1,150 @@
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-26T12:03:15.690Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":10,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-26T12:03:15.692Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.recipe.findMany()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/recipe/recipe.service.ts:211:28\n\n  208 \n  209 const [totalCount, recipes] = await Promise.all([\n  210   this.prisma.recipe.count({ where }),\n→ 211   this.prisma.recipe.findMany(\nThe column `recipe.imageUrl` does not exist in the current database.",
+  "level": "error",
+  "message": "Failed to fetch recipes: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-02-26T12:03:15.730Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-26T12:03:25.272Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":10,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-26T12:03:25.273Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.recipe.findMany()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/recipe/recipe.service.ts:211:28\n\n  208 \n  209 const [totalCount, recipes] = await Promise.all([\n  210   this.prisma.recipe.count({ where }),\n→ 211   this.prisma.recipe.findMany(\nThe column `recipe.imageUrl` does not exist in the current database.",
+  "level": "error",
+  "message": "Failed to fetch recipes: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-02-26T12:03:25.280Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-26T12:03:35.869Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":10,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-26T12:03:35.871Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.recipe.findMany()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/recipe/recipe.service.ts:211:28\n\n  208 \n  209 const [totalCount, recipes] = await Promise.all([\n  210   this.prisma.recipe.count({ where }),\n→ 211   this.prisma.recipe.findMany(\nThe column `recipe.imageUrl` does not exist in the current database.",
+  "level": "error",
+  "message": "Failed to fetch recipes: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-02-26T12:03:35.883Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-26T12:38:45.601Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-26T12:38:45.604Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-26T12:38:45.745Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-26T12:38:45.746Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-26T12:38:55.951Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-26T12:38:55.952Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-26T12:39:08.290Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-26T12:39:08.290Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 181",
+  "service": "LoggingService",
+  "timestamp": "2025-02-26T12:49:31.919Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 181",
+  "service": "LoggingService",
+  "timestamp": "2025-02-26T12:49:31.920Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-02-26T12:49:41.230Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-02-26T12:49:41.230Z"
+}

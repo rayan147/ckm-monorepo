@@ -105,7 +105,7 @@ let RecipeService = class RecipeService {
                     where: { id },
                     data: {
                         name: data.name,
-                        imageUrl: data.imageUrl,
+                        imageUrls: data.imageUrls,
                         description: data.description,
                         servings: data.servings,
                         cookTime: data.cookTime,
@@ -186,7 +186,7 @@ let RecipeService = class RecipeService {
                     instructions: {
                         orderBy: { stepNumber: 'asc' },
                     },
-                    MenuItemRecipe: true,
+                    menuItemRecipes: true,
                     foodCostHistory: true,
                     prepHistory: true,
                     prepBoards: true,

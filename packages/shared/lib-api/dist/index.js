@@ -27,7 +27,8 @@ var import_core = require("@ts-rest/core");
 var import_contracts = require("@ckm/contracts");
 var api = (0, import_core.initClient)(import_contracts.contract, {
   baseUrl: "http://localhost:3000",
-  baseHeaders: {}
+  baseHeaders: {},
+  Credentials: true
 });
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
