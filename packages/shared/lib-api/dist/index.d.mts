@@ -1,195 +1,7 @@
-import * as _ts_rest_core from '@ts-rest/core';
 import * as _ckm_db from '@ckm/db';
+import * as _ts_rest_core from '@ts-rest/core';
 
 declare const api: {
-    users: {
-        createUser: (args: {
-            body: _ckm_db.Prisma.UserCreateWithoutRestaurantInput;
-            cache?: RequestCache | undefined;
-            fetchOptions?: _ts_rest_core.FetchOptions | undefined;
-            extraHeaders?: Record<string, string | undefined> | undefined;
-            overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
-        }) => Promise<{
-            status: 201;
-            body: {
-                id: number;
-                restaurantId: number | null;
-                createdAt: Date;
-                updatedAt: Date;
-                email: string;
-                organizationId: number | null;
-                sub: number | null;
-                passwordHash: string;
-                firstName: string;
-                lastName: string;
-                profileImage: string | null;
-                verified: boolean;
-                role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
-            };
-            headers: Headers;
-        } | {
-            status: 400;
-            body: {
-                message: string;
-            };
-            headers: Headers;
-        } | {
-            status: 200 | 404 | 500 | 401 | 100 | 101 | 102 | 202 | 203 | 204 | 205 | 206 | 207 | 300 | 301 | 302 | 303 | 304 | 305 | 307 | 308 | 402 | 403 | 405 | 406 | 407 | 408 | 409 | 410 | 411 | 412 | 413 | 414 | 415 | 416 | 417 | 418 | 419 | 420 | 421 | 422 | 423 | 424 | 428 | 429 | 431 | 451 | 501 | 502 | 503 | 504 | 505 | 507 | 511;
-            body: unknown;
-            headers: Headers;
-        }>;
-        getUsers: (args?: {
-            cache?: RequestCache | undefined;
-            fetchOptions?: _ts_rest_core.FetchOptions | undefined;
-            extraHeaders?: Record<string, string | undefined> | undefined;
-            overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
-            query?: {
-                skip?: string | undefined;
-                take?: string | undefined;
-                orderBy?: string | undefined;
-            } | undefined;
-        } | undefined) => Promise<{
-            status: 200;
-            body: {
-                id: number;
-                restaurantId: number | null;
-                createdAt: Date;
-                updatedAt: Date;
-                email: string;
-                organizationId: number | null;
-                sub: number | null;
-                passwordHash: string;
-                firstName: string;
-                lastName: string;
-                profileImage: string | null;
-                verified: boolean;
-                role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
-            }[];
-            headers: Headers;
-        } | {
-            status: 404;
-            body: {
-                message: string;
-            };
-            headers: Headers;
-        } | {
-            status: 201 | 400 | 500 | 401 | 100 | 101 | 102 | 202 | 203 | 204 | 205 | 206 | 207 | 300 | 301 | 302 | 303 | 304 | 305 | 307 | 308 | 402 | 403 | 405 | 406 | 407 | 408 | 409 | 410 | 411 | 412 | 413 | 414 | 415 | 416 | 417 | 418 | 419 | 420 | 421 | 422 | 423 | 424 | 428 | 429 | 431 | 451 | 501 | 502 | 503 | 504 | 505 | 507 | 511;
-            body: unknown;
-            headers: Headers;
-        }>;
-        getUser: (args: {
-            params: {
-                id: number;
-            };
-            cache?: RequestCache | undefined;
-            fetchOptions?: _ts_rest_core.FetchOptions | undefined;
-            extraHeaders?: Record<string, string | undefined> | undefined;
-            overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
-        }) => Promise<{
-            status: 200;
-            body: {
-                id: number;
-                restaurantId: number | null;
-                createdAt: Date;
-                updatedAt: Date;
-                email: string;
-                organizationId: number | null;
-                sub: number | null;
-                passwordHash: string;
-                firstName: string;
-                lastName: string;
-                profileImage: string | null;
-                verified: boolean;
-                role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
-            };
-            headers: Headers;
-        } | {
-            status: 404;
-            body: {
-                message: string;
-            };
-            headers: Headers;
-        } | {
-            status: 201 | 400 | 500 | 401 | 100 | 101 | 102 | 202 | 203 | 204 | 205 | 206 | 207 | 300 | 301 | 302 | 303 | 304 | 305 | 307 | 308 | 402 | 403 | 405 | 406 | 407 | 408 | 409 | 410 | 411 | 412 | 413 | 414 | 415 | 416 | 417 | 418 | 419 | 420 | 421 | 422 | 423 | 424 | 428 | 429 | 431 | 451 | 501 | 502 | 503 | 504 | 505 | 507 | 511;
-            body: unknown;
-            headers: Headers;
-        }>;
-        updateUser: (args: {
-            params: {
-                id: number;
-            };
-            cache?: RequestCache | undefined;
-            fetchOptions?: _ts_rest_core.FetchOptions | undefined;
-            extraHeaders?: Record<string, string | undefined> | undefined;
-            overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
-            body?: _ckm_db.Prisma.UserUpdateInput | undefined;
-        }) => Promise<{
-            status: 200;
-            body: {
-                id: number;
-                restaurantId: number | null;
-                createdAt: Date;
-                updatedAt: Date;
-                email: string;
-                organizationId: number | null;
-                sub: number | null;
-                passwordHash: string;
-                firstName: string;
-                lastName: string;
-                profileImage: string | null;
-                verified: boolean;
-                role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
-            };
-            headers: Headers;
-        } | {
-            status: 404;
-            body: {
-                message: string;
-            };
-            headers: Headers;
-        } | {
-            status: 201 | 400 | 500 | 401 | 100 | 101 | 102 | 202 | 203 | 204 | 205 | 206 | 207 | 300 | 301 | 302 | 303 | 304 | 305 | 307 | 308 | 402 | 403 | 405 | 406 | 407 | 408 | 409 | 410 | 411 | 412 | 413 | 414 | 415 | 416 | 417 | 418 | 419 | 420 | 421 | 422 | 423 | 424 | 428 | 429 | 431 | 451 | 501 | 502 | 503 | 504 | 505 | 507 | 511;
-            body: unknown;
-            headers: Headers;
-        }>;
-        deleteUser: (args: {
-            params: {
-                id: number;
-            };
-            cache?: RequestCache | undefined;
-            fetchOptions?: _ts_rest_core.FetchOptions | undefined;
-            extraHeaders?: Record<string, string | undefined> | undefined;
-            overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
-        }) => Promise<{
-            status: 200;
-            body: {
-                id: number;
-                restaurantId: number | null;
-                createdAt: Date;
-                updatedAt: Date;
-                email: string;
-                organizationId: number | null;
-                sub: number | null;
-                passwordHash: string;
-                firstName: string;
-                lastName: string;
-                profileImage: string | null;
-                verified: boolean;
-                role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
-            };
-            headers: Headers;
-        } | {
-            status: 404;
-            body: {
-                message: string;
-            };
-            headers: Headers;
-        } | {
-            status: 201 | 400 | 500 | 401 | 100 | 101 | 102 | 202 | 203 | 204 | 205 | 206 | 207 | 300 | 301 | 302 | 303 | 304 | 305 | 307 | 308 | 402 | 403 | 405 | 406 | 407 | 408 | 409 | 410 | 411 | 412 | 413 | 414 | 415 | 416 | 417 | 418 | 419 | 420 | 421 | 422 | 423 | 424 | 428 | 429 | 431 | 451 | 501 | 502 | 503 | 504 | 505 | 507 | 511;
-            body: unknown;
-            headers: Headers;
-        }>;
-    };
     orgs: {
         createOrganization: (args: {
             body: {
@@ -338,6 +150,194 @@ declare const api: {
             headers: Headers;
         }>;
     };
+    users: {
+        createUser: (args: {
+            body: _ckm_db.Prisma.UserCreateWithoutRestaurantInput;
+            cache?: RequestCache | undefined;
+            fetchOptions?: _ts_rest_core.FetchOptions | undefined;
+            extraHeaders?: Record<string, string | undefined> | undefined;
+            overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
+        }) => Promise<{
+            status: 201;
+            body: {
+                id: number;
+                createdAt: Date;
+                updatedAt: Date;
+                restaurantId: number | null;
+                email: string;
+                organizationId: number | null;
+                sub: number | null;
+                passwordHash: string;
+                firstName: string;
+                lastName: string;
+                profileImage: string | null;
+                verified: boolean;
+                role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
+            };
+            headers: Headers;
+        } | {
+            status: 400;
+            body: {
+                message: string;
+            };
+            headers: Headers;
+        } | {
+            status: 200 | 404 | 500 | 401 | 100 | 101 | 102 | 202 | 203 | 204 | 205 | 206 | 207 | 300 | 301 | 302 | 303 | 304 | 305 | 307 | 308 | 402 | 403 | 405 | 406 | 407 | 408 | 409 | 410 | 411 | 412 | 413 | 414 | 415 | 416 | 417 | 418 | 419 | 420 | 421 | 422 | 423 | 424 | 428 | 429 | 431 | 451 | 501 | 502 | 503 | 504 | 505 | 507 | 511;
+            body: unknown;
+            headers: Headers;
+        }>;
+        getUsers: (args?: {
+            cache?: RequestCache | undefined;
+            fetchOptions?: _ts_rest_core.FetchOptions | undefined;
+            extraHeaders?: Record<string, string | undefined> | undefined;
+            overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
+            query?: {
+                skip?: string | undefined;
+                take?: string | undefined;
+                orderBy?: string | undefined;
+            } | undefined;
+        } | undefined) => Promise<{
+            status: 200;
+            body: {
+                id: number;
+                createdAt: Date;
+                updatedAt: Date;
+                restaurantId: number | null;
+                email: string;
+                organizationId: number | null;
+                sub: number | null;
+                passwordHash: string;
+                firstName: string;
+                lastName: string;
+                profileImage: string | null;
+                verified: boolean;
+                role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
+            }[];
+            headers: Headers;
+        } | {
+            status: 404;
+            body: {
+                message: string;
+            };
+            headers: Headers;
+        } | {
+            status: 201 | 400 | 500 | 401 | 100 | 101 | 102 | 202 | 203 | 204 | 205 | 206 | 207 | 300 | 301 | 302 | 303 | 304 | 305 | 307 | 308 | 402 | 403 | 405 | 406 | 407 | 408 | 409 | 410 | 411 | 412 | 413 | 414 | 415 | 416 | 417 | 418 | 419 | 420 | 421 | 422 | 423 | 424 | 428 | 429 | 431 | 451 | 501 | 502 | 503 | 504 | 505 | 507 | 511;
+            body: unknown;
+            headers: Headers;
+        }>;
+        getUser: (args: {
+            params: {
+                id: number;
+            };
+            cache?: RequestCache | undefined;
+            fetchOptions?: _ts_rest_core.FetchOptions | undefined;
+            extraHeaders?: Record<string, string | undefined> | undefined;
+            overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
+        }) => Promise<{
+            status: 200;
+            body: {
+                id: number;
+                createdAt: Date;
+                updatedAt: Date;
+                restaurantId: number | null;
+                email: string;
+                organizationId: number | null;
+                sub: number | null;
+                passwordHash: string;
+                firstName: string;
+                lastName: string;
+                profileImage: string | null;
+                verified: boolean;
+                role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
+            };
+            headers: Headers;
+        } | {
+            status: 404;
+            body: {
+                message: string;
+            };
+            headers: Headers;
+        } | {
+            status: 201 | 400 | 500 | 401 | 100 | 101 | 102 | 202 | 203 | 204 | 205 | 206 | 207 | 300 | 301 | 302 | 303 | 304 | 305 | 307 | 308 | 402 | 403 | 405 | 406 | 407 | 408 | 409 | 410 | 411 | 412 | 413 | 414 | 415 | 416 | 417 | 418 | 419 | 420 | 421 | 422 | 423 | 424 | 428 | 429 | 431 | 451 | 501 | 502 | 503 | 504 | 505 | 507 | 511;
+            body: unknown;
+            headers: Headers;
+        }>;
+        updateUser: (args: {
+            params: {
+                id: number;
+            };
+            cache?: RequestCache | undefined;
+            fetchOptions?: _ts_rest_core.FetchOptions | undefined;
+            extraHeaders?: Record<string, string | undefined> | undefined;
+            overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
+            body?: _ckm_db.Prisma.UserUpdateInput | undefined;
+        }) => Promise<{
+            status: 200;
+            body: {
+                id: number;
+                createdAt: Date;
+                updatedAt: Date;
+                restaurantId: number | null;
+                email: string;
+                organizationId: number | null;
+                sub: number | null;
+                passwordHash: string;
+                firstName: string;
+                lastName: string;
+                profileImage: string | null;
+                verified: boolean;
+                role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
+            };
+            headers: Headers;
+        } | {
+            status: 404;
+            body: {
+                message: string;
+            };
+            headers: Headers;
+        } | {
+            status: 201 | 400 | 500 | 401 | 100 | 101 | 102 | 202 | 203 | 204 | 205 | 206 | 207 | 300 | 301 | 302 | 303 | 304 | 305 | 307 | 308 | 402 | 403 | 405 | 406 | 407 | 408 | 409 | 410 | 411 | 412 | 413 | 414 | 415 | 416 | 417 | 418 | 419 | 420 | 421 | 422 | 423 | 424 | 428 | 429 | 431 | 451 | 501 | 502 | 503 | 504 | 505 | 507 | 511;
+            body: unknown;
+            headers: Headers;
+        }>;
+        deleteUser: (args: {
+            params: {
+                id: number;
+            };
+            cache?: RequestCache | undefined;
+            fetchOptions?: _ts_rest_core.FetchOptions | undefined;
+            extraHeaders?: Record<string, string | undefined> | undefined;
+            overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
+        }) => Promise<{
+            status: 200;
+            body: {
+                id: number;
+                createdAt: Date;
+                updatedAt: Date;
+                restaurantId: number | null;
+                email: string;
+                organizationId: number | null;
+                sub: number | null;
+                passwordHash: string;
+                firstName: string;
+                lastName: string;
+                profileImage: string | null;
+                verified: boolean;
+                role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
+            };
+            headers: Headers;
+        } | {
+            status: 404;
+            body: {
+                message: string;
+            };
+            headers: Headers;
+        } | {
+            status: 201 | 400 | 500 | 401 | 100 | 101 | 102 | 202 | 203 | 204 | 205 | 206 | 207 | 300 | 301 | 302 | 303 | 304 | 305 | 307 | 308 | 402 | 403 | 405 | 406 | 407 | 408 | 409 | 410 | 411 | 412 | 413 | 414 | 415 | 416 | 417 | 418 | 419 | 420 | 421 | 422 | 423 | 424 | 428 | 429 | 431 | 451 | 501 | 502 | 503 | 504 | 505 | 507 | 511;
+            body: unknown;
+            headers: Headers;
+        }>;
+    };
     orders: {
         createOrder: (args: {
             body: _ckm_db.Prisma.OrderUncheckedCreateInput;
@@ -349,9 +349,9 @@ declare const api: {
             status: 201;
             body: {
                 id: number;
-                restaurantId: number;
                 createdAt: Date;
                 updatedAt: Date;
+                restaurantId: number;
                 status: "CANCELLED" | "PENDING" | "APPROVED" | "ORDERED" | "RECEIVED";
                 vendorId: number;
             };
@@ -384,9 +384,9 @@ declare const api: {
             status: 200;
             body: {
                 id: number;
-                restaurantId: number;
                 createdAt: Date;
                 updatedAt: Date;
+                restaurantId: number;
                 status: "CANCELLED" | "PENDING" | "APPROVED" | "ORDERED" | "RECEIVED";
                 vendorId: number;
             }[];
@@ -408,9 +408,9 @@ declare const api: {
             status: 200;
             body: {
                 id: number;
-                restaurantId: number;
                 createdAt: Date;
                 updatedAt: Date;
+                restaurantId: number;
                 status: "CANCELLED" | "PENDING" | "APPROVED" | "ORDERED" | "RECEIVED";
                 vendorId: number;
             };
@@ -439,9 +439,9 @@ declare const api: {
             status: 200;
             body: {
                 id: number;
-                restaurantId: number;
                 createdAt: Date;
                 updatedAt: Date;
+                restaurantId: number;
                 status: "CANCELLED" | "PENDING" | "APPROVED" | "ORDERED" | "RECEIVED";
                 vendorId: number;
             };
@@ -469,9 +469,9 @@ declare const api: {
             status: 200;
             body: {
                 id: number;
-                restaurantId: number;
                 createdAt: Date;
                 updatedAt: Date;
+                restaurantId: number;
                 status: "CANCELLED" | "PENDING" | "APPROVED" | "ORDERED" | "RECEIVED";
                 vendorId: number;
             };
@@ -1001,19 +1001,21 @@ declare const api: {
             status: 201;
             body: {
                 id: number;
-                restaurantId: number;
-                createdAt: Date;
-                updatedAt: Date;
-                name: string;
                 description: string | null;
+                prepTime: number;
+                cookTime: number;
+                restaurantId: number;
+                name: string;
                 frequency: number | null;
-                imageUrl: string[];
                 foodCost: number | null;
                 isDeleted: boolean;
+                imageUrls: string[];
                 servings: number;
-                cookTime: number;
-                prepTime: number;
                 cookBookId: number;
+                isPublished: boolean;
+                publishedAt: Date | null;
+                language: string;
+                skillLevel: "BEGINNER" | "INTERMEDIATE" | "ADVANCED" | "EXPERT";
             };
             headers: Headers;
         } | {
@@ -1066,19 +1068,21 @@ declare const api: {
             body: {
                 recipes: {
                     id: number;
-                    restaurantId: number;
-                    createdAt: Date;
-                    updatedAt: Date;
-                    name: string;
                     description: string | null;
+                    prepTime: number;
+                    cookTime: number;
+                    restaurantId: number;
+                    name: string;
                     frequency: number | null;
-                    imageUrl: string[];
                     foodCost: number | null;
                     isDeleted: boolean;
+                    imageUrls: string[];
                     servings: number;
-                    cookTime: number;
-                    prepTime: number;
                     cookBookId: number;
+                    isPublished: boolean;
+                    publishedAt: Date | null;
+                    language: string;
+                    skillLevel: "BEGINNER" | "INTERMEDIATE" | "ADVANCED" | "EXPERT";
                 }[];
                 totalCount: number;
             };
@@ -1100,19 +1104,21 @@ declare const api: {
             status: 200;
             body: {
                 id: number;
-                restaurantId: number;
-                createdAt: Date;
-                updatedAt: Date;
-                name: string;
                 description: string | null;
+                prepTime: number;
+                cookTime: number;
+                restaurantId: number;
+                name: string;
                 frequency: number | null;
-                imageUrl: string[];
                 foodCost: number | null;
                 isDeleted: boolean;
+                imageUrls: string[];
                 servings: number;
-                cookTime: number;
-                prepTime: number;
                 cookBookId: number;
+                isPublished: boolean;
+                publishedAt: Date | null;
+                language: string;
+                skillLevel: "BEGINNER" | "INTERMEDIATE" | "ADVANCED" | "EXPERT";
             };
             headers: Headers;
         } | {
@@ -1151,19 +1157,21 @@ declare const api: {
             status: 200;
             body: {
                 id: number;
-                restaurantId: number;
-                createdAt: Date;
-                updatedAt: Date;
-                name: string;
                 description: string | null;
+                prepTime: number;
+                cookTime: number;
+                restaurantId: number;
+                name: string;
                 frequency: number | null;
-                imageUrl: string[];
                 foodCost: number | null;
                 isDeleted: boolean;
+                imageUrls: string[];
                 servings: number;
-                cookTime: number;
-                prepTime: number;
                 cookBookId: number;
+                isPublished: boolean;
+                publishedAt: Date | null;
+                language: string;
+                skillLevel: "BEGINNER" | "INTERMEDIATE" | "ADVANCED" | "EXPERT";
             };
             headers: Headers;
         } | {
@@ -1189,19 +1197,21 @@ declare const api: {
             status: 200;
             body: {
                 id: number;
-                restaurantId: number;
-                createdAt: Date;
-                updatedAt: Date;
-                name: string;
                 description: string | null;
+                prepTime: number;
+                cookTime: number;
+                restaurantId: number;
+                name: string;
                 frequency: number | null;
-                imageUrl: string[];
                 foodCost: number | null;
                 isDeleted: boolean;
+                imageUrls: string[];
                 servings: number;
-                cookTime: number;
-                prepTime: number;
                 cookBookId: number;
+                isPublished: boolean;
+                publishedAt: Date | null;
+                language: string;
+                skillLevel: "BEGINNER" | "INTERMEDIATE" | "ADVANCED" | "EXPERT";
             };
             headers: Headers;
         } | {
@@ -1235,9 +1245,16 @@ declare const api: {
             body: {
                 id: number;
                 recipeId: number;
-                ingredientId: number;
                 unit: string;
+                notes: string | null;
+                cost: number | null;
+                ingredientId: number;
                 quantity: number;
+                processingInstructions: string | null;
+                substituteIngredients: number[];
+                isOptional: boolean;
+                density: number | null;
+                yield: number | null;
                 joinAt: Date;
                 recipeVersionId: number | null;
             };
@@ -1267,9 +1284,16 @@ declare const api: {
             body: {
                 id: number;
                 recipeId: number;
-                ingredientId: number;
                 unit: string;
+                notes: string | null;
+                cost: number | null;
+                ingredientId: number;
                 quantity: number;
+                processingInstructions: string | null;
+                substituteIngredients: number[];
+                isOptional: boolean;
+                density: number | null;
+                yield: number | null;
                 joinAt: Date;
                 recipeVersionId: number | null;
             };
@@ -1306,9 +1330,16 @@ declare const api: {
             body: {
                 id: number;
                 recipeId: number;
-                ingredientId: number;
                 unit: string;
+                notes: string | null;
+                cost: number | null;
+                ingredientId: number;
                 quantity: number;
+                processingInstructions: string | null;
+                substituteIngredients: number[];
+                isOptional: boolean;
+                density: number | null;
+                yield: number | null;
                 joinAt: Date;
                 recipeVersionId: number | null;
             };
@@ -1337,9 +1368,16 @@ declare const api: {
             body: {
                 id: number;
                 recipeId: number;
-                ingredientId: number;
                 unit: string;
+                notes: string | null;
+                cost: number | null;
+                ingredientId: number;
                 quantity: number;
+                processingInstructions: string | null;
+                substituteIngredients: number[];
+                isOptional: boolean;
+                density: number | null;
+                yield: number | null;
                 joinAt: Date;
                 recipeVersionId: number | null;
             }[];
@@ -1369,9 +1407,16 @@ declare const api: {
             body: {
                 id: number;
                 recipeId: number;
-                ingredientId: number;
                 unit: string;
+                notes: string | null;
+                cost: number | null;
+                ingredientId: number;
                 quantity: number;
+                processingInstructions: string | null;
+                substituteIngredients: number[];
+                isOptional: boolean;
+                density: number | null;
+                yield: number | null;
                 joinAt: Date;
                 recipeVersionId: number | null;
             };
@@ -1407,10 +1452,16 @@ declare const api: {
             body: {
                 id: number;
                 recipeId: number;
+                stepNumber: number;
+                temperature: number | null;
+                isCritical: boolean;
                 imageUrl: string | null;
                 recipeVersionId: number | null;
-                stepNumber: number;
                 instruction: string;
+                timeInMinutes: number | null;
+                temperatureUnit: string | null;
+                techniqueTips: string | null;
+                warningNotes: string | null;
             };
             headers: Headers;
         } | {
@@ -1438,10 +1489,16 @@ declare const api: {
             body: {
                 id: number;
                 recipeId: number;
+                stepNumber: number;
+                temperature: number | null;
+                isCritical: boolean;
                 imageUrl: string | null;
                 recipeVersionId: number | null;
-                stepNumber: number;
                 instruction: string;
+                timeInMinutes: number | null;
+                temperatureUnit: string | null;
+                techniqueTips: string | null;
+                warningNotes: string | null;
             };
             headers: Headers;
         } | {
@@ -1476,10 +1533,16 @@ declare const api: {
             body: {
                 id: number;
                 recipeId: number;
+                stepNumber: number;
+                temperature: number | null;
+                isCritical: boolean;
                 imageUrl: string | null;
                 recipeVersionId: number | null;
-                stepNumber: number;
                 instruction: string;
+                timeInMinutes: number | null;
+                temperatureUnit: string | null;
+                techniqueTips: string | null;
+                warningNotes: string | null;
             };
             headers: Headers;
         } | {
@@ -1507,10 +1570,16 @@ declare const api: {
             body: {
                 id: number;
                 recipeId: number;
+                stepNumber: number;
+                temperature: number | null;
+                isCritical: boolean;
                 imageUrl: string | null;
                 recipeVersionId: number | null;
-                stepNumber: number;
                 instruction: string;
+                timeInMinutes: number | null;
+                temperatureUnit: string | null;
+                techniqueTips: string | null;
+                warningNotes: string | null;
             };
             headers: Headers;
         } | {
@@ -1537,10 +1606,16 @@ declare const api: {
             body: {
                 id: number;
                 recipeId: number;
+                stepNumber: number;
+                temperature: number | null;
+                isCritical: boolean;
                 imageUrl: string | null;
                 recipeVersionId: number | null;
-                stepNumber: number;
                 instruction: string;
+                timeInMinutes: number | null;
+                temperatureUnit: string | null;
+                techniqueTips: string | null;
+                warningNotes: string | null;
             }[];
             headers: Headers;
         } | {
@@ -1597,9 +1672,9 @@ declare const api: {
             status: 200;
             body: {
                 id: number;
+                recipeId: number;
                 createdAt: Date;
                 updatedAt: Date;
-                recipeId: number;
                 date: Date;
                 cost: number;
             }[];
@@ -1730,9 +1805,9 @@ declare const api: {
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
             query?: {
+                name?: string | undefined;
                 skip?: string | undefined;
                 take?: string | undefined;
-                name?: string | undefined;
             } | undefined;
         } | undefined) => Promise<{
             status: 200;
@@ -2418,9 +2493,9 @@ declare const api: {
             status: 201;
             body: {
                 id: number;
-                restaurantId: number;
                 createdAt: Date;
                 updatedAt: Date;
+                restaurantId: number;
                 name: string;
             };
             headers: Headers;
@@ -2449,9 +2524,9 @@ declare const api: {
             status: 200;
             body: {
                 id: number;
-                restaurantId: number;
                 createdAt: Date;
                 updatedAt: Date;
+                restaurantId: number;
                 name: string;
             }[];
             headers: Headers;
@@ -2472,9 +2547,9 @@ declare const api: {
             status: 200;
             body: {
                 id: number;
-                restaurantId: number;
                 createdAt: Date;
                 updatedAt: Date;
+                restaurantId: number;
                 name: string;
             };
             headers: Headers;
@@ -2504,9 +2579,9 @@ declare const api: {
             status: 200;
             body: {
                 id: number;
-                restaurantId: number;
                 createdAt: Date;
                 updatedAt: Date;
+                restaurantId: number;
                 name: string;
             };
             headers: Headers;
@@ -2558,18 +2633,16 @@ declare const api: {
             status: 201;
             body: {
                 id: number;
-                price: number;
-                createdAt: Date;
-                updatedAt: Date;
-                name: string;
                 description: string | null;
+                price: number;
+                name: string;
                 menuId: number;
+                isActive: boolean;
                 foodCost: number;
                 recipeIds: number[];
                 recipeServingsAmount: number[];
                 recipeServingsCost: number[];
                 allergens: string[];
-                nutritionalInfoId: number | null;
                 categoryId: number | null;
             };
             headers: Headers;
@@ -2598,18 +2671,16 @@ declare const api: {
             status: 200;
             body: {
                 id: number;
-                price: number;
-                createdAt: Date;
-                updatedAt: Date;
-                name: string;
                 description: string | null;
+                price: number;
+                name: string;
                 menuId: number;
+                isActive: boolean;
                 foodCost: number;
                 recipeIds: number[];
                 recipeServingsAmount: number[];
                 recipeServingsCost: number[];
                 allergens: string[];
-                nutritionalInfoId: number | null;
                 categoryId: number | null;
             }[];
             headers: Headers;
@@ -2630,18 +2701,16 @@ declare const api: {
             status: 200;
             body: {
                 id: number;
-                price: number;
-                createdAt: Date;
-                updatedAt: Date;
-                name: string;
                 description: string | null;
+                price: number;
+                name: string;
                 menuId: number;
+                isActive: boolean;
                 foodCost: number;
                 recipeIds: number[];
                 recipeServingsAmount: number[];
                 recipeServingsCost: number[];
                 allergens: string[];
-                nutritionalInfoId: number | null;
                 categoryId: number | null;
             };
             headers: Headers;
@@ -2669,18 +2738,16 @@ declare const api: {
             status: 200;
             body: {
                 id: number;
-                price: number;
-                createdAt: Date;
-                updatedAt: Date;
-                name: string;
                 description: string | null;
+                price: number;
+                name: string;
                 menuId: number;
+                isActive: boolean;
                 foodCost: number;
                 recipeIds: number[];
                 recipeServingsAmount: number[];
                 recipeServingsCost: number[];
                 allergens: string[];
-                nutritionalInfoId: number | null;
                 categoryId: number | null;
             };
             headers: Headers;
@@ -2733,18 +2800,16 @@ declare const api: {
             status: 200;
             body: {
                 id: number;
-                price: number;
-                createdAt: Date;
-                updatedAt: Date;
-                name: string;
                 description: string | null;
+                price: number;
+                name: string;
                 menuId: number;
+                isActive: boolean;
                 foodCost: number;
                 recipeIds: number[];
                 recipeServingsAmount: number[];
                 recipeServingsCost: number[];
                 allergens: string[];
-                nutritionalInfoId: number | null;
                 categoryId: number | null;
             };
             headers: Headers;
@@ -2771,18 +2836,16 @@ declare const api: {
             status: 200;
             body: {
                 id: number;
-                price: number;
-                createdAt: Date;
-                updatedAt: Date;
-                name: string;
                 description: string | null;
+                price: number;
+                name: string;
                 menuId: number;
+                isActive: boolean;
                 foodCost: number;
                 recipeIds: number[];
                 recipeServingsAmount: number[];
                 recipeServingsCost: number[];
                 allergens: string[];
-                nutritionalInfoId: number | null;
                 categoryId: number | null;
             };
             headers: Headers;
@@ -2882,9 +2945,9 @@ declare const api: {
             status: 200;
             body: {
                 id: number;
+                recipeId: number;
                 createdAt: Date;
                 updatedAt: Date;
-                recipeId: number;
                 date: Date;
                 cost: number;
             }[];
@@ -2908,9 +2971,9 @@ declare const api: {
             status: 200;
             body: {
                 id: number;
+                recipeId: number;
                 createdAt: Date;
                 updatedAt: Date;
-                recipeId: number;
                 date: Date;
                 quantity: number;
             }[];
@@ -2933,34 +2996,30 @@ declare const api: {
             body: {
                 lowestCostItem: {
                     id: number;
-                    price: number;
-                    createdAt: Date;
-                    updatedAt: Date;
-                    name: string;
                     description: string | null;
+                    price: number;
+                    name: string;
                     menuId: number;
+                    isActive: boolean;
                     foodCost: number;
                     recipeIds: number[];
                     recipeServingsAmount: number[];
                     recipeServingsCost: number[];
                     allergens: string[];
-                    nutritionalInfoId: number | null;
                     categoryId: number | null;
                 };
                 highestCostItem: {
                     id: number;
-                    price: number;
-                    createdAt: Date;
-                    updatedAt: Date;
-                    name: string;
                     description: string | null;
+                    price: number;
+                    name: string;
                     menuId: number;
+                    isActive: boolean;
                     foodCost: number;
                     recipeIds: number[];
                     recipeServingsAmount: number[];
                     recipeServingsCost: number[];
                     allergens: string[];
-                    nutritionalInfoId: number | null;
                     categoryId: number | null;
                 };
                 averageFoodCost: number;
@@ -3021,19 +3080,21 @@ declare const api: {
                 mostPreparedRecipes: {
                     recipe: {
                         id: number;
-                        restaurantId: number;
-                        createdAt: Date;
-                        updatedAt: Date;
-                        name: string;
                         description: string | null;
+                        prepTime: number;
+                        cookTime: number;
+                        restaurantId: number;
+                        name: string;
                         frequency: number | null;
-                        imageUrl: string[];
                         foodCost: number | null;
                         isDeleted: boolean;
+                        imageUrls: string[];
                         servings: number;
-                        cookTime: number;
-                        prepTime: number;
                         cookBookId: number;
+                        isPublished: boolean;
+                        publishedAt: Date | null;
+                        language: string;
+                        skillLevel: "BEGINNER" | "INTERMEDIATE" | "ADVANCED" | "EXPERT";
                     };
                     prepCount: number;
                 }[];

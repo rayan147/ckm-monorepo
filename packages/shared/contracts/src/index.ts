@@ -1,5 +1,7 @@
-import { initContract } from '@ts-rest/core';
-import { userContract } from  "./users"
+import { initContract, type AppRouter } from '@ts-rest/core';
+
+
+import { userContract } from "./users"
 import { organizationContract } from './organization';
 import { orderContract } from './order';
 import { orderItemContract } from './orderItem';
@@ -20,9 +22,9 @@ import { prepItemContract } from './prep-item';
 const c = initContract();
 
 export const contract = c.router({
-  users: userContract,
   orgs: organizationContract,
-  orders: orderContract, 
+  users: userContract,
+  orders: orderContract,
   orderItem: orderItemContract,
   restaurant: restaurantContract,
   shifts: shiftContract,
@@ -39,5 +41,5 @@ export const contract = c.router({
   prepItem: prepItemContract
 
 }, {
-  pathPrefix:"/api/v1"
-})
+  pathPrefix: "/api/v1"
+}) satisfies AppRouter

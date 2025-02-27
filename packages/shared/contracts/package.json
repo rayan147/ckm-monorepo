@@ -13,10 +13,10 @@
     "clean": "rm -rf dist"
   },
   "devDependencies": {
-    "@ts-rest/core": "^3.30.4",
-    "tsup": "^8.3.0",
-    "typescript": "^5.6.3",
-    "zod": "^3.22.4"
+    "@ts-rest/core": "^3.52.0",
+    "tsup": "^8.4.0",
+    "typescript": "^5.7.3",
+    "zod": "^3.24.2"
   },
   "dependencies": {
     "@ckm/db": "workspace:*",

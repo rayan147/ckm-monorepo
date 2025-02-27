@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { User, Prisma, UserRole } from '@ckm/db';
+import { User, Prisma, UserRole, zodSchemas } from '@ckm/db';
 import * as bcrypt from 'bcryptjs';
 
 @Injectable()
@@ -60,7 +60,7 @@ export class UserService {
       restaurantId?: number | null;
       organizationId?: number | null;
     },
-  ): Promise<User> {
+  ): Promise<zodSchemas.User> {
     try {
       // 1. Hash the password
       const hashedPassword = await bcrypt.hash(data.passwordHash, 10);

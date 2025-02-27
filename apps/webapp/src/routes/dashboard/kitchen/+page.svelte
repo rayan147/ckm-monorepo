@@ -1,26 +1,47 @@
 <script lang="ts">
   import { Input } from '$lib/components/ui/input/index.js';
-  import { Search, X, SquareArrowUpRight } from 'lucide-svelte';
+  import { Button } from '$lib/components/ui/button/index.js';
+  import { Badge } from '$lib/components/ui/badge/index.js';
+  import { Search, Plus, X, Edit, ChevronRight, Clock, DollarSign } from 'lucide-svelte';
   import * as Table from '$lib/components/ui/table';
-  import type { PageProps } from './$types';
+  import * as Card from '$lib/components/ui/card';
+  import * as Avatar from '$lib/components/ui/avatar';
   import * as Pagination from '$lib/components/ui/pagination';
+  import * as Dialog from '$lib/components/ui/dialog/index';
+  import * as Tabs from '$lib/components/ui/tabs';
+  import { Skeleton } from '$lib/components/ui/skeleton/index.js';
+  import { toast } from 'svelte-sonner';
   import { goto } from '$app/navigation';
   import { navigating, page } from '$app/state';
-  import { fade, fly } from 'svelte/transition';
+  import { fade, fly, slide } from 'svelte/transition';
   import { quintOut } from 'svelte/easing';
   import { enhance } from '$app/forms';
-  import * as Dialog from '$lib/components/ui/dialog/index';
-  import { toast } from 'svelte-sonner';
-  import { Skeleton } from '$lib/components/ui/skeleton/index.js';
-  import Button from '$lib/components/ui/button/button.svelte';
+  import type { PageProps } from './$types';
+  import Chef from '$lib/images/chef.svelte';
 
+  // Initialize props with runes syntax
   let { data, form }: PageProps = $props();
+
+  // State management with runes
   let searchTerm = $state(page.url.searchParams.get('search') || '');
-
   let recipeToDelete = $state(null);
+  let isDialogOpen = $state(false);
+  let viewMode = $state(localStorage.getItem('recipeViewMode') || 'grid');
 
+  // Check if we're in the browser environment before using localStorage
+  $effect(() => {
+    if (typeof window !== 'undefined') {
+      viewMode = localStorage.getItem('recipeViewMode') || 'grid';
+    }
+  });
+
+  // Derived state
+  let filteredRecipes = $derived(data?.recipes || []);
+
+  // Loading state for skeletons
   const skeletonRows = Array(10).fill(null);
 
+  // Handle form submission feedback
   $effect(() => {
     if (form) {
       if (form.success) {
@@ -30,17 +51,27 @@
       }
     }
   });
-  let isDialogOpen = $state(false);
 
+  // Update dialog state when recipe to delete changes
   $effect(() => {
-    // When recipeToDelete changes, update dialog state
     isDialogOpen = !!recipeToDelete;
   });
 
+  // Handle dialog close
   function handleDialogClose() {
     recipeToDelete = null;
     isDialogOpen = false;
   }
+
+  // Handle search with debounce
+  let searchTimeout: NodeJS.Timeout;
+  function handleSearchInput() {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+      handleSearch();
+    }, 300);
+  }
+
   function handleSearch() {
     const params = new URLSearchParams();
     if (searchTerm) params.set('search', searchTerm);
@@ -48,206 +79,467 @@
     goto(`?${params.toString()}`);
   }
 
+  // Page navigation
   function handlePageChange(newPage: number) {
     const params = new URLSearchParams(page.url.searchParams);
     params.set('page', newPage.toString());
     goto(`?${params.toString()}`);
   }
+  // View mode toggle (grid/list)
+  function toggleViewMode(mode: string) {
+    viewMode = mode;
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('recipeViewMode', mode);
+    }
+  }
 
+  // Delete confirmation
   function confirmDelete(recipe: any) {
     recipeToDelete = recipe;
   }
 
+  // Navigation to recipe details
   function navigateToRecipeDetails(id: number) {
     goto(`/dashboard/kitchen/recipe/${id}`);
   }
+
+  // Create a new recipe
+  function createNewRecipe() {
+    goto(`/dashboard/kitchen/recipe/new`);
+  }
+
+  // Format cook time
+  function formatCookTime(minutes: number): string {
+    if (minutes < 60) {
+      return `${minutes} min`;
+    } else {
+      const hours = Math.floor(minutes / 60);
+      const remainingMinutes = minutes % 60;
+      return remainingMinutes > 0 ? `${hours}h ${remainingMinutes}m` : `${hours}h`;
+    }
+  }
+
+  // Get skill level badge color
+  function getSkillLevelColor(level: string): string {
+    switch (level?.toLowerCase()) {
+      case 'beginner':
+        return 'bg-emerald-100 text-emerald-800';
+      case 'intermediate':
+        return 'bg-blue-100 text-blue-800';
+      case 'advanced':
+        return 'bg-amber-100 text-amber-800';
+      case 'expert':
+        return 'bg-rose-100 text-rose-800';
+      default:
+        return 'bg-gray-100 text-gray-800';
+    }
+  }
 </script>
 
-<!-- Search section remains the same -->
-<section class="w-full flex justify-center mt-10">
-  <div class="relative flex items-center w-full max-w-3xl">
-    <Search class="absolute left-3 h-4 w-4 text-muted-foreground" />
-    <Input
-      type="search"
-      placeholder="Search for recipes"
-      class="pl-10 w-full"
-      bind:value={searchTerm}
-      onkeydown={(e) => e.key === 'Enter' && handleSearch()}
-    />
-  </div>
-</section>
+<div class="container mx-auto p-6 max-w-7xl">
+  <!-- Header -->
+  <header class="mb-8">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div>
+        <h1 class="text-3xl font-bold tracking-tight">Recipe Manager</h1>
+        <p class="text-muted-foreground mt-1">Manage and organize your culinary creations</p>
+      </div>
+      <Button on:click={createNewRecipe} class="w-full sm:w-auto">
+        <Plus class="h-4 w-4 mr-2" />
+        <span>New Recipe</span>
+      </Button>
+    </div>
+  </header>
 
-<!-- Table with transitions -->
-<section class="mt-6">
-  {#key data.pagination?.currentPage}
-    <div in:fade={{ duration: 300, easing: quintOut }}>
-      <Table.Root>
-        <Table.Caption>A list of your top recent recipes.</Table.Caption>
-        <Table.Header>
-          <Table.Row>
-            <Table.Head class="w-[100px]">Name</Table.Head>
-            <Table.Head>Cook Time</Table.Head>
-            <Table.Head>Image</Table.Head>
-            <Table.Head class="text-right">Cost</Table.Head>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
+  <!-- Search and filter section -->
+  <section class="mb-6">
+    <div class="flex flex-col sm:flex-row gap-4">
+      <div class="relative flex items-center flex-1">
+        <Search class="absolute left-3 h-4 w-4 text-muted-foreground" />
+        <Input
+          type="search"
+          placeholder="Search recipes by name, ingredients or tags..."
+          class="pl-10 w-full"
+          bind:value={searchTerm}
+          on:input={handleSearchInput}
+          on:keydown={(e) => e.key === 'Enter' && handleSearch()}
+        />
+      </div>
+
+      <div class="flex items-center space-x-2">
+        <Button
+          variant={viewMode === 'grid' ? 'default' : 'outline'}
+          size="icon"
+          class="h-10 w-10"
+          on:click={() => toggleViewMode('grid')}
+          aria-label="Grid view"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-grid"
+            ><rect width="7" height="7" x="3" y="3" rx="1" /><rect
+              width="7"
+              height="7"
+              x="14"
+              y="3"
+              rx="1"
+            /><rect width="7" height="7" x="14" y="14" rx="1" /><rect
+              width="7"
+              height="7"
+              x="3"
+              y="14"
+              rx="1"
+            /></svg
+          >
+        </Button>
+        <Button
+          variant={viewMode === 'list' ? 'default' : 'outline'}
+          size="icon"
+          class="h-10 w-10"
+          on:click={() => toggleViewMode('list')}
+          aria-label="List view"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-list"
+            ><line x1="8" x2="21" y1="6" y2="6" /><line x1="8" x2="21" y1="12" y2="12" /><line
+              x1="8"
+              x2="21"
+              y1="18"
+              y2="18"
+            /><line x1="3" x2="3.01" y1="6" y2="6" /><line x1="3" x2="3.01" y1="12" y2="12" /><line
+              x1="3"
+              x2="3.01"
+              y1="18"
+              y2="18"
+            /></svg
+          >
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main content -->
+  <section class="mb-8">
+    {#key data?.pagination?.currentPage}
+      {#if viewMode === 'grid'}
+        <!-- Grid View -->
+        <div
+          in:fade={{ duration: 300, easing: quintOut }}
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+        >
           {#if navigating.to}
-            {#each skeletonRows as _, i}
-              <Table.Row>
-                <Table.Cell>
-                  <Skeleton class="h-4 w-[120px]" />
-                </Table.Cell>
-                <Table.Cell>
-                  <Skeleton class="h-4 w-[80px]" />
-                </Table.Cell>
-                <Table.Cell>
-                  <Skeleton class="h-10 w-10 rounded-md" />
-                </Table.Cell>
-                <Table.Cell class="text-right">
-                  <Skeleton class="h-4 w-[60px] ml-auto" />
-                </Table.Cell>
-                <Table.Cell>
-                  <div class="flex gap-2">
-                    <Skeleton class="h-6 w-6 rounded-full" />
-                    <Skeleton class="h-6 w-6 rounded-full" />
+            {#each skeletonRows.slice(0, 8) as _, i}
+              <Card.Root>
+                <Card.Header class="p-0">
+                  <Skeleton class="h-48 w-full rounded-t-lg" />
+                </Card.Header>
+                <Card.Content class="p-4">
+                  <Skeleton class="h-6 w-3/4 mb-2" />
+                  <Skeleton class="h-4 w-1/2 mb-4" />
+                  <div class="flex justify-between">
+                    <Skeleton class="h-4 w-16" />
+                    <Skeleton class="h-4 w-16" />
                   </div>
-                </Table.Cell>
-              </Table.Row>
+                </Card.Content>
+              </Card.Root>
             {/each}
           {:else}
             {#each data.recipes as recipe, i (recipe.id)}
-              <Table.Row>
-                <Table.Cell class="font-medium">
-                  <div
-                    in:fly={{ y: 20, duration: 300, delay: i * 50, easing: quintOut }}
-                    out:fade={{ duration: 200 }}
-                  >
-                    {recipe.name}
-                  </div>
-                </Table.Cell>
-                <Table.Cell>
-                  <div
-                    in:fly={{ y: 20, duration: 300, delay: i * 50, easing: quintOut }}
-                    out:fade={{ duration: 200 }}
-                  >
-                    {recipe.cookTime} mins
-                  </div>
-                </Table.Cell>
-                <Table.Cell>
-                  <div
-                    in:fly={{ y: 20, duration: 300, delay: i * 50, easing: quintOut }}
-                    out:fade={{ duration: 200 }}
-                  >
-                    <img
-                      src={recipe.imageUrl}
-                      class="rounded-md object-cover h-10"
-                      alt={recipe.description}
-                      loading="lazy"
-                    />
-                  </div>
-                </Table.Cell>
-                <Table.Cell class="text-right">
-                  <div
-                    in:fly={{ y: 20, duration: 300, delay: i * 50, easing: quintOut }}
-                    out:fade={{ duration: 200 }}
-                  >
-                    ${recipe.foodCost}
-                  </div>
-                </Table.Cell>
-                <Table.Cell class="flex ">
-                  <div
-                    in:fly={{ y: 20, duration: 300, delay: i * 50, easing: quintOut }}
-                    out:fade={{ duration: 200 }}
-                    class="m-1 cursor-pointer hover:text-destructive"
-                  >
-                    <X role="button" onclick={() => confirmDelete(recipe)} />
-                  </div>
-                  <div
-                    in:fly={{ y: 20, duration: 300, delay: i * 50, easing: quintOut }}
-                    out:fade={{ duration: 200 }}
-                    class="m-1 cursor-pointer hover:text-primary"
-                  >
-                    <SquareArrowUpRight
-                      role="button"
-                      onclick={(e) => navigateToRecipeDetails(recipe.id)}
-                    />
-                  </div>
-                </Table.Cell>
-              </Table.Row>
+              <Card.Root>
+                <div
+                  in:fly={{ y: 20, duration: 300, delay: i * 50, easing: quintOut }}
+                  out:fade={{ duration: 200 }}
+                  class="overflow-hidden group border hover:border-primary/50 hover:shadow-md transition-all"
+                >
+                  <Card.Header class="p-0 relative">
+                    <div class="relative h-48 overflow-hidden">
+                      {#if recipe.imageUrls && recipe.imageUrls.length > 0}
+                        <img
+                          src={recipe.imageUrls[0]}
+                          class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                          alt={recipe.name}
+                          loading="lazy"
+                        />
+                      {:else}
+                        <div
+                          class="bg-muted w-full h-full flex items-center justify-center text-muted-foreground"
+                        >
+                          <Chef class="h-12 w-12" />
+                        </div>
+                      {/if}
+
+                      {#if recipe.dietaryRestrictions && recipe.dietaryRestrictions.length > 0}
+                        <div class="absolute top-2 left-2 flex flex-wrap gap-1">
+                          {#each recipe.dietaryRestrictions.slice(0, 2) as restriction}
+                            <Badge variant="secondary" class="bg-background/80 backdrop-blur-sm">
+                              {restriction.name}
+                            </Badge>
+                          {/each}
+                          {#if recipe.dietaryRestrictions.length > 2}
+                            <Badge variant="secondary" class="bg-background/80 backdrop-blur-sm">
+                              +{recipe.dietaryRestrictions.length - 2}
+                            </Badge>
+                          {/if}
+                        </div>
+                      {/if}
+                    </div>
+                  </Card.Header>
+                  <Card.Content class="p-4">
+                    <h3 class="font-medium text-lg line-clamp-1 mb-1">{recipe.name}</h3>
+
+                    <div class="flex items-center gap-2 text-sm text-muted-foreground mb-3">
+                      <span class="flex items-center">
+                        <Clock class="h-3 w-3 mr-1" />
+                        {formatCookTime(recipe.cookTime)}
+                      </span>
+                      <span class="flex items-center">
+                        <DollarSign class="h-3 w-3 mr-1" />
+                        ${recipe.foodCost?.toFixed(2) || '0.00'}
+                      </span>
+                    </div>
+
+                    <div class="flex justify-between items-center">
+                      {#if recipe.skillLevel}
+                        <Badge variant="outline" class={getSkillLevelColor(recipe.skillLevel)}>
+                          {recipe.skillLevel}
+                        </Badge>
+                      {:else}
+                        <span></span>
+                      {/if}
+
+                      <div class="flex space-x-1">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          class="h-8 w-8 text-destructive hover:text-destructive hover:bg-destructive/10"
+                          on:click={(e) => {
+                            e.stopPropagation();
+                            confirmDelete(recipe);
+                          }}
+                        >
+                          <X class="h-4 w-4" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          class="h-8 w-8"
+                          on:click={() => navigateToRecipeDetails(recipe.id)}
+                        >
+                          <ChevronRight class="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+                  </Card.Content>
+                </div>
+              </Card.Root>
             {/each}
           {/if}
-        </Table.Body>
-      </Table.Root>
-    </div>
-  {/key}
-</section>
+        </div>
+      {:else}
+        <!-- List View -->
+        <div in:fade={{ duration: 300, easing: quintOut }}>
+          <Table.Root>
+            <Table.Header>
+              <Table.Row>
+                <Table.Head>Recipe</Table.Head>
+                <Table.Head class="hidden md:table-cell">Cook Time</Table.Head>
+                <Table.Head class="hidden md:table-cell">Skill Level</Table.Head>
+                <Table.Head class="text-right">Cost</Table.Head>
+                <Table.Head class="w-[100px]">Actions</Table.Head>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              {#if navigating.to}
+                {#each skeletonRows as _, i}
+                  <Table.Row>
+                    <Table.Cell>
+                      <div class="flex items-center gap-3">
+                        <Skeleton class="h-10 w-10 rounded-md" />
+                        <div>
+                          <Skeleton class="h-5 w-32 mb-1" />
+                          <Skeleton class="h-4 w-24" />
+                        </div>
+                      </div>
+                    </Table.Cell>
+                    <Table.Cell class="hidden md:table-cell">
+                      <Skeleton class="h-4 w-16" />
+                    </Table.Cell>
+                    <Table.Cell class="hidden md:table-cell">
+                      <Skeleton class="h-5 w-24" />
+                    </Table.Cell>
+                    <Table.Cell class="text-right">
+                      <Skeleton class="h-4 w-16 ml-auto" />
+                    </Table.Cell>
+                    <Table.Cell>
+                      <div class="flex gap-2 justify-end">
+                        <Skeleton class="h-8 w-8 rounded-md" />
+                        <Skeleton class="h-8 w-8 rounded-md" />
+                      </div>
+                    </Table.Cell>
+                  </Table.Row>
+                {/each}
+              {:else}
+                {#each data.recipes as recipe, i (recipe.id)}
+                  <Table.Row>
+                    <button
+                      in:fly={{ y: 20, duration: 300, delay: i * 50, easing: quintOut }}
+                      out:fade={{ duration: 200 }}
+                      class="cursor-pointer hover:bg-muted/50"
+                      onclick={() => navigateToRecipeDetails(recipe.id)}
+                    >
+                      <Table.Cell>
+                        <div class="flex items-center gap-3">
+                          <Avatar.Root class="h-10 w-10 rounded-md overflow-hidden">
+                            {#if recipe.imageUrls && recipe.imageUrls.length > 0}
+                              <Avatar.Image src={recipe.imageUrls[0]} alt={recipe.name} />
+                            {/if}
+                            <Avatar.Fallback class="bg-muted">
+                              <Chef class="h-5 w-5 text-muted-foreground" />
+                            </Avatar.Fallback>
+                          </Avatar.Root>
+                          <div>
+                            <div class="font-medium">{recipe.name}</div>
+                            <div class="text-sm text-muted-foreground">
+                              {#if recipe.cookBook}
+                                {recipe.cookBook.name}
+                              {:else}
+                                Uncategorized
+                              {/if}
+                            </div>
+                          </div>
+                        </div>
+                      </Table.Cell>
+                      <Table.Cell class="hidden md:table-cell">
+                        {formatCookTime(recipe.cookTime)}
+                      </Table.Cell>
+                      <Table.Cell class="hidden md:table-cell">
+                        {#if recipe.skillLevel}
+                          <Badge variant="outline" class={getSkillLevelColor(recipe.skillLevel)}>
+                            {recipe.skillLevel}
+                          </Badge>
+                        {/if}
+                      </Table.Cell>
+                      <Table.Cell class="text-right font-medium">
+                        ${recipe.foodCost?.toFixed(2) || '0.00'}
+                      </Table.Cell>
+                      <Table.Cell>
+                        <div class="flex items-center justify-end gap-2">
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            class="h-8 w-8 text-destructive hover:text-destructive hover:bg-destructive/10"
+                            onclick={(e) => {
+                              e.stopPropagation();
+                              confirmDelete(recipe);
+                            }}
+                          >
+                            <X class="h-4 w-4" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            class="h-8 w-8"
+                            onclick={(e) => {
+                              e.stopPropagation();
+                              navigateToRecipeDetails(recipe.id);
+                            }}
+                          >
+                            <Edit class="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </Table.Cell>
+                    </button>
+                  </Table.Row>
+                {/each}
+              {/if}
+            </Table.Body>
+          </Table.Root>
+        </div>
+      {/if}
+    {/key}
+  </section>
 
-<!-- Pagination with transitions -->
-<section class="mt-6 flex justify-center">
-  {#if data && data.pagination}
-    <Pagination.Root
-      count={data.totalCount}
-      perPage={data.pagination.perPage}
-      page={data.pagination.currentPage}
-      let:pages
-      let:currentPage
-    >
-      <Pagination.Content>
-        <Pagination.Item>
-          {#if currentPage}
-            <div in:fade={{ duration: 100 }}>
-              <Pagination.PrevButton
-                onclick={() => handlePageChange(currentPage - 1)}
-                disabled={currentPage === 1}
-              />
-            </div>
-          {/if}
-        </Pagination.Item>
-
-        {#each pages as page (page.key)}
-          {#if page.type === 'ellipsis'}
-            <Pagination.Item>
-              <div in:fade>
-                <Pagination.Ellipsis />
-              </div>
-            </Pagination.Item>
-          {:else}
-            <Pagination.Item>
+  <!-- Pagination -->
+  <section class="flex justify-center">
+    {#if data && data.pagination}
+      <Pagination.Root
+        count={data.totalCount}
+        perPage={data.pagination.perPage}
+        page={data.pagination.currentPage}
+        let:pages
+        let:currentPage
+      >
+        <Pagination.Content>
+          <Pagination.Item>
+            {#if currentPage}
               <div in:fade={{ duration: 100 }}>
-                <Pagination.Link
-                  {page}
-                  isActive={currentPage === page.value}
-                  onclick={() => handlePageChange(page.value)}
-                >
-                  {page.value}
-                </Pagination.Link>
+                <Pagination.PrevButton
+                  on:click={() => handlePageChange(currentPage - 1)}
+                  disabled={currentPage === 1}
+                />
               </div>
-            </Pagination.Item>
-          {/if}
-        {/each}
+            {/if}
+          </Pagination.Item>
 
-        <Pagination.Item>
-          {#if currentPage}
-            <div in:fade={{ duration: 100 }}>
-              <Pagination.NextButton
-                onclick={() => handlePageChange(currentPage + 1)}
-                disabled={currentPage === Math.ceil(data.totalCount / data.pagination.perPage)}
-              />
-            </div>
-          {/if}
-        </Pagination.Item>
-      </Pagination.Content>
-    </Pagination.Root>
-  {/if}
-</section>
+          {#each pages as page (page.key)}
+            {#if page.type === 'ellipsis'}
+              <Pagination.Item>
+                <div in:fade>
+                  <Pagination.Ellipsis />
+                </div>
+              </Pagination.Item>
+            {:else}
+              <Pagination.Item>
+                <div in:fade={{ duration: 100 }}>
+                  <Pagination.Link
+                    {page}
+                    isActive={currentPage === page.value}
+                    on:click={() => handlePageChange(page.value)}
+                  >
+                    {page.value}
+                  </Pagination.Link>
+                </div>
+              </Pagination.Item>
+            {/if}
+          {/each}
 
-<!-- Delete Confirmation Dialog -->
-<section>
+          <Pagination.Item>
+            {#if currentPage}
+              <div in:fade={{ duration: 100 }}>
+                <Pagination.NextButton
+                  on:click={() => handlePageChange(currentPage + 1)}
+                  disabled={currentPage === Math.ceil(data.totalCount / data.pagination.perPage)}
+                />
+              </div>
+            {/if}
+          </Pagination.Item>
+        </Pagination.Content>
+      </Pagination.Root>
+    {/if}
+  </section>
+
+  <!-- Delete Confirmation Dialog -->
   {#if recipeToDelete}
     <Dialog.Root
       bind:open={isDialogOpen}
-      onOpenChange={(open) => {
+      on:openChange={(open) => {
         if (!open) handleDialogClose();
       }}
     >
@@ -255,7 +547,7 @@
         <Dialog.Header>
           <Dialog.Title>Confirm Deletion</Dialog.Title>
           <Dialog.Description>
-            Are you sure you want to delete "{recipeToDelete?.name}"?
+            Are you sure you want to delete "{recipeToDelete?.name}"? This action cannot be undone.
           </Dialog.Description>
         </Dialog.Header>
 
@@ -273,25 +565,13 @@
         >
           <input type="hidden" name="id" value={recipeToDelete?.id || ''} />
 
-          <div class="flex justify-end space-x-2 mt-4">
-            <Button
-              type="button"
-              variant="outline"
-              onclick={handleDialogClose}
-              class="px-4 py-2 border rounded-md hover:bg-muted"
-            >
-              Cancel
-            </Button>
-            <Button
-              type="submit"
-              variant="destructive"
-              class="px-4 py-2 bg-destructive text-destructive-foreground rounded-md hover:bg-destructive/90"
-            >
-              Delete
-            </Button>
+          <div class="flex justify-end space-x-2 mt-6">
+            <Button type="button" variant="outline" on:click={handleDialogClose}>Cancel</Button>
+            <Button type="submit" variant="destructive">Delete</Button>
           </div>
         </form>
       </Dialog.Content>
     </Dialog.Root>
   {/if}
-</section>
+</div>
+

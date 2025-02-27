@@ -13,10 +13,10 @@
   "dependencies": {
     "@ckm/contracts": "workspace:*",
     "@ckm/db": "workspace:*",
-    "@ts-rest/core": "^3.30.4",
-    "@ts-rest/react-query": "^3.30.4"
+    "@ts-rest/core": "^3.52.0",
+    "@ts-rest/react-query": "^3.52.0"
   },
   "devDependencies": {
-    "tsup": "^8.3.0"
+    "tsup": "^8.4.0"
   }
 }

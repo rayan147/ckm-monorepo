@@ -1,7 +1,224 @@
-import * as zod from 'zod';
 import * as _ckm_db from '@ckm/db';
+import * as zod from 'zod';
 
 declare const contract: {
+    orgs: {
+        createOrganization: {
+            summary: "Create a new organization";
+            method: "POST";
+            body: zod.ZodObject<Omit<{
+                id: zod.ZodNumber;
+                name: zod.ZodString;
+                imageUrl: zod.ZodNullable<zod.ZodOptional<zod.ZodString>>;
+                createdAt: zod.ZodDate;
+                updatedAt: zod.ZodDate;
+            }, "id" | "createdAt" | "updatedAt">, "strip", zod.ZodTypeAny, {
+                name: string;
+                imageUrl?: string | null | undefined;
+            }, {
+                name: string;
+                imageUrl?: string | null | undefined;
+            }>;
+            path: "/api/v1/organizations";
+            responses: {
+                201: zod.ZodObject<{
+                    id: zod.ZodNumber;
+                    name: zod.ZodString;
+                    imageUrl: zod.ZodNullable<zod.ZodOptional<zod.ZodString>>;
+                    createdAt: zod.ZodDate;
+                    updatedAt: zod.ZodDate;
+                }, "strip", zod.ZodTypeAny, {
+                    id: number;
+                    createdAt: Date;
+                    updatedAt: Date;
+                    name: string;
+                    imageUrl?: string | null | undefined;
+                }, {
+                    id: number;
+                    createdAt: Date;
+                    updatedAt: Date;
+                    name: string;
+                    imageUrl?: string | null | undefined;
+                }>;
+                400: zod.ZodObject<{
+                    message: zod.ZodString;
+                }, "strip", zod.ZodTypeAny, {
+                    message: string;
+                }, {
+                    message: string;
+                }>;
+            };
+        };
+        getOrganizations: {
+            query: zod.ZodObject<{
+                skip: zod.ZodOptional<zod.ZodString>;
+                take: zod.ZodOptional<zod.ZodString>;
+                orderBy: zod.ZodOptional<zod.ZodString>;
+            }, "strip", zod.ZodTypeAny, {
+                skip?: string | undefined;
+                take?: string | undefined;
+                orderBy?: string | undefined;
+            }, {
+                skip?: string | undefined;
+                take?: string | undefined;
+                orderBy?: string | undefined;
+            }>;
+            summary: "Get all organizations";
+            method: "GET";
+            path: "/api/v1/organizations";
+            responses: {
+                200: zod.ZodArray<zod.ZodObject<{
+                    id: zod.ZodNumber;
+                    name: zod.ZodString;
+                    imageUrl: zod.ZodNullable<zod.ZodOptional<zod.ZodString>>;
+                    createdAt: zod.ZodDate;
+                    updatedAt: zod.ZodDate;
+                }, "strip", zod.ZodTypeAny, {
+                    id: number;
+                    createdAt: Date;
+                    updatedAt: Date;
+                    name: string;
+                    imageUrl?: string | null | undefined;
+                }, {
+                    id: number;
+                    createdAt: Date;
+                    updatedAt: Date;
+                    name: string;
+                    imageUrl?: string | null | undefined;
+                }>, "many">;
+            };
+        };
+        getOrganization: {
+            pathParams: zod.ZodObject<{
+                id: zod.ZodNumber;
+            }, "strip", zod.ZodTypeAny, {
+                id: number;
+            }, {
+                id: number;
+            }>;
+            summary: "Get an organization by ID";
+            method: "GET";
+            path: "/api/v1/organizations/:id";
+            responses: {
+                200: zod.ZodObject<{
+                    id: zod.ZodNumber;
+                    name: zod.ZodString;
+                    imageUrl: zod.ZodNullable<zod.ZodOptional<zod.ZodString>>;
+                    createdAt: zod.ZodDate;
+                    updatedAt: zod.ZodDate;
+                }, "strip", zod.ZodTypeAny, {
+                    id: number;
+                    createdAt: Date;
+                    updatedAt: Date;
+                    name: string;
+                    imageUrl?: string | null | undefined;
+                }, {
+                    id: number;
+                    createdAt: Date;
+                    updatedAt: Date;
+                    name: string;
+                    imageUrl?: string | null | undefined;
+                }>;
+                404: zod.ZodObject<{
+                    message: zod.ZodString;
+                }, "strip", zod.ZodTypeAny, {
+                    message: string;
+                }, {
+                    message: string;
+                }>;
+            };
+        };
+        updateOrganization: {
+            pathParams: zod.ZodObject<{
+                id: zod.ZodNumber;
+            }, "strip", zod.ZodTypeAny, {
+                id: number;
+            }, {
+                id: number;
+            }>;
+            summary: "Update an organization";
+            method: "PUT";
+            body: zod.ZodObject<{
+                name: zod.ZodOptional<zod.ZodString>;
+                imageUrl: zod.ZodOptional<zod.ZodNullable<zod.ZodOptional<zod.ZodString>>>;
+            }, "strip", zod.ZodTypeAny, {
+                name?: string | undefined;
+                imageUrl?: string | null | undefined;
+            }, {
+                name?: string | undefined;
+                imageUrl?: string | null | undefined;
+            }>;
+            path: "/api/v1/organizations/:id";
+            responses: {
+                200: zod.ZodObject<{
+                    id: zod.ZodNumber;
+                    name: zod.ZodString;
+                    imageUrl: zod.ZodNullable<zod.ZodOptional<zod.ZodString>>;
+                    createdAt: zod.ZodDate;
+                    updatedAt: zod.ZodDate;
+                }, "strip", zod.ZodTypeAny, {
+                    id: number;
+                    createdAt: Date;
+                    updatedAt: Date;
+                    name: string;
+                    imageUrl?: string | null | undefined;
+                }, {
+                    id: number;
+                    createdAt: Date;
+                    updatedAt: Date;
+                    name: string;
+                    imageUrl?: string | null | undefined;
+                }>;
+                404: zod.ZodObject<{
+                    message: zod.ZodString;
+                }, "strip", zod.ZodTypeAny, {
+                    message: string;
+                }, {
+                    message: string;
+                }>;
+            };
+        };
+        deleteOrganization: {
+            pathParams: zod.ZodObject<{
+                id: zod.ZodNumber;
+            }, "strip", zod.ZodTypeAny, {
+                id: number;
+            }, {
+                id: number;
+            }>;
+            summary: "Delete an organization";
+            method: "DELETE";
+            path: "/api/v1/organizations/:id";
+            responses: {
+                200: zod.ZodObject<{
+                    id: zod.ZodNumber;
+                    name: zod.ZodString;
+                    imageUrl: zod.ZodNullable<zod.ZodOptional<zod.ZodString>>;
+                    createdAt: zod.ZodDate;
+                    updatedAt: zod.ZodDate;
+                }, "strip", zod.ZodTypeAny, {
+                    id: number;
+                    createdAt: Date;
+                    updatedAt: Date;
+                    name: string;
+                    imageUrl?: string | null | undefined;
+                }, {
+                    id: number;
+                    createdAt: Date;
+                    updatedAt: Date;
+                    name: string;
+                    imageUrl?: string | null | undefined;
+                }>;
+                404: zod.ZodObject<{
+                    message: zod.ZodString;
+                }, "strip", zod.ZodTypeAny, {
+                    message: string;
+                }, {
+                    message: string;
+                }>;
+            };
+        };
+    };
     users: {
         createUser: {
             summary: "Create a new user";
@@ -314,223 +531,6 @@ declare const contract: {
                     profileImage: string | null;
                     verified: boolean;
                     role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
-                }>;
-                404: zod.ZodObject<{
-                    message: zod.ZodString;
-                }, "strip", zod.ZodTypeAny, {
-                    message: string;
-                }, {
-                    message: string;
-                }>;
-            };
-        };
-    };
-    orgs: {
-        createOrganization: {
-            summary: "Create a new organization";
-            method: "POST";
-            body: zod.ZodObject<Omit<{
-                id: zod.ZodNumber;
-                name: zod.ZodString;
-                imageUrl: zod.ZodNullable<zod.ZodOptional<zod.ZodString>>;
-                createdAt: zod.ZodDate;
-                updatedAt: zod.ZodDate;
-            }, "id" | "createdAt" | "updatedAt">, "strip", zod.ZodTypeAny, {
-                name: string;
-                imageUrl?: string | null | undefined;
-            }, {
-                name: string;
-                imageUrl?: string | null | undefined;
-            }>;
-            path: "/api/v1/organizations";
-            responses: {
-                201: zod.ZodObject<{
-                    id: zod.ZodNumber;
-                    name: zod.ZodString;
-                    imageUrl: zod.ZodNullable<zod.ZodOptional<zod.ZodString>>;
-                    createdAt: zod.ZodDate;
-                    updatedAt: zod.ZodDate;
-                }, "strip", zod.ZodTypeAny, {
-                    id: number;
-                    createdAt: Date;
-                    updatedAt: Date;
-                    name: string;
-                    imageUrl?: string | null | undefined;
-                }, {
-                    id: number;
-                    createdAt: Date;
-                    updatedAt: Date;
-                    name: string;
-                    imageUrl?: string | null | undefined;
-                }>;
-                400: zod.ZodObject<{
-                    message: zod.ZodString;
-                }, "strip", zod.ZodTypeAny, {
-                    message: string;
-                }, {
-                    message: string;
-                }>;
-            };
-        };
-        getOrganizations: {
-            query: zod.ZodObject<{
-                skip: zod.ZodOptional<zod.ZodString>;
-                take: zod.ZodOptional<zod.ZodString>;
-                orderBy: zod.ZodOptional<zod.ZodString>;
-            }, "strip", zod.ZodTypeAny, {
-                skip?: string | undefined;
-                take?: string | undefined;
-                orderBy?: string | undefined;
-            }, {
-                skip?: string | undefined;
-                take?: string | undefined;
-                orderBy?: string | undefined;
-            }>;
-            summary: "Get all organizations";
-            method: "GET";
-            path: "/api/v1/organizations";
-            responses: {
-                200: zod.ZodArray<zod.ZodObject<{
-                    id: zod.ZodNumber;
-                    name: zod.ZodString;
-                    imageUrl: zod.ZodNullable<zod.ZodOptional<zod.ZodString>>;
-                    createdAt: zod.ZodDate;
-                    updatedAt: zod.ZodDate;
-                }, "strip", zod.ZodTypeAny, {
-                    id: number;
-                    createdAt: Date;
-                    updatedAt: Date;
-                    name: string;
-                    imageUrl?: string | null | undefined;
-                }, {
-                    id: number;
-                    createdAt: Date;
-                    updatedAt: Date;
-                    name: string;
-                    imageUrl?: string | null | undefined;
-                }>, "many">;
-            };
-        };
-        getOrganization: {
-            pathParams: zod.ZodObject<{
-                id: zod.ZodNumber;
-            }, "strip", zod.ZodTypeAny, {
-                id: number;
-            }, {
-                id: number;
-            }>;
-            summary: "Get an organization by ID";
-            method: "GET";
-            path: "/api/v1/organizations/:id";
-            responses: {
-                200: zod.ZodObject<{
-                    id: zod.ZodNumber;
-                    name: zod.ZodString;
-                    imageUrl: zod.ZodNullable<zod.ZodOptional<zod.ZodString>>;
-                    createdAt: zod.ZodDate;
-                    updatedAt: zod.ZodDate;
-                }, "strip", zod.ZodTypeAny, {
-                    id: number;
-                    createdAt: Date;
-                    updatedAt: Date;
-                    name: string;
-                    imageUrl?: string | null | undefined;
-                }, {
-                    id: number;
-                    createdAt: Date;
-                    updatedAt: Date;
-                    name: string;
-                    imageUrl?: string | null | undefined;
-                }>;
-                404: zod.ZodObject<{
-                    message: zod.ZodString;
-                }, "strip", zod.ZodTypeAny, {
-                    message: string;
-                }, {
-                    message: string;
-                }>;
-            };
-        };
-        updateOrganization: {
-            pathParams: zod.ZodObject<{
-                id: zod.ZodNumber;
-            }, "strip", zod.ZodTypeAny, {
-                id: number;
-            }, {
-                id: number;
-            }>;
-            summary: "Update an organization";
-            method: "PUT";
-            body: zod.ZodObject<{
-                name: zod.ZodOptional<zod.ZodString>;
-                imageUrl: zod.ZodOptional<zod.ZodNullable<zod.ZodOptional<zod.ZodString>>>;
-            }, "strip", zod.ZodTypeAny, {
-                name?: string | undefined;
-                imageUrl?: string | null | undefined;
-            }, {
-                name?: string | undefined;
-                imageUrl?: string | null | undefined;
-            }>;
-            path: "/api/v1/organizations/:id";
-            responses: {
-                200: zod.ZodObject<{
-                    id: zod.ZodNumber;
-                    name: zod.ZodString;
-                    imageUrl: zod.ZodNullable<zod.ZodOptional<zod.ZodString>>;
-                    createdAt: zod.ZodDate;
-                    updatedAt: zod.ZodDate;
-                }, "strip", zod.ZodTypeAny, {
-                    id: number;
-                    createdAt: Date;
-                    updatedAt: Date;
-                    name: string;
-                    imageUrl?: string | null | undefined;
-                }, {
-                    id: number;
-                    createdAt: Date;
-                    updatedAt: Date;
-                    name: string;
-                    imageUrl?: string | null | undefined;
-                }>;
-                404: zod.ZodObject<{
-                    message: zod.ZodString;
-                }, "strip", zod.ZodTypeAny, {
-                    message: string;
-                }, {
-                    message: string;
-                }>;
-            };
-        };
-        deleteOrganization: {
-            pathParams: zod.ZodObject<{
-                id: zod.ZodNumber;
-            }, "strip", zod.ZodTypeAny, {
-                id: number;
-            }, {
-                id: number;
-            }>;
-            summary: "Delete an organization";
-            method: "DELETE";
-            path: "/api/v1/organizations/:id";
-            responses: {
-                200: zod.ZodObject<{
-                    id: zod.ZodNumber;
-                    name: zod.ZodString;
-                    imageUrl: zod.ZodNullable<zod.ZodOptional<zod.ZodString>>;
-                    createdAt: zod.ZodDate;
-                    updatedAt: zod.ZodDate;
-                }, "strip", zod.ZodTypeAny, {
-                    id: number;
-                    createdAt: Date;
-                    updatedAt: Date;
-                    name: string;
-                    imageUrl?: string | null | undefined;
-                }, {
-                    id: number;
-                    createdAt: Date;
-                    updatedAt: Date;
-                    name: string;
-                    imageUrl?: string | null | undefined;
                 }>;
                 404: zod.ZodObject<{
                     message: zod.ZodString;
@@ -3110,13 +3110,13 @@ declare const contract: {
                 take: zod.ZodOptional<zod.ZodString>;
                 name: zod.ZodOptional<zod.ZodString>;
             }, "strip", zod.ZodTypeAny, {
+                name?: string | undefined;
                 skip?: string | undefined;
                 take?: string | undefined;
-                name?: string | undefined;
             }, {
+                name?: string | undefined;
                 skip?: string | undefined;
                 take?: string | undefined;
-                name?: string | undefined;
             }>;
             summary: "Get all vendors";
             method: "GET";
