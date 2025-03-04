@@ -1,9 +1,10 @@
 <script lang="ts">
-  import { Button } from '$lib/components/ui/button/index.js';
-  import { Badge } from '$lib/components/ui/badge/index.js';
-  import { Separator } from '$lib/components/ui/separator/index.js';
+  import { Button } from '$lib/components/ui/button';
+  import { Badge } from '$lib/components/ui/badge';
+  import { Separator } from '$lib/components/ui/separator';
   import * as Card from '$lib/components/ui/card';
-  import * as Avatar from '$lib/components/ui/avatar';
+  import * as Carousel from '$lib/components/ui/carousel';
+  import * as Tabs from '$lib/components/ui/tabs';
   import {
     ArrowLeft,
     Clock,
@@ -15,18 +16,20 @@
     Tag,
     Utensils,
     Flame,
-    Scale,
     BarChart,
-    Leaf
+    Leaf,
+    Heart,
+    Printer,
+    Share2
   } from 'lucide-svelte';
   import { goto } from '$app/navigation';
   import { fade, fly } from 'svelte/transition';
-  import { quintOut } from 'svelte/easing';
   import { browser } from '$app/environment';
   import { onMount } from 'svelte';
   import type { PageProps } from './$types';
-  import { Tabs } from '$lib/components/ui/tabs';
   import type { Recipe } from '@ckm/db';
+  import { AspectRatio } from '$lib/components/ui/aspect-ratio';
+
   // Initialize props with runes syntax
   let { data }: PageProps = $props();
 
@@ -85,815 +88,742 @@
   function calculatePercentage(value: number, max: number): number {
     return Math.min(Math.round((value / max) * 100), 100);
   }
-
-  // Change active tab
-  function setActiveTab(tab: string) {
-    activeTab = tab;
-  }
 </script>
 
-<div class="container mx-auto p-6 max-w-7xl">
-  <prev>{JSON.stringify(data, null, 2)}</prev>
-  <!-- Header with back button -->
-  <header class="mb-6">
-    <div class="flex items-center gap-2 mb-2">
-      <Button variant="ghost" size="icon" onclick={goBack} class="mr-2">
-        <ArrowLeft class="h-5 w-5" />
-      </Button>
-      <h1 class="text-3xl font-bold tracking-tight" in:fade={{ duration: 300 }}>
-        {data.recipe.name}
-      </h1>
-    </div>
+<main class="container mx-auto px-6 py-8 max-w-7xl">
+  <!-- Header Navigation -->
+  <header class="flex justify-between items-center mb-8">
+    <Button
+      variant="ghost"
+      size="icon"
+      onclick={goBack}
+      class="h-12 w-12 hover:bg-muted/50 transition-colors rounded-lg"
+      aria-label="Go back"
+    >
+      <ArrowLeft class="h-5 w-5" aria-hidden="true" />
+    </Button>
 
-    {#if data.recipe.description}
-      <p class="text-muted-foreground mt-1 max-w-3xl">
-        {data.recipe.description}
-      </p>
-    {/if}
-
-    <!-- Recipe tags and badges -->
-    {#if data.recipe.tags && data.recipe.tags.length > 0}
-      <div class="flex flex-wrap gap-2 mt-3">
-        {#each data.recipe.tags as tag}
-          <Badge variant="outline" class="flex items-center gap-1">
-            <Tag class="h-3 w-3" />
-            {tag.name}
-          </Badge>
-        {/each}
-      </div>
-    {/if}
+    <nav>
+      <ul class="flex items-center gap-4">
+        <li>
+          <Button
+            variant="outline"
+            size="sm"
+            class="flex items-center gap-1 hover:bg-primary/10 transition-colors rounded-lg"
+            aria-label="Save recipe"
+          >
+            <Heart class="h-4 w-4" />
+            <span class="hidden md:inline">Save</span>
+          </Button>
+        </li>
+        <li>
+          <Button
+            variant="outline"
+            size="sm"
+            class="flex items-center gap-1 hover:bg-primary/10 transition-colors rounded-lg"
+            aria-label="Print recipe"
+          >
+            <Printer class="h-4 w-4" />
+            <span class="hidden md:inline">Print</span>
+          </Button>
+        </li>
+        <li>
+          <Button
+            variant="outline"
+            size="sm"
+            class="flex items-center gap-1 hover:bg-primary/10 transition-colors rounded-lg"
+            aria-label="Share recipe"
+          >
+            <Share2 class="h-4 w-4" />
+            <span class="hidden md:inline">Share</span>
+          </Button>
+        </li>
+      </ul>
+    </nav>
   </header>
 
-  <!-- Main content with tabs -->
-  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-    <!-- Left column - Recipe image and quick info -->
-    <div class="lg:col-span-1">
-      <div class="sticky top-6 space-y-6">
-        <!-- Recipe image -->
-        <Card.Root>
-          <div class="aspect-square overflow-hidden rounded-md">
-            {#if data.recipe.imageUrls && data.recipe.imageUrls.length > 0}
-              <img
-                src={data.recipe.imageUrls[0]}
-                alt={data.recipe.name}
-                class="w-full h-full object-cover"
-                loading="lazy"
-              />
-            {:else}
-              <div class="w-full h-full bg-muted flex items-center justify-center">
-                <ChefHat class="h-16 w-16 text-muted-foreground" />
-              </div>
-            {/if}
-          </div>
-        </Card.Root>
+  <!-- Main Content Grid -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 m-3">
+    <!-- Left Column: Visuals & Quick Info -->
+    <section aria-labelledby="recipe-visual-info" class="space-y-8">
+      <h2 id="recipe-visual-info" class="sr-only">Recipe Visual Information</h2>
+      <!-- Image Carousel -->
+      <figure>
+        <Carousel.Root class="w-auto group mr-3">
+          <Carousel.Content>
+            {#each data.recipe.imageUrls as image, i (i)}
+              <Carousel.Item>
+                <AspectRatio
+                  ratio={12 / 10}
+                  class="aspect-square overflow-hidden rounded-xl transition-transform hover:scale-105"
+                >
+                  <img
+                    src={image}
+                    alt={`${data.recipe.name} image ${i + 1}`}
+                    class="w-full h-full object-cover rounded-3xl"
+                    loading="lazy"
+                  />
+                </AspectRatio>
+              </Carousel.Item>
+            {/each}
+          </Carousel.Content>
+          <Carousel.Previous class="opacity-0 group-hover:opacity-100 transition-opacity" />
+          <Carousel.Next class="opacity-0 group-hover:opacity-100 transition-opacity" />
+        </Carousel.Root>
+      </figure>
 
-        <!-- Quick info card -->
-        <Card.Root>
+      <!-- Quick Info Card -->
+      <section aria-labelledby="recipe-details">
+        <Card.Root class="w-full hover:shadow-lg transition-shadow mx-2">
           <Card.Header>
-            <Card.Title>Quick Info</Card.Title>
+            <Card.Title>Recipe Details</Card.Title>
           </Card.Header>
           <Card.Content>
-            <div class="space-y-4">
-              <!-- Preparation time -->
-              <div class="flex justify-between items-center">
-                <div class="flex items-center gap-2">
-                  <Clock class="h-4 w-4 text-muted-foreground" />
-                  <span>Total Time:</span>
+            <dl class="grid grid-cols-2 gap-4">
+              <div class="flex items-center gap-2 p-3 bg-gray-100 rounded-lg">
+                <Clock class="h-4 w-4 text-primary" />
+                <div>
+                  <dt class="text-sm text-gray-600">Prep Time</dt>
+                  <dd class="font-semibold">{formatTime(data.recipe.prepTime)}</dd>
                 </div>
-                <span class="font-medium">{getTotalTime(data.recipe)}</span>
               </div>
-
-              <!-- Servings -->
-              <div class="flex justify-between items-center">
-                <div class="flex items-center gap-2">
-                  <Users class="h-4 w-4 text-muted-foreground" />
-                  <span>Servings:</span>
+              <div class="flex items-center gap-2 p-3 bg-gray-100 rounded-lg">
+                <Flame class="h-4 w-4 text-primary" />
+                <div>
+                  <dt class="text-sm text-gray-600">Cook Time</dt>
+                  <dd class="font-semibold">{formatTime(data.recipe.cookTime)}</dd>
                 </div>
-                <span class="font-medium">{data.recipe.servings}</span>
               </div>
-
-              <!-- Food cost -->
-              <div class="flex justify-between items-center">
-                <div class="flex items-center gap-2">
-                  <DollarSign class="h-4 w-4 text-muted-foreground" />
-                  <span>Food Cost:</span>
+              <div class="flex items-center gap-2 p-3 bg-gray-100 rounded-lg">
+                <Users class="h-4 w-4 text-primary" />
+                <div>
+                  <dt class="text-sm text-gray-600">Servings</dt>
+                  <dd class="font-semibold">{data.recipe.servings}</dd>
                 </div>
-                <span class="font-medium">${data.recipe.foodCost?.toFixed(2) || '0.00'}</span>
               </div>
-
-              <!-- Skill level -->
-              <div class="flex justify-between items-center">
-                <div class="flex items-center gap-2">
-                  <ChefHat class="h-4 w-4 text-muted-foreground" />
-                  <span>Skill Level:</span>
+              <div class="flex items-center gap-2 p-3 bg-gray-100 rounded-lg">
+                <DollarSign class="h-4 w-4 text-primary" />
+                <div>
+                  <dt class="text-sm text-gray-600">Food Cost</dt>
+                  <dd class="font-semibold">${data.recipe.foodCost?.toFixed(2) || '0.00'}</dd>
                 </div>
-                <Badge variant="outline">
-                  {data.recipe.skillLevel || 'Intermediate'}
-                </Badge>
               </div>
-
               {#if data.recipe.laborCosts && data.recipe.laborCosts.length > 0}
-                <!-- Labor cost info -->
-                <div class="flex justify-between items-center">
-                  <div class="flex items-center gap-2">
-                    <BarChart class="h-4 w-4 text-muted-foreground" />
-                    <span>Labor Cost:</span>
+                <div class="flex items-center gap-2 p-3 bg-gray-100 rounded-lg">
+                  <BarChart class="h-4 w-4 text-primary" />
+                  <div>
+                    <dt class="text-sm text-gray-600">Labor Cost</dt>
+                    <dd class="font-semibold">
+                      ${data.recipe.laborCosts[0].totalLaborCost.toFixed(2)}
+                    </dd>
                   </div>
-                  <span class="font-medium">
-                    ${data.recipe.laborCosts[0].totalLaborCost.toFixed(2)}
-                  </span>
                 </div>
               {/if}
-            </div>
+            </dl>
 
             {#if data.recipe.dietaryRestrictions && data.recipe.dietaryRestrictions.length > 0}
               <Separator class="my-4" />
               <div>
-                <div class="flex items-center gap-2 mb-2">
-                  <Leaf class="h-4 w-4 text-muted-foreground" />
-                  <span class="text-sm font-medium">Dietary Information:</span>
-                </div>
-                <div class="flex flex-wrap gap-2 mt-1">
+                <h4 class="flex items-center gap-2 text-sm font-medium text-gray-700">
+                  <Leaf class="h-4 w-4 text-primary" />
+                  Dietary Info
+                </h4>
+                <div class="flex flex-wrap gap-2 mt-2">
                   {#each data.recipe.dietaryRestrictions as restriction}
-                    <Badge variant="secondary" class="text-xs">
-                      {restriction.name}
-                    </Badge>
+                    <Badge variant="outline" class="text-xs">{restriction.name}</Badge>
                   {/each}
                 </div>
               </div>
             {/if}
           </Card.Content>
         </Card.Root>
+      </section>
+    </section>
+    <!-- Right Column: Header & Tabbed Details -->
+    <section aria-labelledby="recipe-title" class="space-y-8">
+      <!-- Recipe Header -->
+      <header class="space-y-4">
+        <h1 class="text-4xl font-bold text-gray-800" in:fade={{ duration: 300 }}>
+          {data.recipe.name}
+        </h1>
+        {#if data.recipe.description}
+          <p class="text-lg text-gray-600 max-w-prose">
+            {data.recipe.description}
+          </p>
+        {/if}
+        {#if data.recipe.tags && data.recipe.tags.length > 0}
+          <ul class="flex flex-wrap gap-2">
+            {#each data.recipe.tags as tag}
+              <li>
+                <Badge variant="secondary" class="text-xs">{tag.name}</Badge>
+              </li>
+            {/each}
+          </ul>
+        {/if}
+      </header>
 
-        {#if data.recipe.nutritionalInfo}
-          <!-- Nutritional information card -->
+      <!-- Tab Navigation & Content -->
+      <Tabs.Root bind:value={activeTab}>
+        <Tabs.List class="flex border-b space-6  overflow-x-auto py-6" role="tablist">
+          <Tabs.Trigger
+            value="overview"
+            class="py-2 px-4 font-medium transition-colors relative"
+            role="tab"
+            id="tab-overview"
+            aria-controls="panel-overview"
+          >
+            Overview
+          </Tabs.Trigger>
+          <Tabs.Trigger
+            value="ingredients"
+            role="tab"
+            id="tab-ingredients"
+            aria-controls="panel-ingredients"
+            class="py-2 px-4 font-medium transition-colors relative"
+          >
+            Ingredients
+          </Tabs.Trigger>
+          <Tabs.Trigger
+            value="instructions"
+            class="py-2 px-4 font-medium transition-colors relative"
+            role="tab"
+            id="tab-instructions"
+            aria-controls="panel-instructions"
+          >
+            Instructions
+          </Tabs.Trigger>
+          <Tabs.Trigger
+            value="equipment"
+            class="py-2 px-4 font-medium transition-colors relative"
+            role="tab"
+            id="tab-equipment"
+            aria-controls="panel-equipment"
+          >
+            Equipment
+          </Tabs.Trigger>
+          <Tabs.Trigger
+            value="safety"
+            class="py-2 px-4 font-medium transition-colors relative"
+            role="tab"
+            id="tab-safety"
+            aria-controls="panel-safety"
+          >
+            Safety &amp; Storage
+          </Tabs.Trigger>
+        </Tabs.List>
+
+        <!-- Overview Tab -->
+        <Tabs.Content
+          value="overview"
+          class="pt-6"
+          role="tabpanel"
+          id="panel-overview"
+          aria-labelledby="tab-overview"
+        >
           <Card.Root>
-            <Card.Header>
-              <Card.Title>Nutrition Facts</Card.Title>
-              <Card.Description>
-                Per serving ({data.recipe.nutritionalInfo.servingSize}
-                {data.recipe.nutritionalInfo.servingUnit})
-              </Card.Description>
-            </Card.Header>
-            <Card.Content>
-              <div class="space-y-4">
-                <!-- Calories -->
-                <div>
-                  <div class="flex justify-between mb-1">
-                    <span class="font-medium">Calories</span>
-                    <span>{Math.round(data.recipe.nutritionalInfo.calories)} cal</span>
-                  </div>
+            <Card.Content class="p-6">
+              <p class="text-gray-700">
+                {data.recipe.description || 'No detailed description available.'}
+              </p>
+              <dl class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+                <div class="bg-gray-50 p-4 rounded-lg text-center">
+                  <dt class="text-sm text-gray-500">Prep Time</dt>
+                  <dd class="font-semibold mt-1">{formatTime(data.recipe.prepTime)}</dd>
                 </div>
-
-                <Separator />
-
-                <!-- Macronutrients with progress bars -->
-                <div>
-                  <!-- Protein -->
-                  <div class="mb-3">
-                    <div class="flex justify-between mb-1">
-                      <span>Protein</span>
-                      <span>{data.recipe.nutritionalInfo.protein}g</span>
-                    </div>
-                    <div class="w-full bg-muted rounded-full h-2">
-                      <div
-                        class="bg-blue-500 h-2 rounded-full"
-                        style="width: {calculatePercentage(
-                          data.recipe.nutritionalInfo.protein,
-                          50
-                        )}%"
-                      ></div>
-                    </div>
-                  </div>
-
-                  <!-- Carbohydrates -->
-                  <div class="mb-3">
-                    <div class="flex justify-between mb-1">
-                      <span>Carbohydrates</span>
-                      <span>{data.recipe.nutritionalInfo.carbohydrates}g</span>
-                    </div>
-                    <div class="w-full bg-muted rounded-full h-2">
-                      <div
-                        class="bg-amber-500 h-2 rounded-full"
-                        style="width: {calculatePercentage(
-                          data.recipe.nutritionalInfo.carbohydrates,
-                          300
-                        )}%"
-                      ></div>
-                    </div>
-                  </div>
-
-                  <!-- Fat -->
-                  <div class="mb-3">
-                    <div class="flex justify-between mb-1">
-                      <span>Fat</span>
-                      <span>{data.recipe.nutritionalInfo.fat}g</span>
-                    </div>
-                    <div class="w-full bg-muted rounded-full h-2">
-                      <div
-                        class="bg-red-500 h-2 rounded-full"
-                        style="width: {calculatePercentage(data.recipe.nutritionalInfo.fat, 70)}%"
-                      ></div>
-                    </div>
-                  </div>
+                <div class="bg-gray-50 p-4 rounded-lg text-center">
+                  <dt class="text-sm text-gray-500">Cook Time</dt>
+                  <dd class="font-semibold mt-1">{formatTime(data.recipe.cookTime)}</dd>
                 </div>
-
-                <Separator />
-
-                <!-- Additional nutritional details -->
-                <div class="text-sm grid grid-cols-2 gap-y-2">
-                  <span>Fiber</span>
-                  <span class="text-right">{data.recipe.nutritionalInfo.fiber}g</span>
-
-                  <span>Sugar</span>
-                  <span class="text-right">{data.recipe.nutritionalInfo.sugar}g</span>
-
-                  <span>Sodium</span>
-                  <span class="text-right">{data.recipe.nutritionalInfo.sodium}mg</span>
+                <div class="bg-gray-50 p-4 rounded-lg text-center">
+                  <dt class="text-sm text-gray-500">Total Time</dt>
+                  <dd class="font-semibold mt-1">{getTotalTime(data.recipe)}</dd>
                 </div>
-              </div>
+                <div class="bg-gray-50 p-4 rounded-lg text-center">
+                  <dt class="text-sm text-gray-500">Servings</dt>
+                  <dd class="font-semibold mt-1">{data.recipe.servings}</dd>
+                </div>
+              </dl>
             </Card.Content>
           </Card.Root>
-        {/if}
-      </div>
-    </div>
-  </div>
-  <!-- Right column - Custom tab implementation -->
-  <div class="lg:col-span-2">
-    <!-- Custom tabs navigation -->
-    <div class="border-b mb-6">
-      <div class="flex flex-wrap -mb-px">
-        <button
-          class="py-2 px-4 font-medium text-sm border-b-2 mr-2 transition-colors
-            {activeTab === 'overview'
-            ? 'border-primary text-primary'
-            : 'border-transparent text-muted-foreground hover:text-foreground hover:border-muted-foreground'}"
-          onclick={() => setActiveTab('overview')}
-        >
-          Overview
-        </button>
-        <button
-          class="py-2 px-4 font-medium text-sm border-b-2 mr-2 transition-colors
-            {activeTab === 'ingredients'
-            ? 'border-primary text-primary'
-            : 'border-transparent text-muted-foreground hover:text-foreground hover:border-muted-foreground'}"
-          onclick={() => setActiveTab('ingredients')}
-        >
-          Ingredients
-        </button>
-        <button
-          class="py-2 px-4 font-medium text-sm border-b-2 mr-2 transition-colors
-            {activeTab === 'instructions'
-            ? 'border-primary text-primary'
-            : 'border-transparent text-muted-foreground hover:text-foreground hover:border-muted-foreground'}"
-          onclick={() => setActiveTab('instructions')}
-        >
-          Instructions
-        </button>
-        <button
-          class="py-2 px-4 font-medium text-sm border-b-2 mr-2 transition-colors
-            {activeTab === 'equipment'
-            ? 'border-primary text-primary'
-            : 'border-transparent text-muted-foreground hover:text-foreground hover:border-muted-foreground'}"
-          onclick={() => setActiveTab('equipment')}
-        >
-          Equipment
-        </button>
-        <button
-          class="py-2 px-4 font-medium text-sm border-b-2 transition-colors
-            {activeTab === 'safety'
-            ? 'border-primary text-primary'
-            : 'border-transparent text-muted-foreground hover:text-foreground hover:border-muted-foreground'}"
-          onclick={() => setActiveTab('safety')}
-        >
-          Safety & Storage
-        </button>
-      </div>
-    </div>
-  </div>
 
-  <!-- Tab panels -->
-  {#if activeTab === 'overview'}
-    <div class="space-y-6" in:fade={{ duration: 200 }}>
-      <Card.Root>
-        <Card.Header>
-          <Card.Title>Recipe Overview</Card.Title>
-          <Card.Description>Key information about this recipe</Card.Description>
-        </Card.Header>
-        <Card.Content>
-          <div class="prose prose-slate max-w-none">
-            <p>{data.recipe.description || 'No detailed description available for this recipe.'}</p>
+          {#if data.recipe.laborCosts && data.recipe.laborCosts.length > 0}
+            <section aria-labelledby="cost-analysis">
+              <Card.Root class="mt-6">
+                <Card.Header>
+                  <Card.Title id="cost-analysis">Cost Analysis</Card.Title>
+                  <Card.Description>Cost breakdown for this recipe</Card.Description>
+                </Card.Header>
+                <Card.Content class="p-6">
+                  <dl class="grid grid-cols-2 gap-3 space-x-3">
+                    <div class="flex justify-between">
+                      <dt class="text-gray-500">Food Cost</dt>
+                      <dd class="font-semibold">${data.recipe.foodCost?.toFixed(2) || '0.00'}</dd>
+                    </div>
+                    <div class="flex justify-between">
+                      <dt class="text-gray-500">Labor Cost</dt>
+                      <dd class="font-semibold">
+                        ${data.recipe.laborCosts[0].totalLaborCost.toFixed(2)}
+                      </dd>
+                    </div>
+                    <div class="flex justify-between">
+                      <dt class="text-gray-500">Total Cost</dt>
+                      <dd class="font-semibold">
+                        ${(
+                          (data.recipe.foodCost || 0) + data.recipe.laborCosts[0].totalLaborCost
+                        ).toFixed(2)}
+                      </dd>
+                    </div>
+                    <div class="flex justify-between">
+                      <dt class="text-gray-500">Cost per Serving</dt>
+                      <dd class="font-semibold">
+                        ${(
+                          ((data.recipe.foodCost || 0) + data.recipe.laborCosts[0].totalLaborCost) /
+                          data.recipe.servings
+                        ).toFixed(2)}
+                      </dd>
+                    </div>
+                  </dl>
+                </Card.Content>
+              </Card.Root>
+            </section>
+          {/if}
+          <Separator class="mb-4" />
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-              <!-- Preparation details -->
-              <div>
-                <h3 class="text-lg font-medium mb-2">Preparation Details</h3>
-                <ul class="space-y-2">
-                  <li class="flex justify-between">
-                    <span class="text-muted-foreground">Prep Time:</span>
-                    <span>{formatTime(data.recipe.prepTime)}</span>
-                  </li>
-                  <li class="flex justify-between">
-                    <span class="text-muted-foreground">Cook Time:</span>
-                    <span>{formatTime(data.recipe.cookTime)}</span>
-                  </li>
-                  <li class="flex justify-between">
-                    <span class="text-muted-foreground">Total Time:</span>
-                    <span>{getTotalTime(data.recipe)}</span>
-                  </li>
-                  <li class="flex justify-between">
-                    <span class="text-muted-foreground">Servings:</span>
-                    <span>{data.recipe.servings}</span>
-                  </li>
-                </ul>
-              </div>
-
-              <!-- Yield information -->
-              {#if data.recipe.yields && data.recipe.yields.length > 0}
-                <div>
-                  <h3 class="text-lg font-medium mb-2">Yield Information</h3>
-                  <ul class="space-y-2">
-                    <li class="flex justify-between">
-                      <span class="text-muted-foreground">Expected Yield:</span>
-                      <span>{data.recipe.yields[0].expectedYield} {data.recipe.yields[0].unit}</span
+          {#if data.recipe.nutritionalInfo}
+            <!-- Nutritional information card with improved visual design -->
+            <section aria-labelledby="nutrition-facts">
+              <Card.Root>
+                <Card.Header class="pb-3">
+                  <Card.Title id="nutrition-facts">Nutrition Facts</Card.Title>
+                  <Card.Description>
+                    Per serving ({data.recipe.nutritionalInfo.servingSize.toFixed(2)}
+                    {data.recipe.nutritionalInfo.servingUnit})
+                  </Card.Description>
+                </Card.Header>
+                <Card.Content>
+                  <!-- Calories -->
+                  <div class="mb-4">
+                    <div class="flex justify-between mb-1">
+                      <span class="font-medium">Calories</span>
+                      <span class="font-bold"
+                        >{Math.round(data.recipe.nutritionalInfo.calories)} cal</span
                       >
-                    </li>
-                    {#if data.recipe.yields[0].actualYield}
-                      <li class="flex justify-between">
-                        <span class="text-muted-foreground">Actual Yield:</span>
-                        <span>{data.recipe.yields[0].actualYield} {data.recipe.yields[0].unit}</span
-                        >
-                      </li>
-                    {/if}
-                    {#if data.recipe.yields[0].wastagePercent}
-                      <li class="flex justify-between">
-                        <span class="text-muted-foreground">Wastage:</span>
-                        <span>{data.recipe.yields[0].wastagePercent}%</span>
-                      </li>
-                    {/if}
-                  </ul>
-                </div>
-              {/if}
-            </div>
-          </div>
-        </Card.Content>
-      </Card.Root>
-
-      <!-- Cost breakdown if available -->
-      {#if data.recipe.laborCosts && data.recipe.laborCosts.length > 0}
-        <Card.Root>
-          <Card.Header>
-            <Card.Title>Cost Analysis</Card.Title>
-            <Card.Description>Breakdown of food and labor costs</Card.Description>
-          </Card.Header>
-          <Card.Content>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <!-- Food cost -->
-              <div>
-                <h3 class="text-lg font-medium mb-3">Food Cost</h3>
-                <div class="flex items-center justify-between">
-                  <span>Total Food Cost:</span>
-                  <span class="font-semibold">${data.recipe.foodCost?.toFixed(2) || '0.00'}</span>
-                </div>
-                <div class="flex items-center justify-between mt-2">
-                  <span>Per Serving:</span>
-                  <span class="font-semibold">
-                    ${(data.recipe.foodCost / data.recipe.servings).toFixed(2) || '0.00'}
-                  </span>
-                </div>
-              </div>
-
-              <!-- Labor cost -->
-              <div>
-                <h3 class="text-lg font-medium mb-3">Labor Cost</h3>
-                <div class="flex items-center justify-between">
-                  <span>Prep Time:</span>
-                  <span>{formatTime(data.recipe.laborCosts[0].prepTime)}</span>
-                </div>
-                <div class="flex items-center justify-between mt-2">
-                  <span>Cook Time:</span>
-                  <span>{formatTime(data.recipe.laborCosts[0].cookTime)}</span>
-                </div>
-                <div class="flex items-center justify-between mt-2">
-                  <span>Labor Rate:</span>
-                  <span>${data.recipe.laborCosts[0].laborRate.toFixed(2)}/hr</span>
-                </div>
-                <div class="flex items-center justify-between mt-2">
-                  <span>Total Labor Cost:</span>
-                  <span class="font-semibold"
-                    >${data.recipe.laborCosts[0].totalLaborCost.toFixed(2)}</span
-                  >
-                </div>
-              </div>
-            </div>
-
-            <!-- Total cost -->
-            <div class="mt-6 p-4 bg-muted rounded-lg">
-              <div class="flex items-center justify-between">
-                <span class="font-medium">Total Recipe Cost:</span>
-                <span class="font-bold text-lg">
-                  ${(data.recipe.foodCost + data.recipe.laborCosts[0].totalLaborCost).toFixed(2)}
-                </span>
-              </div>
-            </div>
-          </Card.Content>
-        </Card.Root>
-      {/if}
-    </div>
-  {/if}
-
-  {#if activeTab === 'ingredients'}
-    <div class="space-y-6" in:fade={{ duration: 200 }}>
-      <Card.Root>
-        <Card.Header>
-          <Card.Title>Ingredients</Card.Title>
-          <Card.Description>
-            All ingredients needed for {data.recipe.servings} servings
-          </Card.Description>
-        </Card.Header>
-        <Card.Content>
-          {#if data.recipe.ingredients && data.recipe.ingredients.length > 0}
-            <ul class="space-y-3">
-              {#each data.recipe.ingredients as ingredient}
-                <li class="flex justify-between items-center py-2 border-b last:border-0">
-                  <div class="flex items-start gap-2">
-                    <Utensils class="h-4 w-4 text-muted-foreground mt-1" />
-                    <div class="ml-2 mt-1">
-                      <p class="mb-3">{instruction.instruction}</p>
-
-                      <!-- Step image if available -->
-                      {#if instruction.imageUrl}
-                        <div class="mt-3 mb-3">
-                          <img
-                            src={instruction.imageUrl}
-                            alt={`Step ${instruction.stepNumber}`}
-                            class="rounded-lg max-h-64 object-cover"
-                          />
-                        </div>
-                      {/if}
-
-                      <!-- Additional information -->
-                      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3">
-                        {#if instruction.timeInMinutes}
-                          <div class="flex items-center gap-2">
-                            <Clock class="h-4 w-4 text-muted-foreground" />
-                            <span class="text-sm">{instruction.timeInMinutes} minutes</span>
-                          </div>
-                        {/if}
-
-                        {#if instruction.temperature}
-                          <div class="flex items-center gap-2">
-                            <Thermometer class="h-4 w-4 text-muted-foreground" />
-                            <span class="text-sm"
-                              >{instruction.temperature}°{instruction.temperatureUnit || 'C'}</span
-                            >
-                          </div>
-                        {/if}
-                      </div>
-
-                      <!-- Warnings and tips -->
-                      {#if instruction.techniqueTips || instruction.warningNotes || instruction.isCritical}
-                        <div class="mt-3 space-y-2">
-                          {#if instruction.isCritical}
-                            <div
-                              class="flex items-start gap-2 p-2 bg-amber-50 border border-amber-200 rounded-lg"
-                            >
-                              <AlertTriangle class="h-4 w-4 text-amber-500 mt-0.5" />
-                              <p class="text-sm text-amber-800">
-                                This is a critical step! Pay extra attention.
-                              </p>
-                            </div>
-                          {/if}
-
-                          {#if instruction.techniqueTips}
-                            <div
-                              class="flex items-start gap-2 p-2 bg-blue-50 border border-blue-200 rounded-lg"
-                            >
-                              <ChefHat class="h-4 w-4 text-blue-500 mt-0.5" />
-                              <p class="text-sm text-blue-800">{instruction.techniqueTips}</p>
-                            </div>
-                          {/if}
-
-                          {#if instruction.warningNotes}
-                            <div
-                              class="flex items-start gap-2 p-2 bg-red-50 border border-red-200 rounded-lg"
-                            >
-                              <AlertTriangle class="h-4 w-4 text-red-500 mt-0.5" />
-                              <p class="text-sm text-red-800">{instruction.warningNotes}</p>
-                            </div>
-                          {/if}
-                        </div>
-                      {/if}
                     </div>
                   </div>
-                </li>
-              {/each}
-            </ul>
-          {:else}
-            <p class="text-muted-foreground italic">
-              No instructions have been added to this recipe yet.
-            </p>
+
+                  <Separator class="mb-4" />
+
+                  <!-- Macronutrients with standardized progress bars -->
+                  <div class="space-y-4">
+                    <!-- Protein -->
+                    <div>
+                      <div class="flex justify-between mb-1">
+                        <span>Protein</span>
+                        <span>{data.recipe.nutritionalInfo.protein.toFixed(2)}g</span>
+                      </div>
+                      <div
+                        class="w-full bg-muted rounded-full h-2 overflow-hidden"
+                        role="progressbar"
+                        aria-valuemin="0"
+                        aria-valuemax="50"
+                        aria-valuenow={data.recipe.nutritionalInfo.protein}
+                        aria-label={`${data.recipe.nutritionalInfo.protein.toFixed(2)} grams of protein`}
+                      >
+                        <div
+                          class="h-2 rounded-full bg-gradient-to-r from-blue-500 to-blue-400 transition-all"
+                          style="width: {calculatePercentage(
+                            data.recipe.nutritionalInfo.protein,
+                            50
+                          )}%"
+                        ></div>
+                      </div>
+                    </div>
+
+                    <!-- Carbohydrates -->
+                    <div>
+                      <div class="flex justify-between mb-1">
+                        <span>Carbohydrates</span>
+                        <span>{data.recipe.nutritionalInfo.carbohydrates.toFixed(2)}g</span>
+                      </div>
+                      <div
+                        class="w-full bg-muted rounded-full h-2 overflow-hidden"
+                        role="progressbar"
+                        aria-valuemin="0"
+                        aria-valuemax="300"
+                        aria-valuenow={data.recipe.nutritionalInfo.carbohydrates}
+                        aria-label={`${data.recipe.nutritionalInfo.carbohydrates.toFixed(2)} grams of carbohydrates`}
+                      >
+                        <div
+                          class="h-2 rounded-full bg-gradient-to-r from-amber-500 to-amber-400 transition-all"
+                          style="width: {calculatePercentage(
+                            data.recipe.nutritionalInfo.carbohydrates,
+                            300
+                          )}%"
+                        ></div>
+                      </div>
+                    </div>
+
+                    <!-- Fat -->
+                    <div>
+                      <div class="flex justify-between mb-1">
+                        <span>Fat</span>
+                        <span>{data.recipe.nutritionalInfo.fat.toFixed(2)}g</span>
+                      </div>
+                      <div
+                        class="w-full bg-muted rounded-full h-2 overflow-hidden"
+                        role="progressbar"
+                        aria-valuemin="0"
+                        aria-valuemax="70"
+                        aria-valuenow={data.recipe.nutritionalInfo.fat}
+                        aria-label={`${data.recipe.nutritionalInfo.fat.toFixed(2)} grams of fat`}
+                      >
+                        <div
+                          class="h-2 rounded-full bg-gradient-to-r from-red-500 to-red-400"
+                          style="width: {calculatePercentage(data.recipe.nutritionalInfo.fat, 70)}%"
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <Separator class="my-4" />
+
+                  <!-- Additional nutritional details with consistent layout -->
+                  <dl class="grid grid-cols-2 gap-y-2 text-sm">
+                    <dt class="text-muted-foreground">Fiber</dt>
+                    <dd class="text-right">{data.recipe.nutritionalInfo.fiber.toFixed(2)}g</dd>
+
+                    <dt class="text-muted-foreground">Sugar</dt>
+                    <dd class="text-right">{data.recipe.nutritionalInfo.sugar.toFixed(2)}g</dd>
+
+                    <dt class="text-muted-foreground">Sodium</dt>
+                    <dd class="text-right">{data.recipe.nutritionalInfo.sodium.toFixed(2)}mg</dd>
+                  </dl>
+                </Card.Content>
+              </Card.Root>
+            </section>
           {/if}
-        </Card.Content>
-      </Card.Root>
-    </div>
-  {/if}
+        </Tabs.Content>
 
-  {#if activeTab === 'equipment'}
-    <div class="space-y-6" in:fade={{ duration: 200 }}>
-      <Card.Root>
-        <Card.Header>
-          <Card.Title>Required Equipment</Card.Title>
-          <Card.Description>Tools and equipment needed for this recipe</Card.Description>
-        </Card.Header>
-        <Card.Content>
-          {#if data.recipe.equipment && data.recipe.equipment.length > 0}
-            <ul class="space-y-3">
-              {#each data.recipe.equipment as equipment}
-                <li class="flex items-start gap-3 py-3 border-b last:border-0">
-                  <div class="w-12 h-12 rounded-md bg-muted flex items-center justify-center">
-                    <Utensils class="h-6 w-6 text-muted-foreground" />
-                  </div>
-                  <div>
-                    <h4 class="font-medium">{equipment.equipment.name}</h4>
-
-                    {#if equipment.equipment.description}
-                      <p class="text-sm text-muted-foreground">{equipment.equipment.description}</p>
-                    {/if}
-
-                    {#if equipment.notes}
-                      <p class="text-sm mt-1 p-2 bg-muted rounded-md">{equipment.notes}</p>
-                    {/if}
-                  </div>
-                </li>
-              {/each}
-            </ul>
-          {:else}
-            <p class="text-muted-foreground italic">
-              No equipment has been specified for this recipe.
-            </p>
-          {/if}
-        </Card.Content>
-      </Card.Root>
-    </div>
-  {/if}
-
-  {#if activeTab === 'safety'}
-    <div class="space-y-6" in:fade={{ duration: 200 }}>
-      <!-- Critical Control Points -->
-      <Card.Root>
-        <Card.Header>
-          <Card.Title class="flex items-center gap-2">
-            <AlertTriangle class="h-4 w-4 text-amber-500" />
-            Critical Control Points
-          </Card.Title>
-          <Card.Description>Important safety checkpoints during preparation</Card.Description>
-        </Card.Header>
-        <Card.Content>
-          {#if data.recipe.criticalPoints && data.recipe.criticalPoints.length > 0}
-            <ul class="space-y-4">
-              {#each data.recipe.criticalPoints as point}
-                <li class="p-3 border border-amber-200 bg-amber-50 rounded-lg">
-                  <div class="flex justify-between items-start">
-                    <h4 class="font-medium">Step {point.stepNumber}</h4>
-                    {#if point.threshold && point.unit}
-                      <Badge variant="outline" class="bg-amber-100 text-amber-800 border-amber-300">
-                        {point.threshold}
-                        {point.unit}
-                      </Badge>
-                    {/if}
-                  </div>
-                  <p class="mt-1 text-amber-800">{point.description}</p>
-                  <div class="mt-2 p-2 bg-white rounded border border-amber-200">
-                    <span class="text-sm font-medium">Required Action:</span>
-                    <p class="text-sm mt-1">{point.action}</p>
-                  </div>
-                </li>
-              {/each}
-            </ul>
-          {:else}
-            <p class="text-muted-foreground italic">
-              No critical control points have been defined for this recipe.
-            </p>
-          {/if}
-        </Card.Content>
-      </Card.Root>
-    </div>
-  {/if}
-  <!-- Temperature Control Points -->
-  <Card.Root>
-    <Card.Header>
-      <Card.Title class="flex items-center gap-2">
-        <Thermometer class="h-4 w-4 text-blue-500" />
-        Temperature Controls
-      </Card.Title>
-      <Card.Description>Specific temperature requirements for food safety</Card.Description>
-    </Card.Header>
-    <Card.Content>
-      {#if data.recipe.temperatures && data.recipe.temperatures.length > 0}
-        <ul class="space-y-4">
-          {#each data.recipe.temperatures as temp}
-            <li
-              class="p-3 border rounded-lg {temp.isCritical
-                ? 'border-blue-200 bg-blue-50'
-                : 'border-muted bg-muted/50'}"
-            >
-              <div class="flex justify-between items-center">
-                <h4 class="font-medium">Step {temp.stepNumber}</h4>
-                {#if temp.isCritical}
-                  <Badge variant="outline" class="bg-blue-100 text-blue-800 border-blue-300">
-                    Critical
-                  </Badge>
-                {/if}
-              </div>
-
-              <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div class="flex items-center gap-2">
-                  <Flame class="h-4 w-4 text-muted-foreground" />
-                  <span class="text-sm">
-                    {temp.minTemp}°C - {temp.maxTemp}°C
-                  </span>
-                </div>
-
-                {#if temp.holdTime}
-                  <div class="flex items-center gap-2">
-                    <Clock class="h-4 w-4 text-muted-foreground" />
-                    <span class="text-sm">Hold for {temp.holdTime} minutes</span>
-                  </div>
-                {/if}
-              </div>
-
-              {#if temp.description}
-                <p
-                  class="mt-2 text-sm {temp.isCritical ? 'text-blue-800' : 'text-muted-foreground'}"
-                >
-                  {temp.description}
-                </p>
+        <!-- Ingredients Tab -->
+        <Tabs.Content
+          value="ingredients"
+          class="pt-6"
+          role="tabpanel"
+          id="panel-ingredients"
+          aria-labelledby="tab-ingredients"
+        >
+          <Card.Root>
+            <Card.Header>
+              <Card.Title>Ingredients</Card.Title>
+              <Card.Description>Ingredients for {data.recipe.servings} servings</Card.Description>
+            </Card.Header>
+            <Card.Content class="p-6">
+              {#if data.recipe.ingredients && data.recipe.ingredients.length > 0}
+                <ul class="space-y-4">
+                  {#each data.recipe.ingredients as ingredient}
+                    <li
+                      class="flex justify-between items-center gap-1 hover:bg-gray-50 rounded-lg transition-colors"
+                    >
+                      <span>{ingredient.ingredient?.name || 'Unknown ingredient'}</span>
+                      <span class="font-semibold"
+                        >{ingredient.quantity.toFixed(2)} {ingredient.unit}</span
+                      >
+                    </li>
+                  {/each}
+                </ul>
+              {:else}
+                <p class="text-gray-500 italic">No ingredients added yet.</p>
               {/if}
-            </li>
-          {/each}
-        </ul>
-      {:else}
-        <p class="text-muted-foreground italic">
-          No temperature control points have been defined for this recipe.
-        </p>
-      {/if}
-    </Card.Content>
-  </Card.Root>
+            </Card.Content>
+          </Card.Root>
+        </Tabs.Content>
 
-  <!-- Storage Instructions -->
-  {#if data.recipe.storage}
-    <Card.Root>
-      <Card.Header>
-        <Card.Title>Storage Instructions</Card.Title>
-        <Card.Description>How to properly store this dish</Card.Description>
-      </Card.Header>
-      <Card.Content>
-        <div class="space-y-4">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="p-3 bg-muted rounded-lg">
-              <h4 class="font-medium mb-2">Storage Method</h4>
-              <p>{data.recipe.storage.method}</p>
-            </div>
+        <!-- Instructions Tab -->
+        <Tabs.Content
+          value="instructions"
+          class="pt-6"
+          role="tabpanel"
+          id="panel-instructions"
+          aria-labelledby="tab-instructions"
+        >
+          <Card.Root>
+            <Card.Header>
+              <Card.Title>Step-by-Step Instructions</Card.Title>
+              <Card.Description>Follow these steps to prepare the recipe</Card.Description>
+            </Card.Header>
+            <Card.Content class="p-6">
+              {#if data.recipe.instructions && data.recipe.instructions.length > 0}
+                <ol class="space-y-6">
+                  {#each data.recipe.instructions as instruction}
+                    <li class="p-4 hover:shadow-lg transition-shadow rounded-lg">
+                      <div class="flex gap-4">
+                        <div
+                          class="flex-shrink-0 w-10 h-10 rounded-full bg-primary/10 text-primary font-medium flex items-center justify-center"
+                          aria-hidden="true"
+                        >
+                          {instruction.stepNumber || '•'}
+                        </div>
+                        <div>
+                          <p class="mb-3 text-gray-700">{instruction.instruction}</p>
+                          {#if instruction.imageUrl}
+                            <figure class="mt-3">
+                              <img
+                                src={instruction.imageUrl}
+                                alt={`Illustration for step ${instruction.stepNumber}`}
+                                class="rounded-lg w-full max-h-64 object-cover"
+                              />
+                            </figure>
+                          {/if}
+                          {#if instruction.timeInMinutes || instruction.temperature}
+                            <dl class="flex gap-4 mt-3">
+                              {#if instruction.timeInMinutes}
+                                <div
+                                  class="flex items-center gap-2 bg-gray-100 px-3 py-1 rounded-md"
+                                >
+                                  <Clock class="h-4 w-4 text-gray-500" aria-hidden="true" />
+                                  <div>
+                                    <dt class="sr-only">Time</dt>
+                                    <dd class="text-sm">{instruction.timeInMinutes} minutes</dd>
+                                  </div>
+                                </div>
+                              {/if}
+                              {#if instruction.temperature}
+                                <div
+                                  class="flex items-center gap-2 bg-gray-100 px-3 py-1 rounded-md"
+                                >
+                                  <Thermometer class="h-4 w-4 text-gray-500" aria-hidden="true" />
+                                  <div>
+                                    <dt class="sr-only">Temperature</dt>
+                                    <dd class="text-sm">
+                                      {instruction.temperature}°{instruction.temperatureUnit || 'C'}
+                                    </dd>
+                                  </div>
+                                </div>
+                              {/if}
+                            </dl>
+                          {/if}
+                          {#if instruction.techniqueTips || instruction.warningNotes || instruction.isCritical}
+                            <div class="mt-4 space-y-3">
+                              {#if instruction.isCritical}
+                                <div
+                                  class="flex items-start gap-2 p-3 bg-amber-50 border border-amber-200 rounded-lg"
+                                  role="alert"
+                                >
+                                  <AlertTriangle
+                                    class="h-4 w-4 text-amber-500"
+                                    aria-hidden="true"
+                                  />
+                                  <p class="text-sm text-amber-800">
+                                    This is a critical step! Pay attention.
+                                  </p>
+                                </div>
+                              {/if}
+                              {#if instruction.techniqueTips}
+                                <div
+                                  class="flex items-start gap-2 p-3 bg-blue-50 border border-blue-200 rounded-lg"
+                                >
+                                  <ChefHat class="h-4 w-4 text-blue-500" aria-hidden="true" />
+                                  <p class="text-sm text-blue-800">{instruction.techniqueTips}</p>
+                                </div>
+                              {/if}
+                              {#if instruction.warningNotes}
+                                <div
+                                  class="flex items-start gap-2 p-3 bg-red-50 border border-red-200 rounded-lg"
+                                  role="alert"
+                                >
+                                  <AlertTriangle class="h-4 w-4 text-red-500" aria-hidden="true" />
+                                  <p class="text-sm text-red-800">{instruction.warningNotes}</p>
+                                </div>
+                              {/if}
+                            </div>
+                          {/if}
+                        </div>
+                      </div>
+                    </li>
+                  {/each}
+                </ol>
+              {:else}
+                <p class="text-gray-500 italic">No instructions added yet.</p>
+              {/if}
+            </Card.Content>
+          </Card.Root>
+        </Tabs.Content>
 
-            <div class="p-3 bg-muted rounded-lg">
-              <h4 class="font-medium mb-2">Shelf Life</h4>
-              <p>
-                {#if data.recipe.storage.shelfLife > 24}
-                  {Math.floor(data.recipe.storage.shelfLife / 24)} days
-                  {data.recipe.storage.shelfLife % 24 > 0
-                    ? `and ${data.recipe.storage.shelfLife % 24} hours`
-                    : ''}
+        <!-- Equipment Tab -->
+        <Tabs.Content
+          value="equipment"
+          class="pt-6"
+          role="tabpanel"
+          id="panel-equipment"
+          aria-labelledby="tab-equipment"
+        >
+          <Card.Root>
+            <Card.Header>
+              <Card.Title>Required Equipment</Card.Title>
+              <Card.Description>Tools needed for this recipe</Card.Description>
+            </Card.Header>
+            <Card.Content class="p-6">
+              {#if data.recipe.equipment && data.recipe.equipment.length > 0}
+                <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {#each data.recipe.equipment as item}
+                    <li
+                      class="flex items-center gap-3 p-4 bg-gray-50 rounded-lg hover:shadow-md transition-shadow"
+                    >
+                      <Utensils class="h-5 w-5 text-gray-500" aria-hidden="true" />
+                      <div>
+                        <h3 class="font-semibold">{item.name}</h3>
+                        {#if item.description}
+                          <p class="text-sm text-gray-600">{item.description}</p>
+                        {/if}
+                      </div>
+                    </li>
+                  {/each}
+                </ul>
+              {:else}
+                <p class="text-gray-500 italic">No equipment specified yet.</p>
+              {/if}
+            </Card.Content>
+          </Card.Root>
+        </Tabs.Content>
+
+        <!-- Safety & Storage Tab -->
+        <Tabs.Content
+          value="safety"
+          class="pt-6"
+          role="tabpanel"
+          id="panel-safety"
+          aria-labelledby="tab-safety"
+        >
+          <section aria-labelledby="control-points">
+            <Card.Root>
+              <Card.Header>
+                <Card.Title id="control-points" class="flex items-center gap-2">
+                  <AlertTriangle class="h-4 w-4 text-amber-500" aria-hidden="true" />
+                  Critical Control Points
+                </Card.Title>
+                <Card.Description>Important safety checkpoints</Card.Description>
+              </Card.Header>
+              <Card.Content class="p-6">
+                {#if data.recipe.temperatures && data.recipe.temperatures.length > 0}
+                  <ul class="space-y-4">
+                    {#each data.recipe.temperatures as temp}
+                      <li
+                        class="p-4 border rounded-lg transition-shadow hover:shadow-md {temp.isCritical
+                          ? 'border-amber-200 bg-amber-50'
+                          : 'border-gray-200 bg-gray-50'}"
+                      >
+                        <div class="flex justify-between items-center">
+                          <h4 class="font-semibold flex items-center gap-2">
+                            <Thermometer class="h-4 w-4 text-primary" aria-hidden="true" />
+                            Step {temp.stepNumber}
+                          </h4>
+                          {#if temp.isCritical}
+                            <Badge
+                              variant="outline"
+                              class="bg-amber-100 text-amber-800 border-amber-300"
+                            >
+                              Critical
+                            </Badge>
+                          {/if}
+                        </div>
+                        <dl class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          <div class="flex items-center gap-2">
+                            <Flame class="h-4 w-4 text-gray-500" aria-hidden="true" />
+                            <div>
+                              <dt class="sr-only">Temperature range</dt>
+                              <dd class="text-sm">
+                                {temp.minTemp.toFixed(2)}<strong>°C </strong> - {temp.maxTemp.toFixed(
+                                  2
+                                )}<strong>°C</strong>
+                              </dd>
+                            </div>
+                          </div>
+                          {#if temp.holdTime}
+                            <div class="flex items-center gap-2">
+                              <Clock class="h-4 w-4 text-gray-500" aria-hidden="true" />
+                              <div>
+                                <dt class="sr-only">Hold time</dt>
+                                <dd class="text-sm">Hold {temp.holdTime} mins</dd>
+                              </div>
+                            </div>
+                          {/if}
+                        </dl>
+                        {#if temp.description}
+                          <p
+                            class="mt-2 text-sm {temp.isCritical
+                              ? 'text-amber-800'
+                              : 'text-gray-600'}"
+                          >
+                            {temp.description}
+                          </p>
+                        {/if}
+                      </li>
+                    {/each}
+                  </ul>
                 {:else}
-                  {data.recipe.storage.shelfLife} hours
+                  <p class="text-gray-500 italic">No temperature control points defined.</p>
                 {/if}
-              </p>
-            </div>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {#if data.recipe.storage.temperature}
-              <div class="p-3 bg-muted rounded-lg">
-                <h4 class="font-medium mb-2">Storage Temperature</h4>
-                <p>{data.recipe.storage.temperature}°C</p>
-              </div>
-            {/if}
-
-            {#if data.recipe.storage.containerType}
-              <div class="p-3 bg-muted rounded-lg">
-                <h4 class="font-medium mb-2">Container Type</h4>
-                <p>{data.recipe.storage.containerType}</p>
-              </div>
-            {/if}
-          </div>
-
-          {#if data.recipe.storage.specialNotes}
-            <div class="p-3 border border-blue-200 bg-blue-50 rounded-lg">
-              <h4 class="font-medium mb-2 flex items-center gap-2">
-                <AlertTriangle class="h-4 w-4 text-blue-500" />
-                Special Notes
-              </h4>
-              <p class="text-blue-800">{data.recipe.storage.specialNotes}</p>
-            </div>
+              </Card.Content>
+            </Card.Root>
+          </section>
+          {#if data.recipe.storage}
+            <section aria-labelledby="storage-instructions" class="mt-6">
+              <Card.Root>
+                <Card.Header>
+                  <Card.Title id="storage-instructions" class="flex items-center gap-2">
+                    <Clock class="h-4 w-4 text-primary" aria-hidden="true" />
+                    Storage Instructions
+                  </Card.Title>
+                  <Card.Description>How to store this dish</Card.Description>
+                </Card.Header>
+                <Card.Content class="p-6">
+                  <dl class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                      <dt class="font-semibold text-sm text-gray-600 mb-2">Storage Method</dt>
+                      <dd class="text-gray-700">{data.recipe.storage.method}</dd>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                      <dt class="font-semibold text-sm text-gray-600 mb-2">Shelf Life</dt>
+                      <dd class="text-gray-700">
+                        {data.recipe.storage.shelfLife > 24
+                          ? `${Math.floor(data.recipe.storage.shelfLife / 24)} days ${data.recipe.storage.shelfLife % 24 > 0 ? 'and ' + (data.recipe.storage.shelfLife % 24) + ' hours' : ''}`
+                          : `${data.recipe.storage.shelfLife} hours`}
+                      </dd>
+                    </div>
+                  </dl>
+                  <dl class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    {#if data.recipe.storage.temperature}
+                      <div class="bg-gray-50 p-4 rounded-lg">
+                        <dt class="font-semibold text-sm text-gray-600 mb-2">
+                          Storage Temperature
+                        </dt>
+                        <dd class="text-gray-700">
+                          {data.recipe.storage.temperature.toFixed(2)}°C
+                        </dd>
+                      </div>
+                    {/if}
+                    {#if data.recipe.storage.containerType}
+                      <div class="bg-gray-50 p-4 rounded-lg">
+                        <dt class="font-semibold text-sm text-gray-600 mb-2">Container Type</dt>
+                        <dd class="text-gray-700">{data.recipe.storage.containerType}</dd>
+                      </div>
+                    {/if}
+                  </dl>
+                  {#if data.recipe.storage.specialNotes}
+                    <div class="mt-4 p-4 border border-blue-200 bg-blue-50 rounded-lg" role="note">
+                      <h4 class="font-semibold flex items-center gap-2 text-blue-600 text-sm">
+                        <AlertTriangle class="h-4 w-4" aria-hidden="true" />
+                        Special Notes
+                      </h4>
+                      <p class="text-blue-800 text-sm">{data.recipe.storage.specialNotes}</p>
+                    </div>
+                  {/if}
+                </Card.Content>
+              </Card.Root>
+            </section>
           {/if}
-        </div>
-      </Card.Content>
-    </Card.Root>
-  {/if}
-
-  <!-- <!-- Ingredients Section --> -->
-  <!-- {#if data.recipe.ingredients} -->
-  <!--   <Card.Root> -->
-  <!--     <Card.Header> -->
-  <!--       <Card.Title>Ingredients</Card.Title> -->
-  <!--     </Card.Header> -->
-  <!--     <Card.Content> -->
-  <!--       <ul class="space-y-4"> -->
-  <!--         {#each data.recipe.ingredients as ingredient} -->
-  <!--           <li class="flex justify-between items-center"> -->
-  <!--             <div> -->
-  <!--               <span class="font-medium">{ingredient.ingredient.name}</span> -->
-  <!--               {#if ingredient.processingInstructions} -->
-  <!--                 <p class="text-sm text-muted-foreground">{ingredient.processingInstructions}</p> -->
-  <!--               {/if} -->
-  <!--             </div> -->
-  <!--             <div class="text-right"> -->
-  <!--               <span class="font-medium">{ingredient.quantity} {ingredient.unit}</span> -->
-  <!--               {#if ingredient.cost} -->
-  <!--                 <p class="text-xs text-muted-foreground">${ingredient.cost.toFixed(2)}</p> -->
-  <!--               {/if} -->
-  <!--             </div> -->
-  <!--           </li> -->
-  <!--         {/each} -->
-  <!--       </ul> -->
-  <!--     {:else} -->
-  <!--       <p class="text-muted-foreground italic">No ingredients have been added to this recipe yet.</p> -->
-  <!--     {/if} -->
-  <!--     </Card.Content> -->
-  <!--   </Card.Root> -->
-  <!-- {/if} -->
-  <!---->
-  <!--           <!-- Substitutions if available --> -->
-  <!--           {#if data.recipe.ingredients && data.recipe.ingredients.some(ing => ing.substituteIngredients && ing.substituteIngredients.length > 0)} -->
-  <!--             <Card.Root> -->
-  <!--               <Card.Header> -->
-  <!--                 <Card.Title>Substitutions</Card.Title> -->
-  <!--                 <Card.Description>Optional ingredient substitutions</Card.Description> -->
-  <!--               </Card.Header> -->
-  <!--               <Card.Content> -->
-  <!--                 <ul class="space-y-3"> -->
-  <!--                   {#each data.recipe.ingredients.filter(ing => ing.substituteIngredients && ing.substituteIngredients.length > 0) as ingredient} -->
-  <!--                     <li class="py-2 border-b last:border-0"> -->
-  <!--                       <div class="flex justify-between items-center"> -->
-  <!--                         <span class="font-medium">{ingredient.ingredient.name}</span> -->
-  <!--                         <span>{ingredient.quantity} {ingredient.unit}</span> -->
-  <!--                       </div> -->
-  <!--                       <div class="mt-2"> -->
-  <!--                         <span class="text-sm text-muted-foreground">Can be substituted with:</span> -->
-  <!--                         <div class="mt-1 flex flex-wrap gap-2"> -->
-  <!--                           {#each ingredient.substituteIngredients as subId} -->
-  <!--                             {#if subId && data.ingredients && data.ingredients[subId]} -->
-  <!--                               <Badge variant="outline">{data.ingredients[subId].name}</Badge> -->
-  <!--                             {/if} -->
-  <!--                           {/each} -->
-  <!--                         </div> -->
-  <!--                       </div> -->
-  <!--                     </li> -->
-  <!--                   {/each} -->
-  <!--                 </ul> -->
-  <!--               </Card.Content> -->
-  <!--             </Card.Root> -->
-  <!--           {/if} -->
-  <!--         </div> -->
-  <!--       {/if} -->
-  <!---->
-  <!--       {#if activeTab === 'instructions'} -->
-  <!--         <div class="space-y-6" in:fade={{ duration: 200 }}> -->
-  <!--           <Card.Root> -->
-  <!--             <Card.Header> -->
-  <!--               <Card.Title>Preparation Instructions</Card.Title> -->
-  <!--               <Card.Description>Step-by-step cooking guide</Card.Description> -->
-  <!--             </Card.Header> -->
-  <!--             <Card.Content> -->
-  <!--               {#if data.recipe.instructions && data.recipe.instructions.length > 0} -->
-  <!--                 <ol class="space-y-6 mt-2"> -->
-  <!--                   {#each data.recipe.instructions as instruction} -->
-  <!--                     <li class="relative pl-10 pb-6 border-l last:border-l-0 border-l-muted"> -->
-  <!--                       <span class="absolute left-0 top-0 flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 text-primary font-medium"> -->
-  <!--                         {instruction.stepNumber} -->
-  <!--                       </span> -->
-  <!---->
-  <!--                       <div class="ml-2 mt-1"> -->
-  <!--                         <p class="mb-3">{instruction.instruction}</p> -->
-  <!---->
-  <!--                         <!-- Step image if available --> -->
-  <!--                         {#if instruction.imageUrl} -->
-  <!--                           <div class="mt-3 mb-3"> -->
-  <!--                             <img  -->
-  <!--                               src={instruction.imageUrl}  -->
-  <!--                               alt={`Step ${instruction.stepNumber}`}  -->
-  <!--                               class="rounded-lg max-h-64 object-cover" -->
-  <!--                             /> -->
-  <!--                           </div> -->
-  <!--                         {/if} -->
-</div>
+        </Tabs.Content>
+      </Tabs.Root>
+    </section>
+  </div>
+</main>

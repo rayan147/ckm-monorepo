@@ -158,3 +158,227 @@
   "service": "LoggingService",
   "timestamp": "2025-02-26T12:03:35.883Z"
 }
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 187 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 187: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-02-28T20:48:27.130Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 187 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 187: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-02-28T20:48:29.316Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 187 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 187: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-02-28T20:48:30.329Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 187 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 187: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-02-28T20:48:52.752Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 220 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 220: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-01T04:35:31.216Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 232 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 232: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-03T21:33:21.121Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 232 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 232: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-03T21:33:23.705Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 339 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 339: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-03T22:35:45.507Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 373 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 373: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-03T22:47:28.361Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 236 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 236: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:02:17.214Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 236 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 236: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:03:42.163Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 236 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 236: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:04:23.502Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 236 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 236: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:07:37.489Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 236 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 236: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:12:14.210Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 236 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 236: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:13:03.940Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 236 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 236: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:13:29.135Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 236 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 236: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:15:59.512Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 236 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 236: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:17:49.696Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 236 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 236: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:18:25.785Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 236 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 236: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:19:00.882Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 236 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 236: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:19:44.723Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 236 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 236: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:19:57.398Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 236 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 236: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:20:30.976Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 236 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 236: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:20:41.601Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 236 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 236: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:20:54.903Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 236 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 236: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:22:05.533Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 236 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 236: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:22:40.393Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 236 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 236: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:22:46.869Z"
+}

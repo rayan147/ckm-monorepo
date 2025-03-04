@@ -63,8 +63,8 @@ async function createVendor() {
 }
 
 async function createIngredient(vendorId: number) {
-  const ingredientName = faker.commerce.productName();
-  const cat = faker.commerce.department();
+  const ingredientName = faker.food.ingredient();
+  const cat = faker.food.dish();
 
   return prisma.ingredient.upsert({
     where: {
@@ -98,7 +98,7 @@ async function createRecipe(restaurantId: number, cookBookId: number) {
   return prisma.recipe.create({
     data: {
       name: faker.commerce.productName(),
-      imageUrls: [faker.image.urlLoremFlickr({ category: 'food' })],
+      imageUrls: Array(7).fill(faker.image.urlLoremFlickr({ category: 'food' })),
       description: faker.lorem.paragraph(),
       servings: faker.number.int({ min: 1, max: 10 }),
       cookTime: faker.number.int({ min: 10, max: 120 }),

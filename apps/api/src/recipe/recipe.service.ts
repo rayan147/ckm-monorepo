@@ -215,7 +215,9 @@ export class RecipeService {
           include: {
             ingredients: { include: { ingredient: true } },
             instructions: { orderBy: { stepNumber: 'asc' } },
-            // ... other includes
+            tags: true,
+            laborCosts: true,
+
           },
         }),
       ]);
@@ -245,6 +247,15 @@ export class RecipeService {
           foodCostHistory: true,
           prepHistory: true,
           prepBoards: true,
+          nutritionalInfo: true,
+          tags: true,
+          dietaryRestrictions: true,
+          laborCosts: true,
+          yields: true,
+          equipment: true,
+          criticalPoints: true,
+          temperatures: true,
+          storage: true,
           prepItems: true,
         },
       });

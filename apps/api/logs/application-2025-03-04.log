@@ -1,0 +1,1573 @@
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 236",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:02:17.119Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 236",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:02:17.161Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 236 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 236: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:02:17.214Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 236",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:03:42.148Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 236",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:03:42.148Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 236 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 236: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:03:42.163Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:03:49.499Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":10,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:03:49.500Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:03:57.274Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":10,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:03:57.275Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:04:00.614Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":20,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:04:00.615Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:04:02.401Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":30,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:04:02.402Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:04:23.483Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":30,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:04:23.485Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 236",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:04:23.490Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 236",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:04:23.496Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 236 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 236: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:04:23.502Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:04:34.010Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":30,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:04:34.011Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:04:36.940Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:04:36.941Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:04:39.086Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":10,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:04:39.088Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 420",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:06:35.490Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 420",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:06:35.491Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:06:40.849Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:06:40.851Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:06:42.173Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:06:42.174Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:06:43.344Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:06:43.345Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:06:53.562Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":10,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:06:53.562Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 417",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:07:02.966Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 417",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:07:02.967Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 417",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:07:37.446Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 417",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:07:37.447Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 236",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:07:37.457Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 236",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:07:37.459Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 236 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 236: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:07:37.489Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 417",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:07:48.151Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 417",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:07:48.152Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 417",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:07:54.889Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 417",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:07:54.890Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:07:54.917Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:07:54.917Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:08:10.554Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":10,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:08:10.555Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:08:12.379Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":20,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:08:12.380Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:08:21.578Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":30,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:08:21.579Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:08:23.186Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":40,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:08:23.187Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:08:25.359Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":30,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:08:25.359Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:08:33.482Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"sma\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:08:33.483Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 236",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:12:14.185Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 236",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:12:14.187Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 236 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 236: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:12:14.210Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 236",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:13:03.915Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 236",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:13:03.915Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 236 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 236: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:13:03.940Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 236",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:13:29.122Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 236",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:13:29.124Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 236 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 236: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:13:29.135Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:13:52.654Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:13:52.656Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:14:09.856Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:14:09.857Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:14:31.477Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":10,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:14:31.478Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 417",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:14:34.092Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 417",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:14:34.093Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:14:59.320Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:14:59.321Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 236",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:15:59.505Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 236",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:15:59.506Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 236 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 236: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:15:59.512Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 236",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:17:49.690Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 236",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:17:49.691Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 236 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 236: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:17:49.696Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 236",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:18:25.777Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 236",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:18:25.778Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 236 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 236: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:18:25.785Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 236",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:19:00.863Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 236",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:19:00.864Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 236 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 236: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:19:00.882Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 236",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:19:44.717Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 236",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:19:44.717Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 236 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 236: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:19:44.723Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 236",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:19:57.392Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 236",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:19:57.392Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 236 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 236: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:19:57.398Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 236",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:20:30.971Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 236",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:20:30.971Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 236 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 236: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:20:30.976Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 236",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:20:41.594Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 236",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:20:41.594Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 236 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 236: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:20:41.601Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 236",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:20:54.897Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 236",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:20:54.897Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 236 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 236: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:20:54.903Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:21:11.232Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":10,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:21:11.232Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:21:12.834Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":20,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:21:12.834Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:21:14.717Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":30,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:21:14.717Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 437",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:21:16.378Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 437",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:21:16.379Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:21:19.482Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:21:19.483Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:21:34.906Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":10,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:21:34.906Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 236",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:22:05.528Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 236",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:22:05.528Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 236 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 236: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:22:05.533Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 236",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:22:40.386Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 236",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:22:40.387Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 236 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 236: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:22:40.393Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 236",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:22:46.864Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 236",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:22:46.865Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 236 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 236: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:22:46.869Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:22:51.947Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":10,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:22:51.948Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to delete recipe with ID 426",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:24:13.366Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Deleting (soft) recipe th ID 426",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:24:13.368Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Recipe soft-deleted successfully: {\"id\":426,\"name\":\"Refined Bronze Hat\",\"imageUrls\":[\"https://loremflickr.com/746/3741/food?lock=4695570164733359\",\"https://loremflickr.com/746/3741/food?lock=4695570164733359\",\"https://loremflickr.com/746/3741/food?lock=4695570164733359\",\"https://loremflickr.com/746/3741/food?lock=4695570164733359\",\"https://loremflickr.com/746/3741/food?lock=4695570164733359\",\"https://loremflickr.com/746/3741/food?lock=4695570164733359\",\"https://loremflickr.com/746/3741/food?lock=4695570164733359\"],\"description\":\"Ulciscor solus claudeo iure laborum ventosus nisi sopor aequitas. Sordeo tibi animi ulterius dicta cornu tergum aestas comes vilicus. Approbo autus tego tumultus.\",\"servings\":4,\"cookTime\":99,\"prepTime\":110,\"frequency\":null,\"restaurantId\":37,\"cookBookId\":33,\"foodCost\":null,\"isDeleted\":true,\"isPublished\":false,\"publishedAt\":null,\"language\":\"en\",\"skillLevel\":\"INTERMEDIATE\",\"ingredients\":[{\"id\":1578,\"recipeId\":426,\"ingredientId\":592,\"quantity\":6.106419602345171,\"unit\":\"fluidOunce\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-03T22:45:02.521Z\",\"recipeVersionId\":null},{\"id\":1577,\"recipeId\":426,\"ingredientId\":574,\"quantity\":2.303727837661243,\"unit\":\"quart\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-03T22:45:02.521Z\",\"recipeVersionId\":null},{\"id\":1579,\"recipeId\":426,\"ingredientId\":567,\"quantity\":7.549847164480828,\"unit\":\"pint\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-03T22:45:02.521Z\",\"recipeVersionId\":null},{\"id\":1580,\"recipeId\":426,\"ingredientId\":588,\"quantity\":5.094470462665512,\"unit\":\"milligram\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-03T22:45:02.521Z\",\"recipeVersionId\":null},{\"id\":1576,\"recipeId\":426,\"ingredientId\":565,\"quantity\":0.9487927083957838,\"unit\":\"gram\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-03T22:45:02.521Z\",\"recipeVersionId\":null}],\"instructions\":[{\"id\":1798,\"recipeId\":426,\"stepNumber\":2,\"instruction\":\"Vindico incidunt sponte cur delego culpa amaritudo celer a.\",\"imageUrl\":\"https://loremflickr.com/3984/3131/food?lock=2473382392052762\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":1799,\"recipeId\":426,\"stepNumber\":4,\"instruction\":\"Asper alienus ustulo aptus aranea vulnero cursus depopulo commemoro.\",\"imageUrl\":\"https://loremflickr.com/1044/414/food?lock=282579132378745\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":1796,\"recipeId\":426,\"stepNumber\":3,\"instruction\":\"Cresco tantillus vae desipio caute umerus.\",\"imageUrl\":\"https://loremflickr.com/2548/2192/food?lock=2167277030219189\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":1800,\"recipeId\":426,\"stepNumber\":5,\"instruction\":\"Patrocinor beatus capto vicinus officiis collum curriculum aliqua bestia vesica.\",\"imageUrl\":\"https://loremflickr.com/746/2481/food?lock=5355151800764090\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":1797,\"recipeId\":426,\"stepNumber\":1,\"instruction\":\"Illum thesaurus maiores victus copia angulus concedo dedico.\",\"imageUrl\":\"https://loremflickr.com/2541/2767/food?lock=4855783064069130\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null}]}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:24:13.419Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:24:14.578Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":10,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:24:14.578Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:24:16.602Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":20,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:24:16.603Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:25:36.243Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":20,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:25:36.243Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 428",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:34:20.359Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 428",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:34:20.360Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:34:35.796Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:34:35.797Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 430",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:39:57.427Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 430",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:39:57.428Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:40:00.549Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:40:00.550Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:40:01.998Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:40:01.998Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 406",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:40:04.124Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 406",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:40:04.125Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:40:12.795Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:40:12.795Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:40:12.809Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:40:12.810Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to delete recipe with ID 416",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:40:21.899Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Deleting (soft) recipe th ID 416",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:40:21.900Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Recipe soft-deleted successfully: {\"id\":416,\"name\":\"Ergonomic Metal Mouse\",\"imageUrls\":[\"https://loremflickr.com/2277/345/food?lock=2242495582904899\",\"https://loremflickr.com/2277/345/food?lock=2242495582904899\",\"https://loremflickr.com/2277/345/food?lock=2242495582904899\",\"https://loremflickr.com/2277/345/food?lock=2242495582904899\",\"https://loremflickr.com/2277/345/food?lock=2242495582904899\",\"https://loremflickr.com/2277/345/food?lock=2242495582904899\",\"https://loremflickr.com/2277/345/food?lock=2242495582904899\"],\"description\":\"Strenuus deputo desipio cur creo compello socius. Earum carmen pecto curvo deinde suspendo turba truculenter angulus curo. Amo dapifer beatus itaque.\",\"servings\":7,\"cookTime\":32,\"prepTime\":113,\"frequency\":null,\"restaurantId\":36,\"cookBookId\":33,\"foodCost\":null,\"isDeleted\":true,\"isPublished\":false,\"publishedAt\":null,\"language\":\"en\",\"skillLevel\":\"INTERMEDIATE\",\"ingredients\":[{\"id\":1481,\"recipeId\":416,\"ingredientId\":569,\"quantity\":9.255334962641081,\"unit\":\"gallon\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-03T22:45:02.216Z\",\"recipeVersionId\":null},{\"id\":1483,\"recipeId\":416,\"ingredientId\":598,\"quantity\":0.2837692207969233,\"unit\":\"kilogram\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-03T22:45:02.216Z\",\"recipeVersionId\":null},{\"id\":1485,\"recipeId\":416,\"ingredientId\":578,\"quantity\":1.908606024942844,\"unit\":\"milliliter\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-03T22:45:02.216Z\",\"recipeVersionId\":null},{\"id\":1484,\"recipeId\":416,\"ingredientId\":563,\"quantity\":5.721598775473099,\"unit\":\"gram\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-03T22:45:02.216Z\",\"recipeVersionId\":null},{\"id\":1482,\"recipeId\":416,\"ingredientId\":552,\"quantity\":6.170446896286549,\"unit\":\"liter\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-03T22:45:02.216Z\",\"recipeVersionId\":null}],\"instructions\":[{\"id\":1705,\"recipeId\":416,\"stepNumber\":2,\"instruction\":\"Desolo tabella delinquo crastinus.\",\"imageUrl\":\"https://loremflickr.com/1549/3946/food?lock=7721768065919701\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":1703,\"recipeId\":416,\"stepNumber\":3,\"instruction\":\"Depono centum veniam varietas cognatus accusantium.\",\"imageUrl\":\"https://loremflickr.com/1555/1655/food?lock=3329212249847553\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":1701,\"recipeId\":416,\"stepNumber\":1,\"instruction\":\"Attollo pectus conscendo curo voro ter vix crudelis dens.\",\"imageUrl\":\"https://loremflickr.com/3213/1721/food?lock=4360710128854027\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":1704,\"recipeId\":416,\"stepNumber\":5,\"instruction\":\"Vapulus victus viriliter defaeco sol ventus timidus amiculum demo in.\",\"imageUrl\":\"https://loremflickr.com/1862/1769/food?lock=4524704005145507\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":1702,\"recipeId\":416,\"stepNumber\":4,\"instruction\":\"Antea animadverto sollicito timor curia aqua vociferor labore consequuntur conqueror.\",\"imageUrl\":\"https://loremflickr.com/2364/3407/food?lock=5015008538205302\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null}]}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:40:21.922Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:40:24.084Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:40:24.084Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:40:35.473Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"d\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:40:35.474Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:40:36.749Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"da\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:40:36.750Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:40:38.979Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"das\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:40:38.979Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:40:43.717Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"da\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:40:43.717Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:40:49.036Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"fro\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:40:49.036Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 417",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:40:52.822Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 417",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:40:52.822Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:41:03.546Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:41:03.546Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:42:22.855Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":10,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:42:22.855Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:42:24.953Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":20,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:42:24.953Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:42:26.453Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":30,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:42:26.454Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:42:27.639Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":40,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:42:27.639Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:42:29.666Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":30,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:42:29.667Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:42:31.572Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":40,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:42:31.573Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:42:32.495Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:42:32.496Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:42:34.614Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":10,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:42:34.614Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:42:35.545Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":20,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:42:35.546Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:42:36.361Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":30,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:42:36.362Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:42:38.070Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":40,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:42:38.071Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to delete recipe with ID 450",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:42:40.995Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Deleting (soft) recipe th ID 450",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:42:40.995Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Recipe soft-deleted successfully: {\"id\":450,\"name\":\"Practical Bamboo Bike\",\"imageUrls\":[\"https://loremflickr.com/1470/2114/food?lock=8049951506383812\",\"https://loremflickr.com/1470/2114/food?lock=8049951506383812\",\"https://loremflickr.com/1470/2114/food?lock=8049951506383812\",\"https://loremflickr.com/1470/2114/food?lock=8049951506383812\",\"https://loremflickr.com/1470/2114/food?lock=8049951506383812\",\"https://loremflickr.com/1470/2114/food?lock=8049951506383812\",\"https://loremflickr.com/1470/2114/food?lock=8049951506383812\"],\"description\":\"Agnosco textor veniam. Depereo eius accendo vero odio solutio vapulus doloribus quisquam vulticulus. Coniecto agnitio esse textilis deinde vulariter vulticulus.\",\"servings\":1,\"cookTime\":107,\"prepTime\":15,\"frequency\":null,\"restaurantId\":36,\"cookBookId\":32,\"foodCost\":null,\"isDeleted\":true,\"isPublished\":false,\"publishedAt\":null,\"language\":\"en\",\"skillLevel\":\"INTERMEDIATE\",\"ingredients\":[{\"id\":1541,\"recipeId\":450,\"ingredientId\":589,\"quantity\":7.336726522742374,\"unit\":\"ounce\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-03T22:45:02.412Z\",\"recipeVersionId\":null},{\"id\":1544,\"recipeId\":450,\"ingredientId\":577,\"quantity\":1.269133233320038,\"unit\":\"tablespoon\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-03T22:45:02.412Z\",\"recipeVersionId\":null},{\"id\":1543,\"recipeId\":450,\"ingredientId\":587,\"quantity\":8.54524737914507,\"unit\":\"pound\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-03T22:45:02.412Z\",\"recipeVersionId\":null},{\"id\":1545,\"recipeId\":450,\"ingredientId\":556,\"quantity\":7.342085547102116,\"unit\":\"cup\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-03T22:45:02.412Z\",\"recipeVersionId\":null},{\"id\":1542,\"recipeId\":450,\"ingredientId\":567,\"quantity\":2.793893565878162,\"unit\":\"ounce\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-03T22:45:02.412Z\",\"recipeVersionId\":null}],\"instructions\":[{\"id\":1763,\"recipeId\":450,\"stepNumber\":5,\"instruction\":\"Antiquus vado defero occaecati absum venustas abscido verbera.\",\"imageUrl\":\"https://loremflickr.com/227/829/food?lock=157248264153125\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":1762,\"recipeId\":450,\"stepNumber\":2,\"instruction\":\"Atque vix brevis talis adicio cunabula dapifer cuius appositus.\",\"imageUrl\":\"https://loremflickr.com/1032/3475/food?lock=7067672331478778\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":1764,\"recipeId\":450,\"stepNumber\":4,\"instruction\":\"Casso vinitor aliqua tonsor calco asper correptius.\",\"imageUrl\":\"https://loremflickr.com/1390/3134/food?lock=721301380091424\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":1765,\"recipeId\":450,\"stepNumber\":1,\"instruction\":\"Corrupti crudelis delectus commodi uredo aegre cimentarius totus iste.\",\"imageUrl\":\"https://loremflickr.com/218/176/food?lock=3247483608430566\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":1761,\"recipeId\":450,\"stepNumber\":3,\"instruction\":\"Aer conculco vaco trans cognatus.\",\"imageUrl\":\"https://loremflickr.com/665/2481/food?lock=3586728097831939\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null}]}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:42:41.014Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:42:41.045Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":40,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:42:41.045Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:42:45.935Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":30,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:42:45.936Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:42:48.723Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:42:48.724Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:43:30.594Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":10,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:43:30.594Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:44:01.109Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":20,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:44:01.110Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 429",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:44:03.974Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 429",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:44:03.975Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:44:19.438Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:44:19.438Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:45:05.287Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":10,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:45:05.288Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 418",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:45:23.031Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 418",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:45:23.032Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:47:55.135Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:47:55.135Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:48:57.988Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:48:57.989Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 411",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:52:50.690Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 411",
+  "service": "LoggingService",
+  "timestamp": "2025-03-04T05:52:50.692Z"
+}

@@ -14,6 +14,7 @@ export const load: PageLoad = async ({ params }) => {
       params: { id }
     });
 
+
     if (status !== 200) {
       return error(404, { message: 'Recipe not found' });
     }

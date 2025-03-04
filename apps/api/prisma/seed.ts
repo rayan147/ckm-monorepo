@@ -63,8 +63,8 @@ async function createVendor() {
 }
 
 async function createIngredient(vendorId: number) {
-  const ingredientName = faker.commerce.productName();
-  const cat = faker.commerce.department();
+  const ingredientName = faker.food.ingredient();
+  const cat = faker.food.dish();
 
   return prisma.ingredient.upsert({
     where: {
