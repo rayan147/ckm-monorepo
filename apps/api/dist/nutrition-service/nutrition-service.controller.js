@@ -61,7 +61,7 @@ let NutritionController = class NutritionController {
                     .replace(/fresh|raw|frozen|cooked|dried|sliced|chopped|diced/g, '')
                     .trim();
                 console.log(`Searching USDA for: "${cleanedQuery}" (original: "${query.query}")`);
-                const results = await this.usdaApiService.searchFoods(cleanedQuery || query.query, query.pageSize);
+                const results = await this.usdaApiService.searchFoodsWithFallback(cleanedQuery || query.query, query.pageSize);
                 return { status: 200, body: results };
             }
             catch (error) {
@@ -116,6 +116,46 @@ let NutritionController = class NutritionController {
             }
         });
     }
+    async updateManualNutrition() {
+        return (0, nest_1.tsRestHandler)(contracts_1.contract.nutrition.updateManualNutrition, async ({ params, body }) => {
+            try {
+                const ingredient = await this.prisma.ingredient.findUnique({
+                    where: { id: params.id },
+                    select: { name: true }
+                });
+                console.log(`Manually updating nutrition for "${(ingredient === null || ingredient === void 0 ? void 0 : ingredient.name) || 'unknown'}" (ID: ${params.id})`);
+                const macroSum = body.protein + body.carbohydrates + body.fat;
+                if (macroSum > 100) {
+                    return {
+                        status: 400,
+                        body: {
+                            success: false,
+                            message: `Total of protein (${body.protein}g), carbs (${body.carbohydrates}g), and fat (${body.fat}g) exceeds 100g for a 100g portion`
+                        }
+                    };
+                }
+                const updatedIngredient = await this.nutritionService.updateManualNutrition(params.id, body);
+                return {
+                    status: 200,
+                    body: {
+                        success: true,
+                        message: 'Nutrition data manually updated successfully',
+                        ingredient: updatedIngredient
+                    }
+                };
+            }
+            catch (error) {
+                console.error('Error updating manual nutrition:', error);
+                return {
+                    status: 400,
+                    body: {
+                        success: false,
+                        message: error instanceof Error ? error.message : 'Failed to update nutrition data manually'
+                    }
+                };
+            }
+        });
+    }
 };
 exports.NutritionController = NutritionController;
 __decorate([
@@ -142,6 +182,12 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], NutritionController.prototype, "importUsdaNutrition", null);
+__decorate([
+    (0, nest_1.TsRestHandler)(contracts_1.contract.nutrition.updateManualNutrition),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], NutritionController.prototype, "updateManualNutrition", null);
 exports.NutritionController = NutritionController = __decorate([
     (0, common_1.Controller)(),
     __metadata("design:paramtypes", [nutrition_service_service_1.NutritionService,

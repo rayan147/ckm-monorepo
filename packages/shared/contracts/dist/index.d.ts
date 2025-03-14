@@ -6423,7 +6423,142 @@ declare const contract: {
             method: "GET";
             path: "/api/v1ingredients/usda-search";
             responses: {
-                200: zod.ZodAny;
+                200: zod.ZodObject<{
+                    foods: zod.ZodOptional<zod.ZodArray<zod.ZodObject<{
+                        fdcId: zod.ZodUnion<[zod.ZodString, zod.ZodNumber]>;
+                        description: zod.ZodString;
+                        dataType: zod.ZodOptional<zod.ZodString>;
+                        foodCategory: zod.ZodOptional<zod.ZodString>;
+                        brandOwner: zod.ZodOptional<zod.ZodString>;
+                        foodNutrients: zod.ZodOptional<zod.ZodArray<zod.ZodObject<{
+                            nutrient: zod.ZodOptional<zod.ZodObject<{
+                                id: zod.ZodNumber;
+                                name: zod.ZodString;
+                                unitName: zod.ZodOptional<zod.ZodString>;
+                            }, "strip", zod.ZodTypeAny, {
+                                id: number;
+                                name: string;
+                                unitName?: string | undefined;
+                            }, {
+                                id: number;
+                                name: string;
+                                unitName?: string | undefined;
+                            }>>;
+                            nutrientId: zod.ZodOptional<zod.ZodNumber>;
+                            nutrientName: zod.ZodOptional<zod.ZodString>;
+                            amount: zod.ZodOptional<zod.ZodNumber>;
+                            value: zod.ZodOptional<zod.ZodNumber>;
+                            unitName: zod.ZodOptional<zod.ZodString>;
+                        }, "strip", zod.ZodTypeAny, {
+                            value?: number | undefined;
+                            unitName?: string | undefined;
+                            nutrient?: {
+                                id: number;
+                                name: string;
+                                unitName?: string | undefined;
+                            } | undefined;
+                            nutrientId?: number | undefined;
+                            nutrientName?: string | undefined;
+                            amount?: number | undefined;
+                        }, {
+                            value?: number | undefined;
+                            unitName?: string | undefined;
+                            nutrient?: {
+                                id: number;
+                                name: string;
+                                unitName?: string | undefined;
+                            } | undefined;
+                            nutrientId?: number | undefined;
+                            nutrientName?: string | undefined;
+                            amount?: number | undefined;
+                        }>, "many">>;
+                    }, "strip", zod.ZodTypeAny, {
+                        description: string;
+                        fdcId: string | number;
+                        dataType?: string | undefined;
+                        foodCategory?: string | undefined;
+                        brandOwner?: string | undefined;
+                        foodNutrients?: {
+                            value?: number | undefined;
+                            unitName?: string | undefined;
+                            nutrient?: {
+                                id: number;
+                                name: string;
+                                unitName?: string | undefined;
+                            } | undefined;
+                            nutrientId?: number | undefined;
+                            nutrientName?: string | undefined;
+                            amount?: number | undefined;
+                        }[] | undefined;
+                    }, {
+                        description: string;
+                        fdcId: string | number;
+                        dataType?: string | undefined;
+                        foodCategory?: string | undefined;
+                        brandOwner?: string | undefined;
+                        foodNutrients?: {
+                            value?: number | undefined;
+                            unitName?: string | undefined;
+                            nutrient?: {
+                                id: number;
+                                name: string;
+                                unitName?: string | undefined;
+                            } | undefined;
+                            nutrientId?: number | undefined;
+                            nutrientName?: string | undefined;
+                            amount?: number | undefined;
+                        }[] | undefined;
+                    }>, "many">>;
+                    totalHits: zod.ZodOptional<zod.ZodNumber>;
+                    currentPage: zod.ZodOptional<zod.ZodNumber>;
+                    totalPages: zod.ZodOptional<zod.ZodNumber>;
+                }, "strip", zod.ZodTypeAny, {
+                    foods?: {
+                        description: string;
+                        fdcId: string | number;
+                        dataType?: string | undefined;
+                        foodCategory?: string | undefined;
+                        brandOwner?: string | undefined;
+                        foodNutrients?: {
+                            value?: number | undefined;
+                            unitName?: string | undefined;
+                            nutrient?: {
+                                id: number;
+                                name: string;
+                                unitName?: string | undefined;
+                            } | undefined;
+                            nutrientId?: number | undefined;
+                            nutrientName?: string | undefined;
+                            amount?: number | undefined;
+                        }[] | undefined;
+                    }[] | undefined;
+                    totalHits?: number | undefined;
+                    currentPage?: number | undefined;
+                    totalPages?: number | undefined;
+                }, {
+                    foods?: {
+                        description: string;
+                        fdcId: string | number;
+                        dataType?: string | undefined;
+                        foodCategory?: string | undefined;
+                        brandOwner?: string | undefined;
+                        foodNutrients?: {
+                            value?: number | undefined;
+                            unitName?: string | undefined;
+                            nutrient?: {
+                                id: number;
+                                name: string;
+                                unitName?: string | undefined;
+                            } | undefined;
+                            nutrientId?: number | undefined;
+                            nutrientName?: string | undefined;
+                            amount?: number | undefined;
+                        }[] | undefined;
+                    }[] | undefined;
+                    totalHits?: number | undefined;
+                    currentPage?: number | undefined;
+                    totalPages?: number | undefined;
+                }>;
                 400: zod.ZodObject<{
                     message: zod.ZodString;
                 }, "strip", zod.ZodTypeAny, {
@@ -6451,6 +6586,68 @@ declare const contract: {
                 usdaFoodId?: string | undefined;
             }>;
             path: "/api/v1/ingredients/:id/import-usda-nutrition";
+            responses: {
+                200: zod.ZodObject<{
+                    success: zod.ZodBoolean;
+                    message: zod.ZodString;
+                    ingredient: zod.ZodOptional<zod.ZodAny>;
+                }, "strip", zod.ZodTypeAny, {
+                    message: string;
+                    success: boolean;
+                    ingredient?: any;
+                }, {
+                    message: string;
+                    success: boolean;
+                    ingredient?: any;
+                }>;
+                400: zod.ZodObject<{
+                    success: zod.ZodBoolean;
+                    message: zod.ZodString;
+                }, "strip", zod.ZodTypeAny, {
+                    message: string;
+                    success: boolean;
+                }, {
+                    message: string;
+                    success: boolean;
+                }>;
+            };
+        };
+        updateManualNutrition: {
+            pathParams: zod.ZodObject<{
+                id: zod.ZodNumber;
+            }, "strip", zod.ZodTypeAny, {
+                id: number;
+            }, {
+                id: number;
+            }>;
+            summary: "Manually update nutrition data for an ingredient";
+            method: "POST";
+            body: zod.ZodObject<{
+                calories: zod.ZodNumber;
+                protein: zod.ZodNumber;
+                carbohydrates: zod.ZodNumber;
+                fat: zod.ZodNumber;
+                fiber: zod.ZodNumber;
+                sugar: zod.ZodNumber;
+                sodium: zod.ZodNumber;
+            }, "strip", zod.ZodTypeAny, {
+                calories: number;
+                protein: number;
+                carbohydrates: number;
+                fat: number;
+                fiber: number;
+                sugar: number;
+                sodium: number;
+            }, {
+                calories: number;
+                protein: number;
+                carbohydrates: number;
+                fat: number;
+                fiber: number;
+                sugar: number;
+                sodium: number;
+            }>;
+            path: "/api/v1/ingredients/:id/manual-nutrition";
             responses: {
                 200: zod.ZodObject<{
                     success: zod.ZodBoolean;

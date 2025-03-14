@@ -25,19 +25,22 @@ let UsdaApiService = class UsdaApiService {
         }
     }
     async searchFoods(query, pageSize = 25) {
+        var _a;
         try {
             const url = `${this.baseUrl}/foods/search`;
             const params = {
                 api_key: this.apiKey,
                 query,
                 pageSize,
-                dataType: 'Foundation,SR Legacy'
+                dataType: 'Foundation,SR Legacy,Survey (FNDDS),Branded,Experimental'
             };
             const { data } = await (0, rxjs_1.firstValueFrom)(this.httpService.get(url, { params }).pipe((0, rxjs_1.catchError)((error) => {
                 var _a;
                 console.error('Error searching USDA foods:', ((_a = error.response) === null || _a === void 0 ? void 0 : _a.data) || error.message);
                 throw new Error(`Failed to search foods: ${error.message}`);
             })));
+            console.log(`USDA search for "${query}" returned ${((_a = data === null || data === void 0 ? void 0 : data.foods) === null || _a === void 0 ? void 0 : _a.length) || 0} results`);
+            console.log(`the data is: ${JSON.stringify(data, null, 2)}`);
             return data;
         }
         catch (error) {
@@ -64,6 +67,63 @@ let UsdaApiService = class UsdaApiService {
             console.error('Error in getFoodNutrition:', error);
             return null;
         }
+    }
+    async searchFoodsWithFallback(query, pageSize = 25) {
+        const result = await this.searchFoods(query, pageSize);
+        if (result.foods && result.foods.length > 0) {
+            return result;
+        }
+        const words = query.split(' ').filter(word => word.length > 2);
+        if (words.length > 1) {
+            console.log(`No results for "${query}", trying with first word "${words[0]}"`);
+            return this.searchFoods(words[0], pageSize);
+        }
+        return result;
+    }
+    extractNutritionData(foodData) {
+        if (!foodData || !foodData.foodNutrients) {
+            return null;
+        }
+        const nutritionData = {
+            calories: 0,
+            protein: 0,
+            fat: 0,
+            carbohydrates: 0,
+            fiber: 0,
+            sugar: 0,
+            sodium: 0
+        };
+        const nutrientNameMap = {
+            'Energy': 'calories',
+            'Protein': 'protein',
+            'Total lipid (fat)': 'fat',
+            'Carbohydrate, by difference': 'carbohydrates',
+            'Fiber, total dietary': 'fiber',
+            'Sugars, total including NLEA': 'sugar',
+            'Sodium, Na': 'sodium'
+        };
+        const nutrientIdMap = {
+            1008: 'calories',
+            1003: 'protein',
+            1004: 'fat',
+            1005: 'carbohydrates',
+            1079: 'fiber',
+            2000: 'sugar',
+            1093: 'sodium'
+        };
+        (foodData.foodNutrients || []).forEach((nutrient) => {
+            let nutrientName;
+            if (nutrient.nutrient && nutrient.nutrient.name && nutrient.nutrient.name in nutrientNameMap) {
+                nutrientName = nutrientNameMap[nutrient.nutrient.name];
+            }
+            if (!nutrientName && nutrient.nutrient && nutrient.nutrient.id && nutrient.nutrient.id in nutrientIdMap) {
+                nutrientName = nutrientIdMap[nutrient.nutrient.id];
+            }
+            if (nutrientName && nutrient.amount !== undefined) {
+                nutritionData[nutrientName] = nutrient.amount;
+            }
+        });
+        return nutritionData;
     }
 };
 exports.UsdaApiService = UsdaApiService;

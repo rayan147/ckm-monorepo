@@ -1,19 +1,37 @@
-// src/services/usda-api.service.ts
 import { Injectable } from '@nestjs/common';
 import { catchError, firstValueFrom } from 'rxjs';
 import { AxiosError } from 'axios';
 import { HttpService } from '@nestjs/axios';
 import { EnvService } from 'src/env/env.service';
 
-interface NutrientMap {
-  'Energy': number;
-  'Protein': number;
-  'Total lipid (fat)': number;
-  'Carbohydrate, by difference': number;
-  'Fiber, total dietary': number;
-  'Sugars, total including NLEA': number;
-  'Sodium, Na': number;
+// Interface for USDA nutrient data structure
+interface UsdaFoodNutrient {
+  nutrient?: {
+    id?: number;
+    name?: string;
+  };
+  amount?: number;
 }
+
+interface NutritionData {
+  calories: number;
+  protein: number;
+  fat: number;
+  carbohydrates: number;
+  fiber: number;
+  sugar: number;
+  sodium: number;
+}
+
+// Map of USDA nutrient names to our internal property names
+type NutrientNameMap = {
+  [key: string]: keyof NutritionData;
+};
+
+// Map of USDA nutrient IDs to our internal property names
+type NutrientIdMap = {
+  [key: number]: keyof NutritionData;
+};
 
 @Injectable()
 export class UsdaApiService {
@@ -34,12 +52,15 @@ export class UsdaApiService {
     try {
       const url = `${this.baseUrl}/foods/search`;
 
-      // Create params object without array notation
+      // Include all data types available in the USDA database
+      // This includes: Foundation, SR Legacy, Survey (FNDDS), Branded, and Experimental Foods
       const params = {
         api_key: this.apiKey,
         query,
         pageSize,
-        dataType: 'Foundation,SR Legacy' // Change to comma-separated string instead of array
+        // Don't specify dataType to get results from all categories
+        // Or explicitly include all categories:
+        dataType: 'Foundation,SR Legacy,Survey (FNDDS),Branded,Experimental'
       };
 
       const { data } = await firstValueFrom(
@@ -50,6 +71,9 @@ export class UsdaApiService {
           }),
         ),
       );
+
+      console.log(`USDA search for "${query}" returned ${data?.foods?.length || 0} results`);
+      console.log(`the data is: ${JSON.stringify(data, null, 2)}`)
       return data;
     } catch (error) {
       console.error('Error in searchFoods:', error);
@@ -73,7 +97,6 @@ export class UsdaApiService {
           }),
         ),
       );
-
       return data;
     } catch (error) {
       console.error('Error in getFoodNutrition:', error);
@@ -81,16 +104,84 @@ export class UsdaApiService {
     }
   }
 
-  // Helper method to lookup common nutrient IDs
-  // getNutrientIdByName(name: keyof NutrientMap): number | null {
-  //   const nutrientMap = {
-  //     'Energy': 1008, // Energy (kcal)
-  //     'Protein': 1003,
-  //     'Total lipid (fat)': 1004,
-  //     'Carbohydrate, by difference': 1005,
-  //     'Fiber, total dietary': 1079,
-  //     'Sugars, total including NLEA': 2000,
-  //   }
-  //   return nutrientMap[name]
-  // }
+  // Utility method to search with fallback to broader search if no results
+  async searchFoodsWithFallback(query: string, pageSize: number = 25): Promise<any> {
+    // First, try with the original query
+    const result = await this.searchFoods(query, pageSize);
+
+    // If we got results, return them
+    if (result.foods && result.foods.length > 0) {
+      return result;
+    }
+
+    // If no results and query has multiple words, try with just the first word
+    const words = query.split(' ').filter(word => word.length > 2); // Filter out very short words
+    if (words.length > 1) {
+      console.log(`No results for "${query}", trying with first word "${words[0]}"`);
+      return this.searchFoods(words[0], pageSize);
+    }
+
+    return result; // Return original empty result if no fallback
+  }
+
+  // Helper method to extract standardized nutrition data from USDA response
+  extractNutritionData(foodData: any): NutritionData | null {
+    if (!foodData || !foodData.foodNutrients) {
+      return null;
+    }
+
+    const nutritionData: NutritionData = {
+      calories: 0,
+      protein: 0,
+      fat: 0,
+      carbohydrates: 0,
+      fiber: 0,
+      sugar: 0,
+      sodium: 0
+    };
+
+    // Map of nutrient names to our standardized names
+    const nutrientNameMap: NutrientNameMap = {
+      'Energy': 'calories',
+      'Protein': 'protein',
+      'Total lipid (fat)': 'fat',
+      'Carbohydrate, by difference': 'carbohydrates',
+      'Fiber, total dietary': 'fiber',
+      'Sugars, total including NLEA': 'sugar',
+      'Sodium, Na': 'sodium'
+    };
+
+    // Also check by nutrient IDs as a fallback
+    const nutrientIdMap: NutrientIdMap = {
+      1008: 'calories', // Energy (kcal)
+      1003: 'protein',
+      1004: 'fat',
+      1005: 'carbohydrates',
+      1079: 'fiber',
+      2000: 'sugar',
+      1093: 'sodium'
+    };
+
+    // Process each nutrient
+    (foodData.foodNutrients || []).forEach((nutrient: UsdaFoodNutrient) => {
+      let nutrientName: keyof NutritionData | undefined;
+
+      // Check using the name
+      if (nutrient.nutrient && nutrient.nutrient.name && nutrient.nutrient.name in nutrientNameMap) {
+        nutrientName = nutrientNameMap[nutrient.nutrient.name];
+      }
+
+      // If not found by name, try by ID
+      if (!nutrientName && nutrient.nutrient && nutrient.nutrient.id && nutrient.nutrient.id in nutrientIdMap) {
+        nutrientName = nutrientIdMap[nutrient.nutrient.id];
+      }
+
+      // If we identified this nutrient, store its value
+      if (nutrientName && nutrient.amount !== undefined) {
+        nutritionData[nutrientName] = nutrient.amount;
+      }
+    });
+
+    return nutritionData;
+  }
 }

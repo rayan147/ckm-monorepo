@@ -121,8 +121,8 @@ let NutritionService = class NutritionService {
                 .toLowerCase()
                 .replace(/fresh|raw|frozen|cooked|dried|sliced|chopped|diced/g, '')
                 .trim();
-            const searchResults = await this.usdaApiService.searchFoods(searchName);
-            console.log(`USDA search for "${ingredient.name}":`, ((_a = searchResults === null || searchResults === void 0 ? void 0 : searchResults.foods) === null || _a === void 0 ? void 0 : _a.length) || 0, 'results');
+            const searchResults = await this.usdaApiService.searchFoodsWithFallback(searchName);
+            console.log(`USDA search with fallback for "${ingredient.name}":`, ((_a = searchResults === null || searchResults === void 0 ? void 0 : searchResults.foods) === null || _a === void 0 ? void 0 : _a.length) || 0, 'results');
             if (searchResults.foods && searchResults.foods.length > 0) {
                 const topMatch = searchResults.foods[0];
                 nutritionData = await this.usdaApiService.getFoodNutrition(topMatch.fdcId);
@@ -136,18 +136,36 @@ let NutritionService = class NutritionService {
             }
         }
         if (nutritionData) {
+            const extractedData = {
+                calories: this.extractNutrientValue(nutritionData, 'Energy'),
+                protein: this.extractNutrientValue(nutritionData, 'Protein'),
+                carbohydrates: this.extractNutrientValue(nutritionData, 'Carbohydrate, by difference'),
+                fat: this.extractNutrientValue(nutritionData, 'Total lipid (fat)'),
+                fiber: this.extractNutrientValue(nutritionData, 'Fiber, total dietary'),
+                sugar: this.extractNutrientValue(nutritionData, 'Sugars, total including NLEA'),
+                sodium: this.extractNutrientValue(nutritionData, 'Sodium, Na'),
+            };
+            if (this.usdaApiService.extractNutritionData &&
+                Object.values(extractedData).some(val => val === null)) {
+                try {
+                    const standardizedData = this.usdaApiService.extractNutritionData(nutritionData);
+                    if (standardizedData) {
+                        console.log('Using standardized nutrition extraction for missing values');
+                        Object.entries(standardizedData).forEach(([key, value]) => {
+                            const typedKey = key;
+                            if (extractedData[typedKey] === null && value !== null) {
+                                extractedData[typedKey] = value;
+                            }
+                        });
+                    }
+                }
+                catch (error) {
+                    console.warn('Error using standardized extraction, falling back to basic extraction', error);
+                }
+            }
             const updatedIngredient = await this.prisma.ingredient.update({
                 where: { id: ingredientId },
-                data: {
-                    calories: this.extractNutrientValue(nutritionData, 'Energy'),
-                    protein: this.extractNutrientValue(nutritionData, 'Protein'),
-                    carbohydrates: this.extractNutrientValue(nutritionData, 'Carbohydrate, by difference'),
-                    fat: this.extractNutrientValue(nutritionData, 'Total lipid (fat)'),
-                    fiber: this.extractNutrientValue(nutritionData, 'Fiber, total dietary'),
-                    sugar: this.extractNutrientValue(nutritionData, 'Sugars, total including NLEA'),
-                    sodium: this.extractNutrientValue(nutritionData, 'Sodium, Na'),
-                    nutritionUpdatedAt: new Date(),
-                },
+                data: Object.assign(Object.assign({}, extractedData), { nutritionUpdatedAt: new Date() }),
             });
             console.log('Updated ingredient nutrition:', updatedIngredient);
             return updatedIngredient;
@@ -159,6 +177,29 @@ let NutritionService = class NutritionService {
             return null;
         const nutrient = nutritionData.foodNutrients.find((n) => n.nutrient && n.nutrient.name === nutrientName);
         return nutrient ? nutrient.amount : null;
+    }
+    async updateManualNutrition(ingredientId, nutritionData) {
+        if (nutritionData.calories < 0 || nutritionData.protein < 0 ||
+            nutritionData.carbohydrates < 0 || nutritionData.fat < 0 ||
+            nutritionData.fiber < 0 || nutritionData.sugar < 0 ||
+            nutritionData.sodium < 0) {
+            throw new Error('Nutrition values cannot be negative');
+        }
+        const macroSum = nutritionData.protein + nutritionData.carbohydrates + nutritionData.fat;
+        if (macroSum > 105) {
+            throw new Error(`Total of protein, carbs, and fat (${macroSum}g) exceeds 100g for a 100g portion`);
+        }
+        try {
+            const updatedIngredient = await this.prisma.ingredient.update({
+                where: { id: ingredientId },
+                data: Object.assign(Object.assign({}, nutritionData), { nutritionSource: 'MANUAL', nutritionUpdatedAt: new Date() }),
+            });
+            return updatedIngredient;
+        }
+        catch (error) {
+            console.error('Error updating manual nutrition data:', error);
+            throw new Error('Failed to update ingredient nutrition data');
+        }
     }
     async convertToBaseUnit(quantity, unit, ingredientId) {
         const normalizedUnit = unit.toLowerCase().trim();

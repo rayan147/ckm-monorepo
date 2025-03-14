@@ -1,0 +1,1666 @@
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T17:28:21.229Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T17:28:21.234Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T17:28:28.178Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T17:28:28.179Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T17:28:34.449Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T17:28:34.449Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T17:29:05.814Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T17:29:05.815Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T17:30:22.771Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T17:30:22.772Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T17:44:43.922Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T17:44:43.923Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T17:44:51.083Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T17:44:51.084Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T17:45:05.586Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T17:45:05.586Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T17:46:06.212Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T17:46:06.213Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T17:48:57.060Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T17:48:57.061Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T17:49:57.186Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T17:49:57.187Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T17:51:10.914Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T17:51:10.914Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T17:54:00.533Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T17:54:00.534Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T17:56:04.337Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T17:56:04.338Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T17:56:57.123Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T17:56:57.123Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T17:59:10.572Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T17:59:10.573Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:05:42.009Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:05:42.010Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 497",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:05:44.032Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 497",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:05:44.033Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 497",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:06:53.029Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 497",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:06:53.031Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 497",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:12:05.979Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 497",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:12:05.980Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:12:22.638Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:12:22.641Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:12:25.570Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:12:25.570Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:19:02.363Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:19:02.364Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:19:24.528Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:19:24.529Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:19:39.178Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:19:39.179Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:19:46.552Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:19:46.552Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:19:50.824Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:19:50.824Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:24:21.502Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:24:21.503Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:28:06.526Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:28:06.526Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:32:02.115Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:32:02.116Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:32:08.533Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:32:08.534Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:32:10.630Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:32:10.631Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:32:12.581Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:32:12.582Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:32:13.870Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:32:13.870Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 499",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:32:16.176Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 499",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:32:16.177Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 499",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:33:14.936Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 499",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:33:14.937Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 499",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:33:31.051Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 499",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:33:31.052Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 499",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:34:40.580Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 499",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:34:40.580Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 499",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:58:44.016Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 499",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:58:44.017Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 499",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:58:47.989Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 499",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:58:47.989Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 499",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:59:03.920Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 499",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:59:03.921Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 499",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:59:27.385Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 499",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T18:59:27.386Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 499",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:00:01.469Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 499",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:00:01.470Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 499",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:00:49.326Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 499",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:00:49.327Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 499",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:00:57.613Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 499",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:00:57.614Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 499",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:01:02.421Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 499",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:01:02.422Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 499",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:01:46.678Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 499",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:01:46.679Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 499",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:01:52.678Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 499",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:01:52.678Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:01:54.090Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:01:54.090Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 499",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:01:56.196Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 499",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:01:56.196Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 499",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:02:44.023Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 499",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:02:44.024Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:02:45.632Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:02:45.633Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:02:48.250Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"ha\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:02:48.250Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:02:53.099Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"harrisa\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:02:53.100Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:02:53.111Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"harrisa\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:02:53.112Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:02:59.922Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:02:59.923Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:03:01.341Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:03:01.341Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:05:54.373Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:05:54.373Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:05:59.893Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:05:59.893Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:06:28.850Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:06:28.850Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:06:47.145Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:06:47.145Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:06:52.517Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:06:52.518Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:06:55.118Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:06:55.118Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:12:04.132Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:12:04.132Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:12:09.880Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:12:09.880Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:12:59.757Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:12:59.758Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:18:34.059Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:18:34.063Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:18:43.224Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:18:43.225Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:32:44.425Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:32:44.426Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:33:01.162Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:33:01.165Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:36:53.873Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T19:36:53.874Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:07:50.785Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:07:50.790Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:07:56.794Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:07:56.795Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:08:57.230Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:08:57.231Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:09:01.945Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 505",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:09:01.946Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:09:10.407Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:09:10.409Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:11:42.290Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:11:42.291Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:11:44.248Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:11:44.249Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:11:48.491Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:11:48.492Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:11:53.580Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:11:53.580Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:11:57.337Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:11:57.338Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:11:59.625Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:11:59.626Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:12:05.575Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:12:05.576Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:12:09.975Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:12:09.976Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:13:06.441Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:13:06.442Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:13:26.309Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:13:26.309Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:13:30.720Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:13:30.721Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:13:55.516Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:13:55.517Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:14:07.616Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:14:07.617Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:14:32.972Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:14:32.973Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:14:51.012Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:14:51.013Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:18:23.340Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:18:23.341Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:18:30.044Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:18:30.045Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:20:03.089Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:20:03.090Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:44:17.357Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:44:17.359Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:44:27.446Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:44:27.447Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:45:22.347Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T20:45:22.348Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:31:07.039Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:31:07.040Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:31:14.900Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:31:14.901Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:31:22.821Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:31:22.822Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:31:27.287Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:31:27.288Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:31:28.872Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 500",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:31:28.872Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:31:33.823Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:31:33.824Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:31:40.013Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:31:40.014Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:32:06.474Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:32:06.474Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:33:00.315Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:33:00.316Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:33:08.546Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:33:08.547Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:35:33.868Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:35:33.868Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:35:40.788Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:35:40.788Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:36:07.547Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:36:07.548Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:37:52.217Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:37:52.217Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:37:59.104Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:37:59.105Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:41:04.200Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:41:04.202Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:46:15.635Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:46:15.636Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:48:13.753Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:48:13.756Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:48:18.568Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:48:18.569Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:48:43.797Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:48:43.799Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:48:49.994Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:48:49.995Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:49:22.335Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 496",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T21:49:22.336Z"
+}

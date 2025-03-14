@@ -155,13 +155,15 @@ export class NutritionService {
     if (ingredient.usdaFoodId) {
       nutritionData = await this.usdaApiService.getFoodNutrition(ingredient.usdaFoodId);
     } else {
-      // Try to search by name
+      // Try to search by name with the enhanced fallback search
       const searchName = ingredient.name
         .toLowerCase()
         .replace(/fresh|raw|frozen|cooked|dried|sliced|chopped|diced/g, '')
         .trim();
-      const searchResults = await this.usdaApiService.searchFoods(searchName);
-      console.log(`USDA search for "${ingredient.name}":`, searchResults?.foods?.length || 0, 'results');
+
+      // Use the new searchFoodsWithFallback method instead of searchFoods
+      const searchResults = await this.usdaApiService.searchFoodsWithFallback(searchName);
+      console.log(`USDA search with fallback for "${ingredient.name}":`, searchResults?.foods?.length || 0, 'results');
 
       if (searchResults.foods && searchResults.foods.length > 0) {
         // Get the top match
@@ -178,21 +180,48 @@ export class NutritionService {
         });
       }
     }
+
     if (nutritionData) {
       // Extract and normalize nutrition data
+      const extractedData = {
+        calories: this.extractNutrientValue(nutritionData, 'Energy'),
+        protein: this.extractNutrientValue(nutritionData, 'Protein'),
+        carbohydrates: this.extractNutrientValue(nutritionData, 'Carbohydrate, by difference'),
+        fat: this.extractNutrientValue(nutritionData, 'Total lipid (fat)'),
+        fiber: this.extractNutrientValue(nutritionData, 'Fiber, total dietary'),
+        sugar: this.extractNutrientValue(nutritionData, 'Sugars, total including NLEA'),
+        sodium: this.extractNutrientValue(nutritionData, 'Sodium, Na'),
+      };
+
+      // Use the new extraction method if available and if any values are missing
+      if (this.usdaApiService.extractNutritionData &&
+        Object.values(extractedData).some(val => val === null)) {
+        try {
+          // Use the new standardized extraction method which handles more formats
+          const standardizedData = this.usdaApiService.extractNutritionData(nutritionData);
+          if (standardizedData) {
+            console.log('Using standardized nutrition extraction for missing values');
+            // Merge data, preferring the original method but filling in gaps
+            Object.entries(standardizedData).forEach(([key, value]) => {
+              const typedKey = key as keyof typeof extractedData;
+              if (extractedData[typedKey] === null && value !== null) {
+                extractedData[typedKey] = value;
+              }
+            });
+          }
+        } catch (error) {
+          console.warn('Error using standardized extraction, falling back to basic extraction', error);
+        }
+      }
+
       const updatedIngredient = await this.prisma.ingredient.update({
         where: { id: ingredientId },
         data: {
-          calories: this.extractNutrientValue(nutritionData, 'Energy'),
-          protein: this.extractNutrientValue(nutritionData, 'Protein'),
-          carbohydrates: this.extractNutrientValue(nutritionData, 'Carbohydrate, by difference'),
-          fat: this.extractNutrientValue(nutritionData, 'Total lipid (fat)'),
-          fiber: this.extractNutrientValue(nutritionData, 'Fiber, total dietary'),
-          sugar: this.extractNutrientValue(nutritionData, 'Sugars, total including NLEA'),
-          sodium: this.extractNutrientValue(nutritionData, 'Sodium, Na'),
+          ...extractedData,
           nutritionUpdatedAt: new Date(),
         },
       });
+
       console.log('Updated ingredient nutrition:', updatedIngredient);
       return updatedIngredient;
     }
@@ -209,6 +238,51 @@ export class NutritionService {
 
     return nutrient ? nutrient.amount : null;
   }
+
+  // Manually enter nutrition data for an ingredient
+  async updateManualNutrition(
+    ingredientId: number,
+    nutritionData: {
+      calories: number;
+      protein: number;
+      carbohydrates: number;
+      fat: number;
+      fiber: number;
+      sugar: number;
+      sodium: number;
+    }
+  ): Promise<any> {
+    // Validate data ranges
+    if (nutritionData.calories < 0 || nutritionData.protein < 0 ||
+      nutritionData.carbohydrates < 0 || nutritionData.fat < 0 ||
+      nutritionData.fiber < 0 || nutritionData.sugar < 0 ||
+      nutritionData.sodium < 0) {
+      throw new Error('Nutrition values cannot be negative');
+    }
+
+    // Check if protein + carbs + fat exceeds 100g per 100g (with small tolerance)
+    const macroSum = nutritionData.protein + nutritionData.carbohydrates + nutritionData.fat;
+    if (macroSum > 105) { // Allow 5% tolerance
+      throw new Error(`Total of protein, carbs, and fat (${macroSum}g) exceeds 100g for a 100g portion`);
+    }
+
+    try {
+      const updatedIngredient = await this.prisma.ingredient.update({
+        where: { id: ingredientId },
+        data: {
+          ...nutritionData,
+          nutritionSource: 'MANUAL',
+          nutritionUpdatedAt: new Date(),
+        },
+      });
+
+      return updatedIngredient;
+    } catch (error) {
+      console.error('Error updating manual nutrition data:', error);
+      throw new Error('Failed to update ingredient nutrition data');
+    }
+  }
+
   // Enhanced convertToBaseUnit method
   private async convertToBaseUnit(
     quantity: number,

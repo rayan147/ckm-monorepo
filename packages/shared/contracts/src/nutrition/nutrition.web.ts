@@ -33,7 +33,18 @@ const UsdaSearchResponseSchema = z.object({
   totalPages: z.number().optional()
 });
 
-const c = initContract()
+// Define schema for manual nutrition data input
+const ManualNutritionInputSchema = z.object({
+  calories: z.number().min(0).max(1000),
+  protein: z.number().min(0).max(100),
+  carbohydrates: z.number().min(0).max(100),
+  fat: z.number().min(0).max(100),
+  fiber: z.number().min(0).max(50),
+  sugar: z.number().min(0).max(100),
+  sodium: z.number().min(0).max(10000)
+});
+
+const c = initContract();
 
 export const nutritionContract = c.router({
   getRecipeNutrition: {
@@ -66,7 +77,7 @@ export const nutritionContract = c.router({
       pageSize: z.coerce.number()
     }),
     responses: {
-      200: z.any(),
+      200: UsdaSearchResponseSchema,
       400: z.object({ message: z.string() })
     },
     summary: 'Search ingredients in USDA database'
@@ -84,13 +95,26 @@ export const nutritionContract = c.router({
       }),
       400: z.object({ success: z.boolean(), message: z.string() })
     },
-
     body: z.object({
       usdaFoodId: z.string().optional()
     }),
     summary: 'Import nutrition data from USDA for an ingredient'
   },
 
-
-
-})
+  // New endpoint for manual nutrition data entry
+  updateManualNutrition: {
+    method: 'POST',
+    path: '/ingredients/:id/manual-nutrition',
+    pathParams: z.object({ id: coerce.number() }),
+    responses: {
+      200: z.object({
+        success: z.boolean(),
+        message: z.string(),
+        ingredient: z.any().optional() // Return updated ingredient
+      }),
+      400: z.object({ success: z.boolean(), message: z.string() })
+    },
+    body: ManualNutritionInputSchema,
+    summary: 'Manually update nutrition data for an ingredient'
+  }
+});
