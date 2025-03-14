@@ -5847,9 +5847,93 @@ var prepItemContract = c17.router({
   }
 });
 
-// src/index.ts
+// src/nutrition/nutrition.web.ts
+import { zodSchemas as zodSchemas17 } from "@ckm/db";
+var UsdaFoodSchema = z.object({
+  fdcId: z.union([z.string(), z.number()]),
+  description: z.string(),
+  dataType: z.string().optional(),
+  foodCategory: z.string().optional(),
+  brandOwner: z.string().optional(),
+  foodNutrients: z.array(
+    z.object({
+      nutrient: z.object({
+        id: z.number(),
+        name: z.string(),
+        unitName: z.string().optional()
+      }).optional(),
+      nutrientId: z.number().optional(),
+      nutrientName: z.string().optional(),
+      amount: z.number().optional(),
+      value: z.number().optional(),
+      unitName: z.string().optional()
+    })
+  ).optional()
+});
+var UsdaSearchResponseSchema = z.object({
+  foods: z.array(UsdaFoodSchema).optional(),
+  totalHits: z.number().optional(),
+  currentPage: z.number().optional(),
+  totalPages: z.number().optional()
+});
 var c18 = initContract();
-var contract = c18.router({
+var nutritionContract = c18.router({
+  getRecipeNutrition: {
+    method: "GET",
+    path: "/recipes/:id/nutrition",
+    pathParams: z.object({ id: coerce.number() }),
+    responses: {
+      200: zodSchemas17.RecipeNutritionSchema,
+      400: z.object({ message: z.string() })
+    },
+    summary: "Get the calculated nutrition for the recipe"
+  },
+  calculateRecipeNutrition: {
+    method: "GET",
+    path: "/recipes/:id/nutrition/calculate",
+    pathParams: z.object({ id: coerce.number() }),
+    responses: {
+      200: zodSchemas17.RecipeNutritionSchema,
+      400: z.object({ message: z.string() })
+    },
+    summary: "Force recalculation of recipe nutrition"
+  },
+  ingredientNutrition: {
+    method: "GET",
+    path: "ingredients/usda-search",
+    query: z.object({
+      query: z.string(),
+      pageSize: z.coerce.number()
+    }),
+    responses: {
+      200: z.any(),
+      400: z.object({ message: z.string() })
+    },
+    summary: "Search ingredients in USDA database"
+  },
+  importUSDANutrition: {
+    method: "POST",
+    path: "/ingredients/:id/import-usda-nutrition",
+    pathParams: z.object({ id: coerce.number() }),
+    responses: {
+      200: z.object({
+        success: z.boolean(),
+        message: z.string(),
+        ingredient: z.any().optional()
+        // Return updated ingredient
+      }),
+      400: z.object({ success: z.boolean(), message: z.string() })
+    },
+    body: z.object({
+      usdaFoodId: z.string().optional()
+    }),
+    summary: "Import nutrition data from USDA for an ingredient"
+  }
+});
+
+// src/index.ts
+var c19 = initContract();
+var contract = c19.router({
   orgs: organizationContract,
   users: userContract,
   orders: orderContract,
@@ -5866,7 +5950,8 @@ var contract = c18.router({
   analytics: analyticsContract,
   cookbook: cookbookContract,
   ingredient: ingredientContract,
-  prepItem: prepItemContract
+  prepItem: prepItemContract,
+  nutrition: nutritionContract
 }, {
   pathPrefix: "/api/v1"
 });

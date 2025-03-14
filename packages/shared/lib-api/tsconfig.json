@@ -1,16 +1,22 @@
 {
-    "compilerOptions": {
-      "target": "es2018",
-      "module": "commonjs",
-      "declaration": true,
-      "strict": true,
-      "esModuleInterop": true,
-      "forceConsistentCasingInFileNames": true,
-      "skipLibCheck": true,
-      "paths": {
-      "@ckm/contracts": ["../../packages/contracts/src"],
-      "@ckm/types": ["../packages/types/src"]
+  "compilerOptions": {
+    "target": "es2019",
+    "module": "commonjs",
+    "declaration": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "paths": {
+      "@ckm/contracts": [
+        "../../packages/contracts/src"
+      ],
+      "@ckm/types": [
+        "../packages/types/src"
+      ]
     },
-    },
-    "exclude": ["node_modules"]
-  }
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

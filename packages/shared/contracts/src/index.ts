@@ -18,6 +18,7 @@ import { analyticsContract } from './analytic';
 import { cookbookContract } from './cook-book';
 import { ingredientContract } from './ingredient';
 import { prepItemContract } from './prep-item';
+import { nutritionContract } from './nutrition'
 
 const c = initContract();
 
@@ -38,7 +39,8 @@ export const contract = c.router({
   analytics: analyticsContract,
   cookbook: cookbookContract,
   ingredient: ingredientContract,
-  prepItem: prepItemContract
+  prepItem: prepItemContract,
+  nutrition: nutritionContract
 
 }, {
   pathPrefix: "/api/v1"

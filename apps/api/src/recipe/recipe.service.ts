@@ -217,6 +217,8 @@ export class RecipeService {
             instructions: { orderBy: { stepNumber: 'asc' } },
             tags: true,
             laborCosts: true,
+            equipment: true,
+            storage: true
 
           },
         }),

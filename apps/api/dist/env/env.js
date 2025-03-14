@@ -30,6 +30,7 @@ exports.envSchema = zod_1.z.object({
     RECIPE_IMAGES_BUCKET: zod_1.z.string(),
     AWS_ROLE_ARN: zod_1.z.string(),
     CSRF_SECRET: zod_1.z.string(),
-    COOKIE_SECRET: zod_1.z.string()
+    COOKIE_SECRET: zod_1.z.string(),
+    USDA_API_KEY: zod_1.z.string(),
 });
 //# sourceMappingURL=env.js.map

@@ -2055,10 +2055,10 @@ declare const contract: {
                     cost: number | null;
                     ingredientId: number;
                     quantity: number;
+                    density: number | null;
                     processingInstructions: string | null;
                     substituteIngredients: number[];
                     isOptional: boolean;
-                    density: number | null;
                     yield: number | null;
                     joinAt: Date;
                     recipeVersionId: number | null;
@@ -2070,10 +2070,10 @@ declare const contract: {
                     cost: number | null;
                     ingredientId: number;
                     quantity: number;
+                    density: number | null;
                     processingInstructions: string | null;
                     substituteIngredients: number[];
                     isOptional: boolean;
-                    density: number | null;
                     yield: number | null;
                     joinAt: Date;
                     recipeVersionId: number | null;
@@ -2132,10 +2132,10 @@ declare const contract: {
                     cost: number | null;
                     ingredientId: number;
                     quantity: number;
+                    density: number | null;
                     processingInstructions: string | null;
                     substituteIngredients: number[];
                     isOptional: boolean;
-                    density: number | null;
                     yield: number | null;
                     joinAt: Date;
                     recipeVersionId: number | null;
@@ -2147,10 +2147,10 @@ declare const contract: {
                     cost: number | null;
                     ingredientId: number;
                     quantity: number;
+                    density: number | null;
                     processingInstructions: string | null;
                     substituteIngredients: number[];
                     isOptional: boolean;
-                    density: number | null;
                     yield: number | null;
                     joinAt: Date;
                     recipeVersionId: number | null;
@@ -2203,10 +2203,10 @@ declare const contract: {
                     cost: number | null;
                     ingredientId: number;
                     quantity: number;
+                    density: number | null;
                     processingInstructions: string | null;
                     substituteIngredients: number[];
                     isOptional: boolean;
-                    density: number | null;
                     yield: number | null;
                     joinAt: Date;
                     recipeVersionId: number | null;
@@ -2218,10 +2218,10 @@ declare const contract: {
                     cost: number | null;
                     ingredientId: number;
                     quantity: number;
+                    density: number | null;
                     processingInstructions: string | null;
                     substituteIngredients: number[];
                     isOptional: boolean;
-                    density: number | null;
                     yield: number | null;
                     joinAt: Date;
                     recipeVersionId: number | null;
@@ -2277,10 +2277,10 @@ declare const contract: {
                     cost: number | null;
                     ingredientId: number;
                     quantity: number;
+                    density: number | null;
                     processingInstructions: string | null;
                     substituteIngredients: number[];
                     isOptional: boolean;
-                    density: number | null;
                     yield: number | null;
                     joinAt: Date;
                     recipeVersionId: number | null;
@@ -2292,10 +2292,10 @@ declare const contract: {
                     cost: number | null;
                     ingredientId: number;
                     quantity: number;
+                    density: number | null;
                     processingInstructions: string | null;
                     substituteIngredients: number[];
                     isOptional: boolean;
-                    density: number | null;
                     yield: number | null;
                     joinAt: Date;
                     recipeVersionId: number | null;
@@ -2347,10 +2347,10 @@ declare const contract: {
                     cost: number | null;
                     ingredientId: number;
                     quantity: number;
+                    density: number | null;
                     processingInstructions: string | null;
                     substituteIngredients: number[];
                     isOptional: boolean;
-                    density: number | null;
                     yield: number | null;
                     joinAt: Date;
                     recipeVersionId: number | null;
@@ -2362,10 +2362,10 @@ declare const contract: {
                     cost: number | null;
                     ingredientId: number;
                     quantity: number;
+                    density: number | null;
                     processingInstructions: string | null;
                     substituteIngredients: number[];
                     isOptional: boolean;
-                    density: number | null;
                     yield: number | null;
                     joinAt: Date;
                     recipeVersionId: number | null;
@@ -5769,23 +5769,56 @@ declare const contract: {
             path: "/api/v1/ingredients";
             responses: {
                 201: zod.ZodObject<{
+                    nutritionSource: zod.ZodNullable<zod.ZodEnum<["MANUAL", "USDA", "CUSTOM", "ESTIMATED"]>>;
                     id: zod.ZodNumber;
                     name: zod.ZodString;
                     category: zod.ZodString;
                     price: zod.ZodNumber;
+                    density: zod.ZodNullable<zod.ZodNumber>;
                     dietaryRestrictionId: zod.ZodNullable<zod.ZodNumber>;
+                    calories: zod.ZodNullable<zod.ZodNumber>;
+                    protein: zod.ZodNullable<zod.ZodNumber>;
+                    carbohydrates: zod.ZodNullable<zod.ZodNumber>;
+                    fat: zod.ZodNullable<zod.ZodNumber>;
+                    fiber: zod.ZodNullable<zod.ZodNumber>;
+                    sugar: zod.ZodNullable<zod.ZodNumber>;
+                    sodium: zod.ZodNullable<zod.ZodNumber>;
+                    usdaFoodId: zod.ZodNullable<zod.ZodString>;
+                    nutritionUpdatedAt: zod.ZodNullable<zod.ZodDate>;
                 }, "strip", zod.ZodTypeAny, {
                     id: number;
+                    calories: number | null;
+                    protein: number | null;
+                    carbohydrates: number | null;
+                    fat: number | null;
+                    fiber: number | null;
+                    sugar: number | null;
+                    sodium: number | null;
                     price: number;
                     name: string;
                     category: string;
+                    density: number | null;
                     dietaryRestrictionId: number | null;
+                    usdaFoodId: string | null;
+                    nutritionSource: "CUSTOM" | "MANUAL" | "USDA" | "ESTIMATED" | null;
+                    nutritionUpdatedAt: Date | null;
                 }, {
                     id: number;
+                    calories: number | null;
+                    protein: number | null;
+                    carbohydrates: number | null;
+                    fat: number | null;
+                    fiber: number | null;
+                    sugar: number | null;
+                    sodium: number | null;
                     price: number;
                     name: string;
                     category: string;
+                    density: number | null;
                     dietaryRestrictionId: number | null;
+                    usdaFoodId: string | null;
+                    nutritionSource: "CUSTOM" | "MANUAL" | "USDA" | "ESTIMATED" | null;
+                    nutritionUpdatedAt: Date | null;
                 }>;
                 400: zod.ZodObject<{
                     message: zod.ZodString;
@@ -5818,23 +5851,56 @@ declare const contract: {
             path: "/api/v1/ingredients";
             responses: {
                 200: zod.ZodArray<zod.ZodObject<{
+                    nutritionSource: zod.ZodNullable<zod.ZodEnum<["MANUAL", "USDA", "CUSTOM", "ESTIMATED"]>>;
                     id: zod.ZodNumber;
                     name: zod.ZodString;
                     category: zod.ZodString;
                     price: zod.ZodNumber;
+                    density: zod.ZodNullable<zod.ZodNumber>;
                     dietaryRestrictionId: zod.ZodNullable<zod.ZodNumber>;
+                    calories: zod.ZodNullable<zod.ZodNumber>;
+                    protein: zod.ZodNullable<zod.ZodNumber>;
+                    carbohydrates: zod.ZodNullable<zod.ZodNumber>;
+                    fat: zod.ZodNullable<zod.ZodNumber>;
+                    fiber: zod.ZodNullable<zod.ZodNumber>;
+                    sugar: zod.ZodNullable<zod.ZodNumber>;
+                    sodium: zod.ZodNullable<zod.ZodNumber>;
+                    usdaFoodId: zod.ZodNullable<zod.ZodString>;
+                    nutritionUpdatedAt: zod.ZodNullable<zod.ZodDate>;
                 }, "strip", zod.ZodTypeAny, {
                     id: number;
+                    calories: number | null;
+                    protein: number | null;
+                    carbohydrates: number | null;
+                    fat: number | null;
+                    fiber: number | null;
+                    sugar: number | null;
+                    sodium: number | null;
                     price: number;
                     name: string;
                     category: string;
+                    density: number | null;
                     dietaryRestrictionId: number | null;
+                    usdaFoodId: string | null;
+                    nutritionSource: "CUSTOM" | "MANUAL" | "USDA" | "ESTIMATED" | null;
+                    nutritionUpdatedAt: Date | null;
                 }, {
                     id: number;
+                    calories: number | null;
+                    protein: number | null;
+                    carbohydrates: number | null;
+                    fat: number | null;
+                    fiber: number | null;
+                    sugar: number | null;
+                    sodium: number | null;
                     price: number;
                     name: string;
                     category: string;
+                    density: number | null;
                     dietaryRestrictionId: number | null;
+                    usdaFoodId: string | null;
+                    nutritionSource: "CUSTOM" | "MANUAL" | "USDA" | "ESTIMATED" | null;
+                    nutritionUpdatedAt: Date | null;
                 }>, "many">;
             };
         };
@@ -5851,23 +5917,56 @@ declare const contract: {
             path: "/api/v1/ingredients/:id";
             responses: {
                 200: zod.ZodObject<{
+                    nutritionSource: zod.ZodNullable<zod.ZodEnum<["MANUAL", "USDA", "CUSTOM", "ESTIMATED"]>>;
                     id: zod.ZodNumber;
                     name: zod.ZodString;
                     category: zod.ZodString;
                     price: zod.ZodNumber;
+                    density: zod.ZodNullable<zod.ZodNumber>;
                     dietaryRestrictionId: zod.ZodNullable<zod.ZodNumber>;
+                    calories: zod.ZodNullable<zod.ZodNumber>;
+                    protein: zod.ZodNullable<zod.ZodNumber>;
+                    carbohydrates: zod.ZodNullable<zod.ZodNumber>;
+                    fat: zod.ZodNullable<zod.ZodNumber>;
+                    fiber: zod.ZodNullable<zod.ZodNumber>;
+                    sugar: zod.ZodNullable<zod.ZodNumber>;
+                    sodium: zod.ZodNullable<zod.ZodNumber>;
+                    usdaFoodId: zod.ZodNullable<zod.ZodString>;
+                    nutritionUpdatedAt: zod.ZodNullable<zod.ZodDate>;
                 }, "strip", zod.ZodTypeAny, {
                     id: number;
+                    calories: number | null;
+                    protein: number | null;
+                    carbohydrates: number | null;
+                    fat: number | null;
+                    fiber: number | null;
+                    sugar: number | null;
+                    sodium: number | null;
                     price: number;
                     name: string;
                     category: string;
+                    density: number | null;
                     dietaryRestrictionId: number | null;
+                    usdaFoodId: string | null;
+                    nutritionSource: "CUSTOM" | "MANUAL" | "USDA" | "ESTIMATED" | null;
+                    nutritionUpdatedAt: Date | null;
                 }, {
                     id: number;
+                    calories: number | null;
+                    protein: number | null;
+                    carbohydrates: number | null;
+                    fat: number | null;
+                    fiber: number | null;
+                    sugar: number | null;
+                    sodium: number | null;
                     price: number;
                     name: string;
                     category: string;
+                    density: number | null;
                     dietaryRestrictionId: number | null;
+                    usdaFoodId: string | null;
+                    nutritionSource: "CUSTOM" | "MANUAL" | "USDA" | "ESTIMATED" | null;
+                    nutritionUpdatedAt: Date | null;
                 }>;
                 404: zod.ZodObject<{
                     message: zod.ZodString;
@@ -5904,23 +6003,56 @@ declare const contract: {
             path: "/api/v1/ingredients/:id";
             responses: {
                 200: zod.ZodObject<{
+                    nutritionSource: zod.ZodNullable<zod.ZodEnum<["MANUAL", "USDA", "CUSTOM", "ESTIMATED"]>>;
                     id: zod.ZodNumber;
                     name: zod.ZodString;
                     category: zod.ZodString;
                     price: zod.ZodNumber;
+                    density: zod.ZodNullable<zod.ZodNumber>;
                     dietaryRestrictionId: zod.ZodNullable<zod.ZodNumber>;
+                    calories: zod.ZodNullable<zod.ZodNumber>;
+                    protein: zod.ZodNullable<zod.ZodNumber>;
+                    carbohydrates: zod.ZodNullable<zod.ZodNumber>;
+                    fat: zod.ZodNullable<zod.ZodNumber>;
+                    fiber: zod.ZodNullable<zod.ZodNumber>;
+                    sugar: zod.ZodNullable<zod.ZodNumber>;
+                    sodium: zod.ZodNullable<zod.ZodNumber>;
+                    usdaFoodId: zod.ZodNullable<zod.ZodString>;
+                    nutritionUpdatedAt: zod.ZodNullable<zod.ZodDate>;
                 }, "strip", zod.ZodTypeAny, {
                     id: number;
+                    calories: number | null;
+                    protein: number | null;
+                    carbohydrates: number | null;
+                    fat: number | null;
+                    fiber: number | null;
+                    sugar: number | null;
+                    sodium: number | null;
                     price: number;
                     name: string;
                     category: string;
+                    density: number | null;
                     dietaryRestrictionId: number | null;
+                    usdaFoodId: string | null;
+                    nutritionSource: "CUSTOM" | "MANUAL" | "USDA" | "ESTIMATED" | null;
+                    nutritionUpdatedAt: Date | null;
                 }, {
                     id: number;
+                    calories: number | null;
+                    protein: number | null;
+                    carbohydrates: number | null;
+                    fat: number | null;
+                    fiber: number | null;
+                    sugar: number | null;
+                    sodium: number | null;
                     price: number;
                     name: string;
                     category: string;
+                    density: number | null;
                     dietaryRestrictionId: number | null;
+                    usdaFoodId: string | null;
+                    nutritionSource: "CUSTOM" | "MANUAL" | "USDA" | "ESTIMATED" | null;
+                    nutritionUpdatedAt: Date | null;
                 }>;
                 404: zod.ZodObject<{
                     message: zod.ZodString;
@@ -6155,6 +6287,193 @@ declare const contract: {
                     message: string;
                 }, {
                     message: string;
+                }>;
+            };
+        };
+    };
+    nutrition: {
+        getRecipeNutrition: {
+            pathParams: zod.ZodObject<{
+                id: zod.ZodNumber;
+            }, "strip", zod.ZodTypeAny, {
+                id: number;
+            }, {
+                id: number;
+            }>;
+            summary: "Get the calculated nutrition for the recipe";
+            method: "GET";
+            path: "/api/v1/recipes/:id/nutrition";
+            responses: {
+                200: zod.ZodObject<{
+                    id: zod.ZodNumber;
+                    recipeId: zod.ZodNumber;
+                    servingSize: zod.ZodNumber;
+                    servingUnit: zod.ZodString;
+                    calories: zod.ZodNumber;
+                    protein: zod.ZodNumber;
+                    carbohydrates: zod.ZodNumber;
+                    fat: zod.ZodNumber;
+                    fiber: zod.ZodNumber;
+                    sugar: zod.ZodNumber;
+                    sodium: zod.ZodNumber;
+                }, "strip", zod.ZodTypeAny, {
+                    id: number;
+                    recipeId: number;
+                    servingSize: number;
+                    servingUnit: string;
+                    calories: number;
+                    protein: number;
+                    carbohydrates: number;
+                    fat: number;
+                    fiber: number;
+                    sugar: number;
+                    sodium: number;
+                }, {
+                    id: number;
+                    recipeId: number;
+                    servingSize: number;
+                    servingUnit: string;
+                    calories: number;
+                    protein: number;
+                    carbohydrates: number;
+                    fat: number;
+                    fiber: number;
+                    sugar: number;
+                    sodium: number;
+                }>;
+                400: zod.ZodObject<{
+                    message: zod.ZodString;
+                }, "strip", zod.ZodTypeAny, {
+                    message: string;
+                }, {
+                    message: string;
+                }>;
+            };
+        };
+        calculateRecipeNutrition: {
+            pathParams: zod.ZodObject<{
+                id: zod.ZodNumber;
+            }, "strip", zod.ZodTypeAny, {
+                id: number;
+            }, {
+                id: number;
+            }>;
+            summary: "Force recalculation of recipe nutrition";
+            method: "GET";
+            path: "/api/v1/recipes/:id/nutrition/calculate";
+            responses: {
+                200: zod.ZodObject<{
+                    id: zod.ZodNumber;
+                    recipeId: zod.ZodNumber;
+                    servingSize: zod.ZodNumber;
+                    servingUnit: zod.ZodString;
+                    calories: zod.ZodNumber;
+                    protein: zod.ZodNumber;
+                    carbohydrates: zod.ZodNumber;
+                    fat: zod.ZodNumber;
+                    fiber: zod.ZodNumber;
+                    sugar: zod.ZodNumber;
+                    sodium: zod.ZodNumber;
+                }, "strip", zod.ZodTypeAny, {
+                    id: number;
+                    recipeId: number;
+                    servingSize: number;
+                    servingUnit: string;
+                    calories: number;
+                    protein: number;
+                    carbohydrates: number;
+                    fat: number;
+                    fiber: number;
+                    sugar: number;
+                    sodium: number;
+                }, {
+                    id: number;
+                    recipeId: number;
+                    servingSize: number;
+                    servingUnit: string;
+                    calories: number;
+                    protein: number;
+                    carbohydrates: number;
+                    fat: number;
+                    fiber: number;
+                    sugar: number;
+                    sodium: number;
+                }>;
+                400: zod.ZodObject<{
+                    message: zod.ZodString;
+                }, "strip", zod.ZodTypeAny, {
+                    message: string;
+                }, {
+                    message: string;
+                }>;
+            };
+        };
+        ingredientNutrition: {
+            query: zod.ZodObject<{
+                query: zod.ZodString;
+                pageSize: zod.ZodNumber;
+            }, "strip", zod.ZodTypeAny, {
+                query: string;
+                pageSize: number;
+            }, {
+                query: string;
+                pageSize: number;
+            }>;
+            summary: "Search ingredients in USDA database";
+            method: "GET";
+            path: "/api/v1ingredients/usda-search";
+            responses: {
+                200: zod.ZodAny;
+                400: zod.ZodObject<{
+                    message: zod.ZodString;
+                }, "strip", zod.ZodTypeAny, {
+                    message: string;
+                }, {
+                    message: string;
+                }>;
+            };
+        };
+        importUSDANutrition: {
+            pathParams: zod.ZodObject<{
+                id: zod.ZodNumber;
+            }, "strip", zod.ZodTypeAny, {
+                id: number;
+            }, {
+                id: number;
+            }>;
+            summary: "Import nutrition data from USDA for an ingredient";
+            method: "POST";
+            body: zod.ZodObject<{
+                usdaFoodId: zod.ZodOptional<zod.ZodString>;
+            }, "strip", zod.ZodTypeAny, {
+                usdaFoodId?: string | undefined;
+            }, {
+                usdaFoodId?: string | undefined;
+            }>;
+            path: "/api/v1/ingredients/:id/import-usda-nutrition";
+            responses: {
+                200: zod.ZodObject<{
+                    success: zod.ZodBoolean;
+                    message: zod.ZodString;
+                    ingredient: zod.ZodOptional<zod.ZodAny>;
+                }, "strip", zod.ZodTypeAny, {
+                    message: string;
+                    success: boolean;
+                    ingredient?: any;
+                }, {
+                    message: string;
+                    success: boolean;
+                    ingredient?: any;
+                }>;
+                400: zod.ZodObject<{
+                    success: zod.ZodBoolean;
+                    message: zod.ZodString;
+                }, "strip", zod.ZodTypeAny, {
+                    message: string;
+                    success: boolean;
+                }, {
+                    message: string;
+                    success: boolean;
                 }>;
             };
         };

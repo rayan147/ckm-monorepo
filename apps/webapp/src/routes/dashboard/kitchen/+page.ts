@@ -2,8 +2,9 @@ import { api } from "@ckm/lib-api";
 import type { PageLoad } from "./$types";
 import { error } from '@sveltejs/kit';
 
-export const load: PageLoad = async ({ url, params }) => {
+export const load: PageLoad = async ({ url, fetch }) => {
   try {
+    // const api = createApi(fetch)
     // The formula is: skip = (page - 1) * perPage
     const page = parseInt(url.searchParams.get('page') || '1')
     const perPage = 10;

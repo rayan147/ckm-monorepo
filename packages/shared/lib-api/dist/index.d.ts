@@ -1250,10 +1250,10 @@ declare const api: {
                 cost: number | null;
                 ingredientId: number;
                 quantity: number;
+                density: number | null;
                 processingInstructions: string | null;
                 substituteIngredients: number[];
                 isOptional: boolean;
-                density: number | null;
                 yield: number | null;
                 joinAt: Date;
                 recipeVersionId: number | null;
@@ -1289,10 +1289,10 @@ declare const api: {
                 cost: number | null;
                 ingredientId: number;
                 quantity: number;
+                density: number | null;
                 processingInstructions: string | null;
                 substituteIngredients: number[];
                 isOptional: boolean;
-                density: number | null;
                 yield: number | null;
                 joinAt: Date;
                 recipeVersionId: number | null;
@@ -1335,10 +1335,10 @@ declare const api: {
                 cost: number | null;
                 ingredientId: number;
                 quantity: number;
+                density: number | null;
                 processingInstructions: string | null;
                 substituteIngredients: number[];
                 isOptional: boolean;
-                density: number | null;
                 yield: number | null;
                 joinAt: Date;
                 recipeVersionId: number | null;
@@ -1373,10 +1373,10 @@ declare const api: {
                 cost: number | null;
                 ingredientId: number;
                 quantity: number;
+                density: number | null;
                 processingInstructions: string | null;
                 substituteIngredients: number[];
                 isOptional: boolean;
-                density: number | null;
                 yield: number | null;
                 joinAt: Date;
                 recipeVersionId: number | null;
@@ -1412,10 +1412,10 @@ declare const api: {
                 cost: number | null;
                 ingredientId: number;
                 quantity: number;
+                density: number | null;
                 processingInstructions: string | null;
                 substituteIngredients: number[];
                 isOptional: boolean;
-                density: number | null;
                 yield: number | null;
                 joinAt: Date;
                 recipeVersionId: number | null;
@@ -3269,10 +3269,21 @@ declare const api: {
             status: 201;
             body: {
                 id: number;
+                calories: number | null;
+                protein: number | null;
+                carbohydrates: number | null;
+                fat: number | null;
+                fiber: number | null;
+                sugar: number | null;
+                sodium: number | null;
                 price: number;
                 name: string;
                 category: string;
+                density: number | null;
                 dietaryRestrictionId: number | null;
+                usdaFoodId: string | null;
+                nutritionSource: "CUSTOM" | "MANUAL" | "USDA" | "ESTIMATED" | null;
+                nutritionUpdatedAt: Date | null;
             };
             headers: Headers;
         } | {
@@ -3301,10 +3312,21 @@ declare const api: {
             status: 200;
             body: {
                 id: number;
+                calories: number | null;
+                protein: number | null;
+                carbohydrates: number | null;
+                fat: number | null;
+                fiber: number | null;
+                sugar: number | null;
+                sodium: number | null;
                 price: number;
                 name: string;
                 category: string;
+                density: number | null;
                 dietaryRestrictionId: number | null;
+                usdaFoodId: string | null;
+                nutritionSource: "CUSTOM" | "MANUAL" | "USDA" | "ESTIMATED" | null;
+                nutritionUpdatedAt: Date | null;
             }[];
             headers: Headers;
         } | {
@@ -3324,10 +3346,21 @@ declare const api: {
             status: 200;
             body: {
                 id: number;
+                calories: number | null;
+                protein: number | null;
+                carbohydrates: number | null;
+                fat: number | null;
+                fiber: number | null;
+                sugar: number | null;
+                sodium: number | null;
                 price: number;
                 name: string;
                 category: string;
+                density: number | null;
                 dietaryRestrictionId: number | null;
+                usdaFoodId: string | null;
+                nutritionSource: "CUSTOM" | "MANUAL" | "USDA" | "ESTIMATED" | null;
+                nutritionUpdatedAt: Date | null;
             };
             headers: Headers;
         } | {
@@ -3358,10 +3391,21 @@ declare const api: {
             status: 200;
             body: {
                 id: number;
+                calories: number | null;
+                protein: number | null;
+                carbohydrates: number | null;
+                fat: number | null;
+                fiber: number | null;
+                sugar: number | null;
+                sodium: number | null;
                 price: number;
                 name: string;
                 category: string;
+                density: number | null;
                 dietaryRestrictionId: number | null;
+                usdaFoodId: string | null;
+                nutritionSource: "CUSTOM" | "MANUAL" | "USDA" | "ESTIMATED" | null;
+                nutritionUpdatedAt: Date | null;
             };
             headers: Headers;
         } | {
@@ -3540,6 +3584,133 @@ declare const api: {
             headers: Headers;
         } | {
             status: 201 | 400 | 500 | 401 | 100 | 101 | 102 | 202 | 203 | 204 | 205 | 206 | 207 | 300 | 301 | 302 | 303 | 304 | 305 | 307 | 308 | 402 | 403 | 405 | 406 | 407 | 408 | 409 | 410 | 411 | 412 | 413 | 414 | 415 | 416 | 417 | 418 | 419 | 420 | 421 | 422 | 423 | 424 | 428 | 429 | 431 | 451 | 501 | 502 | 503 | 504 | 505 | 507 | 511;
+            body: unknown;
+            headers: Headers;
+        }>;
+    };
+    nutrition: {
+        getRecipeNutrition: (args: {
+            params: {
+                id: number;
+            };
+            cache?: RequestCache | undefined;
+            fetchOptions?: _ts_rest_core.FetchOptions | undefined;
+            extraHeaders?: Record<string, string | undefined> | undefined;
+            overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
+        }) => Promise<{
+            status: 400;
+            body: {
+                message: string;
+            };
+            headers: Headers;
+        } | {
+            status: 200;
+            body: {
+                id: number;
+                recipeId: number;
+                servingSize: number;
+                servingUnit: string;
+                calories: number;
+                protein: number;
+                carbohydrates: number;
+                fat: number;
+                fiber: number;
+                sugar: number;
+                sodium: number;
+            };
+            headers: Headers;
+        } | {
+            status: 201 | 404 | 500 | 401 | 100 | 101 | 102 | 202 | 203 | 204 | 205 | 206 | 207 | 300 | 301 | 302 | 303 | 304 | 305 | 307 | 308 | 402 | 403 | 405 | 406 | 407 | 408 | 409 | 410 | 411 | 412 | 413 | 414 | 415 | 416 | 417 | 418 | 419 | 420 | 421 | 422 | 423 | 424 | 428 | 429 | 431 | 451 | 501 | 502 | 503 | 504 | 505 | 507 | 511;
+            body: unknown;
+            headers: Headers;
+        }>;
+        calculateRecipeNutrition: (args: {
+            params: {
+                id: number;
+            };
+            cache?: RequestCache | undefined;
+            fetchOptions?: _ts_rest_core.FetchOptions | undefined;
+            extraHeaders?: Record<string, string | undefined> | undefined;
+            overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
+        }) => Promise<{
+            status: 400;
+            body: {
+                message: string;
+            };
+            headers: Headers;
+        } | {
+            status: 200;
+            body: {
+                id: number;
+                recipeId: number;
+                servingSize: number;
+                servingUnit: string;
+                calories: number;
+                protein: number;
+                carbohydrates: number;
+                fat: number;
+                fiber: number;
+                sugar: number;
+                sodium: number;
+            };
+            headers: Headers;
+        } | {
+            status: 201 | 404 | 500 | 401 | 100 | 101 | 102 | 202 | 203 | 204 | 205 | 206 | 207 | 300 | 301 | 302 | 303 | 304 | 305 | 307 | 308 | 402 | 403 | 405 | 406 | 407 | 408 | 409 | 410 | 411 | 412 | 413 | 414 | 415 | 416 | 417 | 418 | 419 | 420 | 421 | 422 | 423 | 424 | 428 | 429 | 431 | 451 | 501 | 502 | 503 | 504 | 505 | 507 | 511;
+            body: unknown;
+            headers: Headers;
+        }>;
+        ingredientNutrition: (args: {
+            query: {
+                query: string;
+                pageSize?: number | undefined;
+            };
+            cache?: RequestCache | undefined;
+            fetchOptions?: _ts_rest_core.FetchOptions | undefined;
+            extraHeaders?: Record<string, string | undefined> | undefined;
+            overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
+        }) => Promise<{
+            status: 400;
+            body: {
+                message: string;
+            };
+            headers: Headers;
+        } | {
+            status: 200;
+            body: any;
+            headers: Headers;
+        } | {
+            status: 201 | 404 | 500 | 401 | 100 | 101 | 102 | 202 | 203 | 204 | 205 | 206 | 207 | 300 | 301 | 302 | 303 | 304 | 305 | 307 | 308 | 402 | 403 | 405 | 406 | 407 | 408 | 409 | 410 | 411 | 412 | 413 | 414 | 415 | 416 | 417 | 418 | 419 | 420 | 421 | 422 | 423 | 424 | 428 | 429 | 431 | 451 | 501 | 502 | 503 | 504 | 505 | 507 | 511;
+            body: unknown;
+            headers: Headers;
+        }>;
+        importUSDANutrition: (args: {
+            params: {
+                id: number;
+            };
+            cache?: RequestCache | undefined;
+            fetchOptions?: _ts_rest_core.FetchOptions | undefined;
+            extraHeaders?: Record<string, string | undefined> | undefined;
+            overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
+            body?: {
+                usdaFoodId?: string | undefined;
+            } | undefined;
+        }) => Promise<{
+            status: 400;
+            body: {
+                message: string;
+                success: boolean;
+            };
+            headers: Headers;
+        } | {
+            status: 200;
+            body: {
+                message: string;
+                success: boolean;
+                ingredient?: any;
+            };
+            headers: Headers;
+        } | {
+            status: 201 | 404 | 500 | 401 | 100 | 101 | 102 | 202 | 203 | 204 | 205 | 206 | 207 | 300 | 301 | 302 | 303 | 304 | 305 | 307 | 308 | 402 | 403 | 405 | 406 | 407 | 408 | 409 | 410 | 411 | 412 | 413 | 414 | 415 | 416 | 417 | 418 | 419 | 420 | 421 | 422 | 423 | 424 | 428 | 429 | 431 | 451 | 501 | 502 | 503 | 504 | 505 | 507 | 511;
             body: unknown;
             headers: Headers;
         }>;

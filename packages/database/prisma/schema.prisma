@@ -806,6 +806,7 @@ model Ingredient {
   name                 String                 @unique
   category             String
   price                Float
+  density              Float?
   // ediablePortion    Float?
   // asPerchase        Float?
   recipeIngredients    RecipeIngredient[]
@@ -819,6 +820,21 @@ model Ingredient {
   SupplierPriceHistory SupplierPriceHistory[]
   DietaryRestriction   DietaryRestriction?    @relation(fields: [dietaryRestrictionId], references: [id])
   dietaryRestrictionId Int?
+  // Nutritional information per 100g/ml
+  calories             Float?
+  protein              Float?
+  carbohydrates        Float?
+  fat                  Float?
+  fiber                Float?
+  sugar                Float?
+  sodium               Float?
+  // Reference to external database
+  usdaFoodId           String?
+  // Track source of nutritional data
+  nutritionSource      NutritionSource?       @default(MANUAL)
+  // Last updated timestamp for nutritional values
+  nutritionUpdatedAt   DateTime?
+  // ...
 
   //@@index([position])
   @@map("ingredient")
@@ -1264,4 +1280,11 @@ enum PhotoType {
   PLATING
   TECHNIQUE
   EQUIPMENT_SETUP
+}
+
+enum NutritionSource {
+  MANUAL // Entered manually by user
+  USDA // From USDA database
+  CUSTOM // Custom entry but verified
+  ESTIMATED // Calculated based on similar ingredients
 }

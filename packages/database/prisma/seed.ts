@@ -64,7 +64,7 @@ async function createVendor() {
 
 async function createIngredient(vendorId: number) {
   const ingredientName = faker.food.ingredient();
-  const cat = faker.food.dish();
+  const cat = faker.food.ethnicCategory();
 
   return prisma.ingredient.upsert({
     where: {
@@ -88,7 +88,7 @@ async function createCookBook() {
     data: {
       name: faker.commerce.productName(),
       imageUrl: faker.image.url(),
-      category: faker.commerce.department(),
+      category: faker.food.ethnicCategory(),
     },
   });
 }
@@ -97,9 +97,9 @@ async function createCookBook() {
 async function createRecipe(restaurantId: number, cookBookId: number) {
   return prisma.recipe.create({
     data: {
-      name: faker.commerce.productName(),
-      imageUrls: Array(7).fill(faker.image.urlLoremFlickr({ category: 'food' })),
-      description: faker.lorem.paragraph(),
+      name: faker.food.dish(),
+      imageUrls: Array.from({ length: 7 }, () => faker.image.urlLoremFlickr({ category: 'food' })), // Generate 7 unique URLs
+      description: faker.food.description(),
       servings: faker.number.int({ min: 1, max: 10 }),
       cookTime: faker.number.int({ min: 10, max: 120 }),
       prepTime: faker.number.int({ min: 10, max: 120 }),
@@ -118,24 +118,122 @@ async function createInventory(restaurantId: number) {
   });
 }
 
+
+const units = {
+  volume: {
+    gallon: {
+      quart: 4,
+      pint: 8,
+      cup: 16,
+      fluidOunce: 128,
+      tablespoon: 256,
+      teaspoon: 768,
+      milliliter: 3785.41,
+      liter: 3.78541,
+      cubicMeter: 0.00378541,
+      cubicFoot: 0.133681,
+      cubicInch: 231,
+    },
+    quart: {
+      pint: 2,
+      cup: 4,
+      fluidOunce: 32,
+      tablespoon: 64,
+      teaspoon: 192,
+      milliliter: 946.353,
+      liter: 0.946353,
+      cubicMeter: 0.000946353,
+      cubicFoot: 0.0334201,
+      cubicInch: 57.75,
+    },
+    // Add other volume units as needed...
+  },
+  weight: {
+    ton: {
+      kilogram: 907.185,
+      gram: 907185,
+      milligram: 907185000,
+      metricTon: 0.907185,
+      pound: 2000,
+      ounce: 32000,
+      stone: 142.857,
+    },
+    kilogram: {
+      gram: 1000,
+      milligram: 1000000,
+      metricTon: 0.001,
+      pound: 2.20462,
+      ounce: 35.274,
+      stone: 0.157473,
+    },
+    // Add other weight units as needed...
+  },
+};
+
+// Helper function to get a random unit
+function getRandomUnit() {
+  const unitTypes = Object.keys(units); // ['volume', 'weight']
+  const randomUnitType = unitTypes[Math.floor(Math.random() * unitTypes.length)];
+  const unitSubtypes = Object.keys(units[randomUnitType]); // e.g., ['gallon', 'quart', ...]
+  const randomUnitSubtype = unitSubtypes[Math.floor(Math.random() * unitSubtypes.length)];
+  return randomUnitSubtype;
+}
+
+// Helper function to generate a realistic quantity based on the unit
+function getRealisticQuantity(unit: string) {
+  switch (unit) {
+    case 'gallon':
+      return faker.number.float({ min: 1, max: 100 }); // Gallons are typically in larger quantities
+    case 'quart':
+      return faker.number.float({ min: 1, max: 200 });
+    case 'pint':
+      return faker.number.float({ min: 1, max: 400 });
+    case 'cup':
+      return faker.number.float({ min: 1, max: 800 });
+    case 'fluidOunce':
+      return faker.number.float({ min: 1, max: 1600 });
+    case 'tablespoon':
+      return faker.number.float({ min: 1, max: 3200 });
+    case 'teaspoon':
+      return faker.number.float({ min: 1, max: 9600 });
+    case 'milliliter':
+      return faker.number.float({ min: 1, max: 10000 });
+    case 'liter':
+      return faker.number.float({ min: 1, max: 100 });
+    case 'kilogram':
+      return faker.number.float({ min: 1, max: 100 });
+    case 'gram':
+      return faker.number.float({ min: 1, max: 1000 });
+    case 'milligram':
+      return faker.number.float({ min: 1, max: 100000 });
+    case 'pound':
+      return faker.number.float({ min: 1, max: 100 });
+    case 'ounce':
+      return faker.number.float({ min: 1, max: 1600 });
+    default:
+      return faker.number.float({ min: 1, max: 100 });
+  }
+}
+
 // InventoryItem factory
 async function createInventoryItem(inventoryId: number, ingredientId: number, userId: number) {
-  const quantity = faker.number.float({ min: 0, max: 1000, precision: 0.01 });
-  const minQuantity = faker.number.float({ min: 0, max: 100, precision: 0.01 });
-  const restockThreshold = faker.number.float({ min: minQuantity, max: 500, precision: 0.01 });
-  const par = faker.number.float({ min: minQuantity, max: restockThreshold, precision: 0.01 });
-  const reorderPoint = faker.number.float({ min: minQuantity, max: restockThreshold, precision: 0.01 });
-  const maxQuantity = faker.number.float({ min: restockThreshold, max: 1000, precision: 0.01 });
-  const currentPrice = faker.number.float({ min: 0.1, max: 100, precision: 0.01 });
-  const averageCost = faker.number.float({ min: 0.1, max: currentPrice, precision: 0.01 });
-  const lastPurchasePrice = faker.number.float({ min: 0.1, max: currentPrice, precision: 0.01 });
+  const unit = getRandomUnit();
+  const quantity = getRealisticQuantity(unit);
+  const minQuantity = faker.number.float({ min: 0, max: quantity });
+  const restockThreshold = faker.number.float({ min: minQuantity, max: quantity * 2 });
+  const par = faker.number.float({ min: minQuantity, max: restockThreshold });
+  const reorderPoint = faker.number.float({ min: minQuantity, max: restockThreshold });
+  const maxQuantity = faker.number.float({ min: restockThreshold, max: quantity * 2 });
+  const currentPrice = faker.number.float({ min: 0.1, max: 100 });
+  const averageCost = faker.number.float({ min: 0.1, max: currentPrice });
+  const lastPurchasePrice = faker.number.float({ min: 0.1, max: currentPrice });
 
   return prisma.inventoryItem.create({
     data: {
       inventoryId,
       ingredientId,
       quantity,
-      unit: faker.science.unit().name,
+      unit, // Use the randomly selected unit
       minQuantity,
       restockThreshold,
       lastCountDate: faker.date.past(),
@@ -171,9 +269,9 @@ async function createOrderItem(orderId: number, ingredientId: number) {
     data: {
       orderId,
       ingredientId,
-      quantity: faker.number.float({ min: 1, max: 100, precision: 0.01 }),
+      quantity: faker.number.float({ min: 1, max: 100 }),
       unit: faker.science.unit().name,
-      price: faker.number.float({ min: 0.1, max: 100, precision: 0.01 }),
+      price: faker.number.float({ min: 0.1, max: 100 }),
     },
   });
 }
@@ -202,8 +300,8 @@ async function createPrepItem(prepBoardId: number, recipeId: number, userId: num
 }
 
 async function createRecipeIngredient(recipeId: number, ingredientId: number) {
-  const unit = faker.helpers.arrayElement(['teaspoon', 'tablespoon', 'cup', 'pint', 'quart', 'gallon', 'fluidOunce', 'ounce', 'pound', 'kilogram', 'gram', 'milligram', 'milliliter', 'liter']);
-  const quantity = faker.number.float({ min: 0.1, max: 10, precision: 0.1 });
+  const unit = getRandomUnit()
+  const quantity = faker.number.float({ min: 0.1, max: 10, });
 
   return prisma.recipeIngredient.upsert({
     where: {
@@ -225,14 +323,92 @@ async function createRecipeIngredient(recipeId: number, ingredientId: number) {
   });
 }
 
+// Helper function to generate realistic cooking instructions
+function generateCookingInstruction(stepNumber: number) {
+  const actions = [
+    'Chop',
+    'Slice',
+    'Dice',
+    'Grate',
+    'Mix',
+    'Whisk',
+    'Stir',
+    'Boil',
+    'Simmer',
+    'Fry',
+    'Bake',
+    'Grill',
+    'Roast',
+    'Season',
+    'Marinate',
+    'Knead',
+    'Fold',
+    'Blend',
+    'Strain',
+    'Garnish',
+  ];
+  const _ingredient = faker.food.ingredient();
+  const ingredients = [
+    'onions',
+    'garlic',
+    'tomatoes',
+    'potatoes',
+    'carrots',
+    'bell peppers',
+    'chicken',
+    'beef',
+    'fish',
+    'pasta',
+    'rice',
+    'flour',
+    'sugar',
+    'salt',
+    'pepper',
+    'olive oil',
+    'butter',
+    'cheese',
+    'herbs',
+    'spices',
+    _ingredient
+
+  ];
+
+  const action = faker.helpers.arrayElement(actions);
+  const ingredient = faker.helpers.arrayElement(ingredients);
+  const time = faker.number.int({ min: 1, max: 30 });
+  const temperature = faker.number.int({ min: 150, max: 450 });
+
+  switch (stepNumber) {
+    case 1:
+      return `Prepare the ingredients: ${action} the ${ingredient}.`;
+    case 2:
+      return `Heat a pan over medium heat and add ${ingredient}.`;
+    case 3:
+      return `Cook the ${ingredient} for ${time} minutes, stirring occasionally.`;
+    case 4:
+      return `Preheat the oven to ${temperature}°F (${Math.round((temperature - 32) * (5 / 9))}°C).`;
+    case 5:
+      return `Combine all the ingredients in a large bowl and ${action} thoroughly.`;
+    case 6:
+      return `Transfer the mixture to a baking dish and bake for ${time} minutes.`;
+    case 7:
+      return `Garnish with ${ingredient} and serve hot.`;
+    default:
+      return `Step ${stepNumber}: ${action} the ${ingredient} and cook for ${time} minutes.`;
+  }
+}
+
 // RecipeInstruction factory
 async function createRecipeInstruction(recipeId: number, stepNumber: number) {
+  const instruction = generateCookingInstruction(stepNumber);
+  const imageUrl = faker.image.urlLoremFlickr({ category: 'food' });
+
   return prisma.recipeInstruction.create({
     data: {
       recipeId,
       stepNumber,
-      instruction: faker.lorem.sentence(),
-      imageUrl: faker.image.urlLoremFlickr({ category: 'food' }),
+      instruction,
+      imageUrl,
     },
   });
 }
@@ -274,9 +450,9 @@ async function createMenu(restaurantId: number) {
 
 // MenuItem factory
 async function createMenuItem(menuId: number, recipeId: number) {
-  const price = faker.number.float({ min: 1, max: 100, precision: 0.01 });
+  const price = faker.number.float({ min: 1, max: 100 });
   const name = faker.commerce.productName();
-  const foodCost = faker.number.float({ min: 0.1, max: price, precision: 0.01 });
+  const foodCost = faker.number.float({ min: 0.1, max: price });
 
   return prisma.menuItem.create({
     data: {
@@ -1135,3 +1311,4 @@ main()
   .finally(async () => {
     await prisma.$disconnect();
   })
+

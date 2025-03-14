@@ -70,7 +70,12 @@ const throttler_1 = require("@nestjs/throttler");
 const csrf_module_1 = require("./csrf/csrf.module");
 const env_service_1 = require("./env/env.service");
 const csrf_config_1 = require("./csrf/csrf.config");
+const nutrition_service_service_1 = require("./nutrition-service/nutrition-service.service");
+const nutrition_service_controller_1 = require("./nutrition-service/nutrition-service.controller");
+const usda_api_service_1 = require("./usda-api/usda-api.service");
+const nutrition_service_module_1 = require("./nutrition-service/nutrition-service.module");
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
+const axios_1 = require("@nestjs/axios");
 let AppModule = class AppModule {
     constructor(envService) {
         this.envService = envService;
@@ -120,6 +125,8 @@ exports.AppModule = AppModule = __decorate([
             prep_item_module_1.PrepItemModule,
             aiassistant_module_1.AiassistantModule,
             csrf_module_1.CsrfModule,
+            nutrition_service_module_1.NutritionModule,
+            axios_1.HttpModule
         ],
         controllers: [
             app_controller_1.AppController,
@@ -132,6 +139,7 @@ exports.AppModule = AppModule = __decorate([
             prep_board_controller_1.PrepBoardController,
             ingredient_controller_1.IngredientController,
             aiassistant_controller_1.AiassistantController,
+            nutrition_service_controller_1.NutritionController,
         ],
         providers: [
             app_service_1.AppService,
@@ -148,6 +156,8 @@ exports.AppModule = AppModule = __decorate([
             prep_item_service_1.PrepItemService,
             open_aiservice_service_1.OpenAiserviceService,
             aiassistant_service_1.AiassistantService,
+            nutrition_service_service_1.NutritionService,
+            usda_api_service_1.UsdaApiService,
         ],
     }),
     __metadata("design:paramtypes", [env_service_1.EnvService])

@@ -56,7 +56,12 @@ import { CsrfController } from './csrf/csrf.controller';
 import { CsrfModule } from './csrf/csrf.module';
 import { EnvService } from './env/env.service';
 import { createCsrfUtilities } from './csrf/csrf.config';
+import { NutritionService } from './nutrition-service/nutrition-service.service';
+import { NutritionController } from './nutrition-service/nutrition-service.controller';
+import { UsdaApiService } from './usda-api/usda-api.service';
+import { NutritionModule } from './nutrition-service/nutrition-service.module';
 import cookieParser from 'cookie-parser';
+import { HttpModule } from '@nestjs/axios'
 
 
 @Module({
@@ -96,6 +101,8 @@ import cookieParser from 'cookie-parser';
     PrepItemModule,
     AiassistantModule,
     CsrfModule,
+    NutritionModule,
+    HttpModule
   ],
   controllers: [
     AppController,
@@ -108,6 +115,7 @@ import cookieParser from 'cookie-parser';
     PrepBoardController,
     IngredientController,
     AiassistantController,
+    NutritionController,
   ],
   providers: [
     AppService,
@@ -124,6 +132,8 @@ import cookieParser from 'cookie-parser';
     PrepItemService,
     OpenAiserviceService,
     AiassistantService,
+    NutritionService,
+    UsdaApiService,
   ],
 })
 export class AppModule {

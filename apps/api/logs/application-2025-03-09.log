@@ -1,0 +1,14 @@
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 410",
+  "service": "LoggingService",
+  "timestamp": "2025-03-09T19:42:16.682Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 410",
+  "service": "LoggingService",
+  "timestamp": "2025-03-09T19:42:16.696Z"
+}
