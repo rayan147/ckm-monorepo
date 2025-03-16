@@ -53,6 +53,16 @@ let NutritionService = class NutritionService {
             sugar: 0,
             sodium: 0,
         };
+        const allergens = {
+            containsGluten: false,
+            containsDairy: false,
+            containsNuts: false,
+            containsEggs: false,
+            containsSoy: false,
+            containsFish: false,
+            containsShellfish: false,
+            containsSesame: false
+        };
         console.log('Recipe ingredients:', recipe.ingredients.length);
         for (const recipeIngredient of recipe.ingredients) {
             const { ingredient, quantity, unit } = recipeIngredient;
@@ -64,6 +74,20 @@ let NutritionService = class NutritionService {
                 hasNutrition: Boolean(ingredient.calories),
                 usdaId: ingredient.usdaFoodId
             });
+            if (ingredient.usdaFoodId) {
+                const ingredientData = await this.usdaApiService.getFoodNutrition(ingredient.usdaFoodId);
+                if (ingredientData) {
+                    const ingredientAllergens = this.usdaApiService.detectAllergens(ingredientData);
+                    allergens.containsGluten = allergens.containsGluten || ingredientAllergens.containsGluten;
+                    allergens.containsDairy = allergens.containsDairy || ingredientAllergens.containsDairy;
+                    allergens.containsNuts = allergens.containsNuts || ingredientAllergens.containsNuts;
+                    allergens.containsEggs = allergens.containsEggs || ingredientAllergens.containsEggs;
+                    allergens.containsSoy = allergens.containsSoy || ingredientAllergens.containsSoy;
+                    allergens.containsFish = allergens.containsFish || ingredientAllergens.containsFish;
+                    allergens.containsShellfish = allergens.containsShellfish || ingredientAllergens.containsShellfish;
+                    allergens.containsSesame = allergens.containsSesame || ingredientAllergens.containsSesame;
+                }
+            }
             if (!ingredient.calories) {
                 await this.updateIngredientNutrition(ingredient.id);
                 const updatedIngredient = await this.prisma.ingredient.findUnique({
@@ -95,7 +119,7 @@ let NutritionService = class NutritionService {
                 : nutritionTotals[nutritionKey];
             return result;
         }, {});
-        const perServingNutrition = Object.assign({ servingSize: recipeYield > 0 ? (1 / recipeYield) : 1, servingUnit }, perServingValues);
+        const perServingNutrition = Object.assign(Object.assign({ servingSize: recipeYield > 0 ? (1 / recipeYield) : 1, servingUnit }, perServingValues), allergens);
         const recipeNutrition = await this.prisma.recipeNutrition.upsert({
             where: { recipeId },
             update: perServingNutrition,
@@ -112,9 +136,9 @@ let NutritionService = class NutritionService {
         if (!ingredient) {
             throw new Error(`Ingredient with ID ${ingredientId} not found`);
         }
-        let nutritionData;
+        let ingredientData;
         if (ingredient.usdaFoodId) {
-            nutritionData = await this.usdaApiService.getFoodNutrition(ingredient.usdaFoodId);
+            ingredientData = await this.usdaApiService.getFoodNutrition(ingredient.usdaFoodId);
         }
         else {
             const searchName = ingredient.name
@@ -125,7 +149,7 @@ let NutritionService = class NutritionService {
             console.log(`USDA search with fallback for "${ingredient.name}":`, ((_a = searchResults === null || searchResults === void 0 ? void 0 : searchResults.foods) === null || _a === void 0 ? void 0 : _a.length) || 0, 'results');
             if (searchResults.foods && searchResults.foods.length > 0) {
                 const topMatch = searchResults.foods[0];
-                nutritionData = await this.usdaApiService.getFoodNutrition(topMatch.fdcId);
+                ingredientData = await this.usdaApiService.getFoodNutrition(topMatch.fdcId);
                 await this.prisma.ingredient.update({
                     where: { id: ingredientId },
                     data: {
@@ -135,20 +159,21 @@ let NutritionService = class NutritionService {
                 });
             }
         }
-        if (nutritionData) {
+        if (ingredientData) {
             const extractedData = {
-                calories: this.extractNutrientValue(nutritionData, 'Energy'),
-                protein: this.extractNutrientValue(nutritionData, 'Protein'),
-                carbohydrates: this.extractNutrientValue(nutritionData, 'Carbohydrate, by difference'),
-                fat: this.extractNutrientValue(nutritionData, 'Total lipid (fat)'),
-                fiber: this.extractNutrientValue(nutritionData, 'Fiber, total dietary'),
-                sugar: this.extractNutrientValue(nutritionData, 'Sugars, total including NLEA'),
-                sodium: this.extractNutrientValue(nutritionData, 'Sodium, Na'),
+                calories: this.extractNutrientValue(ingredientData, 'Energy'),
+                protein: this.extractNutrientValue(ingredientData, 'Protein'),
+                carbohydrates: this.extractNutrientValue(ingredientData, 'Carbohydrate, by difference'),
+                fat: this.extractNutrientValue(ingredientData, 'Total lipid (fat)'),
+                fiber: this.extractNutrientValue(ingredientData, 'Fiber, total dietary'),
+                sugar: this.extractNutrientValue(ingredientData, 'Sugars, total including NLEA'),
+                sodium: this.extractNutrientValue(ingredientData, 'Sodium, Na'),
             };
+            const allergens = this.usdaApiService.detectAllergens(ingredientData);
             if (this.usdaApiService.extractNutritionData &&
                 Object.values(extractedData).some(val => val === null)) {
                 try {
-                    const standardizedData = this.usdaApiService.extractNutritionData(nutritionData);
+                    const standardizedData = this.usdaApiService.extractNutritionData(ingredientData);
                     if (standardizedData) {
                         console.log('Using standardized nutrition extraction for missing values');
                         Object.entries(standardizedData).forEach(([key, value]) => {
@@ -178,7 +203,16 @@ let NutritionService = class NutritionService {
         const nutrient = nutritionData.foodNutrients.find((n) => n.nutrient && n.nutrient.name === nutrientName);
         return nutrient ? nutrient.amount : null;
     }
-    async updateManualNutrition(ingredientId, nutritionData) {
+    async updateManualNutrition(ingredientId, data) {
+        const nutritionData = {
+            calories: data.calories,
+            protein: data.protein,
+            carbohydrates: data.carbohydrates,
+            fat: data.fat,
+            fiber: data.fiber,
+            sugar: data.sugar,
+            sodium: data.sodium,
+        };
         if (nutritionData.calories < 0 || nutritionData.protein < 0 ||
             nutritionData.carbohydrates < 0 || nutritionData.fat < 0 ||
             nutritionData.fiber < 0 || nutritionData.sugar < 0 ||
@@ -190,10 +224,62 @@ let NutritionService = class NutritionService {
             throw new Error(`Total of protein, carbs, and fat (${macroSum}g) exceeds 100g for a 100g portion`);
         }
         try {
+            const getRecipe = await this.prisma.recipe.findFirst({
+                where: {
+                    ingredients: {
+                        some: {
+                            ingredientId
+                        }
+                    }
+                },
+                select: {
+                    id: true
+                }
+            });
             const updatedIngredient = await this.prisma.ingredient.update({
                 where: { id: ingredientId },
                 data: Object.assign(Object.assign({}, nutritionData), { nutritionSource: 'MANUAL', nutritionUpdatedAt: new Date() }),
             });
+            if (getRecipe && Object.keys(data).some(key => key.startsWith('contains'))) {
+                const allergenData = {
+                    containsGluten: data.containsGluten !== undefined ? data.containsGluten : false,
+                    containsDairy: data.containsDairy !== undefined ? data.containsDairy : false,
+                    containsNuts: data.containsNuts !== undefined ? data.containsNuts : false,
+                    containsEggs: data.containsEggs !== undefined ? data.containsEggs : false,
+                    containsSoy: data.containsSoy !== undefined ? data.containsSoy : false,
+                    containsFish: data.containsFish !== undefined ? data.containsFish : false,
+                    containsShellfish: data.containsShellfish !== undefined ? data.containsShellfish : false,
+                    containsSesame: data.containsSesame !== undefined ? data.containsSesame : false,
+                };
+                const recipes = await this.prisma.recipe.findMany({
+                    where: {
+                        ingredients: {
+                            some: {
+                                ingredientId
+                            }
+                        }
+                    },
+                    include: {
+                        nutritionalInfo: true
+                    }
+                });
+                for (const recipe of recipes) {
+                    if (recipe.nutritionalInfo) {
+                        const updateData = {};
+                        for (const [key, value] of Object.entries(allergenData)) {
+                            if (value === true) {
+                                updateData[key] = true;
+                            }
+                        }
+                        if (Object.keys(updateData).length > 0) {
+                            await this.prisma.recipeNutrition.update({
+                                where: { recipeId: recipe.id },
+                                data: updateData
+                            });
+                        }
+                    }
+                }
+            }
             return updatedIngredient;
         }
         catch (error) {

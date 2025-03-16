@@ -1,4 +1,4 @@
-// This is your Prisma schema file,
+// This is your a schema file,
 generator client {
   provider      = "prisma-client-js"
   binaryTargets = ["native", "debian-openssl-3.0.x"]
@@ -22,19 +22,27 @@ datasource db {
 
 // Recipe Nutrition Information
 model RecipeNutrition {
-  id            Int    @id @default(autoincrement())
-  recipeId      Int    @unique
-  recipe        Recipe @relation(fields: [recipeId], references: [id])
-  servingSize   Float
-  servingUnit   String
-  calories      Float
-  protein       Float
-  carbohydrates Float
-  fat           Float
-  fiber         Float
-  sugar         Float
-  sodium        Float
-  // Add other nutritional fields as needed
+  id                Int     @id @default(autoincrement())
+  recipeId          Int     @unique
+  recipe            Recipe  @relation(fields: [recipeId], references: [id])
+  servingSize       Float
+  servingUnit       String
+  calories          Float
+  protein           Float
+  carbohydrates     Float
+  fat               Float
+  fiber             Float
+  sugar             Float
+  sodium            Float
+  // Allergen indicators 
+  containsGluten    Boolean @default(false)
+  containsDairy     Boolean @default(false)
+  containsNuts      Boolean @default(false)
+  containsEggs      Boolean @default(false)
+  containsSoy       Boolean @default(false)
+  containsFish      Boolean @default(false)
+  containsShellfish Boolean @default(false)
+  containsSesame    Boolean @default(false)
 }
 
 // Recipe Critical Control Points
@@ -766,6 +774,7 @@ model Recipe {
   publishedAt  DateTime?
   language     String     @default("en")
   skillLevel   SkillLevel @default(INTERMEDIATE)
+  category     Category   @default(MAIN_COURSE)
 
   // Relationships with proper cascading
   restaurant          Restaurant            @relation(fields: [restaurantId], references: [id], onDelete: Restrict)
@@ -791,7 +800,7 @@ model Recipe {
   criticalPoints      RecipeCriticalPoint[]
   storage             RecipeStorage?
   photos              RecipePhoto[]
-  RecipeStats         RecipeStats?
+  recipeStats         RecipeStats?
 
   // Improved indexing
   @@index([restaurantId, isDeleted])
@@ -799,6 +808,25 @@ model Recipe {
   @@index([name, isDeleted])
   @@index([isPublished, language])
   @@map("recipe")
+}
+
+enum Category {
+  APPETIZER
+  SOUP
+  SALAD
+  MAIN_COURSE
+  SIDE_DISH
+  DESSERT
+  BEVERAGE
+  BREAKFAST
+  BRUNCH
+  LUNCH
+  DINNER
+  SNACK
+  BAKED_GOOD
+  SAUCE
+  CONDIMENT
+  SPECIAL
 }
 
 model Ingredient {

@@ -414,3 +414,99 @@
   "service": "LoggingService",
   "timestamp": "2025-03-14T01:11:24.590Z"
 }
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 1 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 1: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T23:06:35.070Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 2 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 2: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T23:06:37.181Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 3 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 3: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T23:06:39.278Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 6 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 6: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T23:06:42.620Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 1 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 1: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-14T23:24:51.999Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.recipe.findUnique()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/recipe/recipe.service.ts:239:47\n\n  236 async getRecipe(id: number): Promise<Recipe> {\n  237   this.logger.log(`Fetching recipe with ID ${id}`);\n  238   try {\n→ 239     const recipe = await this.prisma.recipe.findUnique(\nThe column `RecipeNutrition.containsGluten` does not exist in the current database.",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 501: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-15T19:29:10.519Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.recipe.findUnique()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/recipe/recipe.service.ts:239:47\n\n  236 async getRecipe(id: number): Promise<Recipe> {\n  237   this.logger.log(`Fetching recipe with ID ${id}`);\n  238   try {\n→ 239     const recipe = await this.prisma.recipe.findUnique(\nThe column `RecipeNutrition.containsGluten` does not exist in the current database.",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 501: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-15T19:29:10.815Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.recipe.findUnique()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/recipe/recipe.service.ts:239:47\n\n  236 async getRecipe(id: number): Promise<Recipe> {\n  237   this.logger.log(`Fetching recipe with ID ${id}`);\n  238   try {\n→ 239     const recipe = await this.prisma.recipe.findUnique(\nThe column `RecipeNutrition.containsGluten` does not exist in the current database.",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 501: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-15T19:29:13.816Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.recipe.findUnique()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/recipe/recipe.service.ts:239:47\n\n  236 async getRecipe(id: number): Promise<Recipe> {\n  237   this.logger.log(`Fetching recipe with ID ${id}`);\n  238   try {\n→ 239     const recipe = await this.prisma.recipe.findUnique(\nThe column `RecipeNutrition.containsGluten` does not exist in the current database.",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 501: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-15T19:29:44.021Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 505 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 505: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-16T03:36:43.510Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 505 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 505: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-16T03:36:50.741Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 505 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 505: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-16T03:36:53.332Z"
+}

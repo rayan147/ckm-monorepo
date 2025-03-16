@@ -12,7 +12,7 @@ import type { Prisma } from '@prisma/client';
 
 export const TransactionIsolationLevelSchema = z.enum(['ReadUncommitted','ReadCommitted','RepeatableRead','Serializable']);
 
-export const RecipeNutritionScalarFieldEnumSchema = z.enum(['id','recipeId','servingSize','servingUnit','calories','protein','carbohydrates','fat','fiber','sugar','sodium']);
+export const RecipeNutritionScalarFieldEnumSchema = z.enum(['id','recipeId','servingSize','servingUnit','calories','protein','carbohydrates','fat','fiber','sugar','sodium','containsGluten','containsDairy','containsNuts','containsEggs','containsSoy','containsFish','containsShellfish','containsSesame']);
 
 export const RecipeCriticalPointScalarFieldEnumSchema = z.enum(['id','recipeId','stepNumber','description','threshold','unit','action','createdAt','updatedAt']);
 
@@ -90,7 +90,7 @@ export const SessionScalarFieldEnumSchema = z.enum(['id','userId','code','token'
 
 export const CookBookScalarFieldEnumSchema = z.enum(['id','name','imageUrl','category','restaurantId']);
 
-export const RecipeScalarFieldEnumSchema = z.enum(['id','name','imageUrls','description','servings','cookTime','prepTime','frequency','restaurantId','cookBookId','foodCost','isDeleted','isPublished','publishedAt','language','skillLevel']);
+export const RecipeScalarFieldEnumSchema = z.enum(['id','name','imageUrls','description','servings','cookTime','prepTime','frequency','restaurantId','cookBookId','foodCost','isDeleted','isPublished','publishedAt','language','skillLevel','category']);
 
 export const IngredientScalarFieldEnumSchema = z.enum(['id','name','category','price','density','dietaryRestrictionId','calories','protein','carbohydrates','fat','fiber','sugar','sodium','usdaFoodId','nutritionSource','nutritionUpdatedAt']);
 
@@ -184,6 +184,10 @@ export const ConstraintTypeSchema = z.enum(['UNAVAILABLE','PREFERRED']);
 
 export type ConstraintTypeType = `${z.infer<typeof ConstraintTypeSchema>}`
 
+export const CategorySchema = z.enum(['APPETIZER','SOUP','SALAD','MAIN_COURSE','SIDE_DISH','DESSERT','BEVERAGE','BREAKFAST','BRUNCH','LUNCH','DINNER','SNACK','BAKED_GOOD','SAUCE','CONDIMENT','SPECIAL']);
+
+export type CategoryType = `${z.infer<typeof CategorySchema>}`
+
 export const InventoryTypeSchema = z.enum(['MAIN','BAR','PREP','STORAGE','WALK_IN','FREEZER']);
 
 export type InventoryTypeType = `${z.infer<typeof InventoryTypeSchema>}`
@@ -244,6 +248,14 @@ export const RecipeNutritionSchema = z.object({
   fiber: z.number(),
   sugar: z.number(),
   sodium: z.number(),
+  containsGluten: z.boolean(),
+  containsDairy: z.boolean(),
+  containsNuts: z.boolean(),
+  containsEggs: z.boolean(),
+  containsSoy: z.boolean(),
+  containsFish: z.boolean(),
+  containsShellfish: z.boolean(),
+  containsSesame: z.boolean(),
 })
 
 export type RecipeNutrition = z.infer<typeof RecipeNutritionSchema>
@@ -903,6 +915,7 @@ export type CookBook = z.infer<typeof CookBookSchema>
 
 export const RecipeSchema = z.object({
   skillLevel: SkillLevelSchema,
+  category: CategorySchema,
   id: z.number().int(),
   name: z.string(),
   imageUrls: z.string().array(),
@@ -1323,6 +1336,14 @@ export const RecipeNutritionSelectSchema: z.ZodType<Prisma.RecipeNutritionSelect
   fiber: z.boolean().optional(),
   sugar: z.boolean().optional(),
   sodium: z.boolean().optional(),
+  containsGluten: z.boolean().optional(),
+  containsDairy: z.boolean().optional(),
+  containsNuts: z.boolean().optional(),
+  containsEggs: z.boolean().optional(),
+  containsSoy: z.boolean().optional(),
+  containsFish: z.boolean().optional(),
+  containsShellfish: z.boolean().optional(),
+  containsSesame: z.boolean().optional(),
   recipe: z.union([z.boolean(),z.lazy(() => RecipeArgsSchema)]).optional(),
 }).strict()
 
@@ -2582,7 +2603,7 @@ export const RecipeIncludeSchema: z.ZodType<Prisma.RecipeInclude> = z.object({
   criticalPoints: z.union([z.boolean(),z.lazy(() => RecipeCriticalPointFindManyArgsSchema)]).optional(),
   storage: z.union([z.boolean(),z.lazy(() => RecipeStorageArgsSchema)]).optional(),
   photos: z.union([z.boolean(),z.lazy(() => RecipePhotoFindManyArgsSchema)]).optional(),
-  RecipeStats: z.union([z.boolean(),z.lazy(() => RecipeStatsArgsSchema)]).optional(),
+  recipeStats: z.union([z.boolean(),z.lazy(() => RecipeStatsArgsSchema)]).optional(),
   _count: z.union([z.boolean(),z.lazy(() => RecipeCountOutputTypeArgsSchema)]).optional(),
 }).strict()
 
@@ -2634,6 +2655,7 @@ export const RecipeSelectSchema: z.ZodType<Prisma.RecipeSelect> = z.object({
   publishedAt: z.boolean().optional(),
   language: z.boolean().optional(),
   skillLevel: z.boolean().optional(),
+  category: z.boolean().optional(),
   restaurant: z.union([z.boolean(),z.lazy(() => RestaurantArgsSchema)]).optional(),
   cookBook: z.union([z.boolean(),z.lazy(() => CookBookArgsSchema)]).optional(),
   ingredients: z.union([z.boolean(),z.lazy(() => RecipeIngredientFindManyArgsSchema)]).optional(),
@@ -2657,7 +2679,7 @@ export const RecipeSelectSchema: z.ZodType<Prisma.RecipeSelect> = z.object({
   criticalPoints: z.union([z.boolean(),z.lazy(() => RecipeCriticalPointFindManyArgsSchema)]).optional(),
   storage: z.union([z.boolean(),z.lazy(() => RecipeStorageArgsSchema)]).optional(),
   photos: z.union([z.boolean(),z.lazy(() => RecipePhotoFindManyArgsSchema)]).optional(),
-  RecipeStats: z.union([z.boolean(),z.lazy(() => RecipeStatsArgsSchema)]).optional(),
+  recipeStats: z.union([z.boolean(),z.lazy(() => RecipeStatsArgsSchema)]).optional(),
   _count: z.union([z.boolean(),z.lazy(() => RecipeCountOutputTypeArgsSchema)]).optional(),
 }).strict()
 
@@ -3403,6 +3425,14 @@ export const RecipeNutritionWhereInputSchema: z.ZodType<Prisma.RecipeNutritionWh
   fiber: z.union([ z.lazy(() => FloatFilterSchema),z.number() ]).optional(),
   sugar: z.union([ z.lazy(() => FloatFilterSchema),z.number() ]).optional(),
   sodium: z.union([ z.lazy(() => FloatFilterSchema),z.number() ]).optional(),
+  containsGluten: z.union([ z.lazy(() => BoolFilterSchema),z.boolean() ]).optional(),
+  containsDairy: z.union([ z.lazy(() => BoolFilterSchema),z.boolean() ]).optional(),
+  containsNuts: z.union([ z.lazy(() => BoolFilterSchema),z.boolean() ]).optional(),
+  containsEggs: z.union([ z.lazy(() => BoolFilterSchema),z.boolean() ]).optional(),
+  containsSoy: z.union([ z.lazy(() => BoolFilterSchema),z.boolean() ]).optional(),
+  containsFish: z.union([ z.lazy(() => BoolFilterSchema),z.boolean() ]).optional(),
+  containsShellfish: z.union([ z.lazy(() => BoolFilterSchema),z.boolean() ]).optional(),
+  containsSesame: z.union([ z.lazy(() => BoolFilterSchema),z.boolean() ]).optional(),
   recipe: z.union([ z.lazy(() => RecipeScalarRelationFilterSchema),z.lazy(() => RecipeWhereInputSchema) ]).optional(),
 }).strict();
 
@@ -3418,6 +3448,14 @@ export const RecipeNutritionOrderByWithRelationInputSchema: z.ZodType<Prisma.Rec
   fiber: z.lazy(() => SortOrderSchema).optional(),
   sugar: z.lazy(() => SortOrderSchema).optional(),
   sodium: z.lazy(() => SortOrderSchema).optional(),
+  containsGluten: z.lazy(() => SortOrderSchema).optional(),
+  containsDairy: z.lazy(() => SortOrderSchema).optional(),
+  containsNuts: z.lazy(() => SortOrderSchema).optional(),
+  containsEggs: z.lazy(() => SortOrderSchema).optional(),
+  containsSoy: z.lazy(() => SortOrderSchema).optional(),
+  containsFish: z.lazy(() => SortOrderSchema).optional(),
+  containsShellfish: z.lazy(() => SortOrderSchema).optional(),
+  containsSesame: z.lazy(() => SortOrderSchema).optional(),
   recipe: z.lazy(() => RecipeOrderByWithRelationInputSchema).optional()
 }).strict();
 
@@ -3448,6 +3486,14 @@ export const RecipeNutritionWhereUniqueInputSchema: z.ZodType<Prisma.RecipeNutri
   fiber: z.union([ z.lazy(() => FloatFilterSchema),z.number() ]).optional(),
   sugar: z.union([ z.lazy(() => FloatFilterSchema),z.number() ]).optional(),
   sodium: z.union([ z.lazy(() => FloatFilterSchema),z.number() ]).optional(),
+  containsGluten: z.union([ z.lazy(() => BoolFilterSchema),z.boolean() ]).optional(),
+  containsDairy: z.union([ z.lazy(() => BoolFilterSchema),z.boolean() ]).optional(),
+  containsNuts: z.union([ z.lazy(() => BoolFilterSchema),z.boolean() ]).optional(),
+  containsEggs: z.union([ z.lazy(() => BoolFilterSchema),z.boolean() ]).optional(),
+  containsSoy: z.union([ z.lazy(() => BoolFilterSchema),z.boolean() ]).optional(),
+  containsFish: z.union([ z.lazy(() => BoolFilterSchema),z.boolean() ]).optional(),
+  containsShellfish: z.union([ z.lazy(() => BoolFilterSchema),z.boolean() ]).optional(),
+  containsSesame: z.union([ z.lazy(() => BoolFilterSchema),z.boolean() ]).optional(),
   recipe: z.union([ z.lazy(() => RecipeScalarRelationFilterSchema),z.lazy(() => RecipeWhereInputSchema) ]).optional(),
 }).strict());
 
@@ -3463,6 +3509,14 @@ export const RecipeNutritionOrderByWithAggregationInputSchema: z.ZodType<Prisma.
   fiber: z.lazy(() => SortOrderSchema).optional(),
   sugar: z.lazy(() => SortOrderSchema).optional(),
   sodium: z.lazy(() => SortOrderSchema).optional(),
+  containsGluten: z.lazy(() => SortOrderSchema).optional(),
+  containsDairy: z.lazy(() => SortOrderSchema).optional(),
+  containsNuts: z.lazy(() => SortOrderSchema).optional(),
+  containsEggs: z.lazy(() => SortOrderSchema).optional(),
+  containsSoy: z.lazy(() => SortOrderSchema).optional(),
+  containsFish: z.lazy(() => SortOrderSchema).optional(),
+  containsShellfish: z.lazy(() => SortOrderSchema).optional(),
+  containsSesame: z.lazy(() => SortOrderSchema).optional(),
   _count: z.lazy(() => RecipeNutritionCountOrderByAggregateInputSchema).optional(),
   _avg: z.lazy(() => RecipeNutritionAvgOrderByAggregateInputSchema).optional(),
   _max: z.lazy(() => RecipeNutritionMaxOrderByAggregateInputSchema).optional(),
@@ -3485,6 +3539,14 @@ export const RecipeNutritionScalarWhereWithAggregatesInputSchema: z.ZodType<Pris
   fiber: z.union([ z.lazy(() => FloatWithAggregatesFilterSchema),z.number() ]).optional(),
   sugar: z.union([ z.lazy(() => FloatWithAggregatesFilterSchema),z.number() ]).optional(),
   sodium: z.union([ z.lazy(() => FloatWithAggregatesFilterSchema),z.number() ]).optional(),
+  containsGluten: z.union([ z.lazy(() => BoolWithAggregatesFilterSchema),z.boolean() ]).optional(),
+  containsDairy: z.union([ z.lazy(() => BoolWithAggregatesFilterSchema),z.boolean() ]).optional(),
+  containsNuts: z.union([ z.lazy(() => BoolWithAggregatesFilterSchema),z.boolean() ]).optional(),
+  containsEggs: z.union([ z.lazy(() => BoolWithAggregatesFilterSchema),z.boolean() ]).optional(),
+  containsSoy: z.union([ z.lazy(() => BoolWithAggregatesFilterSchema),z.boolean() ]).optional(),
+  containsFish: z.union([ z.lazy(() => BoolWithAggregatesFilterSchema),z.boolean() ]).optional(),
+  containsShellfish: z.union([ z.lazy(() => BoolWithAggregatesFilterSchema),z.boolean() ]).optional(),
+  containsSesame: z.union([ z.lazy(() => BoolWithAggregatesFilterSchema),z.boolean() ]).optional(),
 }).strict();
 
 export const RecipeCriticalPointWhereInputSchema: z.ZodType<Prisma.RecipeCriticalPointWhereInput> = z.object({
@@ -6728,6 +6790,7 @@ export const RecipeWhereInputSchema: z.ZodType<Prisma.RecipeWhereInput> = z.obje
   publishedAt: z.union([ z.lazy(() => DateTimeNullableFilterSchema),z.coerce.date() ]).optional().nullable(),
   language: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
   skillLevel: z.union([ z.lazy(() => EnumSkillLevelFilterSchema),z.lazy(() => SkillLevelSchema) ]).optional(),
+  category: z.union([ z.lazy(() => EnumCategoryFilterSchema),z.lazy(() => CategorySchema) ]).optional(),
   restaurant: z.union([ z.lazy(() => RestaurantScalarRelationFilterSchema),z.lazy(() => RestaurantWhereInputSchema) ]).optional(),
   cookBook: z.union([ z.lazy(() => CookBookScalarRelationFilterSchema),z.lazy(() => CookBookWhereInputSchema) ]).optional(),
   ingredients: z.lazy(() => RecipeIngredientListRelationFilterSchema).optional(),
@@ -6751,7 +6814,7 @@ export const RecipeWhereInputSchema: z.ZodType<Prisma.RecipeWhereInput> = z.obje
   criticalPoints: z.lazy(() => RecipeCriticalPointListRelationFilterSchema).optional(),
   storage: z.union([ z.lazy(() => RecipeStorageNullableScalarRelationFilterSchema),z.lazy(() => RecipeStorageWhereInputSchema) ]).optional().nullable(),
   photos: z.lazy(() => RecipePhotoListRelationFilterSchema).optional(),
-  RecipeStats: z.union([ z.lazy(() => RecipeStatsNullableScalarRelationFilterSchema),z.lazy(() => RecipeStatsWhereInputSchema) ]).optional().nullable(),
+  recipeStats: z.union([ z.lazy(() => RecipeStatsNullableScalarRelationFilterSchema),z.lazy(() => RecipeStatsWhereInputSchema) ]).optional().nullable(),
 }).strict();
 
 export const RecipeOrderByWithRelationInputSchema: z.ZodType<Prisma.RecipeOrderByWithRelationInput> = z.object({
@@ -6771,6 +6834,7 @@ export const RecipeOrderByWithRelationInputSchema: z.ZodType<Prisma.RecipeOrderB
   publishedAt: z.union([ z.lazy(() => SortOrderSchema),z.lazy(() => SortOrderInputSchema) ]).optional(),
   language: z.lazy(() => SortOrderSchema).optional(),
   skillLevel: z.lazy(() => SortOrderSchema).optional(),
+  category: z.lazy(() => SortOrderSchema).optional(),
   restaurant: z.lazy(() => RestaurantOrderByWithRelationInputSchema).optional(),
   cookBook: z.lazy(() => CookBookOrderByWithRelationInputSchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientOrderByRelationAggregateInputSchema).optional(),
@@ -6794,7 +6858,7 @@ export const RecipeOrderByWithRelationInputSchema: z.ZodType<Prisma.RecipeOrderB
   criticalPoints: z.lazy(() => RecipeCriticalPointOrderByRelationAggregateInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageOrderByWithRelationInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoOrderByRelationAggregateInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsOrderByWithRelationInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsOrderByWithRelationInputSchema).optional()
 }).strict();
 
 export const RecipeWhereUniqueInputSchema: z.ZodType<Prisma.RecipeWhereUniqueInput> = z.object({
@@ -6820,6 +6884,7 @@ export const RecipeWhereUniqueInputSchema: z.ZodType<Prisma.RecipeWhereUniqueInp
   publishedAt: z.union([ z.lazy(() => DateTimeNullableFilterSchema),z.coerce.date() ]).optional().nullable(),
   language: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
   skillLevel: z.union([ z.lazy(() => EnumSkillLevelFilterSchema),z.lazy(() => SkillLevelSchema) ]).optional(),
+  category: z.union([ z.lazy(() => EnumCategoryFilterSchema),z.lazy(() => CategorySchema) ]).optional(),
   restaurant: z.union([ z.lazy(() => RestaurantScalarRelationFilterSchema),z.lazy(() => RestaurantWhereInputSchema) ]).optional(),
   cookBook: z.union([ z.lazy(() => CookBookScalarRelationFilterSchema),z.lazy(() => CookBookWhereInputSchema) ]).optional(),
   ingredients: z.lazy(() => RecipeIngredientListRelationFilterSchema).optional(),
@@ -6843,7 +6908,7 @@ export const RecipeWhereUniqueInputSchema: z.ZodType<Prisma.RecipeWhereUniqueInp
   criticalPoints: z.lazy(() => RecipeCriticalPointListRelationFilterSchema).optional(),
   storage: z.union([ z.lazy(() => RecipeStorageNullableScalarRelationFilterSchema),z.lazy(() => RecipeStorageWhereInputSchema) ]).optional().nullable(),
   photos: z.lazy(() => RecipePhotoListRelationFilterSchema).optional(),
-  RecipeStats: z.union([ z.lazy(() => RecipeStatsNullableScalarRelationFilterSchema),z.lazy(() => RecipeStatsWhereInputSchema) ]).optional().nullable(),
+  recipeStats: z.union([ z.lazy(() => RecipeStatsNullableScalarRelationFilterSchema),z.lazy(() => RecipeStatsWhereInputSchema) ]).optional().nullable(),
 }).strict());
 
 export const RecipeOrderByWithAggregationInputSchema: z.ZodType<Prisma.RecipeOrderByWithAggregationInput> = z.object({
@@ -6863,6 +6928,7 @@ export const RecipeOrderByWithAggregationInputSchema: z.ZodType<Prisma.RecipeOrd
   publishedAt: z.union([ z.lazy(() => SortOrderSchema),z.lazy(() => SortOrderInputSchema) ]).optional(),
   language: z.lazy(() => SortOrderSchema).optional(),
   skillLevel: z.lazy(() => SortOrderSchema).optional(),
+  category: z.lazy(() => SortOrderSchema).optional(),
   _count: z.lazy(() => RecipeCountOrderByAggregateInputSchema).optional(),
   _avg: z.lazy(() => RecipeAvgOrderByAggregateInputSchema).optional(),
   _max: z.lazy(() => RecipeMaxOrderByAggregateInputSchema).optional(),
@@ -6890,6 +6956,7 @@ export const RecipeScalarWhereWithAggregatesInputSchema: z.ZodType<Prisma.Recipe
   publishedAt: z.union([ z.lazy(() => DateTimeNullableWithAggregatesFilterSchema),z.coerce.date() ]).optional().nullable(),
   language: z.union([ z.lazy(() => StringWithAggregatesFilterSchema),z.string() ]).optional(),
   skillLevel: z.union([ z.lazy(() => EnumSkillLevelWithAggregatesFilterSchema),z.lazy(() => SkillLevelSchema) ]).optional(),
+  category: z.union([ z.lazy(() => EnumCategoryWithAggregatesFilterSchema),z.lazy(() => CategorySchema) ]).optional(),
 }).strict();
 
 export const IngredientWhereInputSchema: z.ZodType<Prisma.IngredientWhereInput> = z.object({
@@ -8794,6 +8861,14 @@ export const RecipeNutritionCreateInputSchema: z.ZodType<Prisma.RecipeNutritionC
   fiber: z.number(),
   sugar: z.number(),
   sodium: z.number(),
+  containsGluten: z.boolean().optional(),
+  containsDairy: z.boolean().optional(),
+  containsNuts: z.boolean().optional(),
+  containsEggs: z.boolean().optional(),
+  containsSoy: z.boolean().optional(),
+  containsFish: z.boolean().optional(),
+  containsShellfish: z.boolean().optional(),
+  containsSesame: z.boolean().optional(),
   recipe: z.lazy(() => RecipeCreateNestedOneWithoutNutritionalInfoInputSchema)
 }).strict();
 
@@ -8808,7 +8883,15 @@ export const RecipeNutritionUncheckedCreateInputSchema: z.ZodType<Prisma.RecipeN
   fat: z.number(),
   fiber: z.number(),
   sugar: z.number(),
-  sodium: z.number()
+  sodium: z.number(),
+  containsGluten: z.boolean().optional(),
+  containsDairy: z.boolean().optional(),
+  containsNuts: z.boolean().optional(),
+  containsEggs: z.boolean().optional(),
+  containsSoy: z.boolean().optional(),
+  containsFish: z.boolean().optional(),
+  containsShellfish: z.boolean().optional(),
+  containsSesame: z.boolean().optional()
 }).strict();
 
 export const RecipeNutritionUpdateInputSchema: z.ZodType<Prisma.RecipeNutritionUpdateInput> = z.object({
@@ -8821,6 +8904,14 @@ export const RecipeNutritionUpdateInputSchema: z.ZodType<Prisma.RecipeNutritionU
   fiber: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
   sugar: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
   sodium: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
+  containsGluten: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsDairy: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsNuts: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsEggs: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsSoy: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsFish: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsShellfish: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsSesame: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
   recipe: z.lazy(() => RecipeUpdateOneRequiredWithoutNutritionalInfoNestedInputSchema).optional()
 }).strict();
 
@@ -8836,6 +8927,14 @@ export const RecipeNutritionUncheckedUpdateInputSchema: z.ZodType<Prisma.RecipeN
   fiber: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
   sugar: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
   sodium: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
+  containsGluten: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsDairy: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsNuts: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsEggs: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsSoy: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsFish: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsShellfish: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsSesame: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
 }).strict();
 
 export const RecipeNutritionCreateManyInputSchema: z.ZodType<Prisma.RecipeNutritionCreateManyInput> = z.object({
@@ -8849,7 +8948,15 @@ export const RecipeNutritionCreateManyInputSchema: z.ZodType<Prisma.RecipeNutrit
   fat: z.number(),
   fiber: z.number(),
   sugar: z.number(),
-  sodium: z.number()
+  sodium: z.number(),
+  containsGluten: z.boolean().optional(),
+  containsDairy: z.boolean().optional(),
+  containsNuts: z.boolean().optional(),
+  containsEggs: z.boolean().optional(),
+  containsSoy: z.boolean().optional(),
+  containsFish: z.boolean().optional(),
+  containsShellfish: z.boolean().optional(),
+  containsSesame: z.boolean().optional()
 }).strict();
 
 export const RecipeNutritionUpdateManyMutationInputSchema: z.ZodType<Prisma.RecipeNutritionUpdateManyMutationInput> = z.object({
@@ -8862,6 +8969,14 @@ export const RecipeNutritionUpdateManyMutationInputSchema: z.ZodType<Prisma.Reci
   fiber: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
   sugar: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
   sodium: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
+  containsGluten: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsDairy: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsNuts: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsEggs: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsSoy: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsFish: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsShellfish: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsSesame: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
 }).strict();
 
 export const RecipeNutritionUncheckedUpdateManyInputSchema: z.ZodType<Prisma.RecipeNutritionUncheckedUpdateManyInput> = z.object({
@@ -8876,6 +8991,14 @@ export const RecipeNutritionUncheckedUpdateManyInputSchema: z.ZodType<Prisma.Rec
   fiber: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
   sugar: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
   sodium: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
+  containsGluten: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsDairy: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsNuts: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsEggs: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsSoy: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsFish: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsShellfish: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsSesame: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
 }).strict();
 
 export const RecipeCriticalPointCreateInputSchema: z.ZodType<Prisma.RecipeCriticalPointCreateInput> = z.object({
@@ -11882,6 +12005,7 @@ export const RecipeCreateInputSchema: z.ZodType<Prisma.RecipeCreateInput> = z.ob
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutRecipesInputSchema),
   cookBook: z.lazy(() => CookBookCreateNestedOneWithoutRecipesInputSchema),
   ingredients: z.lazy(() => RecipeIngredientCreateNestedManyWithoutRecipeInputSchema).optional(),
@@ -11905,7 +12029,7 @@ export const RecipeCreateInputSchema: z.ZodType<Prisma.RecipeCreateInput> = z.ob
   criticalPoints: z.lazy(() => RecipeCriticalPointCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedCreateInputSchema: z.ZodType<Prisma.RecipeUncheckedCreateInput> = z.object({
@@ -11925,6 +12049,7 @@ export const RecipeUncheckedCreateInputSchema: z.ZodType<Prisma.RecipeUncheckedC
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedCreateNestedManyWithoutRecipesInputSchema).optional(),
@@ -11946,7 +12071,7 @@ export const RecipeUncheckedCreateInputSchema: z.ZodType<Prisma.RecipeUncheckedC
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeUpdateInputSchema: z.ZodType<Prisma.RecipeUpdateInput> = z.object({
@@ -11963,6 +12088,7 @@ export const RecipeUpdateInputSchema: z.ZodType<Prisma.RecipeUpdateInput> = z.ob
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   cookBook: z.lazy(() => CookBookUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUpdateManyWithoutRecipeNestedInputSchema).optional(),
@@ -11986,7 +12112,7 @@ export const RecipeUpdateInputSchema: z.ZodType<Prisma.RecipeUpdateInput> = z.ob
   criticalPoints: z.lazy(() => RecipeCriticalPointUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedUpdateInputSchema: z.ZodType<Prisma.RecipeUncheckedUpdateInput> = z.object({
@@ -12006,6 +12132,7 @@ export const RecipeUncheckedUpdateInputSchema: z.ZodType<Prisma.RecipeUncheckedU
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedUpdateManyWithoutRecipesNestedInputSchema).optional(),
@@ -12027,7 +12154,7 @@ export const RecipeUncheckedUpdateInputSchema: z.ZodType<Prisma.RecipeUncheckedU
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeCreateManyInputSchema: z.ZodType<Prisma.RecipeCreateManyInput> = z.object({
@@ -12046,7 +12173,8 @@ export const RecipeCreateManyInputSchema: z.ZodType<Prisma.RecipeCreateManyInput
   isPublished: z.boolean().optional(),
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
-  skillLevel: z.lazy(() => SkillLevelSchema).optional()
+  skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional()
 }).strict();
 
 export const RecipeUpdateManyMutationInputSchema: z.ZodType<Prisma.RecipeUpdateManyMutationInput> = z.object({
@@ -12063,6 +12191,7 @@ export const RecipeUpdateManyMutationInputSchema: z.ZodType<Prisma.RecipeUpdateM
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
 }).strict();
 
 export const RecipeUncheckedUpdateManyInputSchema: z.ZodType<Prisma.RecipeUncheckedUpdateManyInput> = z.object({
@@ -12082,6 +12211,7 @@ export const RecipeUncheckedUpdateManyInputSchema: z.ZodType<Prisma.RecipeUnchec
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
 }).strict();
 
 export const IngredientCreateInputSchema: z.ZodType<Prisma.IngredientCreateInput> = z.object({
@@ -13869,6 +13999,11 @@ export const StringFilterSchema: z.ZodType<Prisma.StringFilter> = z.object({
   not: z.union([ z.string(),z.lazy(() => NestedStringFilterSchema) ]).optional(),
 }).strict();
 
+export const BoolFilterSchema: z.ZodType<Prisma.BoolFilter> = z.object({
+  equals: z.boolean().optional(),
+  not: z.union([ z.boolean(),z.lazy(() => NestedBoolFilterSchema) ]).optional(),
+}).strict();
+
 export const RecipeScalarRelationFilterSchema: z.ZodType<Prisma.RecipeScalarRelationFilter> = z.object({
   is: z.lazy(() => RecipeWhereInputSchema).optional(),
   isNot: z.lazy(() => RecipeWhereInputSchema).optional()
@@ -13885,7 +14020,15 @@ export const RecipeNutritionCountOrderByAggregateInputSchema: z.ZodType<Prisma.R
   fat: z.lazy(() => SortOrderSchema).optional(),
   fiber: z.lazy(() => SortOrderSchema).optional(),
   sugar: z.lazy(() => SortOrderSchema).optional(),
-  sodium: z.lazy(() => SortOrderSchema).optional()
+  sodium: z.lazy(() => SortOrderSchema).optional(),
+  containsGluten: z.lazy(() => SortOrderSchema).optional(),
+  containsDairy: z.lazy(() => SortOrderSchema).optional(),
+  containsNuts: z.lazy(() => SortOrderSchema).optional(),
+  containsEggs: z.lazy(() => SortOrderSchema).optional(),
+  containsSoy: z.lazy(() => SortOrderSchema).optional(),
+  containsFish: z.lazy(() => SortOrderSchema).optional(),
+  containsShellfish: z.lazy(() => SortOrderSchema).optional(),
+  containsSesame: z.lazy(() => SortOrderSchema).optional()
 }).strict();
 
 export const RecipeNutritionAvgOrderByAggregateInputSchema: z.ZodType<Prisma.RecipeNutritionAvgOrderByAggregateInput> = z.object({
@@ -13912,7 +14055,15 @@ export const RecipeNutritionMaxOrderByAggregateInputSchema: z.ZodType<Prisma.Rec
   fat: z.lazy(() => SortOrderSchema).optional(),
   fiber: z.lazy(() => SortOrderSchema).optional(),
   sugar: z.lazy(() => SortOrderSchema).optional(),
-  sodium: z.lazy(() => SortOrderSchema).optional()
+  sodium: z.lazy(() => SortOrderSchema).optional(),
+  containsGluten: z.lazy(() => SortOrderSchema).optional(),
+  containsDairy: z.lazy(() => SortOrderSchema).optional(),
+  containsNuts: z.lazy(() => SortOrderSchema).optional(),
+  containsEggs: z.lazy(() => SortOrderSchema).optional(),
+  containsSoy: z.lazy(() => SortOrderSchema).optional(),
+  containsFish: z.lazy(() => SortOrderSchema).optional(),
+  containsShellfish: z.lazy(() => SortOrderSchema).optional(),
+  containsSesame: z.lazy(() => SortOrderSchema).optional()
 }).strict();
 
 export const RecipeNutritionMinOrderByAggregateInputSchema: z.ZodType<Prisma.RecipeNutritionMinOrderByAggregateInput> = z.object({
@@ -13926,7 +14077,15 @@ export const RecipeNutritionMinOrderByAggregateInputSchema: z.ZodType<Prisma.Rec
   fat: z.lazy(() => SortOrderSchema).optional(),
   fiber: z.lazy(() => SortOrderSchema).optional(),
   sugar: z.lazy(() => SortOrderSchema).optional(),
-  sodium: z.lazy(() => SortOrderSchema).optional()
+  sodium: z.lazy(() => SortOrderSchema).optional(),
+  containsGluten: z.lazy(() => SortOrderSchema).optional(),
+  containsDairy: z.lazy(() => SortOrderSchema).optional(),
+  containsNuts: z.lazy(() => SortOrderSchema).optional(),
+  containsEggs: z.lazy(() => SortOrderSchema).optional(),
+  containsSoy: z.lazy(() => SortOrderSchema).optional(),
+  containsFish: z.lazy(() => SortOrderSchema).optional(),
+  containsShellfish: z.lazy(() => SortOrderSchema).optional(),
+  containsSesame: z.lazy(() => SortOrderSchema).optional()
 }).strict();
 
 export const RecipeNutritionSumOrderByAggregateInputSchema: z.ZodType<Prisma.RecipeNutritionSumOrderByAggregateInput> = z.object({
@@ -13990,6 +14149,14 @@ export const StringWithAggregatesFilterSchema: z.ZodType<Prisma.StringWithAggreg
   _count: z.lazy(() => NestedIntFilterSchema).optional(),
   _min: z.lazy(() => NestedStringFilterSchema).optional(),
   _max: z.lazy(() => NestedStringFilterSchema).optional()
+}).strict();
+
+export const BoolWithAggregatesFilterSchema: z.ZodType<Prisma.BoolWithAggregatesFilter> = z.object({
+  equals: z.boolean().optional(),
+  not: z.union([ z.boolean(),z.lazy(() => NestedBoolWithAggregatesFilterSchema) ]).optional(),
+  _count: z.lazy(() => NestedIntFilterSchema).optional(),
+  _min: z.lazy(() => NestedBoolFilterSchema).optional(),
+  _max: z.lazy(() => NestedBoolFilterSchema).optional()
 }).strict();
 
 export const FloatNullableFilterSchema: z.ZodType<Prisma.FloatNullableFilter> = z.object({
@@ -14271,11 +14438,6 @@ export const IntNullableWithAggregatesFilterSchema: z.ZodType<Prisma.IntNullable
   _max: z.lazy(() => NestedIntNullableFilterSchema).optional()
 }).strict();
 
-export const BoolFilterSchema: z.ZodType<Prisma.BoolFilter> = z.object({
-  equals: z.boolean().optional(),
-  not: z.union([ z.boolean(),z.lazy(() => NestedBoolFilterSchema) ]).optional(),
-}).strict();
-
 export const RecipeTemperatureCountOrderByAggregateInputSchema: z.ZodType<Prisma.RecipeTemperatureCountOrderByAggregateInput> = z.object({
   id: z.lazy(() => SortOrderSchema).optional(),
   recipeId: z.lazy(() => SortOrderSchema).optional(),
@@ -14331,14 +14493,6 @@ export const RecipeTemperatureSumOrderByAggregateInputSchema: z.ZodType<Prisma.R
   minTemp: z.lazy(() => SortOrderSchema).optional(),
   maxTemp: z.lazy(() => SortOrderSchema).optional(),
   holdTime: z.lazy(() => SortOrderSchema).optional()
-}).strict();
-
-export const BoolWithAggregatesFilterSchema: z.ZodType<Prisma.BoolWithAggregatesFilter> = z.object({
-  equals: z.boolean().optional(),
-  not: z.union([ z.boolean(),z.lazy(() => NestedBoolWithAggregatesFilterSchema) ]).optional(),
-  _count: z.lazy(() => NestedIntFilterSchema).optional(),
-  _min: z.lazy(() => NestedBoolFilterSchema).optional(),
-  _max: z.lazy(() => NestedBoolFilterSchema).optional()
 }).strict();
 
 export const RecipeYieldCountOrderByAggregateInputSchema: z.ZodType<Prisma.RecipeYieldCountOrderByAggregateInput> = z.object({
@@ -16584,6 +16738,13 @@ export const EnumSkillLevelFilterSchema: z.ZodType<Prisma.EnumSkillLevelFilter> 
   not: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => NestedEnumSkillLevelFilterSchema) ]).optional(),
 }).strict();
 
+export const EnumCategoryFilterSchema: z.ZodType<Prisma.EnumCategoryFilter> = z.object({
+  equals: z.lazy(() => CategorySchema).optional(),
+  in: z.lazy(() => CategorySchema).array().optional(),
+  notIn: z.lazy(() => CategorySchema).array().optional(),
+  not: z.union([ z.lazy(() => CategorySchema),z.lazy(() => NestedEnumCategoryFilterSchema) ]).optional(),
+}).strict();
+
 export const CookBookScalarRelationFilterSchema: z.ZodType<Prisma.CookBookScalarRelationFilter> = z.object({
   is: z.lazy(() => CookBookWhereInputSchema).optional(),
   isNot: z.lazy(() => CookBookWhereInputSchema).optional()
@@ -16730,7 +16891,8 @@ export const RecipeCountOrderByAggregateInputSchema: z.ZodType<Prisma.RecipeCoun
   isPublished: z.lazy(() => SortOrderSchema).optional(),
   publishedAt: z.lazy(() => SortOrderSchema).optional(),
   language: z.lazy(() => SortOrderSchema).optional(),
-  skillLevel: z.lazy(() => SortOrderSchema).optional()
+  skillLevel: z.lazy(() => SortOrderSchema).optional(),
+  category: z.lazy(() => SortOrderSchema).optional()
 }).strict();
 
 export const RecipeAvgOrderByAggregateInputSchema: z.ZodType<Prisma.RecipeAvgOrderByAggregateInput> = z.object({
@@ -16759,7 +16921,8 @@ export const RecipeMaxOrderByAggregateInputSchema: z.ZodType<Prisma.RecipeMaxOrd
   isPublished: z.lazy(() => SortOrderSchema).optional(),
   publishedAt: z.lazy(() => SortOrderSchema).optional(),
   language: z.lazy(() => SortOrderSchema).optional(),
-  skillLevel: z.lazy(() => SortOrderSchema).optional()
+  skillLevel: z.lazy(() => SortOrderSchema).optional(),
+  category: z.lazy(() => SortOrderSchema).optional()
 }).strict();
 
 export const RecipeMinOrderByAggregateInputSchema: z.ZodType<Prisma.RecipeMinOrderByAggregateInput> = z.object({
@@ -16777,7 +16940,8 @@ export const RecipeMinOrderByAggregateInputSchema: z.ZodType<Prisma.RecipeMinOrd
   isPublished: z.lazy(() => SortOrderSchema).optional(),
   publishedAt: z.lazy(() => SortOrderSchema).optional(),
   language: z.lazy(() => SortOrderSchema).optional(),
-  skillLevel: z.lazy(() => SortOrderSchema).optional()
+  skillLevel: z.lazy(() => SortOrderSchema).optional(),
+  category: z.lazy(() => SortOrderSchema).optional()
 }).strict();
 
 export const RecipeSumOrderByAggregateInputSchema: z.ZodType<Prisma.RecipeSumOrderByAggregateInput> = z.object({
@@ -16799,6 +16963,16 @@ export const EnumSkillLevelWithAggregatesFilterSchema: z.ZodType<Prisma.EnumSkil
   _count: z.lazy(() => NestedIntFilterSchema).optional(),
   _min: z.lazy(() => NestedEnumSkillLevelFilterSchema).optional(),
   _max: z.lazy(() => NestedEnumSkillLevelFilterSchema).optional()
+}).strict();
+
+export const EnumCategoryWithAggregatesFilterSchema: z.ZodType<Prisma.EnumCategoryWithAggregatesFilter> = z.object({
+  equals: z.lazy(() => CategorySchema).optional(),
+  in: z.lazy(() => CategorySchema).array().optional(),
+  notIn: z.lazy(() => CategorySchema).array().optional(),
+  not: z.union([ z.lazy(() => CategorySchema),z.lazy(() => NestedEnumCategoryWithAggregatesFilterSchema) ]).optional(),
+  _count: z.lazy(() => NestedIntFilterSchema).optional(),
+  _min: z.lazy(() => NestedEnumCategoryFilterSchema).optional(),
+  _max: z.lazy(() => NestedEnumCategoryFilterSchema).optional()
 }).strict();
 
 export const EnumNutritionSourceNullableFilterSchema: z.ZodType<Prisma.EnumNutritionSourceNullableFilter> = z.object({
@@ -18153,6 +18327,10 @@ export const StringFieldUpdateOperationsInputSchema: z.ZodType<Prisma.StringFiel
   set: z.string().optional()
 }).strict();
 
+export const BoolFieldUpdateOperationsInputSchema: z.ZodType<Prisma.BoolFieldUpdateOperationsInput> = z.object({
+  set: z.boolean().optional()
+}).strict();
+
 export const RecipeUpdateOneRequiredWithoutNutritionalInfoNestedInputSchema: z.ZodType<Prisma.RecipeUpdateOneRequiredWithoutNutritionalInfoNestedInput> = z.object({
   create: z.union([ z.lazy(() => RecipeCreateWithoutNutritionalInfoInputSchema),z.lazy(() => RecipeUncheckedCreateWithoutNutritionalInfoInputSchema) ]).optional(),
   connectOrCreate: z.lazy(() => RecipeCreateOrConnectWithoutNutritionalInfoInputSchema).optional(),
@@ -18243,10 +18421,6 @@ export const RecipeCreateNestedOneWithoutTemperaturesInputSchema: z.ZodType<Pris
   create: z.union([ z.lazy(() => RecipeCreateWithoutTemperaturesInputSchema),z.lazy(() => RecipeUncheckedCreateWithoutTemperaturesInputSchema) ]).optional(),
   connectOrCreate: z.lazy(() => RecipeCreateOrConnectWithoutTemperaturesInputSchema).optional(),
   connect: z.lazy(() => RecipeWhereUniqueInputSchema).optional()
-}).strict();
-
-export const BoolFieldUpdateOperationsInputSchema: z.ZodType<Prisma.BoolFieldUpdateOperationsInput> = z.object({
-  set: z.boolean().optional()
 }).strict();
 
 export const RecipeUpdateOneRequiredWithoutTemperaturesNestedInputSchema: z.ZodType<Prisma.RecipeUpdateOneRequiredWithoutTemperaturesNestedInput> = z.object({
@@ -21528,6 +21702,10 @@ export const EnumSkillLevelFieldUpdateOperationsInputSchema: z.ZodType<Prisma.En
   set: z.lazy(() => SkillLevelSchema).optional()
 }).strict();
 
+export const EnumCategoryFieldUpdateOperationsInputSchema: z.ZodType<Prisma.EnumCategoryFieldUpdateOperationsInput> = z.object({
+  set: z.lazy(() => CategorySchema).optional()
+}).strict();
+
 export const RestaurantUpdateOneRequiredWithoutRecipesNestedInputSchema: z.ZodType<Prisma.RestaurantUpdateOneRequiredWithoutRecipesNestedInput> = z.object({
   create: z.union([ z.lazy(() => RestaurantCreateWithoutRecipesInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutRecipesInputSchema) ]).optional(),
   connectOrCreate: z.lazy(() => RestaurantCreateOrConnectWithoutRecipesInputSchema).optional(),
@@ -23909,6 +24087,11 @@ export const NestedStringFilterSchema: z.ZodType<Prisma.NestedStringFilter> = z.
   not: z.union([ z.string(),z.lazy(() => NestedStringFilterSchema) ]).optional(),
 }).strict();
 
+export const NestedBoolFilterSchema: z.ZodType<Prisma.NestedBoolFilter> = z.object({
+  equals: z.boolean().optional(),
+  not: z.union([ z.boolean(),z.lazy(() => NestedBoolFilterSchema) ]).optional(),
+}).strict();
+
 export const NestedIntWithAggregatesFilterSchema: z.ZodType<Prisma.NestedIntWithAggregatesFilter> = z.object({
   equals: z.number().optional(),
   in: z.number().array().optional(),
@@ -23956,6 +24139,14 @@ export const NestedStringWithAggregatesFilterSchema: z.ZodType<Prisma.NestedStri
   _count: z.lazy(() => NestedIntFilterSchema).optional(),
   _min: z.lazy(() => NestedStringFilterSchema).optional(),
   _max: z.lazy(() => NestedStringFilterSchema).optional()
+}).strict();
+
+export const NestedBoolWithAggregatesFilterSchema: z.ZodType<Prisma.NestedBoolWithAggregatesFilter> = z.object({
+  equals: z.boolean().optional(),
+  not: z.union([ z.boolean(),z.lazy(() => NestedBoolWithAggregatesFilterSchema) ]).optional(),
+  _count: z.lazy(() => NestedIntFilterSchema).optional(),
+  _min: z.lazy(() => NestedBoolFilterSchema).optional(),
+  _max: z.lazy(() => NestedBoolFilterSchema).optional()
 }).strict();
 
 export const NestedFloatNullableFilterSchema: z.ZodType<Prisma.NestedFloatNullableFilter> = z.object({
@@ -24083,19 +24274,6 @@ export const NestedIntNullableWithAggregatesFilterSchema: z.ZodType<Prisma.Neste
   _sum: z.lazy(() => NestedIntNullableFilterSchema).optional(),
   _min: z.lazy(() => NestedIntNullableFilterSchema).optional(),
   _max: z.lazy(() => NestedIntNullableFilterSchema).optional()
-}).strict();
-
-export const NestedBoolFilterSchema: z.ZodType<Prisma.NestedBoolFilter> = z.object({
-  equals: z.boolean().optional(),
-  not: z.union([ z.boolean(),z.lazy(() => NestedBoolFilterSchema) ]).optional(),
-}).strict();
-
-export const NestedBoolWithAggregatesFilterSchema: z.ZodType<Prisma.NestedBoolWithAggregatesFilter> = z.object({
-  equals: z.boolean().optional(),
-  not: z.union([ z.boolean(),z.lazy(() => NestedBoolWithAggregatesFilterSchema) ]).optional(),
-  _count: z.lazy(() => NestedIntFilterSchema).optional(),
-  _min: z.lazy(() => NestedBoolFilterSchema).optional(),
-  _max: z.lazy(() => NestedBoolFilterSchema).optional()
 }).strict();
 
 export const NestedDateTimeNullableFilterSchema: z.ZodType<Prisma.NestedDateTimeNullableFilter> = z.object({
@@ -24334,6 +24512,13 @@ export const NestedEnumSkillLevelFilterSchema: z.ZodType<Prisma.NestedEnumSkillL
   not: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => NestedEnumSkillLevelFilterSchema) ]).optional(),
 }).strict();
 
+export const NestedEnumCategoryFilterSchema: z.ZodType<Prisma.NestedEnumCategoryFilter> = z.object({
+  equals: z.lazy(() => CategorySchema).optional(),
+  in: z.lazy(() => CategorySchema).array().optional(),
+  notIn: z.lazy(() => CategorySchema).array().optional(),
+  not: z.union([ z.lazy(() => CategorySchema),z.lazy(() => NestedEnumCategoryFilterSchema) ]).optional(),
+}).strict();
+
 export const NestedEnumSkillLevelWithAggregatesFilterSchema: z.ZodType<Prisma.NestedEnumSkillLevelWithAggregatesFilter> = z.object({
   equals: z.lazy(() => SkillLevelSchema).optional(),
   in: z.lazy(() => SkillLevelSchema).array().optional(),
@@ -24342,6 +24527,16 @@ export const NestedEnumSkillLevelWithAggregatesFilterSchema: z.ZodType<Prisma.Ne
   _count: z.lazy(() => NestedIntFilterSchema).optional(),
   _min: z.lazy(() => NestedEnumSkillLevelFilterSchema).optional(),
   _max: z.lazy(() => NestedEnumSkillLevelFilterSchema).optional()
+}).strict();
+
+export const NestedEnumCategoryWithAggregatesFilterSchema: z.ZodType<Prisma.NestedEnumCategoryWithAggregatesFilter> = z.object({
+  equals: z.lazy(() => CategorySchema).optional(),
+  in: z.lazy(() => CategorySchema).array().optional(),
+  notIn: z.lazy(() => CategorySchema).array().optional(),
+  not: z.union([ z.lazy(() => CategorySchema),z.lazy(() => NestedEnumCategoryWithAggregatesFilterSchema) ]).optional(),
+  _count: z.lazy(() => NestedIntFilterSchema).optional(),
+  _min: z.lazy(() => NestedEnumCategoryFilterSchema).optional(),
+  _max: z.lazy(() => NestedEnumCategoryFilterSchema).optional()
 }).strict();
 
 export const NestedEnumNutritionSourceNullableFilterSchema: z.ZodType<Prisma.NestedEnumNutritionSourceNullableFilter> = z.object({
@@ -24460,6 +24655,7 @@ export const RecipeCreateWithoutNutritionalInfoInputSchema: z.ZodType<Prisma.Rec
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutRecipesInputSchema),
   cookBook: z.lazy(() => CookBookCreateNestedOneWithoutRecipesInputSchema),
   ingredients: z.lazy(() => RecipeIngredientCreateNestedManyWithoutRecipeInputSchema).optional(),
@@ -24482,7 +24678,7 @@ export const RecipeCreateWithoutNutritionalInfoInputSchema: z.ZodType<Prisma.Rec
   criticalPoints: z.lazy(() => RecipeCriticalPointCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedCreateWithoutNutritionalInfoInputSchema: z.ZodType<Prisma.RecipeUncheckedCreateWithoutNutritionalInfoInput> = z.object({
@@ -24502,6 +24698,7 @@ export const RecipeUncheckedCreateWithoutNutritionalInfoInputSchema: z.ZodType<P
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedCreateNestedManyWithoutRecipesInputSchema).optional(),
@@ -24522,7 +24719,7 @@ export const RecipeUncheckedCreateWithoutNutritionalInfoInputSchema: z.ZodType<P
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeCreateOrConnectWithoutNutritionalInfoInputSchema: z.ZodType<Prisma.RecipeCreateOrConnectWithoutNutritionalInfoInput> = z.object({
@@ -24555,6 +24752,7 @@ export const RecipeUpdateWithoutNutritionalInfoInputSchema: z.ZodType<Prisma.Rec
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   cookBook: z.lazy(() => CookBookUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUpdateManyWithoutRecipeNestedInputSchema).optional(),
@@ -24577,7 +24775,7 @@ export const RecipeUpdateWithoutNutritionalInfoInputSchema: z.ZodType<Prisma.Rec
   criticalPoints: z.lazy(() => RecipeCriticalPointUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedUpdateWithoutNutritionalInfoInputSchema: z.ZodType<Prisma.RecipeUncheckedUpdateWithoutNutritionalInfoInput> = z.object({
@@ -24597,6 +24795,7 @@ export const RecipeUncheckedUpdateWithoutNutritionalInfoInputSchema: z.ZodType<P
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedUpdateManyWithoutRecipesNestedInputSchema).optional(),
@@ -24617,7 +24816,7 @@ export const RecipeUncheckedUpdateWithoutNutritionalInfoInputSchema: z.ZodType<P
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeCreateWithoutCriticalPointsInputSchema: z.ZodType<Prisma.RecipeCreateWithoutCriticalPointsInput> = z.object({
@@ -24634,6 +24833,7 @@ export const RecipeCreateWithoutCriticalPointsInputSchema: z.ZodType<Prisma.Reci
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutRecipesInputSchema),
   cookBook: z.lazy(() => CookBookCreateNestedOneWithoutRecipesInputSchema),
   ingredients: z.lazy(() => RecipeIngredientCreateNestedManyWithoutRecipeInputSchema).optional(),
@@ -24656,7 +24856,7 @@ export const RecipeCreateWithoutCriticalPointsInputSchema: z.ZodType<Prisma.Reci
   nutritionalInfo: z.lazy(() => RecipeNutritionCreateNestedOneWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedCreateWithoutCriticalPointsInputSchema: z.ZodType<Prisma.RecipeUncheckedCreateWithoutCriticalPointsInput> = z.object({
@@ -24676,6 +24876,7 @@ export const RecipeUncheckedCreateWithoutCriticalPointsInputSchema: z.ZodType<Pr
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedCreateNestedManyWithoutRecipesInputSchema).optional(),
@@ -24696,7 +24897,7 @@ export const RecipeUncheckedCreateWithoutCriticalPointsInputSchema: z.ZodType<Pr
   nutritionalInfo: z.lazy(() => RecipeNutritionUncheckedCreateNestedOneWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeCreateOrConnectWithoutCriticalPointsInputSchema: z.ZodType<Prisma.RecipeCreateOrConnectWithoutCriticalPointsInput> = z.object({
@@ -24729,6 +24930,7 @@ export const RecipeUpdateWithoutCriticalPointsInputSchema: z.ZodType<Prisma.Reci
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   cookBook: z.lazy(() => CookBookUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUpdateManyWithoutRecipeNestedInputSchema).optional(),
@@ -24751,7 +24953,7 @@ export const RecipeUpdateWithoutCriticalPointsInputSchema: z.ZodType<Prisma.Reci
   nutritionalInfo: z.lazy(() => RecipeNutritionUpdateOneWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedUpdateWithoutCriticalPointsInputSchema: z.ZodType<Prisma.RecipeUncheckedUpdateWithoutCriticalPointsInput> = z.object({
@@ -24771,6 +24973,7 @@ export const RecipeUncheckedUpdateWithoutCriticalPointsInputSchema: z.ZodType<Pr
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedUpdateManyWithoutRecipesNestedInputSchema).optional(),
@@ -24791,7 +24994,7 @@ export const RecipeUncheckedUpdateWithoutCriticalPointsInputSchema: z.ZodType<Pr
   nutritionalInfo: z.lazy(() => RecipeNutritionUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeCreateWithoutStorageInputSchema: z.ZodType<Prisma.RecipeCreateWithoutStorageInput> = z.object({
@@ -24808,6 +25011,7 @@ export const RecipeCreateWithoutStorageInputSchema: z.ZodType<Prisma.RecipeCreat
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutRecipesInputSchema),
   cookBook: z.lazy(() => CookBookCreateNestedOneWithoutRecipesInputSchema),
   ingredients: z.lazy(() => RecipeIngredientCreateNestedManyWithoutRecipeInputSchema).optional(),
@@ -24830,7 +25034,7 @@ export const RecipeCreateWithoutStorageInputSchema: z.ZodType<Prisma.RecipeCreat
   nutritionalInfo: z.lazy(() => RecipeNutritionCreateNestedOneWithoutRecipeInputSchema).optional(),
   criticalPoints: z.lazy(() => RecipeCriticalPointCreateNestedManyWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedCreateWithoutStorageInputSchema: z.ZodType<Prisma.RecipeUncheckedCreateWithoutStorageInput> = z.object({
@@ -24850,6 +25054,7 @@ export const RecipeUncheckedCreateWithoutStorageInputSchema: z.ZodType<Prisma.Re
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedCreateNestedManyWithoutRecipesInputSchema).optional(),
@@ -24870,7 +25075,7 @@ export const RecipeUncheckedCreateWithoutStorageInputSchema: z.ZodType<Prisma.Re
   nutritionalInfo: z.lazy(() => RecipeNutritionUncheckedCreateNestedOneWithoutRecipeInputSchema).optional(),
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeCreateOrConnectWithoutStorageInputSchema: z.ZodType<Prisma.RecipeCreateOrConnectWithoutStorageInput> = z.object({
@@ -24903,6 +25108,7 @@ export const RecipeUpdateWithoutStorageInputSchema: z.ZodType<Prisma.RecipeUpdat
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   cookBook: z.lazy(() => CookBookUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUpdateManyWithoutRecipeNestedInputSchema).optional(),
@@ -24925,7 +25131,7 @@ export const RecipeUpdateWithoutStorageInputSchema: z.ZodType<Prisma.RecipeUpdat
   nutritionalInfo: z.lazy(() => RecipeNutritionUpdateOneWithoutRecipeNestedInputSchema).optional(),
   criticalPoints: z.lazy(() => RecipeCriticalPointUpdateManyWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedUpdateWithoutStorageInputSchema: z.ZodType<Prisma.RecipeUncheckedUpdateWithoutStorageInput> = z.object({
@@ -24945,6 +25151,7 @@ export const RecipeUncheckedUpdateWithoutStorageInputSchema: z.ZodType<Prisma.Re
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedUpdateManyWithoutRecipesNestedInputSchema).optional(),
@@ -24965,7 +25172,7 @@ export const RecipeUncheckedUpdateWithoutStorageInputSchema: z.ZodType<Prisma.Re
   nutritionalInfo: z.lazy(() => RecipeNutritionUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional(),
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeCreateWithoutPhotosInputSchema: z.ZodType<Prisma.RecipeCreateWithoutPhotosInput> = z.object({
@@ -24982,6 +25189,7 @@ export const RecipeCreateWithoutPhotosInputSchema: z.ZodType<Prisma.RecipeCreate
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutRecipesInputSchema),
   cookBook: z.lazy(() => CookBookCreateNestedOneWithoutRecipesInputSchema),
   ingredients: z.lazy(() => RecipeIngredientCreateNestedManyWithoutRecipeInputSchema).optional(),
@@ -25004,7 +25212,7 @@ export const RecipeCreateWithoutPhotosInputSchema: z.ZodType<Prisma.RecipeCreate
   nutritionalInfo: z.lazy(() => RecipeNutritionCreateNestedOneWithoutRecipeInputSchema).optional(),
   criticalPoints: z.lazy(() => RecipeCriticalPointCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageCreateNestedOneWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedCreateWithoutPhotosInputSchema: z.ZodType<Prisma.RecipeUncheckedCreateWithoutPhotosInput> = z.object({
@@ -25024,6 +25232,7 @@ export const RecipeUncheckedCreateWithoutPhotosInputSchema: z.ZodType<Prisma.Rec
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedCreateNestedManyWithoutRecipesInputSchema).optional(),
@@ -25044,7 +25253,7 @@ export const RecipeUncheckedCreateWithoutPhotosInputSchema: z.ZodType<Prisma.Rec
   nutritionalInfo: z.lazy(() => RecipeNutritionUncheckedCreateNestedOneWithoutRecipeInputSchema).optional(),
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedCreateNestedOneWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeCreateOrConnectWithoutPhotosInputSchema: z.ZodType<Prisma.RecipeCreateOrConnectWithoutPhotosInput> = z.object({
@@ -25077,6 +25286,7 @@ export const RecipeUpdateWithoutPhotosInputSchema: z.ZodType<Prisma.RecipeUpdate
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   cookBook: z.lazy(() => CookBookUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUpdateManyWithoutRecipeNestedInputSchema).optional(),
@@ -25099,7 +25309,7 @@ export const RecipeUpdateWithoutPhotosInputSchema: z.ZodType<Prisma.RecipeUpdate
   nutritionalInfo: z.lazy(() => RecipeNutritionUpdateOneWithoutRecipeNestedInputSchema).optional(),
   criticalPoints: z.lazy(() => RecipeCriticalPointUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUpdateOneWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedUpdateWithoutPhotosInputSchema: z.ZodType<Prisma.RecipeUncheckedUpdateWithoutPhotosInput> = z.object({
@@ -25119,6 +25329,7 @@ export const RecipeUncheckedUpdateWithoutPhotosInputSchema: z.ZodType<Prisma.Rec
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedUpdateManyWithoutRecipesNestedInputSchema).optional(),
@@ -25139,7 +25350,7 @@ export const RecipeUncheckedUpdateWithoutPhotosInputSchema: z.ZodType<Prisma.Rec
   nutritionalInfo: z.lazy(() => RecipeNutritionUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional(),
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeCreateWithoutTemperaturesInputSchema: z.ZodType<Prisma.RecipeCreateWithoutTemperaturesInput> = z.object({
@@ -25156,6 +25367,7 @@ export const RecipeCreateWithoutTemperaturesInputSchema: z.ZodType<Prisma.Recipe
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutRecipesInputSchema),
   cookBook: z.lazy(() => CookBookCreateNestedOneWithoutRecipesInputSchema),
   ingredients: z.lazy(() => RecipeIngredientCreateNestedManyWithoutRecipeInputSchema).optional(),
@@ -25178,7 +25390,7 @@ export const RecipeCreateWithoutTemperaturesInputSchema: z.ZodType<Prisma.Recipe
   criticalPoints: z.lazy(() => RecipeCriticalPointCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedCreateWithoutTemperaturesInputSchema: z.ZodType<Prisma.RecipeUncheckedCreateWithoutTemperaturesInput> = z.object({
@@ -25198,6 +25410,7 @@ export const RecipeUncheckedCreateWithoutTemperaturesInputSchema: z.ZodType<Pris
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedCreateNestedManyWithoutRecipesInputSchema).optional(),
@@ -25218,7 +25431,7 @@ export const RecipeUncheckedCreateWithoutTemperaturesInputSchema: z.ZodType<Pris
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeCreateOrConnectWithoutTemperaturesInputSchema: z.ZodType<Prisma.RecipeCreateOrConnectWithoutTemperaturesInput> = z.object({
@@ -25251,6 +25464,7 @@ export const RecipeUpdateWithoutTemperaturesInputSchema: z.ZodType<Prisma.Recipe
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   cookBook: z.lazy(() => CookBookUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUpdateManyWithoutRecipeNestedInputSchema).optional(),
@@ -25273,7 +25487,7 @@ export const RecipeUpdateWithoutTemperaturesInputSchema: z.ZodType<Prisma.Recipe
   criticalPoints: z.lazy(() => RecipeCriticalPointUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedUpdateWithoutTemperaturesInputSchema: z.ZodType<Prisma.RecipeUncheckedUpdateWithoutTemperaturesInput> = z.object({
@@ -25293,6 +25507,7 @@ export const RecipeUncheckedUpdateWithoutTemperaturesInputSchema: z.ZodType<Pris
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedUpdateManyWithoutRecipesNestedInputSchema).optional(),
@@ -25313,7 +25528,7 @@ export const RecipeUncheckedUpdateWithoutTemperaturesInputSchema: z.ZodType<Pris
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeCreateWithoutYieldsInputSchema: z.ZodType<Prisma.RecipeCreateWithoutYieldsInput> = z.object({
@@ -25330,6 +25545,7 @@ export const RecipeCreateWithoutYieldsInputSchema: z.ZodType<Prisma.RecipeCreate
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutRecipesInputSchema),
   cookBook: z.lazy(() => CookBookCreateNestedOneWithoutRecipesInputSchema),
   ingredients: z.lazy(() => RecipeIngredientCreateNestedManyWithoutRecipeInputSchema).optional(),
@@ -25352,7 +25568,7 @@ export const RecipeCreateWithoutYieldsInputSchema: z.ZodType<Prisma.RecipeCreate
   criticalPoints: z.lazy(() => RecipeCriticalPointCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedCreateWithoutYieldsInputSchema: z.ZodType<Prisma.RecipeUncheckedCreateWithoutYieldsInput> = z.object({
@@ -25372,6 +25588,7 @@ export const RecipeUncheckedCreateWithoutYieldsInputSchema: z.ZodType<Prisma.Rec
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedCreateNestedManyWithoutRecipesInputSchema).optional(),
@@ -25392,7 +25609,7 @@ export const RecipeUncheckedCreateWithoutYieldsInputSchema: z.ZodType<Prisma.Rec
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeCreateOrConnectWithoutYieldsInputSchema: z.ZodType<Prisma.RecipeCreateOrConnectWithoutYieldsInput> = z.object({
@@ -25425,6 +25642,7 @@ export const RecipeUpdateWithoutYieldsInputSchema: z.ZodType<Prisma.RecipeUpdate
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   cookBook: z.lazy(() => CookBookUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUpdateManyWithoutRecipeNestedInputSchema).optional(),
@@ -25447,7 +25665,7 @@ export const RecipeUpdateWithoutYieldsInputSchema: z.ZodType<Prisma.RecipeUpdate
   criticalPoints: z.lazy(() => RecipeCriticalPointUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedUpdateWithoutYieldsInputSchema: z.ZodType<Prisma.RecipeUncheckedUpdateWithoutYieldsInput> = z.object({
@@ -25467,6 +25685,7 @@ export const RecipeUncheckedUpdateWithoutYieldsInputSchema: z.ZodType<Prisma.Rec
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedUpdateManyWithoutRecipesNestedInputSchema).optional(),
@@ -25487,7 +25706,7 @@ export const RecipeUncheckedUpdateWithoutYieldsInputSchema: z.ZodType<Prisma.Rec
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeCreateWithoutLaborCostsInputSchema: z.ZodType<Prisma.RecipeCreateWithoutLaborCostsInput> = z.object({
@@ -25504,6 +25723,7 @@ export const RecipeCreateWithoutLaborCostsInputSchema: z.ZodType<Prisma.RecipeCr
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutRecipesInputSchema),
   cookBook: z.lazy(() => CookBookCreateNestedOneWithoutRecipesInputSchema),
   ingredients: z.lazy(() => RecipeIngredientCreateNestedManyWithoutRecipeInputSchema).optional(),
@@ -25526,7 +25746,7 @@ export const RecipeCreateWithoutLaborCostsInputSchema: z.ZodType<Prisma.RecipeCr
   criticalPoints: z.lazy(() => RecipeCriticalPointCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedCreateWithoutLaborCostsInputSchema: z.ZodType<Prisma.RecipeUncheckedCreateWithoutLaborCostsInput> = z.object({
@@ -25546,6 +25766,7 @@ export const RecipeUncheckedCreateWithoutLaborCostsInputSchema: z.ZodType<Prisma
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedCreateNestedManyWithoutRecipesInputSchema).optional(),
@@ -25566,7 +25787,7 @@ export const RecipeUncheckedCreateWithoutLaborCostsInputSchema: z.ZodType<Prisma
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeCreateOrConnectWithoutLaborCostsInputSchema: z.ZodType<Prisma.RecipeCreateOrConnectWithoutLaborCostsInput> = z.object({
@@ -25599,6 +25820,7 @@ export const RecipeUpdateWithoutLaborCostsInputSchema: z.ZodType<Prisma.RecipeUp
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   cookBook: z.lazy(() => CookBookUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUpdateManyWithoutRecipeNestedInputSchema).optional(),
@@ -25621,7 +25843,7 @@ export const RecipeUpdateWithoutLaborCostsInputSchema: z.ZodType<Prisma.RecipeUp
   criticalPoints: z.lazy(() => RecipeCriticalPointUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedUpdateWithoutLaborCostsInputSchema: z.ZodType<Prisma.RecipeUncheckedUpdateWithoutLaborCostsInput> = z.object({
@@ -25641,6 +25863,7 @@ export const RecipeUncheckedUpdateWithoutLaborCostsInputSchema: z.ZodType<Prisma
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedUpdateManyWithoutRecipesNestedInputSchema).optional(),
@@ -25661,7 +25884,7 @@ export const RecipeUncheckedUpdateWithoutLaborCostsInputSchema: z.ZodType<Prisma
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RestaurantCreateWithoutSalesTransactionsInputSchema: z.ZodType<Prisma.RestaurantCreateWithoutSalesTransactionsInput> = z.object({
@@ -26047,6 +26270,7 @@ export const RecipeCreateWithoutVersionsInputSchema: z.ZodType<Prisma.RecipeCrea
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutRecipesInputSchema),
   cookBook: z.lazy(() => CookBookCreateNestedOneWithoutRecipesInputSchema),
   ingredients: z.lazy(() => RecipeIngredientCreateNestedManyWithoutRecipeInputSchema).optional(),
@@ -26069,7 +26293,7 @@ export const RecipeCreateWithoutVersionsInputSchema: z.ZodType<Prisma.RecipeCrea
   criticalPoints: z.lazy(() => RecipeCriticalPointCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedCreateWithoutVersionsInputSchema: z.ZodType<Prisma.RecipeUncheckedCreateWithoutVersionsInput> = z.object({
@@ -26089,6 +26313,7 @@ export const RecipeUncheckedCreateWithoutVersionsInputSchema: z.ZodType<Prisma.R
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedCreateNestedManyWithoutRecipesInputSchema).optional(),
@@ -26109,7 +26334,7 @@ export const RecipeUncheckedCreateWithoutVersionsInputSchema: z.ZodType<Prisma.R
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeCreateOrConnectWithoutVersionsInputSchema: z.ZodType<Prisma.RecipeCreateOrConnectWithoutVersionsInput> = z.object({
@@ -26362,6 +26587,7 @@ export const RecipeUpdateWithoutVersionsInputSchema: z.ZodType<Prisma.RecipeUpda
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   cookBook: z.lazy(() => CookBookUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUpdateManyWithoutRecipeNestedInputSchema).optional(),
@@ -26384,7 +26610,7 @@ export const RecipeUpdateWithoutVersionsInputSchema: z.ZodType<Prisma.RecipeUpda
   criticalPoints: z.lazy(() => RecipeCriticalPointUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedUpdateWithoutVersionsInputSchema: z.ZodType<Prisma.RecipeUncheckedUpdateWithoutVersionsInput> = z.object({
@@ -26404,6 +26630,7 @@ export const RecipeUncheckedUpdateWithoutVersionsInputSchema: z.ZodType<Prisma.R
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedUpdateManyWithoutRecipesNestedInputSchema).optional(),
@@ -26424,7 +26651,7 @@ export const RecipeUncheckedUpdateWithoutVersionsInputSchema: z.ZodType<Prisma.R
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeIngredientUpsertWithWhereUniqueWithoutRecipeVersionInputSchema: z.ZodType<Prisma.RecipeIngredientUpsertWithWhereUniqueWithoutRecipeVersionInput> = z.object({
@@ -26908,6 +27135,7 @@ export const RecipeCreateWithoutEquipmentInputSchema: z.ZodType<Prisma.RecipeCre
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutRecipesInputSchema),
   cookBook: z.lazy(() => CookBookCreateNestedOneWithoutRecipesInputSchema),
   ingredients: z.lazy(() => RecipeIngredientCreateNestedManyWithoutRecipeInputSchema).optional(),
@@ -26930,7 +27158,7 @@ export const RecipeCreateWithoutEquipmentInputSchema: z.ZodType<Prisma.RecipeCre
   criticalPoints: z.lazy(() => RecipeCriticalPointCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedCreateWithoutEquipmentInputSchema: z.ZodType<Prisma.RecipeUncheckedCreateWithoutEquipmentInput> = z.object({
@@ -26950,6 +27178,7 @@ export const RecipeUncheckedCreateWithoutEquipmentInputSchema: z.ZodType<Prisma.
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedCreateNestedManyWithoutRecipesInputSchema).optional(),
@@ -26970,7 +27199,7 @@ export const RecipeUncheckedCreateWithoutEquipmentInputSchema: z.ZodType<Prisma.
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeCreateOrConnectWithoutEquipmentInputSchema: z.ZodType<Prisma.RecipeCreateOrConnectWithoutEquipmentInput> = z.object({
@@ -27075,6 +27304,7 @@ export const RecipeUpdateWithoutEquipmentInputSchema: z.ZodType<Prisma.RecipeUpd
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   cookBook: z.lazy(() => CookBookUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUpdateManyWithoutRecipeNestedInputSchema).optional(),
@@ -27097,7 +27327,7 @@ export const RecipeUpdateWithoutEquipmentInputSchema: z.ZodType<Prisma.RecipeUpd
   criticalPoints: z.lazy(() => RecipeCriticalPointUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedUpdateWithoutEquipmentInputSchema: z.ZodType<Prisma.RecipeUncheckedUpdateWithoutEquipmentInput> = z.object({
@@ -27117,6 +27347,7 @@ export const RecipeUncheckedUpdateWithoutEquipmentInputSchema: z.ZodType<Prisma.
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedUpdateManyWithoutRecipesNestedInputSchema).optional(),
@@ -27137,7 +27368,7 @@ export const RecipeUncheckedUpdateWithoutEquipmentInputSchema: z.ZodType<Prisma.
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const EquipmentUpsertWithoutRecipesInputSchema: z.ZodType<Prisma.EquipmentUpsertWithoutRecipesInput> = z.object({
@@ -28657,6 +28888,7 @@ export const RecipeCreateWithoutDietaryRestrictionsInputSchema: z.ZodType<Prisma
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutRecipesInputSchema),
   cookBook: z.lazy(() => CookBookCreateNestedOneWithoutRecipesInputSchema),
   ingredients: z.lazy(() => RecipeIngredientCreateNestedManyWithoutRecipeInputSchema).optional(),
@@ -28679,7 +28911,7 @@ export const RecipeCreateWithoutDietaryRestrictionsInputSchema: z.ZodType<Prisma
   criticalPoints: z.lazy(() => RecipeCriticalPointCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedCreateWithoutDietaryRestrictionsInputSchema: z.ZodType<Prisma.RecipeUncheckedCreateWithoutDietaryRestrictionsInput> = z.object({
@@ -28699,6 +28931,7 @@ export const RecipeUncheckedCreateWithoutDietaryRestrictionsInputSchema: z.ZodTy
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedCreateNestedManyWithoutRecipesInputSchema).optional(),
@@ -28719,7 +28952,7 @@ export const RecipeUncheckedCreateWithoutDietaryRestrictionsInputSchema: z.ZodTy
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeCreateOrConnectWithoutDietaryRestrictionsInputSchema: z.ZodType<Prisma.RecipeCreateOrConnectWithoutDietaryRestrictionsInput> = z.object({
@@ -28838,6 +29071,7 @@ export const RecipeScalarWhereInputSchema: z.ZodType<Prisma.RecipeScalarWhereInp
   publishedAt: z.union([ z.lazy(() => DateTimeNullableFilterSchema),z.coerce.date() ]).optional().nullable(),
   language: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
   skillLevel: z.union([ z.lazy(() => EnumSkillLevelFilterSchema),z.lazy(() => SkillLevelSchema) ]).optional(),
+  category: z.union([ z.lazy(() => EnumCategoryFilterSchema),z.lazy(() => CategorySchema) ]).optional(),
 }).strict();
 
 export const IngredientUpsertWithWhereUniqueWithoutDietaryRestrictionInputSchema: z.ZodType<Prisma.IngredientUpsertWithWhereUniqueWithoutDietaryRestrictionInput> = z.object({
@@ -28892,6 +29126,7 @@ export const RecipeCreateWithoutTagsInputSchema: z.ZodType<Prisma.RecipeCreateWi
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutRecipesInputSchema),
   cookBook: z.lazy(() => CookBookCreateNestedOneWithoutRecipesInputSchema),
   ingredients: z.lazy(() => RecipeIngredientCreateNestedManyWithoutRecipeInputSchema).optional(),
@@ -28914,7 +29149,7 @@ export const RecipeCreateWithoutTagsInputSchema: z.ZodType<Prisma.RecipeCreateWi
   criticalPoints: z.lazy(() => RecipeCriticalPointCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedCreateWithoutTagsInputSchema: z.ZodType<Prisma.RecipeUncheckedCreateWithoutTagsInput> = z.object({
@@ -28934,6 +29169,7 @@ export const RecipeUncheckedCreateWithoutTagsInputSchema: z.ZodType<Prisma.Recip
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedCreateNestedManyWithoutRecipesInputSchema).optional(),
@@ -28954,7 +29190,7 @@ export const RecipeUncheckedCreateWithoutTagsInputSchema: z.ZodType<Prisma.Recip
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeCreateOrConnectWithoutTagsInputSchema: z.ZodType<Prisma.RecipeCreateOrConnectWithoutTagsInput> = z.object({
@@ -30117,6 +30353,7 @@ export const RecipeCreateWithoutProductionPlanItemsInputSchema: z.ZodType<Prisma
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutRecipesInputSchema),
   cookBook: z.lazy(() => CookBookCreateNestedOneWithoutRecipesInputSchema),
   ingredients: z.lazy(() => RecipeIngredientCreateNestedManyWithoutRecipeInputSchema).optional(),
@@ -30139,7 +30376,7 @@ export const RecipeCreateWithoutProductionPlanItemsInputSchema: z.ZodType<Prisma
   criticalPoints: z.lazy(() => RecipeCriticalPointCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedCreateWithoutProductionPlanItemsInputSchema: z.ZodType<Prisma.RecipeUncheckedCreateWithoutProductionPlanItemsInput> = z.object({
@@ -30159,6 +30396,7 @@ export const RecipeUncheckedCreateWithoutProductionPlanItemsInputSchema: z.ZodTy
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedCreateNestedManyWithoutRecipesInputSchema).optional(),
@@ -30179,7 +30417,7 @@ export const RecipeUncheckedCreateWithoutProductionPlanItemsInputSchema: z.ZodTy
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeCreateOrConnectWithoutProductionPlanItemsInputSchema: z.ZodType<Prisma.RecipeCreateOrConnectWithoutProductionPlanItemsInput> = z.object({
@@ -30310,6 +30548,7 @@ export const RecipeUpdateWithoutProductionPlanItemsInputSchema: z.ZodType<Prisma
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   cookBook: z.lazy(() => CookBookUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUpdateManyWithoutRecipeNestedInputSchema).optional(),
@@ -30332,7 +30571,7 @@ export const RecipeUpdateWithoutProductionPlanItemsInputSchema: z.ZodType<Prisma
   criticalPoints: z.lazy(() => RecipeCriticalPointUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedUpdateWithoutProductionPlanItemsInputSchema: z.ZodType<Prisma.RecipeUncheckedUpdateWithoutProductionPlanItemsInput> = z.object({
@@ -30352,6 +30591,7 @@ export const RecipeUncheckedUpdateWithoutProductionPlanItemsInputSchema: z.ZodTy
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedUpdateManyWithoutRecipesNestedInputSchema).optional(),
@@ -30372,7 +30612,7 @@ export const RecipeUncheckedUpdateWithoutProductionPlanItemsInputSchema: z.ZodTy
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const UserUpsertWithoutProductionPlanItemInputSchema: z.ZodType<Prisma.UserUpsertWithoutProductionPlanItemInput> = z.object({
@@ -30857,6 +31097,7 @@ export const RecipeCreateWithoutWithdrawalsInputSchema: z.ZodType<Prisma.RecipeC
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutRecipesInputSchema),
   cookBook: z.lazy(() => CookBookCreateNestedOneWithoutRecipesInputSchema),
   ingredients: z.lazy(() => RecipeIngredientCreateNestedManyWithoutRecipeInputSchema).optional(),
@@ -30879,7 +31120,7 @@ export const RecipeCreateWithoutWithdrawalsInputSchema: z.ZodType<Prisma.RecipeC
   criticalPoints: z.lazy(() => RecipeCriticalPointCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedCreateWithoutWithdrawalsInputSchema: z.ZodType<Prisma.RecipeUncheckedCreateWithoutWithdrawalsInput> = z.object({
@@ -30899,6 +31140,7 @@ export const RecipeUncheckedCreateWithoutWithdrawalsInputSchema: z.ZodType<Prism
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedCreateNestedManyWithoutRecipesInputSchema).optional(),
@@ -30919,7 +31161,7 @@ export const RecipeUncheckedCreateWithoutWithdrawalsInputSchema: z.ZodType<Prism
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeCreateOrConnectWithoutWithdrawalsInputSchema: z.ZodType<Prisma.RecipeCreateOrConnectWithoutWithdrawalsInput> = z.object({
@@ -31082,6 +31324,7 @@ export const RecipeUpdateWithoutWithdrawalsInputSchema: z.ZodType<Prisma.RecipeU
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   cookBook: z.lazy(() => CookBookUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUpdateManyWithoutRecipeNestedInputSchema).optional(),
@@ -31104,7 +31347,7 @@ export const RecipeUpdateWithoutWithdrawalsInputSchema: z.ZodType<Prisma.RecipeU
   criticalPoints: z.lazy(() => RecipeCriticalPointUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedUpdateWithoutWithdrawalsInputSchema: z.ZodType<Prisma.RecipeUncheckedUpdateWithoutWithdrawalsInput> = z.object({
@@ -31124,6 +31367,7 @@ export const RecipeUncheckedUpdateWithoutWithdrawalsInputSchema: z.ZodType<Prism
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedUpdateManyWithoutRecipesNestedInputSchema).optional(),
@@ -31144,7 +31388,7 @@ export const RecipeUncheckedUpdateWithoutWithdrawalsInputSchema: z.ZodType<Prism
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const UserUpsertWithoutInventoryWithdrawalInputSchema: z.ZodType<Prisma.UserUpsertWithoutInventoryWithdrawalInput> = z.object({
@@ -32288,6 +32532,7 @@ export const RecipeCreateWithoutRestaurantInputSchema: z.ZodType<Prisma.RecipeCr
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   cookBook: z.lazy(() => CookBookCreateNestedOneWithoutRecipesInputSchema),
   ingredients: z.lazy(() => RecipeIngredientCreateNestedManyWithoutRecipeInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionCreateNestedManyWithoutRecipeInputSchema).optional(),
@@ -32310,7 +32555,7 @@ export const RecipeCreateWithoutRestaurantInputSchema: z.ZodType<Prisma.RecipeCr
   criticalPoints: z.lazy(() => RecipeCriticalPointCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedCreateWithoutRestaurantInputSchema: z.ZodType<Prisma.RecipeUncheckedCreateWithoutRestaurantInput> = z.object({
@@ -32329,6 +32574,7 @@ export const RecipeUncheckedCreateWithoutRestaurantInputSchema: z.ZodType<Prisma
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedCreateNestedManyWithoutRecipesInputSchema).optional(),
@@ -32350,7 +32596,7 @@ export const RecipeUncheckedCreateWithoutRestaurantInputSchema: z.ZodType<Prisma
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeCreateOrConnectWithoutRestaurantInputSchema: z.ZodType<Prisma.RecipeCreateOrConnectWithoutRestaurantInput> = z.object({
@@ -34343,6 +34589,7 @@ export const RecipeCreateWithoutCookBookInputSchema: z.ZodType<Prisma.RecipeCrea
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutRecipesInputSchema),
   ingredients: z.lazy(() => RecipeIngredientCreateNestedManyWithoutRecipeInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionCreateNestedManyWithoutRecipeInputSchema).optional(),
@@ -34365,7 +34612,7 @@ export const RecipeCreateWithoutCookBookInputSchema: z.ZodType<Prisma.RecipeCrea
   criticalPoints: z.lazy(() => RecipeCriticalPointCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedCreateWithoutCookBookInputSchema: z.ZodType<Prisma.RecipeUncheckedCreateWithoutCookBookInput> = z.object({
@@ -34384,6 +34631,7 @@ export const RecipeUncheckedCreateWithoutCookBookInputSchema: z.ZodType<Prisma.R
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedCreateNestedManyWithoutRecipesInputSchema).optional(),
@@ -34405,7 +34653,7 @@ export const RecipeUncheckedCreateWithoutCookBookInputSchema: z.ZodType<Prisma.R
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeCreateOrConnectWithoutCookBookInputSchema: z.ZodType<Prisma.RecipeCreateOrConnectWithoutCookBookInput> = z.object({
@@ -35162,7 +35410,15 @@ export const RecipeNutritionCreateWithoutRecipeInputSchema: z.ZodType<Prisma.Rec
   fat: z.number(),
   fiber: z.number(),
   sugar: z.number(),
-  sodium: z.number()
+  sodium: z.number(),
+  containsGluten: z.boolean().optional(),
+  containsDairy: z.boolean().optional(),
+  containsNuts: z.boolean().optional(),
+  containsEggs: z.boolean().optional(),
+  containsSoy: z.boolean().optional(),
+  containsFish: z.boolean().optional(),
+  containsShellfish: z.boolean().optional(),
+  containsSesame: z.boolean().optional()
 }).strict();
 
 export const RecipeNutritionUncheckedCreateWithoutRecipeInputSchema: z.ZodType<Prisma.RecipeNutritionUncheckedCreateWithoutRecipeInput> = z.object({
@@ -35175,7 +35431,15 @@ export const RecipeNutritionUncheckedCreateWithoutRecipeInputSchema: z.ZodType<P
   fat: z.number(),
   fiber: z.number(),
   sugar: z.number(),
-  sodium: z.number()
+  sodium: z.number(),
+  containsGluten: z.boolean().optional(),
+  containsDairy: z.boolean().optional(),
+  containsNuts: z.boolean().optional(),
+  containsEggs: z.boolean().optional(),
+  containsSoy: z.boolean().optional(),
+  containsFish: z.boolean().optional(),
+  containsShellfish: z.boolean().optional(),
+  containsSesame: z.boolean().optional()
 }).strict();
 
 export const RecipeNutritionCreateOrConnectWithoutRecipeInputSchema: z.ZodType<Prisma.RecipeNutritionCreateOrConnectWithoutRecipeInput> = z.object({
@@ -35791,6 +36055,14 @@ export const RecipeNutritionUpdateWithoutRecipeInputSchema: z.ZodType<Prisma.Rec
   fiber: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
   sugar: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
   sodium: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
+  containsGluten: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsDairy: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsNuts: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsEggs: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsSoy: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsFish: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsShellfish: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsSesame: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
 }).strict();
 
 export const RecipeNutritionUncheckedUpdateWithoutRecipeInputSchema: z.ZodType<Prisma.RecipeNutritionUncheckedUpdateWithoutRecipeInput> = z.object({
@@ -35804,6 +36076,14 @@ export const RecipeNutritionUncheckedUpdateWithoutRecipeInputSchema: z.ZodType<P
   fiber: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
   sugar: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
   sodium: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
+  containsGluten: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsDairy: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsNuts: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsEggs: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsSoy: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsFish: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsShellfish: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
+  containsSesame: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
 }).strict();
 
 export const RecipeCriticalPointUpsertWithWhereUniqueWithoutRecipeInputSchema: z.ZodType<Prisma.RecipeCriticalPointUpsertWithWhereUniqueWithoutRecipeInput> = z.object({
@@ -36390,6 +36670,7 @@ export const RecipeCreateWithoutIngredientsInputSchema: z.ZodType<Prisma.RecipeC
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutRecipesInputSchema),
   cookBook: z.lazy(() => CookBookCreateNestedOneWithoutRecipesInputSchema),
   instructions: z.lazy(() => RecipeInstructionCreateNestedManyWithoutRecipeInputSchema).optional(),
@@ -36412,7 +36693,7 @@ export const RecipeCreateWithoutIngredientsInputSchema: z.ZodType<Prisma.RecipeC
   criticalPoints: z.lazy(() => RecipeCriticalPointCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedCreateWithoutIngredientsInputSchema: z.ZodType<Prisma.RecipeUncheckedCreateWithoutIngredientsInput> = z.object({
@@ -36432,6 +36713,7 @@ export const RecipeUncheckedCreateWithoutIngredientsInputSchema: z.ZodType<Prism
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedCreateNestedManyWithoutRecipesInputSchema).optional(),
   foodCostHistory: z.lazy(() => FoodCostHistoryUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
@@ -36452,7 +36734,7 @@ export const RecipeUncheckedCreateWithoutIngredientsInputSchema: z.ZodType<Prism
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeCreateOrConnectWithoutIngredientsInputSchema: z.ZodType<Prisma.RecipeCreateOrConnectWithoutIngredientsInput> = z.object({
@@ -36573,6 +36855,7 @@ export const RecipeUpdateWithoutIngredientsInputSchema: z.ZodType<Prisma.RecipeU
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   cookBook: z.lazy(() => CookBookUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUpdateManyWithoutRecipeNestedInputSchema).optional(),
@@ -36595,7 +36878,7 @@ export const RecipeUpdateWithoutIngredientsInputSchema: z.ZodType<Prisma.RecipeU
   criticalPoints: z.lazy(() => RecipeCriticalPointUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedUpdateWithoutIngredientsInputSchema: z.ZodType<Prisma.RecipeUncheckedUpdateWithoutIngredientsInput> = z.object({
@@ -36615,6 +36898,7 @@ export const RecipeUncheckedUpdateWithoutIngredientsInputSchema: z.ZodType<Prism
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedUpdateManyWithoutRecipesNestedInputSchema).optional(),
   foodCostHistory: z.lazy(() => FoodCostHistoryUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
@@ -36635,7 +36919,7 @@ export const RecipeUncheckedUpdateWithoutIngredientsInputSchema: z.ZodType<Prism
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const IngredientUpsertWithoutRecipeIngredientsInputSchema: z.ZodType<Prisma.IngredientUpsertWithoutRecipeIngredientsInput> = z.object({
@@ -36752,6 +37036,7 @@ export const RecipeCreateWithoutInstructionsInputSchema: z.ZodType<Prisma.Recipe
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutRecipesInputSchema),
   cookBook: z.lazy(() => CookBookCreateNestedOneWithoutRecipesInputSchema),
   ingredients: z.lazy(() => RecipeIngredientCreateNestedManyWithoutRecipeInputSchema).optional(),
@@ -36774,7 +37059,7 @@ export const RecipeCreateWithoutInstructionsInputSchema: z.ZodType<Prisma.Recipe
   criticalPoints: z.lazy(() => RecipeCriticalPointCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedCreateWithoutInstructionsInputSchema: z.ZodType<Prisma.RecipeUncheckedCreateWithoutInstructionsInput> = z.object({
@@ -36794,6 +37079,7 @@ export const RecipeUncheckedCreateWithoutInstructionsInputSchema: z.ZodType<Pris
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedCreateNestedManyWithoutRecipesInputSchema).optional(),
   foodCostHistory: z.lazy(() => FoodCostHistoryUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
@@ -36814,7 +37100,7 @@ export const RecipeUncheckedCreateWithoutInstructionsInputSchema: z.ZodType<Pris
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeCreateOrConnectWithoutInstructionsInputSchema: z.ZodType<Prisma.RecipeCreateOrConnectWithoutInstructionsInput> = z.object({
@@ -36904,6 +37190,7 @@ export const RecipeUpdateWithoutInstructionsInputSchema: z.ZodType<Prisma.Recipe
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   cookBook: z.lazy(() => CookBookUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUpdateManyWithoutRecipeNestedInputSchema).optional(),
@@ -36926,7 +37213,7 @@ export const RecipeUpdateWithoutInstructionsInputSchema: z.ZodType<Prisma.Recipe
   criticalPoints: z.lazy(() => RecipeCriticalPointUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedUpdateWithoutInstructionsInputSchema: z.ZodType<Prisma.RecipeUncheckedUpdateWithoutInstructionsInput> = z.object({
@@ -36946,6 +37233,7 @@ export const RecipeUncheckedUpdateWithoutInstructionsInputSchema: z.ZodType<Pris
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedUpdateManyWithoutRecipesNestedInputSchema).optional(),
   foodCostHistory: z.lazy(() => FoodCostHistoryUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
@@ -36966,7 +37254,7 @@ export const RecipeUncheckedUpdateWithoutInstructionsInputSchema: z.ZodType<Pris
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeVersionUpsertWithoutInstructionsInputSchema: z.ZodType<Prisma.RecipeVersionUpsertWithoutInstructionsInput> = z.object({
@@ -38260,6 +38548,7 @@ export const RecipeCreateWithoutRecipeStatsInputSchema: z.ZodType<Prisma.RecipeC
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutRecipesInputSchema),
   cookBook: z.lazy(() => CookBookCreateNestedOneWithoutRecipesInputSchema),
   ingredients: z.lazy(() => RecipeIngredientCreateNestedManyWithoutRecipeInputSchema).optional(),
@@ -38302,6 +38591,7 @@ export const RecipeUncheckedCreateWithoutRecipeStatsInputSchema: z.ZodType<Prism
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedCreateNestedManyWithoutRecipesInputSchema).optional(),
@@ -38355,6 +38645,7 @@ export const RecipeUpdateWithoutRecipeStatsInputSchema: z.ZodType<Prisma.RecipeU
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   cookBook: z.lazy(() => CookBookUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUpdateManyWithoutRecipeNestedInputSchema).optional(),
@@ -38397,6 +38688,7 @@ export const RecipeUncheckedUpdateWithoutRecipeStatsInputSchema: z.ZodType<Prism
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedUpdateManyWithoutRecipesNestedInputSchema).optional(),
@@ -39201,6 +39493,7 @@ export const RecipeCreateWithoutPrepBoardsInputSchema: z.ZodType<Prisma.RecipeCr
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutRecipesInputSchema),
   cookBook: z.lazy(() => CookBookCreateNestedOneWithoutRecipesInputSchema),
   ingredients: z.lazy(() => RecipeIngredientCreateNestedManyWithoutRecipeInputSchema).optional(),
@@ -39223,7 +39516,7 @@ export const RecipeCreateWithoutPrepBoardsInputSchema: z.ZodType<Prisma.RecipeCr
   criticalPoints: z.lazy(() => RecipeCriticalPointCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedCreateWithoutPrepBoardsInputSchema: z.ZodType<Prisma.RecipeUncheckedCreateWithoutPrepBoardsInput> = z.object({
@@ -39243,6 +39536,7 @@ export const RecipeUncheckedCreateWithoutPrepBoardsInputSchema: z.ZodType<Prisma
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedCreateNestedManyWithoutRecipesInputSchema).optional(),
@@ -39263,7 +39557,7 @@ export const RecipeUncheckedCreateWithoutPrepBoardsInputSchema: z.ZodType<Prisma
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeCreateOrConnectWithoutPrepBoardsInputSchema: z.ZodType<Prisma.RecipeCreateOrConnectWithoutPrepBoardsInput> = z.object({
@@ -39364,6 +39658,7 @@ export const RecipeCreateWithoutPrepItemsInputSchema: z.ZodType<Prisma.RecipeCre
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutRecipesInputSchema),
   cookBook: z.lazy(() => CookBookCreateNestedOneWithoutRecipesInputSchema),
   ingredients: z.lazy(() => RecipeIngredientCreateNestedManyWithoutRecipeInputSchema).optional(),
@@ -39386,7 +39681,7 @@ export const RecipeCreateWithoutPrepItemsInputSchema: z.ZodType<Prisma.RecipeCre
   criticalPoints: z.lazy(() => RecipeCriticalPointCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedCreateWithoutPrepItemsInputSchema: z.ZodType<Prisma.RecipeUncheckedCreateWithoutPrepItemsInput> = z.object({
@@ -39406,6 +39701,7 @@ export const RecipeUncheckedCreateWithoutPrepItemsInputSchema: z.ZodType<Prisma.
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedCreateNestedManyWithoutRecipesInputSchema).optional(),
@@ -39426,7 +39722,7 @@ export const RecipeUncheckedCreateWithoutPrepItemsInputSchema: z.ZodType<Prisma.
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeCreateOrConnectWithoutPrepItemsInputSchema: z.ZodType<Prisma.RecipeCreateOrConnectWithoutPrepItemsInput> = z.object({
@@ -39557,6 +39853,7 @@ export const RecipeUpdateWithoutPrepItemsInputSchema: z.ZodType<Prisma.RecipeUpd
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   cookBook: z.lazy(() => CookBookUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUpdateManyWithoutRecipeNestedInputSchema).optional(),
@@ -39579,7 +39876,7 @@ export const RecipeUpdateWithoutPrepItemsInputSchema: z.ZodType<Prisma.RecipeUpd
   criticalPoints: z.lazy(() => RecipeCriticalPointUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedUpdateWithoutPrepItemsInputSchema: z.ZodType<Prisma.RecipeUncheckedUpdateWithoutPrepItemsInput> = z.object({
@@ -39599,6 +39896,7 @@ export const RecipeUncheckedUpdateWithoutPrepItemsInputSchema: z.ZodType<Prisma.
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedUpdateManyWithoutRecipesNestedInputSchema).optional(),
@@ -39619,7 +39917,7 @@ export const RecipeUncheckedUpdateWithoutPrepItemsInputSchema: z.ZodType<Prisma.
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const UserUpsertWithoutPrepItemsInputSchema: z.ZodType<Prisma.UserUpsertWithoutPrepItemsInput> = z.object({
@@ -40166,6 +40464,7 @@ export const RecipeCreateWithoutMenuItemRecipesInputSchema: z.ZodType<Prisma.Rec
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutRecipesInputSchema),
   cookBook: z.lazy(() => CookBookCreateNestedOneWithoutRecipesInputSchema),
   ingredients: z.lazy(() => RecipeIngredientCreateNestedManyWithoutRecipeInputSchema).optional(),
@@ -40188,7 +40487,7 @@ export const RecipeCreateWithoutMenuItemRecipesInputSchema: z.ZodType<Prisma.Rec
   criticalPoints: z.lazy(() => RecipeCriticalPointCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedCreateWithoutMenuItemRecipesInputSchema: z.ZodType<Prisma.RecipeUncheckedCreateWithoutMenuItemRecipesInput> = z.object({
@@ -40208,6 +40507,7 @@ export const RecipeUncheckedCreateWithoutMenuItemRecipesInputSchema: z.ZodType<P
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedCreateNestedManyWithoutRecipesInputSchema).optional(),
@@ -40228,7 +40528,7 @@ export const RecipeUncheckedCreateWithoutMenuItemRecipesInputSchema: z.ZodType<P
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeCreateOrConnectWithoutMenuItemRecipesInputSchema: z.ZodType<Prisma.RecipeCreateOrConnectWithoutMenuItemRecipesInput> = z.object({
@@ -40315,6 +40615,7 @@ export const RecipeUpdateWithoutMenuItemRecipesInputSchema: z.ZodType<Prisma.Rec
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   cookBook: z.lazy(() => CookBookUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUpdateManyWithoutRecipeNestedInputSchema).optional(),
@@ -40337,7 +40638,7 @@ export const RecipeUpdateWithoutMenuItemRecipesInputSchema: z.ZodType<Prisma.Rec
   criticalPoints: z.lazy(() => RecipeCriticalPointUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedUpdateWithoutMenuItemRecipesInputSchema: z.ZodType<Prisma.RecipeUncheckedUpdateWithoutMenuItemRecipesInput> = z.object({
@@ -40357,6 +40658,7 @@ export const RecipeUncheckedUpdateWithoutMenuItemRecipesInputSchema: z.ZodType<P
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedUpdateManyWithoutRecipesNestedInputSchema).optional(),
@@ -40377,7 +40679,7 @@ export const RecipeUncheckedUpdateWithoutMenuItemRecipesInputSchema: z.ZodType<P
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const MenuCreateWithoutMenuItemsInputSchema: z.ZodType<Prisma.MenuCreateWithoutMenuItemsInput> = z.object({
@@ -40442,6 +40744,7 @@ export const RecipeCreateWithoutMenuItemsInputSchema: z.ZodType<Prisma.RecipeCre
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutRecipesInputSchema),
   cookBook: z.lazy(() => CookBookCreateNestedOneWithoutRecipesInputSchema),
   ingredients: z.lazy(() => RecipeIngredientCreateNestedManyWithoutRecipeInputSchema).optional(),
@@ -40464,7 +40767,7 @@ export const RecipeCreateWithoutMenuItemsInputSchema: z.ZodType<Prisma.RecipeCre
   criticalPoints: z.lazy(() => RecipeCriticalPointCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedCreateWithoutMenuItemsInputSchema: z.ZodType<Prisma.RecipeUncheckedCreateWithoutMenuItemsInput> = z.object({
@@ -40484,6 +40787,7 @@ export const RecipeUncheckedCreateWithoutMenuItemsInputSchema: z.ZodType<Prisma.
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   foodCostHistory: z.lazy(() => FoodCostHistoryUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
@@ -40504,7 +40808,7 @@ export const RecipeUncheckedCreateWithoutMenuItemsInputSchema: z.ZodType<Prisma.
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeCreateOrConnectWithoutMenuItemsInputSchema: z.ZodType<Prisma.RecipeCreateOrConnectWithoutMenuItemsInput> = z.object({
@@ -41060,6 +41364,7 @@ export const RecipeCreateWithoutFoodCostHistoryInputSchema: z.ZodType<Prisma.Rec
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutRecipesInputSchema),
   cookBook: z.lazy(() => CookBookCreateNestedOneWithoutRecipesInputSchema),
   ingredients: z.lazy(() => RecipeIngredientCreateNestedManyWithoutRecipeInputSchema).optional(),
@@ -41082,7 +41387,7 @@ export const RecipeCreateWithoutFoodCostHistoryInputSchema: z.ZodType<Prisma.Rec
   criticalPoints: z.lazy(() => RecipeCriticalPointCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedCreateWithoutFoodCostHistoryInputSchema: z.ZodType<Prisma.RecipeUncheckedCreateWithoutFoodCostHistoryInput> = z.object({
@@ -41102,6 +41407,7 @@ export const RecipeUncheckedCreateWithoutFoodCostHistoryInputSchema: z.ZodType<P
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedCreateNestedManyWithoutRecipesInputSchema).optional(),
@@ -41122,7 +41428,7 @@ export const RecipeUncheckedCreateWithoutFoodCostHistoryInputSchema: z.ZodType<P
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeCreateOrConnectWithoutFoodCostHistoryInputSchema: z.ZodType<Prisma.RecipeCreateOrConnectWithoutFoodCostHistoryInput> = z.object({
@@ -41155,6 +41461,7 @@ export const RecipeUpdateWithoutFoodCostHistoryInputSchema: z.ZodType<Prisma.Rec
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   cookBook: z.lazy(() => CookBookUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUpdateManyWithoutRecipeNestedInputSchema).optional(),
@@ -41177,7 +41484,7 @@ export const RecipeUpdateWithoutFoodCostHistoryInputSchema: z.ZodType<Prisma.Rec
   criticalPoints: z.lazy(() => RecipeCriticalPointUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedUpdateWithoutFoodCostHistoryInputSchema: z.ZodType<Prisma.RecipeUncheckedUpdateWithoutFoodCostHistoryInput> = z.object({
@@ -41197,6 +41504,7 @@ export const RecipeUncheckedUpdateWithoutFoodCostHistoryInputSchema: z.ZodType<P
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedUpdateManyWithoutRecipesNestedInputSchema).optional(),
@@ -41217,7 +41525,7 @@ export const RecipeUncheckedUpdateWithoutFoodCostHistoryInputSchema: z.ZodType<P
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeCreateWithoutPrepHistoryInputSchema: z.ZodType<Prisma.RecipeCreateWithoutPrepHistoryInput> = z.object({
@@ -41234,6 +41542,7 @@ export const RecipeCreateWithoutPrepHistoryInputSchema: z.ZodType<Prisma.RecipeC
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutRecipesInputSchema),
   cookBook: z.lazy(() => CookBookCreateNestedOneWithoutRecipesInputSchema),
   ingredients: z.lazy(() => RecipeIngredientCreateNestedManyWithoutRecipeInputSchema).optional(),
@@ -41256,7 +41565,7 @@ export const RecipeCreateWithoutPrepHistoryInputSchema: z.ZodType<Prisma.RecipeC
   criticalPoints: z.lazy(() => RecipeCriticalPointCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedCreateWithoutPrepHistoryInputSchema: z.ZodType<Prisma.RecipeUncheckedCreateWithoutPrepHistoryInput> = z.object({
@@ -41276,6 +41585,7 @@ export const RecipeUncheckedCreateWithoutPrepHistoryInputSchema: z.ZodType<Prism
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
   skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedCreateNestedManyWithoutRecipesInputSchema).optional(),
@@ -41296,7 +41606,7 @@ export const RecipeUncheckedCreateWithoutPrepHistoryInputSchema: z.ZodType<Prism
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedCreateNestedOneWithoutRecipeInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedCreateNestedManyWithoutRecipeInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedCreateNestedOneWithoutRecipeInputSchema).optional()
 }).strict();
 
 export const RecipeCreateOrConnectWithoutPrepHistoryInputSchema: z.ZodType<Prisma.RecipeCreateOrConnectWithoutPrepHistoryInput> = z.object({
@@ -41329,6 +41639,7 @@ export const RecipeUpdateWithoutPrepHistoryInputSchema: z.ZodType<Prisma.RecipeU
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   cookBook: z.lazy(() => CookBookUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUpdateManyWithoutRecipeNestedInputSchema).optional(),
@@ -41351,7 +41662,7 @@ export const RecipeUpdateWithoutPrepHistoryInputSchema: z.ZodType<Prisma.RecipeU
   criticalPoints: z.lazy(() => RecipeCriticalPointUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedUpdateWithoutPrepHistoryInputSchema: z.ZodType<Prisma.RecipeUncheckedUpdateWithoutPrepHistoryInput> = z.object({
@@ -41371,6 +41682,7 @@ export const RecipeUncheckedUpdateWithoutPrepHistoryInputSchema: z.ZodType<Prism
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedUpdateManyWithoutRecipesNestedInputSchema).optional(),
@@ -41391,7 +41703,7 @@ export const RecipeUncheckedUpdateWithoutPrepHistoryInputSchema: z.ZodType<Prism
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const MenuItemCreateManyCategoryInputSchema: z.ZodType<Prisma.MenuItemCreateManyCategoryInput> = z.object({
@@ -41905,6 +42217,7 @@ export const RecipeUpdateWithoutDietaryRestrictionsInputSchema: z.ZodType<Prisma
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   cookBook: z.lazy(() => CookBookUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUpdateManyWithoutRecipeNestedInputSchema).optional(),
@@ -41927,7 +42240,7 @@ export const RecipeUpdateWithoutDietaryRestrictionsInputSchema: z.ZodType<Prisma
   criticalPoints: z.lazy(() => RecipeCriticalPointUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedUpdateWithoutDietaryRestrictionsInputSchema: z.ZodType<Prisma.RecipeUncheckedUpdateWithoutDietaryRestrictionsInput> = z.object({
@@ -41947,6 +42260,7 @@ export const RecipeUncheckedUpdateWithoutDietaryRestrictionsInputSchema: z.ZodTy
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedUpdateManyWithoutRecipesNestedInputSchema).optional(),
@@ -41967,7 +42281,7 @@ export const RecipeUncheckedUpdateWithoutDietaryRestrictionsInputSchema: z.ZodTy
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedUpdateManyWithoutDietaryRestrictionsInputSchema: z.ZodType<Prisma.RecipeUncheckedUpdateManyWithoutDietaryRestrictionsInput> = z.object({
@@ -41987,6 +42301,7 @@ export const RecipeUncheckedUpdateManyWithoutDietaryRestrictionsInputSchema: z.Z
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
 }).strict();
 
 export const IngredientUpdateWithoutDietaryRestrictionInputSchema: z.ZodType<Prisma.IngredientUpdateWithoutDietaryRestrictionInput> = z.object({
@@ -42070,6 +42385,7 @@ export const RecipeUpdateWithoutTagsInputSchema: z.ZodType<Prisma.RecipeUpdateWi
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   cookBook: z.lazy(() => CookBookUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUpdateManyWithoutRecipeNestedInputSchema).optional(),
@@ -42092,7 +42408,7 @@ export const RecipeUpdateWithoutTagsInputSchema: z.ZodType<Prisma.RecipeUpdateWi
   criticalPoints: z.lazy(() => RecipeCriticalPointUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedUpdateWithoutTagsInputSchema: z.ZodType<Prisma.RecipeUncheckedUpdateWithoutTagsInput> = z.object({
@@ -42112,6 +42428,7 @@ export const RecipeUncheckedUpdateWithoutTagsInputSchema: z.ZodType<Prisma.Recip
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedUpdateManyWithoutRecipesNestedInputSchema).optional(),
@@ -42132,7 +42449,7 @@ export const RecipeUncheckedUpdateWithoutTagsInputSchema: z.ZodType<Prisma.Recip
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedUpdateManyWithoutTagsInputSchema: z.ZodType<Prisma.RecipeUncheckedUpdateManyWithoutTagsInput> = z.object({
@@ -42152,6 +42469,7 @@ export const RecipeUncheckedUpdateManyWithoutTagsInputSchema: z.ZodType<Prisma.R
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
 }).strict();
 
 export const ProductionPlanItemCreateManyProductionPlanInputSchema: z.ZodType<Prisma.ProductionPlanItemCreateManyProductionPlanInput> = z.object({
@@ -42630,7 +42948,8 @@ export const RecipeCreateManyRestaurantInputSchema: z.ZodType<Prisma.RecipeCreat
   isPublished: z.boolean().optional(),
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
-  skillLevel: z.lazy(() => SkillLevelSchema).optional()
+  skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional()
 }).strict();
 
 export const MenuCreateManyRestaurantInputSchema: z.ZodType<Prisma.MenuCreateManyRestaurantInput> = z.object({
@@ -42863,6 +43182,7 @@ export const RecipeUpdateWithoutRestaurantInputSchema: z.ZodType<Prisma.RecipeUp
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   cookBook: z.lazy(() => CookBookUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUpdateManyWithoutRecipeNestedInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUpdateManyWithoutRecipeNestedInputSchema).optional(),
@@ -42885,7 +43205,7 @@ export const RecipeUpdateWithoutRestaurantInputSchema: z.ZodType<Prisma.RecipeUp
   criticalPoints: z.lazy(() => RecipeCriticalPointUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedUpdateWithoutRestaurantInputSchema: z.ZodType<Prisma.RecipeUncheckedUpdateWithoutRestaurantInput> = z.object({
@@ -42904,6 +43224,7 @@ export const RecipeUncheckedUpdateWithoutRestaurantInputSchema: z.ZodType<Prisma
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedUpdateManyWithoutRecipesNestedInputSchema).optional(),
@@ -42925,7 +43246,7 @@ export const RecipeUncheckedUpdateWithoutRestaurantInputSchema: z.ZodType<Prisma
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedUpdateManyWithoutRestaurantInputSchema: z.ZodType<Prisma.RecipeUncheckedUpdateManyWithoutRestaurantInput> = z.object({
@@ -42944,6 +43265,7 @@ export const RecipeUncheckedUpdateManyWithoutRestaurantInputSchema: z.ZodType<Pr
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
 }).strict();
 
 export const MenuUpdateWithoutRestaurantInputSchema: z.ZodType<Prisma.MenuUpdateWithoutRestaurantInput> = z.object({
@@ -44035,7 +44357,8 @@ export const RecipeCreateManyCookBookInputSchema: z.ZodType<Prisma.RecipeCreateM
   isPublished: z.boolean().optional(),
   publishedAt: z.coerce.date().optional().nullable(),
   language: z.string().optional(),
-  skillLevel: z.lazy(() => SkillLevelSchema).optional()
+  skillLevel: z.lazy(() => SkillLevelSchema).optional(),
+  category: z.lazy(() => CategorySchema).optional()
 }).strict();
 
 export const RecipeUpdateWithoutCookBookInputSchema: z.ZodType<Prisma.RecipeUpdateWithoutCookBookInput> = z.object({
@@ -44052,6 +44375,7 @@ export const RecipeUpdateWithoutCookBookInputSchema: z.ZodType<Prisma.RecipeUpda
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUpdateManyWithoutRecipeNestedInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUpdateManyWithoutRecipeNestedInputSchema).optional(),
@@ -44074,7 +44398,7 @@ export const RecipeUpdateWithoutCookBookInputSchema: z.ZodType<Prisma.RecipeUpda
   criticalPoints: z.lazy(() => RecipeCriticalPointUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedUpdateWithoutCookBookInputSchema: z.ZodType<Prisma.RecipeUncheckedUpdateWithoutCookBookInput> = z.object({
@@ -44093,6 +44417,7 @@ export const RecipeUncheckedUpdateWithoutCookBookInputSchema: z.ZodType<Prisma.R
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedUpdateManyWithoutRecipesNestedInputSchema).optional(),
@@ -44114,7 +44439,7 @@ export const RecipeUncheckedUpdateWithoutCookBookInputSchema: z.ZodType<Prisma.R
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedUpdateManyWithoutCookBookInputSchema: z.ZodType<Prisma.RecipeUncheckedUpdateManyWithoutCookBookInput> = z.object({
@@ -44133,6 +44458,7 @@ export const RecipeUncheckedUpdateManyWithoutCookBookInputSchema: z.ZodType<Pris
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
 }).strict();
 
 export const RecipeIngredientCreateManyRecipeInputSchema: z.ZodType<Prisma.RecipeIngredientCreateManyRecipeInput> = z.object({
@@ -45658,6 +45984,7 @@ export const RecipeUpdateWithoutPrepBoardsInputSchema: z.ZodType<Prisma.RecipeUp
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   cookBook: z.lazy(() => CookBookUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUpdateManyWithoutRecipeNestedInputSchema).optional(),
@@ -45680,7 +46007,7 @@ export const RecipeUpdateWithoutPrepBoardsInputSchema: z.ZodType<Prisma.RecipeUp
   criticalPoints: z.lazy(() => RecipeCriticalPointUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedUpdateWithoutPrepBoardsInputSchema: z.ZodType<Prisma.RecipeUncheckedUpdateWithoutPrepBoardsInput> = z.object({
@@ -45700,6 +46027,7 @@ export const RecipeUncheckedUpdateWithoutPrepBoardsInputSchema: z.ZodType<Prisma
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedUpdateManyWithoutRecipesNestedInputSchema).optional(),
@@ -45720,7 +46048,7 @@ export const RecipeUncheckedUpdateWithoutPrepBoardsInputSchema: z.ZodType<Prisma
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedUpdateManyWithoutPrepBoardsInputSchema: z.ZodType<Prisma.RecipeUncheckedUpdateManyWithoutPrepBoardsInput> = z.object({
@@ -45740,6 +46068,7 @@ export const RecipeUncheckedUpdateManyWithoutPrepBoardsInputSchema: z.ZodType<Pr
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
 }).strict();
 
 export const PrepItemUpdateWithoutPrepBoardInputSchema: z.ZodType<Prisma.PrepItemUpdateWithoutPrepBoardInput> = z.object({
@@ -45941,6 +46270,7 @@ export const RecipeUpdateWithoutMenuItemsInputSchema: z.ZodType<Prisma.RecipeUpd
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   cookBook: z.lazy(() => CookBookUpdateOneRequiredWithoutRecipesNestedInputSchema).optional(),
   ingredients: z.lazy(() => RecipeIngredientUpdateManyWithoutRecipeNestedInputSchema).optional(),
@@ -45963,7 +46293,7 @@ export const RecipeUpdateWithoutMenuItemsInputSchema: z.ZodType<Prisma.RecipeUpd
   criticalPoints: z.lazy(() => RecipeCriticalPointUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedUpdateWithoutMenuItemsInputSchema: z.ZodType<Prisma.RecipeUncheckedUpdateWithoutMenuItemsInput> = z.object({
@@ -45983,6 +46313,7 @@ export const RecipeUncheckedUpdateWithoutMenuItemsInputSchema: z.ZodType<Prisma.
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
   ingredients: z.lazy(() => RecipeIngredientUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   instructions: z.lazy(() => RecipeInstructionUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   foodCostHistory: z.lazy(() => FoodCostHistoryUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
@@ -46003,7 +46334,7 @@ export const RecipeUncheckedUpdateWithoutMenuItemsInputSchema: z.ZodType<Prisma.
   criticalPoints: z.lazy(() => RecipeCriticalPointUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
   storage: z.lazy(() => RecipeStorageUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional(),
   photos: z.lazy(() => RecipePhotoUncheckedUpdateManyWithoutRecipeNestedInputSchema).optional(),
-  RecipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
+  recipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
 export const RecipeUncheckedUpdateManyWithoutMenuItemsInputSchema: z.ZodType<Prisma.RecipeUncheckedUpdateManyWithoutMenuItemsInput> = z.object({
@@ -46023,6 +46354,7 @@ export const RecipeUncheckedUpdateManyWithoutMenuItemsInputSchema: z.ZodType<Pri
   publishedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   language: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   skillLevel: z.union([ z.lazy(() => SkillLevelSchema),z.lazy(() => EnumSkillLevelFieldUpdateOperationsInputSchema) ]).optional(),
+  category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
 }).strict();
 
 export const MenuItemRecipeUpdateWithoutMenuItemInputSchema: z.ZodType<Prisma.MenuItemRecipeUpdateWithoutMenuItemInput> = z.object({

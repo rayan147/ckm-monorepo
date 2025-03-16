@@ -93,12 +93,13 @@ async function createCookBook() {
   });
 }
 
+
 // Recipe factory
 async function createRecipe(restaurantId: number, cookBookId: number) {
   return prisma.recipe.create({
     data: {
       name: faker.food.dish(),
-      imageUrls: Array.from({ length: 7 }, () => faker.image.urlLoremFlickr({ category: 'food' })), // Generate 7 unique URLs
+      imageUrls: Array.from({ length: 7 }, () => faker.image.urlPicsumPhotos()), // Generate 7 unique URLs
       description: faker.food.description(),
       servings: faker.number.int({ min: 1, max: 10 }),
       cookTime: faker.number.int({ min: 10, max: 120 }),
@@ -228,12 +229,36 @@ async function createInventoryItem(inventoryId: number, ingredientId: number, us
   const averageCost = faker.number.float({ min: 0.1, max: currentPrice });
   const lastPurchasePrice = faker.number.float({ min: 0.1, max: currentPrice });
 
-  return prisma.inventoryItem.create({
-    data: {
+  return prisma.inventoryItem.upsert({
+    where: {
+      inventoryId_ingredientId: {
+        inventoryId,
+        ingredientId
+      }
+    },
+    update: {
+      quantity,
+      unit,
+      minQuantity,
+      restockThreshold,
+      lastCountDate: faker.date.past(),
+      lastOrderDate: faker.date.past(),
+      lastUpdatedById: userId,
+      par,
+      reorderPoint,
+      maxQuantity,
+      location: faker.location.streetAddress(),
+      barcode: faker.string.numeric(12),
+      notes: faker.lorem.sentence(),
+      currentPrice,
+      averageCost,
+      lastPurchasePrice,
+    },
+    create: {
       inventoryId,
       ingredientId,
       quantity,
-      unit, // Use the randomly selected unit
+      unit,
       minQuantity,
       restockThreshold,
       lastCountDate: faker.date.past(),

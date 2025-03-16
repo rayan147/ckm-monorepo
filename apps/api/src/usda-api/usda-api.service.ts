@@ -23,6 +23,17 @@ interface NutritionData {
   sodium: number;
 }
 
+interface AllergenData {
+  containsGluten: boolean;
+  containsDairy: boolean;
+  containsNuts: boolean;
+  containsEggs: boolean;
+  containsSoy: boolean;
+  containsFish: boolean;
+  containsShellfish: boolean;
+  containsSesame: boolean;
+}
+
 // Map of USDA nutrient names to our internal property names
 type NutrientNameMap = {
   [key: string]: keyof NutritionData;
@@ -37,6 +48,16 @@ type NutrientIdMap = {
 export class UsdaApiService {
   private readonly apiKey: string;
   private readonly baseUrl: string = 'https://api.nal.usda.gov/fdc/v1';
+  private readonly allergenKeywords = {
+    gluten: ['wheat', 'barley', 'rye', 'gluten', 'bread', 'pasta', 'flour'],
+    dairy: ['milk', 'cheese', 'yogurt', 'cream', 'butter', 'dairy', 'lactose', 'whey'],
+    nuts: ['nuts', 'almond', 'walnut', 'pecan', 'cashew', 'pistachio', 'hazelnut', 'peanut', 'macadamia'],
+    eggs: ['egg', 'eggs', 'yolk', 'albumin'],
+    soy: ['soy', 'soya', 'tofu', 'edamame'],
+    fish: ['fish', 'salmon', 'tuna', 'cod', 'tilapia', 'halibut', 'trout'],
+    shellfish: ['shellfish', 'shrimp', 'crab', 'lobster', 'prawn', 'clam', 'oyster', 'mussel', 'scallop'],
+    sesame: ['sesame', 'tahini']
+  };
 
   constructor(
     private readonly httpService: HttpService,
@@ -46,6 +67,45 @@ export class UsdaApiService {
     if (!this.apiKey) {
       console.warn('USDA_API_KEY is not set. USDA food data API calls will fail.');
     }
+  }
+  detectAllergens(foodData: any): AllergenData {
+    const allergens: AllergenData = {
+      containsGluten: false,
+      containsDairy: false,
+      containsNuts: false,
+      containsEggs: false,
+      containsSoy: false,
+      containsFish: false,
+      containsShellfish: false,
+      containsSesame: false
+    };
+
+    if (!foodData) return allergens;
+
+    // Get food description and ingredients list if available
+    const description = foodData.description || '';
+    const ingredients = foodData.ingredients || '';
+    const combinedText = (description + ' ' + ingredients).toLowerCase();
+
+    // Check each allergen category
+    allergens.containsGluten = this.allergenKeywords.gluten.some(keyword =>
+      combinedText.includes(keyword));
+    allergens.containsDairy = this.allergenKeywords.dairy.some(keyword =>
+      combinedText.includes(keyword));
+    allergens.containsNuts = this.allergenKeywords.nuts.some(keyword =>
+      combinedText.includes(keyword));
+    allergens.containsEggs = this.allergenKeywords.eggs.some(keyword =>
+      combinedText.includes(keyword));
+    allergens.containsSoy = this.allergenKeywords.soy.some(keyword =>
+      combinedText.includes(keyword));
+    allergens.containsFish = this.allergenKeywords.fish.some(keyword =>
+      combinedText.includes(keyword));
+    allergens.containsShellfish = this.allergenKeywords.shellfish.some(keyword =>
+      combinedText.includes(keyword));
+    allergens.containsSesame = this.allergenKeywords.sesame.some(keyword =>
+      combinedText.includes(keyword));
+
+    return allergens;
   }
 
   async searchFoods(query: string, pageSize: number = 25): Promise<any> {

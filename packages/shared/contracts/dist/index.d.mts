@@ -1568,6 +1568,7 @@ declare const contract: {
             responses: {
                 201: zod.ZodObject<{
                     skillLevel: zod.ZodEnum<["BEGINNER", "INTERMEDIATE", "ADVANCED", "EXPERT"]>;
+                    category: zod.ZodEnum<["APPETIZER", "SOUP", "SALAD", "MAIN_COURSE", "SIDE_DISH", "DESSERT", "BEVERAGE", "BREAKFAST", "BRUNCH", "LUNCH", "DINNER", "SNACK", "BAKED_GOOD", "SAUCE", "CONDIMENT", "SPECIAL"]>;
                     id: zod.ZodNumber;
                     name: zod.ZodString;
                     imageUrls: zod.ZodArray<zod.ZodString, "many">;
@@ -1593,6 +1594,7 @@ declare const contract: {
                     frequency: number | null;
                     foodCost: number | null;
                     isDeleted: boolean;
+                    category: "APPETIZER" | "SOUP" | "SALAD" | "MAIN_COURSE" | "SIDE_DISH" | "DESSERT" | "BEVERAGE" | "BREAKFAST" | "BRUNCH" | "LUNCH" | "DINNER" | "SNACK" | "BAKED_GOOD" | "SAUCE" | "CONDIMENT" | "SPECIAL";
                     imageUrls: string[];
                     servings: number;
                     cookBookId: number;
@@ -1610,6 +1612,7 @@ declare const contract: {
                     frequency: number | null;
                     foodCost: number | null;
                     isDeleted: boolean;
+                    category: "APPETIZER" | "SOUP" | "SALAD" | "MAIN_COURSE" | "SIDE_DISH" | "DESSERT" | "BEVERAGE" | "BREAKFAST" | "BRUNCH" | "LUNCH" | "DINNER" | "SNACK" | "BAKED_GOOD" | "SAUCE" | "CONDIMENT" | "SPECIAL";
                     imageUrls: string[];
                     servings: number;
                     cookBookId: number;
@@ -1674,6 +1677,7 @@ declare const contract: {
                 200: zod.ZodObject<{
                     recipes: zod.ZodArray<zod.ZodObject<{
                         skillLevel: zod.ZodEnum<["BEGINNER", "INTERMEDIATE", "ADVANCED", "EXPERT"]>;
+                        category: zod.ZodEnum<["APPETIZER", "SOUP", "SALAD", "MAIN_COURSE", "SIDE_DISH", "DESSERT", "BEVERAGE", "BREAKFAST", "BRUNCH", "LUNCH", "DINNER", "SNACK", "BAKED_GOOD", "SAUCE", "CONDIMENT", "SPECIAL"]>;
                         id: zod.ZodNumber;
                         name: zod.ZodString;
                         imageUrls: zod.ZodArray<zod.ZodString, "many">;
@@ -1699,6 +1703,7 @@ declare const contract: {
                         frequency: number | null;
                         foodCost: number | null;
                         isDeleted: boolean;
+                        category: "APPETIZER" | "SOUP" | "SALAD" | "MAIN_COURSE" | "SIDE_DISH" | "DESSERT" | "BEVERAGE" | "BREAKFAST" | "BRUNCH" | "LUNCH" | "DINNER" | "SNACK" | "BAKED_GOOD" | "SAUCE" | "CONDIMENT" | "SPECIAL";
                         imageUrls: string[];
                         servings: number;
                         cookBookId: number;
@@ -1716,6 +1721,7 @@ declare const contract: {
                         frequency: number | null;
                         foodCost: number | null;
                         isDeleted: boolean;
+                        category: "APPETIZER" | "SOUP" | "SALAD" | "MAIN_COURSE" | "SIDE_DISH" | "DESSERT" | "BEVERAGE" | "BREAKFAST" | "BRUNCH" | "LUNCH" | "DINNER" | "SNACK" | "BAKED_GOOD" | "SAUCE" | "CONDIMENT" | "SPECIAL";
                         imageUrls: string[];
                         servings: number;
                         cookBookId: number;
@@ -1736,6 +1742,7 @@ declare const contract: {
                         frequency: number | null;
                         foodCost: number | null;
                         isDeleted: boolean;
+                        category: "APPETIZER" | "SOUP" | "SALAD" | "MAIN_COURSE" | "SIDE_DISH" | "DESSERT" | "BEVERAGE" | "BREAKFAST" | "BRUNCH" | "LUNCH" | "DINNER" | "SNACK" | "BAKED_GOOD" | "SAUCE" | "CONDIMENT" | "SPECIAL";
                         imageUrls: string[];
                         servings: number;
                         cookBookId: number;
@@ -1756,6 +1763,7 @@ declare const contract: {
                         frequency: number | null;
                         foodCost: number | null;
                         isDeleted: boolean;
+                        category: "APPETIZER" | "SOUP" | "SALAD" | "MAIN_COURSE" | "SIDE_DISH" | "DESSERT" | "BEVERAGE" | "BREAKFAST" | "BRUNCH" | "LUNCH" | "DINNER" | "SNACK" | "BAKED_GOOD" | "SAUCE" | "CONDIMENT" | "SPECIAL";
                         imageUrls: string[];
                         servings: number;
                         cookBookId: number;
@@ -1782,6 +1790,7 @@ declare const contract: {
             responses: {
                 200: zod.ZodObject<{
                     skillLevel: zod.ZodEnum<["BEGINNER", "INTERMEDIATE", "ADVANCED", "EXPERT"]>;
+                    category: zod.ZodEnum<["APPETIZER", "SOUP", "SALAD", "MAIN_COURSE", "SIDE_DISH", "DESSERT", "BEVERAGE", "BREAKFAST", "BRUNCH", "LUNCH", "DINNER", "SNACK", "BAKED_GOOD", "SAUCE", "CONDIMENT", "SPECIAL"]>;
                     id: zod.ZodNumber;
                     name: zod.ZodString;
                     imageUrls: zod.ZodArray<zod.ZodString, "many">;
@@ -1807,6 +1816,7 @@ declare const contract: {
                     frequency: number | null;
                     foodCost: number | null;
                     isDeleted: boolean;
+                    category: "APPETIZER" | "SOUP" | "SALAD" | "MAIN_COURSE" | "SIDE_DISH" | "DESSERT" | "BEVERAGE" | "BREAKFAST" | "BRUNCH" | "LUNCH" | "DINNER" | "SNACK" | "BAKED_GOOD" | "SAUCE" | "CONDIMENT" | "SPECIAL";
                     imageUrls: string[];
                     servings: number;
                     cookBookId: number;
@@ -1824,6 +1834,7 @@ declare const contract: {
                     frequency: number | null;
                     foodCost: number | null;
                     isDeleted: boolean;
+                    category: "APPETIZER" | "SOUP" | "SALAD" | "MAIN_COURSE" | "SIDE_DISH" | "DESSERT" | "BEVERAGE" | "BREAKFAST" | "BRUNCH" | "LUNCH" | "DINNER" | "SNACK" | "BAKED_GOOD" | "SAUCE" | "CONDIMENT" | "SPECIAL";
                     imageUrls: string[];
                     servings: number;
                     cookBookId: number;
@@ -1880,6 +1891,7 @@ declare const contract: {
             responses: {
                 200: zod.ZodObject<{
                     skillLevel: zod.ZodEnum<["BEGINNER", "INTERMEDIATE", "ADVANCED", "EXPERT"]>;
+                    category: zod.ZodEnum<["APPETIZER", "SOUP", "SALAD", "MAIN_COURSE", "SIDE_DISH", "DESSERT", "BEVERAGE", "BREAKFAST", "BRUNCH", "LUNCH", "DINNER", "SNACK", "BAKED_GOOD", "SAUCE", "CONDIMENT", "SPECIAL"]>;
                     id: zod.ZodNumber;
                     name: zod.ZodString;
                     imageUrls: zod.ZodArray<zod.ZodString, "many">;
@@ -1905,6 +1917,7 @@ declare const contract: {
                     frequency: number | null;
                     foodCost: number | null;
                     isDeleted: boolean;
+                    category: "APPETIZER" | "SOUP" | "SALAD" | "MAIN_COURSE" | "SIDE_DISH" | "DESSERT" | "BEVERAGE" | "BREAKFAST" | "BRUNCH" | "LUNCH" | "DINNER" | "SNACK" | "BAKED_GOOD" | "SAUCE" | "CONDIMENT" | "SPECIAL";
                     imageUrls: string[];
                     servings: number;
                     cookBookId: number;
@@ -1922,6 +1935,7 @@ declare const contract: {
                     frequency: number | null;
                     foodCost: number | null;
                     isDeleted: boolean;
+                    category: "APPETIZER" | "SOUP" | "SALAD" | "MAIN_COURSE" | "SIDE_DISH" | "DESSERT" | "BEVERAGE" | "BREAKFAST" | "BRUNCH" | "LUNCH" | "DINNER" | "SNACK" | "BAKED_GOOD" | "SAUCE" | "CONDIMENT" | "SPECIAL";
                     imageUrls: string[];
                     servings: number;
                     cookBookId: number;
@@ -1960,6 +1974,7 @@ declare const contract: {
             responses: {
                 200: zod.ZodObject<{
                     skillLevel: zod.ZodEnum<["BEGINNER", "INTERMEDIATE", "ADVANCED", "EXPERT"]>;
+                    category: zod.ZodEnum<["APPETIZER", "SOUP", "SALAD", "MAIN_COURSE", "SIDE_DISH", "DESSERT", "BEVERAGE", "BREAKFAST", "BRUNCH", "LUNCH", "DINNER", "SNACK", "BAKED_GOOD", "SAUCE", "CONDIMENT", "SPECIAL"]>;
                     id: zod.ZodNumber;
                     name: zod.ZodString;
                     imageUrls: zod.ZodArray<zod.ZodString, "many">;
@@ -1985,6 +2000,7 @@ declare const contract: {
                     frequency: number | null;
                     foodCost: number | null;
                     isDeleted: boolean;
+                    category: "APPETIZER" | "SOUP" | "SALAD" | "MAIN_COURSE" | "SIDE_DISH" | "DESSERT" | "BEVERAGE" | "BREAKFAST" | "BRUNCH" | "LUNCH" | "DINNER" | "SNACK" | "BAKED_GOOD" | "SAUCE" | "CONDIMENT" | "SPECIAL";
                     imageUrls: string[];
                     servings: number;
                     cookBookId: number;
@@ -2002,6 +2018,7 @@ declare const contract: {
                     frequency: number | null;
                     foodCost: number | null;
                     isDeleted: boolean;
+                    category: "APPETIZER" | "SOUP" | "SALAD" | "MAIN_COURSE" | "SIDE_DISH" | "DESSERT" | "BEVERAGE" | "BREAKFAST" | "BRUNCH" | "LUNCH" | "DINNER" | "SNACK" | "BAKED_GOOD" | "SAUCE" | "CONDIMENT" | "SPECIAL";
                     imageUrls: string[];
                     servings: number;
                     cookBookId: number;
@@ -5371,6 +5388,7 @@ declare const contract: {
                     mostPreparedRecipes: zod.ZodArray<zod.ZodObject<{
                         recipe: zod.ZodObject<{
                             skillLevel: zod.ZodEnum<["BEGINNER", "INTERMEDIATE", "ADVANCED", "EXPERT"]>;
+                            category: zod.ZodEnum<["APPETIZER", "SOUP", "SALAD", "MAIN_COURSE", "SIDE_DISH", "DESSERT", "BEVERAGE", "BREAKFAST", "BRUNCH", "LUNCH", "DINNER", "SNACK", "BAKED_GOOD", "SAUCE", "CONDIMENT", "SPECIAL"]>;
                             id: zod.ZodNumber;
                             name: zod.ZodString;
                             imageUrls: zod.ZodArray<zod.ZodString, "many">;
@@ -5396,6 +5414,7 @@ declare const contract: {
                             frequency: number | null;
                             foodCost: number | null;
                             isDeleted: boolean;
+                            category: "APPETIZER" | "SOUP" | "SALAD" | "MAIN_COURSE" | "SIDE_DISH" | "DESSERT" | "BEVERAGE" | "BREAKFAST" | "BRUNCH" | "LUNCH" | "DINNER" | "SNACK" | "BAKED_GOOD" | "SAUCE" | "CONDIMENT" | "SPECIAL";
                             imageUrls: string[];
                             servings: number;
                             cookBookId: number;
@@ -5413,6 +5432,7 @@ declare const contract: {
                             frequency: number | null;
                             foodCost: number | null;
                             isDeleted: boolean;
+                            category: "APPETIZER" | "SOUP" | "SALAD" | "MAIN_COURSE" | "SIDE_DISH" | "DESSERT" | "BEVERAGE" | "BREAKFAST" | "BRUNCH" | "LUNCH" | "DINNER" | "SNACK" | "BAKED_GOOD" | "SAUCE" | "CONDIMENT" | "SPECIAL";
                             imageUrls: string[];
                             servings: number;
                             cookBookId: number;
@@ -5433,6 +5453,7 @@ declare const contract: {
                             frequency: number | null;
                             foodCost: number | null;
                             isDeleted: boolean;
+                            category: "APPETIZER" | "SOUP" | "SALAD" | "MAIN_COURSE" | "SIDE_DISH" | "DESSERT" | "BEVERAGE" | "BREAKFAST" | "BRUNCH" | "LUNCH" | "DINNER" | "SNACK" | "BAKED_GOOD" | "SAUCE" | "CONDIMENT" | "SPECIAL";
                             imageUrls: string[];
                             servings: number;
                             cookBookId: number;
@@ -5453,6 +5474,7 @@ declare const contract: {
                             frequency: number | null;
                             foodCost: number | null;
                             isDeleted: boolean;
+                            category: "APPETIZER" | "SOUP" | "SALAD" | "MAIN_COURSE" | "SIDE_DISH" | "DESSERT" | "BEVERAGE" | "BREAKFAST" | "BRUNCH" | "LUNCH" | "DINNER" | "SNACK" | "BAKED_GOOD" | "SAUCE" | "CONDIMENT" | "SPECIAL";
                             imageUrls: string[];
                             servings: number;
                             cookBookId: number;
@@ -5492,6 +5514,7 @@ declare const contract: {
                             frequency: number | null;
                             foodCost: number | null;
                             isDeleted: boolean;
+                            category: "APPETIZER" | "SOUP" | "SALAD" | "MAIN_COURSE" | "SIDE_DISH" | "DESSERT" | "BEVERAGE" | "BREAKFAST" | "BRUNCH" | "LUNCH" | "DINNER" | "SNACK" | "BAKED_GOOD" | "SAUCE" | "CONDIMENT" | "SPECIAL";
                             imageUrls: string[];
                             servings: number;
                             cookBookId: number;
@@ -5521,6 +5544,7 @@ declare const contract: {
                             frequency: number | null;
                             foodCost: number | null;
                             isDeleted: boolean;
+                            category: "APPETIZER" | "SOUP" | "SALAD" | "MAIN_COURSE" | "SIDE_DISH" | "DESSERT" | "BEVERAGE" | "BREAKFAST" | "BRUNCH" | "LUNCH" | "DINNER" | "SNACK" | "BAKED_GOOD" | "SAUCE" | "CONDIMENT" | "SPECIAL";
                             imageUrls: string[];
                             servings: number;
                             cookBookId: number;
@@ -6316,6 +6340,14 @@ declare const contract: {
                     fiber: zod.ZodNumber;
                     sugar: zod.ZodNumber;
                     sodium: zod.ZodNumber;
+                    containsGluten: zod.ZodBoolean;
+                    containsDairy: zod.ZodBoolean;
+                    containsNuts: zod.ZodBoolean;
+                    containsEggs: zod.ZodBoolean;
+                    containsSoy: zod.ZodBoolean;
+                    containsFish: zod.ZodBoolean;
+                    containsShellfish: zod.ZodBoolean;
+                    containsSesame: zod.ZodBoolean;
                 }, "strip", zod.ZodTypeAny, {
                     id: number;
                     recipeId: number;
@@ -6328,6 +6360,14 @@ declare const contract: {
                     fiber: number;
                     sugar: number;
                     sodium: number;
+                    containsGluten: boolean;
+                    containsDairy: boolean;
+                    containsNuts: boolean;
+                    containsEggs: boolean;
+                    containsSoy: boolean;
+                    containsFish: boolean;
+                    containsShellfish: boolean;
+                    containsSesame: boolean;
                 }, {
                     id: number;
                     recipeId: number;
@@ -6340,6 +6380,14 @@ declare const contract: {
                     fiber: number;
                     sugar: number;
                     sodium: number;
+                    containsGluten: boolean;
+                    containsDairy: boolean;
+                    containsNuts: boolean;
+                    containsEggs: boolean;
+                    containsSoy: boolean;
+                    containsFish: boolean;
+                    containsShellfish: boolean;
+                    containsSesame: boolean;
                 }>;
                 400: zod.ZodObject<{
                     message: zod.ZodString;
@@ -6374,6 +6422,14 @@ declare const contract: {
                     fiber: zod.ZodNumber;
                     sugar: zod.ZodNumber;
                     sodium: zod.ZodNumber;
+                    containsGluten: zod.ZodBoolean;
+                    containsDairy: zod.ZodBoolean;
+                    containsNuts: zod.ZodBoolean;
+                    containsEggs: zod.ZodBoolean;
+                    containsSoy: zod.ZodBoolean;
+                    containsFish: zod.ZodBoolean;
+                    containsShellfish: zod.ZodBoolean;
+                    containsSesame: zod.ZodBoolean;
                 }, "strip", zod.ZodTypeAny, {
                     id: number;
                     recipeId: number;
@@ -6386,6 +6442,14 @@ declare const contract: {
                     fiber: number;
                     sugar: number;
                     sodium: number;
+                    containsGluten: boolean;
+                    containsDairy: boolean;
+                    containsNuts: boolean;
+                    containsEggs: boolean;
+                    containsSoy: boolean;
+                    containsFish: boolean;
+                    containsShellfish: boolean;
+                    containsSesame: boolean;
                 }, {
                     id: number;
                     recipeId: number;
@@ -6398,6 +6462,14 @@ declare const contract: {
                     fiber: number;
                     sugar: number;
                     sodium: number;
+                    containsGluten: boolean;
+                    containsDairy: boolean;
+                    containsNuts: boolean;
+                    containsEggs: boolean;
+                    containsSoy: boolean;
+                    containsFish: boolean;
+                    containsShellfish: boolean;
+                    containsSesame: boolean;
                 }>;
                 400: zod.ZodObject<{
                     message: zod.ZodString;

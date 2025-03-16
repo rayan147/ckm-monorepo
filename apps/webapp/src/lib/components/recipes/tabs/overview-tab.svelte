@@ -155,14 +155,14 @@
       </dl>
 
       <!-- Difficulty and Category information -->
-      {#if recipe.difficulty || recipe.category}
+      {#if recipe.skillLevel || recipe.category}
         <div class="flex flex-wrap gap-4 mt-6">
-          {#if recipe.difficulty}
+          {#if recipe.skillLevel}
             <div
               class="inline-flex items-center rounded-full bg-blue-50 px-3 py-1.5 text-xs font-medium text-blue-700"
             >
               <span class="mr-1 text-xs">Difficulty:</span>
-              <span>{recipe.difficulty}</span>
+              <span>{recipe.skillLevel}</span>
             </div>
           {/if}
 

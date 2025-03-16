@@ -13,19 +13,8 @@
   import { toast } from 'svelte-sonner';
   import IngredientMatchDialog from './ingredient-match-dialog.svelte';
   import * as Table from '$lib/components/ui/table';
-
-  // Type definitions
-  interface NutritionalInfo {
-    calories: number;
-    protein: number;
-    carbohydrates: number;
-    fat: number;
-    fiber: number;
-    sugar: number;
-    sodium: number;
-    servingSize?: number;
-    servingUnit?: string;
-  }
+  import { Checkbox } from '$lib/components/ui/checkbox';
+  import type { RecipeNutrition } from '@ckm/db';
 
   interface Ingredient {
     name: string;
@@ -36,33 +25,6 @@
     fiber: number;
     sugar: number;
     sodium: number;
-  }
-
-  interface RecipeIngredient {
-    ingredient: Ingredient | null;
-    quantity: number;
-    unit: string;
-  }
-
-  interface Recipe {
-    ingredients: RecipeIngredient[];
-    nutritionalInfo?: NutritionalInfo;
-    servings: number;
-  }
-
-  interface DailyValues {
-    protein: number;
-    carbohydrates: number;
-    fat: number;
-    fiber: number;
-    sugar: number;
-    sodium: number;
-  }
-
-  interface RecipeState {
-    formatNutrient: (value: number) => string;
-    getDailyValuePercentage: (value: number, dailyValue: number) => number;
-    updateIngredientNutrition: (ingredient: RecipeIngredient, data: Partial<Ingredient>) => void;
   }
 
   const recipeState = getRecipeContext();
@@ -88,7 +50,15 @@
     fat: 0,
     fiber: 0,
     sugar: 0,
-    sodium: 0
+    sodium: 0,
+    containsShellfish: false,
+    containsFish: false,
+    containsSesame: false,
+    containsSoy: false,
+    containsEggs: false,
+    containsDairy: false,
+    containsNuts: false,
+    containsGluten: false
   });
 
   // Daily recommended values
@@ -102,7 +72,6 @@
     sodium: 2300 // in mg
   };
 
-  const nf = new Intl.NumberFormat('en-US');
   // Get ingredients that need nutrition data
   function getIngredientsNeedingMatching() {
     return recipe.ingredients.filter(
@@ -322,19 +291,28 @@
   }
 
   // Open the manual nutrition input dialog
-  function openManualInputDialog(ingredient: Ingredient) {
+  function openManualInputDialog(ingredient: RecipeNutrition) {
     selectedIngredient = ingredient;
 
     // Pre-fill existing values if they exist
     if (ingredient.ingredient) {
       manualNutritionData = {
-        calories: ingredient.ingredient.calories || 0,
-        protein: ingredient.ingredient.protein || 0,
-        carbohydrates: ingredient.ingredient.carbohydrates || 0,
-        fat: ingredient.ingredient.fat || 0,
-        fiber: ingredient.ingredient.fiber || 0,
-        sugar: ingredient.ingredient.sugar || 0,
-        sodium: ingredient.ingredient.sodium || 0
+        calories: ingredient.nutrition?.calories || 0,
+        protein: ingredient.nutrition?.protein || 0,
+        carbohydrates: ingredient.nutrition?.carbohydrates || 0,
+        fat: ingredient.nutrition?.fat || 0,
+        fiber: ingredient.nutrition?.fiber || 0,
+        sugar: ingredient.nutrition?.sugar || 0,
+        sodium: ingredient.nutrition?.sodium || 0,
+        // Always set allergen properties with defaults
+        containsGluten: ingredient.allergens?.containsGluten || false,
+        containsDairy: ingredient.allergens?.containsDairy || false,
+        containsNuts: ingredient.allergens?.containsNuts || false,
+        containsEggs: ingredient.allergens?.containsEggs || false,
+        containsSoy: ingredient.allergens?.containsSoy || false,
+        containsFish: ingredient.allergens?.containsFish || false,
+        containsShellfish: ingredient.allergens?.containsShellfish || false,
+        containsSesame: ingredient.allergens?.containsSesame || false
       };
     } else {
       // Reset to defaults
@@ -1098,6 +1076,48 @@
               bind:value={manualNutritionData.sodium}
             />
             <p class="text-xs text-muted-foreground">Typical range: 0-2000mg</p>
+          </div>
+        </div>
+
+        <!-- Allergen Section -->
+        <div class="pt-4 border-t border-gray-200">
+          <h3 class="text-sm font-medium mb-3">Allergen Information</h3>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="flex items-center space-x-2">
+              <Checkbox id="containsGluten" bind:checked={manualNutritionData.containsGluten} />
+              <Label for="containsGluten" class="text-sm font-normal">Contains Gluten</Label>
+            </div>
+            <div class="flex items-center space-x-2">
+              <Checkbox id="containsDairy" bind:checked={manualNutritionData.containsDairy} />
+              <Label for="containsDairy" class="text-sm font-normal">Contains Dairy</Label>
+            </div>
+            <div class="flex items-center space-x-2">
+              <Checkbox id="containsNuts" bind:checked={manualNutritionData.containsNuts} />
+              <Label for="containsNuts" class="text-sm font-normal">Contains Nuts</Label>
+            </div>
+            <div class="flex items-center space-x-2">
+              <Checkbox id="containsEggs" bind:checked={manualNutritionData.containsEggs} />
+              <Label for="containsEggs" class="text-sm font-normal">Contains Eggs</Label>
+            </div>
+            <div class="flex items-center space-x-2">
+              <Checkbox id="containsSoy" bind:checked={manualNutritionData.containsSoy} />
+              <Label for="containsSoy" class="text-sm font-normal">Contains Soy</Label>
+            </div>
+            <div class="flex items-center space-x-2">
+              <Checkbox id="containsFish" bind:checked={manualNutritionData.containsFish} />
+              <Label for="containsFish" class="text-sm font-normal">Contains Fish</Label>
+            </div>
+            <div class="flex items-center space-x-2">
+              <Checkbox
+                id="containsShellfish"
+                bind:checked={manualNutritionData.containsShellfish}
+              />
+              <Label for="containsShellfish" class="text-sm font-normal">Contains Shellfish</Label>
+            </div>
+            <div class="flex items-center space-x-2">
+              <Checkbox id="containsSesame" bind:checked={manualNutritionData.containsSesame} />
+              <Label for="containsSesame" class="text-sm font-normal">Contains Sesame</Label>
+            </div>
           </div>
         </div>
       </div>

@@ -7,13 +7,18 @@ const RecipeIngredientWithRelationSchema = zodSchemas.RecipeIngredientSchema.ext
   ingredient: zodSchemas.IngredientSchema,
 })
 
+const NutritionalInfoSchema = zodSchemas.RecipeNutritionSchema.omit({
+  id: true,
+  recipeId: true
+})
+
 const RecipeWithNutritionAndInstructionsAndIngredientsSchema = zodSchemas.RecipeSchema.extend({
-  nutritionalInfo: zodSchemas.RecipeNutritionSchema.nullable(),
+  nutritionalInfo: NutritionalInfoSchema.nullable(),
   instructions: z.array(zodSchemas.RecipeInstructionSchema),
   ingredients: z.array(RecipeIngredientWithRelationSchema),
 })
 
-type RecipeWithNutritionAndInstructionsAndIngredients = z.infer<typeof RecipeWithNutritionAndInstructionsAndIngredientsSchema>
+export type RecipeWithNutritionAndInstructionsAndIngredients = z.infer<typeof RecipeWithNutritionAndInstructionsAndIngredientsSchema>
 
 export class RecipeState {
   recipe = $state<RecipeWithNutritionAndInstructionsAndIngredients>({
@@ -33,10 +38,30 @@ export class RecipeState {
     publishedAt: null,
     language: 'en',
     skillLevel: 'INTERMEDIATE',
+    category: zodSchemas.CategorySchema.enum.MAIN_COURSE,
     // Relationships with empty arrays/null values
     ingredients: [],
     instructions: [],
-    nutritionalInfo: null,
+    nutritionalInfo: {
+      calories: 0,
+      protein: 0,
+      carbohydrates: 0,
+      fat: 0,
+      fiber: 0,
+      sugar: 0,
+      sodium: 0,
+      servingSize: 0,
+      servingUnit: 'gram',
+      // Initialize all allergen properties
+      containsGluten: false,
+      containsDairy: false,
+      containsNuts: false,
+      containsEggs: false,
+      containsSoy: false,
+      containsFish: false,
+      containsShellfish: false,
+      containsSesame: false,
+    },
   })
   currentStep: number = $state(1);
   completedSteps: number[] = $state([]);
