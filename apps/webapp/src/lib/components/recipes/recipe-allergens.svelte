@@ -73,8 +73,19 @@
   // Common allergens list
   const allergens = ['Gluten', 'Dairy', 'Nuts', 'Eggs', 'Soy', 'Fish', 'Shellfish', 'Sesame'];
 
+  // We actually want to display dietary restrictions as restrictions
+  // rather than suitability indicators
+
+  // Function to check if a restriction is present
+  function hasRestriction(name) {
+    if (!recipe.dietaryRestrictions) return false;
+    return recipe.dietaryRestrictions.some(
+      (restriction) => restriction.name.toLowerCase() === name.toLowerCase()
+    );
+  }
+
   // Format date helper
-  function formatDate(date) {
+  function formatDate(date: Date) {
     if (!date) return 'Not yet published';
     return new Date(date).toLocaleDateString('en-US', {
       year: 'numeric',
@@ -93,22 +104,28 @@
   </CardHeader>
 
   <CardContent>
+    <h4 class="text-sm font-medium text-gray-700 mb-3 flex items-center gap-2">
+      <Leaf class="h-4 w-4 text-red-600" />
+      Dietary Restrictions
+    </h4>
+
     {#if recipe.dietaryRestrictions && recipe.dietaryRestrictions.length > 0}
-      <div>
-        <h4 class="text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
-          <Leaf class="h-4 w-4 text-green-600" />
-          Suitable for:
-        </h4>
-        <div class="flex flex-wrap gap-2 mb-4">
+      <div class="mb-4">
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
           {#each recipe.dietaryRestrictions as restriction}
-            <Badge variant="outline" class="bg-green-50 text-green-700 border-green-200">
-              {restriction.name}
-            </Badge>
+            <div class="flex items-center gap-2 bg-red-50 border border-red-200 rounded-md p-2">
+              <span
+                class="flex-shrink-0 w-5 h-5 rounded-full bg-red-100 flex items-center justify-center"
+              >
+                <Leaf class="h-3 w-3 text-red-600" />
+              </span>
+              <span class="text-sm font-medium text-red-700">{restriction.name}</span>
+            </div>
           {/each}
         </div>
       </div>
     {:else}
-      <p class="text-sm text-gray-500 italic mb-4">No dietary information provided</p>
+      <p class="text-sm text-gray-500 italic mb-4">No dietary restrictions specified</p>
     {/if}
 
     <Separator class="my-3" />
@@ -127,7 +144,7 @@
         <div class="rounded-md border overflow-hidden">
           <button
             class={`w-full p-3 flex items-center justify-between ${status === true ? 'bg-red-50 border-red-200' : status === false ? 'bg-green-50 border-green-200' : 'bg-gray-50 border-gray-200'}`}
-            on:click={() => hasIngredients && toggleAllergen(allergen)}
+            onclick={() => hasIngredients && toggleAllergen(allergen)}
             aria-expanded={expandedAllergens[allergen]}
             disabled={!hasIngredients}
           >

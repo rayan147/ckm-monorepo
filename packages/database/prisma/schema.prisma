@@ -759,7 +759,7 @@ model CookBook {
 // Improve Recipe model relationships and indexing
 model Recipe {
   id           Int        @id @default(autoincrement())
-  name         String
+  name         String     @unique
   imageUrls    String[] // Changed from imageUrl for clarity
   description  String?
   servings     Int

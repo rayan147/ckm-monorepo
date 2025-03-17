@@ -510,3 +510,43 @@
   "service": "LoggingService",
   "timestamp": "2025-03-16T03:36:53.332Z"
 }
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 901 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 901: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-17T12:44:57.419Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 966 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 966: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-17T14:35:15.464Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 966 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 966: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-17T14:35:18.296Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 966 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 966: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-17T14:35:21.720Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 966 not found",
+  "level": "error",
+  "message": "Failed to fetch recipe with ID 966: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-17T14:35:34.717Z"
+}

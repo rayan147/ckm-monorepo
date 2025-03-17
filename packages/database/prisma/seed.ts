@@ -1,9 +1,8 @@
 import { faker } from '@faker-js/faker';
-import { ChecklistFrequency, ChecklistItemType, ChecklistStatus, ConstraintType, DayOfWeek, EquipmentStatus, FeedbackSource, FeedbackStatus, MaintenanceType, OrderStatus, PhotoType, PrepStatus, PrismaClient, ShiftStatus, TaskType, UserRole } from '@prisma/client'
-
+import { Category, ChecklistFrequency, ChecklistItemType, ChecklistStatus, ConstraintType, DayOfWeek, EquipmentStatus, FeedbackSource, FeedbackStatus, MaintenanceType, OrderStatus, PhotoType, PrepStatus, PrismaClient, ShiftStatus, TaskType, UserRole } from '@prisma/client'
+import { v4 as uuidv4 } from 'uuid';
 
 const prisma = new PrismaClient();
-
 // Helper function to get random enum value
 function getRandomEnumValue<T extends object>(enumObject: T): T[keyof T] {
   const enumValues = Object.values(enumObject);
@@ -82,31 +81,49 @@ async function createIngredient(vendorId: number) {
   });
 }
 
+
 // CookBook factory
 async function createCookBook() {
   return prisma.cookBook.create({
     data: {
-      name: faker.commerce.productName(),
+      name: `${getRandomEnumValue(Category)} Book`,
       imageUrl: faker.image.url(),
       category: faker.food.ethnicCategory(),
     },
   });
 }
 
-
 // Recipe factory
+// Recipe factory with simplified approach
 async function createRecipe(restaurantId: number, cookBookId: number) {
+  // Generate a completely unique name using UUID
+  const uniqueName = `Recipe-${uuidv4()}`;
+
   return prisma.recipe.create({
     data: {
-      name: faker.food.dish(),
-      imageUrls: Array.from({ length: 7 }, () => faker.image.urlPicsumPhotos()), // Generate 7 unique URLs
+      name: uniqueName,
+      imageUrls: Array.from({ length: 7 }, () => faker.image.urlPicsumPhotos()),
       description: faker.food.description(),
       servings: faker.number.int({ min: 1, max: 10 }),
       cookTime: faker.number.int({ min: 10, max: 120 }),
       prepTime: faker.number.int({ min: 10, max: 120 }),
-      restaurantId,
-      cookBookId,
-    },
+      restaurantId: restaurantId,
+      cookBookId: cookBookId,
+      tags: {
+        create: [
+          { name: `Tag-${uuidv4()}`, description: faker.food.description() },
+          { name: `Tag-${uuidv4()}`, description: faker.food.description() }
+        ]
+      },
+      dietaryRestrictions: {
+        create: [
+          {
+            name: `Diet-${uuidv4()}`,
+            description: faker.food.description(),
+          }
+        ]
+      }
+    }
   });
 }
 
@@ -426,7 +443,7 @@ function generateCookingInstruction(stepNumber: number) {
 // RecipeInstruction factory
 async function createRecipeInstruction(recipeId: number, stepNumber: number) {
   const instruction = generateCookingInstruction(stepNumber);
-  const imageUrl = faker.image.urlLoremFlickr({ category: 'food' });
+  const imageUrl = faker.image.urlPicsumPhotos()
 
   return prisma.recipeInstruction.create({
     data: {
@@ -950,9 +967,11 @@ async function cleanupDatabase() {
     .map((name) => `"public"."${name}"`)
     .join(', ');
 
+
   try {
     await prisma.$executeRawUnsafe(`TRUNCATE TABLE ${tables} CASCADE;`);
     console.log('Database cleaned up');
+    return tables
   } catch (error) {
     console.log('Error during cleanup:', { error });
   }
@@ -962,7 +981,28 @@ async function cleanupDatabase() {
 async function main() {
   // Cleanup database
   await cleanupDatabase();
+  console.log("Cleaning up database...");
 
+  // Clean up related tables first to avoid foreign key constraints
+  await prisma.recipeTag.deleteMany({});
+  await prisma.dietaryRestriction.deleteMany({});
+  // Delete any other dependent records
+
+  // Finally clean up recipes
+  await prisma.recipe.deleteMany({});
+
+  console.log("Database cleaned up");
+  // Verify cleanup
+  const tableCount = await prisma.$queryRaw`
+    SELECT COUNT(*) as count FROM (
+      SELECT COUNT(*) FROM pg_tables 
+      WHERE schemaname='public' 
+      AND tablename != '_prisma_migrations'
+    ) as tables;
+  `;
+
+  console.log('Database cleanup verification:', tableCount);
+  await new Promise(resolve => setTimeout(resolve, 2000));
   // Create an organization
   const organization = await createOrganization();
 

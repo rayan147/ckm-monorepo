@@ -27,6 +27,7 @@
 
   // Create recipe state instance
   const recipeState = $state(new RecipeState(data.recipe));
+  console.log({ data });
 
   // Set context for child components
   setRecipeContext(recipeState);

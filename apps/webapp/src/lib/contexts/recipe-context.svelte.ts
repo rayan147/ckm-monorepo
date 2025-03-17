@@ -7,6 +7,24 @@ const RecipeIngredientWithRelationSchema = zodSchemas.RecipeIngredientSchema.ext
   ingredient: zodSchemas.IngredientSchema,
 })
 
+const RecipeTags = zodSchemas.RecipeTagSchema.omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true
+})
+
+const DietaryRestrictionSchema = zodSchemas.DietaryRestrictionSchema.omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true
+})
+
+const CookBookSchema = zodSchemas.CookBookSchema.omit({
+  id: true,
+  restaurantId: true
+
+})
+
 const NutritionalInfoSchema = zodSchemas.RecipeNutritionSchema.omit({
   id: true,
   recipeId: true
@@ -16,12 +34,15 @@ const RecipeWithNutritionAndInstructionsAndIngredientsSchema = zodSchemas.Recipe
   nutritionalInfo: NutritionalInfoSchema.nullable(),
   instructions: z.array(zodSchemas.RecipeInstructionSchema),
   ingredients: z.array(RecipeIngredientWithRelationSchema),
+  tags: z.array(RecipeTags),
+  dietaryRestrictions: z.array(DietaryRestrictionSchema),
+  cookBook: CookBookSchema
 })
 
-export type RecipeWithNutritionAndInstructionsAndIngredients = z.infer<typeof RecipeWithNutritionAndInstructionsAndIngredientsSchema>
+export type RecipeIncludes = z.infer<typeof RecipeWithNutritionAndInstructionsAndIngredientsSchema>
 
 export class RecipeState {
-  recipe = $state<RecipeWithNutritionAndInstructionsAndIngredients>({
+  recipe = $state<RecipeIncludes>({
     id: 0,
     name: '',
     description: '',
@@ -62,6 +83,20 @@ export class RecipeState {
       containsShellfish: false,
       containsSesame: false,
     },
+    tags: [{
+      name: '',
+      description: ''
+    }],
+    dietaryRestrictions: [{
+      name: '',
+      description: '',
+      icon: '',
+    }],
+    cookBook: {
+      name: '',
+      category: '',
+      imageUrl: ''
+    }
   })
   currentStep: number = $state(1);
   completedSteps: number[] = $state([]);

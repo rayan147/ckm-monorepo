@@ -168,7 +168,9 @@ let RecipeService = class RecipeService {
                         tags: true,
                         laborCosts: true,
                         equipment: true,
-                        storage: true
+                        storage: true,
+                        cookBook: true,
+                        dietaryRestrictions: true,
                     },
                 }),
             ]);

@@ -2,7 +2,17 @@
   import { Input } from '$lib/components/ui/input/index.js';
   import { Button } from '$lib/components/ui/button/index.js';
   import { Badge } from '$lib/components/ui/badge/index.js';
-  import { Search, Plus, Trash2, Edit, Clock, DollarSign, Grid, List } from 'lucide-svelte';
+  import {
+    Search,
+    Plus,
+    Trash2,
+    Edit,
+    Clock,
+    DollarSign,
+    Grid,
+    List,
+    BookIcon
+  } from 'lucide-svelte';
   import * as Table from '$lib/components/ui/table';
   import * as Card from '$lib/components/ui/card';
   import * as Avatar from '$lib/components/ui/avatar';
@@ -19,10 +29,11 @@
   import Chef from '$lib/images/chef.svelte';
   import { browser } from '$app/environment';
   import { onMount } from 'svelte';
-  import type { Recipe } from '@ckm/db';
+  import type { RecipeIncludes } from '$lib/contexts/recipe-context.svelte';
+  import * as Tooltip from '$lib/components/ui/tooltip';
 
   interface RecipeData {
-    recipes: Recipe[];
+    recipes: RecipeIncludes[];
     pagination: {
       currentPage: number;
       perPage: number;
@@ -333,9 +344,15 @@
                           <h3 class="font-medium text-lg line-clamp-1 mb-1">{recipe.name}</h3>
 
                           {#if recipe.cookBook}
-                            <p class="text-sm text-muted-foreground mb-2 line-clamp-1">
-                              {recipe.cookBook.name}
-                            </p>
+                            {@const cookBook = recipe.cookBook}
+                            <div class="text-sm text-muted-foreground mb-2 line-clamp-1">
+                              <dt class="sr-only">Cook Book</dt>
+                              <BookIcon class="h-3 w-3 mr-1" aria-hidden="true" />
+                              <dd>{cookBook.name} {cookBook.category}</dd>
+                              <figure>
+                                <img src={cookBook.imageUrl} alt={cookBook.category} />
+                              </figure>
+                            </div>
                           {/if}
 
                           <dl
@@ -349,7 +366,11 @@
                             <div class="flex items-center">
                               <dt class="sr-only">Food Cost</dt>
                               <DollarSign class="h-3 w-3 mr-1" aria-hidden="true" />
-                              <dd>{formatPrice(recipe.foodCost)}</dd>
+                              {#if recipe.foodCost}
+                                <dd>{formatPrice(recipe.foodCost)}</dd>
+                              {:else}
+                                <dd>{formatPrice(0)}</dd>
+                              {/if}
                             </div>
                           </dl>
 
@@ -460,21 +481,72 @@
                         >
                           <Avatar.Root class="h-10 w-10 rounded-md overflow-hidden flex-shrink-0">
                             {#if recipe.imageUrls && recipe.imageUrls.length > 0}
-                              <Avatar.Image src={recipe.imageUrls[0]} alt="" />
+                              <Avatar.Image
+                                src={recipe.imageUrls[0]}
+                                alt={`Image of ${recipe.name}`}
+                              />
                             {/if}
                             <Avatar.Fallback class="bg-muted">
                               <Chef class="h-5 w-5 text-muted-foreground" aria-hidden="true" />
                             </Avatar.Fallback>
                           </Avatar.Root>
-                          <div>
-                            <div class="font-medium">{recipe.name}</div>
-                            <div class="text-sm text-muted-foreground">
-                              {#if recipe.cookBook}
-                                {recipe.cookBook.name}
-                              {:else}
-                                Uncategorized
-                              {/if}
-                            </div>
+
+                          <div class="min-w-0 flex-1">
+                            <div class="font-medium text-sm">{recipe.name}</div>
+
+                            <!-- Improved Cookbook Display -->
+                            {#if recipe.cookBook}
+                              <div class="mt-0.5 flex items-center">
+                                <BookIcon
+                                  class="h-3 w-3 mr-1 text-muted-foreground flex-shrink-0"
+                                  aria-hidden="true"
+                                />
+                                <Tooltip.Provider>
+                                  <Tooltip.Root>
+                                    <Tooltip.Trigger>
+                                      <div class="flex items-center gap-x-1 max-w-[200px]">
+                                        <span class="text-xs text-muted-foreground truncate"
+                                          >{recipe.cookBook.name}</span
+                                        >
+                                        <span
+                                          class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-secondary-foreground whitespace-nowrap"
+                                        >
+                                          {recipe.cookBook.category}
+                                        </span>
+                                      </div>
+                                    </Tooltip.Trigger>
+                                    <Tooltip.Content
+                                      side="bottom"
+                                      sideOffset={5}
+                                      class="p-0 overflow-hidden"
+                                    >
+                                      <div
+                                        class="bg-card border rounded-lg shadow-md p-3 w-[250px]"
+                                      >
+                                        <div class="flex items-start gap-3">
+                                          {#if recipe.cookBook.imageUrl}
+                                            <img
+                                              src={recipe.cookBook.imageUrl}
+                                              alt={recipe.cookBook.name}
+                                              class="h-16 w-16 object-cover rounded-md flex-shrink-0"
+                                            />
+                                          {/if}
+                                          <div>
+                                            <div class="font-medium">{recipe.cookBook.name}</div>
+                                            <div class="text-xs text-muted-foreground mt-1">
+                                              <span class="font-semibold">Category:</span>
+                                              {recipe.cookBook.category}
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </Tooltip.Content>
+                                  </Tooltip.Root>
+                                </Tooltip.Provider>
+                              </div>
+                            {:else}
+                              <div class="text-xs text-muted-foreground mt-0.5">Uncategorized</div>
+                            {/if}
                           </div>
                         </button>
                       </Table.Cell>
@@ -502,29 +574,51 @@
                       </Table.Cell>
                       <Table.Cell class="w-[100px]">
                         <div class="flex items-center justify-end gap-2">
-                          <Button
-                            type="button"
-                            variant="ghost"
-                            size="icon"
-                            class="h-8 w-8 text-destructive hover:text-destructive hover:bg-destructive/10"
-                            onclick={(e) => confirmDelete(recipe, e)}
-                            aria-label={`Delete ${recipe.name}`}
-                          >
-                            <Trash2 class="h-4 w-4" aria-hidden="true" />
-                          </Button>
-                          <Button
-                            type="button"
-                            variant="ghost"
-                            size="icon"
-                            class="h-8 w-8"
-                            onclick={(e) => {
-                              e.stopPropagation();
-                              navigateToRecipeDetails(recipe.id);
-                            }}
-                            aria-label={`Edit ${recipe.name}`}
-                          >
-                            <Edit class="h-4 w-4" aria-hidden="true" />
-                          </Button>
+                          <Tooltip.Provider>
+                            <Tooltip.Root>
+                              <Tooltip.Trigger>
+                                <Button
+                                  type="button"
+                                  variant="ghost"
+                                  size="icon"
+                                  class="h-8 w-8 text-destructive hover:text-destructive hover:bg-destructive/10"
+                                  onclick={(e) => {
+                                    e.stopPropagation();
+                                    confirmDelete(recipe, e);
+                                  }}
+                                  aria-label={`Delete ${recipe.name}`}
+                                >
+                                  <Trash2 class="h-4 w-4" aria-hidden="true" />
+                                </Button>
+                              </Tooltip.Trigger>
+                              <Tooltip.Content>
+                                <p>Delete recipe</p>
+                              </Tooltip.Content>
+                            </Tooltip.Root>
+                          </Tooltip.Provider>
+
+                          <Tooltip.Provider>
+                            <Tooltip.Root>
+                              <Tooltip.Trigger>
+                                <Button
+                                  type="button"
+                                  variant="ghost"
+                                  size="icon"
+                                  class="h-8 w-8"
+                                  onclick={(e) => {
+                                    e.stopPropagation();
+                                    navigateToRecipeDetails(recipe.id);
+                                  }}
+                                  aria-label={`Edit ${recipe.name}`}
+                                >
+                                  <Edit class="h-4 w-4" aria-hidden="true" />
+                                </Button>
+                              </Tooltip.Trigger>
+                              <Tooltip.Content>
+                                <p>Edit recipe</p>
+                              </Tooltip.Content>
+                            </Tooltip.Root>
+                          </Tooltip.Provider>
                         </div>
                       </Table.Cell>
                     </Table.Row>

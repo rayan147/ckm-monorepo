@@ -1,149 +1,127 @@
 <!-- src/lib/recipe/components/CurrentStep.svelte -->
 <script lang="ts">
-  import { Button } from '$lib/components/ui/button';
   import { AspectRatio } from '$lib/components/ui/aspect-ratio';
-  import { ArrowLeft, ArrowRight, Clock, Check, CheckCircle, AlertTriangle } from 'lucide-svelte';
+  import * as Accordion from '$lib/components/ui/accordion/index.js';
   import { getRecipeContext } from '$lib/contexts/recipe-context.svelte';
-  import StepDetails from './step-details.svelte';
-  import StepTips from './step-tips.svelte';
 
   const recipeState = getRecipeContext();
   const recipe = recipeState.recipe;
 
-  const instruction = recipe.instructions[recipeState.currentStep - 1];
-
-  // Helper function to check if a step is completed
-  function isStepCompleted(stepNumber: number): boolean {
-    return recipeState.completedSteps.includes(stepNumber);
-  }
+  // Make sure we have a default value for the accordion
+  let defaultOpenStep = `step-1`;
 </script>
 
-{#if instruction}
-  <div
-    id={`step-${recipeState.currentStep}`}
-    class="p-5 rounded-lg border border-gray-200 instruction-step transition-all duration-200 mb-8 ring-2 ring-primary ring-offset-2"
-  >
-    <!-- Step header -->
-    <div class="flex items-center justify-between mb-4">
-      <h4 class="text-lg font-semibold flex items-center gap-2">
-        <span
-          class={`flex items-center justify-center w-8 h-8 rounded-full text-sm 
-          ${
-            isStepCompleted(recipeState.currentStep)
-              ? 'bg-green-500 text-white'
-              : 'bg-gray-100 text-gray-700'
-          }`}
-        >
-          {isStepCompleted(recipeState.currentStep)
-            ? '✓'
-            : instruction.stepNumber || recipeState.currentStep}
-        </span>
-        <span>Step {instruction.stepNumber || recipeState.currentStep}</span>
+<div class="recipe-steps-accordion">
+  {#if recipe.instructions && recipe.instructions.length > 0}
+    <Accordion.Root type="single" value={defaultOpenStep} class="w-full">
+      {#each recipe.instructions as instruction, index}
+        {@const stepNumber = index + 1}
 
-        {#if instruction.isCritical}
-          <span
-            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800 ml-2"
+        <Accordion.Item
+          value={`step-${stepNumber}`}
+          class="mb-3 border border-gray-200 rounded-lg overflow-hidden hover:border-gray-300 transition-colors"
+        >
+          <Accordion.Trigger
+            class="px-5 py-4 w-full flex items-center justify-between bg-gray-50/50 hover:bg-gray-50 transition-colors"
           >
-            <AlertTriangle class="h-3 w-3 mr-1" />
-            Critical
-          </span>
-        {/if}
-      </h4>
+            <div class="flex items-center gap-3">
+              <span
+                class="flex items-center justify-center w-8 h-8 rounded-full text-sm bg-primary/10 text-primary font-medium"
+              >
+                {stepNumber}
+              </span>
+              <span class="font-medium text-gray-900">Step {stepNumber}</span>
+            </div>
+          </Accordion.Trigger>
 
-      <!-- Step action buttons -->
-      <div class="flex gap-2">
-        {#if instruction.timeInMinutes}
-          <Button
-            variant="outline"
-            size="sm"
-            onclick={() => recipeState.startTimer(instruction.timeInMinutes)}
-          >
-            <Clock class="h-4 w-4 mr-1" />
-            Set Timer
-          </Button>
-        {/if}
+          <Accordion.Content class="px-5 pb-5 pt-2 bg-white">
+            <!-- Step instruction -->
+            <p class="mb-4 text-gray-700">{instruction.instruction}</p>
 
-        <Button
-          variant={isStepCompleted(recipeState.currentStep) ? 'outline' : 'default'}
-          size="sm"
-          onclick={() => recipeState.markStepComplete(recipeState.currentStep)}
-        >
-          <CheckCircle class="h-4 w-4 mr-1" />
-          {isStepCompleted(recipeState.currentStep) ? 'Completed' : 'Mark Complete'}
-        </Button>
-      </div>
+            <!-- Step image (if available) -->
+            {#if instruction.imageUrl}
+              {console.log({ instruction })}
+              <figure class="mb-4 overflow-hidden rounded-lg border border-gray-100">
+                <AspectRatio ratio={16 / 9} class="bg-muted overflow-hidden rounded-md">
+                  <img
+                    src={instruction.imageUrl}
+                    alt={`Visual guide for step ${stepNumber}`}
+                    class="h-full w-full object-cover"
+                  />
+                </AspectRatio>
+                <figcaption class="mt-2 text-sm text-gray-500 text-center p-2 bg-gray-50 border-t">
+                  Visual guide for Step {stepNumber}
+                </figcaption>
+              </figure>
+            {/if}
+
+            <!-- Additional step details (if available) -->
+            {#if instruction.details || instruction.timeInMinutes || instruction.temperature}
+              <div class="mt-3 p-3 bg-gray-50 rounded-md text-sm text-gray-700">
+                {#if instruction.timeInMinutes}
+                  <div class="flex items-center gap-2 mb-1">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="text-gray-500"
+                      ><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg
+                    >
+                    <span>Time: {instruction.timeInMinutes} minutes</span>
+                  </div>
+                {/if}
+
+                {#if instruction.temperature}
+                  <div class="flex items-center gap-2 mb-1">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="text-gray-500"
+                      ><path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z" /></svg
+                    >
+                    <span>Temperature: {instruction.temperature}°</span>
+                  </div>
+                {/if}
+
+                {#if instruction.details}
+                  <div class="mt-1">{instruction.details}</div>
+                {/if}
+              </div>
+            {/if}
+
+            <!-- Tips (if available) -->
+            {#if instruction.tips && instruction.tips.length > 0}
+              <div class="mt-4 pt-3 border-t border-gray-100">
+                <h5 class="text-sm font-medium text-gray-900 mb-2">Helpful Tips:</h5>
+                <ul class="list-disc pl-5 text-sm text-gray-700 space-y-1">
+                  {#each instruction.tips as tip}
+                    <li>{tip}</li>
+                  {/each}
+                </ul>
+              </div>
+            {/if}
+          </Accordion.Content>
+        </Accordion.Item>
+      {/each}
+    </Accordion.Root>
+  {:else}
+    <div
+      class="text-center py-8 text-gray-500 italic border border-dashed border-gray-200 rounded-lg p-6"
+    >
+      <p>No recipe instructions available</p>
     </div>
-
-    <!-- Step instruction -->
-    <p class="mb-4 text-gray-700">{instruction.instruction}</p>
-
-    <!-- Step image -->
-    {#if instruction.imageUrl}
-      <figure class="mb-4 overflow-hidden rounded-lg">
-        <button
-          class="w-full cursor-zoom-in block"
-          onclick={() =>
-            recipeState.openImageModal(
-              instruction.imageUrl,
-              `Step ${instruction.stepNumber || recipeState.currentStep}`
-            )}
-        >
-          <AspectRatio ratio={16 / 9} class="bg-muted overflow-hidden rounded-md">
-            <img
-              src={instruction.imageUrl}
-              alt={`Visual guide for step ${instruction.stepNumber || recipeState.currentStep}`}
-              class="h-full w-full object-cover hover:scale-105 transition-transform duration-300"
-            />
-          </AspectRatio>
-        </button>
-        <figcaption class="mt-2 text-sm text-gray-500 text-center">
-          Step {instruction.stepNumber || recipeState.currentStep} visual guide
-        </figcaption>
-      </figure>
-    {/if}
-
-    <!-- Step details (time & temperature) -->
-    <StepDetails {instruction} />
-
-    <!-- Step tips -->
-    <StepTips {instruction} />
-
-    <!-- Step navigation -->
-    <div class="flex justify-between gap-2 mt-6">
-      <Button
-        variant="outline"
-        disabled={recipeState.currentStep === 1}
-        onclick={() => recipeState.previousStep()}
-      >
-        <ArrowLeft class="h-4 w-4 mr-1" />
-        Previous
-      </Button>
-
-      {#if recipeState.currentStep < recipe.instructions.length}
-        <Button
-          variant="default"
-          onclick={() => {
-            // First mark current step as complete
-            recipeState.markStepComplete(recipeState.currentStep);
-            // Then move to next step
-            recipeState.nextStep();
-          }}
-        >
-          Complete & Continue
-          <ArrowRight class="h-4 w-4 ml-1" />
-        </Button>
-      {:else}
-        <Button
-          variant="default"
-          onclick={() => {
-            recipeState.markStepComplete(recipeState.currentStep);
-            recipeState.finishRecipe();
-          }}
-        >
-          <Check class="h-4 w-4 mr-1" />
-          Finish Recipe
-        </Button>
-      {/if}
-    </div>
-  </div>
-{/if}
+  {/if}
+</div>

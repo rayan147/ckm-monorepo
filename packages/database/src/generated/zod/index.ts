@@ -6861,15 +6861,24 @@ export const RecipeOrderByWithRelationInputSchema: z.ZodType<Prisma.RecipeOrderB
   recipeStats: z.lazy(() => RecipeStatsOrderByWithRelationInputSchema).optional()
 }).strict();
 
-export const RecipeWhereUniqueInputSchema: z.ZodType<Prisma.RecipeWhereUniqueInput> = z.object({
-  id: z.number().int()
-})
+export const RecipeWhereUniqueInputSchema: z.ZodType<Prisma.RecipeWhereUniqueInput> = z.union([
+  z.object({
+    id: z.number().int(),
+    name: z.string()
+  }),
+  z.object({
+    id: z.number().int(),
+  }),
+  z.object({
+    name: z.string(),
+  }),
+])
 .and(z.object({
   id: z.number().int().optional(),
+  name: z.string().optional(),
   AND: z.union([ z.lazy(() => RecipeWhereInputSchema),z.lazy(() => RecipeWhereInputSchema).array() ]).optional(),
   OR: z.lazy(() => RecipeWhereInputSchema).array().optional(),
   NOT: z.union([ z.lazy(() => RecipeWhereInputSchema),z.lazy(() => RecipeWhereInputSchema).array() ]).optional(),
-  name: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
   imageUrls: z.lazy(() => StringNullableListFilterSchema).optional(),
   description: z.union([ z.lazy(() => StringNullableFilterSchema),z.string() ]).optional().nullable(),
   servings: z.union([ z.lazy(() => IntFilterSchema),z.number().int() ]).optional(),
