@@ -7,6 +7,18 @@ const RecipeIngredientWithRelationSchema = zodSchemas.RecipeIngredientSchema.ext
   ingredient: zodSchemas.IngredientSchema,
 })
 
+const RecipeCriticalPointSchema = zodSchemas.RecipeCriticalPointSchema.omit({
+  id: true,
+  recipeId: true,
+  createdAt: true,
+  updatedAt: true
+})
+
+const RecipeEquipmentSchema = zodSchemas.RecipeEquipmentSchema.omit({
+  id: true,
+  recipeId: true
+})
+
 const RecipeTags = zodSchemas.RecipeTagSchema.omit({
   id: true,
   createdAt: true,
@@ -36,7 +48,9 @@ const RecipeWithNutritionAndInstructionsAndIngredientsSchema = zodSchemas.Recipe
   ingredients: z.array(RecipeIngredientWithRelationSchema),
   tags: z.array(RecipeTags),
   dietaryRestrictions: z.array(DietaryRestrictionSchema),
-  cookBook: CookBookSchema
+  cookBook: CookBookSchema,
+  equiments: z.array(RecipeEquipmentSchema),
+  criticalPoints: z.array(RecipeCriticalPointSchema)
 })
 
 export type RecipeIncludes = z.infer<typeof RecipeWithNutritionAndInstructionsAndIngredientsSchema>
@@ -96,7 +110,26 @@ export class RecipeState {
       name: '',
       category: '',
       imageUrl: ''
-    }
+    },
+    equiments: [{
+      notes: '',
+      equipmentId: 1,
+      recipeInstructionId: 1,
+
+    }],
+    criticalPoints: [
+      {
+        stepNumber: 0,
+        description: '',
+        unit: '',
+        action: '',
+        threshold: 5,
+
+
+
+      }
+    ]
+
   })
   currentStep: number = $state(1);
   completedSteps: number[] = $state([]);
@@ -111,7 +144,7 @@ export class RecipeState {
   currentImageAlt: string = $state('')
   showCompletionModal: boolean = $state(false)
 
-  constructor(recipe: RecipeWithNutritionAndInstructionsAndIngredients) {
+  constructor(recipe: RecipeIncludes) {
     this.recipe = recipe;
   }
 

@@ -20,14 +20,80 @@ let UsdaApiService = class UsdaApiService {
         this.envService = envService;
         this.baseUrl = 'https://api.nal.usda.gov/fdc/v1';
         this.allergenKeywords = {
-            gluten: ['wheat', 'barley', 'rye', 'gluten', 'bread', 'pasta', 'flour'],
-            dairy: ['milk', 'cheese', 'yogurt', 'cream', 'butter', 'dairy', 'lactose', 'whey'],
-            nuts: ['nuts', 'almond', 'walnut', 'pecan', 'cashew', 'pistachio', 'hazelnut', 'peanut', 'macadamia'],
-            eggs: ['egg', 'eggs', 'yolk', 'albumin'],
-            soy: ['soy', 'soya', 'tofu', 'edamame'],
-            fish: ['fish', 'salmon', 'tuna', 'cod', 'tilapia', 'halibut', 'trout'],
-            shellfish: ['shellfish', 'shrimp', 'crab', 'lobster', 'prawn', 'clam', 'oyster', 'mussel', 'scallop'],
-            sesame: ['sesame', 'tahini']
+            gluten: [
+                'wheat', 'barley', 'rye', 'spelt', 'kamut', 'triticale', 'farro', 'durum', 'semolina',
+                'gluten', 'flour', 'bread', 'pasta', 'noodle', 'couscous', 'bulgur', 'seitan',
+                'muesli', 'granola', 'cereal', 'cracker', 'biscuit', 'cookie', 'cake', 'pastry', 'pie',
+                'pizza', 'pretzel', 'croissant', 'bagel', 'muffin', 'pancake', 'waffle', 'bun',
+                'breadcrumb', 'crouton', 'tortilla', 'flatbread', 'doughnut', 'brioche', 'pita',
+                'malt', 'brewer', 'beer', 'ale', 'lager', 'stout', 'batter', 'breading',
+                'gravy', 'custard', 'pudding', 'stuffing', 'panko', 'breadstick',
+                'bran', 'germ', 'wheat germ', 'oat', 'oats', 'oatmeal',
+                'hydrolyzed wheat protein', 'modified food starch', 'maltodextrin'
+            ],
+            dairy: [
+                'milk', 'cream', 'butter', 'cheese', 'yogurt', 'whey', 'lactose', 'casein', 'caseinate',
+                'dairy', 'buttermilk', 'ghee', 'pudding',
+                'cheddar', 'mozzarella', 'parmesan', 'feta', 'gouda', 'brie', 'ricotta', 'cottage cheese',
+                'mascarpone', 'cream cheese', 'blue cheese', 'gorgonzola', 'swiss', 'provolone',
+                'ice cream', 'gelato', 'custard', 'milkshake', 'kefir', 'quark', 'skyr',
+                'half and half', 'sour cream', 'curds', 'lassi', 'condensed milk',
+                'evaporated milk', 'powdered milk', 'dulce de leche'
+            ],
+            nuts: [
+                'nut', 'almond', 'cashew', 'pecan', 'walnut', 'hazelnut', 'pistachio', 'macadamia',
+                'pine nut', 'brazil nut', 'chestnut', 'beechnut', 'hickory nut', 'peanut',
+                'nutella', 'nougat', 'praline', 'marzipan', 'frangipane',
+                'almond paste', 'almond milk', 'almond flour', 'almond butter',
+                'cashew milk', 'cashew butter', 'walnut oil', 'pecan pie',
+                'mixed nuts', 'trail mix', 'nut butter', 'nut milk',
+                'coconut', 'coconut milk', 'coconut water', 'coconut cream', 'coconut oil', 'coconut flour'
+            ],
+            eggs: [
+                'egg', 'eggs', 'yolk', 'white', 'albumin', 'meringue', 'mayonnaise',
+                'omelet', 'frittata', 'quiche', 'custard', 'pudding', 'flan',
+                'ice cream', 'gelato', 'aioli', 'hollandaise', 'béarnaise',
+                'eggnog', 'merengue', 'souffle', 'mousse',
+                'cake', 'cookie', 'muffin', 'pancake', 'waffle', 'crepe', 'french toast',
+                'brioche', 'challah', 'pastry',
+                'lecithin', 'lysozyme', 'globulin', 'ovoglobulin', 'ovomucin', 'ovovitellin',
+                'vitellin', 'livetin', 'ovalbumin'
+            ],
+            soy: [
+                'soy', 'soya', 'tofu', 'edamame', 'miso', 'tempeh', 'natto', 'soy milk',
+                'soy sauce', 'tamari', 'soy flour', 'soybean', 'soy protein', 'textured vegetable protein',
+                'tvp', 'tsp', 'soy lecithin',
+                'doenjang', 'doubanjiang', 'gochujang', 'cheonggukjang',
+                'teriyaki', 'shoyu', 'hoisin', 'oyster sauce', 'seitan', 'mock meat',
+                'vegetarian meat', 'plant-based meat',
+                'hydrolyzed vegetable protein', 'vegetable broth', 'vegetable starch',
+                'vegetable protein', 'lecithin', 'emulsifier'
+            ],
+            fish: [
+                'fish', 'salmon', 'tuna', 'trout', 'cod', 'halibut', 'haddock', 'mackerel', 'herring',
+                'sardine', 'anchovy', 'tilapia', 'bass', 'snapper', 'flounder', 'sole', 'perch',
+                'mahi mahi', 'swordfish', 'catfish', 'whitefish',
+                'caviar', 'roe', 'fish sauce', 'fish paste', 'surimi', 'furikake', 'bonito',
+                'katsuobushi', 'dashi', 'caesar dressing', 'worcestershire sauce',
+                'canned tuna', 'canned salmon', 'canned sardines', 'canned anchovies'
+            ],
+            shellfish: [
+                'shellfish', 'shrimp', 'prawn', 'crab', 'lobster', 'crayfish', 'crawfish',
+                'langoustine', 'krill',
+                'clam', 'mussel', 'oyster', 'scallop', 'squid', 'calamari', 'octopus',
+                'abalone', 'snail', 'escargot', 'periwinkle', 'conch', 'whelk',
+                'seafood', 'bisque', 'chowder', 'bouillabaisse', 'paella', 'cioppino',
+                'frutti di mare', 'crab cake', 'shrimp paste', 'fish sauce', 'nam pla', 'patis',
+                'crab stick', 'surimi'
+            ],
+            sesame: [
+                'sesame', 'tahini', 'sesame oil', 'sesame seed', 'sesame paste', 'sesame flour',
+                'sesame butter', 'goma', 'benne seed',
+                'hummus', 'baba ghanoush', 'halva', 'falafel', 'za\'atar', 'seeded bread',
+                'everything bagel', 'sesame bagel', 'tahini sauce', 'sesame dressing',
+                'sesame snaps', 'sesame candy', 'halvah', 'gomashio', 'furikake',
+                'sesame chicken', 'sesame noodles', 'burger bun', 'hamburger bun'
+            ]
         };
         this.apiKey = this.envService.get('USDA_API_KEY');
         if (!this.apiKey) {

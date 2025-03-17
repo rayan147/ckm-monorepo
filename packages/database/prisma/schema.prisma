@@ -791,7 +791,7 @@ model Recipe {
   withdrawals         InventoryWithdrawal[]
   tags                RecipeTag[]
   versions            RecipeVersion[]
-  equipment           RecipeEquipment[]
+  equipments          RecipeEquipment[]
   dietaryRestrictions DietaryRestriction[]
   temperatures        RecipeTemperature[]
   yields              RecipeYield[]

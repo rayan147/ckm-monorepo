@@ -1,9 +1,20 @@
-<!-- src/lib/recipe/RecipeHeader.svelte -->
+<!-- src/lib/components/recipes/recipe-header.svelte -->
 <script lang="ts">
   import { Button } from '$lib/components/ui/button';
   import { ArrowLeft, Heart, Printer, Share2 } from 'lucide-svelte';
+  import { getRecipeContext } from '$lib/contexts/recipe-context.svelte';
+  import { printRecipe } from './print-recipe';
 
+  // Get props
   let { goBack } = $props();
+
+  // Get recipe from context
+  const recipeState = getRecipeContext();
+
+  // Function to handle print button click
+  function handlePrintClick() {
+    printRecipe(recipeState.recipe);
+  }
 </script>
 
 <header class="flex justify-between items-center mb-8">
@@ -18,7 +29,6 @@
       <ArrowLeft class="h-5 w-5" aria-hidden="true" />
     </Button>
   </nav>
-
   <nav aria-label="Recipe actions">
     <ul class="flex items-center gap-4">
       <li>
@@ -36,6 +46,7 @@
         <Button
           variant="outline"
           size="sm"
+          onclick={handlePrintClick}
           class="flex items-center gap-1 hover:bg-primary/10 transition-colors rounded-lg"
           aria-label="Print recipe"
         >

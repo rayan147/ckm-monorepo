@@ -49,14 +49,135 @@ export class UsdaApiService {
   private readonly apiKey: string;
   private readonly baseUrl: string = 'https://api.nal.usda.gov/fdc/v1';
   private readonly allergenKeywords = {
-    gluten: ['wheat', 'barley', 'rye', 'gluten', 'bread', 'pasta', 'flour'],
-    dairy: ['milk', 'cheese', 'yogurt', 'cream', 'butter', 'dairy', 'lactose', 'whey'],
-    nuts: ['nuts', 'almond', 'walnut', 'pecan', 'cashew', 'pistachio', 'hazelnut', 'peanut', 'macadamia'],
-    eggs: ['egg', 'eggs', 'yolk', 'albumin'],
-    soy: ['soy', 'soya', 'tofu', 'edamame'],
-    fish: ['fish', 'salmon', 'tuna', 'cod', 'tilapia', 'halibut', 'trout'],
-    shellfish: ['shellfish', 'shrimp', 'crab', 'lobster', 'prawn', 'clam', 'oyster', 'mussel', 'scallop'],
-    sesame: ['sesame', 'tahini']
+    gluten: [
+      // Basic gluten sources
+      'wheat', 'barley', 'rye', 'spelt', 'kamut', 'triticale', 'farro', 'durum', 'semolina',
+      'gluten', 'flour', 'bread', 'pasta', 'noodle', 'couscous', 'bulgur', 'seitan',
+
+      // Common gluten-containing foods
+      'muesli', 'granola', 'cereal', 'cracker', 'biscuit', 'cookie', 'cake', 'pastry', 'pie',
+      'pizza', 'pretzel', 'croissant', 'bagel', 'muffin', 'pancake', 'waffle', 'bun',
+      'breadcrumb', 'crouton', 'tortilla', 'flatbread', 'doughnut', 'brioche', 'pita',
+
+      // Ingredients often containing gluten
+      'malt', 'brewer', 'beer', 'ale', 'lager', 'stout', 'batter', 'breading',
+      'gravy', 'custard', 'pudding', 'stuffing', 'panko', 'breadstick',
+
+      // Cereal grains that often contain gluten
+      'bran', 'germ', 'wheat germ', 'oat', 'oats', 'oatmeal',
+
+      // Industrial food additives
+      'hydrolyzed wheat protein', 'modified food starch', 'maltodextrin'
+    ],
+
+    dairy: [
+      // Basic dairy sources
+      'milk', 'cream', 'butter', 'cheese', 'yogurt', 'whey', 'lactose', 'casein', 'caseinate',
+      'dairy', 'buttermilk', 'ghee', 'pudding',
+
+      // Cheese varieties
+      'cheddar', 'mozzarella', 'parmesan', 'feta', 'gouda', 'brie', 'ricotta', 'cottage cheese',
+      'mascarpone', 'cream cheese', 'blue cheese', 'gorgonzola', 'swiss', 'provolone',
+
+      // Milk products
+      'ice cream', 'gelato', 'custard', 'milkshake', 'kefir', 'quark', 'skyr',
+      'half and half', 'sour cream', 'curds', 'lassi', 'condensed milk',
+      'evaporated milk', 'powdered milk', 'dulce de leche'
+    ],
+
+    nuts: [
+      // Common nuts
+      'nut', 'almond', 'cashew', 'pecan', 'walnut', 'hazelnut', 'pistachio', 'macadamia',
+      'pine nut', 'brazil nut', 'chestnut', 'beechnut', 'hickory nut', 'peanut',
+
+      // Nut products & derivatives
+      'nutella', 'nougat', 'praline', 'marzipan', 'frangipane',
+      'almond paste', 'almond milk', 'almond flour', 'almond butter',
+      'cashew milk', 'cashew butter', 'walnut oil', 'pecan pie',
+
+      // Other common terms
+      'mixed nuts', 'trail mix', 'nut butter', 'nut milk',
+
+      // Coconut products (often classified as tree nuts for allergy purposes)
+      'coconut', 'coconut milk', 'coconut water', 'coconut cream', 'coconut oil', 'coconut flour'
+    ],
+
+    eggs: [
+      // Basic egg terms
+      'egg', 'eggs', 'yolk', 'white', 'albumin', 'meringue', 'mayonnaise',
+
+      // Foods commonly containing eggs
+      'omelet', 'frittata', 'quiche', 'custard', 'pudding', 'flan',
+      'ice cream', 'gelato', 'aioli', 'hollandaise', 'béarnaise',
+      'eggnog', 'merengue', 'souffle', 'mousse',
+
+      // Baked goods with eggs
+      'cake', 'cookie', 'muffin', 'pancake', 'waffle', 'crepe', 'french toast',
+      'brioche', 'challah', 'pastry',
+
+      // Hidden egg ingredients
+      'lecithin', 'lysozyme', 'globulin', 'ovoglobulin', 'ovomucin', 'ovovitellin',
+      'vitellin', 'livetin', 'ovalbumin'
+    ],
+
+    soy: [
+      // Basic soy products
+      'soy', 'soya', 'tofu', 'edamame', 'miso', 'tempeh', 'natto', 'soy milk',
+      'soy sauce', 'tamari', 'soy flour', 'soybean', 'soy protein', 'textured vegetable protein',
+      'tvp', 'tsp', 'soy lecithin',
+
+      // Fermented soy products
+      'doenjang', 'doubanjiang', 'gochujang', 'cheonggukjang',
+
+      // Asian foods often containing soy
+      'teriyaki', 'shoyu', 'hoisin', 'oyster sauce', 'seitan', 'mock meat',
+      'vegetarian meat', 'plant-based meat',
+
+      // Hidden soy ingredients
+      'hydrolyzed vegetable protein', 'vegetable broth', 'vegetable starch',
+      'vegetable protein', 'lecithin', 'emulsifier'
+    ],
+
+    fish: [
+      // Common fish
+      'fish', 'salmon', 'tuna', 'trout', 'cod', 'halibut', 'haddock', 'mackerel', 'herring',
+      'sardine', 'anchovy', 'tilapia', 'bass', 'snapper', 'flounder', 'sole', 'perch',
+      'mahi mahi', 'swordfish', 'catfish', 'whitefish',
+
+      // Fish products
+      'caviar', 'roe', 'fish sauce', 'fish paste', 'surimi', 'furikake', 'bonito',
+      'katsuobushi', 'dashi', 'caesar dressing', 'worcestershire sauce',
+
+      // Canned fish
+      'canned tuna', 'canned salmon', 'canned sardines', 'canned anchovies'
+    ],
+
+    shellfish: [
+      // Crustaceans
+      'shellfish', 'shrimp', 'prawn', 'crab', 'lobster', 'crayfish', 'crawfish',
+      'langoustine', 'krill',
+
+      // Mollusks
+      'clam', 'mussel', 'oyster', 'scallop', 'squid', 'calamari', 'octopus',
+      'abalone', 'snail', 'escargot', 'periwinkle', 'conch', 'whelk',
+
+      // Shellfish products
+      'seafood', 'bisque', 'chowder', 'bouillabaisse', 'paella', 'cioppino',
+      'frutti di mare', 'crab cake', 'shrimp paste', 'fish sauce', 'nam pla', 'patis',
+      'crab stick', 'surimi'
+    ],
+
+    sesame: [
+      // Basic sesame products
+      'sesame', 'tahini', 'sesame oil', 'sesame seed', 'sesame paste', 'sesame flour',
+      'sesame butter', 'goma', 'benne seed',
+
+      // Foods commonly containing sesame
+      'hummus', 'baba ghanoush', 'halva', 'falafel', 'za\'atar', 'seeded bread',
+      'everything bagel', 'sesame bagel', 'tahini sauce', 'sesame dressing',
+      'sesame snaps', 'sesame candy', 'halvah', 'gomashio', 'furikake',
+      'sesame chicken', 'sesame noodles', 'burger bun', 'hamburger bun'
+    ]
   };
 
   constructor(

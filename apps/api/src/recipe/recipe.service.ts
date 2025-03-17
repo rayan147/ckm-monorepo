@@ -221,6 +221,10 @@ export class RecipeService {
             storage: true,
             cookBook: true,
             dietaryRestrictions: true,
+            criticalPoints: true,
+            yields: true,
+            recipeStats: true
+
 
           },
         }),
