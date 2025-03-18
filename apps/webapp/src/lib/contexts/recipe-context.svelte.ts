@@ -41,7 +41,13 @@ const NutritionalInfoSchema = zodSchemas.RecipeNutritionSchema.omit({
   id: true,
   recipeId: true
 })
+const StorageSchema = zodSchemas.RecipeStorageSchema.omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+  recipeId: true
 
+})
 const RecipeWithNutritionAndInstructionsAndIngredientsSchema = zodSchemas.RecipeSchema.extend({
   nutritionalInfo: NutritionalInfoSchema.nullable(),
   instructions: z.array(zodSchemas.RecipeInstructionSchema),
@@ -49,8 +55,10 @@ const RecipeWithNutritionAndInstructionsAndIngredientsSchema = zodSchemas.Recipe
   tags: z.array(RecipeTags),
   dietaryRestrictions: z.array(DietaryRestrictionSchema),
   cookBook: CookBookSchema,
-  equiments: z.array(RecipeEquipmentSchema),
-  criticalPoints: z.array(RecipeCriticalPointSchema)
+  equipments: z.array(RecipeEquipmentSchema),
+  criticalPoints: z.array(RecipeCriticalPointSchema),
+  storage: StorageSchema,
+
 })
 
 export type RecipeIncludes = z.infer<typeof RecipeWithNutritionAndInstructionsAndIngredientsSchema>
@@ -111,7 +119,7 @@ export class RecipeState {
       category: '',
       imageUrl: ''
     },
-    equiments: [{
+    equipments: [{
       notes: '',
       equipmentId: 1,
       recipeInstructionId: 1,
@@ -124,12 +132,17 @@ export class RecipeState {
         unit: '',
         action: '',
         threshold: 5,
-
-
-
       }
-    ]
+    ],
+    storage: {
+      temperature: 40,
+      method: '',
+      shelfLife: 7,
+      containerType: '',
+      specialNotes: '',
 
+
+    }
   })
   currentStep: number = $state(1);
   completedSteps: number[] = $state([]);

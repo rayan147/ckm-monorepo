@@ -93,13 +93,12 @@ async function createCookBook() {
   });
 }
 
-// Recipe factory
-// Recipe factory with simplified approach
+// Fix for Recipe factory to properly access recipe id
 async function createRecipe(restaurantId: number, cookBookId: number) {
   // Generate a completely unique name using UUID
   const uniqueName = `Recipe-${uuidv4()}`;
 
-  return prisma.recipe.create({
+  const recipe = await prisma.recipe.create({
     data: {
       name: uniqueName,
       imageUrls: Array.from({ length: 7 }, () => faker.image.urlPicsumPhotos()),
@@ -123,6 +122,63 @@ async function createRecipe(restaurantId: number, cookBookId: number) {
           }
         ]
       }
+    }
+  });
+
+  const users = await prisma.user.findMany({})
+  // Create initial active version
+  const version = await prisma.recipeVersion.create({
+    data: {
+      recipeId: recipe.id,
+      versionNumber: 1,
+      isActive: true,
+      createdById: users[Math.floor(Math.random() * users.length)].id,
+      description: "Initial version"
+    }
+  });
+
+  return recipe; // Return just the recipe, not an object with recipe and version
+}
+
+// Create ingredients FOR SPECIFIC VERSIONS
+async function createVersionedIngredient(
+  recipeId: number,
+  versionId: number,
+  ingredientId: number
+) {
+  return prisma.recipeIngredient.create({
+    data: {
+      recipeId,
+      ingredientId,
+      recipeVersionId: versionId,
+      quantity: faker.number.float(),
+      unit: getRandomUnit()
+    }
+  });
+}
+
+// Fix for userId reference in updateRecipeVersion function
+async function updateRecipeVersion(recipeId: number, userId: number) {
+  // Deactivate old version
+  await prisma.recipeVersion.updateMany({
+    where: { recipeId, isActive: true },
+    data: { isActive: false }
+  });
+
+  // Get next version number
+  const latestVersion = await prisma.recipeVersion.findFirst({
+    where: { recipeId },
+    orderBy: { versionNumber: "desc" }
+  });
+
+  // Create new active version
+  return prisma.recipeVersion.create({
+    data: {
+      recipeId,
+      versionNumber: (latestVersion?.versionNumber || 0) + 1,
+      isActive: true,
+      createdById: userId,
+      description: "Updated ingredients"
     }
   });
 }
@@ -343,26 +399,37 @@ async function createPrepItem(prepBoardId: number, recipeId: number, userId: num
 
 async function createRecipeIngredient(recipeId: number, ingredientId: number) {
   const unit = getRandomUnit()
-  const quantity = faker.number.float({ min: 0.1, max: 10, });
+  const quantity = faker.number.float({ min: 0.1, max: 10 });
 
-  return prisma.recipeIngredient.upsert({
+  // Update to use proper unique constraint
+  const existingIngredient = await prisma.recipeIngredient.findFirst({
     where: {
-      recipeId_ingredientId: {
-        recipeId,
-        ingredientId,
-      },
-    },
-    update: {
-      quantity,
-      unit,
-    },
-    create: {
       recipeId,
       ingredientId,
-      quantity,
-      unit,
+      recipeVersionId: null // Since we're not using versioning in this simple case
     },
   });
+
+  if (existingIngredient) {
+    return prisma.recipeIngredient.update({
+      where: {
+        id: existingIngredient.id,
+      },
+      data: {
+        quantity,
+        unit,
+      },
+    });
+  } else {
+    return prisma.recipeIngredient.create({
+      data: {
+        recipeId,
+        ingredientId,
+        quantity,
+        unit,
+      },
+    });
+  }
 }
 
 // Helper function to generate realistic cooking instructions
@@ -644,10 +711,20 @@ async function createMenuCategory(menuId: number) {
 
 // RecipeVersion factory
 async function createRecipeVersion(recipeId: number, createdById: number) {
+  // Find the highest version number for this recipe
+  const highestVersion = await prisma.recipeVersion.findFirst({
+    where: { recipeId },
+    orderBy: { versionNumber: 'desc' },
+  });
+
+  // Set the new version number to be one higher than the highest existing version
+  // or 1 if no versions exist yet
+  const newVersionNumber = highestVersion ? highestVersion.versionNumber + 1 : 1;
+
   return prisma.recipeVersion.create({
     data: {
       recipeId,
-      versionNumber: faker.number.int({ min: 1, max: 10 }),
+      versionNumber: newVersionNumber,
       description: faker.lorem.sentence(),
       changes: faker.lorem.sentence(),
       isActive: faker.datatype.boolean(),
@@ -1039,7 +1116,10 @@ async function main() {
   const recipes = await Promise.all(
     restaurants.flatMap(restaurant =>
       cookBooks.flatMap(cookbook =>
-        Array.from({ length: 5 }, () => createRecipe(restaurant.id, cookbook.id))
+        Array.from({ length: 5 }, async () => {
+          const recipe = await createRecipe(restaurant.id, cookbook.id);
+          return recipe; // Just return the recipe
+        })
       )
     )
   );

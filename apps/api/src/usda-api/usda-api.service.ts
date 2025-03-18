@@ -178,7 +178,7 @@ export class UsdaApiService {
       'sesame snaps', 'sesame candy', 'halvah', 'gomashio', 'furikake',
       'sesame chicken', 'sesame noodles', 'burger bun', 'hamburger bun'
     ]
-  };
+  } as const
 
   constructor(
     private readonly httpService: HttpService,
@@ -206,6 +206,7 @@ export class UsdaApiService {
     // Get food description and ingredients list if available
     const description = foodData.description || '';
     const ingredients = foodData.ingredients || '';
+    console.log(`description is ${description} and ingredients is ${ingredients}`)
     const combinedText = (description + ' ' + ingredients).toLowerCase();
 
     // Check each allergen category

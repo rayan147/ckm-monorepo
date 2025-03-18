@@ -58,7 +58,7 @@ export const LeftoverItemScalarFieldEnumSchema = z.enum(['id','restaurantId','da
 
 export const WasteRecordScalarFieldEnumSchema = z.enum(['id','restaurantId','date','ingredientId','quantity','unit','reason','recordedById','createdAt','updatedAt']);
 
-export const ProductionPlanScalarFieldEnumSchema = z.enum(['id','restaurantId','date','createdById','createdAt','updatedAt']);
+export const ProductionPlanScalarFieldEnumSchema = z.enum(['id','restaurantId','date','status','createdById','createdAt','updatedAt']);
 
 export const ProductionPlanItemScalarFieldEnumSchema = z.enum(['id','productionPlanId','recipeId','quantity','unit','assignedToId','createdAt','updatedAt']);
 
@@ -168,7 +168,7 @@ export const FeedbackStatusSchema = z.enum(['NEW','IN_PROGRESS','RESPONDED','CLO
 
 export type FeedbackStatusType = `${z.infer<typeof FeedbackStatusSchema>}`
 
-export const ProductionStatusSchema = z.enum(['PLANNED','IN_PROGRESS','COMPLETED','CANCELLED']);
+export const ProductionStatusSchema = z.enum(['PLANNED','IN_PROGRESS','COMPLETED','CANCELLED','HAS_NOT_START']);
 
 export type ProductionStatusType = `${z.infer<typeof ProductionStatusSchema>}`
 
@@ -656,6 +656,7 @@ export type WasteRecord = z.infer<typeof WasteRecordSchema>
 /////////////////////////////////////////
 
 export const ProductionPlanSchema = z.object({
+  status: ProductionStatusSchema,
   id: z.number().int(),
   restaurantId: z.number().int(),
   date: z.coerce.date(),
@@ -2054,6 +2055,7 @@ export const ProductionPlanSelectSchema: z.ZodType<Prisma.ProductionPlanSelect> 
   id: z.boolean().optional(),
   restaurantId: z.boolean().optional(),
   date: z.boolean().optional(),
+  status: z.boolean().optional(),
   createdById: z.boolean().optional(),
   createdAt: z.boolean().optional(),
   updatedAt: z.boolean().optional(),
@@ -2362,12 +2364,12 @@ export const RestaurantIncludeSchema: z.ZodType<Prisma.RestaurantInclude> = z.ob
   recipes: z.union([z.boolean(),z.lazy(() => RecipeFindManyArgsSchema)]).optional(),
   menus: z.union([z.boolean(),z.lazy(() => MenuFindManyArgsSchema)]).optional(),
   salesTransactions: z.union([z.boolean(),z.lazy(() => SalesTransactionsFindManyArgsSchema)]).optional(),
-  leftoverItem: z.union([z.boolean(),z.lazy(() => LeftoverItemFindManyArgsSchema)]).optional(),
-  wasteRecord: z.union([z.boolean(),z.lazy(() => WasteRecordFindManyArgsSchema)]).optional(),
-  productionPlan: z.union([z.boolean(),z.lazy(() => ProductionPlanFindManyArgsSchema)]).optional(),
-  equipment: z.union([z.boolean(),z.lazy(() => EquipmentFindManyArgsSchema)]).optional(),
-  qualityChecklist: z.union([z.boolean(),z.lazy(() => QualityChecklistFindManyArgsSchema)]).optional(),
-  qustomerFeedback: z.union([z.boolean(),z.lazy(() => CustomerFeedbackFindManyArgsSchema)]).optional(),
+  leftoverItems: z.union([z.boolean(),z.lazy(() => LeftoverItemFindManyArgsSchema)]).optional(),
+  wasteRecords: z.union([z.boolean(),z.lazy(() => WasteRecordFindManyArgsSchema)]).optional(),
+  productionPlans: z.union([z.boolean(),z.lazy(() => ProductionPlanFindManyArgsSchema)]).optional(),
+  equipments: z.union([z.boolean(),z.lazy(() => EquipmentFindManyArgsSchema)]).optional(),
+  qualityChecklists: z.union([z.boolean(),z.lazy(() => QualityChecklistFindManyArgsSchema)]).optional(),
+  customerFeedbacks: z.union([z.boolean(),z.lazy(() => CustomerFeedbackFindManyArgsSchema)]).optional(),
   _count: z.union([z.boolean(),z.lazy(() => RestaurantCountOutputTypeArgsSchema)]).optional(),
 }).strict()
 
@@ -2387,12 +2389,12 @@ export const RestaurantCountOutputTypeSelectSchema: z.ZodType<Prisma.RestaurantC
   recipes: z.boolean().optional(),
   menus: z.boolean().optional(),
   salesTransactions: z.boolean().optional(),
-  leftoverItem: z.boolean().optional(),
-  wasteRecord: z.boolean().optional(),
-  productionPlan: z.boolean().optional(),
-  equipment: z.boolean().optional(),
-  qualityChecklist: z.boolean().optional(),
-  qustomerFeedback: z.boolean().optional(),
+  leftoverItems: z.boolean().optional(),
+  wasteRecords: z.boolean().optional(),
+  productionPlans: z.boolean().optional(),
+  equipments: z.boolean().optional(),
+  qualityChecklists: z.boolean().optional(),
+  customerFeedbacks: z.boolean().optional(),
 }).strict();
 
 export const RestaurantSelectSchema: z.ZodType<Prisma.RestaurantSelect> = z.object({
@@ -2418,12 +2420,12 @@ export const RestaurantSelectSchema: z.ZodType<Prisma.RestaurantSelect> = z.obje
   recipes: z.union([z.boolean(),z.lazy(() => RecipeFindManyArgsSchema)]).optional(),
   menus: z.union([z.boolean(),z.lazy(() => MenuFindManyArgsSchema)]).optional(),
   salesTransactions: z.union([z.boolean(),z.lazy(() => SalesTransactionsFindManyArgsSchema)]).optional(),
-  leftoverItem: z.union([z.boolean(),z.lazy(() => LeftoverItemFindManyArgsSchema)]).optional(),
-  wasteRecord: z.union([z.boolean(),z.lazy(() => WasteRecordFindManyArgsSchema)]).optional(),
-  productionPlan: z.union([z.boolean(),z.lazy(() => ProductionPlanFindManyArgsSchema)]).optional(),
-  equipment: z.union([z.boolean(),z.lazy(() => EquipmentFindManyArgsSchema)]).optional(),
-  qualityChecklist: z.union([z.boolean(),z.lazy(() => QualityChecklistFindManyArgsSchema)]).optional(),
-  qustomerFeedback: z.union([z.boolean(),z.lazy(() => CustomerFeedbackFindManyArgsSchema)]).optional(),
+  leftoverItems: z.union([z.boolean(),z.lazy(() => LeftoverItemFindManyArgsSchema)]).optional(),
+  wasteRecords: z.union([z.boolean(),z.lazy(() => WasteRecordFindManyArgsSchema)]).optional(),
+  productionPlans: z.union([z.boolean(),z.lazy(() => ProductionPlanFindManyArgsSchema)]).optional(),
+  equipments: z.union([z.boolean(),z.lazy(() => EquipmentFindManyArgsSchema)]).optional(),
+  qualityChecklists: z.union([z.boolean(),z.lazy(() => QualityChecklistFindManyArgsSchema)]).optional(),
+  customerFeedbacks: z.union([z.boolean(),z.lazy(() => CustomerFeedbackFindManyArgsSchema)]).optional(),
   _count: z.union([z.boolean(),z.lazy(() => RestaurantCountOutputTypeArgsSchema)]).optional(),
 }).strict()
 
@@ -2438,19 +2440,19 @@ export const UserIncludeSchema: z.ZodType<Prisma.UserInclude> = z.object({
   inventoryUpdates: z.union([z.boolean(),z.lazy(() => InventoryItemFindManyArgsSchema)]).optional(),
   sessions: z.union([z.boolean(),z.lazy(() => SessionFindManyArgsSchema)]).optional(),
   passwordResets: z.union([z.boolean(),z.lazy(() => PasswordResetFindManyArgsSchema)]).optional(),
-  leftoverItem: z.union([z.boolean(),z.lazy(() => LeftoverItemFindManyArgsSchema)]).optional(),
-  wasteRecord: z.union([z.boolean(),z.lazy(() => WasteRecordFindManyArgsSchema)]).optional(),
-  productionPlan: z.union([z.boolean(),z.lazy(() => ProductionPlanFindManyArgsSchema)]).optional(),
-  productionPlanItem: z.union([z.boolean(),z.lazy(() => ProductionPlanItemFindManyArgsSchema)]).optional(),
+  leftoverItems: z.union([z.boolean(),z.lazy(() => LeftoverItemFindManyArgsSchema)]).optional(),
+  wasteRecords: z.union([z.boolean(),z.lazy(() => WasteRecordFindManyArgsSchema)]).optional(),
+  productionPlans: z.union([z.boolean(),z.lazy(() => ProductionPlanFindManyArgsSchema)]).optional(),
+  productionPlanItems: z.union([z.boolean(),z.lazy(() => ProductionPlanItemFindManyArgsSchema)]).optional(),
   availability: z.union([z.boolean(),z.lazy(() => AvailabilityFindManyArgsSchema)]).optional(),
-  schedulingConstraint: z.union([z.boolean(),z.lazy(() => SchedulingConstraintFindManyArgsSchema)]).optional(),
-  inventoryWithdrawal: z.union([z.boolean(),z.lazy(() => InventoryWithdrawalFindManyArgsSchema)]).optional(),
-  checklistComplete: z.union([z.boolean(),z.lazy(() => ChecklistCompleteFindManyArgsSchema)]).optional(),
-  customerFeedback: z.union([z.boolean(),z.lazy(() => CustomerFeedbackFindManyArgsSchema)]).optional(),
+  schedulingConstraints: z.union([z.boolean(),z.lazy(() => SchedulingConstraintFindManyArgsSchema)]).optional(),
+  inventoryWithdrawals: z.union([z.boolean(),z.lazy(() => InventoryWithdrawalFindManyArgsSchema)]).optional(),
+  checklistCompletes: z.union([z.boolean(),z.lazy(() => ChecklistCompleteFindManyArgsSchema)]).optional(),
+  customerFeedbackResponses: z.union([z.boolean(),z.lazy(() => CustomerFeedbackFindManyArgsSchema)]).optional(),
   recipeVersionsCreated: z.union([z.boolean(),z.lazy(() => RecipeVersionFindManyArgsSchema)]).optional(),
   recipeVersionsApproved: z.union([z.boolean(),z.lazy(() => RecipeVersionFindManyArgsSchema)]).optional(),
-  InventoryTransaction: z.union([z.boolean(),z.lazy(() => InventoryTransactionFindManyArgsSchema)]).optional(),
-  StockCount: z.union([z.boolean(),z.lazy(() => StockCountFindManyArgsSchema)]).optional(),
+  InventoryTransactions: z.union([z.boolean(),z.lazy(() => InventoryTransactionFindManyArgsSchema)]).optional(),
+  StockCounts: z.union([z.boolean(),z.lazy(() => StockCountFindManyArgsSchema)]).optional(),
   _count: z.union([z.boolean(),z.lazy(() => UserCountOutputTypeArgsSchema)]).optional(),
 }).strict()
 
@@ -2469,19 +2471,19 @@ export const UserCountOutputTypeSelectSchema: z.ZodType<Prisma.UserCountOutputTy
   inventoryUpdates: z.boolean().optional(),
   sessions: z.boolean().optional(),
   passwordResets: z.boolean().optional(),
-  leftoverItem: z.boolean().optional(),
-  wasteRecord: z.boolean().optional(),
-  productionPlan: z.boolean().optional(),
-  productionPlanItem: z.boolean().optional(),
+  leftoverItems: z.boolean().optional(),
+  wasteRecords: z.boolean().optional(),
+  productionPlans: z.boolean().optional(),
+  productionPlanItems: z.boolean().optional(),
   availability: z.boolean().optional(),
-  schedulingConstraint: z.boolean().optional(),
-  inventoryWithdrawal: z.boolean().optional(),
-  checklistComplete: z.boolean().optional(),
-  customerFeedback: z.boolean().optional(),
+  schedulingConstraints: z.boolean().optional(),
+  inventoryWithdrawals: z.boolean().optional(),
+  checklistCompletes: z.boolean().optional(),
+  customerFeedbackResponses: z.boolean().optional(),
   recipeVersionsCreated: z.boolean().optional(),
   recipeVersionsApproved: z.boolean().optional(),
-  InventoryTransaction: z.boolean().optional(),
-  StockCount: z.boolean().optional(),
+  InventoryTransactions: z.boolean().optional(),
+  StockCounts: z.boolean().optional(),
 }).strict();
 
 export const UserSelectSchema: z.ZodType<Prisma.UserSelect> = z.object({
@@ -2505,19 +2507,19 @@ export const UserSelectSchema: z.ZodType<Prisma.UserSelect> = z.object({
   inventoryUpdates: z.union([z.boolean(),z.lazy(() => InventoryItemFindManyArgsSchema)]).optional(),
   sessions: z.union([z.boolean(),z.lazy(() => SessionFindManyArgsSchema)]).optional(),
   passwordResets: z.union([z.boolean(),z.lazy(() => PasswordResetFindManyArgsSchema)]).optional(),
-  leftoverItem: z.union([z.boolean(),z.lazy(() => LeftoverItemFindManyArgsSchema)]).optional(),
-  wasteRecord: z.union([z.boolean(),z.lazy(() => WasteRecordFindManyArgsSchema)]).optional(),
-  productionPlan: z.union([z.boolean(),z.lazy(() => ProductionPlanFindManyArgsSchema)]).optional(),
-  productionPlanItem: z.union([z.boolean(),z.lazy(() => ProductionPlanItemFindManyArgsSchema)]).optional(),
+  leftoverItems: z.union([z.boolean(),z.lazy(() => LeftoverItemFindManyArgsSchema)]).optional(),
+  wasteRecords: z.union([z.boolean(),z.lazy(() => WasteRecordFindManyArgsSchema)]).optional(),
+  productionPlans: z.union([z.boolean(),z.lazy(() => ProductionPlanFindManyArgsSchema)]).optional(),
+  productionPlanItems: z.union([z.boolean(),z.lazy(() => ProductionPlanItemFindManyArgsSchema)]).optional(),
   availability: z.union([z.boolean(),z.lazy(() => AvailabilityFindManyArgsSchema)]).optional(),
-  schedulingConstraint: z.union([z.boolean(),z.lazy(() => SchedulingConstraintFindManyArgsSchema)]).optional(),
-  inventoryWithdrawal: z.union([z.boolean(),z.lazy(() => InventoryWithdrawalFindManyArgsSchema)]).optional(),
-  checklistComplete: z.union([z.boolean(),z.lazy(() => ChecklistCompleteFindManyArgsSchema)]).optional(),
-  customerFeedback: z.union([z.boolean(),z.lazy(() => CustomerFeedbackFindManyArgsSchema)]).optional(),
+  schedulingConstraints: z.union([z.boolean(),z.lazy(() => SchedulingConstraintFindManyArgsSchema)]).optional(),
+  inventoryWithdrawals: z.union([z.boolean(),z.lazy(() => InventoryWithdrawalFindManyArgsSchema)]).optional(),
+  checklistCompletes: z.union([z.boolean(),z.lazy(() => ChecklistCompleteFindManyArgsSchema)]).optional(),
+  customerFeedbackResponses: z.union([z.boolean(),z.lazy(() => CustomerFeedbackFindManyArgsSchema)]).optional(),
   recipeVersionsCreated: z.union([z.boolean(),z.lazy(() => RecipeVersionFindManyArgsSchema)]).optional(),
   recipeVersionsApproved: z.union([z.boolean(),z.lazy(() => RecipeVersionFindManyArgsSchema)]).optional(),
-  InventoryTransaction: z.union([z.boolean(),z.lazy(() => InventoryTransactionFindManyArgsSchema)]).optional(),
-  StockCount: z.union([z.boolean(),z.lazy(() => StockCountFindManyArgsSchema)]).optional(),
+  InventoryTransactions: z.union([z.boolean(),z.lazy(() => InventoryTransactionFindManyArgsSchema)]).optional(),
+  StockCounts: z.union([z.boolean(),z.lazy(() => StockCountFindManyArgsSchema)]).optional(),
   _count: z.union([z.boolean(),z.lazy(() => UserCountOutputTypeArgsSchema)]).optional(),
 }).strict()
 
@@ -2691,10 +2693,10 @@ export const IngredientIncludeSchema: z.ZodType<Prisma.IngredientInclude> = z.ob
   inventoryItems: z.union([z.boolean(),z.lazy(() => InventoryItemFindManyArgsSchema)]).optional(),
   orderItems: z.union([z.boolean(),z.lazy(() => OrderItemFindManyArgsSchema)]).optional(),
   vendors: z.union([z.boolean(),z.lazy(() => VendorFindManyArgsSchema)]).optional(),
-  WasteRecord: z.union([z.boolean(),z.lazy(() => WasteRecordFindManyArgsSchema)]).optional(),
-  IngredientAllergen: z.union([z.boolean(),z.lazy(() => IngredientAllergenFindManyArgsSchema)]).optional(),
-  SupplierPriceHistory: z.union([z.boolean(),z.lazy(() => SupplierPriceHistoryFindManyArgsSchema)]).optional(),
-  DietaryRestriction: z.union([z.boolean(),z.lazy(() => DietaryRestrictionArgsSchema)]).optional(),
+  WasteRecords: z.union([z.boolean(),z.lazy(() => WasteRecordFindManyArgsSchema)]).optional(),
+  IngredientAllergens: z.union([z.boolean(),z.lazy(() => IngredientAllergenFindManyArgsSchema)]).optional(),
+  priceHistory: z.union([z.boolean(),z.lazy(() => SupplierPriceHistoryFindManyArgsSchema)]).optional(),
+  DietaryRestrictions: z.union([z.boolean(),z.lazy(() => DietaryRestrictionFindManyArgsSchema)]).optional(),
   _count: z.union([z.boolean(),z.lazy(() => IngredientCountOutputTypeArgsSchema)]).optional(),
 }).strict()
 
@@ -2712,9 +2714,10 @@ export const IngredientCountOutputTypeSelectSchema: z.ZodType<Prisma.IngredientC
   inventoryItems: z.boolean().optional(),
   orderItems: z.boolean().optional(),
   vendors: z.boolean().optional(),
-  WasteRecord: z.boolean().optional(),
-  IngredientAllergen: z.boolean().optional(),
-  SupplierPriceHistory: z.boolean().optional(),
+  WasteRecords: z.boolean().optional(),
+  IngredientAllergens: z.boolean().optional(),
+  priceHistory: z.boolean().optional(),
+  DietaryRestrictions: z.boolean().optional(),
 }).strict();
 
 export const IngredientSelectSchema: z.ZodType<Prisma.IngredientSelect> = z.object({
@@ -2738,10 +2741,10 @@ export const IngredientSelectSchema: z.ZodType<Prisma.IngredientSelect> = z.obje
   inventoryItems: z.union([z.boolean(),z.lazy(() => InventoryItemFindManyArgsSchema)]).optional(),
   orderItems: z.union([z.boolean(),z.lazy(() => OrderItemFindManyArgsSchema)]).optional(),
   vendors: z.union([z.boolean(),z.lazy(() => VendorFindManyArgsSchema)]).optional(),
-  WasteRecord: z.union([z.boolean(),z.lazy(() => WasteRecordFindManyArgsSchema)]).optional(),
-  IngredientAllergen: z.union([z.boolean(),z.lazy(() => IngredientAllergenFindManyArgsSchema)]).optional(),
-  SupplierPriceHistory: z.union([z.boolean(),z.lazy(() => SupplierPriceHistoryFindManyArgsSchema)]).optional(),
-  DietaryRestriction: z.union([z.boolean(),z.lazy(() => DietaryRestrictionArgsSchema)]).optional(),
+  WasteRecords: z.union([z.boolean(),z.lazy(() => WasteRecordFindManyArgsSchema)]).optional(),
+  IngredientAllergens: z.union([z.boolean(),z.lazy(() => IngredientAllergenFindManyArgsSchema)]).optional(),
+  priceHistory: z.union([z.boolean(),z.lazy(() => SupplierPriceHistoryFindManyArgsSchema)]).optional(),
+  DietaryRestrictions: z.union([z.boolean(),z.lazy(() => DietaryRestrictionFindManyArgsSchema)]).optional(),
   _count: z.union([z.boolean(),z.lazy(() => IngredientCountOutputTypeArgsSchema)]).optional(),
 }).strict()
 
@@ -3101,7 +3104,7 @@ export const VendorSelectSchema: z.ZodType<Prisma.VendorSelect> = z.object({
 
 export const ShiftIncludeSchema: z.ZodType<Prisma.ShiftInclude> = z.object({
   user: z.union([z.boolean(),z.lazy(() => UserArgsSchema)]).optional(),
-  ShiftTask: z.union([z.boolean(),z.lazy(() => ShiftTaskFindManyArgsSchema)]).optional(),
+  tasks: z.union([z.boolean(),z.lazy(() => ShiftTaskFindManyArgsSchema)]).optional(),
   _count: z.union([z.boolean(),z.lazy(() => ShiftCountOutputTypeArgsSchema)]).optional(),
 }).strict()
 
@@ -3115,7 +3118,7 @@ export const ShiftCountOutputTypeArgsSchema: z.ZodType<Prisma.ShiftCountOutputTy
 }).strict();
 
 export const ShiftCountOutputTypeSelectSchema: z.ZodType<Prisma.ShiftCountOutputTypeSelect> = z.object({
-  ShiftTask: z.boolean().optional(),
+  tasks: z.boolean().optional(),
 }).strict();
 
 export const ShiftSelectSchema: z.ZodType<Prisma.ShiftSelect> = z.object({
@@ -3125,7 +3128,7 @@ export const ShiftSelectSchema: z.ZodType<Prisma.ShiftSelect> = z.object({
   endTime: z.boolean().optional(),
   status: z.boolean().optional(),
   user: z.union([z.boolean(),z.lazy(() => UserArgsSchema)]).optional(),
-  ShiftTask: z.union([z.boolean(),z.lazy(() => ShiftTaskFindManyArgsSchema)]).optional(),
+  tasks: z.union([z.boolean(),z.lazy(() => ShiftTaskFindManyArgsSchema)]).optional(),
   _count: z.union([z.boolean(),z.lazy(() => ShiftCountOutputTypeArgsSchema)]).optional(),
 }).strict()
 
@@ -5432,6 +5435,7 @@ export const ProductionPlanWhereInputSchema: z.ZodType<Prisma.ProductionPlanWher
   id: z.union([ z.lazy(() => IntFilterSchema),z.number() ]).optional(),
   restaurantId: z.union([ z.lazy(() => IntFilterSchema),z.number() ]).optional(),
   date: z.union([ z.lazy(() => DateTimeFilterSchema),z.coerce.date() ]).optional(),
+  status: z.union([ z.lazy(() => EnumProductionStatusFilterSchema),z.lazy(() => ProductionStatusSchema) ]).optional(),
   createdById: z.union([ z.lazy(() => IntFilterSchema),z.number() ]).optional(),
   createdAt: z.union([ z.lazy(() => DateTimeFilterSchema),z.coerce.date() ]).optional(),
   updatedAt: z.union([ z.lazy(() => DateTimeFilterSchema),z.coerce.date() ]).optional(),
@@ -5444,6 +5448,7 @@ export const ProductionPlanOrderByWithRelationInputSchema: z.ZodType<Prisma.Prod
   id: z.lazy(() => SortOrderSchema).optional(),
   restaurantId: z.lazy(() => SortOrderSchema).optional(),
   date: z.lazy(() => SortOrderSchema).optional(),
+  status: z.lazy(() => SortOrderSchema).optional(),
   createdById: z.lazy(() => SortOrderSchema).optional(),
   createdAt: z.lazy(() => SortOrderSchema).optional(),
   updatedAt: z.lazy(() => SortOrderSchema).optional(),
@@ -5462,6 +5467,7 @@ export const ProductionPlanWhereUniqueInputSchema: z.ZodType<Prisma.ProductionPl
   NOT: z.union([ z.lazy(() => ProductionPlanWhereInputSchema),z.lazy(() => ProductionPlanWhereInputSchema).array() ]).optional(),
   restaurantId: z.union([ z.lazy(() => IntFilterSchema),z.number().int() ]).optional(),
   date: z.union([ z.lazy(() => DateTimeFilterSchema),z.coerce.date() ]).optional(),
+  status: z.union([ z.lazy(() => EnumProductionStatusFilterSchema),z.lazy(() => ProductionStatusSchema) ]).optional(),
   createdById: z.union([ z.lazy(() => IntFilterSchema),z.number().int() ]).optional(),
   createdAt: z.union([ z.lazy(() => DateTimeFilterSchema),z.coerce.date() ]).optional(),
   updatedAt: z.union([ z.lazy(() => DateTimeFilterSchema),z.coerce.date() ]).optional(),
@@ -5474,6 +5480,7 @@ export const ProductionPlanOrderByWithAggregationInputSchema: z.ZodType<Prisma.P
   id: z.lazy(() => SortOrderSchema).optional(),
   restaurantId: z.lazy(() => SortOrderSchema).optional(),
   date: z.lazy(() => SortOrderSchema).optional(),
+  status: z.lazy(() => SortOrderSchema).optional(),
   createdById: z.lazy(() => SortOrderSchema).optional(),
   createdAt: z.lazy(() => SortOrderSchema).optional(),
   updatedAt: z.lazy(() => SortOrderSchema).optional(),
@@ -5491,6 +5498,7 @@ export const ProductionPlanScalarWhereWithAggregatesInputSchema: z.ZodType<Prism
   id: z.union([ z.lazy(() => IntWithAggregatesFilterSchema),z.number() ]).optional(),
   restaurantId: z.union([ z.lazy(() => IntWithAggregatesFilterSchema),z.number() ]).optional(),
   date: z.union([ z.lazy(() => DateTimeWithAggregatesFilterSchema),z.coerce.date() ]).optional(),
+  status: z.union([ z.lazy(() => EnumProductionStatusWithAggregatesFilterSchema),z.lazy(() => ProductionStatusSchema) ]).optional(),
   createdById: z.union([ z.lazy(() => IntWithAggregatesFilterSchema),z.number() ]).optional(),
   createdAt: z.union([ z.lazy(() => DateTimeWithAggregatesFilterSchema),z.coerce.date() ]).optional(),
   updatedAt: z.union([ z.lazy(() => DateTimeWithAggregatesFilterSchema),z.coerce.date() ]).optional(),
@@ -5971,11 +5979,21 @@ export const IngredientAllergenOrderByWithRelationInputSchema: z.ZodType<Prisma.
   allergen: z.lazy(() => AllergenOrderByWithRelationInputSchema).optional()
 }).strict();
 
-export const IngredientAllergenWhereUniqueInputSchema: z.ZodType<Prisma.IngredientAllergenWhereUniqueInput> = z.object({
-  id: z.number().int()
-})
+export const IngredientAllergenWhereUniqueInputSchema: z.ZodType<Prisma.IngredientAllergenWhereUniqueInput> = z.union([
+  z.object({
+    id: z.number().int(),
+    ingredientId_allergenId: z.lazy(() => IngredientAllergenIngredientIdAllergenIdCompoundUniqueInputSchema)
+  }),
+  z.object({
+    id: z.number().int(),
+  }),
+  z.object({
+    ingredientId_allergenId: z.lazy(() => IngredientAllergenIngredientIdAllergenIdCompoundUniqueInputSchema),
+  }),
+])
 .and(z.object({
   id: z.number().int().optional(),
+  ingredientId_allergenId: z.lazy(() => IngredientAllergenIngredientIdAllergenIdCompoundUniqueInputSchema).optional(),
   AND: z.union([ z.lazy(() => IngredientAllergenWhereInputSchema),z.lazy(() => IngredientAllergenWhereInputSchema).array() ]).optional(),
   OR: z.lazy(() => IngredientAllergenWhereInputSchema).array().optional(),
   NOT: z.union([ z.lazy(() => IngredientAllergenWhereInputSchema),z.lazy(() => IngredientAllergenWhereInputSchema).array() ]).optional(),
@@ -6317,12 +6335,12 @@ export const RestaurantWhereInputSchema: z.ZodType<Prisma.RestaurantWhereInput> 
   recipes: z.lazy(() => RecipeListRelationFilterSchema).optional(),
   menus: z.lazy(() => MenuListRelationFilterSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsListRelationFilterSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemListRelationFilterSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordListRelationFilterSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanListRelationFilterSchema).optional(),
-  equipment: z.lazy(() => EquipmentListRelationFilterSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistListRelationFilterSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackListRelationFilterSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemListRelationFilterSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordListRelationFilterSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanListRelationFilterSchema).optional(),
+  equipments: z.lazy(() => EquipmentListRelationFilterSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistListRelationFilterSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackListRelationFilterSchema).optional()
 }).strict();
 
 export const RestaurantOrderByWithRelationInputSchema: z.ZodType<Prisma.RestaurantOrderByWithRelationInput> = z.object({
@@ -6348,12 +6366,12 @@ export const RestaurantOrderByWithRelationInputSchema: z.ZodType<Prisma.Restaura
   recipes: z.lazy(() => RecipeOrderByRelationAggregateInputSchema).optional(),
   menus: z.lazy(() => MenuOrderByRelationAggregateInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsOrderByRelationAggregateInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemOrderByRelationAggregateInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordOrderByRelationAggregateInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanOrderByRelationAggregateInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentOrderByRelationAggregateInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistOrderByRelationAggregateInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackOrderByRelationAggregateInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemOrderByRelationAggregateInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordOrderByRelationAggregateInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanOrderByRelationAggregateInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentOrderByRelationAggregateInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistOrderByRelationAggregateInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackOrderByRelationAggregateInputSchema).optional()
 }).strict();
 
 export const RestaurantWhereUniqueInputSchema: z.ZodType<Prisma.RestaurantWhereUniqueInput> = z.object({
@@ -6385,12 +6403,12 @@ export const RestaurantWhereUniqueInputSchema: z.ZodType<Prisma.RestaurantWhereU
   recipes: z.lazy(() => RecipeListRelationFilterSchema).optional(),
   menus: z.lazy(() => MenuListRelationFilterSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsListRelationFilterSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemListRelationFilterSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordListRelationFilterSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanListRelationFilterSchema).optional(),
-  equipment: z.lazy(() => EquipmentListRelationFilterSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistListRelationFilterSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackListRelationFilterSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemListRelationFilterSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordListRelationFilterSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanListRelationFilterSchema).optional(),
+  equipments: z.lazy(() => EquipmentListRelationFilterSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistListRelationFilterSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackListRelationFilterSchema).optional()
 }).strict());
 
 export const RestaurantOrderByWithAggregationInputSchema: z.ZodType<Prisma.RestaurantOrderByWithAggregationInput> = z.object({
@@ -6459,19 +6477,19 @@ export const UserWhereInputSchema: z.ZodType<Prisma.UserWhereInput> = z.object({
   inventoryUpdates: z.lazy(() => InventoryItemListRelationFilterSchema).optional(),
   sessions: z.lazy(() => SessionListRelationFilterSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetListRelationFilterSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemListRelationFilterSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordListRelationFilterSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanListRelationFilterSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemListRelationFilterSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemListRelationFilterSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordListRelationFilterSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanListRelationFilterSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemListRelationFilterSchema).optional(),
   availability: z.lazy(() => AvailabilityListRelationFilterSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintListRelationFilterSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalListRelationFilterSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteListRelationFilterSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackListRelationFilterSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintListRelationFilterSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalListRelationFilterSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteListRelationFilterSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackListRelationFilterSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionListRelationFilterSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionListRelationFilterSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionListRelationFilterSchema).optional(),
-  StockCount: z.lazy(() => StockCountListRelationFilterSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionListRelationFilterSchema).optional(),
+  StockCounts: z.lazy(() => StockCountListRelationFilterSchema).optional()
 }).strict();
 
 export const UserOrderByWithRelationInputSchema: z.ZodType<Prisma.UserOrderByWithRelationInput> = z.object({
@@ -6495,19 +6513,19 @@ export const UserOrderByWithRelationInputSchema: z.ZodType<Prisma.UserOrderByWit
   inventoryUpdates: z.lazy(() => InventoryItemOrderByRelationAggregateInputSchema).optional(),
   sessions: z.lazy(() => SessionOrderByRelationAggregateInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetOrderByRelationAggregateInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemOrderByRelationAggregateInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordOrderByRelationAggregateInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanOrderByRelationAggregateInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemOrderByRelationAggregateInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemOrderByRelationAggregateInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordOrderByRelationAggregateInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanOrderByRelationAggregateInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemOrderByRelationAggregateInputSchema).optional(),
   availability: z.lazy(() => AvailabilityOrderByRelationAggregateInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintOrderByRelationAggregateInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalOrderByRelationAggregateInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteOrderByRelationAggregateInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackOrderByRelationAggregateInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintOrderByRelationAggregateInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalOrderByRelationAggregateInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteOrderByRelationAggregateInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackOrderByRelationAggregateInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionOrderByRelationAggregateInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionOrderByRelationAggregateInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionOrderByRelationAggregateInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountOrderByRelationAggregateInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionOrderByRelationAggregateInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountOrderByRelationAggregateInputSchema).optional()
 }).strict();
 
 export const UserWhereUniqueInputSchema: z.ZodType<Prisma.UserWhereUniqueInput> = z.union([
@@ -6562,19 +6580,19 @@ export const UserWhereUniqueInputSchema: z.ZodType<Prisma.UserWhereUniqueInput> 
   inventoryUpdates: z.lazy(() => InventoryItemListRelationFilterSchema).optional(),
   sessions: z.lazy(() => SessionListRelationFilterSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetListRelationFilterSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemListRelationFilterSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordListRelationFilterSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanListRelationFilterSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemListRelationFilterSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemListRelationFilterSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordListRelationFilterSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanListRelationFilterSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemListRelationFilterSchema).optional(),
   availability: z.lazy(() => AvailabilityListRelationFilterSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintListRelationFilterSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalListRelationFilterSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteListRelationFilterSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackListRelationFilterSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintListRelationFilterSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalListRelationFilterSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteListRelationFilterSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackListRelationFilterSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionListRelationFilterSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionListRelationFilterSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionListRelationFilterSchema).optional(),
-  StockCount: z.lazy(() => StockCountListRelationFilterSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionListRelationFilterSchema).optional(),
+  StockCounts: z.lazy(() => StockCountListRelationFilterSchema).optional()
 }).strict());
 
 export const UserOrderByWithAggregationInputSchema: z.ZodType<Prisma.UserOrderByWithAggregationInput> = z.object({
@@ -6992,10 +7010,10 @@ export const IngredientWhereInputSchema: z.ZodType<Prisma.IngredientWhereInput> 
   inventoryItems: z.lazy(() => InventoryItemListRelationFilterSchema).optional(),
   orderItems: z.lazy(() => OrderItemListRelationFilterSchema).optional(),
   vendors: z.lazy(() => VendorListRelationFilterSchema).optional(),
-  WasteRecord: z.lazy(() => WasteRecordListRelationFilterSchema).optional(),
-  IngredientAllergen: z.lazy(() => IngredientAllergenListRelationFilterSchema).optional(),
-  SupplierPriceHistory: z.lazy(() => SupplierPriceHistoryListRelationFilterSchema).optional(),
-  DietaryRestriction: z.union([ z.lazy(() => DietaryRestrictionNullableScalarRelationFilterSchema),z.lazy(() => DietaryRestrictionWhereInputSchema) ]).optional().nullable(),
+  WasteRecords: z.lazy(() => WasteRecordListRelationFilterSchema).optional(),
+  IngredientAllergens: z.lazy(() => IngredientAllergenListRelationFilterSchema).optional(),
+  priceHistory: z.lazy(() => SupplierPriceHistoryListRelationFilterSchema).optional(),
+  DietaryRestrictions: z.lazy(() => DietaryRestrictionListRelationFilterSchema).optional()
 }).strict();
 
 export const IngredientOrderByWithRelationInputSchema: z.ZodType<Prisma.IngredientOrderByWithRelationInput> = z.object({
@@ -7019,10 +7037,10 @@ export const IngredientOrderByWithRelationInputSchema: z.ZodType<Prisma.Ingredie
   inventoryItems: z.lazy(() => InventoryItemOrderByRelationAggregateInputSchema).optional(),
   orderItems: z.lazy(() => OrderItemOrderByRelationAggregateInputSchema).optional(),
   vendors: z.lazy(() => VendorOrderByRelationAggregateInputSchema).optional(),
-  WasteRecord: z.lazy(() => WasteRecordOrderByRelationAggregateInputSchema).optional(),
-  IngredientAllergen: z.lazy(() => IngredientAllergenOrderByRelationAggregateInputSchema).optional(),
-  SupplierPriceHistory: z.lazy(() => SupplierPriceHistoryOrderByRelationAggregateInputSchema).optional(),
-  DietaryRestriction: z.lazy(() => DietaryRestrictionOrderByWithRelationInputSchema).optional()
+  WasteRecords: z.lazy(() => WasteRecordOrderByRelationAggregateInputSchema).optional(),
+  IngredientAllergens: z.lazy(() => IngredientAllergenOrderByRelationAggregateInputSchema).optional(),
+  priceHistory: z.lazy(() => SupplierPriceHistoryOrderByRelationAggregateInputSchema).optional(),
+  DietaryRestrictions: z.lazy(() => DietaryRestrictionOrderByRelationAggregateInputSchema).optional()
 }).strict();
 
 export const IngredientWhereUniqueInputSchema: z.ZodType<Prisma.IngredientWhereUniqueInput> = z.union([
@@ -7061,10 +7079,10 @@ export const IngredientWhereUniqueInputSchema: z.ZodType<Prisma.IngredientWhereU
   inventoryItems: z.lazy(() => InventoryItemListRelationFilterSchema).optional(),
   orderItems: z.lazy(() => OrderItemListRelationFilterSchema).optional(),
   vendors: z.lazy(() => VendorListRelationFilterSchema).optional(),
-  WasteRecord: z.lazy(() => WasteRecordListRelationFilterSchema).optional(),
-  IngredientAllergen: z.lazy(() => IngredientAllergenListRelationFilterSchema).optional(),
-  SupplierPriceHistory: z.lazy(() => SupplierPriceHistoryListRelationFilterSchema).optional(),
-  DietaryRestriction: z.union([ z.lazy(() => DietaryRestrictionNullableScalarRelationFilterSchema),z.lazy(() => DietaryRestrictionWhereInputSchema) ]).optional().nullable(),
+  WasteRecords: z.lazy(() => WasteRecordListRelationFilterSchema).optional(),
+  IngredientAllergens: z.lazy(() => IngredientAllergenListRelationFilterSchema).optional(),
+  priceHistory: z.lazy(() => SupplierPriceHistoryListRelationFilterSchema).optional(),
+  DietaryRestrictions: z.lazy(() => DietaryRestrictionListRelationFilterSchema).optional()
 }).strict());
 
 export const IngredientOrderByWithAggregationInputSchema: z.ZodType<Prisma.IngredientOrderByWithAggregationInput> = z.object({
@@ -7159,18 +7177,18 @@ export const RecipeIngredientOrderByWithRelationInputSchema: z.ZodType<Prisma.Re
 export const RecipeIngredientWhereUniqueInputSchema: z.ZodType<Prisma.RecipeIngredientWhereUniqueInput> = z.union([
   z.object({
     id: z.number().int(),
-    recipeId_ingredientId: z.lazy(() => RecipeIngredientRecipeIdIngredientIdCompoundUniqueInputSchema)
+    unique_ingredient_per_version: z.lazy(() => RecipeIngredientUnique_ingredient_per_versionCompoundUniqueInputSchema)
   }),
   z.object({
     id: z.number().int(),
   }),
   z.object({
-    recipeId_ingredientId: z.lazy(() => RecipeIngredientRecipeIdIngredientIdCompoundUniqueInputSchema),
+    unique_ingredient_per_version: z.lazy(() => RecipeIngredientUnique_ingredient_per_versionCompoundUniqueInputSchema),
   }),
 ])
 .and(z.object({
   id: z.number().int().optional(),
-  recipeId_ingredientId: z.lazy(() => RecipeIngredientRecipeIdIngredientIdCompoundUniqueInputSchema).optional(),
+  unique_ingredient_per_version: z.lazy(() => RecipeIngredientUnique_ingredient_per_versionCompoundUniqueInputSchema).optional(),
   AND: z.union([ z.lazy(() => RecipeIngredientWhereInputSchema),z.lazy(() => RecipeIngredientWhereInputSchema).array() ]).optional(),
   OR: z.lazy(() => RecipeIngredientWhereInputSchema).array().optional(),
   NOT: z.union([ z.lazy(() => RecipeIngredientWhereInputSchema),z.lazy(() => RecipeIngredientWhereInputSchema).array() ]).optional(),
@@ -7276,18 +7294,18 @@ export const RecipeInstructionOrderByWithRelationInputSchema: z.ZodType<Prisma.R
 export const RecipeInstructionWhereUniqueInputSchema: z.ZodType<Prisma.RecipeInstructionWhereUniqueInput> = z.union([
   z.object({
     id: z.number().int(),
-    recipeId_stepNumber: z.lazy(() => RecipeInstructionRecipeIdStepNumberCompoundUniqueInputSchema)
+    recipeId_stepNumber_recipeVersionId: z.lazy(() => RecipeInstructionRecipeIdStepNumberRecipeVersionIdCompoundUniqueInputSchema)
   }),
   z.object({
     id: z.number().int(),
   }),
   z.object({
-    recipeId_stepNumber: z.lazy(() => RecipeInstructionRecipeIdStepNumberCompoundUniqueInputSchema),
+    recipeId_stepNumber_recipeVersionId: z.lazy(() => RecipeInstructionRecipeIdStepNumberRecipeVersionIdCompoundUniqueInputSchema),
   }),
 ])
 .and(z.object({
   id: z.number().int().optional(),
-  recipeId_stepNumber: z.lazy(() => RecipeInstructionRecipeIdStepNumberCompoundUniqueInputSchema).optional(),
+  recipeId_stepNumber_recipeVersionId: z.lazy(() => RecipeInstructionRecipeIdStepNumberRecipeVersionIdCompoundUniqueInputSchema).optional(),
   AND: z.union([ z.lazy(() => RecipeInstructionWhereInputSchema),z.lazy(() => RecipeInstructionWhereInputSchema).array() ]).optional(),
   OR: z.lazy(() => RecipeInstructionWhereInputSchema).array().optional(),
   NOT: z.union([ z.lazy(() => RecipeInstructionWhereInputSchema),z.lazy(() => RecipeInstructionWhereInputSchema).array() ]).optional(),
@@ -8099,7 +8117,7 @@ export const ShiftWhereInputSchema: z.ZodType<Prisma.ShiftWhereInput> = z.object
   endTime: z.union([ z.lazy(() => DateTimeFilterSchema),z.coerce.date() ]).optional(),
   status: z.union([ z.lazy(() => EnumShiftStatusFilterSchema),z.lazy(() => ShiftStatusSchema) ]).optional(),
   user: z.union([ z.lazy(() => UserScalarRelationFilterSchema),z.lazy(() => UserWhereInputSchema) ]).optional(),
-  ShiftTask: z.lazy(() => ShiftTaskListRelationFilterSchema).optional()
+  tasks: z.lazy(() => ShiftTaskListRelationFilterSchema).optional()
 }).strict();
 
 export const ShiftOrderByWithRelationInputSchema: z.ZodType<Prisma.ShiftOrderByWithRelationInput> = z.object({
@@ -8109,7 +8127,7 @@ export const ShiftOrderByWithRelationInputSchema: z.ZodType<Prisma.ShiftOrderByW
   endTime: z.lazy(() => SortOrderSchema).optional(),
   status: z.lazy(() => SortOrderSchema).optional(),
   user: z.lazy(() => UserOrderByWithRelationInputSchema).optional(),
-  ShiftTask: z.lazy(() => ShiftTaskOrderByRelationAggregateInputSchema).optional()
+  tasks: z.lazy(() => ShiftTaskOrderByRelationAggregateInputSchema).optional()
 }).strict();
 
 export const ShiftWhereUniqueInputSchema: z.ZodType<Prisma.ShiftWhereUniqueInput> = z.object({
@@ -8125,7 +8143,7 @@ export const ShiftWhereUniqueInputSchema: z.ZodType<Prisma.ShiftWhereUniqueInput
   endTime: z.union([ z.lazy(() => DateTimeFilterSchema),z.coerce.date() ]).optional(),
   status: z.union([ z.lazy(() => EnumShiftStatusFilterSchema),z.lazy(() => ShiftStatusSchema) ]).optional(),
   user: z.union([ z.lazy(() => UserScalarRelationFilterSchema),z.lazy(() => UserWhereInputSchema) ]).optional(),
-  ShiftTask: z.lazy(() => ShiftTaskListRelationFilterSchema).optional()
+  tasks: z.lazy(() => ShiftTaskListRelationFilterSchema).optional()
 }).strict());
 
 export const ShiftOrderByWithAggregationInputSchema: z.ZodType<Prisma.ShiftOrderByWithAggregationInput> = z.object({
@@ -9751,7 +9769,7 @@ export const EquipmentCreateInputSchema: z.ZodType<Prisma.EquipmentCreateInput> 
   location: z.string().optional().nullable(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
-  restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutEquipmentInputSchema),
+  restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutEquipmentsInputSchema),
   recipes: z.lazy(() => RecipeEquipmentCreateNestedManyWithoutEquipmentInputSchema).optional(),
   maintenanceLogs: z.lazy(() => MaintenanceLogCreateNestedManyWithoutEquipmentInputSchema).optional()
 }).strict();
@@ -9786,7 +9804,7 @@ export const EquipmentUpdateInputSchema: z.ZodType<Prisma.EquipmentUpdateInput> 
   location: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
-  restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutEquipmentNestedInputSchema).optional(),
+  restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutEquipmentsNestedInputSchema).optional(),
   recipes: z.lazy(() => RecipeEquipmentUpdateManyWithoutEquipmentNestedInputSchema).optional(),
   maintenanceLogs: z.lazy(() => MaintenanceLogUpdateManyWithoutEquipmentNestedInputSchema).optional()
 }).strict();
@@ -9906,7 +9924,7 @@ export const RecipeEquipmentUncheckedUpdateManyInputSchema: z.ZodType<Prisma.Rec
 }).strict();
 
 export const MaintenanceLogCreateInputSchema: z.ZodType<Prisma.MaintenanceLogCreateInput> = z.object({
-  date: z.coerce.date(),
+  date: z.coerce.date().optional(),
   type: z.lazy(() => MaintenanceTypeSchema),
   description: z.string(),
   cost: z.number().optional().nullable(),
@@ -9920,7 +9938,7 @@ export const MaintenanceLogCreateInputSchema: z.ZodType<Prisma.MaintenanceLogCre
 export const MaintenanceLogUncheckedCreateInputSchema: z.ZodType<Prisma.MaintenanceLogUncheckedCreateInput> = z.object({
   id: z.number().int().optional(),
   equipmentId: z.number().int(),
-  date: z.coerce.date(),
+  date: z.coerce.date().optional(),
   type: z.lazy(() => MaintenanceTypeSchema),
   description: z.string(),
   cost: z.number().optional().nullable(),
@@ -9958,7 +9976,7 @@ export const MaintenanceLogUncheckedUpdateInputSchema: z.ZodType<Prisma.Maintena
 export const MaintenanceLogCreateManyInputSchema: z.ZodType<Prisma.MaintenanceLogCreateManyInput> = z.object({
   id: z.number().int().optional(),
   equipmentId: z.number().int(),
-  date: z.coerce.date(),
+  date: z.coerce.date().optional(),
   type: z.lazy(() => MaintenanceTypeSchema),
   description: z.string(),
   cost: z.number().optional().nullable(),
@@ -9999,7 +10017,7 @@ export const QualityChecklistCreateInputSchema: z.ZodType<Prisma.QualityChecklis
   isActive: z.boolean().optional(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
-  restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutQualityChecklistInputSchema),
+  restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutQualityChecklistsInputSchema),
   items: z.lazy(() => ChecklistItemCreateNestedManyWithoutChecklistInputSchema).optional(),
   completions: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutChecklistInputSchema).optional()
 }).strict();
@@ -10024,7 +10042,7 @@ export const QualityChecklistUpdateInputSchema: z.ZodType<Prisma.QualityChecklis
   isActive: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
-  restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutQualityChecklistNestedInputSchema).optional(),
+  restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutQualityChecklistsNestedInputSchema).optional(),
   items: z.lazy(() => ChecklistItemUpdateManyWithoutChecklistNestedInputSchema).optional(),
   completions: z.lazy(() => ChecklistCompleteUpdateManyWithoutChecklistNestedInputSchema).optional()
 }).strict();
@@ -10156,7 +10174,7 @@ export const ChecklistCompleteCreateInputSchema: z.ZodType<Prisma.ChecklistCompl
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   checklist: z.lazy(() => QualityChecklistCreateNestedOneWithoutCompletionsInputSchema),
-  completedBy: z.lazy(() => UserCreateNestedOneWithoutChecklistCompleteInputSchema),
+  completedBy: z.lazy(() => UserCreateNestedOneWithoutChecklistCompletesInputSchema),
   items: z.lazy(() => ChecklistItemCompleteCreateNestedManyWithoutChecklistCompleteInputSchema).optional()
 }).strict();
 
@@ -10177,7 +10195,7 @@ export const ChecklistCompleteUpdateInputSchema: z.ZodType<Prisma.ChecklistCompl
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   checklist: z.lazy(() => QualityChecklistUpdateOneRequiredWithoutCompletionsNestedInputSchema).optional(),
-  completedBy: z.lazy(() => UserUpdateOneRequiredWithoutChecklistCompleteNestedInputSchema).optional(),
+  completedBy: z.lazy(() => UserUpdateOneRequiredWithoutChecklistCompletesNestedInputSchema).optional(),
   items: z.lazy(() => ChecklistItemCompleteUpdateManyWithoutChecklistCompleteNestedInputSchema).optional()
 }).strict();
 
@@ -10300,7 +10318,7 @@ export const SupplierPriceHistoryCreateInputSchema: z.ZodType<Prisma.SupplierPri
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   vendor: z.lazy(() => VendorCreateNestedOneWithoutSupplierPriceHistoryInputSchema),
-  ingredient: z.lazy(() => IngredientCreateNestedOneWithoutSupplierPriceHistoryInputSchema)
+  ingredient: z.lazy(() => IngredientCreateNestedOneWithoutPriceHistoryInputSchema)
 }).strict();
 
 export const SupplierPriceHistoryUncheckedCreateInputSchema: z.ZodType<Prisma.SupplierPriceHistoryUncheckedCreateInput> = z.object({
@@ -10325,7 +10343,7 @@ export const SupplierPriceHistoryUpdateInputSchema: z.ZodType<Prisma.SupplierPri
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   vendor: z.lazy(() => VendorUpdateOneRequiredWithoutSupplierPriceHistoryNestedInputSchema).optional(),
-  ingredient: z.lazy(() => IngredientUpdateOneRequiredWithoutSupplierPriceHistoryNestedInputSchema).optional()
+  ingredient: z.lazy(() => IngredientUpdateOneRequiredWithoutPriceHistoryNestedInputSchema).optional()
 }).strict();
 
 export const SupplierPriceHistoryUncheckedUpdateInputSchema: z.ZodType<Prisma.SupplierPriceHistoryUncheckedUpdateInput> = z.object({
@@ -10387,9 +10405,9 @@ export const CustomerFeedbackCreateInputSchema: z.ZodType<Prisma.CustomerFeedbac
   respondedAt: z.coerce.date().optional().nullable(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
-  restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutQustomerFeedbackInputSchema),
+  restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutCustomerFeedbacksInputSchema),
   menuItem: z.lazy(() => MenuItemCreateNestedOneWithoutFeedbackInputSchema).optional(),
-  respondedBy: z.lazy(() => UserCreateNestedOneWithoutCustomerFeedbackInputSchema).optional()
+  respondedBy: z.lazy(() => UserCreateNestedOneWithoutCustomerFeedbackResponsesInputSchema).optional()
 }).strict();
 
 export const CustomerFeedbackUncheckedCreateInputSchema: z.ZodType<Prisma.CustomerFeedbackUncheckedCreateInput> = z.object({
@@ -10418,9 +10436,9 @@ export const CustomerFeedbackUpdateInputSchema: z.ZodType<Prisma.CustomerFeedbac
   respondedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
-  restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutQustomerFeedbackNestedInputSchema).optional(),
+  restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutCustomerFeedbacksNestedInputSchema).optional(),
   menuItem: z.lazy(() => MenuItemUpdateOneWithoutFeedbackNestedInputSchema).optional(),
-  respondedBy: z.lazy(() => UserUpdateOneWithoutCustomerFeedbackNestedInputSchema).optional()
+  respondedBy: z.lazy(() => UserUpdateOneWithoutCustomerFeedbackResponsesNestedInputSchema).optional()
 }).strict();
 
 export const CustomerFeedbackUncheckedUpdateInputSchema: z.ZodType<Prisma.CustomerFeedbackUncheckedUpdateInput> = z.object({
@@ -10491,7 +10509,7 @@ export const DietaryRestrictionCreateInputSchema: z.ZodType<Prisma.DietaryRestri
   updatedAt: z.coerce.date().optional(),
   menuItems: z.lazy(() => MenuItemCreateNestedManyWithoutDietaryRestrictionsInputSchema).optional(),
   recipes: z.lazy(() => RecipeCreateNestedManyWithoutDietaryRestrictionsInputSchema).optional(),
-  ingredients: z.lazy(() => IngredientCreateNestedManyWithoutDietaryRestrictionInputSchema).optional()
+  ingredients: z.lazy(() => IngredientCreateNestedManyWithoutDietaryRestrictionsInputSchema).optional()
 }).strict();
 
 export const DietaryRestrictionUncheckedCreateInputSchema: z.ZodType<Prisma.DietaryRestrictionUncheckedCreateInput> = z.object({
@@ -10503,7 +10521,7 @@ export const DietaryRestrictionUncheckedCreateInputSchema: z.ZodType<Prisma.Diet
   updatedAt: z.coerce.date().optional(),
   menuItems: z.lazy(() => MenuItemUncheckedCreateNestedManyWithoutDietaryRestrictionsInputSchema).optional(),
   recipes: z.lazy(() => RecipeUncheckedCreateNestedManyWithoutDietaryRestrictionsInputSchema).optional(),
-  ingredients: z.lazy(() => IngredientUncheckedCreateNestedManyWithoutDietaryRestrictionInputSchema).optional()
+  ingredients: z.lazy(() => IngredientUncheckedCreateNestedManyWithoutDietaryRestrictionsInputSchema).optional()
 }).strict();
 
 export const DietaryRestrictionUpdateInputSchema: z.ZodType<Prisma.DietaryRestrictionUpdateInput> = z.object({
@@ -10514,7 +10532,7 @@ export const DietaryRestrictionUpdateInputSchema: z.ZodType<Prisma.DietaryRestri
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   menuItems: z.lazy(() => MenuItemUpdateManyWithoutDietaryRestrictionsNestedInputSchema).optional(),
   recipes: z.lazy(() => RecipeUpdateManyWithoutDietaryRestrictionsNestedInputSchema).optional(),
-  ingredients: z.lazy(() => IngredientUpdateManyWithoutDietaryRestrictionNestedInputSchema).optional()
+  ingredients: z.lazy(() => IngredientUpdateManyWithoutDietaryRestrictionsNestedInputSchema).optional()
 }).strict();
 
 export const DietaryRestrictionUncheckedUpdateInputSchema: z.ZodType<Prisma.DietaryRestrictionUncheckedUpdateInput> = z.object({
@@ -10526,7 +10544,7 @@ export const DietaryRestrictionUncheckedUpdateInputSchema: z.ZodType<Prisma.Diet
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedUpdateManyWithoutDietaryRestrictionsNestedInputSchema).optional(),
   recipes: z.lazy(() => RecipeUncheckedUpdateManyWithoutDietaryRestrictionsNestedInputSchema).optional(),
-  ingredients: z.lazy(() => IngredientUncheckedUpdateManyWithoutDietaryRestrictionNestedInputSchema).optional()
+  ingredients: z.lazy(() => IngredientUncheckedUpdateManyWithoutDietaryRestrictionsNestedInputSchema).optional()
 }).strict();
 
 export const DietaryRestrictionCreateManyInputSchema: z.ZodType<Prisma.DietaryRestrictionCreateManyInput> = z.object({
@@ -10618,9 +10636,9 @@ export const LeftoverItemCreateInputSchema: z.ZodType<Prisma.LeftoverItemCreateI
   reason: z.string(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
-  restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutLeftoverItemInputSchema),
+  restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutLeftoverItemsInputSchema),
   menuItem: z.lazy(() => MenuItemCreateNestedOneWithoutLeftoverItemsInputSchema),
-  recordedBy: z.lazy(() => UserCreateNestedOneWithoutLeftoverItemInputSchema)
+  recordedBy: z.lazy(() => UserCreateNestedOneWithoutLeftoverItemsInputSchema)
 }).strict();
 
 export const LeftoverItemUncheckedCreateInputSchema: z.ZodType<Prisma.LeftoverItemUncheckedCreateInput> = z.object({
@@ -10641,9 +10659,9 @@ export const LeftoverItemUpdateInputSchema: z.ZodType<Prisma.LeftoverItemUpdateI
   reason: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
-  restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutLeftoverItemNestedInputSchema).optional(),
+  restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutLeftoverItemsNestedInputSchema).optional(),
   menuItem: z.lazy(() => MenuItemUpdateOneRequiredWithoutLeftoverItemsNestedInputSchema).optional(),
-  recordedBy: z.lazy(() => UserUpdateOneRequiredWithoutLeftoverItemNestedInputSchema).optional()
+  recordedBy: z.lazy(() => UserUpdateOneRequiredWithoutLeftoverItemsNestedInputSchema).optional()
 }).strict();
 
 export const LeftoverItemUncheckedUpdateInputSchema: z.ZodType<Prisma.LeftoverItemUncheckedUpdateInput> = z.object({
@@ -10697,9 +10715,9 @@ export const WasteRecordCreateInputSchema: z.ZodType<Prisma.WasteRecordCreateInp
   reason: z.string(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
-  restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutWasteRecordInputSchema),
-  ingrediente: z.lazy(() => IngredientCreateNestedOneWithoutWasteRecordInputSchema),
-  recordedBy: z.lazy(() => UserCreateNestedOneWithoutWasteRecordInputSchema)
+  restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutWasteRecordsInputSchema),
+  ingrediente: z.lazy(() => IngredientCreateNestedOneWithoutWasteRecordsInputSchema),
+  recordedBy: z.lazy(() => UserCreateNestedOneWithoutWasteRecordsInputSchema)
 }).strict();
 
 export const WasteRecordUncheckedCreateInputSchema: z.ZodType<Prisma.WasteRecordUncheckedCreateInput> = z.object({
@@ -10722,9 +10740,9 @@ export const WasteRecordUpdateInputSchema: z.ZodType<Prisma.WasteRecordUpdateInp
   reason: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
-  restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutWasteRecordNestedInputSchema).optional(),
-  ingrediente: z.lazy(() => IngredientUpdateOneRequiredWithoutWasteRecordNestedInputSchema).optional(),
-  recordedBy: z.lazy(() => UserUpdateOneRequiredWithoutWasteRecordNestedInputSchema).optional()
+  restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutWasteRecordsNestedInputSchema).optional(),
+  ingrediente: z.lazy(() => IngredientUpdateOneRequiredWithoutWasteRecordsNestedInputSchema).optional(),
+  recordedBy: z.lazy(() => UserUpdateOneRequiredWithoutWasteRecordsNestedInputSchema).optional()
 }).strict();
 
 export const WasteRecordUncheckedUpdateInputSchema: z.ZodType<Prisma.WasteRecordUncheckedUpdateInput> = z.object({
@@ -10777,10 +10795,11 @@ export const WasteRecordUncheckedUpdateManyInputSchema: z.ZodType<Prisma.WasteRe
 
 export const ProductionPlanCreateInputSchema: z.ZodType<Prisma.ProductionPlanCreateInput> = z.object({
   date: z.coerce.date(),
+  status: z.lazy(() => ProductionStatusSchema).optional(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
-  restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutProductionPlanInputSchema),
-  createdBy: z.lazy(() => UserCreateNestedOneWithoutProductionPlanInputSchema),
+  restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutProductionPlansInputSchema),
+  createdBy: z.lazy(() => UserCreateNestedOneWithoutProductionPlansInputSchema),
   items: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutProductionPlanInputSchema).optional()
 }).strict();
 
@@ -10788,6 +10807,7 @@ export const ProductionPlanUncheckedCreateInputSchema: z.ZodType<Prisma.Producti
   id: z.number().int().optional(),
   restaurantId: z.number().int(),
   date: z.coerce.date(),
+  status: z.lazy(() => ProductionStatusSchema).optional(),
   createdById: z.number().int(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
@@ -10796,10 +10816,11 @@ export const ProductionPlanUncheckedCreateInputSchema: z.ZodType<Prisma.Producti
 
 export const ProductionPlanUpdateInputSchema: z.ZodType<Prisma.ProductionPlanUpdateInput> = z.object({
   date: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
+  status: z.union([ z.lazy(() => ProductionStatusSchema),z.lazy(() => EnumProductionStatusFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
-  restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutProductionPlanNestedInputSchema).optional(),
-  createdBy: z.lazy(() => UserUpdateOneRequiredWithoutProductionPlanNestedInputSchema).optional(),
+  restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutProductionPlansNestedInputSchema).optional(),
+  createdBy: z.lazy(() => UserUpdateOneRequiredWithoutProductionPlansNestedInputSchema).optional(),
   items: z.lazy(() => ProductionPlanItemUpdateManyWithoutProductionPlanNestedInputSchema).optional()
 }).strict();
 
@@ -10807,6 +10828,7 @@ export const ProductionPlanUncheckedUpdateInputSchema: z.ZodType<Prisma.Producti
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   restaurantId: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   date: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
+  status: z.union([ z.lazy(() => ProductionStatusSchema),z.lazy(() => EnumProductionStatusFieldUpdateOperationsInputSchema) ]).optional(),
   createdById: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -10817,6 +10839,7 @@ export const ProductionPlanCreateManyInputSchema: z.ZodType<Prisma.ProductionPla
   id: z.number().int().optional(),
   restaurantId: z.number().int(),
   date: z.coerce.date(),
+  status: z.lazy(() => ProductionStatusSchema).optional(),
   createdById: z.number().int(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional()
@@ -10824,6 +10847,7 @@ export const ProductionPlanCreateManyInputSchema: z.ZodType<Prisma.ProductionPla
 
 export const ProductionPlanUpdateManyMutationInputSchema: z.ZodType<Prisma.ProductionPlanUpdateManyMutationInput> = z.object({
   date: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
+  status: z.union([ z.lazy(() => ProductionStatusSchema),z.lazy(() => EnumProductionStatusFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
 }).strict();
@@ -10832,6 +10856,7 @@ export const ProductionPlanUncheckedUpdateManyInputSchema: z.ZodType<Prisma.Prod
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   restaurantId: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   date: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
+  status: z.union([ z.lazy(() => ProductionStatusSchema),z.lazy(() => EnumProductionStatusFieldUpdateOperationsInputSchema) ]).optional(),
   createdById: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -10844,7 +10869,7 @@ export const ProductionPlanItemCreateInputSchema: z.ZodType<Prisma.ProductionPla
   updatedAt: z.coerce.date().optional(),
   productionPlan: z.lazy(() => ProductionPlanCreateNestedOneWithoutItemsInputSchema),
   recipe: z.lazy(() => RecipeCreateNestedOneWithoutProductionPlanItemsInputSchema),
-  assignedTo: z.lazy(() => UserCreateNestedOneWithoutProductionPlanItemInputSchema).optional()
+  assignedTo: z.lazy(() => UserCreateNestedOneWithoutProductionPlanItemsInputSchema).optional()
 }).strict();
 
 export const ProductionPlanItemUncheckedCreateInputSchema: z.ZodType<Prisma.ProductionPlanItemUncheckedCreateInput> = z.object({
@@ -10865,7 +10890,7 @@ export const ProductionPlanItemUpdateInputSchema: z.ZodType<Prisma.ProductionPla
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   productionPlan: z.lazy(() => ProductionPlanUpdateOneRequiredWithoutItemsNestedInputSchema).optional(),
   recipe: z.lazy(() => RecipeUpdateOneRequiredWithoutProductionPlanItemsNestedInputSchema).optional(),
-  assignedTo: z.lazy(() => UserUpdateOneWithoutProductionPlanItemNestedInputSchema).optional()
+  assignedTo: z.lazy(() => UserUpdateOneWithoutProductionPlanItemsNestedInputSchema).optional()
 }).strict();
 
 export const ProductionPlanItemUncheckedUpdateInputSchema: z.ZodType<Prisma.ProductionPlanItemUncheckedUpdateInput> = z.object({
@@ -10916,7 +10941,7 @@ export const ShiftTaskCreateInputSchema: z.ZodType<Prisma.ShiftTaskCreateInput> 
   notes: z.string().optional().nullable(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
-  shift: z.lazy(() => ShiftCreateNestedOneWithoutShiftTaskInputSchema)
+  shift: z.lazy(() => ShiftCreateNestedOneWithoutTasksInputSchema)
 }).strict();
 
 export const ShiftTaskUncheckedCreateInputSchema: z.ZodType<Prisma.ShiftTaskUncheckedCreateInput> = z.object({
@@ -10939,7 +10964,7 @@ export const ShiftTaskUpdateInputSchema: z.ZodType<Prisma.ShiftTaskUpdateInput> 
   notes: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
-  shift: z.lazy(() => ShiftUpdateOneRequiredWithoutShiftTaskNestedInputSchema).optional()
+  shift: z.lazy(() => ShiftUpdateOneRequiredWithoutTasksNestedInputSchema).optional()
 }).strict();
 
 export const ShiftTaskUncheckedUpdateInputSchema: z.ZodType<Prisma.ShiftTaskUncheckedUpdateInput> = z.object({
@@ -11062,7 +11087,7 @@ export const SchedulingConstraintCreateInputSchema: z.ZodType<Prisma.SchedulingC
   notes: z.string().optional().nullable(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
-  user: z.lazy(() => UserCreateNestedOneWithoutSchedulingConstraintInputSchema)
+  user: z.lazy(() => UserCreateNestedOneWithoutSchedulingConstraintsInputSchema)
 }).strict();
 
 export const SchedulingConstraintUncheckedCreateInputSchema: z.ZodType<Prisma.SchedulingConstraintUncheckedCreateInput> = z.object({
@@ -11085,7 +11110,7 @@ export const SchedulingConstraintUpdateInputSchema: z.ZodType<Prisma.SchedulingC
   notes: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
-  user: z.lazy(() => UserUpdateOneRequiredWithoutSchedulingConstraintNestedInputSchema).optional()
+  user: z.lazy(() => UserUpdateOneRequiredWithoutSchedulingConstraintsNestedInputSchema).optional()
 }).strict();
 
 export const SchedulingConstraintUncheckedUpdateInputSchema: z.ZodType<Prisma.SchedulingConstraintUncheckedUpdateInput> = z.object({
@@ -11142,7 +11167,7 @@ export const InventoryWithdrawalCreateInputSchema: z.ZodType<Prisma.InventoryWit
   updatedAt: z.coerce.date().optional(),
   inventoryItem: z.lazy(() => InventoryItemCreateNestedOneWithoutWithdrawalsInputSchema),
   recipe: z.lazy(() => RecipeCreateNestedOneWithoutWithdrawalsInputSchema).optional(),
-  createdBy: z.lazy(() => UserCreateNestedOneWithoutInventoryWithdrawalInputSchema)
+  createdBy: z.lazy(() => UserCreateNestedOneWithoutInventoryWithdrawalsInputSchema)
 }).strict();
 
 export const InventoryWithdrawalUncheckedCreateInputSchema: z.ZodType<Prisma.InventoryWithdrawalUncheckedCreateInput> = z.object({
@@ -11165,7 +11190,7 @@ export const InventoryWithdrawalUpdateInputSchema: z.ZodType<Prisma.InventoryWit
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   inventoryItem: z.lazy(() => InventoryItemUpdateOneRequiredWithoutWithdrawalsNestedInputSchema).optional(),
   recipe: z.lazy(() => RecipeUpdateOneWithoutWithdrawalsNestedInputSchema).optional(),
-  createdBy: z.lazy(() => UserUpdateOneRequiredWithoutInventoryWithdrawalNestedInputSchema).optional()
+  createdBy: z.lazy(() => UserUpdateOneRequiredWithoutInventoryWithdrawalsNestedInputSchema).optional()
 }).strict();
 
 export const InventoryWithdrawalUncheckedUpdateInputSchema: z.ZodType<Prisma.InventoryWithdrawalUncheckedUpdateInput> = z.object({
@@ -11256,7 +11281,7 @@ export const AllergenUncheckedUpdateManyInputSchema: z.ZodType<Prisma.AllergenUn
 }).strict();
 
 export const IngredientAllergenCreateInputSchema: z.ZodType<Prisma.IngredientAllergenCreateInput> = z.object({
-  ingredient: z.lazy(() => IngredientCreateNestedOneWithoutIngredientAllergenInputSchema),
+  ingredient: z.lazy(() => IngredientCreateNestedOneWithoutIngredientAllergensInputSchema),
   allergen: z.lazy(() => AllergenCreateNestedOneWithoutIngredientsInputSchema)
 }).strict();
 
@@ -11267,7 +11292,7 @@ export const IngredientAllergenUncheckedCreateInputSchema: z.ZodType<Prisma.Ingr
 }).strict();
 
 export const IngredientAllergenUpdateInputSchema: z.ZodType<Prisma.IngredientAllergenUpdateInput> = z.object({
-  ingredient: z.lazy(() => IngredientUpdateOneRequiredWithoutIngredientAllergenNestedInputSchema).optional(),
+  ingredient: z.lazy(() => IngredientUpdateOneRequiredWithoutIngredientAllergensNestedInputSchema).optional(),
   allergen: z.lazy(() => AllergenUpdateOneRequiredWithoutIngredientsNestedInputSchema).optional()
 }).strict();
 
@@ -11557,12 +11582,12 @@ export const RestaurantCreateInputSchema: z.ZodType<Prisma.RestaurantCreateInput
   recipes: z.lazy(() => RecipeCreateNestedManyWithoutRestaurantInputSchema).optional(),
   menus: z.lazy(() => MenuCreateNestedManyWithoutRestaurantInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRestaurantInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRestaurantInputSchema).optional()
 }).strict();
 
 export const RestaurantUncheckedCreateInputSchema: z.ZodType<Prisma.RestaurantUncheckedCreateInput> = z.object({
@@ -11587,12 +11612,12 @@ export const RestaurantUncheckedCreateInputSchema: z.ZodType<Prisma.RestaurantUn
   recipes: z.lazy(() => RecipeUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
   menus: z.lazy(() => MenuUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional()
 }).strict();
 
 export const RestaurantUpdateInputSchema: z.ZodType<Prisma.RestaurantUpdateInput> = z.object({
@@ -11616,12 +11641,12 @@ export const RestaurantUpdateInputSchema: z.ZodType<Prisma.RestaurantUpdateInput
   recipes: z.lazy(() => RecipeUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   menus: z.lazy(() => MenuUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUpdateManyWithoutRestaurantNestedInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUpdateManyWithoutRestaurantNestedInputSchema).optional()
 }).strict();
 
 export const RestaurantUncheckedUpdateInputSchema: z.ZodType<Prisma.RestaurantUncheckedUpdateInput> = z.object({
@@ -11646,12 +11671,12 @@ export const RestaurantUncheckedUpdateInputSchema: z.ZodType<Prisma.RestaurantUn
   recipes: z.lazy(() => RecipeUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   menus: z.lazy(() => MenuUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional()
 }).strict();
 
 export const RestaurantCreateManyInputSchema: z.ZodType<Prisma.RestaurantCreateManyInput> = z.object({
@@ -11721,19 +11746,19 @@ export const UserCreateInputSchema: z.ZodType<Prisma.UserCreateInput> = z.object
   inventoryUpdates: z.lazy(() => InventoryItemCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   sessions: z.lazy(() => SessionCreateNestedManyWithoutUserInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
   availability: z.lazy(() => AvailabilityCreateNestedManyWithoutUserInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
 export const UserUncheckedCreateInputSchema: z.ZodType<Prisma.UserUncheckedCreateInput> = z.object({
@@ -11755,19 +11780,19 @@ export const UserUncheckedCreateInputSchema: z.ZodType<Prisma.UserUncheckedCreat
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
 export const UserUpdateInputSchema: z.ZodType<Prisma.UserUpdateInput> = z.object({
@@ -11788,19 +11813,19 @@ export const UserUpdateInputSchema: z.ZodType<Prisma.UserUpdateInput> = z.object
   inventoryUpdates: z.lazy(() => InventoryItemUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUpdateManyWithoutUserNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUpdateManyWithoutUserNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
 export const UserUncheckedUpdateInputSchema: z.ZodType<Prisma.UserUncheckedUpdateInput> = z.object({
@@ -11822,19 +11847,19 @@ export const UserUncheckedUpdateInputSchema: z.ZodType<Prisma.UserUncheckedUpdat
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
 export const UserCreateManyInputSchema: z.ZodType<Prisma.UserCreateManyInput> = z.object({
@@ -12228,6 +12253,7 @@ export const IngredientCreateInputSchema: z.ZodType<Prisma.IngredientCreateInput
   category: z.string(),
   price: z.number(),
   density: z.number().optional().nullable(),
+  dietaryRestrictionId: z.number().int().optional().nullable(),
   calories: z.number().optional().nullable(),
   protein: z.number().optional().nullable(),
   carbohydrates: z.number().optional().nullable(),
@@ -12242,10 +12268,10 @@ export const IngredientCreateInputSchema: z.ZodType<Prisma.IngredientCreateInput
   inventoryItems: z.lazy(() => InventoryItemCreateNestedManyWithoutIngredientInputSchema).optional(),
   orderItems: z.lazy(() => OrderItemCreateNestedManyWithoutIngredientInputSchema).optional(),
   vendors: z.lazy(() => VendorCreateNestedManyWithoutIngredientsInputSchema).optional(),
-  WasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutIngredienteInputSchema).optional(),
-  IngredientAllergen: z.lazy(() => IngredientAllergenCreateNestedManyWithoutIngredientInputSchema).optional(),
-  SupplierPriceHistory: z.lazy(() => SupplierPriceHistoryCreateNestedManyWithoutIngredientInputSchema).optional(),
-  DietaryRestriction: z.lazy(() => DietaryRestrictionCreateNestedOneWithoutIngredientsInputSchema).optional()
+  WasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutIngredienteInputSchema).optional(),
+  IngredientAllergens: z.lazy(() => IngredientAllergenCreateNestedManyWithoutIngredientInputSchema).optional(),
+  priceHistory: z.lazy(() => SupplierPriceHistoryCreateNestedManyWithoutIngredientInputSchema).optional(),
+  DietaryRestrictions: z.lazy(() => DietaryRestrictionCreateNestedManyWithoutIngredientsInputSchema).optional()
 }).strict();
 
 export const IngredientUncheckedCreateInputSchema: z.ZodType<Prisma.IngredientUncheckedCreateInput> = z.object({
@@ -12269,9 +12295,10 @@ export const IngredientUncheckedCreateInputSchema: z.ZodType<Prisma.IngredientUn
   inventoryItems: z.lazy(() => InventoryItemUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
   orderItems: z.lazy(() => OrderItemUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
   vendors: z.lazy(() => VendorUncheckedCreateNestedManyWithoutIngredientsInputSchema).optional(),
-  WasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutIngredienteInputSchema).optional(),
-  IngredientAllergen: z.lazy(() => IngredientAllergenUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
-  SupplierPriceHistory: z.lazy(() => SupplierPriceHistoryUncheckedCreateNestedManyWithoutIngredientInputSchema).optional()
+  WasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutIngredienteInputSchema).optional(),
+  IngredientAllergens: z.lazy(() => IngredientAllergenUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
+  priceHistory: z.lazy(() => SupplierPriceHistoryUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
+  DietaryRestrictions: z.lazy(() => DietaryRestrictionUncheckedCreateNestedManyWithoutIngredientsInputSchema).optional()
 }).strict();
 
 export const IngredientUpdateInputSchema: z.ZodType<Prisma.IngredientUpdateInput> = z.object({
@@ -12279,6 +12306,7 @@ export const IngredientUpdateInputSchema: z.ZodType<Prisma.IngredientUpdateInput
   category: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   price: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
   density: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
+  dietaryRestrictionId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   calories: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   protein: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   carbohydrates: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -12293,10 +12321,10 @@ export const IngredientUpdateInputSchema: z.ZodType<Prisma.IngredientUpdateInput
   inventoryItems: z.lazy(() => InventoryItemUpdateManyWithoutIngredientNestedInputSchema).optional(),
   orderItems: z.lazy(() => OrderItemUpdateManyWithoutIngredientNestedInputSchema).optional(),
   vendors: z.lazy(() => VendorUpdateManyWithoutIngredientsNestedInputSchema).optional(),
-  WasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutIngredienteNestedInputSchema).optional(),
-  IngredientAllergen: z.lazy(() => IngredientAllergenUpdateManyWithoutIngredientNestedInputSchema).optional(),
-  SupplierPriceHistory: z.lazy(() => SupplierPriceHistoryUpdateManyWithoutIngredientNestedInputSchema).optional(),
-  DietaryRestriction: z.lazy(() => DietaryRestrictionUpdateOneWithoutIngredientsNestedInputSchema).optional()
+  WasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutIngredienteNestedInputSchema).optional(),
+  IngredientAllergens: z.lazy(() => IngredientAllergenUpdateManyWithoutIngredientNestedInputSchema).optional(),
+  priceHistory: z.lazy(() => SupplierPriceHistoryUpdateManyWithoutIngredientNestedInputSchema).optional(),
+  DietaryRestrictions: z.lazy(() => DietaryRestrictionUpdateManyWithoutIngredientsNestedInputSchema).optional()
 }).strict();
 
 export const IngredientUncheckedUpdateInputSchema: z.ZodType<Prisma.IngredientUncheckedUpdateInput> = z.object({
@@ -12320,9 +12348,10 @@ export const IngredientUncheckedUpdateInputSchema: z.ZodType<Prisma.IngredientUn
   inventoryItems: z.lazy(() => InventoryItemUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
   orderItems: z.lazy(() => OrderItemUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
   vendors: z.lazy(() => VendorUncheckedUpdateManyWithoutIngredientsNestedInputSchema).optional(),
-  WasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutIngredienteNestedInputSchema).optional(),
-  IngredientAllergen: z.lazy(() => IngredientAllergenUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
-  SupplierPriceHistory: z.lazy(() => SupplierPriceHistoryUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional()
+  WasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutIngredienteNestedInputSchema).optional(),
+  IngredientAllergens: z.lazy(() => IngredientAllergenUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
+  priceHistory: z.lazy(() => SupplierPriceHistoryUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
+  DietaryRestrictions: z.lazy(() => DietaryRestrictionUncheckedUpdateManyWithoutIngredientsNestedInputSchema).optional()
 }).strict();
 
 export const IngredientCreateManyInputSchema: z.ZodType<Prisma.IngredientCreateManyInput> = z.object({
@@ -12349,6 +12378,7 @@ export const IngredientUpdateManyMutationInputSchema: z.ZodType<Prisma.Ingredien
   category: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   price: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
   density: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
+  dietaryRestrictionId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   calories: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   protein: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   carbohydrates: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -12776,7 +12806,7 @@ export const InventoryTransactionCreateInputSchema: z.ZodType<Prisma.InventoryTr
   createdAt: z.coerce.date().optional(),
   inventory: z.lazy(() => InventoryCreateNestedOneWithoutTransactionsInputSchema),
   item: z.lazy(() => InventoryItemCreateNestedOneWithoutTransactionsInputSchema),
-  createdBy: z.lazy(() => UserCreateNestedOneWithoutInventoryTransactionInputSchema)
+  createdBy: z.lazy(() => UserCreateNestedOneWithoutInventoryTransactionsInputSchema)
 }).strict();
 
 export const InventoryTransactionUncheckedCreateInputSchema: z.ZodType<Prisma.InventoryTransactionUncheckedCreateInput> = z.object({
@@ -12807,7 +12837,7 @@ export const InventoryTransactionUpdateInputSchema: z.ZodType<Prisma.InventoryTr
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   inventory: z.lazy(() => InventoryUpdateOneRequiredWithoutTransactionsNestedInputSchema).optional(),
   item: z.lazy(() => InventoryItemUpdateOneRequiredWithoutTransactionsNestedInputSchema).optional(),
-  createdBy: z.lazy(() => UserUpdateOneRequiredWithoutInventoryTransactionNestedInputSchema).optional()
+  createdBy: z.lazy(() => UserUpdateOneRequiredWithoutInventoryTransactionsNestedInputSchema).optional()
 }).strict();
 
 export const InventoryTransactionUncheckedUpdateInputSchema: z.ZodType<Prisma.InventoryTransactionUncheckedUpdateInput> = z.object({
@@ -12876,7 +12906,7 @@ export const StockCountCreateInputSchema: z.ZodType<Prisma.StockCountCreateInput
   completedAt: z.coerce.date().optional().nullable(),
   notes: z.string().optional().nullable(),
   inventory: z.lazy(() => InventoryCreateNestedOneWithoutStockCountsInputSchema),
-  createdBy: z.lazy(() => UserCreateNestedOneWithoutStockCountInputSchema),
+  createdBy: z.lazy(() => UserCreateNestedOneWithoutStockCountsInputSchema),
   items: z.lazy(() => StockCountItemCreateNestedManyWithoutStockCountInputSchema).optional()
 }).strict();
 
@@ -12897,7 +12927,7 @@ export const StockCountUpdateInputSchema: z.ZodType<Prisma.StockCountUpdateInput
   completedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   notes: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   inventory: z.lazy(() => InventoryUpdateOneRequiredWithoutStockCountsNestedInputSchema).optional(),
-  createdBy: z.lazy(() => UserUpdateOneRequiredWithoutStockCountNestedInputSchema).optional(),
+  createdBy: z.lazy(() => UserUpdateOneRequiredWithoutStockCountsNestedInputSchema).optional(),
   items: z.lazy(() => StockCountItemUpdateManyWithoutStockCountNestedInputSchema).optional()
 }).strict();
 
@@ -13274,7 +13304,7 @@ export const ShiftCreateInputSchema: z.ZodType<Prisma.ShiftCreateInput> = z.obje
   endTime: z.coerce.date(),
   status: z.lazy(() => ShiftStatusSchema),
   user: z.lazy(() => UserCreateNestedOneWithoutShiftsInputSchema),
-  ShiftTask: z.lazy(() => ShiftTaskCreateNestedManyWithoutShiftInputSchema).optional()
+  tasks: z.lazy(() => ShiftTaskCreateNestedManyWithoutShiftInputSchema).optional()
 }).strict();
 
 export const ShiftUncheckedCreateInputSchema: z.ZodType<Prisma.ShiftUncheckedCreateInput> = z.object({
@@ -13283,7 +13313,7 @@ export const ShiftUncheckedCreateInputSchema: z.ZodType<Prisma.ShiftUncheckedCre
   startTime: z.coerce.date(),
   endTime: z.coerce.date(),
   status: z.lazy(() => ShiftStatusSchema),
-  ShiftTask: z.lazy(() => ShiftTaskUncheckedCreateNestedManyWithoutShiftInputSchema).optional()
+  tasks: z.lazy(() => ShiftTaskUncheckedCreateNestedManyWithoutShiftInputSchema).optional()
 }).strict();
 
 export const ShiftUpdateInputSchema: z.ZodType<Prisma.ShiftUpdateInput> = z.object({
@@ -13291,7 +13321,7 @@ export const ShiftUpdateInputSchema: z.ZodType<Prisma.ShiftUpdateInput> = z.obje
   endTime: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   status: z.union([ z.lazy(() => ShiftStatusSchema),z.lazy(() => EnumShiftStatusFieldUpdateOperationsInputSchema) ]).optional(),
   user: z.lazy(() => UserUpdateOneRequiredWithoutShiftsNestedInputSchema).optional(),
-  ShiftTask: z.lazy(() => ShiftTaskUpdateManyWithoutShiftNestedInputSchema).optional()
+  tasks: z.lazy(() => ShiftTaskUpdateManyWithoutShiftNestedInputSchema).optional()
 }).strict();
 
 export const ShiftUncheckedUpdateInputSchema: z.ZodType<Prisma.ShiftUncheckedUpdateInput> = z.object({
@@ -13300,7 +13330,7 @@ export const ShiftUncheckedUpdateInputSchema: z.ZodType<Prisma.ShiftUncheckedUpd
   startTime: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   endTime: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   status: z.union([ z.lazy(() => ShiftStatusSchema),z.lazy(() => EnumShiftStatusFieldUpdateOperationsInputSchema) ]).optional(),
-  ShiftTask: z.lazy(() => ShiftTaskUncheckedUpdateManyWithoutShiftNestedInputSchema).optional()
+  tasks: z.lazy(() => ShiftTaskUncheckedUpdateManyWithoutShiftNestedInputSchema).optional()
 }).strict();
 
 export const ShiftCreateManyInputSchema: z.ZodType<Prisma.ShiftCreateManyInput> = z.object({
@@ -15703,6 +15733,13 @@ export const WasteRecordSumOrderByAggregateInputSchema: z.ZodType<Prisma.WasteRe
   recordedById: z.lazy(() => SortOrderSchema).optional()
 }).strict();
 
+export const EnumProductionStatusFilterSchema: z.ZodType<Prisma.EnumProductionStatusFilter> = z.object({
+  equals: z.lazy(() => ProductionStatusSchema).optional(),
+  in: z.lazy(() => ProductionStatusSchema).array().optional(),
+  notIn: z.lazy(() => ProductionStatusSchema).array().optional(),
+  not: z.union([ z.lazy(() => ProductionStatusSchema),z.lazy(() => NestedEnumProductionStatusFilterSchema) ]).optional(),
+}).strict();
+
 export const ProductionPlanItemListRelationFilterSchema: z.ZodType<Prisma.ProductionPlanItemListRelationFilter> = z.object({
   every: z.lazy(() => ProductionPlanItemWhereInputSchema).optional(),
   some: z.lazy(() => ProductionPlanItemWhereInputSchema).optional(),
@@ -15717,6 +15754,7 @@ export const ProductionPlanCountOrderByAggregateInputSchema: z.ZodType<Prisma.Pr
   id: z.lazy(() => SortOrderSchema).optional(),
   restaurantId: z.lazy(() => SortOrderSchema).optional(),
   date: z.lazy(() => SortOrderSchema).optional(),
+  status: z.lazy(() => SortOrderSchema).optional(),
   createdById: z.lazy(() => SortOrderSchema).optional(),
   createdAt: z.lazy(() => SortOrderSchema).optional(),
   updatedAt: z.lazy(() => SortOrderSchema).optional()
@@ -15732,6 +15770,7 @@ export const ProductionPlanMaxOrderByAggregateInputSchema: z.ZodType<Prisma.Prod
   id: z.lazy(() => SortOrderSchema).optional(),
   restaurantId: z.lazy(() => SortOrderSchema).optional(),
   date: z.lazy(() => SortOrderSchema).optional(),
+  status: z.lazy(() => SortOrderSchema).optional(),
   createdById: z.lazy(() => SortOrderSchema).optional(),
   createdAt: z.lazy(() => SortOrderSchema).optional(),
   updatedAt: z.lazy(() => SortOrderSchema).optional()
@@ -15741,6 +15780,7 @@ export const ProductionPlanMinOrderByAggregateInputSchema: z.ZodType<Prisma.Prod
   id: z.lazy(() => SortOrderSchema).optional(),
   restaurantId: z.lazy(() => SortOrderSchema).optional(),
   date: z.lazy(() => SortOrderSchema).optional(),
+  status: z.lazy(() => SortOrderSchema).optional(),
   createdById: z.lazy(() => SortOrderSchema).optional(),
   createdAt: z.lazy(() => SortOrderSchema).optional(),
   updatedAt: z.lazy(() => SortOrderSchema).optional()
@@ -15750,6 +15790,16 @@ export const ProductionPlanSumOrderByAggregateInputSchema: z.ZodType<Prisma.Prod
   id: z.lazy(() => SortOrderSchema).optional(),
   restaurantId: z.lazy(() => SortOrderSchema).optional(),
   createdById: z.lazy(() => SortOrderSchema).optional()
+}).strict();
+
+export const EnumProductionStatusWithAggregatesFilterSchema: z.ZodType<Prisma.EnumProductionStatusWithAggregatesFilter> = z.object({
+  equals: z.lazy(() => ProductionStatusSchema).optional(),
+  in: z.lazy(() => ProductionStatusSchema).array().optional(),
+  notIn: z.lazy(() => ProductionStatusSchema).array().optional(),
+  not: z.union([ z.lazy(() => ProductionStatusSchema),z.lazy(() => NestedEnumProductionStatusWithAggregatesFilterSchema) ]).optional(),
+  _count: z.lazy(() => NestedIntFilterSchema).optional(),
+  _min: z.lazy(() => NestedEnumProductionStatusFilterSchema).optional(),
+  _max: z.lazy(() => NestedEnumProductionStatusFilterSchema).optional()
 }).strict();
 
 export const ProductionPlanScalarRelationFilterSchema: z.ZodType<Prisma.ProductionPlanScalarRelationFilter> = z.object({
@@ -16097,6 +16147,11 @@ export const AllergenSumOrderByAggregateInputSchema: z.ZodType<Prisma.AllergenSu
 export const AllergenScalarRelationFilterSchema: z.ZodType<Prisma.AllergenScalarRelationFilter> = z.object({
   is: z.lazy(() => AllergenWhereInputSchema).optional(),
   isNot: z.lazy(() => AllergenWhereInputSchema).optional()
+}).strict();
+
+export const IngredientAllergenIngredientIdAllergenIdCompoundUniqueInputSchema: z.ZodType<Prisma.IngredientAllergenIngredientIdAllergenIdCompoundUniqueInput> = z.object({
+  ingredientId: z.number(),
+  allergenId: z.number()
 }).strict();
 
 export const IngredientAllergenCountOrderByAggregateInputSchema: z.ZodType<Prisma.IngredientAllergenCountOrderByAggregateInput> = z.object({
@@ -17009,11 +17064,6 @@ export const SupplierPriceHistoryListRelationFilterSchema: z.ZodType<Prisma.Supp
   none: z.lazy(() => SupplierPriceHistoryWhereInputSchema).optional()
 }).strict();
 
-export const DietaryRestrictionNullableScalarRelationFilterSchema: z.ZodType<Prisma.DietaryRestrictionNullableScalarRelationFilter> = z.object({
-  is: z.lazy(() => DietaryRestrictionWhereInputSchema).optional().nullable(),
-  isNot: z.lazy(() => DietaryRestrictionWhereInputSchema).optional().nullable()
-}).strict();
-
 export const OrderItemOrderByRelationAggregateInputSchema: z.ZodType<Prisma.OrderItemOrderByRelationAggregateInput> = z.object({
   _count: z.lazy(() => SortOrderSchema).optional()
 }).strict();
@@ -17134,9 +17184,10 @@ export const RecipeVersionNullableScalarRelationFilterSchema: z.ZodType<Prisma.R
   isNot: z.lazy(() => RecipeVersionWhereInputSchema).optional().nullable()
 }).strict();
 
-export const RecipeIngredientRecipeIdIngredientIdCompoundUniqueInputSchema: z.ZodType<Prisma.RecipeIngredientRecipeIdIngredientIdCompoundUniqueInput> = z.object({
+export const RecipeIngredientUnique_ingredient_per_versionCompoundUniqueInputSchema: z.ZodType<Prisma.RecipeIngredientUnique_ingredient_per_versionCompoundUniqueInput> = z.object({
   recipeId: z.number(),
-  ingredientId: z.number()
+  ingredientId: z.number(),
+  recipeVersionId: z.number()
 }).strict();
 
 export const RecipeIngredientCountOrderByAggregateInputSchema: z.ZodType<Prisma.RecipeIngredientCountOrderByAggregateInput> = z.object({
@@ -17212,9 +17263,10 @@ export const RecipeIngredientSumOrderByAggregateInputSchema: z.ZodType<Prisma.Re
   recipeVersionId: z.lazy(() => SortOrderSchema).optional()
 }).strict();
 
-export const RecipeInstructionRecipeIdStepNumberCompoundUniqueInputSchema: z.ZodType<Prisma.RecipeInstructionRecipeIdStepNumberCompoundUniqueInput> = z.object({
+export const RecipeInstructionRecipeIdStepNumberRecipeVersionIdCompoundUniqueInputSchema: z.ZodType<Prisma.RecipeInstructionRecipeIdStepNumberRecipeVersionIdCompoundUniqueInput> = z.object({
   recipeId: z.number(),
-  stepNumber: z.number()
+  stepNumber: z.number(),
+  recipeVersionId: z.number()
 }).strict();
 
 export const RecipeInstructionCountOrderByAggregateInputSchema: z.ZodType<Prisma.RecipeInstructionCountOrderByAggregateInput> = z.object({
@@ -18684,9 +18736,9 @@ export const RecipeInstructionUncheckedUpdateManyWithoutRecipeVersionNestedInput
   deleteMany: z.union([ z.lazy(() => RecipeInstructionScalarWhereInputSchema),z.lazy(() => RecipeInstructionScalarWhereInputSchema).array() ]).optional(),
 }).strict();
 
-export const RestaurantCreateNestedOneWithoutEquipmentInputSchema: z.ZodType<Prisma.RestaurantCreateNestedOneWithoutEquipmentInput> = z.object({
-  create: z.union([ z.lazy(() => RestaurantCreateWithoutEquipmentInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutEquipmentInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => RestaurantCreateOrConnectWithoutEquipmentInputSchema).optional(),
+export const RestaurantCreateNestedOneWithoutEquipmentsInputSchema: z.ZodType<Prisma.RestaurantCreateNestedOneWithoutEquipmentsInput> = z.object({
+  create: z.union([ z.lazy(() => RestaurantCreateWithoutEquipmentsInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutEquipmentsInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => RestaurantCreateOrConnectWithoutEquipmentsInputSchema).optional(),
   connect: z.lazy(() => RestaurantWhereUniqueInputSchema).optional()
 }).strict();
 
@@ -18722,12 +18774,12 @@ export const EnumEquipmentStatusFieldUpdateOperationsInputSchema: z.ZodType<Pris
   set: z.lazy(() => EquipmentStatusSchema).optional()
 }).strict();
 
-export const RestaurantUpdateOneRequiredWithoutEquipmentNestedInputSchema: z.ZodType<Prisma.RestaurantUpdateOneRequiredWithoutEquipmentNestedInput> = z.object({
-  create: z.union([ z.lazy(() => RestaurantCreateWithoutEquipmentInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutEquipmentInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => RestaurantCreateOrConnectWithoutEquipmentInputSchema).optional(),
-  upsert: z.lazy(() => RestaurantUpsertWithoutEquipmentInputSchema).optional(),
+export const RestaurantUpdateOneRequiredWithoutEquipmentsNestedInputSchema: z.ZodType<Prisma.RestaurantUpdateOneRequiredWithoutEquipmentsNestedInput> = z.object({
+  create: z.union([ z.lazy(() => RestaurantCreateWithoutEquipmentsInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutEquipmentsInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => RestaurantCreateOrConnectWithoutEquipmentsInputSchema).optional(),
+  upsert: z.lazy(() => RestaurantUpsertWithoutEquipmentsInputSchema).optional(),
   connect: z.lazy(() => RestaurantWhereUniqueInputSchema).optional(),
-  update: z.union([ z.lazy(() => RestaurantUpdateToOneWithWhereWithoutEquipmentInputSchema),z.lazy(() => RestaurantUpdateWithoutEquipmentInputSchema),z.lazy(() => RestaurantUncheckedUpdateWithoutEquipmentInputSchema) ]).optional(),
+  update: z.union([ z.lazy(() => RestaurantUpdateToOneWithWhereWithoutEquipmentsInputSchema),z.lazy(() => RestaurantUpdateWithoutEquipmentsInputSchema),z.lazy(() => RestaurantUncheckedUpdateWithoutEquipmentsInputSchema) ]).optional(),
 }).strict();
 
 export const RecipeEquipmentUpdateManyWithoutEquipmentNestedInputSchema: z.ZodType<Prisma.RecipeEquipmentUpdateManyWithoutEquipmentNestedInput> = z.object({
@@ -18848,9 +18900,9 @@ export const EquipmentUpdateOneRequiredWithoutMaintenanceLogsNestedInputSchema: 
   update: z.union([ z.lazy(() => EquipmentUpdateToOneWithWhereWithoutMaintenanceLogsInputSchema),z.lazy(() => EquipmentUpdateWithoutMaintenanceLogsInputSchema),z.lazy(() => EquipmentUncheckedUpdateWithoutMaintenanceLogsInputSchema) ]).optional(),
 }).strict();
 
-export const RestaurantCreateNestedOneWithoutQualityChecklistInputSchema: z.ZodType<Prisma.RestaurantCreateNestedOneWithoutQualityChecklistInput> = z.object({
-  create: z.union([ z.lazy(() => RestaurantCreateWithoutQualityChecklistInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutQualityChecklistInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => RestaurantCreateOrConnectWithoutQualityChecklistInputSchema).optional(),
+export const RestaurantCreateNestedOneWithoutQualityChecklistsInputSchema: z.ZodType<Prisma.RestaurantCreateNestedOneWithoutQualityChecklistsInput> = z.object({
+  create: z.union([ z.lazy(() => RestaurantCreateWithoutQualityChecklistsInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutQualityChecklistsInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => RestaurantCreateOrConnectWithoutQualityChecklistsInputSchema).optional(),
   connect: z.lazy(() => RestaurantWhereUniqueInputSchema).optional()
 }).strict();
 
@@ -18886,12 +18938,12 @@ export const EnumChecklistFrequencyFieldUpdateOperationsInputSchema: z.ZodType<P
   set: z.lazy(() => ChecklistFrequencySchema).optional()
 }).strict();
 
-export const RestaurantUpdateOneRequiredWithoutQualityChecklistNestedInputSchema: z.ZodType<Prisma.RestaurantUpdateOneRequiredWithoutQualityChecklistNestedInput> = z.object({
-  create: z.union([ z.lazy(() => RestaurantCreateWithoutQualityChecklistInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutQualityChecklistInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => RestaurantCreateOrConnectWithoutQualityChecklistInputSchema).optional(),
-  upsert: z.lazy(() => RestaurantUpsertWithoutQualityChecklistInputSchema).optional(),
+export const RestaurantUpdateOneRequiredWithoutQualityChecklistsNestedInputSchema: z.ZodType<Prisma.RestaurantUpdateOneRequiredWithoutQualityChecklistsNestedInput> = z.object({
+  create: z.union([ z.lazy(() => RestaurantCreateWithoutQualityChecklistsInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutQualityChecklistsInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => RestaurantCreateOrConnectWithoutQualityChecklistsInputSchema).optional(),
+  upsert: z.lazy(() => RestaurantUpsertWithoutQualityChecklistsInputSchema).optional(),
   connect: z.lazy(() => RestaurantWhereUniqueInputSchema).optional(),
-  update: z.union([ z.lazy(() => RestaurantUpdateToOneWithWhereWithoutQualityChecklistInputSchema),z.lazy(() => RestaurantUpdateWithoutQualityChecklistInputSchema),z.lazy(() => RestaurantUncheckedUpdateWithoutQualityChecklistInputSchema) ]).optional(),
+  update: z.union([ z.lazy(() => RestaurantUpdateToOneWithWhereWithoutQualityChecklistsInputSchema),z.lazy(() => RestaurantUpdateWithoutQualityChecklistsInputSchema),z.lazy(() => RestaurantUncheckedUpdateWithoutQualityChecklistsInputSchema) ]).optional(),
 }).strict();
 
 export const ChecklistItemUpdateManyWithoutChecklistNestedInputSchema: z.ZodType<Prisma.ChecklistItemUpdateManyWithoutChecklistNestedInput> = z.object({
@@ -19016,9 +19068,9 @@ export const QualityChecklistCreateNestedOneWithoutCompletionsInputSchema: z.Zod
   connect: z.lazy(() => QualityChecklistWhereUniqueInputSchema).optional()
 }).strict();
 
-export const UserCreateNestedOneWithoutChecklistCompleteInputSchema: z.ZodType<Prisma.UserCreateNestedOneWithoutChecklistCompleteInput> = z.object({
-  create: z.union([ z.lazy(() => UserCreateWithoutChecklistCompleteInputSchema),z.lazy(() => UserUncheckedCreateWithoutChecklistCompleteInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutChecklistCompleteInputSchema).optional(),
+export const UserCreateNestedOneWithoutChecklistCompletesInputSchema: z.ZodType<Prisma.UserCreateNestedOneWithoutChecklistCompletesInput> = z.object({
+  create: z.union([ z.lazy(() => UserCreateWithoutChecklistCompletesInputSchema),z.lazy(() => UserUncheckedCreateWithoutChecklistCompletesInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutChecklistCompletesInputSchema).optional(),
   connect: z.lazy(() => UserWhereUniqueInputSchema).optional()
 }).strict();
 
@@ -19044,12 +19096,12 @@ export const QualityChecklistUpdateOneRequiredWithoutCompletionsNestedInputSchem
   update: z.union([ z.lazy(() => QualityChecklistUpdateToOneWithWhereWithoutCompletionsInputSchema),z.lazy(() => QualityChecklistUpdateWithoutCompletionsInputSchema),z.lazy(() => QualityChecklistUncheckedUpdateWithoutCompletionsInputSchema) ]).optional(),
 }).strict();
 
-export const UserUpdateOneRequiredWithoutChecklistCompleteNestedInputSchema: z.ZodType<Prisma.UserUpdateOneRequiredWithoutChecklistCompleteNestedInput> = z.object({
-  create: z.union([ z.lazy(() => UserCreateWithoutChecklistCompleteInputSchema),z.lazy(() => UserUncheckedCreateWithoutChecklistCompleteInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutChecklistCompleteInputSchema).optional(),
-  upsert: z.lazy(() => UserUpsertWithoutChecklistCompleteInputSchema).optional(),
+export const UserUpdateOneRequiredWithoutChecklistCompletesNestedInputSchema: z.ZodType<Prisma.UserUpdateOneRequiredWithoutChecklistCompletesNestedInput> = z.object({
+  create: z.union([ z.lazy(() => UserCreateWithoutChecklistCompletesInputSchema),z.lazy(() => UserUncheckedCreateWithoutChecklistCompletesInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutChecklistCompletesInputSchema).optional(),
+  upsert: z.lazy(() => UserUpsertWithoutChecklistCompletesInputSchema).optional(),
   connect: z.lazy(() => UserWhereUniqueInputSchema).optional(),
-  update: z.union([ z.lazy(() => UserUpdateToOneWithWhereWithoutChecklistCompleteInputSchema),z.lazy(() => UserUpdateWithoutChecklistCompleteInputSchema),z.lazy(() => UserUncheckedUpdateWithoutChecklistCompleteInputSchema) ]).optional(),
+  update: z.union([ z.lazy(() => UserUpdateToOneWithWhereWithoutChecklistCompletesInputSchema),z.lazy(() => UserUpdateWithoutChecklistCompletesInputSchema),z.lazy(() => UserUncheckedUpdateWithoutChecklistCompletesInputSchema) ]).optional(),
 }).strict();
 
 export const ChecklistItemCompleteUpdateManyWithoutChecklistCompleteNestedInputSchema: z.ZodType<Prisma.ChecklistItemCompleteUpdateManyWithoutChecklistCompleteNestedInput> = z.object({
@@ -19127,9 +19179,9 @@ export const VendorCreateNestedOneWithoutSupplierPriceHistoryInputSchema: z.ZodT
   connect: z.lazy(() => VendorWhereUniqueInputSchema).optional()
 }).strict();
 
-export const IngredientCreateNestedOneWithoutSupplierPriceHistoryInputSchema: z.ZodType<Prisma.IngredientCreateNestedOneWithoutSupplierPriceHistoryInput> = z.object({
-  create: z.union([ z.lazy(() => IngredientCreateWithoutSupplierPriceHistoryInputSchema),z.lazy(() => IngredientUncheckedCreateWithoutSupplierPriceHistoryInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => IngredientCreateOrConnectWithoutSupplierPriceHistoryInputSchema).optional(),
+export const IngredientCreateNestedOneWithoutPriceHistoryInputSchema: z.ZodType<Prisma.IngredientCreateNestedOneWithoutPriceHistoryInput> = z.object({
+  create: z.union([ z.lazy(() => IngredientCreateWithoutPriceHistoryInputSchema),z.lazy(() => IngredientUncheckedCreateWithoutPriceHistoryInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => IngredientCreateOrConnectWithoutPriceHistoryInputSchema).optional(),
   connect: z.lazy(() => IngredientWhereUniqueInputSchema).optional()
 }).strict();
 
@@ -19141,21 +19193,21 @@ export const VendorUpdateOneRequiredWithoutSupplierPriceHistoryNestedInputSchema
   update: z.union([ z.lazy(() => VendorUpdateToOneWithWhereWithoutSupplierPriceHistoryInputSchema),z.lazy(() => VendorUpdateWithoutSupplierPriceHistoryInputSchema),z.lazy(() => VendorUncheckedUpdateWithoutSupplierPriceHistoryInputSchema) ]).optional(),
 }).strict();
 
-export const IngredientUpdateOneRequiredWithoutSupplierPriceHistoryNestedInputSchema: z.ZodType<Prisma.IngredientUpdateOneRequiredWithoutSupplierPriceHistoryNestedInput> = z.object({
-  create: z.union([ z.lazy(() => IngredientCreateWithoutSupplierPriceHistoryInputSchema),z.lazy(() => IngredientUncheckedCreateWithoutSupplierPriceHistoryInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => IngredientCreateOrConnectWithoutSupplierPriceHistoryInputSchema).optional(),
-  upsert: z.lazy(() => IngredientUpsertWithoutSupplierPriceHistoryInputSchema).optional(),
+export const IngredientUpdateOneRequiredWithoutPriceHistoryNestedInputSchema: z.ZodType<Prisma.IngredientUpdateOneRequiredWithoutPriceHistoryNestedInput> = z.object({
+  create: z.union([ z.lazy(() => IngredientCreateWithoutPriceHistoryInputSchema),z.lazy(() => IngredientUncheckedCreateWithoutPriceHistoryInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => IngredientCreateOrConnectWithoutPriceHistoryInputSchema).optional(),
+  upsert: z.lazy(() => IngredientUpsertWithoutPriceHistoryInputSchema).optional(),
   connect: z.lazy(() => IngredientWhereUniqueInputSchema).optional(),
-  update: z.union([ z.lazy(() => IngredientUpdateToOneWithWhereWithoutSupplierPriceHistoryInputSchema),z.lazy(() => IngredientUpdateWithoutSupplierPriceHistoryInputSchema),z.lazy(() => IngredientUncheckedUpdateWithoutSupplierPriceHistoryInputSchema) ]).optional(),
+  update: z.union([ z.lazy(() => IngredientUpdateToOneWithWhereWithoutPriceHistoryInputSchema),z.lazy(() => IngredientUpdateWithoutPriceHistoryInputSchema),z.lazy(() => IngredientUncheckedUpdateWithoutPriceHistoryInputSchema) ]).optional(),
 }).strict();
 
 export const CustomerFeedbackCreatetagsInputSchema: z.ZodType<Prisma.CustomerFeedbackCreatetagsInput> = z.object({
   set: z.string().array()
 }).strict();
 
-export const RestaurantCreateNestedOneWithoutQustomerFeedbackInputSchema: z.ZodType<Prisma.RestaurantCreateNestedOneWithoutQustomerFeedbackInput> = z.object({
-  create: z.union([ z.lazy(() => RestaurantCreateWithoutQustomerFeedbackInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutQustomerFeedbackInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => RestaurantCreateOrConnectWithoutQustomerFeedbackInputSchema).optional(),
+export const RestaurantCreateNestedOneWithoutCustomerFeedbacksInputSchema: z.ZodType<Prisma.RestaurantCreateNestedOneWithoutCustomerFeedbacksInput> = z.object({
+  create: z.union([ z.lazy(() => RestaurantCreateWithoutCustomerFeedbacksInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutCustomerFeedbacksInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => RestaurantCreateOrConnectWithoutCustomerFeedbacksInputSchema).optional(),
   connect: z.lazy(() => RestaurantWhereUniqueInputSchema).optional()
 }).strict();
 
@@ -19165,9 +19217,9 @@ export const MenuItemCreateNestedOneWithoutFeedbackInputSchema: z.ZodType<Prisma
   connect: z.lazy(() => MenuItemWhereUniqueInputSchema).optional()
 }).strict();
 
-export const UserCreateNestedOneWithoutCustomerFeedbackInputSchema: z.ZodType<Prisma.UserCreateNestedOneWithoutCustomerFeedbackInput> = z.object({
-  create: z.union([ z.lazy(() => UserCreateWithoutCustomerFeedbackInputSchema),z.lazy(() => UserUncheckedCreateWithoutCustomerFeedbackInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutCustomerFeedbackInputSchema).optional(),
+export const UserCreateNestedOneWithoutCustomerFeedbackResponsesInputSchema: z.ZodType<Prisma.UserCreateNestedOneWithoutCustomerFeedbackResponsesInput> = z.object({
+  create: z.union([ z.lazy(() => UserCreateWithoutCustomerFeedbackResponsesInputSchema),z.lazy(() => UserUncheckedCreateWithoutCustomerFeedbackResponsesInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutCustomerFeedbackResponsesInputSchema).optional(),
   connect: z.lazy(() => UserWhereUniqueInputSchema).optional()
 }).strict();
 
@@ -19184,12 +19236,12 @@ export const EnumFeedbackStatusFieldUpdateOperationsInputSchema: z.ZodType<Prism
   set: z.lazy(() => FeedbackStatusSchema).optional()
 }).strict();
 
-export const RestaurantUpdateOneRequiredWithoutQustomerFeedbackNestedInputSchema: z.ZodType<Prisma.RestaurantUpdateOneRequiredWithoutQustomerFeedbackNestedInput> = z.object({
-  create: z.union([ z.lazy(() => RestaurantCreateWithoutQustomerFeedbackInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutQustomerFeedbackInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => RestaurantCreateOrConnectWithoutQustomerFeedbackInputSchema).optional(),
-  upsert: z.lazy(() => RestaurantUpsertWithoutQustomerFeedbackInputSchema).optional(),
+export const RestaurantUpdateOneRequiredWithoutCustomerFeedbacksNestedInputSchema: z.ZodType<Prisma.RestaurantUpdateOneRequiredWithoutCustomerFeedbacksNestedInput> = z.object({
+  create: z.union([ z.lazy(() => RestaurantCreateWithoutCustomerFeedbacksInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutCustomerFeedbacksInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => RestaurantCreateOrConnectWithoutCustomerFeedbacksInputSchema).optional(),
+  upsert: z.lazy(() => RestaurantUpsertWithoutCustomerFeedbacksInputSchema).optional(),
   connect: z.lazy(() => RestaurantWhereUniqueInputSchema).optional(),
-  update: z.union([ z.lazy(() => RestaurantUpdateToOneWithWhereWithoutQustomerFeedbackInputSchema),z.lazy(() => RestaurantUpdateWithoutQustomerFeedbackInputSchema),z.lazy(() => RestaurantUncheckedUpdateWithoutQustomerFeedbackInputSchema) ]).optional(),
+  update: z.union([ z.lazy(() => RestaurantUpdateToOneWithWhereWithoutCustomerFeedbacksInputSchema),z.lazy(() => RestaurantUpdateWithoutCustomerFeedbacksInputSchema),z.lazy(() => RestaurantUncheckedUpdateWithoutCustomerFeedbacksInputSchema) ]).optional(),
 }).strict();
 
 export const MenuItemUpdateOneWithoutFeedbackNestedInputSchema: z.ZodType<Prisma.MenuItemUpdateOneWithoutFeedbackNestedInput> = z.object({
@@ -19202,14 +19254,14 @@ export const MenuItemUpdateOneWithoutFeedbackNestedInputSchema: z.ZodType<Prisma
   update: z.union([ z.lazy(() => MenuItemUpdateToOneWithWhereWithoutFeedbackInputSchema),z.lazy(() => MenuItemUpdateWithoutFeedbackInputSchema),z.lazy(() => MenuItemUncheckedUpdateWithoutFeedbackInputSchema) ]).optional(),
 }).strict();
 
-export const UserUpdateOneWithoutCustomerFeedbackNestedInputSchema: z.ZodType<Prisma.UserUpdateOneWithoutCustomerFeedbackNestedInput> = z.object({
-  create: z.union([ z.lazy(() => UserCreateWithoutCustomerFeedbackInputSchema),z.lazy(() => UserUncheckedCreateWithoutCustomerFeedbackInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutCustomerFeedbackInputSchema).optional(),
-  upsert: z.lazy(() => UserUpsertWithoutCustomerFeedbackInputSchema).optional(),
+export const UserUpdateOneWithoutCustomerFeedbackResponsesNestedInputSchema: z.ZodType<Prisma.UserUpdateOneWithoutCustomerFeedbackResponsesNestedInput> = z.object({
+  create: z.union([ z.lazy(() => UserCreateWithoutCustomerFeedbackResponsesInputSchema),z.lazy(() => UserUncheckedCreateWithoutCustomerFeedbackResponsesInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutCustomerFeedbackResponsesInputSchema).optional(),
+  upsert: z.lazy(() => UserUpsertWithoutCustomerFeedbackResponsesInputSchema).optional(),
   disconnect: z.union([ z.boolean(),z.lazy(() => UserWhereInputSchema) ]).optional(),
   delete: z.union([ z.boolean(),z.lazy(() => UserWhereInputSchema) ]).optional(),
   connect: z.lazy(() => UserWhereUniqueInputSchema).optional(),
-  update: z.union([ z.lazy(() => UserUpdateToOneWithWhereWithoutCustomerFeedbackInputSchema),z.lazy(() => UserUpdateWithoutCustomerFeedbackInputSchema),z.lazy(() => UserUncheckedUpdateWithoutCustomerFeedbackInputSchema) ]).optional(),
+  update: z.union([ z.lazy(() => UserUpdateToOneWithWhereWithoutCustomerFeedbackResponsesInputSchema),z.lazy(() => UserUpdateWithoutCustomerFeedbackResponsesInputSchema),z.lazy(() => UserUncheckedUpdateWithoutCustomerFeedbackResponsesInputSchema) ]).optional(),
 }).strict();
 
 export const MenuItemCreateNestedManyWithoutDietaryRestrictionsInputSchema: z.ZodType<Prisma.MenuItemCreateNestedManyWithoutDietaryRestrictionsInput> = z.object({
@@ -19224,10 +19276,9 @@ export const RecipeCreateNestedManyWithoutDietaryRestrictionsInputSchema: z.ZodT
   connect: z.union([ z.lazy(() => RecipeWhereUniqueInputSchema),z.lazy(() => RecipeWhereUniqueInputSchema).array() ]).optional(),
 }).strict();
 
-export const IngredientCreateNestedManyWithoutDietaryRestrictionInputSchema: z.ZodType<Prisma.IngredientCreateNestedManyWithoutDietaryRestrictionInput> = z.object({
-  create: z.union([ z.lazy(() => IngredientCreateWithoutDietaryRestrictionInputSchema),z.lazy(() => IngredientCreateWithoutDietaryRestrictionInputSchema).array(),z.lazy(() => IngredientUncheckedCreateWithoutDietaryRestrictionInputSchema),z.lazy(() => IngredientUncheckedCreateWithoutDietaryRestrictionInputSchema).array() ]).optional(),
-  connectOrCreate: z.union([ z.lazy(() => IngredientCreateOrConnectWithoutDietaryRestrictionInputSchema),z.lazy(() => IngredientCreateOrConnectWithoutDietaryRestrictionInputSchema).array() ]).optional(),
-  createMany: z.lazy(() => IngredientCreateManyDietaryRestrictionInputEnvelopeSchema).optional(),
+export const IngredientCreateNestedManyWithoutDietaryRestrictionsInputSchema: z.ZodType<Prisma.IngredientCreateNestedManyWithoutDietaryRestrictionsInput> = z.object({
+  create: z.union([ z.lazy(() => IngredientCreateWithoutDietaryRestrictionsInputSchema),z.lazy(() => IngredientCreateWithoutDietaryRestrictionsInputSchema).array(),z.lazy(() => IngredientUncheckedCreateWithoutDietaryRestrictionsInputSchema),z.lazy(() => IngredientUncheckedCreateWithoutDietaryRestrictionsInputSchema).array() ]).optional(),
+  connectOrCreate: z.union([ z.lazy(() => IngredientCreateOrConnectWithoutDietaryRestrictionsInputSchema),z.lazy(() => IngredientCreateOrConnectWithoutDietaryRestrictionsInputSchema).array() ]).optional(),
   connect: z.union([ z.lazy(() => IngredientWhereUniqueInputSchema),z.lazy(() => IngredientWhereUniqueInputSchema).array() ]).optional(),
 }).strict();
 
@@ -19243,10 +19294,9 @@ export const RecipeUncheckedCreateNestedManyWithoutDietaryRestrictionsInputSchem
   connect: z.union([ z.lazy(() => RecipeWhereUniqueInputSchema),z.lazy(() => RecipeWhereUniqueInputSchema).array() ]).optional(),
 }).strict();
 
-export const IngredientUncheckedCreateNestedManyWithoutDietaryRestrictionInputSchema: z.ZodType<Prisma.IngredientUncheckedCreateNestedManyWithoutDietaryRestrictionInput> = z.object({
-  create: z.union([ z.lazy(() => IngredientCreateWithoutDietaryRestrictionInputSchema),z.lazy(() => IngredientCreateWithoutDietaryRestrictionInputSchema).array(),z.lazy(() => IngredientUncheckedCreateWithoutDietaryRestrictionInputSchema),z.lazy(() => IngredientUncheckedCreateWithoutDietaryRestrictionInputSchema).array() ]).optional(),
-  connectOrCreate: z.union([ z.lazy(() => IngredientCreateOrConnectWithoutDietaryRestrictionInputSchema),z.lazy(() => IngredientCreateOrConnectWithoutDietaryRestrictionInputSchema).array() ]).optional(),
-  createMany: z.lazy(() => IngredientCreateManyDietaryRestrictionInputEnvelopeSchema).optional(),
+export const IngredientUncheckedCreateNestedManyWithoutDietaryRestrictionsInputSchema: z.ZodType<Prisma.IngredientUncheckedCreateNestedManyWithoutDietaryRestrictionsInput> = z.object({
+  create: z.union([ z.lazy(() => IngredientCreateWithoutDietaryRestrictionsInputSchema),z.lazy(() => IngredientCreateWithoutDietaryRestrictionsInputSchema).array(),z.lazy(() => IngredientUncheckedCreateWithoutDietaryRestrictionsInputSchema),z.lazy(() => IngredientUncheckedCreateWithoutDietaryRestrictionsInputSchema).array() ]).optional(),
+  connectOrCreate: z.union([ z.lazy(() => IngredientCreateOrConnectWithoutDietaryRestrictionsInputSchema),z.lazy(() => IngredientCreateOrConnectWithoutDietaryRestrictionsInputSchema).array() ]).optional(),
   connect: z.union([ z.lazy(() => IngredientWhereUniqueInputSchema),z.lazy(() => IngredientWhereUniqueInputSchema).array() ]).optional(),
 }).strict();
 
@@ -19276,17 +19326,16 @@ export const RecipeUpdateManyWithoutDietaryRestrictionsNestedInputSchema: z.ZodT
   deleteMany: z.union([ z.lazy(() => RecipeScalarWhereInputSchema),z.lazy(() => RecipeScalarWhereInputSchema).array() ]).optional(),
 }).strict();
 
-export const IngredientUpdateManyWithoutDietaryRestrictionNestedInputSchema: z.ZodType<Prisma.IngredientUpdateManyWithoutDietaryRestrictionNestedInput> = z.object({
-  create: z.union([ z.lazy(() => IngredientCreateWithoutDietaryRestrictionInputSchema),z.lazy(() => IngredientCreateWithoutDietaryRestrictionInputSchema).array(),z.lazy(() => IngredientUncheckedCreateWithoutDietaryRestrictionInputSchema),z.lazy(() => IngredientUncheckedCreateWithoutDietaryRestrictionInputSchema).array() ]).optional(),
-  connectOrCreate: z.union([ z.lazy(() => IngredientCreateOrConnectWithoutDietaryRestrictionInputSchema),z.lazy(() => IngredientCreateOrConnectWithoutDietaryRestrictionInputSchema).array() ]).optional(),
-  upsert: z.union([ z.lazy(() => IngredientUpsertWithWhereUniqueWithoutDietaryRestrictionInputSchema),z.lazy(() => IngredientUpsertWithWhereUniqueWithoutDietaryRestrictionInputSchema).array() ]).optional(),
-  createMany: z.lazy(() => IngredientCreateManyDietaryRestrictionInputEnvelopeSchema).optional(),
+export const IngredientUpdateManyWithoutDietaryRestrictionsNestedInputSchema: z.ZodType<Prisma.IngredientUpdateManyWithoutDietaryRestrictionsNestedInput> = z.object({
+  create: z.union([ z.lazy(() => IngredientCreateWithoutDietaryRestrictionsInputSchema),z.lazy(() => IngredientCreateWithoutDietaryRestrictionsInputSchema).array(),z.lazy(() => IngredientUncheckedCreateWithoutDietaryRestrictionsInputSchema),z.lazy(() => IngredientUncheckedCreateWithoutDietaryRestrictionsInputSchema).array() ]).optional(),
+  connectOrCreate: z.union([ z.lazy(() => IngredientCreateOrConnectWithoutDietaryRestrictionsInputSchema),z.lazy(() => IngredientCreateOrConnectWithoutDietaryRestrictionsInputSchema).array() ]).optional(),
+  upsert: z.union([ z.lazy(() => IngredientUpsertWithWhereUniqueWithoutDietaryRestrictionsInputSchema),z.lazy(() => IngredientUpsertWithWhereUniqueWithoutDietaryRestrictionsInputSchema).array() ]).optional(),
   set: z.union([ z.lazy(() => IngredientWhereUniqueInputSchema),z.lazy(() => IngredientWhereUniqueInputSchema).array() ]).optional(),
   disconnect: z.union([ z.lazy(() => IngredientWhereUniqueInputSchema),z.lazy(() => IngredientWhereUniqueInputSchema).array() ]).optional(),
   delete: z.union([ z.lazy(() => IngredientWhereUniqueInputSchema),z.lazy(() => IngredientWhereUniqueInputSchema).array() ]).optional(),
   connect: z.union([ z.lazy(() => IngredientWhereUniqueInputSchema),z.lazy(() => IngredientWhereUniqueInputSchema).array() ]).optional(),
-  update: z.union([ z.lazy(() => IngredientUpdateWithWhereUniqueWithoutDietaryRestrictionInputSchema),z.lazy(() => IngredientUpdateWithWhereUniqueWithoutDietaryRestrictionInputSchema).array() ]).optional(),
-  updateMany: z.union([ z.lazy(() => IngredientUpdateManyWithWhereWithoutDietaryRestrictionInputSchema),z.lazy(() => IngredientUpdateManyWithWhereWithoutDietaryRestrictionInputSchema).array() ]).optional(),
+  update: z.union([ z.lazy(() => IngredientUpdateWithWhereUniqueWithoutDietaryRestrictionsInputSchema),z.lazy(() => IngredientUpdateWithWhereUniqueWithoutDietaryRestrictionsInputSchema).array() ]).optional(),
+  updateMany: z.union([ z.lazy(() => IngredientUpdateManyWithWhereWithoutDietaryRestrictionsInputSchema),z.lazy(() => IngredientUpdateManyWithWhereWithoutDietaryRestrictionsInputSchema).array() ]).optional(),
   deleteMany: z.union([ z.lazy(() => IngredientScalarWhereInputSchema),z.lazy(() => IngredientScalarWhereInputSchema).array() ]).optional(),
 }).strict();
 
@@ -19316,17 +19365,16 @@ export const RecipeUncheckedUpdateManyWithoutDietaryRestrictionsNestedInputSchem
   deleteMany: z.union([ z.lazy(() => RecipeScalarWhereInputSchema),z.lazy(() => RecipeScalarWhereInputSchema).array() ]).optional(),
 }).strict();
 
-export const IngredientUncheckedUpdateManyWithoutDietaryRestrictionNestedInputSchema: z.ZodType<Prisma.IngredientUncheckedUpdateManyWithoutDietaryRestrictionNestedInput> = z.object({
-  create: z.union([ z.lazy(() => IngredientCreateWithoutDietaryRestrictionInputSchema),z.lazy(() => IngredientCreateWithoutDietaryRestrictionInputSchema).array(),z.lazy(() => IngredientUncheckedCreateWithoutDietaryRestrictionInputSchema),z.lazy(() => IngredientUncheckedCreateWithoutDietaryRestrictionInputSchema).array() ]).optional(),
-  connectOrCreate: z.union([ z.lazy(() => IngredientCreateOrConnectWithoutDietaryRestrictionInputSchema),z.lazy(() => IngredientCreateOrConnectWithoutDietaryRestrictionInputSchema).array() ]).optional(),
-  upsert: z.union([ z.lazy(() => IngredientUpsertWithWhereUniqueWithoutDietaryRestrictionInputSchema),z.lazy(() => IngredientUpsertWithWhereUniqueWithoutDietaryRestrictionInputSchema).array() ]).optional(),
-  createMany: z.lazy(() => IngredientCreateManyDietaryRestrictionInputEnvelopeSchema).optional(),
+export const IngredientUncheckedUpdateManyWithoutDietaryRestrictionsNestedInputSchema: z.ZodType<Prisma.IngredientUncheckedUpdateManyWithoutDietaryRestrictionsNestedInput> = z.object({
+  create: z.union([ z.lazy(() => IngredientCreateWithoutDietaryRestrictionsInputSchema),z.lazy(() => IngredientCreateWithoutDietaryRestrictionsInputSchema).array(),z.lazy(() => IngredientUncheckedCreateWithoutDietaryRestrictionsInputSchema),z.lazy(() => IngredientUncheckedCreateWithoutDietaryRestrictionsInputSchema).array() ]).optional(),
+  connectOrCreate: z.union([ z.lazy(() => IngredientCreateOrConnectWithoutDietaryRestrictionsInputSchema),z.lazy(() => IngredientCreateOrConnectWithoutDietaryRestrictionsInputSchema).array() ]).optional(),
+  upsert: z.union([ z.lazy(() => IngredientUpsertWithWhereUniqueWithoutDietaryRestrictionsInputSchema),z.lazy(() => IngredientUpsertWithWhereUniqueWithoutDietaryRestrictionsInputSchema).array() ]).optional(),
   set: z.union([ z.lazy(() => IngredientWhereUniqueInputSchema),z.lazy(() => IngredientWhereUniqueInputSchema).array() ]).optional(),
   disconnect: z.union([ z.lazy(() => IngredientWhereUniqueInputSchema),z.lazy(() => IngredientWhereUniqueInputSchema).array() ]).optional(),
   delete: z.union([ z.lazy(() => IngredientWhereUniqueInputSchema),z.lazy(() => IngredientWhereUniqueInputSchema).array() ]).optional(),
   connect: z.union([ z.lazy(() => IngredientWhereUniqueInputSchema),z.lazy(() => IngredientWhereUniqueInputSchema).array() ]).optional(),
-  update: z.union([ z.lazy(() => IngredientUpdateWithWhereUniqueWithoutDietaryRestrictionInputSchema),z.lazy(() => IngredientUpdateWithWhereUniqueWithoutDietaryRestrictionInputSchema).array() ]).optional(),
-  updateMany: z.union([ z.lazy(() => IngredientUpdateManyWithWhereWithoutDietaryRestrictionInputSchema),z.lazy(() => IngredientUpdateManyWithWhereWithoutDietaryRestrictionInputSchema).array() ]).optional(),
+  update: z.union([ z.lazy(() => IngredientUpdateWithWhereUniqueWithoutDietaryRestrictionsInputSchema),z.lazy(() => IngredientUpdateWithWhereUniqueWithoutDietaryRestrictionsInputSchema).array() ]).optional(),
+  updateMany: z.union([ z.lazy(() => IngredientUpdateManyWithWhereWithoutDietaryRestrictionsInputSchema),z.lazy(() => IngredientUpdateManyWithWhereWithoutDietaryRestrictionsInputSchema).array() ]).optional(),
   deleteMany: z.union([ z.lazy(() => IngredientScalarWhereInputSchema),z.lazy(() => IngredientScalarWhereInputSchema).array() ]).optional(),
 }).strict();
 
@@ -19368,9 +19416,9 @@ export const RecipeUncheckedUpdateManyWithoutTagsNestedInputSchema: z.ZodType<Pr
   deleteMany: z.union([ z.lazy(() => RecipeScalarWhereInputSchema),z.lazy(() => RecipeScalarWhereInputSchema).array() ]).optional(),
 }).strict();
 
-export const RestaurantCreateNestedOneWithoutLeftoverItemInputSchema: z.ZodType<Prisma.RestaurantCreateNestedOneWithoutLeftoverItemInput> = z.object({
-  create: z.union([ z.lazy(() => RestaurantCreateWithoutLeftoverItemInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutLeftoverItemInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => RestaurantCreateOrConnectWithoutLeftoverItemInputSchema).optional(),
+export const RestaurantCreateNestedOneWithoutLeftoverItemsInputSchema: z.ZodType<Prisma.RestaurantCreateNestedOneWithoutLeftoverItemsInput> = z.object({
+  create: z.union([ z.lazy(() => RestaurantCreateWithoutLeftoverItemsInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutLeftoverItemsInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => RestaurantCreateOrConnectWithoutLeftoverItemsInputSchema).optional(),
   connect: z.lazy(() => RestaurantWhereUniqueInputSchema).optional()
 }).strict();
 
@@ -19380,18 +19428,18 @@ export const MenuItemCreateNestedOneWithoutLeftoverItemsInputSchema: z.ZodType<P
   connect: z.lazy(() => MenuItemWhereUniqueInputSchema).optional()
 }).strict();
 
-export const UserCreateNestedOneWithoutLeftoverItemInputSchema: z.ZodType<Prisma.UserCreateNestedOneWithoutLeftoverItemInput> = z.object({
-  create: z.union([ z.lazy(() => UserCreateWithoutLeftoverItemInputSchema),z.lazy(() => UserUncheckedCreateWithoutLeftoverItemInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutLeftoverItemInputSchema).optional(),
+export const UserCreateNestedOneWithoutLeftoverItemsInputSchema: z.ZodType<Prisma.UserCreateNestedOneWithoutLeftoverItemsInput> = z.object({
+  create: z.union([ z.lazy(() => UserCreateWithoutLeftoverItemsInputSchema),z.lazy(() => UserUncheckedCreateWithoutLeftoverItemsInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutLeftoverItemsInputSchema).optional(),
   connect: z.lazy(() => UserWhereUniqueInputSchema).optional()
 }).strict();
 
-export const RestaurantUpdateOneRequiredWithoutLeftoverItemNestedInputSchema: z.ZodType<Prisma.RestaurantUpdateOneRequiredWithoutLeftoverItemNestedInput> = z.object({
-  create: z.union([ z.lazy(() => RestaurantCreateWithoutLeftoverItemInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutLeftoverItemInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => RestaurantCreateOrConnectWithoutLeftoverItemInputSchema).optional(),
-  upsert: z.lazy(() => RestaurantUpsertWithoutLeftoverItemInputSchema).optional(),
+export const RestaurantUpdateOneRequiredWithoutLeftoverItemsNestedInputSchema: z.ZodType<Prisma.RestaurantUpdateOneRequiredWithoutLeftoverItemsNestedInput> = z.object({
+  create: z.union([ z.lazy(() => RestaurantCreateWithoutLeftoverItemsInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutLeftoverItemsInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => RestaurantCreateOrConnectWithoutLeftoverItemsInputSchema).optional(),
+  upsert: z.lazy(() => RestaurantUpsertWithoutLeftoverItemsInputSchema).optional(),
   connect: z.lazy(() => RestaurantWhereUniqueInputSchema).optional(),
-  update: z.union([ z.lazy(() => RestaurantUpdateToOneWithWhereWithoutLeftoverItemInputSchema),z.lazy(() => RestaurantUpdateWithoutLeftoverItemInputSchema),z.lazy(() => RestaurantUncheckedUpdateWithoutLeftoverItemInputSchema) ]).optional(),
+  update: z.union([ z.lazy(() => RestaurantUpdateToOneWithWhereWithoutLeftoverItemsInputSchema),z.lazy(() => RestaurantUpdateWithoutLeftoverItemsInputSchema),z.lazy(() => RestaurantUncheckedUpdateWithoutLeftoverItemsInputSchema) ]).optional(),
 }).strict();
 
 export const MenuItemUpdateOneRequiredWithoutLeftoverItemsNestedInputSchema: z.ZodType<Prisma.MenuItemUpdateOneRequiredWithoutLeftoverItemsNestedInput> = z.object({
@@ -19402,65 +19450,65 @@ export const MenuItemUpdateOneRequiredWithoutLeftoverItemsNestedInputSchema: z.Z
   update: z.union([ z.lazy(() => MenuItemUpdateToOneWithWhereWithoutLeftoverItemsInputSchema),z.lazy(() => MenuItemUpdateWithoutLeftoverItemsInputSchema),z.lazy(() => MenuItemUncheckedUpdateWithoutLeftoverItemsInputSchema) ]).optional(),
 }).strict();
 
-export const UserUpdateOneRequiredWithoutLeftoverItemNestedInputSchema: z.ZodType<Prisma.UserUpdateOneRequiredWithoutLeftoverItemNestedInput> = z.object({
-  create: z.union([ z.lazy(() => UserCreateWithoutLeftoverItemInputSchema),z.lazy(() => UserUncheckedCreateWithoutLeftoverItemInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutLeftoverItemInputSchema).optional(),
-  upsert: z.lazy(() => UserUpsertWithoutLeftoverItemInputSchema).optional(),
+export const UserUpdateOneRequiredWithoutLeftoverItemsNestedInputSchema: z.ZodType<Prisma.UserUpdateOneRequiredWithoutLeftoverItemsNestedInput> = z.object({
+  create: z.union([ z.lazy(() => UserCreateWithoutLeftoverItemsInputSchema),z.lazy(() => UserUncheckedCreateWithoutLeftoverItemsInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutLeftoverItemsInputSchema).optional(),
+  upsert: z.lazy(() => UserUpsertWithoutLeftoverItemsInputSchema).optional(),
   connect: z.lazy(() => UserWhereUniqueInputSchema).optional(),
-  update: z.union([ z.lazy(() => UserUpdateToOneWithWhereWithoutLeftoverItemInputSchema),z.lazy(() => UserUpdateWithoutLeftoverItemInputSchema),z.lazy(() => UserUncheckedUpdateWithoutLeftoverItemInputSchema) ]).optional(),
+  update: z.union([ z.lazy(() => UserUpdateToOneWithWhereWithoutLeftoverItemsInputSchema),z.lazy(() => UserUpdateWithoutLeftoverItemsInputSchema),z.lazy(() => UserUncheckedUpdateWithoutLeftoverItemsInputSchema) ]).optional(),
 }).strict();
 
-export const RestaurantCreateNestedOneWithoutWasteRecordInputSchema: z.ZodType<Prisma.RestaurantCreateNestedOneWithoutWasteRecordInput> = z.object({
-  create: z.union([ z.lazy(() => RestaurantCreateWithoutWasteRecordInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutWasteRecordInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => RestaurantCreateOrConnectWithoutWasteRecordInputSchema).optional(),
+export const RestaurantCreateNestedOneWithoutWasteRecordsInputSchema: z.ZodType<Prisma.RestaurantCreateNestedOneWithoutWasteRecordsInput> = z.object({
+  create: z.union([ z.lazy(() => RestaurantCreateWithoutWasteRecordsInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutWasteRecordsInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => RestaurantCreateOrConnectWithoutWasteRecordsInputSchema).optional(),
   connect: z.lazy(() => RestaurantWhereUniqueInputSchema).optional()
 }).strict();
 
-export const IngredientCreateNestedOneWithoutWasteRecordInputSchema: z.ZodType<Prisma.IngredientCreateNestedOneWithoutWasteRecordInput> = z.object({
-  create: z.union([ z.lazy(() => IngredientCreateWithoutWasteRecordInputSchema),z.lazy(() => IngredientUncheckedCreateWithoutWasteRecordInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => IngredientCreateOrConnectWithoutWasteRecordInputSchema).optional(),
+export const IngredientCreateNestedOneWithoutWasteRecordsInputSchema: z.ZodType<Prisma.IngredientCreateNestedOneWithoutWasteRecordsInput> = z.object({
+  create: z.union([ z.lazy(() => IngredientCreateWithoutWasteRecordsInputSchema),z.lazy(() => IngredientUncheckedCreateWithoutWasteRecordsInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => IngredientCreateOrConnectWithoutWasteRecordsInputSchema).optional(),
   connect: z.lazy(() => IngredientWhereUniqueInputSchema).optional()
 }).strict();
 
-export const UserCreateNestedOneWithoutWasteRecordInputSchema: z.ZodType<Prisma.UserCreateNestedOneWithoutWasteRecordInput> = z.object({
-  create: z.union([ z.lazy(() => UserCreateWithoutWasteRecordInputSchema),z.lazy(() => UserUncheckedCreateWithoutWasteRecordInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutWasteRecordInputSchema).optional(),
+export const UserCreateNestedOneWithoutWasteRecordsInputSchema: z.ZodType<Prisma.UserCreateNestedOneWithoutWasteRecordsInput> = z.object({
+  create: z.union([ z.lazy(() => UserCreateWithoutWasteRecordsInputSchema),z.lazy(() => UserUncheckedCreateWithoutWasteRecordsInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutWasteRecordsInputSchema).optional(),
   connect: z.lazy(() => UserWhereUniqueInputSchema).optional()
 }).strict();
 
-export const RestaurantUpdateOneRequiredWithoutWasteRecordNestedInputSchema: z.ZodType<Prisma.RestaurantUpdateOneRequiredWithoutWasteRecordNestedInput> = z.object({
-  create: z.union([ z.lazy(() => RestaurantCreateWithoutWasteRecordInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutWasteRecordInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => RestaurantCreateOrConnectWithoutWasteRecordInputSchema).optional(),
-  upsert: z.lazy(() => RestaurantUpsertWithoutWasteRecordInputSchema).optional(),
+export const RestaurantUpdateOneRequiredWithoutWasteRecordsNestedInputSchema: z.ZodType<Prisma.RestaurantUpdateOneRequiredWithoutWasteRecordsNestedInput> = z.object({
+  create: z.union([ z.lazy(() => RestaurantCreateWithoutWasteRecordsInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutWasteRecordsInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => RestaurantCreateOrConnectWithoutWasteRecordsInputSchema).optional(),
+  upsert: z.lazy(() => RestaurantUpsertWithoutWasteRecordsInputSchema).optional(),
   connect: z.lazy(() => RestaurantWhereUniqueInputSchema).optional(),
-  update: z.union([ z.lazy(() => RestaurantUpdateToOneWithWhereWithoutWasteRecordInputSchema),z.lazy(() => RestaurantUpdateWithoutWasteRecordInputSchema),z.lazy(() => RestaurantUncheckedUpdateWithoutWasteRecordInputSchema) ]).optional(),
+  update: z.union([ z.lazy(() => RestaurantUpdateToOneWithWhereWithoutWasteRecordsInputSchema),z.lazy(() => RestaurantUpdateWithoutWasteRecordsInputSchema),z.lazy(() => RestaurantUncheckedUpdateWithoutWasteRecordsInputSchema) ]).optional(),
 }).strict();
 
-export const IngredientUpdateOneRequiredWithoutWasteRecordNestedInputSchema: z.ZodType<Prisma.IngredientUpdateOneRequiredWithoutWasteRecordNestedInput> = z.object({
-  create: z.union([ z.lazy(() => IngredientCreateWithoutWasteRecordInputSchema),z.lazy(() => IngredientUncheckedCreateWithoutWasteRecordInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => IngredientCreateOrConnectWithoutWasteRecordInputSchema).optional(),
-  upsert: z.lazy(() => IngredientUpsertWithoutWasteRecordInputSchema).optional(),
+export const IngredientUpdateOneRequiredWithoutWasteRecordsNestedInputSchema: z.ZodType<Prisma.IngredientUpdateOneRequiredWithoutWasteRecordsNestedInput> = z.object({
+  create: z.union([ z.lazy(() => IngredientCreateWithoutWasteRecordsInputSchema),z.lazy(() => IngredientUncheckedCreateWithoutWasteRecordsInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => IngredientCreateOrConnectWithoutWasteRecordsInputSchema).optional(),
+  upsert: z.lazy(() => IngredientUpsertWithoutWasteRecordsInputSchema).optional(),
   connect: z.lazy(() => IngredientWhereUniqueInputSchema).optional(),
-  update: z.union([ z.lazy(() => IngredientUpdateToOneWithWhereWithoutWasteRecordInputSchema),z.lazy(() => IngredientUpdateWithoutWasteRecordInputSchema),z.lazy(() => IngredientUncheckedUpdateWithoutWasteRecordInputSchema) ]).optional(),
+  update: z.union([ z.lazy(() => IngredientUpdateToOneWithWhereWithoutWasteRecordsInputSchema),z.lazy(() => IngredientUpdateWithoutWasteRecordsInputSchema),z.lazy(() => IngredientUncheckedUpdateWithoutWasteRecordsInputSchema) ]).optional(),
 }).strict();
 
-export const UserUpdateOneRequiredWithoutWasteRecordNestedInputSchema: z.ZodType<Prisma.UserUpdateOneRequiredWithoutWasteRecordNestedInput> = z.object({
-  create: z.union([ z.lazy(() => UserCreateWithoutWasteRecordInputSchema),z.lazy(() => UserUncheckedCreateWithoutWasteRecordInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutWasteRecordInputSchema).optional(),
-  upsert: z.lazy(() => UserUpsertWithoutWasteRecordInputSchema).optional(),
+export const UserUpdateOneRequiredWithoutWasteRecordsNestedInputSchema: z.ZodType<Prisma.UserUpdateOneRequiredWithoutWasteRecordsNestedInput> = z.object({
+  create: z.union([ z.lazy(() => UserCreateWithoutWasteRecordsInputSchema),z.lazy(() => UserUncheckedCreateWithoutWasteRecordsInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutWasteRecordsInputSchema).optional(),
+  upsert: z.lazy(() => UserUpsertWithoutWasteRecordsInputSchema).optional(),
   connect: z.lazy(() => UserWhereUniqueInputSchema).optional(),
-  update: z.union([ z.lazy(() => UserUpdateToOneWithWhereWithoutWasteRecordInputSchema),z.lazy(() => UserUpdateWithoutWasteRecordInputSchema),z.lazy(() => UserUncheckedUpdateWithoutWasteRecordInputSchema) ]).optional(),
+  update: z.union([ z.lazy(() => UserUpdateToOneWithWhereWithoutWasteRecordsInputSchema),z.lazy(() => UserUpdateWithoutWasteRecordsInputSchema),z.lazy(() => UserUncheckedUpdateWithoutWasteRecordsInputSchema) ]).optional(),
 }).strict();
 
-export const RestaurantCreateNestedOneWithoutProductionPlanInputSchema: z.ZodType<Prisma.RestaurantCreateNestedOneWithoutProductionPlanInput> = z.object({
-  create: z.union([ z.lazy(() => RestaurantCreateWithoutProductionPlanInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutProductionPlanInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => RestaurantCreateOrConnectWithoutProductionPlanInputSchema).optional(),
+export const RestaurantCreateNestedOneWithoutProductionPlansInputSchema: z.ZodType<Prisma.RestaurantCreateNestedOneWithoutProductionPlansInput> = z.object({
+  create: z.union([ z.lazy(() => RestaurantCreateWithoutProductionPlansInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutProductionPlansInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => RestaurantCreateOrConnectWithoutProductionPlansInputSchema).optional(),
   connect: z.lazy(() => RestaurantWhereUniqueInputSchema).optional()
 }).strict();
 
-export const UserCreateNestedOneWithoutProductionPlanInputSchema: z.ZodType<Prisma.UserCreateNestedOneWithoutProductionPlanInput> = z.object({
-  create: z.union([ z.lazy(() => UserCreateWithoutProductionPlanInputSchema),z.lazy(() => UserUncheckedCreateWithoutProductionPlanInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutProductionPlanInputSchema).optional(),
+export const UserCreateNestedOneWithoutProductionPlansInputSchema: z.ZodType<Prisma.UserCreateNestedOneWithoutProductionPlansInput> = z.object({
+  create: z.union([ z.lazy(() => UserCreateWithoutProductionPlansInputSchema),z.lazy(() => UserUncheckedCreateWithoutProductionPlansInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutProductionPlansInputSchema).optional(),
   connect: z.lazy(() => UserWhereUniqueInputSchema).optional()
 }).strict();
 
@@ -19478,20 +19526,24 @@ export const ProductionPlanItemUncheckedCreateNestedManyWithoutProductionPlanInp
   connect: z.union([ z.lazy(() => ProductionPlanItemWhereUniqueInputSchema),z.lazy(() => ProductionPlanItemWhereUniqueInputSchema).array() ]).optional(),
 }).strict();
 
-export const RestaurantUpdateOneRequiredWithoutProductionPlanNestedInputSchema: z.ZodType<Prisma.RestaurantUpdateOneRequiredWithoutProductionPlanNestedInput> = z.object({
-  create: z.union([ z.lazy(() => RestaurantCreateWithoutProductionPlanInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutProductionPlanInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => RestaurantCreateOrConnectWithoutProductionPlanInputSchema).optional(),
-  upsert: z.lazy(() => RestaurantUpsertWithoutProductionPlanInputSchema).optional(),
-  connect: z.lazy(() => RestaurantWhereUniqueInputSchema).optional(),
-  update: z.union([ z.lazy(() => RestaurantUpdateToOneWithWhereWithoutProductionPlanInputSchema),z.lazy(() => RestaurantUpdateWithoutProductionPlanInputSchema),z.lazy(() => RestaurantUncheckedUpdateWithoutProductionPlanInputSchema) ]).optional(),
+export const EnumProductionStatusFieldUpdateOperationsInputSchema: z.ZodType<Prisma.EnumProductionStatusFieldUpdateOperationsInput> = z.object({
+  set: z.lazy(() => ProductionStatusSchema).optional()
 }).strict();
 
-export const UserUpdateOneRequiredWithoutProductionPlanNestedInputSchema: z.ZodType<Prisma.UserUpdateOneRequiredWithoutProductionPlanNestedInput> = z.object({
-  create: z.union([ z.lazy(() => UserCreateWithoutProductionPlanInputSchema),z.lazy(() => UserUncheckedCreateWithoutProductionPlanInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutProductionPlanInputSchema).optional(),
-  upsert: z.lazy(() => UserUpsertWithoutProductionPlanInputSchema).optional(),
+export const RestaurantUpdateOneRequiredWithoutProductionPlansNestedInputSchema: z.ZodType<Prisma.RestaurantUpdateOneRequiredWithoutProductionPlansNestedInput> = z.object({
+  create: z.union([ z.lazy(() => RestaurantCreateWithoutProductionPlansInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutProductionPlansInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => RestaurantCreateOrConnectWithoutProductionPlansInputSchema).optional(),
+  upsert: z.lazy(() => RestaurantUpsertWithoutProductionPlansInputSchema).optional(),
+  connect: z.lazy(() => RestaurantWhereUniqueInputSchema).optional(),
+  update: z.union([ z.lazy(() => RestaurantUpdateToOneWithWhereWithoutProductionPlansInputSchema),z.lazy(() => RestaurantUpdateWithoutProductionPlansInputSchema),z.lazy(() => RestaurantUncheckedUpdateWithoutProductionPlansInputSchema) ]).optional(),
+}).strict();
+
+export const UserUpdateOneRequiredWithoutProductionPlansNestedInputSchema: z.ZodType<Prisma.UserUpdateOneRequiredWithoutProductionPlansNestedInput> = z.object({
+  create: z.union([ z.lazy(() => UserCreateWithoutProductionPlansInputSchema),z.lazy(() => UserUncheckedCreateWithoutProductionPlansInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutProductionPlansInputSchema).optional(),
+  upsert: z.lazy(() => UserUpsertWithoutProductionPlansInputSchema).optional(),
   connect: z.lazy(() => UserWhereUniqueInputSchema).optional(),
-  update: z.union([ z.lazy(() => UserUpdateToOneWithWhereWithoutProductionPlanInputSchema),z.lazy(() => UserUpdateWithoutProductionPlanInputSchema),z.lazy(() => UserUncheckedUpdateWithoutProductionPlanInputSchema) ]).optional(),
+  update: z.union([ z.lazy(() => UserUpdateToOneWithWhereWithoutProductionPlansInputSchema),z.lazy(() => UserUpdateWithoutProductionPlansInputSchema),z.lazy(() => UserUncheckedUpdateWithoutProductionPlansInputSchema) ]).optional(),
 }).strict();
 
 export const ProductionPlanItemUpdateManyWithoutProductionPlanNestedInputSchema: z.ZodType<Prisma.ProductionPlanItemUpdateManyWithoutProductionPlanNestedInput> = z.object({
@@ -19534,9 +19586,9 @@ export const RecipeCreateNestedOneWithoutProductionPlanItemsInputSchema: z.ZodTy
   connect: z.lazy(() => RecipeWhereUniqueInputSchema).optional()
 }).strict();
 
-export const UserCreateNestedOneWithoutProductionPlanItemInputSchema: z.ZodType<Prisma.UserCreateNestedOneWithoutProductionPlanItemInput> = z.object({
-  create: z.union([ z.lazy(() => UserCreateWithoutProductionPlanItemInputSchema),z.lazy(() => UserUncheckedCreateWithoutProductionPlanItemInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutProductionPlanItemInputSchema).optional(),
+export const UserCreateNestedOneWithoutProductionPlanItemsInputSchema: z.ZodType<Prisma.UserCreateNestedOneWithoutProductionPlanItemsInput> = z.object({
+  create: z.union([ z.lazy(() => UserCreateWithoutProductionPlanItemsInputSchema),z.lazy(() => UserUncheckedCreateWithoutProductionPlanItemsInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutProductionPlanItemsInputSchema).optional(),
   connect: z.lazy(() => UserWhereUniqueInputSchema).optional()
 }).strict();
 
@@ -19556,19 +19608,19 @@ export const RecipeUpdateOneRequiredWithoutProductionPlanItemsNestedInputSchema:
   update: z.union([ z.lazy(() => RecipeUpdateToOneWithWhereWithoutProductionPlanItemsInputSchema),z.lazy(() => RecipeUpdateWithoutProductionPlanItemsInputSchema),z.lazy(() => RecipeUncheckedUpdateWithoutProductionPlanItemsInputSchema) ]).optional(),
 }).strict();
 
-export const UserUpdateOneWithoutProductionPlanItemNestedInputSchema: z.ZodType<Prisma.UserUpdateOneWithoutProductionPlanItemNestedInput> = z.object({
-  create: z.union([ z.lazy(() => UserCreateWithoutProductionPlanItemInputSchema),z.lazy(() => UserUncheckedCreateWithoutProductionPlanItemInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutProductionPlanItemInputSchema).optional(),
-  upsert: z.lazy(() => UserUpsertWithoutProductionPlanItemInputSchema).optional(),
+export const UserUpdateOneWithoutProductionPlanItemsNestedInputSchema: z.ZodType<Prisma.UserUpdateOneWithoutProductionPlanItemsNestedInput> = z.object({
+  create: z.union([ z.lazy(() => UserCreateWithoutProductionPlanItemsInputSchema),z.lazy(() => UserUncheckedCreateWithoutProductionPlanItemsInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutProductionPlanItemsInputSchema).optional(),
+  upsert: z.lazy(() => UserUpsertWithoutProductionPlanItemsInputSchema).optional(),
   disconnect: z.union([ z.boolean(),z.lazy(() => UserWhereInputSchema) ]).optional(),
   delete: z.union([ z.boolean(),z.lazy(() => UserWhereInputSchema) ]).optional(),
   connect: z.lazy(() => UserWhereUniqueInputSchema).optional(),
-  update: z.union([ z.lazy(() => UserUpdateToOneWithWhereWithoutProductionPlanItemInputSchema),z.lazy(() => UserUpdateWithoutProductionPlanItemInputSchema),z.lazy(() => UserUncheckedUpdateWithoutProductionPlanItemInputSchema) ]).optional(),
+  update: z.union([ z.lazy(() => UserUpdateToOneWithWhereWithoutProductionPlanItemsInputSchema),z.lazy(() => UserUpdateWithoutProductionPlanItemsInputSchema),z.lazy(() => UserUncheckedUpdateWithoutProductionPlanItemsInputSchema) ]).optional(),
 }).strict();
 
-export const ShiftCreateNestedOneWithoutShiftTaskInputSchema: z.ZodType<Prisma.ShiftCreateNestedOneWithoutShiftTaskInput> = z.object({
-  create: z.union([ z.lazy(() => ShiftCreateWithoutShiftTaskInputSchema),z.lazy(() => ShiftUncheckedCreateWithoutShiftTaskInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => ShiftCreateOrConnectWithoutShiftTaskInputSchema).optional(),
+export const ShiftCreateNestedOneWithoutTasksInputSchema: z.ZodType<Prisma.ShiftCreateNestedOneWithoutTasksInput> = z.object({
+  create: z.union([ z.lazy(() => ShiftCreateWithoutTasksInputSchema),z.lazy(() => ShiftUncheckedCreateWithoutTasksInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => ShiftCreateOrConnectWithoutTasksInputSchema).optional(),
   connect: z.lazy(() => ShiftWhereUniqueInputSchema).optional()
 }).strict();
 
@@ -19576,12 +19628,12 @@ export const EnumTaskTypeFieldUpdateOperationsInputSchema: z.ZodType<Prisma.Enum
   set: z.lazy(() => TaskTypeSchema).optional()
 }).strict();
 
-export const ShiftUpdateOneRequiredWithoutShiftTaskNestedInputSchema: z.ZodType<Prisma.ShiftUpdateOneRequiredWithoutShiftTaskNestedInput> = z.object({
-  create: z.union([ z.lazy(() => ShiftCreateWithoutShiftTaskInputSchema),z.lazy(() => ShiftUncheckedCreateWithoutShiftTaskInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => ShiftCreateOrConnectWithoutShiftTaskInputSchema).optional(),
-  upsert: z.lazy(() => ShiftUpsertWithoutShiftTaskInputSchema).optional(),
+export const ShiftUpdateOneRequiredWithoutTasksNestedInputSchema: z.ZodType<Prisma.ShiftUpdateOneRequiredWithoutTasksNestedInput> = z.object({
+  create: z.union([ z.lazy(() => ShiftCreateWithoutTasksInputSchema),z.lazy(() => ShiftUncheckedCreateWithoutTasksInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => ShiftCreateOrConnectWithoutTasksInputSchema).optional(),
+  upsert: z.lazy(() => ShiftUpsertWithoutTasksInputSchema).optional(),
   connect: z.lazy(() => ShiftWhereUniqueInputSchema).optional(),
-  update: z.union([ z.lazy(() => ShiftUpdateToOneWithWhereWithoutShiftTaskInputSchema),z.lazy(() => ShiftUpdateWithoutShiftTaskInputSchema),z.lazy(() => ShiftUncheckedUpdateWithoutShiftTaskInputSchema) ]).optional(),
+  update: z.union([ z.lazy(() => ShiftUpdateToOneWithWhereWithoutTasksInputSchema),z.lazy(() => ShiftUpdateWithoutTasksInputSchema),z.lazy(() => ShiftUncheckedUpdateWithoutTasksInputSchema) ]).optional(),
 }).strict();
 
 export const UserCreateNestedOneWithoutAvailabilityInputSchema: z.ZodType<Prisma.UserCreateNestedOneWithoutAvailabilityInput> = z.object({
@@ -19602,9 +19654,9 @@ export const UserUpdateOneRequiredWithoutAvailabilityNestedInputSchema: z.ZodTyp
   update: z.union([ z.lazy(() => UserUpdateToOneWithWhereWithoutAvailabilityInputSchema),z.lazy(() => UserUpdateWithoutAvailabilityInputSchema),z.lazy(() => UserUncheckedUpdateWithoutAvailabilityInputSchema) ]).optional(),
 }).strict();
 
-export const UserCreateNestedOneWithoutSchedulingConstraintInputSchema: z.ZodType<Prisma.UserCreateNestedOneWithoutSchedulingConstraintInput> = z.object({
-  create: z.union([ z.lazy(() => UserCreateWithoutSchedulingConstraintInputSchema),z.lazy(() => UserUncheckedCreateWithoutSchedulingConstraintInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutSchedulingConstraintInputSchema).optional(),
+export const UserCreateNestedOneWithoutSchedulingConstraintsInputSchema: z.ZodType<Prisma.UserCreateNestedOneWithoutSchedulingConstraintsInput> = z.object({
+  create: z.union([ z.lazy(() => UserCreateWithoutSchedulingConstraintsInputSchema),z.lazy(() => UserUncheckedCreateWithoutSchedulingConstraintsInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutSchedulingConstraintsInputSchema).optional(),
   connect: z.lazy(() => UserWhereUniqueInputSchema).optional()
 }).strict();
 
@@ -19612,12 +19664,12 @@ export const EnumConstraintTypeFieldUpdateOperationsInputSchema: z.ZodType<Prism
   set: z.lazy(() => ConstraintTypeSchema).optional()
 }).strict();
 
-export const UserUpdateOneRequiredWithoutSchedulingConstraintNestedInputSchema: z.ZodType<Prisma.UserUpdateOneRequiredWithoutSchedulingConstraintNestedInput> = z.object({
-  create: z.union([ z.lazy(() => UserCreateWithoutSchedulingConstraintInputSchema),z.lazy(() => UserUncheckedCreateWithoutSchedulingConstraintInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutSchedulingConstraintInputSchema).optional(),
-  upsert: z.lazy(() => UserUpsertWithoutSchedulingConstraintInputSchema).optional(),
+export const UserUpdateOneRequiredWithoutSchedulingConstraintsNestedInputSchema: z.ZodType<Prisma.UserUpdateOneRequiredWithoutSchedulingConstraintsNestedInput> = z.object({
+  create: z.union([ z.lazy(() => UserCreateWithoutSchedulingConstraintsInputSchema),z.lazy(() => UserUncheckedCreateWithoutSchedulingConstraintsInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutSchedulingConstraintsInputSchema).optional(),
+  upsert: z.lazy(() => UserUpsertWithoutSchedulingConstraintsInputSchema).optional(),
   connect: z.lazy(() => UserWhereUniqueInputSchema).optional(),
-  update: z.union([ z.lazy(() => UserUpdateToOneWithWhereWithoutSchedulingConstraintInputSchema),z.lazy(() => UserUpdateWithoutSchedulingConstraintInputSchema),z.lazy(() => UserUncheckedUpdateWithoutSchedulingConstraintInputSchema) ]).optional(),
+  update: z.union([ z.lazy(() => UserUpdateToOneWithWhereWithoutSchedulingConstraintsInputSchema),z.lazy(() => UserUpdateWithoutSchedulingConstraintsInputSchema),z.lazy(() => UserUncheckedUpdateWithoutSchedulingConstraintsInputSchema) ]).optional(),
 }).strict();
 
 export const InventoryItemCreateNestedOneWithoutWithdrawalsInputSchema: z.ZodType<Prisma.InventoryItemCreateNestedOneWithoutWithdrawalsInput> = z.object({
@@ -19632,9 +19684,9 @@ export const RecipeCreateNestedOneWithoutWithdrawalsInputSchema: z.ZodType<Prism
   connect: z.lazy(() => RecipeWhereUniqueInputSchema).optional()
 }).strict();
 
-export const UserCreateNestedOneWithoutInventoryWithdrawalInputSchema: z.ZodType<Prisma.UserCreateNestedOneWithoutInventoryWithdrawalInput> = z.object({
-  create: z.union([ z.lazy(() => UserCreateWithoutInventoryWithdrawalInputSchema),z.lazy(() => UserUncheckedCreateWithoutInventoryWithdrawalInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutInventoryWithdrawalInputSchema).optional(),
+export const UserCreateNestedOneWithoutInventoryWithdrawalsInputSchema: z.ZodType<Prisma.UserCreateNestedOneWithoutInventoryWithdrawalsInput> = z.object({
+  create: z.union([ z.lazy(() => UserCreateWithoutInventoryWithdrawalsInputSchema),z.lazy(() => UserUncheckedCreateWithoutInventoryWithdrawalsInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutInventoryWithdrawalsInputSchema).optional(),
   connect: z.lazy(() => UserWhereUniqueInputSchema).optional()
 }).strict();
 
@@ -19656,12 +19708,12 @@ export const RecipeUpdateOneWithoutWithdrawalsNestedInputSchema: z.ZodType<Prism
   update: z.union([ z.lazy(() => RecipeUpdateToOneWithWhereWithoutWithdrawalsInputSchema),z.lazy(() => RecipeUpdateWithoutWithdrawalsInputSchema),z.lazy(() => RecipeUncheckedUpdateWithoutWithdrawalsInputSchema) ]).optional(),
 }).strict();
 
-export const UserUpdateOneRequiredWithoutInventoryWithdrawalNestedInputSchema: z.ZodType<Prisma.UserUpdateOneRequiredWithoutInventoryWithdrawalNestedInput> = z.object({
-  create: z.union([ z.lazy(() => UserCreateWithoutInventoryWithdrawalInputSchema),z.lazy(() => UserUncheckedCreateWithoutInventoryWithdrawalInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutInventoryWithdrawalInputSchema).optional(),
-  upsert: z.lazy(() => UserUpsertWithoutInventoryWithdrawalInputSchema).optional(),
+export const UserUpdateOneRequiredWithoutInventoryWithdrawalsNestedInputSchema: z.ZodType<Prisma.UserUpdateOneRequiredWithoutInventoryWithdrawalsNestedInput> = z.object({
+  create: z.union([ z.lazy(() => UserCreateWithoutInventoryWithdrawalsInputSchema),z.lazy(() => UserUncheckedCreateWithoutInventoryWithdrawalsInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutInventoryWithdrawalsInputSchema).optional(),
+  upsert: z.lazy(() => UserUpsertWithoutInventoryWithdrawalsInputSchema).optional(),
   connect: z.lazy(() => UserWhereUniqueInputSchema).optional(),
-  update: z.union([ z.lazy(() => UserUpdateToOneWithWhereWithoutInventoryWithdrawalInputSchema),z.lazy(() => UserUpdateWithoutInventoryWithdrawalInputSchema),z.lazy(() => UserUncheckedUpdateWithoutInventoryWithdrawalInputSchema) ]).optional(),
+  update: z.union([ z.lazy(() => UserUpdateToOneWithWhereWithoutInventoryWithdrawalsInputSchema),z.lazy(() => UserUpdateWithoutInventoryWithdrawalsInputSchema),z.lazy(() => UserUncheckedUpdateWithoutInventoryWithdrawalsInputSchema) ]).optional(),
 }).strict();
 
 export const IngredientAllergenCreateNestedManyWithoutAllergenInputSchema: z.ZodType<Prisma.IngredientAllergenCreateNestedManyWithoutAllergenInput> = z.object({
@@ -19706,9 +19758,9 @@ export const IngredientAllergenUncheckedUpdateManyWithoutAllergenNestedInputSche
   deleteMany: z.union([ z.lazy(() => IngredientAllergenScalarWhereInputSchema),z.lazy(() => IngredientAllergenScalarWhereInputSchema).array() ]).optional(),
 }).strict();
 
-export const IngredientCreateNestedOneWithoutIngredientAllergenInputSchema: z.ZodType<Prisma.IngredientCreateNestedOneWithoutIngredientAllergenInput> = z.object({
-  create: z.union([ z.lazy(() => IngredientCreateWithoutIngredientAllergenInputSchema),z.lazy(() => IngredientUncheckedCreateWithoutIngredientAllergenInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => IngredientCreateOrConnectWithoutIngredientAllergenInputSchema).optional(),
+export const IngredientCreateNestedOneWithoutIngredientAllergensInputSchema: z.ZodType<Prisma.IngredientCreateNestedOneWithoutIngredientAllergensInput> = z.object({
+  create: z.union([ z.lazy(() => IngredientCreateWithoutIngredientAllergensInputSchema),z.lazy(() => IngredientUncheckedCreateWithoutIngredientAllergensInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => IngredientCreateOrConnectWithoutIngredientAllergensInputSchema).optional(),
   connect: z.lazy(() => IngredientWhereUniqueInputSchema).optional()
 }).strict();
 
@@ -19718,12 +19770,12 @@ export const AllergenCreateNestedOneWithoutIngredientsInputSchema: z.ZodType<Pri
   connect: z.lazy(() => AllergenWhereUniqueInputSchema).optional()
 }).strict();
 
-export const IngredientUpdateOneRequiredWithoutIngredientAllergenNestedInputSchema: z.ZodType<Prisma.IngredientUpdateOneRequiredWithoutIngredientAllergenNestedInput> = z.object({
-  create: z.union([ z.lazy(() => IngredientCreateWithoutIngredientAllergenInputSchema),z.lazy(() => IngredientUncheckedCreateWithoutIngredientAllergenInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => IngredientCreateOrConnectWithoutIngredientAllergenInputSchema).optional(),
-  upsert: z.lazy(() => IngredientUpsertWithoutIngredientAllergenInputSchema).optional(),
+export const IngredientUpdateOneRequiredWithoutIngredientAllergensNestedInputSchema: z.ZodType<Prisma.IngredientUpdateOneRequiredWithoutIngredientAllergensNestedInput> = z.object({
+  create: z.union([ z.lazy(() => IngredientCreateWithoutIngredientAllergensInputSchema),z.lazy(() => IngredientUncheckedCreateWithoutIngredientAllergensInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => IngredientCreateOrConnectWithoutIngredientAllergensInputSchema).optional(),
+  upsert: z.lazy(() => IngredientUpsertWithoutIngredientAllergensInputSchema).optional(),
   connect: z.lazy(() => IngredientWhereUniqueInputSchema).optional(),
-  update: z.union([ z.lazy(() => IngredientUpdateToOneWithWhereWithoutIngredientAllergenInputSchema),z.lazy(() => IngredientUpdateWithoutIngredientAllergenInputSchema),z.lazy(() => IngredientUncheckedUpdateWithoutIngredientAllergenInputSchema) ]).optional(),
+  update: z.union([ z.lazy(() => IngredientUpdateToOneWithWhereWithoutIngredientAllergensInputSchema),z.lazy(() => IngredientUpdateWithoutIngredientAllergensInputSchema),z.lazy(() => IngredientUncheckedUpdateWithoutIngredientAllergensInputSchema) ]).optional(),
 }).strict();
 
 export const AllergenUpdateOneRequiredWithoutIngredientsNestedInputSchema: z.ZodType<Prisma.AllergenUpdateOneRequiredWithoutIngredientsNestedInput> = z.object({
@@ -22363,10 +22415,10 @@ export const SupplierPriceHistoryCreateNestedManyWithoutIngredientInputSchema: z
   connect: z.union([ z.lazy(() => SupplierPriceHistoryWhereUniqueInputSchema),z.lazy(() => SupplierPriceHistoryWhereUniqueInputSchema).array() ]).optional(),
 }).strict();
 
-export const DietaryRestrictionCreateNestedOneWithoutIngredientsInputSchema: z.ZodType<Prisma.DietaryRestrictionCreateNestedOneWithoutIngredientsInput> = z.object({
-  create: z.union([ z.lazy(() => DietaryRestrictionCreateWithoutIngredientsInputSchema),z.lazy(() => DietaryRestrictionUncheckedCreateWithoutIngredientsInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => DietaryRestrictionCreateOrConnectWithoutIngredientsInputSchema).optional(),
-  connect: z.lazy(() => DietaryRestrictionWhereUniqueInputSchema).optional()
+export const DietaryRestrictionCreateNestedManyWithoutIngredientsInputSchema: z.ZodType<Prisma.DietaryRestrictionCreateNestedManyWithoutIngredientsInput> = z.object({
+  create: z.union([ z.lazy(() => DietaryRestrictionCreateWithoutIngredientsInputSchema),z.lazy(() => DietaryRestrictionCreateWithoutIngredientsInputSchema).array(),z.lazy(() => DietaryRestrictionUncheckedCreateWithoutIngredientsInputSchema),z.lazy(() => DietaryRestrictionUncheckedCreateWithoutIngredientsInputSchema).array() ]).optional(),
+  connectOrCreate: z.union([ z.lazy(() => DietaryRestrictionCreateOrConnectWithoutIngredientsInputSchema),z.lazy(() => DietaryRestrictionCreateOrConnectWithoutIngredientsInputSchema).array() ]).optional(),
+  connect: z.union([ z.lazy(() => DietaryRestrictionWhereUniqueInputSchema),z.lazy(() => DietaryRestrictionWhereUniqueInputSchema).array() ]).optional(),
 }).strict();
 
 export const RecipeIngredientUncheckedCreateNestedManyWithoutIngredientInputSchema: z.ZodType<Prisma.RecipeIngredientUncheckedCreateNestedManyWithoutIngredientInput> = z.object({
@@ -22415,6 +22467,12 @@ export const SupplierPriceHistoryUncheckedCreateNestedManyWithoutIngredientInput
   connectOrCreate: z.union([ z.lazy(() => SupplierPriceHistoryCreateOrConnectWithoutIngredientInputSchema),z.lazy(() => SupplierPriceHistoryCreateOrConnectWithoutIngredientInputSchema).array() ]).optional(),
   createMany: z.lazy(() => SupplierPriceHistoryCreateManyIngredientInputEnvelopeSchema).optional(),
   connect: z.union([ z.lazy(() => SupplierPriceHistoryWhereUniqueInputSchema),z.lazy(() => SupplierPriceHistoryWhereUniqueInputSchema).array() ]).optional(),
+}).strict();
+
+export const DietaryRestrictionUncheckedCreateNestedManyWithoutIngredientsInputSchema: z.ZodType<Prisma.DietaryRestrictionUncheckedCreateNestedManyWithoutIngredientsInput> = z.object({
+  create: z.union([ z.lazy(() => DietaryRestrictionCreateWithoutIngredientsInputSchema),z.lazy(() => DietaryRestrictionCreateWithoutIngredientsInputSchema).array(),z.lazy(() => DietaryRestrictionUncheckedCreateWithoutIngredientsInputSchema),z.lazy(() => DietaryRestrictionUncheckedCreateWithoutIngredientsInputSchema).array() ]).optional(),
+  connectOrCreate: z.union([ z.lazy(() => DietaryRestrictionCreateOrConnectWithoutIngredientsInputSchema),z.lazy(() => DietaryRestrictionCreateOrConnectWithoutIngredientsInputSchema).array() ]).optional(),
+  connect: z.union([ z.lazy(() => DietaryRestrictionWhereUniqueInputSchema),z.lazy(() => DietaryRestrictionWhereUniqueInputSchema).array() ]).optional(),
 }).strict();
 
 export const NullableEnumNutritionSourceFieldUpdateOperationsInputSchema: z.ZodType<Prisma.NullableEnumNutritionSourceFieldUpdateOperationsInput> = z.object({
@@ -22518,14 +22576,17 @@ export const SupplierPriceHistoryUpdateManyWithoutIngredientNestedInputSchema: z
   deleteMany: z.union([ z.lazy(() => SupplierPriceHistoryScalarWhereInputSchema),z.lazy(() => SupplierPriceHistoryScalarWhereInputSchema).array() ]).optional(),
 }).strict();
 
-export const DietaryRestrictionUpdateOneWithoutIngredientsNestedInputSchema: z.ZodType<Prisma.DietaryRestrictionUpdateOneWithoutIngredientsNestedInput> = z.object({
-  create: z.union([ z.lazy(() => DietaryRestrictionCreateWithoutIngredientsInputSchema),z.lazy(() => DietaryRestrictionUncheckedCreateWithoutIngredientsInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => DietaryRestrictionCreateOrConnectWithoutIngredientsInputSchema).optional(),
-  upsert: z.lazy(() => DietaryRestrictionUpsertWithoutIngredientsInputSchema).optional(),
-  disconnect: z.union([ z.boolean(),z.lazy(() => DietaryRestrictionWhereInputSchema) ]).optional(),
-  delete: z.union([ z.boolean(),z.lazy(() => DietaryRestrictionWhereInputSchema) ]).optional(),
-  connect: z.lazy(() => DietaryRestrictionWhereUniqueInputSchema).optional(),
-  update: z.union([ z.lazy(() => DietaryRestrictionUpdateToOneWithWhereWithoutIngredientsInputSchema),z.lazy(() => DietaryRestrictionUpdateWithoutIngredientsInputSchema),z.lazy(() => DietaryRestrictionUncheckedUpdateWithoutIngredientsInputSchema) ]).optional(),
+export const DietaryRestrictionUpdateManyWithoutIngredientsNestedInputSchema: z.ZodType<Prisma.DietaryRestrictionUpdateManyWithoutIngredientsNestedInput> = z.object({
+  create: z.union([ z.lazy(() => DietaryRestrictionCreateWithoutIngredientsInputSchema),z.lazy(() => DietaryRestrictionCreateWithoutIngredientsInputSchema).array(),z.lazy(() => DietaryRestrictionUncheckedCreateWithoutIngredientsInputSchema),z.lazy(() => DietaryRestrictionUncheckedCreateWithoutIngredientsInputSchema).array() ]).optional(),
+  connectOrCreate: z.union([ z.lazy(() => DietaryRestrictionCreateOrConnectWithoutIngredientsInputSchema),z.lazy(() => DietaryRestrictionCreateOrConnectWithoutIngredientsInputSchema).array() ]).optional(),
+  upsert: z.union([ z.lazy(() => DietaryRestrictionUpsertWithWhereUniqueWithoutIngredientsInputSchema),z.lazy(() => DietaryRestrictionUpsertWithWhereUniqueWithoutIngredientsInputSchema).array() ]).optional(),
+  set: z.union([ z.lazy(() => DietaryRestrictionWhereUniqueInputSchema),z.lazy(() => DietaryRestrictionWhereUniqueInputSchema).array() ]).optional(),
+  disconnect: z.union([ z.lazy(() => DietaryRestrictionWhereUniqueInputSchema),z.lazy(() => DietaryRestrictionWhereUniqueInputSchema).array() ]).optional(),
+  delete: z.union([ z.lazy(() => DietaryRestrictionWhereUniqueInputSchema),z.lazy(() => DietaryRestrictionWhereUniqueInputSchema).array() ]).optional(),
+  connect: z.union([ z.lazy(() => DietaryRestrictionWhereUniqueInputSchema),z.lazy(() => DietaryRestrictionWhereUniqueInputSchema).array() ]).optional(),
+  update: z.union([ z.lazy(() => DietaryRestrictionUpdateWithWhereUniqueWithoutIngredientsInputSchema),z.lazy(() => DietaryRestrictionUpdateWithWhereUniqueWithoutIngredientsInputSchema).array() ]).optional(),
+  updateMany: z.union([ z.lazy(() => DietaryRestrictionUpdateManyWithWhereWithoutIngredientsInputSchema),z.lazy(() => DietaryRestrictionUpdateManyWithWhereWithoutIngredientsInputSchema).array() ]).optional(),
+  deleteMany: z.union([ z.lazy(() => DietaryRestrictionScalarWhereInputSchema),z.lazy(() => DietaryRestrictionScalarWhereInputSchema).array() ]).optional(),
 }).strict();
 
 export const RecipeIngredientUncheckedUpdateManyWithoutIngredientNestedInputSchema: z.ZodType<Prisma.RecipeIngredientUncheckedUpdateManyWithoutIngredientNestedInput> = z.object({
@@ -22623,6 +22684,19 @@ export const SupplierPriceHistoryUncheckedUpdateManyWithoutIngredientNestedInput
   update: z.union([ z.lazy(() => SupplierPriceHistoryUpdateWithWhereUniqueWithoutIngredientInputSchema),z.lazy(() => SupplierPriceHistoryUpdateWithWhereUniqueWithoutIngredientInputSchema).array() ]).optional(),
   updateMany: z.union([ z.lazy(() => SupplierPriceHistoryUpdateManyWithWhereWithoutIngredientInputSchema),z.lazy(() => SupplierPriceHistoryUpdateManyWithWhereWithoutIngredientInputSchema).array() ]).optional(),
   deleteMany: z.union([ z.lazy(() => SupplierPriceHistoryScalarWhereInputSchema),z.lazy(() => SupplierPriceHistoryScalarWhereInputSchema).array() ]).optional(),
+}).strict();
+
+export const DietaryRestrictionUncheckedUpdateManyWithoutIngredientsNestedInputSchema: z.ZodType<Prisma.DietaryRestrictionUncheckedUpdateManyWithoutIngredientsNestedInput> = z.object({
+  create: z.union([ z.lazy(() => DietaryRestrictionCreateWithoutIngredientsInputSchema),z.lazy(() => DietaryRestrictionCreateWithoutIngredientsInputSchema).array(),z.lazy(() => DietaryRestrictionUncheckedCreateWithoutIngredientsInputSchema),z.lazy(() => DietaryRestrictionUncheckedCreateWithoutIngredientsInputSchema).array() ]).optional(),
+  connectOrCreate: z.union([ z.lazy(() => DietaryRestrictionCreateOrConnectWithoutIngredientsInputSchema),z.lazy(() => DietaryRestrictionCreateOrConnectWithoutIngredientsInputSchema).array() ]).optional(),
+  upsert: z.union([ z.lazy(() => DietaryRestrictionUpsertWithWhereUniqueWithoutIngredientsInputSchema),z.lazy(() => DietaryRestrictionUpsertWithWhereUniqueWithoutIngredientsInputSchema).array() ]).optional(),
+  set: z.union([ z.lazy(() => DietaryRestrictionWhereUniqueInputSchema),z.lazy(() => DietaryRestrictionWhereUniqueInputSchema).array() ]).optional(),
+  disconnect: z.union([ z.lazy(() => DietaryRestrictionWhereUniqueInputSchema),z.lazy(() => DietaryRestrictionWhereUniqueInputSchema).array() ]).optional(),
+  delete: z.union([ z.lazy(() => DietaryRestrictionWhereUniqueInputSchema),z.lazy(() => DietaryRestrictionWhereUniqueInputSchema).array() ]).optional(),
+  connect: z.union([ z.lazy(() => DietaryRestrictionWhereUniqueInputSchema),z.lazy(() => DietaryRestrictionWhereUniqueInputSchema).array() ]).optional(),
+  update: z.union([ z.lazy(() => DietaryRestrictionUpdateWithWhereUniqueWithoutIngredientsInputSchema),z.lazy(() => DietaryRestrictionUpdateWithWhereUniqueWithoutIngredientsInputSchema).array() ]).optional(),
+  updateMany: z.union([ z.lazy(() => DietaryRestrictionUpdateManyWithWhereWithoutIngredientsInputSchema),z.lazy(() => DietaryRestrictionUpdateManyWithWhereWithoutIngredientsInputSchema).array() ]).optional(),
+  deleteMany: z.union([ z.lazy(() => DietaryRestrictionScalarWhereInputSchema),z.lazy(() => DietaryRestrictionScalarWhereInputSchema).array() ]).optional(),
 }).strict();
 
 export const RecipeIngredientCreatesubstituteIngredientsInputSchema: z.ZodType<Prisma.RecipeIngredientCreatesubstituteIngredientsInput> = z.object({
@@ -22932,9 +23006,9 @@ export const InventoryItemCreateNestedOneWithoutTransactionsInputSchema: z.ZodTy
   connect: z.lazy(() => InventoryItemWhereUniqueInputSchema).optional()
 }).strict();
 
-export const UserCreateNestedOneWithoutInventoryTransactionInputSchema: z.ZodType<Prisma.UserCreateNestedOneWithoutInventoryTransactionInput> = z.object({
-  create: z.union([ z.lazy(() => UserCreateWithoutInventoryTransactionInputSchema),z.lazy(() => UserUncheckedCreateWithoutInventoryTransactionInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutInventoryTransactionInputSchema).optional(),
+export const UserCreateNestedOneWithoutInventoryTransactionsInputSchema: z.ZodType<Prisma.UserCreateNestedOneWithoutInventoryTransactionsInput> = z.object({
+  create: z.union([ z.lazy(() => UserCreateWithoutInventoryTransactionsInputSchema),z.lazy(() => UserUncheckedCreateWithoutInventoryTransactionsInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutInventoryTransactionsInputSchema).optional(),
   connect: z.lazy(() => UserWhereUniqueInputSchema).optional()
 }).strict();
 
@@ -22958,12 +23032,12 @@ export const InventoryItemUpdateOneRequiredWithoutTransactionsNestedInputSchema:
   update: z.union([ z.lazy(() => InventoryItemUpdateToOneWithWhereWithoutTransactionsInputSchema),z.lazy(() => InventoryItemUpdateWithoutTransactionsInputSchema),z.lazy(() => InventoryItemUncheckedUpdateWithoutTransactionsInputSchema) ]).optional(),
 }).strict();
 
-export const UserUpdateOneRequiredWithoutInventoryTransactionNestedInputSchema: z.ZodType<Prisma.UserUpdateOneRequiredWithoutInventoryTransactionNestedInput> = z.object({
-  create: z.union([ z.lazy(() => UserCreateWithoutInventoryTransactionInputSchema),z.lazy(() => UserUncheckedCreateWithoutInventoryTransactionInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutInventoryTransactionInputSchema).optional(),
-  upsert: z.lazy(() => UserUpsertWithoutInventoryTransactionInputSchema).optional(),
+export const UserUpdateOneRequiredWithoutInventoryTransactionsNestedInputSchema: z.ZodType<Prisma.UserUpdateOneRequiredWithoutInventoryTransactionsNestedInput> = z.object({
+  create: z.union([ z.lazy(() => UserCreateWithoutInventoryTransactionsInputSchema),z.lazy(() => UserUncheckedCreateWithoutInventoryTransactionsInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutInventoryTransactionsInputSchema).optional(),
+  upsert: z.lazy(() => UserUpsertWithoutInventoryTransactionsInputSchema).optional(),
   connect: z.lazy(() => UserWhereUniqueInputSchema).optional(),
-  update: z.union([ z.lazy(() => UserUpdateToOneWithWhereWithoutInventoryTransactionInputSchema),z.lazy(() => UserUpdateWithoutInventoryTransactionInputSchema),z.lazy(() => UserUncheckedUpdateWithoutInventoryTransactionInputSchema) ]).optional(),
+  update: z.union([ z.lazy(() => UserUpdateToOneWithWhereWithoutInventoryTransactionsInputSchema),z.lazy(() => UserUpdateWithoutInventoryTransactionsInputSchema),z.lazy(() => UserUncheckedUpdateWithoutInventoryTransactionsInputSchema) ]).optional(),
 }).strict();
 
 export const InventoryCreateNestedOneWithoutStockCountsInputSchema: z.ZodType<Prisma.InventoryCreateNestedOneWithoutStockCountsInput> = z.object({
@@ -22972,9 +23046,9 @@ export const InventoryCreateNestedOneWithoutStockCountsInputSchema: z.ZodType<Pr
   connect: z.lazy(() => InventoryWhereUniqueInputSchema).optional()
 }).strict();
 
-export const UserCreateNestedOneWithoutStockCountInputSchema: z.ZodType<Prisma.UserCreateNestedOneWithoutStockCountInput> = z.object({
-  create: z.union([ z.lazy(() => UserCreateWithoutStockCountInputSchema),z.lazy(() => UserUncheckedCreateWithoutStockCountInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutStockCountInputSchema).optional(),
+export const UserCreateNestedOneWithoutStockCountsInputSchema: z.ZodType<Prisma.UserCreateNestedOneWithoutStockCountsInput> = z.object({
+  create: z.union([ z.lazy(() => UserCreateWithoutStockCountsInputSchema),z.lazy(() => UserUncheckedCreateWithoutStockCountsInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutStockCountsInputSchema).optional(),
   connect: z.lazy(() => UserWhereUniqueInputSchema).optional()
 }).strict();
 
@@ -23004,12 +23078,12 @@ export const InventoryUpdateOneRequiredWithoutStockCountsNestedInputSchema: z.Zo
   update: z.union([ z.lazy(() => InventoryUpdateToOneWithWhereWithoutStockCountsInputSchema),z.lazy(() => InventoryUpdateWithoutStockCountsInputSchema),z.lazy(() => InventoryUncheckedUpdateWithoutStockCountsInputSchema) ]).optional(),
 }).strict();
 
-export const UserUpdateOneRequiredWithoutStockCountNestedInputSchema: z.ZodType<Prisma.UserUpdateOneRequiredWithoutStockCountNestedInput> = z.object({
-  create: z.union([ z.lazy(() => UserCreateWithoutStockCountInputSchema),z.lazy(() => UserUncheckedCreateWithoutStockCountInputSchema) ]).optional(),
-  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutStockCountInputSchema).optional(),
-  upsert: z.lazy(() => UserUpsertWithoutStockCountInputSchema).optional(),
+export const UserUpdateOneRequiredWithoutStockCountsNestedInputSchema: z.ZodType<Prisma.UserUpdateOneRequiredWithoutStockCountsNestedInput> = z.object({
+  create: z.union([ z.lazy(() => UserCreateWithoutStockCountsInputSchema),z.lazy(() => UserUncheckedCreateWithoutStockCountsInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutStockCountsInputSchema).optional(),
+  upsert: z.lazy(() => UserUpsertWithoutStockCountsInputSchema).optional(),
   connect: z.lazy(() => UserWhereUniqueInputSchema).optional(),
-  update: z.union([ z.lazy(() => UserUpdateToOneWithWhereWithoutStockCountInputSchema),z.lazy(() => UserUpdateWithoutStockCountInputSchema),z.lazy(() => UserUncheckedUpdateWithoutStockCountInputSchema) ]).optional(),
+  update: z.union([ z.lazy(() => UserUpdateToOneWithWhereWithoutStockCountsInputSchema),z.lazy(() => UserUpdateWithoutStockCountsInputSchema),z.lazy(() => UserUncheckedUpdateWithoutStockCountsInputSchema) ]).optional(),
 }).strict();
 
 export const StockCountItemUpdateManyWithoutStockCountNestedInputSchema: z.ZodType<Prisma.StockCountItemUpdateManyWithoutStockCountNestedInput> = z.object({
@@ -24427,6 +24501,23 @@ export const NestedEnumFeedbackStatusWithAggregatesFilterSchema: z.ZodType<Prism
   _count: z.lazy(() => NestedIntFilterSchema).optional(),
   _min: z.lazy(() => NestedEnumFeedbackStatusFilterSchema).optional(),
   _max: z.lazy(() => NestedEnumFeedbackStatusFilterSchema).optional()
+}).strict();
+
+export const NestedEnumProductionStatusFilterSchema: z.ZodType<Prisma.NestedEnumProductionStatusFilter> = z.object({
+  equals: z.lazy(() => ProductionStatusSchema).optional(),
+  in: z.lazy(() => ProductionStatusSchema).array().optional(),
+  notIn: z.lazy(() => ProductionStatusSchema).array().optional(),
+  not: z.union([ z.lazy(() => ProductionStatusSchema),z.lazy(() => NestedEnumProductionStatusFilterSchema) ]).optional(),
+}).strict();
+
+export const NestedEnumProductionStatusWithAggregatesFilterSchema: z.ZodType<Prisma.NestedEnumProductionStatusWithAggregatesFilter> = z.object({
+  equals: z.lazy(() => ProductionStatusSchema).optional(),
+  in: z.lazy(() => ProductionStatusSchema).array().optional(),
+  notIn: z.lazy(() => ProductionStatusSchema).array().optional(),
+  not: z.union([ z.lazy(() => ProductionStatusSchema),z.lazy(() => NestedEnumProductionStatusWithAggregatesFilterSchema) ]).optional(),
+  _count: z.lazy(() => NestedIntFilterSchema).optional(),
+  _min: z.lazy(() => NestedEnumProductionStatusFilterSchema).optional(),
+  _max: z.lazy(() => NestedEnumProductionStatusFilterSchema).optional()
 }).strict();
 
 export const NestedEnumTaskTypeFilterSchema: z.ZodType<Prisma.NestedEnumTaskTypeFilter> = z.object({
@@ -25916,12 +26007,12 @@ export const RestaurantCreateWithoutSalesTransactionsInputSchema: z.ZodType<Pris
   orders: z.lazy(() => OrderCreateNestedManyWithoutRestaurantInputSchema).optional(),
   recipes: z.lazy(() => RecipeCreateNestedManyWithoutRestaurantInputSchema).optional(),
   menus: z.lazy(() => MenuCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRestaurantInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRestaurantInputSchema).optional()
 }).strict();
 
 export const RestaurantUncheckedCreateWithoutSalesTransactionsInputSchema: z.ZodType<Prisma.RestaurantUncheckedCreateWithoutSalesTransactionsInput> = z.object({
@@ -25945,12 +26036,12 @@ export const RestaurantUncheckedCreateWithoutSalesTransactionsInputSchema: z.Zod
   orders: z.lazy(() => OrderUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
   recipes: z.lazy(() => RecipeUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
   menus: z.lazy(() => MenuUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional()
 }).strict();
 
 export const RestaurantCreateOrConnectWithoutSalesTransactionsInputSchema: z.ZodType<Prisma.RestaurantCreateOrConnectWithoutSalesTransactionsInput> = z.object({
@@ -26037,12 +26128,12 @@ export const RestaurantUpdateWithoutSalesTransactionsInputSchema: z.ZodType<Pris
   orders: z.lazy(() => OrderUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   recipes: z.lazy(() => RecipeUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   menus: z.lazy(() => MenuUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUpdateManyWithoutRestaurantNestedInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUpdateManyWithoutRestaurantNestedInputSchema).optional()
 }).strict();
 
 export const RestaurantUncheckedUpdateWithoutSalesTransactionsInputSchema: z.ZodType<Prisma.RestaurantUncheckedUpdateWithoutSalesTransactionsInput> = z.object({
@@ -26066,12 +26157,12 @@ export const RestaurantUncheckedUpdateWithoutSalesTransactionsInputSchema: z.Zod
   orders: z.lazy(() => OrderUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   recipes: z.lazy(() => RecipeUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   menus: z.lazy(() => MenuUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional()
 }).strict();
 
 export const MenuItemUpsertWithoutSalesTransactionsInputSchema: z.ZodType<Prisma.MenuItemUpsertWithoutSalesTransactionsInput> = z.object({
@@ -26449,18 +26540,18 @@ export const UserCreateWithoutRecipeVersionsCreatedInputSchema: z.ZodType<Prisma
   inventoryUpdates: z.lazy(() => InventoryItemCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   sessions: z.lazy(() => SessionCreateNestedManyWithoutUserInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
   availability: z.lazy(() => AvailabilityCreateNestedManyWithoutUserInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
 export const UserUncheckedCreateWithoutRecipeVersionsCreatedInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutRecipeVersionsCreatedInput> = z.object({
@@ -26482,18 +26573,18 @@ export const UserUncheckedCreateWithoutRecipeVersionsCreatedInputSchema: z.ZodTy
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
 export const UserCreateOrConnectWithoutRecipeVersionsCreatedInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutRecipeVersionsCreatedInput> = z.object({
@@ -26519,18 +26610,18 @@ export const UserCreateWithoutRecipeVersionsApprovedInputSchema: z.ZodType<Prism
   inventoryUpdates: z.lazy(() => InventoryItemCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   sessions: z.lazy(() => SessionCreateNestedManyWithoutUserInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
   availability: z.lazy(() => AvailabilityCreateNestedManyWithoutUserInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
 export const UserUncheckedCreateWithoutRecipeVersionsApprovedInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutRecipeVersionsApprovedInput> = z.object({
@@ -26552,18 +26643,18 @@ export const UserUncheckedCreateWithoutRecipeVersionsApprovedInputSchema: z.ZodT
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
 export const UserCreateOrConnectWithoutRecipeVersionsApprovedInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutRecipeVersionsApprovedInput> = z.object({
@@ -26762,18 +26853,18 @@ export const UserUpdateWithoutRecipeVersionsCreatedInputSchema: z.ZodType<Prisma
   inventoryUpdates: z.lazy(() => InventoryItemUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUpdateManyWithoutUserNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUpdateManyWithoutUserNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
 export const UserUncheckedUpdateWithoutRecipeVersionsCreatedInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutRecipeVersionsCreatedInput> = z.object({
@@ -26795,18 +26886,18 @@ export const UserUncheckedUpdateWithoutRecipeVersionsCreatedInputSchema: z.ZodTy
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
 export const UserUpsertWithoutRecipeVersionsApprovedInputSchema: z.ZodType<Prisma.UserUpsertWithoutRecipeVersionsApprovedInput> = z.object({
@@ -26838,18 +26929,18 @@ export const UserUpdateWithoutRecipeVersionsApprovedInputSchema: z.ZodType<Prism
   inventoryUpdates: z.lazy(() => InventoryItemUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUpdateManyWithoutUserNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUpdateManyWithoutUserNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
 export const UserUncheckedUpdateWithoutRecipeVersionsApprovedInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutRecipeVersionsApprovedInput> = z.object({
@@ -26871,21 +26962,21 @@ export const UserUncheckedUpdateWithoutRecipeVersionsApprovedInputSchema: z.ZodT
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
-export const RestaurantCreateWithoutEquipmentInputSchema: z.ZodType<Prisma.RestaurantCreateWithoutEquipmentInput> = z.object({
+export const RestaurantCreateWithoutEquipmentsInputSchema: z.ZodType<Prisma.RestaurantCreateWithoutEquipmentsInput> = z.object({
   name: z.string(),
   imageUrl: z.string().optional().nullable(),
   address: z.string(),
@@ -26906,14 +26997,14 @@ export const RestaurantCreateWithoutEquipmentInputSchema: z.ZodType<Prisma.Resta
   recipes: z.lazy(() => RecipeCreateNestedManyWithoutRestaurantInputSchema).optional(),
   menus: z.lazy(() => MenuCreateNestedManyWithoutRestaurantInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRestaurantInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRestaurantInputSchema).optional()
 }).strict();
 
-export const RestaurantUncheckedCreateWithoutEquipmentInputSchema: z.ZodType<Prisma.RestaurantUncheckedCreateWithoutEquipmentInput> = z.object({
+export const RestaurantUncheckedCreateWithoutEquipmentsInputSchema: z.ZodType<Prisma.RestaurantUncheckedCreateWithoutEquipmentsInput> = z.object({
   id: z.number().int().optional(),
   name: z.string(),
   imageUrl: z.string().optional().nullable(),
@@ -26935,16 +27026,16 @@ export const RestaurantUncheckedCreateWithoutEquipmentInputSchema: z.ZodType<Pri
   recipes: z.lazy(() => RecipeUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
   menus: z.lazy(() => MenuUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional()
 }).strict();
 
-export const RestaurantCreateOrConnectWithoutEquipmentInputSchema: z.ZodType<Prisma.RestaurantCreateOrConnectWithoutEquipmentInput> = z.object({
+export const RestaurantCreateOrConnectWithoutEquipmentsInputSchema: z.ZodType<Prisma.RestaurantCreateOrConnectWithoutEquipmentsInput> = z.object({
   where: z.lazy(() => RestaurantWhereUniqueInputSchema),
-  create: z.union([ z.lazy(() => RestaurantCreateWithoutEquipmentInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutEquipmentInputSchema) ]),
+  create: z.union([ z.lazy(() => RestaurantCreateWithoutEquipmentsInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutEquipmentsInputSchema) ]),
 }).strict();
 
 export const RecipeEquipmentCreateWithoutEquipmentInputSchema: z.ZodType<Prisma.RecipeEquipmentCreateWithoutEquipmentInput> = z.object({
@@ -26971,7 +27062,7 @@ export const RecipeEquipmentCreateManyEquipmentInputEnvelopeSchema: z.ZodType<Pr
 }).strict();
 
 export const MaintenanceLogCreateWithoutEquipmentInputSchema: z.ZodType<Prisma.MaintenanceLogCreateWithoutEquipmentInput> = z.object({
-  date: z.coerce.date(),
+  date: z.coerce.date().optional(),
   type: z.lazy(() => MaintenanceTypeSchema),
   description: z.string(),
   cost: z.number().optional().nullable(),
@@ -26983,7 +27074,7 @@ export const MaintenanceLogCreateWithoutEquipmentInputSchema: z.ZodType<Prisma.M
 
 export const MaintenanceLogUncheckedCreateWithoutEquipmentInputSchema: z.ZodType<Prisma.MaintenanceLogUncheckedCreateWithoutEquipmentInput> = z.object({
   id: z.number().int().optional(),
-  date: z.coerce.date(),
+  date: z.coerce.date().optional(),
   type: z.lazy(() => MaintenanceTypeSchema),
   description: z.string(),
   cost: z.number().optional().nullable(),
@@ -27003,18 +27094,18 @@ export const MaintenanceLogCreateManyEquipmentInputEnvelopeSchema: z.ZodType<Pri
   skipDuplicates: z.boolean().optional()
 }).strict();
 
-export const RestaurantUpsertWithoutEquipmentInputSchema: z.ZodType<Prisma.RestaurantUpsertWithoutEquipmentInput> = z.object({
-  update: z.union([ z.lazy(() => RestaurantUpdateWithoutEquipmentInputSchema),z.lazy(() => RestaurantUncheckedUpdateWithoutEquipmentInputSchema) ]),
-  create: z.union([ z.lazy(() => RestaurantCreateWithoutEquipmentInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutEquipmentInputSchema) ]),
+export const RestaurantUpsertWithoutEquipmentsInputSchema: z.ZodType<Prisma.RestaurantUpsertWithoutEquipmentsInput> = z.object({
+  update: z.union([ z.lazy(() => RestaurantUpdateWithoutEquipmentsInputSchema),z.lazy(() => RestaurantUncheckedUpdateWithoutEquipmentsInputSchema) ]),
+  create: z.union([ z.lazy(() => RestaurantCreateWithoutEquipmentsInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutEquipmentsInputSchema) ]),
   where: z.lazy(() => RestaurantWhereInputSchema).optional()
 }).strict();
 
-export const RestaurantUpdateToOneWithWhereWithoutEquipmentInputSchema: z.ZodType<Prisma.RestaurantUpdateToOneWithWhereWithoutEquipmentInput> = z.object({
+export const RestaurantUpdateToOneWithWhereWithoutEquipmentsInputSchema: z.ZodType<Prisma.RestaurantUpdateToOneWithWhereWithoutEquipmentsInput> = z.object({
   where: z.lazy(() => RestaurantWhereInputSchema).optional(),
-  data: z.union([ z.lazy(() => RestaurantUpdateWithoutEquipmentInputSchema),z.lazy(() => RestaurantUncheckedUpdateWithoutEquipmentInputSchema) ]),
+  data: z.union([ z.lazy(() => RestaurantUpdateWithoutEquipmentsInputSchema),z.lazy(() => RestaurantUncheckedUpdateWithoutEquipmentsInputSchema) ]),
 }).strict();
 
-export const RestaurantUpdateWithoutEquipmentInputSchema: z.ZodType<Prisma.RestaurantUpdateWithoutEquipmentInput> = z.object({
+export const RestaurantUpdateWithoutEquipmentsInputSchema: z.ZodType<Prisma.RestaurantUpdateWithoutEquipmentsInput> = z.object({
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   imageUrl: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   address: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
@@ -27035,14 +27126,14 @@ export const RestaurantUpdateWithoutEquipmentInputSchema: z.ZodType<Prisma.Resta
   recipes: z.lazy(() => RecipeUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   menus: z.lazy(() => MenuUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUpdateManyWithoutRestaurantNestedInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUpdateManyWithoutRestaurantNestedInputSchema).optional()
 }).strict();
 
-export const RestaurantUncheckedUpdateWithoutEquipmentInputSchema: z.ZodType<Prisma.RestaurantUncheckedUpdateWithoutEquipmentInput> = z.object({
+export const RestaurantUncheckedUpdateWithoutEquipmentsInputSchema: z.ZodType<Prisma.RestaurantUncheckedUpdateWithoutEquipmentsInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   imageUrl: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -27064,11 +27155,11 @@ export const RestaurantUncheckedUpdateWithoutEquipmentInputSchema: z.ZodType<Pri
   recipes: z.lazy(() => RecipeUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   menus: z.lazy(() => MenuUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional()
 }).strict();
 
 export const RecipeEquipmentUpsertWithWhereUniqueWithoutEquipmentInputSchema: z.ZodType<Prisma.RecipeEquipmentUpsertWithWhereUniqueWithoutEquipmentInput> = z.object({
@@ -27228,7 +27319,7 @@ export const EquipmentCreateWithoutRecipesInputSchema: z.ZodType<Prisma.Equipmen
   location: z.string().optional().nullable(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
-  restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutEquipmentInputSchema),
+  restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutEquipmentsInputSchema),
   maintenanceLogs: z.lazy(() => MaintenanceLogCreateNestedManyWithoutEquipmentInputSchema).optional()
 }).strict();
 
@@ -27403,7 +27494,7 @@ export const EquipmentUpdateWithoutRecipesInputSchema: z.ZodType<Prisma.Equipmen
   location: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
-  restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutEquipmentNestedInputSchema).optional(),
+  restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutEquipmentsNestedInputSchema).optional(),
   maintenanceLogs: z.lazy(() => MaintenanceLogUpdateManyWithoutEquipmentNestedInputSchema).optional()
 }).strict();
 
@@ -27476,7 +27567,7 @@ export const EquipmentCreateWithoutMaintenanceLogsInputSchema: z.ZodType<Prisma.
   location: z.string().optional().nullable(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
-  restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutEquipmentInputSchema),
+  restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutEquipmentsInputSchema),
   recipes: z.lazy(() => RecipeEquipmentCreateNestedManyWithoutEquipmentInputSchema).optional()
 }).strict();
 
@@ -27525,7 +27616,7 @@ export const EquipmentUpdateWithoutMaintenanceLogsInputSchema: z.ZodType<Prisma.
   location: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
-  restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutEquipmentNestedInputSchema).optional(),
+  restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutEquipmentsNestedInputSchema).optional(),
   recipes: z.lazy(() => RecipeEquipmentUpdateManyWithoutEquipmentNestedInputSchema).optional()
 }).strict();
 
@@ -27546,7 +27637,7 @@ export const EquipmentUncheckedUpdateWithoutMaintenanceLogsInputSchema: z.ZodTyp
   recipes: z.lazy(() => RecipeEquipmentUncheckedUpdateManyWithoutEquipmentNestedInputSchema).optional()
 }).strict();
 
-export const RestaurantCreateWithoutQualityChecklistInputSchema: z.ZodType<Prisma.RestaurantCreateWithoutQualityChecklistInput> = z.object({
+export const RestaurantCreateWithoutQualityChecklistsInputSchema: z.ZodType<Prisma.RestaurantCreateWithoutQualityChecklistsInput> = z.object({
   name: z.string(),
   imageUrl: z.string().optional().nullable(),
   address: z.string(),
@@ -27567,14 +27658,14 @@ export const RestaurantCreateWithoutQualityChecklistInputSchema: z.ZodType<Prism
   recipes: z.lazy(() => RecipeCreateNestedManyWithoutRestaurantInputSchema).optional(),
   menus: z.lazy(() => MenuCreateNestedManyWithoutRestaurantInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRestaurantInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRestaurantInputSchema).optional()
 }).strict();
 
-export const RestaurantUncheckedCreateWithoutQualityChecklistInputSchema: z.ZodType<Prisma.RestaurantUncheckedCreateWithoutQualityChecklistInput> = z.object({
+export const RestaurantUncheckedCreateWithoutQualityChecklistsInputSchema: z.ZodType<Prisma.RestaurantUncheckedCreateWithoutQualityChecklistsInput> = z.object({
   id: z.number().int().optional(),
   name: z.string(),
   imageUrl: z.string().optional().nullable(),
@@ -27596,16 +27687,16 @@ export const RestaurantUncheckedCreateWithoutQualityChecklistInputSchema: z.ZodT
   recipes: z.lazy(() => RecipeUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
   menus: z.lazy(() => MenuUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional()
 }).strict();
 
-export const RestaurantCreateOrConnectWithoutQualityChecklistInputSchema: z.ZodType<Prisma.RestaurantCreateOrConnectWithoutQualityChecklistInput> = z.object({
+export const RestaurantCreateOrConnectWithoutQualityChecklistsInputSchema: z.ZodType<Prisma.RestaurantCreateOrConnectWithoutQualityChecklistsInput> = z.object({
   where: z.lazy(() => RestaurantWhereUniqueInputSchema),
-  create: z.union([ z.lazy(() => RestaurantCreateWithoutQualityChecklistInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutQualityChecklistInputSchema) ]),
+  create: z.union([ z.lazy(() => RestaurantCreateWithoutQualityChecklistsInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutQualityChecklistsInputSchema) ]),
 }).strict();
 
 export const ChecklistItemCreateWithoutChecklistInputSchema: z.ZodType<Prisma.ChecklistItemCreateWithoutChecklistInput> = z.object({
@@ -27644,7 +27735,7 @@ export const ChecklistCompleteCreateWithoutChecklistInputSchema: z.ZodType<Prism
   notes: z.string().optional().nullable(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
-  completedBy: z.lazy(() => UserCreateNestedOneWithoutChecklistCompleteInputSchema),
+  completedBy: z.lazy(() => UserCreateNestedOneWithoutChecklistCompletesInputSchema),
   items: z.lazy(() => ChecklistItemCompleteCreateNestedManyWithoutChecklistCompleteInputSchema).optional()
 }).strict();
 
@@ -27668,18 +27759,18 @@ export const ChecklistCompleteCreateManyChecklistInputEnvelopeSchema: z.ZodType<
   skipDuplicates: z.boolean().optional()
 }).strict();
 
-export const RestaurantUpsertWithoutQualityChecklistInputSchema: z.ZodType<Prisma.RestaurantUpsertWithoutQualityChecklistInput> = z.object({
-  update: z.union([ z.lazy(() => RestaurantUpdateWithoutQualityChecklistInputSchema),z.lazy(() => RestaurantUncheckedUpdateWithoutQualityChecklistInputSchema) ]),
-  create: z.union([ z.lazy(() => RestaurantCreateWithoutQualityChecklistInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutQualityChecklistInputSchema) ]),
+export const RestaurantUpsertWithoutQualityChecklistsInputSchema: z.ZodType<Prisma.RestaurantUpsertWithoutQualityChecklistsInput> = z.object({
+  update: z.union([ z.lazy(() => RestaurantUpdateWithoutQualityChecklistsInputSchema),z.lazy(() => RestaurantUncheckedUpdateWithoutQualityChecklistsInputSchema) ]),
+  create: z.union([ z.lazy(() => RestaurantCreateWithoutQualityChecklistsInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutQualityChecklistsInputSchema) ]),
   where: z.lazy(() => RestaurantWhereInputSchema).optional()
 }).strict();
 
-export const RestaurantUpdateToOneWithWhereWithoutQualityChecklistInputSchema: z.ZodType<Prisma.RestaurantUpdateToOneWithWhereWithoutQualityChecklistInput> = z.object({
+export const RestaurantUpdateToOneWithWhereWithoutQualityChecklistsInputSchema: z.ZodType<Prisma.RestaurantUpdateToOneWithWhereWithoutQualityChecklistsInput> = z.object({
   where: z.lazy(() => RestaurantWhereInputSchema).optional(),
-  data: z.union([ z.lazy(() => RestaurantUpdateWithoutQualityChecklistInputSchema),z.lazy(() => RestaurantUncheckedUpdateWithoutQualityChecklistInputSchema) ]),
+  data: z.union([ z.lazy(() => RestaurantUpdateWithoutQualityChecklistsInputSchema),z.lazy(() => RestaurantUncheckedUpdateWithoutQualityChecklistsInputSchema) ]),
 }).strict();
 
-export const RestaurantUpdateWithoutQualityChecklistInputSchema: z.ZodType<Prisma.RestaurantUpdateWithoutQualityChecklistInput> = z.object({
+export const RestaurantUpdateWithoutQualityChecklistsInputSchema: z.ZodType<Prisma.RestaurantUpdateWithoutQualityChecklistsInput> = z.object({
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   imageUrl: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   address: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
@@ -27700,14 +27791,14 @@ export const RestaurantUpdateWithoutQualityChecklistInputSchema: z.ZodType<Prism
   recipes: z.lazy(() => RecipeUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   menus: z.lazy(() => MenuUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUpdateManyWithoutRestaurantNestedInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUpdateManyWithoutRestaurantNestedInputSchema).optional()
 }).strict();
 
-export const RestaurantUncheckedUpdateWithoutQualityChecklistInputSchema: z.ZodType<Prisma.RestaurantUncheckedUpdateWithoutQualityChecklistInput> = z.object({
+export const RestaurantUncheckedUpdateWithoutQualityChecklistsInputSchema: z.ZodType<Prisma.RestaurantUncheckedUpdateWithoutQualityChecklistsInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   imageUrl: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -27729,11 +27820,11 @@ export const RestaurantUncheckedUpdateWithoutQualityChecklistInputSchema: z.ZodT
   recipes: z.lazy(() => RecipeUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   menus: z.lazy(() => MenuUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional()
 }).strict();
 
 export const ChecklistItemUpsertWithWhereUniqueWithoutChecklistInputSchema: z.ZodType<Prisma.ChecklistItemUpsertWithWhereUniqueWithoutChecklistInput> = z.object({
@@ -27802,7 +27893,7 @@ export const QualityChecklistCreateWithoutItemsInputSchema: z.ZodType<Prisma.Qua
   isActive: z.boolean().optional(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
-  restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutQualityChecklistInputSchema),
+  restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutQualityChecklistsInputSchema),
   completions: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutChecklistInputSchema).optional()
 }).strict();
 
@@ -27870,7 +27961,7 @@ export const QualityChecklistUpdateWithoutItemsInputSchema: z.ZodType<Prisma.Qua
   isActive: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
-  restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutQualityChecklistNestedInputSchema).optional(),
+  restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutQualityChecklistsNestedInputSchema).optional(),
   completions: z.lazy(() => ChecklistCompleteUpdateManyWithoutChecklistNestedInputSchema).optional()
 }).strict();
 
@@ -27923,7 +28014,7 @@ export const QualityChecklistCreateWithoutCompletionsInputSchema: z.ZodType<Pris
   isActive: z.boolean().optional(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
-  restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutQualityChecklistInputSchema),
+  restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutQualityChecklistsInputSchema),
   items: z.lazy(() => ChecklistItemCreateNestedManyWithoutChecklistInputSchema).optional()
 }).strict();
 
@@ -27944,7 +28035,7 @@ export const QualityChecklistCreateOrConnectWithoutCompletionsInputSchema: z.Zod
   create: z.union([ z.lazy(() => QualityChecklistCreateWithoutCompletionsInputSchema),z.lazy(() => QualityChecklistUncheckedCreateWithoutCompletionsInputSchema) ]),
 }).strict();
 
-export const UserCreateWithoutChecklistCompleteInputSchema: z.ZodType<Prisma.UserCreateWithoutChecklistCompleteInput> = z.object({
+export const UserCreateWithoutChecklistCompletesInputSchema: z.ZodType<Prisma.UserCreateWithoutChecklistCompletesInput> = z.object({
   email: z.string(),
   sub: z.number().int().optional().nullable(),
   passwordHash: z.string(),
@@ -27962,21 +28053,21 @@ export const UserCreateWithoutChecklistCompleteInputSchema: z.ZodType<Prisma.Use
   inventoryUpdates: z.lazy(() => InventoryItemCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   sessions: z.lazy(() => SessionCreateNestedManyWithoutUserInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
   availability: z.lazy(() => AvailabilityCreateNestedManyWithoutUserInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
-export const UserUncheckedCreateWithoutChecklistCompleteInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutChecklistCompleteInput> = z.object({
+export const UserUncheckedCreateWithoutChecklistCompletesInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutChecklistCompletesInput> = z.object({
   id: z.number().int().optional(),
   email: z.string(),
   sub: z.number().int().optional().nullable(),
@@ -27995,23 +28086,23 @@ export const UserUncheckedCreateWithoutChecklistCompleteInputSchema: z.ZodType<P
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
-export const UserCreateOrConnectWithoutChecklistCompleteInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutChecklistCompleteInput> = z.object({
+export const UserCreateOrConnectWithoutChecklistCompletesInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutChecklistCompletesInput> = z.object({
   where: z.lazy(() => UserWhereUniqueInputSchema),
-  create: z.union([ z.lazy(() => UserCreateWithoutChecklistCompleteInputSchema),z.lazy(() => UserUncheckedCreateWithoutChecklistCompleteInputSchema) ]),
+  create: z.union([ z.lazy(() => UserCreateWithoutChecklistCompletesInputSchema),z.lazy(() => UserUncheckedCreateWithoutChecklistCompletesInputSchema) ]),
 }).strict();
 
 export const ChecklistItemCompleteCreateWithoutChecklistCompleteInputSchema: z.ZodType<Prisma.ChecklistItemCompleteCreateWithoutChecklistCompleteInput> = z.object({
@@ -28061,7 +28152,7 @@ export const QualityChecklistUpdateWithoutCompletionsInputSchema: z.ZodType<Pris
   isActive: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
-  restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutQualityChecklistNestedInputSchema).optional(),
+  restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutQualityChecklistsNestedInputSchema).optional(),
   items: z.lazy(() => ChecklistItemUpdateManyWithoutChecklistNestedInputSchema).optional()
 }).strict();
 
@@ -28077,18 +28168,18 @@ export const QualityChecklistUncheckedUpdateWithoutCompletionsInputSchema: z.Zod
   items: z.lazy(() => ChecklistItemUncheckedUpdateManyWithoutChecklistNestedInputSchema).optional()
 }).strict();
 
-export const UserUpsertWithoutChecklistCompleteInputSchema: z.ZodType<Prisma.UserUpsertWithoutChecklistCompleteInput> = z.object({
-  update: z.union([ z.lazy(() => UserUpdateWithoutChecklistCompleteInputSchema),z.lazy(() => UserUncheckedUpdateWithoutChecklistCompleteInputSchema) ]),
-  create: z.union([ z.lazy(() => UserCreateWithoutChecklistCompleteInputSchema),z.lazy(() => UserUncheckedCreateWithoutChecklistCompleteInputSchema) ]),
+export const UserUpsertWithoutChecklistCompletesInputSchema: z.ZodType<Prisma.UserUpsertWithoutChecklistCompletesInput> = z.object({
+  update: z.union([ z.lazy(() => UserUpdateWithoutChecklistCompletesInputSchema),z.lazy(() => UserUncheckedUpdateWithoutChecklistCompletesInputSchema) ]),
+  create: z.union([ z.lazy(() => UserCreateWithoutChecklistCompletesInputSchema),z.lazy(() => UserUncheckedCreateWithoutChecklistCompletesInputSchema) ]),
   where: z.lazy(() => UserWhereInputSchema).optional()
 }).strict();
 
-export const UserUpdateToOneWithWhereWithoutChecklistCompleteInputSchema: z.ZodType<Prisma.UserUpdateToOneWithWhereWithoutChecklistCompleteInput> = z.object({
+export const UserUpdateToOneWithWhereWithoutChecklistCompletesInputSchema: z.ZodType<Prisma.UserUpdateToOneWithWhereWithoutChecklistCompletesInput> = z.object({
   where: z.lazy(() => UserWhereInputSchema).optional(),
-  data: z.union([ z.lazy(() => UserUpdateWithoutChecklistCompleteInputSchema),z.lazy(() => UserUncheckedUpdateWithoutChecklistCompleteInputSchema) ]),
+  data: z.union([ z.lazy(() => UserUpdateWithoutChecklistCompletesInputSchema),z.lazy(() => UserUncheckedUpdateWithoutChecklistCompletesInputSchema) ]),
 }).strict();
 
-export const UserUpdateWithoutChecklistCompleteInputSchema: z.ZodType<Prisma.UserUpdateWithoutChecklistCompleteInput> = z.object({
+export const UserUpdateWithoutChecklistCompletesInputSchema: z.ZodType<Prisma.UserUpdateWithoutChecklistCompletesInput> = z.object({
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
@@ -28106,21 +28197,21 @@ export const UserUpdateWithoutChecklistCompleteInputSchema: z.ZodType<Prisma.Use
   inventoryUpdates: z.lazy(() => InventoryItemUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUpdateManyWithoutUserNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUpdateManyWithoutUserNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
-export const UserUncheckedUpdateWithoutChecklistCompleteInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutChecklistCompleteInput> = z.object({
+export const UserUncheckedUpdateWithoutChecklistCompletesInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutChecklistCompletesInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -28139,18 +28230,18 @@ export const UserUncheckedUpdateWithoutChecklistCompleteInputSchema: z.ZodType<P
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
 export const ChecklistItemCompleteUpsertWithWhereUniqueWithoutChecklistCompleteInputSchema: z.ZodType<Prisma.ChecklistItemCompleteUpsertWithWhereUniqueWithoutChecklistCompleteInput> = z.object({
@@ -28175,7 +28266,7 @@ export const ChecklistCompleteCreateWithoutItemsInputSchema: z.ZodType<Prisma.Ch
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   checklist: z.lazy(() => QualityChecklistCreateNestedOneWithoutCompletionsInputSchema),
-  completedBy: z.lazy(() => UserCreateNestedOneWithoutChecklistCompleteInputSchema)
+  completedBy: z.lazy(() => UserCreateNestedOneWithoutChecklistCompletesInputSchema)
 }).strict();
 
 export const ChecklistCompleteUncheckedCreateWithoutItemsInputSchema: z.ZodType<Prisma.ChecklistCompleteUncheckedCreateWithoutItemsInput> = z.object({
@@ -28236,7 +28327,7 @@ export const ChecklistCompleteUpdateWithoutItemsInputSchema: z.ZodType<Prisma.Ch
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   checklist: z.lazy(() => QualityChecklistUpdateOneRequiredWithoutCompletionsNestedInputSchema).optional(),
-  completedBy: z.lazy(() => UserUpdateOneRequiredWithoutChecklistCompleteNestedInputSchema).optional()
+  completedBy: z.lazy(() => UserUpdateOneRequiredWithoutChecklistCompletesNestedInputSchema).optional()
 }).strict();
 
 export const ChecklistCompleteUncheckedUpdateWithoutItemsInputSchema: z.ZodType<Prisma.ChecklistCompleteUncheckedUpdateWithoutItemsInput> = z.object({
@@ -28309,11 +28400,12 @@ export const VendorCreateOrConnectWithoutSupplierPriceHistoryInputSchema: z.ZodT
   create: z.union([ z.lazy(() => VendorCreateWithoutSupplierPriceHistoryInputSchema),z.lazy(() => VendorUncheckedCreateWithoutSupplierPriceHistoryInputSchema) ]),
 }).strict();
 
-export const IngredientCreateWithoutSupplierPriceHistoryInputSchema: z.ZodType<Prisma.IngredientCreateWithoutSupplierPriceHistoryInput> = z.object({
+export const IngredientCreateWithoutPriceHistoryInputSchema: z.ZodType<Prisma.IngredientCreateWithoutPriceHistoryInput> = z.object({
   name: z.string(),
   category: z.string(),
   price: z.number(),
   density: z.number().optional().nullable(),
+  dietaryRestrictionId: z.number().int().optional().nullable(),
   calories: z.number().optional().nullable(),
   protein: z.number().optional().nullable(),
   carbohydrates: z.number().optional().nullable(),
@@ -28328,12 +28420,12 @@ export const IngredientCreateWithoutSupplierPriceHistoryInputSchema: z.ZodType<P
   inventoryItems: z.lazy(() => InventoryItemCreateNestedManyWithoutIngredientInputSchema).optional(),
   orderItems: z.lazy(() => OrderItemCreateNestedManyWithoutIngredientInputSchema).optional(),
   vendors: z.lazy(() => VendorCreateNestedManyWithoutIngredientsInputSchema).optional(),
-  WasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutIngredienteInputSchema).optional(),
-  IngredientAllergen: z.lazy(() => IngredientAllergenCreateNestedManyWithoutIngredientInputSchema).optional(),
-  DietaryRestriction: z.lazy(() => DietaryRestrictionCreateNestedOneWithoutIngredientsInputSchema).optional()
+  WasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutIngredienteInputSchema).optional(),
+  IngredientAllergens: z.lazy(() => IngredientAllergenCreateNestedManyWithoutIngredientInputSchema).optional(),
+  DietaryRestrictions: z.lazy(() => DietaryRestrictionCreateNestedManyWithoutIngredientsInputSchema).optional()
 }).strict();
 
-export const IngredientUncheckedCreateWithoutSupplierPriceHistoryInputSchema: z.ZodType<Prisma.IngredientUncheckedCreateWithoutSupplierPriceHistoryInput> = z.object({
+export const IngredientUncheckedCreateWithoutPriceHistoryInputSchema: z.ZodType<Prisma.IngredientUncheckedCreateWithoutPriceHistoryInput> = z.object({
   id: z.number().int().optional(),
   name: z.string(),
   category: z.string(),
@@ -28354,13 +28446,14 @@ export const IngredientUncheckedCreateWithoutSupplierPriceHistoryInputSchema: z.
   inventoryItems: z.lazy(() => InventoryItemUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
   orderItems: z.lazy(() => OrderItemUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
   vendors: z.lazy(() => VendorUncheckedCreateNestedManyWithoutIngredientsInputSchema).optional(),
-  WasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutIngredienteInputSchema).optional(),
-  IngredientAllergen: z.lazy(() => IngredientAllergenUncheckedCreateNestedManyWithoutIngredientInputSchema).optional()
+  WasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutIngredienteInputSchema).optional(),
+  IngredientAllergens: z.lazy(() => IngredientAllergenUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
+  DietaryRestrictions: z.lazy(() => DietaryRestrictionUncheckedCreateNestedManyWithoutIngredientsInputSchema).optional()
 }).strict();
 
-export const IngredientCreateOrConnectWithoutSupplierPriceHistoryInputSchema: z.ZodType<Prisma.IngredientCreateOrConnectWithoutSupplierPriceHistoryInput> = z.object({
+export const IngredientCreateOrConnectWithoutPriceHistoryInputSchema: z.ZodType<Prisma.IngredientCreateOrConnectWithoutPriceHistoryInput> = z.object({
   where: z.lazy(() => IngredientWhereUniqueInputSchema),
-  create: z.union([ z.lazy(() => IngredientCreateWithoutSupplierPriceHistoryInputSchema),z.lazy(() => IngredientUncheckedCreateWithoutSupplierPriceHistoryInputSchema) ]),
+  create: z.union([ z.lazy(() => IngredientCreateWithoutPriceHistoryInputSchema),z.lazy(() => IngredientUncheckedCreateWithoutPriceHistoryInputSchema) ]),
 }).strict();
 
 export const VendorUpsertWithoutSupplierPriceHistoryInputSchema: z.ZodType<Prisma.VendorUpsertWithoutSupplierPriceHistoryInput> = z.object({
@@ -28397,22 +28490,23 @@ export const VendorUncheckedUpdateWithoutSupplierPriceHistoryInputSchema: z.ZodT
   ingredients: z.lazy(() => IngredientUncheckedUpdateManyWithoutVendorsNestedInputSchema).optional()
 }).strict();
 
-export const IngredientUpsertWithoutSupplierPriceHistoryInputSchema: z.ZodType<Prisma.IngredientUpsertWithoutSupplierPriceHistoryInput> = z.object({
-  update: z.union([ z.lazy(() => IngredientUpdateWithoutSupplierPriceHistoryInputSchema),z.lazy(() => IngredientUncheckedUpdateWithoutSupplierPriceHistoryInputSchema) ]),
-  create: z.union([ z.lazy(() => IngredientCreateWithoutSupplierPriceHistoryInputSchema),z.lazy(() => IngredientUncheckedCreateWithoutSupplierPriceHistoryInputSchema) ]),
+export const IngredientUpsertWithoutPriceHistoryInputSchema: z.ZodType<Prisma.IngredientUpsertWithoutPriceHistoryInput> = z.object({
+  update: z.union([ z.lazy(() => IngredientUpdateWithoutPriceHistoryInputSchema),z.lazy(() => IngredientUncheckedUpdateWithoutPriceHistoryInputSchema) ]),
+  create: z.union([ z.lazy(() => IngredientCreateWithoutPriceHistoryInputSchema),z.lazy(() => IngredientUncheckedCreateWithoutPriceHistoryInputSchema) ]),
   where: z.lazy(() => IngredientWhereInputSchema).optional()
 }).strict();
 
-export const IngredientUpdateToOneWithWhereWithoutSupplierPriceHistoryInputSchema: z.ZodType<Prisma.IngredientUpdateToOneWithWhereWithoutSupplierPriceHistoryInput> = z.object({
+export const IngredientUpdateToOneWithWhereWithoutPriceHistoryInputSchema: z.ZodType<Prisma.IngredientUpdateToOneWithWhereWithoutPriceHistoryInput> = z.object({
   where: z.lazy(() => IngredientWhereInputSchema).optional(),
-  data: z.union([ z.lazy(() => IngredientUpdateWithoutSupplierPriceHistoryInputSchema),z.lazy(() => IngredientUncheckedUpdateWithoutSupplierPriceHistoryInputSchema) ]),
+  data: z.union([ z.lazy(() => IngredientUpdateWithoutPriceHistoryInputSchema),z.lazy(() => IngredientUncheckedUpdateWithoutPriceHistoryInputSchema) ]),
 }).strict();
 
-export const IngredientUpdateWithoutSupplierPriceHistoryInputSchema: z.ZodType<Prisma.IngredientUpdateWithoutSupplierPriceHistoryInput> = z.object({
+export const IngredientUpdateWithoutPriceHistoryInputSchema: z.ZodType<Prisma.IngredientUpdateWithoutPriceHistoryInput> = z.object({
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   category: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   price: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
   density: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
+  dietaryRestrictionId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   calories: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   protein: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   carbohydrates: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -28427,12 +28521,12 @@ export const IngredientUpdateWithoutSupplierPriceHistoryInputSchema: z.ZodType<P
   inventoryItems: z.lazy(() => InventoryItemUpdateManyWithoutIngredientNestedInputSchema).optional(),
   orderItems: z.lazy(() => OrderItemUpdateManyWithoutIngredientNestedInputSchema).optional(),
   vendors: z.lazy(() => VendorUpdateManyWithoutIngredientsNestedInputSchema).optional(),
-  WasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutIngredienteNestedInputSchema).optional(),
-  IngredientAllergen: z.lazy(() => IngredientAllergenUpdateManyWithoutIngredientNestedInputSchema).optional(),
-  DietaryRestriction: z.lazy(() => DietaryRestrictionUpdateOneWithoutIngredientsNestedInputSchema).optional()
+  WasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutIngredienteNestedInputSchema).optional(),
+  IngredientAllergens: z.lazy(() => IngredientAllergenUpdateManyWithoutIngredientNestedInputSchema).optional(),
+  DietaryRestrictions: z.lazy(() => DietaryRestrictionUpdateManyWithoutIngredientsNestedInputSchema).optional()
 }).strict();
 
-export const IngredientUncheckedUpdateWithoutSupplierPriceHistoryInputSchema: z.ZodType<Prisma.IngredientUncheckedUpdateWithoutSupplierPriceHistoryInput> = z.object({
+export const IngredientUncheckedUpdateWithoutPriceHistoryInputSchema: z.ZodType<Prisma.IngredientUncheckedUpdateWithoutPriceHistoryInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   category: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
@@ -28453,11 +28547,12 @@ export const IngredientUncheckedUpdateWithoutSupplierPriceHistoryInputSchema: z.
   inventoryItems: z.lazy(() => InventoryItemUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
   orderItems: z.lazy(() => OrderItemUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
   vendors: z.lazy(() => VendorUncheckedUpdateManyWithoutIngredientsNestedInputSchema).optional(),
-  WasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutIngredienteNestedInputSchema).optional(),
-  IngredientAllergen: z.lazy(() => IngredientAllergenUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional()
+  WasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutIngredienteNestedInputSchema).optional(),
+  IngredientAllergens: z.lazy(() => IngredientAllergenUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
+  DietaryRestrictions: z.lazy(() => DietaryRestrictionUncheckedUpdateManyWithoutIngredientsNestedInputSchema).optional()
 }).strict();
 
-export const RestaurantCreateWithoutQustomerFeedbackInputSchema: z.ZodType<Prisma.RestaurantCreateWithoutQustomerFeedbackInput> = z.object({
+export const RestaurantCreateWithoutCustomerFeedbacksInputSchema: z.ZodType<Prisma.RestaurantCreateWithoutCustomerFeedbacksInput> = z.object({
   name: z.string(),
   imageUrl: z.string().optional().nullable(),
   address: z.string(),
@@ -28478,14 +28573,14 @@ export const RestaurantCreateWithoutQustomerFeedbackInputSchema: z.ZodType<Prism
   recipes: z.lazy(() => RecipeCreateNestedManyWithoutRestaurantInputSchema).optional(),
   menus: z.lazy(() => MenuCreateNestedManyWithoutRestaurantInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistCreateNestedManyWithoutRestaurantInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistCreateNestedManyWithoutRestaurantInputSchema).optional()
 }).strict();
 
-export const RestaurantUncheckedCreateWithoutQustomerFeedbackInputSchema: z.ZodType<Prisma.RestaurantUncheckedCreateWithoutQustomerFeedbackInput> = z.object({
+export const RestaurantUncheckedCreateWithoutCustomerFeedbacksInputSchema: z.ZodType<Prisma.RestaurantUncheckedCreateWithoutCustomerFeedbacksInput> = z.object({
   id: z.number().int().optional(),
   name: z.string(),
   imageUrl: z.string().optional().nullable(),
@@ -28507,16 +28602,16 @@ export const RestaurantUncheckedCreateWithoutQustomerFeedbackInputSchema: z.ZodT
   recipes: z.lazy(() => RecipeUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
   menus: z.lazy(() => MenuUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional()
 }).strict();
 
-export const RestaurantCreateOrConnectWithoutQustomerFeedbackInputSchema: z.ZodType<Prisma.RestaurantCreateOrConnectWithoutQustomerFeedbackInput> = z.object({
+export const RestaurantCreateOrConnectWithoutCustomerFeedbacksInputSchema: z.ZodType<Prisma.RestaurantCreateOrConnectWithoutCustomerFeedbacksInput> = z.object({
   where: z.lazy(() => RestaurantWhereUniqueInputSchema),
-  create: z.union([ z.lazy(() => RestaurantCreateWithoutQustomerFeedbackInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutQustomerFeedbackInputSchema) ]),
+  create: z.union([ z.lazy(() => RestaurantCreateWithoutCustomerFeedbacksInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutCustomerFeedbacksInputSchema) ]),
 }).strict();
 
 export const MenuItemCreateWithoutFeedbackInputSchema: z.ZodType<Prisma.MenuItemCreateWithoutFeedbackInput> = z.object({
@@ -28567,7 +28662,7 @@ export const MenuItemCreateOrConnectWithoutFeedbackInputSchema: z.ZodType<Prisma
   create: z.union([ z.lazy(() => MenuItemCreateWithoutFeedbackInputSchema),z.lazy(() => MenuItemUncheckedCreateWithoutFeedbackInputSchema) ]),
 }).strict();
 
-export const UserCreateWithoutCustomerFeedbackInputSchema: z.ZodType<Prisma.UserCreateWithoutCustomerFeedbackInput> = z.object({
+export const UserCreateWithoutCustomerFeedbackResponsesInputSchema: z.ZodType<Prisma.UserCreateWithoutCustomerFeedbackResponsesInput> = z.object({
   email: z.string(),
   sub: z.number().int().optional().nullable(),
   passwordHash: z.string(),
@@ -28585,21 +28680,21 @@ export const UserCreateWithoutCustomerFeedbackInputSchema: z.ZodType<Prisma.User
   inventoryUpdates: z.lazy(() => InventoryItemCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   sessions: z.lazy(() => SessionCreateNestedManyWithoutUserInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
   availability: z.lazy(() => AvailabilityCreateNestedManyWithoutUserInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
-export const UserUncheckedCreateWithoutCustomerFeedbackInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutCustomerFeedbackInput> = z.object({
+export const UserUncheckedCreateWithoutCustomerFeedbackResponsesInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutCustomerFeedbackResponsesInput> = z.object({
   id: z.number().int().optional(),
   email: z.string(),
   sub: z.number().int().optional().nullable(),
@@ -28618,37 +28713,37 @@ export const UserUncheckedCreateWithoutCustomerFeedbackInputSchema: z.ZodType<Pr
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
-export const UserCreateOrConnectWithoutCustomerFeedbackInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutCustomerFeedbackInput> = z.object({
+export const UserCreateOrConnectWithoutCustomerFeedbackResponsesInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutCustomerFeedbackResponsesInput> = z.object({
   where: z.lazy(() => UserWhereUniqueInputSchema),
-  create: z.union([ z.lazy(() => UserCreateWithoutCustomerFeedbackInputSchema),z.lazy(() => UserUncheckedCreateWithoutCustomerFeedbackInputSchema) ]),
+  create: z.union([ z.lazy(() => UserCreateWithoutCustomerFeedbackResponsesInputSchema),z.lazy(() => UserUncheckedCreateWithoutCustomerFeedbackResponsesInputSchema) ]),
 }).strict();
 
-export const RestaurantUpsertWithoutQustomerFeedbackInputSchema: z.ZodType<Prisma.RestaurantUpsertWithoutQustomerFeedbackInput> = z.object({
-  update: z.union([ z.lazy(() => RestaurantUpdateWithoutQustomerFeedbackInputSchema),z.lazy(() => RestaurantUncheckedUpdateWithoutQustomerFeedbackInputSchema) ]),
-  create: z.union([ z.lazy(() => RestaurantCreateWithoutQustomerFeedbackInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutQustomerFeedbackInputSchema) ]),
+export const RestaurantUpsertWithoutCustomerFeedbacksInputSchema: z.ZodType<Prisma.RestaurantUpsertWithoutCustomerFeedbacksInput> = z.object({
+  update: z.union([ z.lazy(() => RestaurantUpdateWithoutCustomerFeedbacksInputSchema),z.lazy(() => RestaurantUncheckedUpdateWithoutCustomerFeedbacksInputSchema) ]),
+  create: z.union([ z.lazy(() => RestaurantCreateWithoutCustomerFeedbacksInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutCustomerFeedbacksInputSchema) ]),
   where: z.lazy(() => RestaurantWhereInputSchema).optional()
 }).strict();
 
-export const RestaurantUpdateToOneWithWhereWithoutQustomerFeedbackInputSchema: z.ZodType<Prisma.RestaurantUpdateToOneWithWhereWithoutQustomerFeedbackInput> = z.object({
+export const RestaurantUpdateToOneWithWhereWithoutCustomerFeedbacksInputSchema: z.ZodType<Prisma.RestaurantUpdateToOneWithWhereWithoutCustomerFeedbacksInput> = z.object({
   where: z.lazy(() => RestaurantWhereInputSchema).optional(),
-  data: z.union([ z.lazy(() => RestaurantUpdateWithoutQustomerFeedbackInputSchema),z.lazy(() => RestaurantUncheckedUpdateWithoutQustomerFeedbackInputSchema) ]),
+  data: z.union([ z.lazy(() => RestaurantUpdateWithoutCustomerFeedbacksInputSchema),z.lazy(() => RestaurantUncheckedUpdateWithoutCustomerFeedbacksInputSchema) ]),
 }).strict();
 
-export const RestaurantUpdateWithoutQustomerFeedbackInputSchema: z.ZodType<Prisma.RestaurantUpdateWithoutQustomerFeedbackInput> = z.object({
+export const RestaurantUpdateWithoutCustomerFeedbacksInputSchema: z.ZodType<Prisma.RestaurantUpdateWithoutCustomerFeedbacksInput> = z.object({
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   imageUrl: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   address: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
@@ -28669,14 +28764,14 @@ export const RestaurantUpdateWithoutQustomerFeedbackInputSchema: z.ZodType<Prism
   recipes: z.lazy(() => RecipeUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   menus: z.lazy(() => MenuUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUpdateManyWithoutRestaurantNestedInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUpdateManyWithoutRestaurantNestedInputSchema).optional()
 }).strict();
 
-export const RestaurantUncheckedUpdateWithoutQustomerFeedbackInputSchema: z.ZodType<Prisma.RestaurantUncheckedUpdateWithoutQustomerFeedbackInput> = z.object({
+export const RestaurantUncheckedUpdateWithoutCustomerFeedbacksInputSchema: z.ZodType<Prisma.RestaurantUncheckedUpdateWithoutCustomerFeedbacksInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   imageUrl: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -28698,11 +28793,11 @@ export const RestaurantUncheckedUpdateWithoutQustomerFeedbackInputSchema: z.ZodT
   recipes: z.lazy(() => RecipeUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   menus: z.lazy(() => MenuUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional()
 }).strict();
 
 export const MenuItemUpsertWithoutFeedbackInputSchema: z.ZodType<Prisma.MenuItemUpsertWithoutFeedbackInput> = z.object({
@@ -28759,18 +28854,18 @@ export const MenuItemUncheckedUpdateWithoutFeedbackInputSchema: z.ZodType<Prisma
   dietaryRestrictions: z.lazy(() => DietaryRestrictionUncheckedUpdateManyWithoutMenuItemsNestedInputSchema).optional()
 }).strict();
 
-export const UserUpsertWithoutCustomerFeedbackInputSchema: z.ZodType<Prisma.UserUpsertWithoutCustomerFeedbackInput> = z.object({
-  update: z.union([ z.lazy(() => UserUpdateWithoutCustomerFeedbackInputSchema),z.lazy(() => UserUncheckedUpdateWithoutCustomerFeedbackInputSchema) ]),
-  create: z.union([ z.lazy(() => UserCreateWithoutCustomerFeedbackInputSchema),z.lazy(() => UserUncheckedCreateWithoutCustomerFeedbackInputSchema) ]),
+export const UserUpsertWithoutCustomerFeedbackResponsesInputSchema: z.ZodType<Prisma.UserUpsertWithoutCustomerFeedbackResponsesInput> = z.object({
+  update: z.union([ z.lazy(() => UserUpdateWithoutCustomerFeedbackResponsesInputSchema),z.lazy(() => UserUncheckedUpdateWithoutCustomerFeedbackResponsesInputSchema) ]),
+  create: z.union([ z.lazy(() => UserCreateWithoutCustomerFeedbackResponsesInputSchema),z.lazy(() => UserUncheckedCreateWithoutCustomerFeedbackResponsesInputSchema) ]),
   where: z.lazy(() => UserWhereInputSchema).optional()
 }).strict();
 
-export const UserUpdateToOneWithWhereWithoutCustomerFeedbackInputSchema: z.ZodType<Prisma.UserUpdateToOneWithWhereWithoutCustomerFeedbackInput> = z.object({
+export const UserUpdateToOneWithWhereWithoutCustomerFeedbackResponsesInputSchema: z.ZodType<Prisma.UserUpdateToOneWithWhereWithoutCustomerFeedbackResponsesInput> = z.object({
   where: z.lazy(() => UserWhereInputSchema).optional(),
-  data: z.union([ z.lazy(() => UserUpdateWithoutCustomerFeedbackInputSchema),z.lazy(() => UserUncheckedUpdateWithoutCustomerFeedbackInputSchema) ]),
+  data: z.union([ z.lazy(() => UserUpdateWithoutCustomerFeedbackResponsesInputSchema),z.lazy(() => UserUncheckedUpdateWithoutCustomerFeedbackResponsesInputSchema) ]),
 }).strict();
 
-export const UserUpdateWithoutCustomerFeedbackInputSchema: z.ZodType<Prisma.UserUpdateWithoutCustomerFeedbackInput> = z.object({
+export const UserUpdateWithoutCustomerFeedbackResponsesInputSchema: z.ZodType<Prisma.UserUpdateWithoutCustomerFeedbackResponsesInput> = z.object({
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
@@ -28788,21 +28883,21 @@ export const UserUpdateWithoutCustomerFeedbackInputSchema: z.ZodType<Prisma.User
   inventoryUpdates: z.lazy(() => InventoryItemUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUpdateManyWithoutUserNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUpdateManyWithoutUserNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
-export const UserUncheckedUpdateWithoutCustomerFeedbackInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutCustomerFeedbackInput> = z.object({
+export const UserUncheckedUpdateWithoutCustomerFeedbackResponsesInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutCustomerFeedbackResponsesInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -28821,18 +28916,18 @@ export const UserUncheckedUpdateWithoutCustomerFeedbackInputSchema: z.ZodType<Pr
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
 export const MenuItemCreateWithoutDietaryRestrictionsInputSchema: z.ZodType<Prisma.MenuItemCreateWithoutDietaryRestrictionsInput> = z.object({
@@ -28969,11 +29064,12 @@ export const RecipeCreateOrConnectWithoutDietaryRestrictionsInputSchema: z.ZodTy
   create: z.union([ z.lazy(() => RecipeCreateWithoutDietaryRestrictionsInputSchema),z.lazy(() => RecipeUncheckedCreateWithoutDietaryRestrictionsInputSchema) ]),
 }).strict();
 
-export const IngredientCreateWithoutDietaryRestrictionInputSchema: z.ZodType<Prisma.IngredientCreateWithoutDietaryRestrictionInput> = z.object({
+export const IngredientCreateWithoutDietaryRestrictionsInputSchema: z.ZodType<Prisma.IngredientCreateWithoutDietaryRestrictionsInput> = z.object({
   name: z.string(),
   category: z.string(),
   price: z.number(),
   density: z.number().optional().nullable(),
+  dietaryRestrictionId: z.number().int().optional().nullable(),
   calories: z.number().optional().nullable(),
   protein: z.number().optional().nullable(),
   carbohydrates: z.number().optional().nullable(),
@@ -28988,17 +29084,18 @@ export const IngredientCreateWithoutDietaryRestrictionInputSchema: z.ZodType<Pri
   inventoryItems: z.lazy(() => InventoryItemCreateNestedManyWithoutIngredientInputSchema).optional(),
   orderItems: z.lazy(() => OrderItemCreateNestedManyWithoutIngredientInputSchema).optional(),
   vendors: z.lazy(() => VendorCreateNestedManyWithoutIngredientsInputSchema).optional(),
-  WasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutIngredienteInputSchema).optional(),
-  IngredientAllergen: z.lazy(() => IngredientAllergenCreateNestedManyWithoutIngredientInputSchema).optional(),
-  SupplierPriceHistory: z.lazy(() => SupplierPriceHistoryCreateNestedManyWithoutIngredientInputSchema).optional()
+  WasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutIngredienteInputSchema).optional(),
+  IngredientAllergens: z.lazy(() => IngredientAllergenCreateNestedManyWithoutIngredientInputSchema).optional(),
+  priceHistory: z.lazy(() => SupplierPriceHistoryCreateNestedManyWithoutIngredientInputSchema).optional()
 }).strict();
 
-export const IngredientUncheckedCreateWithoutDietaryRestrictionInputSchema: z.ZodType<Prisma.IngredientUncheckedCreateWithoutDietaryRestrictionInput> = z.object({
+export const IngredientUncheckedCreateWithoutDietaryRestrictionsInputSchema: z.ZodType<Prisma.IngredientUncheckedCreateWithoutDietaryRestrictionsInput> = z.object({
   id: z.number().int().optional(),
   name: z.string(),
   category: z.string(),
   price: z.number(),
   density: z.number().optional().nullable(),
+  dietaryRestrictionId: z.number().int().optional().nullable(),
   calories: z.number().optional().nullable(),
   protein: z.number().optional().nullable(),
   carbohydrates: z.number().optional().nullable(),
@@ -29013,19 +29110,14 @@ export const IngredientUncheckedCreateWithoutDietaryRestrictionInputSchema: z.Zo
   inventoryItems: z.lazy(() => InventoryItemUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
   orderItems: z.lazy(() => OrderItemUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
   vendors: z.lazy(() => VendorUncheckedCreateNestedManyWithoutIngredientsInputSchema).optional(),
-  WasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutIngredienteInputSchema).optional(),
-  IngredientAllergen: z.lazy(() => IngredientAllergenUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
-  SupplierPriceHistory: z.lazy(() => SupplierPriceHistoryUncheckedCreateNestedManyWithoutIngredientInputSchema).optional()
+  WasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutIngredienteInputSchema).optional(),
+  IngredientAllergens: z.lazy(() => IngredientAllergenUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
+  priceHistory: z.lazy(() => SupplierPriceHistoryUncheckedCreateNestedManyWithoutIngredientInputSchema).optional()
 }).strict();
 
-export const IngredientCreateOrConnectWithoutDietaryRestrictionInputSchema: z.ZodType<Prisma.IngredientCreateOrConnectWithoutDietaryRestrictionInput> = z.object({
+export const IngredientCreateOrConnectWithoutDietaryRestrictionsInputSchema: z.ZodType<Prisma.IngredientCreateOrConnectWithoutDietaryRestrictionsInput> = z.object({
   where: z.lazy(() => IngredientWhereUniqueInputSchema),
-  create: z.union([ z.lazy(() => IngredientCreateWithoutDietaryRestrictionInputSchema),z.lazy(() => IngredientUncheckedCreateWithoutDietaryRestrictionInputSchema) ]),
-}).strict();
-
-export const IngredientCreateManyDietaryRestrictionInputEnvelopeSchema: z.ZodType<Prisma.IngredientCreateManyDietaryRestrictionInputEnvelope> = z.object({
-  data: z.union([ z.lazy(() => IngredientCreateManyDietaryRestrictionInputSchema),z.lazy(() => IngredientCreateManyDietaryRestrictionInputSchema).array() ]),
-  skipDuplicates: z.boolean().optional()
+  create: z.union([ z.lazy(() => IngredientCreateWithoutDietaryRestrictionsInputSchema),z.lazy(() => IngredientUncheckedCreateWithoutDietaryRestrictionsInputSchema) ]),
 }).strict();
 
 export const MenuItemUpsertWithWhereUniqueWithoutDietaryRestrictionsInputSchema: z.ZodType<Prisma.MenuItemUpsertWithWhereUniqueWithoutDietaryRestrictionsInput> = z.object({
@@ -29083,20 +29175,20 @@ export const RecipeScalarWhereInputSchema: z.ZodType<Prisma.RecipeScalarWhereInp
   category: z.union([ z.lazy(() => EnumCategoryFilterSchema),z.lazy(() => CategorySchema) ]).optional(),
 }).strict();
 
-export const IngredientUpsertWithWhereUniqueWithoutDietaryRestrictionInputSchema: z.ZodType<Prisma.IngredientUpsertWithWhereUniqueWithoutDietaryRestrictionInput> = z.object({
+export const IngredientUpsertWithWhereUniqueWithoutDietaryRestrictionsInputSchema: z.ZodType<Prisma.IngredientUpsertWithWhereUniqueWithoutDietaryRestrictionsInput> = z.object({
   where: z.lazy(() => IngredientWhereUniqueInputSchema),
-  update: z.union([ z.lazy(() => IngredientUpdateWithoutDietaryRestrictionInputSchema),z.lazy(() => IngredientUncheckedUpdateWithoutDietaryRestrictionInputSchema) ]),
-  create: z.union([ z.lazy(() => IngredientCreateWithoutDietaryRestrictionInputSchema),z.lazy(() => IngredientUncheckedCreateWithoutDietaryRestrictionInputSchema) ]),
+  update: z.union([ z.lazy(() => IngredientUpdateWithoutDietaryRestrictionsInputSchema),z.lazy(() => IngredientUncheckedUpdateWithoutDietaryRestrictionsInputSchema) ]),
+  create: z.union([ z.lazy(() => IngredientCreateWithoutDietaryRestrictionsInputSchema),z.lazy(() => IngredientUncheckedCreateWithoutDietaryRestrictionsInputSchema) ]),
 }).strict();
 
-export const IngredientUpdateWithWhereUniqueWithoutDietaryRestrictionInputSchema: z.ZodType<Prisma.IngredientUpdateWithWhereUniqueWithoutDietaryRestrictionInput> = z.object({
+export const IngredientUpdateWithWhereUniqueWithoutDietaryRestrictionsInputSchema: z.ZodType<Prisma.IngredientUpdateWithWhereUniqueWithoutDietaryRestrictionsInput> = z.object({
   where: z.lazy(() => IngredientWhereUniqueInputSchema),
-  data: z.union([ z.lazy(() => IngredientUpdateWithoutDietaryRestrictionInputSchema),z.lazy(() => IngredientUncheckedUpdateWithoutDietaryRestrictionInputSchema) ]),
+  data: z.union([ z.lazy(() => IngredientUpdateWithoutDietaryRestrictionsInputSchema),z.lazy(() => IngredientUncheckedUpdateWithoutDietaryRestrictionsInputSchema) ]),
 }).strict();
 
-export const IngredientUpdateManyWithWhereWithoutDietaryRestrictionInputSchema: z.ZodType<Prisma.IngredientUpdateManyWithWhereWithoutDietaryRestrictionInput> = z.object({
+export const IngredientUpdateManyWithWhereWithoutDietaryRestrictionsInputSchema: z.ZodType<Prisma.IngredientUpdateManyWithWhereWithoutDietaryRestrictionsInput> = z.object({
   where: z.lazy(() => IngredientScalarWhereInputSchema),
-  data: z.union([ z.lazy(() => IngredientUpdateManyMutationInputSchema),z.lazy(() => IngredientUncheckedUpdateManyWithoutDietaryRestrictionInputSchema) ]),
+  data: z.union([ z.lazy(() => IngredientUpdateManyMutationInputSchema),z.lazy(() => IngredientUncheckedUpdateManyWithoutDietaryRestrictionsInputSchema) ]),
 }).strict();
 
 export const IngredientScalarWhereInputSchema: z.ZodType<Prisma.IngredientScalarWhereInput> = z.object({
@@ -29223,7 +29315,7 @@ export const RecipeUpdateManyWithWhereWithoutTagsInputSchema: z.ZodType<Prisma.R
   data: z.union([ z.lazy(() => RecipeUpdateManyMutationInputSchema),z.lazy(() => RecipeUncheckedUpdateManyWithoutTagsInputSchema) ]),
 }).strict();
 
-export const RestaurantCreateWithoutLeftoverItemInputSchema: z.ZodType<Prisma.RestaurantCreateWithoutLeftoverItemInput> = z.object({
+export const RestaurantCreateWithoutLeftoverItemsInputSchema: z.ZodType<Prisma.RestaurantCreateWithoutLeftoverItemsInput> = z.object({
   name: z.string(),
   imageUrl: z.string().optional().nullable(),
   address: z.string(),
@@ -29244,14 +29336,14 @@ export const RestaurantCreateWithoutLeftoverItemInputSchema: z.ZodType<Prisma.Re
   recipes: z.lazy(() => RecipeCreateNestedManyWithoutRestaurantInputSchema).optional(),
   menus: z.lazy(() => MenuCreateNestedManyWithoutRestaurantInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRestaurantInputSchema).optional()
+  wasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRestaurantInputSchema).optional()
 }).strict();
 
-export const RestaurantUncheckedCreateWithoutLeftoverItemInputSchema: z.ZodType<Prisma.RestaurantUncheckedCreateWithoutLeftoverItemInput> = z.object({
+export const RestaurantUncheckedCreateWithoutLeftoverItemsInputSchema: z.ZodType<Prisma.RestaurantUncheckedCreateWithoutLeftoverItemsInput> = z.object({
   id: z.number().int().optional(),
   name: z.string(),
   imageUrl: z.string().optional().nullable(),
@@ -29273,16 +29365,16 @@ export const RestaurantUncheckedCreateWithoutLeftoverItemInputSchema: z.ZodType<
   recipes: z.lazy(() => RecipeUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
   menus: z.lazy(() => MenuUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional()
+  wasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional()
 }).strict();
 
-export const RestaurantCreateOrConnectWithoutLeftoverItemInputSchema: z.ZodType<Prisma.RestaurantCreateOrConnectWithoutLeftoverItemInput> = z.object({
+export const RestaurantCreateOrConnectWithoutLeftoverItemsInputSchema: z.ZodType<Prisma.RestaurantCreateOrConnectWithoutLeftoverItemsInput> = z.object({
   where: z.lazy(() => RestaurantWhereUniqueInputSchema),
-  create: z.union([ z.lazy(() => RestaurantCreateWithoutLeftoverItemInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutLeftoverItemInputSchema) ]),
+  create: z.union([ z.lazy(() => RestaurantCreateWithoutLeftoverItemsInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutLeftoverItemsInputSchema) ]),
 }).strict();
 
 export const MenuItemCreateWithoutLeftoverItemsInputSchema: z.ZodType<Prisma.MenuItemCreateWithoutLeftoverItemsInput> = z.object({
@@ -29333,7 +29425,7 @@ export const MenuItemCreateOrConnectWithoutLeftoverItemsInputSchema: z.ZodType<P
   create: z.union([ z.lazy(() => MenuItemCreateWithoutLeftoverItemsInputSchema),z.lazy(() => MenuItemUncheckedCreateWithoutLeftoverItemsInputSchema) ]),
 }).strict();
 
-export const UserCreateWithoutLeftoverItemInputSchema: z.ZodType<Prisma.UserCreateWithoutLeftoverItemInput> = z.object({
+export const UserCreateWithoutLeftoverItemsInputSchema: z.ZodType<Prisma.UserCreateWithoutLeftoverItemsInput> = z.object({
   email: z.string(),
   sub: z.number().int().optional().nullable(),
   passwordHash: z.string(),
@@ -29351,21 +29443,21 @@ export const UserCreateWithoutLeftoverItemInputSchema: z.ZodType<Prisma.UserCrea
   inventoryUpdates: z.lazy(() => InventoryItemCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   sessions: z.lazy(() => SessionCreateNestedManyWithoutUserInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetCreateNestedManyWithoutUserInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
   availability: z.lazy(() => AvailabilityCreateNestedManyWithoutUserInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
-export const UserUncheckedCreateWithoutLeftoverItemInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutLeftoverItemInput> = z.object({
+export const UserUncheckedCreateWithoutLeftoverItemsInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutLeftoverItemsInput> = z.object({
   id: z.number().int().optional(),
   email: z.string(),
   sub: z.number().int().optional().nullable(),
@@ -29384,37 +29476,37 @@ export const UserUncheckedCreateWithoutLeftoverItemInputSchema: z.ZodType<Prisma
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
-export const UserCreateOrConnectWithoutLeftoverItemInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutLeftoverItemInput> = z.object({
+export const UserCreateOrConnectWithoutLeftoverItemsInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutLeftoverItemsInput> = z.object({
   where: z.lazy(() => UserWhereUniqueInputSchema),
-  create: z.union([ z.lazy(() => UserCreateWithoutLeftoverItemInputSchema),z.lazy(() => UserUncheckedCreateWithoutLeftoverItemInputSchema) ]),
+  create: z.union([ z.lazy(() => UserCreateWithoutLeftoverItemsInputSchema),z.lazy(() => UserUncheckedCreateWithoutLeftoverItemsInputSchema) ]),
 }).strict();
 
-export const RestaurantUpsertWithoutLeftoverItemInputSchema: z.ZodType<Prisma.RestaurantUpsertWithoutLeftoverItemInput> = z.object({
-  update: z.union([ z.lazy(() => RestaurantUpdateWithoutLeftoverItemInputSchema),z.lazy(() => RestaurantUncheckedUpdateWithoutLeftoverItemInputSchema) ]),
-  create: z.union([ z.lazy(() => RestaurantCreateWithoutLeftoverItemInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutLeftoverItemInputSchema) ]),
+export const RestaurantUpsertWithoutLeftoverItemsInputSchema: z.ZodType<Prisma.RestaurantUpsertWithoutLeftoverItemsInput> = z.object({
+  update: z.union([ z.lazy(() => RestaurantUpdateWithoutLeftoverItemsInputSchema),z.lazy(() => RestaurantUncheckedUpdateWithoutLeftoverItemsInputSchema) ]),
+  create: z.union([ z.lazy(() => RestaurantCreateWithoutLeftoverItemsInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutLeftoverItemsInputSchema) ]),
   where: z.lazy(() => RestaurantWhereInputSchema).optional()
 }).strict();
 
-export const RestaurantUpdateToOneWithWhereWithoutLeftoverItemInputSchema: z.ZodType<Prisma.RestaurantUpdateToOneWithWhereWithoutLeftoverItemInput> = z.object({
+export const RestaurantUpdateToOneWithWhereWithoutLeftoverItemsInputSchema: z.ZodType<Prisma.RestaurantUpdateToOneWithWhereWithoutLeftoverItemsInput> = z.object({
   where: z.lazy(() => RestaurantWhereInputSchema).optional(),
-  data: z.union([ z.lazy(() => RestaurantUpdateWithoutLeftoverItemInputSchema),z.lazy(() => RestaurantUncheckedUpdateWithoutLeftoverItemInputSchema) ]),
+  data: z.union([ z.lazy(() => RestaurantUpdateWithoutLeftoverItemsInputSchema),z.lazy(() => RestaurantUncheckedUpdateWithoutLeftoverItemsInputSchema) ]),
 }).strict();
 
-export const RestaurantUpdateWithoutLeftoverItemInputSchema: z.ZodType<Prisma.RestaurantUpdateWithoutLeftoverItemInput> = z.object({
+export const RestaurantUpdateWithoutLeftoverItemsInputSchema: z.ZodType<Prisma.RestaurantUpdateWithoutLeftoverItemsInput> = z.object({
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   imageUrl: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   address: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
@@ -29435,14 +29527,14 @@ export const RestaurantUpdateWithoutLeftoverItemInputSchema: z.ZodType<Prisma.Re
   recipes: z.lazy(() => RecipeUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   menus: z.lazy(() => MenuUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUpdateManyWithoutRestaurantNestedInputSchema).optional()
+  wasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUpdateManyWithoutRestaurantNestedInputSchema).optional()
 }).strict();
 
-export const RestaurantUncheckedUpdateWithoutLeftoverItemInputSchema: z.ZodType<Prisma.RestaurantUncheckedUpdateWithoutLeftoverItemInput> = z.object({
+export const RestaurantUncheckedUpdateWithoutLeftoverItemsInputSchema: z.ZodType<Prisma.RestaurantUncheckedUpdateWithoutLeftoverItemsInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   imageUrl: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -29464,11 +29556,11 @@ export const RestaurantUncheckedUpdateWithoutLeftoverItemInputSchema: z.ZodType<
   recipes: z.lazy(() => RecipeUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   menus: z.lazy(() => MenuUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional()
+  wasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional()
 }).strict();
 
 export const MenuItemUpsertWithoutLeftoverItemsInputSchema: z.ZodType<Prisma.MenuItemUpsertWithoutLeftoverItemsInput> = z.object({
@@ -29525,18 +29617,18 @@ export const MenuItemUncheckedUpdateWithoutLeftoverItemsInputSchema: z.ZodType<P
   dietaryRestrictions: z.lazy(() => DietaryRestrictionUncheckedUpdateManyWithoutMenuItemsNestedInputSchema).optional()
 }).strict();
 
-export const UserUpsertWithoutLeftoverItemInputSchema: z.ZodType<Prisma.UserUpsertWithoutLeftoverItemInput> = z.object({
-  update: z.union([ z.lazy(() => UserUpdateWithoutLeftoverItemInputSchema),z.lazy(() => UserUncheckedUpdateWithoutLeftoverItemInputSchema) ]),
-  create: z.union([ z.lazy(() => UserCreateWithoutLeftoverItemInputSchema),z.lazy(() => UserUncheckedCreateWithoutLeftoverItemInputSchema) ]),
+export const UserUpsertWithoutLeftoverItemsInputSchema: z.ZodType<Prisma.UserUpsertWithoutLeftoverItemsInput> = z.object({
+  update: z.union([ z.lazy(() => UserUpdateWithoutLeftoverItemsInputSchema),z.lazy(() => UserUncheckedUpdateWithoutLeftoverItemsInputSchema) ]),
+  create: z.union([ z.lazy(() => UserCreateWithoutLeftoverItemsInputSchema),z.lazy(() => UserUncheckedCreateWithoutLeftoverItemsInputSchema) ]),
   where: z.lazy(() => UserWhereInputSchema).optional()
 }).strict();
 
-export const UserUpdateToOneWithWhereWithoutLeftoverItemInputSchema: z.ZodType<Prisma.UserUpdateToOneWithWhereWithoutLeftoverItemInput> = z.object({
+export const UserUpdateToOneWithWhereWithoutLeftoverItemsInputSchema: z.ZodType<Prisma.UserUpdateToOneWithWhereWithoutLeftoverItemsInput> = z.object({
   where: z.lazy(() => UserWhereInputSchema).optional(),
-  data: z.union([ z.lazy(() => UserUpdateWithoutLeftoverItemInputSchema),z.lazy(() => UserUncheckedUpdateWithoutLeftoverItemInputSchema) ]),
+  data: z.union([ z.lazy(() => UserUpdateWithoutLeftoverItemsInputSchema),z.lazy(() => UserUncheckedUpdateWithoutLeftoverItemsInputSchema) ]),
 }).strict();
 
-export const UserUpdateWithoutLeftoverItemInputSchema: z.ZodType<Prisma.UserUpdateWithoutLeftoverItemInput> = z.object({
+export const UserUpdateWithoutLeftoverItemsInputSchema: z.ZodType<Prisma.UserUpdateWithoutLeftoverItemsInput> = z.object({
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
@@ -29554,21 +29646,21 @@ export const UserUpdateWithoutLeftoverItemInputSchema: z.ZodType<Prisma.UserUpda
   inventoryUpdates: z.lazy(() => InventoryItemUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUpdateManyWithoutUserNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUpdateManyWithoutUserNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUpdateManyWithoutUserNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
-export const UserUncheckedUpdateWithoutLeftoverItemInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutLeftoverItemInput> = z.object({
+export const UserUncheckedUpdateWithoutLeftoverItemsInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutLeftoverItemsInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -29587,21 +29679,21 @@ export const UserUncheckedUpdateWithoutLeftoverItemInputSchema: z.ZodType<Prisma
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
-export const RestaurantCreateWithoutWasteRecordInputSchema: z.ZodType<Prisma.RestaurantCreateWithoutWasteRecordInput> = z.object({
+export const RestaurantCreateWithoutWasteRecordsInputSchema: z.ZodType<Prisma.RestaurantCreateWithoutWasteRecordsInput> = z.object({
   name: z.string(),
   imageUrl: z.string().optional().nullable(),
   address: z.string(),
@@ -29622,14 +29714,14 @@ export const RestaurantCreateWithoutWasteRecordInputSchema: z.ZodType<Prisma.Res
   recipes: z.lazy(() => RecipeCreateNestedManyWithoutRestaurantInputSchema).optional(),
   menus: z.lazy(() => MenuCreateNestedManyWithoutRestaurantInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRestaurantInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRestaurantInputSchema).optional()
 }).strict();
 
-export const RestaurantUncheckedCreateWithoutWasteRecordInputSchema: z.ZodType<Prisma.RestaurantUncheckedCreateWithoutWasteRecordInput> = z.object({
+export const RestaurantUncheckedCreateWithoutWasteRecordsInputSchema: z.ZodType<Prisma.RestaurantUncheckedCreateWithoutWasteRecordsInput> = z.object({
   id: z.number().int().optional(),
   name: z.string(),
   imageUrl: z.string().optional().nullable(),
@@ -29651,23 +29743,24 @@ export const RestaurantUncheckedCreateWithoutWasteRecordInputSchema: z.ZodType<P
   recipes: z.lazy(() => RecipeUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
   menus: z.lazy(() => MenuUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional()
 }).strict();
 
-export const RestaurantCreateOrConnectWithoutWasteRecordInputSchema: z.ZodType<Prisma.RestaurantCreateOrConnectWithoutWasteRecordInput> = z.object({
+export const RestaurantCreateOrConnectWithoutWasteRecordsInputSchema: z.ZodType<Prisma.RestaurantCreateOrConnectWithoutWasteRecordsInput> = z.object({
   where: z.lazy(() => RestaurantWhereUniqueInputSchema),
-  create: z.union([ z.lazy(() => RestaurantCreateWithoutWasteRecordInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutWasteRecordInputSchema) ]),
+  create: z.union([ z.lazy(() => RestaurantCreateWithoutWasteRecordsInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutWasteRecordsInputSchema) ]),
 }).strict();
 
-export const IngredientCreateWithoutWasteRecordInputSchema: z.ZodType<Prisma.IngredientCreateWithoutWasteRecordInput> = z.object({
+export const IngredientCreateWithoutWasteRecordsInputSchema: z.ZodType<Prisma.IngredientCreateWithoutWasteRecordsInput> = z.object({
   name: z.string(),
   category: z.string(),
   price: z.number(),
   density: z.number().optional().nullable(),
+  dietaryRestrictionId: z.number().int().optional().nullable(),
   calories: z.number().optional().nullable(),
   protein: z.number().optional().nullable(),
   carbohydrates: z.number().optional().nullable(),
@@ -29682,12 +29775,12 @@ export const IngredientCreateWithoutWasteRecordInputSchema: z.ZodType<Prisma.Ing
   inventoryItems: z.lazy(() => InventoryItemCreateNestedManyWithoutIngredientInputSchema).optional(),
   orderItems: z.lazy(() => OrderItemCreateNestedManyWithoutIngredientInputSchema).optional(),
   vendors: z.lazy(() => VendorCreateNestedManyWithoutIngredientsInputSchema).optional(),
-  IngredientAllergen: z.lazy(() => IngredientAllergenCreateNestedManyWithoutIngredientInputSchema).optional(),
-  SupplierPriceHistory: z.lazy(() => SupplierPriceHistoryCreateNestedManyWithoutIngredientInputSchema).optional(),
-  DietaryRestriction: z.lazy(() => DietaryRestrictionCreateNestedOneWithoutIngredientsInputSchema).optional()
+  IngredientAllergens: z.lazy(() => IngredientAllergenCreateNestedManyWithoutIngredientInputSchema).optional(),
+  priceHistory: z.lazy(() => SupplierPriceHistoryCreateNestedManyWithoutIngredientInputSchema).optional(),
+  DietaryRestrictions: z.lazy(() => DietaryRestrictionCreateNestedManyWithoutIngredientsInputSchema).optional()
 }).strict();
 
-export const IngredientUncheckedCreateWithoutWasteRecordInputSchema: z.ZodType<Prisma.IngredientUncheckedCreateWithoutWasteRecordInput> = z.object({
+export const IngredientUncheckedCreateWithoutWasteRecordsInputSchema: z.ZodType<Prisma.IngredientUncheckedCreateWithoutWasteRecordsInput> = z.object({
   id: z.number().int().optional(),
   name: z.string(),
   category: z.string(),
@@ -29708,16 +29801,17 @@ export const IngredientUncheckedCreateWithoutWasteRecordInputSchema: z.ZodType<P
   inventoryItems: z.lazy(() => InventoryItemUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
   orderItems: z.lazy(() => OrderItemUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
   vendors: z.lazy(() => VendorUncheckedCreateNestedManyWithoutIngredientsInputSchema).optional(),
-  IngredientAllergen: z.lazy(() => IngredientAllergenUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
-  SupplierPriceHistory: z.lazy(() => SupplierPriceHistoryUncheckedCreateNestedManyWithoutIngredientInputSchema).optional()
+  IngredientAllergens: z.lazy(() => IngredientAllergenUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
+  priceHistory: z.lazy(() => SupplierPriceHistoryUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
+  DietaryRestrictions: z.lazy(() => DietaryRestrictionUncheckedCreateNestedManyWithoutIngredientsInputSchema).optional()
 }).strict();
 
-export const IngredientCreateOrConnectWithoutWasteRecordInputSchema: z.ZodType<Prisma.IngredientCreateOrConnectWithoutWasteRecordInput> = z.object({
+export const IngredientCreateOrConnectWithoutWasteRecordsInputSchema: z.ZodType<Prisma.IngredientCreateOrConnectWithoutWasteRecordsInput> = z.object({
   where: z.lazy(() => IngredientWhereUniqueInputSchema),
-  create: z.union([ z.lazy(() => IngredientCreateWithoutWasteRecordInputSchema),z.lazy(() => IngredientUncheckedCreateWithoutWasteRecordInputSchema) ]),
+  create: z.union([ z.lazy(() => IngredientCreateWithoutWasteRecordsInputSchema),z.lazy(() => IngredientUncheckedCreateWithoutWasteRecordsInputSchema) ]),
 }).strict();
 
-export const UserCreateWithoutWasteRecordInputSchema: z.ZodType<Prisma.UserCreateWithoutWasteRecordInput> = z.object({
+export const UserCreateWithoutWasteRecordsInputSchema: z.ZodType<Prisma.UserCreateWithoutWasteRecordsInput> = z.object({
   email: z.string(),
   sub: z.number().int().optional().nullable(),
   passwordHash: z.string(),
@@ -29735,21 +29829,21 @@ export const UserCreateWithoutWasteRecordInputSchema: z.ZodType<Prisma.UserCreat
   inventoryUpdates: z.lazy(() => InventoryItemCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   sessions: z.lazy(() => SessionCreateNestedManyWithoutUserInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
   availability: z.lazy(() => AvailabilityCreateNestedManyWithoutUserInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
-export const UserUncheckedCreateWithoutWasteRecordInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutWasteRecordInput> = z.object({
+export const UserUncheckedCreateWithoutWasteRecordsInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutWasteRecordsInput> = z.object({
   id: z.number().int().optional(),
   email: z.string(),
   sub: z.number().int().optional().nullable(),
@@ -29768,37 +29862,37 @@ export const UserUncheckedCreateWithoutWasteRecordInputSchema: z.ZodType<Prisma.
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
-export const UserCreateOrConnectWithoutWasteRecordInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutWasteRecordInput> = z.object({
+export const UserCreateOrConnectWithoutWasteRecordsInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutWasteRecordsInput> = z.object({
   where: z.lazy(() => UserWhereUniqueInputSchema),
-  create: z.union([ z.lazy(() => UserCreateWithoutWasteRecordInputSchema),z.lazy(() => UserUncheckedCreateWithoutWasteRecordInputSchema) ]),
+  create: z.union([ z.lazy(() => UserCreateWithoutWasteRecordsInputSchema),z.lazy(() => UserUncheckedCreateWithoutWasteRecordsInputSchema) ]),
 }).strict();
 
-export const RestaurantUpsertWithoutWasteRecordInputSchema: z.ZodType<Prisma.RestaurantUpsertWithoutWasteRecordInput> = z.object({
-  update: z.union([ z.lazy(() => RestaurantUpdateWithoutWasteRecordInputSchema),z.lazy(() => RestaurantUncheckedUpdateWithoutWasteRecordInputSchema) ]),
-  create: z.union([ z.lazy(() => RestaurantCreateWithoutWasteRecordInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutWasteRecordInputSchema) ]),
+export const RestaurantUpsertWithoutWasteRecordsInputSchema: z.ZodType<Prisma.RestaurantUpsertWithoutWasteRecordsInput> = z.object({
+  update: z.union([ z.lazy(() => RestaurantUpdateWithoutWasteRecordsInputSchema),z.lazy(() => RestaurantUncheckedUpdateWithoutWasteRecordsInputSchema) ]),
+  create: z.union([ z.lazy(() => RestaurantCreateWithoutWasteRecordsInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutWasteRecordsInputSchema) ]),
   where: z.lazy(() => RestaurantWhereInputSchema).optional()
 }).strict();
 
-export const RestaurantUpdateToOneWithWhereWithoutWasteRecordInputSchema: z.ZodType<Prisma.RestaurantUpdateToOneWithWhereWithoutWasteRecordInput> = z.object({
+export const RestaurantUpdateToOneWithWhereWithoutWasteRecordsInputSchema: z.ZodType<Prisma.RestaurantUpdateToOneWithWhereWithoutWasteRecordsInput> = z.object({
   where: z.lazy(() => RestaurantWhereInputSchema).optional(),
-  data: z.union([ z.lazy(() => RestaurantUpdateWithoutWasteRecordInputSchema),z.lazy(() => RestaurantUncheckedUpdateWithoutWasteRecordInputSchema) ]),
+  data: z.union([ z.lazy(() => RestaurantUpdateWithoutWasteRecordsInputSchema),z.lazy(() => RestaurantUncheckedUpdateWithoutWasteRecordsInputSchema) ]),
 }).strict();
 
-export const RestaurantUpdateWithoutWasteRecordInputSchema: z.ZodType<Prisma.RestaurantUpdateWithoutWasteRecordInput> = z.object({
+export const RestaurantUpdateWithoutWasteRecordsInputSchema: z.ZodType<Prisma.RestaurantUpdateWithoutWasteRecordsInput> = z.object({
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   imageUrl: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   address: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
@@ -29819,14 +29913,14 @@ export const RestaurantUpdateWithoutWasteRecordInputSchema: z.ZodType<Prisma.Res
   recipes: z.lazy(() => RecipeUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   menus: z.lazy(() => MenuUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUpdateManyWithoutRestaurantNestedInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUpdateManyWithoutRestaurantNestedInputSchema).optional()
 }).strict();
 
-export const RestaurantUncheckedUpdateWithoutWasteRecordInputSchema: z.ZodType<Prisma.RestaurantUncheckedUpdateWithoutWasteRecordInput> = z.object({
+export const RestaurantUncheckedUpdateWithoutWasteRecordsInputSchema: z.ZodType<Prisma.RestaurantUncheckedUpdateWithoutWasteRecordsInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   imageUrl: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -29848,29 +29942,30 @@ export const RestaurantUncheckedUpdateWithoutWasteRecordInputSchema: z.ZodType<P
   recipes: z.lazy(() => RecipeUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   menus: z.lazy(() => MenuUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional()
 }).strict();
 
-export const IngredientUpsertWithoutWasteRecordInputSchema: z.ZodType<Prisma.IngredientUpsertWithoutWasteRecordInput> = z.object({
-  update: z.union([ z.lazy(() => IngredientUpdateWithoutWasteRecordInputSchema),z.lazy(() => IngredientUncheckedUpdateWithoutWasteRecordInputSchema) ]),
-  create: z.union([ z.lazy(() => IngredientCreateWithoutWasteRecordInputSchema),z.lazy(() => IngredientUncheckedCreateWithoutWasteRecordInputSchema) ]),
+export const IngredientUpsertWithoutWasteRecordsInputSchema: z.ZodType<Prisma.IngredientUpsertWithoutWasteRecordsInput> = z.object({
+  update: z.union([ z.lazy(() => IngredientUpdateWithoutWasteRecordsInputSchema),z.lazy(() => IngredientUncheckedUpdateWithoutWasteRecordsInputSchema) ]),
+  create: z.union([ z.lazy(() => IngredientCreateWithoutWasteRecordsInputSchema),z.lazy(() => IngredientUncheckedCreateWithoutWasteRecordsInputSchema) ]),
   where: z.lazy(() => IngredientWhereInputSchema).optional()
 }).strict();
 
-export const IngredientUpdateToOneWithWhereWithoutWasteRecordInputSchema: z.ZodType<Prisma.IngredientUpdateToOneWithWhereWithoutWasteRecordInput> = z.object({
+export const IngredientUpdateToOneWithWhereWithoutWasteRecordsInputSchema: z.ZodType<Prisma.IngredientUpdateToOneWithWhereWithoutWasteRecordsInput> = z.object({
   where: z.lazy(() => IngredientWhereInputSchema).optional(),
-  data: z.union([ z.lazy(() => IngredientUpdateWithoutWasteRecordInputSchema),z.lazy(() => IngredientUncheckedUpdateWithoutWasteRecordInputSchema) ]),
+  data: z.union([ z.lazy(() => IngredientUpdateWithoutWasteRecordsInputSchema),z.lazy(() => IngredientUncheckedUpdateWithoutWasteRecordsInputSchema) ]),
 }).strict();
 
-export const IngredientUpdateWithoutWasteRecordInputSchema: z.ZodType<Prisma.IngredientUpdateWithoutWasteRecordInput> = z.object({
+export const IngredientUpdateWithoutWasteRecordsInputSchema: z.ZodType<Prisma.IngredientUpdateWithoutWasteRecordsInput> = z.object({
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   category: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   price: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
   density: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
+  dietaryRestrictionId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   calories: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   protein: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   carbohydrates: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -29885,12 +29980,12 @@ export const IngredientUpdateWithoutWasteRecordInputSchema: z.ZodType<Prisma.Ing
   inventoryItems: z.lazy(() => InventoryItemUpdateManyWithoutIngredientNestedInputSchema).optional(),
   orderItems: z.lazy(() => OrderItemUpdateManyWithoutIngredientNestedInputSchema).optional(),
   vendors: z.lazy(() => VendorUpdateManyWithoutIngredientsNestedInputSchema).optional(),
-  IngredientAllergen: z.lazy(() => IngredientAllergenUpdateManyWithoutIngredientNestedInputSchema).optional(),
-  SupplierPriceHistory: z.lazy(() => SupplierPriceHistoryUpdateManyWithoutIngredientNestedInputSchema).optional(),
-  DietaryRestriction: z.lazy(() => DietaryRestrictionUpdateOneWithoutIngredientsNestedInputSchema).optional()
+  IngredientAllergens: z.lazy(() => IngredientAllergenUpdateManyWithoutIngredientNestedInputSchema).optional(),
+  priceHistory: z.lazy(() => SupplierPriceHistoryUpdateManyWithoutIngredientNestedInputSchema).optional(),
+  DietaryRestrictions: z.lazy(() => DietaryRestrictionUpdateManyWithoutIngredientsNestedInputSchema).optional()
 }).strict();
 
-export const IngredientUncheckedUpdateWithoutWasteRecordInputSchema: z.ZodType<Prisma.IngredientUncheckedUpdateWithoutWasteRecordInput> = z.object({
+export const IngredientUncheckedUpdateWithoutWasteRecordsInputSchema: z.ZodType<Prisma.IngredientUncheckedUpdateWithoutWasteRecordsInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   category: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
@@ -29911,22 +30006,23 @@ export const IngredientUncheckedUpdateWithoutWasteRecordInputSchema: z.ZodType<P
   inventoryItems: z.lazy(() => InventoryItemUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
   orderItems: z.lazy(() => OrderItemUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
   vendors: z.lazy(() => VendorUncheckedUpdateManyWithoutIngredientsNestedInputSchema).optional(),
-  IngredientAllergen: z.lazy(() => IngredientAllergenUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
-  SupplierPriceHistory: z.lazy(() => SupplierPriceHistoryUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional()
+  IngredientAllergens: z.lazy(() => IngredientAllergenUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
+  priceHistory: z.lazy(() => SupplierPriceHistoryUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
+  DietaryRestrictions: z.lazy(() => DietaryRestrictionUncheckedUpdateManyWithoutIngredientsNestedInputSchema).optional()
 }).strict();
 
-export const UserUpsertWithoutWasteRecordInputSchema: z.ZodType<Prisma.UserUpsertWithoutWasteRecordInput> = z.object({
-  update: z.union([ z.lazy(() => UserUpdateWithoutWasteRecordInputSchema),z.lazy(() => UserUncheckedUpdateWithoutWasteRecordInputSchema) ]),
-  create: z.union([ z.lazy(() => UserCreateWithoutWasteRecordInputSchema),z.lazy(() => UserUncheckedCreateWithoutWasteRecordInputSchema) ]),
+export const UserUpsertWithoutWasteRecordsInputSchema: z.ZodType<Prisma.UserUpsertWithoutWasteRecordsInput> = z.object({
+  update: z.union([ z.lazy(() => UserUpdateWithoutWasteRecordsInputSchema),z.lazy(() => UserUncheckedUpdateWithoutWasteRecordsInputSchema) ]),
+  create: z.union([ z.lazy(() => UserCreateWithoutWasteRecordsInputSchema),z.lazy(() => UserUncheckedCreateWithoutWasteRecordsInputSchema) ]),
   where: z.lazy(() => UserWhereInputSchema).optional()
 }).strict();
 
-export const UserUpdateToOneWithWhereWithoutWasteRecordInputSchema: z.ZodType<Prisma.UserUpdateToOneWithWhereWithoutWasteRecordInput> = z.object({
+export const UserUpdateToOneWithWhereWithoutWasteRecordsInputSchema: z.ZodType<Prisma.UserUpdateToOneWithWhereWithoutWasteRecordsInput> = z.object({
   where: z.lazy(() => UserWhereInputSchema).optional(),
-  data: z.union([ z.lazy(() => UserUpdateWithoutWasteRecordInputSchema),z.lazy(() => UserUncheckedUpdateWithoutWasteRecordInputSchema) ]),
+  data: z.union([ z.lazy(() => UserUpdateWithoutWasteRecordsInputSchema),z.lazy(() => UserUncheckedUpdateWithoutWasteRecordsInputSchema) ]),
 }).strict();
 
-export const UserUpdateWithoutWasteRecordInputSchema: z.ZodType<Prisma.UserUpdateWithoutWasteRecordInput> = z.object({
+export const UserUpdateWithoutWasteRecordsInputSchema: z.ZodType<Prisma.UserUpdateWithoutWasteRecordsInput> = z.object({
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
@@ -29944,21 +30040,21 @@ export const UserUpdateWithoutWasteRecordInputSchema: z.ZodType<Prisma.UserUpdat
   inventoryUpdates: z.lazy(() => InventoryItemUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUpdateManyWithoutUserNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUpdateManyWithoutUserNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
-export const UserUncheckedUpdateWithoutWasteRecordInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutWasteRecordInput> = z.object({
+export const UserUncheckedUpdateWithoutWasteRecordsInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutWasteRecordsInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -29977,21 +30073,21 @@ export const UserUncheckedUpdateWithoutWasteRecordInputSchema: z.ZodType<Prisma.
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
-export const RestaurantCreateWithoutProductionPlanInputSchema: z.ZodType<Prisma.RestaurantCreateWithoutProductionPlanInput> = z.object({
+export const RestaurantCreateWithoutProductionPlansInputSchema: z.ZodType<Prisma.RestaurantCreateWithoutProductionPlansInput> = z.object({
   name: z.string(),
   imageUrl: z.string().optional().nullable(),
   address: z.string(),
@@ -30012,14 +30108,14 @@ export const RestaurantCreateWithoutProductionPlanInputSchema: z.ZodType<Prisma.
   recipes: z.lazy(() => RecipeCreateNestedManyWithoutRestaurantInputSchema).optional(),
   menus: z.lazy(() => MenuCreateNestedManyWithoutRestaurantInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRestaurantInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRestaurantInputSchema).optional()
 }).strict();
 
-export const RestaurantUncheckedCreateWithoutProductionPlanInputSchema: z.ZodType<Prisma.RestaurantUncheckedCreateWithoutProductionPlanInput> = z.object({
+export const RestaurantUncheckedCreateWithoutProductionPlansInputSchema: z.ZodType<Prisma.RestaurantUncheckedCreateWithoutProductionPlansInput> = z.object({
   id: z.number().int().optional(),
   name: z.string(),
   imageUrl: z.string().optional().nullable(),
@@ -30041,19 +30137,19 @@ export const RestaurantUncheckedCreateWithoutProductionPlanInputSchema: z.ZodTyp
   recipes: z.lazy(() => RecipeUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
   menus: z.lazy(() => MenuUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional()
 }).strict();
 
-export const RestaurantCreateOrConnectWithoutProductionPlanInputSchema: z.ZodType<Prisma.RestaurantCreateOrConnectWithoutProductionPlanInput> = z.object({
+export const RestaurantCreateOrConnectWithoutProductionPlansInputSchema: z.ZodType<Prisma.RestaurantCreateOrConnectWithoutProductionPlansInput> = z.object({
   where: z.lazy(() => RestaurantWhereUniqueInputSchema),
-  create: z.union([ z.lazy(() => RestaurantCreateWithoutProductionPlanInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutProductionPlanInputSchema) ]),
+  create: z.union([ z.lazy(() => RestaurantCreateWithoutProductionPlansInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutProductionPlansInputSchema) ]),
 }).strict();
 
-export const UserCreateWithoutProductionPlanInputSchema: z.ZodType<Prisma.UserCreateWithoutProductionPlanInput> = z.object({
+export const UserCreateWithoutProductionPlansInputSchema: z.ZodType<Prisma.UserCreateWithoutProductionPlansInput> = z.object({
   email: z.string(),
   sub: z.number().int().optional().nullable(),
   passwordHash: z.string(),
@@ -30071,21 +30167,21 @@ export const UserCreateWithoutProductionPlanInputSchema: z.ZodType<Prisma.UserCr
   inventoryUpdates: z.lazy(() => InventoryItemCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   sessions: z.lazy(() => SessionCreateNestedManyWithoutUserInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
   availability: z.lazy(() => AvailabilityCreateNestedManyWithoutUserInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
-export const UserUncheckedCreateWithoutProductionPlanInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutProductionPlanInput> = z.object({
+export const UserUncheckedCreateWithoutProductionPlansInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutProductionPlansInput> = z.object({
   id: z.number().int().optional(),
   email: z.string(),
   sub: z.number().int().optional().nullable(),
@@ -30104,23 +30200,23 @@ export const UserUncheckedCreateWithoutProductionPlanInputSchema: z.ZodType<Pris
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
-export const UserCreateOrConnectWithoutProductionPlanInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutProductionPlanInput> = z.object({
+export const UserCreateOrConnectWithoutProductionPlansInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutProductionPlansInput> = z.object({
   where: z.lazy(() => UserWhereUniqueInputSchema),
-  create: z.union([ z.lazy(() => UserCreateWithoutProductionPlanInputSchema),z.lazy(() => UserUncheckedCreateWithoutProductionPlanInputSchema) ]),
+  create: z.union([ z.lazy(() => UserCreateWithoutProductionPlansInputSchema),z.lazy(() => UserUncheckedCreateWithoutProductionPlansInputSchema) ]),
 }).strict();
 
 export const ProductionPlanItemCreateWithoutProductionPlanInputSchema: z.ZodType<Prisma.ProductionPlanItemCreateWithoutProductionPlanInput> = z.object({
@@ -30129,7 +30225,7 @@ export const ProductionPlanItemCreateWithoutProductionPlanInputSchema: z.ZodType
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   recipe: z.lazy(() => RecipeCreateNestedOneWithoutProductionPlanItemsInputSchema),
-  assignedTo: z.lazy(() => UserCreateNestedOneWithoutProductionPlanItemInputSchema).optional()
+  assignedTo: z.lazy(() => UserCreateNestedOneWithoutProductionPlanItemsInputSchema).optional()
 }).strict();
 
 export const ProductionPlanItemUncheckedCreateWithoutProductionPlanInputSchema: z.ZodType<Prisma.ProductionPlanItemUncheckedCreateWithoutProductionPlanInput> = z.object({
@@ -30152,18 +30248,18 @@ export const ProductionPlanItemCreateManyProductionPlanInputEnvelopeSchema: z.Zo
   skipDuplicates: z.boolean().optional()
 }).strict();
 
-export const RestaurantUpsertWithoutProductionPlanInputSchema: z.ZodType<Prisma.RestaurantUpsertWithoutProductionPlanInput> = z.object({
-  update: z.union([ z.lazy(() => RestaurantUpdateWithoutProductionPlanInputSchema),z.lazy(() => RestaurantUncheckedUpdateWithoutProductionPlanInputSchema) ]),
-  create: z.union([ z.lazy(() => RestaurantCreateWithoutProductionPlanInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutProductionPlanInputSchema) ]),
+export const RestaurantUpsertWithoutProductionPlansInputSchema: z.ZodType<Prisma.RestaurantUpsertWithoutProductionPlansInput> = z.object({
+  update: z.union([ z.lazy(() => RestaurantUpdateWithoutProductionPlansInputSchema),z.lazy(() => RestaurantUncheckedUpdateWithoutProductionPlansInputSchema) ]),
+  create: z.union([ z.lazy(() => RestaurantCreateWithoutProductionPlansInputSchema),z.lazy(() => RestaurantUncheckedCreateWithoutProductionPlansInputSchema) ]),
   where: z.lazy(() => RestaurantWhereInputSchema).optional()
 }).strict();
 
-export const RestaurantUpdateToOneWithWhereWithoutProductionPlanInputSchema: z.ZodType<Prisma.RestaurantUpdateToOneWithWhereWithoutProductionPlanInput> = z.object({
+export const RestaurantUpdateToOneWithWhereWithoutProductionPlansInputSchema: z.ZodType<Prisma.RestaurantUpdateToOneWithWhereWithoutProductionPlansInput> = z.object({
   where: z.lazy(() => RestaurantWhereInputSchema).optional(),
-  data: z.union([ z.lazy(() => RestaurantUpdateWithoutProductionPlanInputSchema),z.lazy(() => RestaurantUncheckedUpdateWithoutProductionPlanInputSchema) ]),
+  data: z.union([ z.lazy(() => RestaurantUpdateWithoutProductionPlansInputSchema),z.lazy(() => RestaurantUncheckedUpdateWithoutProductionPlansInputSchema) ]),
 }).strict();
 
-export const RestaurantUpdateWithoutProductionPlanInputSchema: z.ZodType<Prisma.RestaurantUpdateWithoutProductionPlanInput> = z.object({
+export const RestaurantUpdateWithoutProductionPlansInputSchema: z.ZodType<Prisma.RestaurantUpdateWithoutProductionPlansInput> = z.object({
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   imageUrl: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   address: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
@@ -30184,14 +30280,14 @@ export const RestaurantUpdateWithoutProductionPlanInputSchema: z.ZodType<Prisma.
   recipes: z.lazy(() => RecipeUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   menus: z.lazy(() => MenuUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUpdateManyWithoutRestaurantNestedInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUpdateManyWithoutRestaurantNestedInputSchema).optional()
 }).strict();
 
-export const RestaurantUncheckedUpdateWithoutProductionPlanInputSchema: z.ZodType<Prisma.RestaurantUncheckedUpdateWithoutProductionPlanInput> = z.object({
+export const RestaurantUncheckedUpdateWithoutProductionPlansInputSchema: z.ZodType<Prisma.RestaurantUncheckedUpdateWithoutProductionPlansInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   imageUrl: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -30213,25 +30309,25 @@ export const RestaurantUncheckedUpdateWithoutProductionPlanInputSchema: z.ZodTyp
   recipes: z.lazy(() => RecipeUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   menus: z.lazy(() => MenuUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional()
 }).strict();
 
-export const UserUpsertWithoutProductionPlanInputSchema: z.ZodType<Prisma.UserUpsertWithoutProductionPlanInput> = z.object({
-  update: z.union([ z.lazy(() => UserUpdateWithoutProductionPlanInputSchema),z.lazy(() => UserUncheckedUpdateWithoutProductionPlanInputSchema) ]),
-  create: z.union([ z.lazy(() => UserCreateWithoutProductionPlanInputSchema),z.lazy(() => UserUncheckedCreateWithoutProductionPlanInputSchema) ]),
+export const UserUpsertWithoutProductionPlansInputSchema: z.ZodType<Prisma.UserUpsertWithoutProductionPlansInput> = z.object({
+  update: z.union([ z.lazy(() => UserUpdateWithoutProductionPlansInputSchema),z.lazy(() => UserUncheckedUpdateWithoutProductionPlansInputSchema) ]),
+  create: z.union([ z.lazy(() => UserCreateWithoutProductionPlansInputSchema),z.lazy(() => UserUncheckedCreateWithoutProductionPlansInputSchema) ]),
   where: z.lazy(() => UserWhereInputSchema).optional()
 }).strict();
 
-export const UserUpdateToOneWithWhereWithoutProductionPlanInputSchema: z.ZodType<Prisma.UserUpdateToOneWithWhereWithoutProductionPlanInput> = z.object({
+export const UserUpdateToOneWithWhereWithoutProductionPlansInputSchema: z.ZodType<Prisma.UserUpdateToOneWithWhereWithoutProductionPlansInput> = z.object({
   where: z.lazy(() => UserWhereInputSchema).optional(),
-  data: z.union([ z.lazy(() => UserUpdateWithoutProductionPlanInputSchema),z.lazy(() => UserUncheckedUpdateWithoutProductionPlanInputSchema) ]),
+  data: z.union([ z.lazy(() => UserUpdateWithoutProductionPlansInputSchema),z.lazy(() => UserUncheckedUpdateWithoutProductionPlansInputSchema) ]),
 }).strict();
 
-export const UserUpdateWithoutProductionPlanInputSchema: z.ZodType<Prisma.UserUpdateWithoutProductionPlanInput> = z.object({
+export const UserUpdateWithoutProductionPlansInputSchema: z.ZodType<Prisma.UserUpdateWithoutProductionPlansInput> = z.object({
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
@@ -30249,21 +30345,21 @@ export const UserUpdateWithoutProductionPlanInputSchema: z.ZodType<Prisma.UserUp
   inventoryUpdates: z.lazy(() => InventoryItemUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUpdateManyWithoutUserNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUpdateManyWithoutUserNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
-export const UserUncheckedUpdateWithoutProductionPlanInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutProductionPlanInput> = z.object({
+export const UserUncheckedUpdateWithoutProductionPlansInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutProductionPlansInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -30282,18 +30378,18 @@ export const UserUncheckedUpdateWithoutProductionPlanInputSchema: z.ZodType<Pris
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
 export const ProductionPlanItemUpsertWithWhereUniqueWithoutProductionPlanInputSchema: z.ZodType<Prisma.ProductionPlanItemUpsertWithWhereUniqueWithoutProductionPlanInput> = z.object({
@@ -30328,16 +30424,18 @@ export const ProductionPlanItemScalarWhereInputSchema: z.ZodType<Prisma.Producti
 
 export const ProductionPlanCreateWithoutItemsInputSchema: z.ZodType<Prisma.ProductionPlanCreateWithoutItemsInput> = z.object({
   date: z.coerce.date(),
+  status: z.lazy(() => ProductionStatusSchema).optional(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
-  restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutProductionPlanInputSchema),
-  createdBy: z.lazy(() => UserCreateNestedOneWithoutProductionPlanInputSchema)
+  restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutProductionPlansInputSchema),
+  createdBy: z.lazy(() => UserCreateNestedOneWithoutProductionPlansInputSchema)
 }).strict();
 
 export const ProductionPlanUncheckedCreateWithoutItemsInputSchema: z.ZodType<Prisma.ProductionPlanUncheckedCreateWithoutItemsInput> = z.object({
   id: z.number().int().optional(),
   restaurantId: z.number().int(),
   date: z.coerce.date(),
+  status: z.lazy(() => ProductionStatusSchema).optional(),
   createdById: z.number().int(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional()
@@ -30434,7 +30532,7 @@ export const RecipeCreateOrConnectWithoutProductionPlanItemsInputSchema: z.ZodTy
   create: z.union([ z.lazy(() => RecipeCreateWithoutProductionPlanItemsInputSchema),z.lazy(() => RecipeUncheckedCreateWithoutProductionPlanItemsInputSchema) ]),
 }).strict();
 
-export const UserCreateWithoutProductionPlanItemInputSchema: z.ZodType<Prisma.UserCreateWithoutProductionPlanItemInput> = z.object({
+export const UserCreateWithoutProductionPlanItemsInputSchema: z.ZodType<Prisma.UserCreateWithoutProductionPlanItemsInput> = z.object({
   email: z.string(),
   sub: z.number().int().optional().nullable(),
   passwordHash: z.string(),
@@ -30452,21 +30550,21 @@ export const UserCreateWithoutProductionPlanItemInputSchema: z.ZodType<Prisma.Us
   inventoryUpdates: z.lazy(() => InventoryItemCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   sessions: z.lazy(() => SessionCreateNestedManyWithoutUserInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
   availability: z.lazy(() => AvailabilityCreateNestedManyWithoutUserInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
-export const UserUncheckedCreateWithoutProductionPlanItemInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutProductionPlanItemInput> = z.object({
+export const UserUncheckedCreateWithoutProductionPlanItemsInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutProductionPlanItemsInput> = z.object({
   id: z.number().int().optional(),
   email: z.string(),
   sub: z.number().int().optional().nullable(),
@@ -30485,23 +30583,23 @@ export const UserUncheckedCreateWithoutProductionPlanItemInputSchema: z.ZodType<
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
-export const UserCreateOrConnectWithoutProductionPlanItemInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutProductionPlanItemInput> = z.object({
+export const UserCreateOrConnectWithoutProductionPlanItemsInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutProductionPlanItemsInput> = z.object({
   where: z.lazy(() => UserWhereUniqueInputSchema),
-  create: z.union([ z.lazy(() => UserCreateWithoutProductionPlanItemInputSchema),z.lazy(() => UserUncheckedCreateWithoutProductionPlanItemInputSchema) ]),
+  create: z.union([ z.lazy(() => UserCreateWithoutProductionPlanItemsInputSchema),z.lazy(() => UserUncheckedCreateWithoutProductionPlanItemsInputSchema) ]),
 }).strict();
 
 export const ProductionPlanUpsertWithoutItemsInputSchema: z.ZodType<Prisma.ProductionPlanUpsertWithoutItemsInput> = z.object({
@@ -30517,16 +30615,18 @@ export const ProductionPlanUpdateToOneWithWhereWithoutItemsInputSchema: z.ZodTyp
 
 export const ProductionPlanUpdateWithoutItemsInputSchema: z.ZodType<Prisma.ProductionPlanUpdateWithoutItemsInput> = z.object({
   date: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
+  status: z.union([ z.lazy(() => ProductionStatusSchema),z.lazy(() => EnumProductionStatusFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
-  restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutProductionPlanNestedInputSchema).optional(),
-  createdBy: z.lazy(() => UserUpdateOneRequiredWithoutProductionPlanNestedInputSchema).optional()
+  restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutProductionPlansNestedInputSchema).optional(),
+  createdBy: z.lazy(() => UserUpdateOneRequiredWithoutProductionPlansNestedInputSchema).optional()
 }).strict();
 
 export const ProductionPlanUncheckedUpdateWithoutItemsInputSchema: z.ZodType<Prisma.ProductionPlanUncheckedUpdateWithoutItemsInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   restaurantId: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   date: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
+  status: z.union([ z.lazy(() => ProductionStatusSchema),z.lazy(() => EnumProductionStatusFieldUpdateOperationsInputSchema) ]).optional(),
   createdById: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -30624,18 +30724,18 @@ export const RecipeUncheckedUpdateWithoutProductionPlanItemsInputSchema: z.ZodTy
   recipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
-export const UserUpsertWithoutProductionPlanItemInputSchema: z.ZodType<Prisma.UserUpsertWithoutProductionPlanItemInput> = z.object({
-  update: z.union([ z.lazy(() => UserUpdateWithoutProductionPlanItemInputSchema),z.lazy(() => UserUncheckedUpdateWithoutProductionPlanItemInputSchema) ]),
-  create: z.union([ z.lazy(() => UserCreateWithoutProductionPlanItemInputSchema),z.lazy(() => UserUncheckedCreateWithoutProductionPlanItemInputSchema) ]),
+export const UserUpsertWithoutProductionPlanItemsInputSchema: z.ZodType<Prisma.UserUpsertWithoutProductionPlanItemsInput> = z.object({
+  update: z.union([ z.lazy(() => UserUpdateWithoutProductionPlanItemsInputSchema),z.lazy(() => UserUncheckedUpdateWithoutProductionPlanItemsInputSchema) ]),
+  create: z.union([ z.lazy(() => UserCreateWithoutProductionPlanItemsInputSchema),z.lazy(() => UserUncheckedCreateWithoutProductionPlanItemsInputSchema) ]),
   where: z.lazy(() => UserWhereInputSchema).optional()
 }).strict();
 
-export const UserUpdateToOneWithWhereWithoutProductionPlanItemInputSchema: z.ZodType<Prisma.UserUpdateToOneWithWhereWithoutProductionPlanItemInput> = z.object({
+export const UserUpdateToOneWithWhereWithoutProductionPlanItemsInputSchema: z.ZodType<Prisma.UserUpdateToOneWithWhereWithoutProductionPlanItemsInput> = z.object({
   where: z.lazy(() => UserWhereInputSchema).optional(),
-  data: z.union([ z.lazy(() => UserUpdateWithoutProductionPlanItemInputSchema),z.lazy(() => UserUncheckedUpdateWithoutProductionPlanItemInputSchema) ]),
+  data: z.union([ z.lazy(() => UserUpdateWithoutProductionPlanItemsInputSchema),z.lazy(() => UserUncheckedUpdateWithoutProductionPlanItemsInputSchema) ]),
 }).strict();
 
-export const UserUpdateWithoutProductionPlanItemInputSchema: z.ZodType<Prisma.UserUpdateWithoutProductionPlanItemInput> = z.object({
+export const UserUpdateWithoutProductionPlanItemsInputSchema: z.ZodType<Prisma.UserUpdateWithoutProductionPlanItemsInput> = z.object({
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
@@ -30653,21 +30753,21 @@ export const UserUpdateWithoutProductionPlanItemInputSchema: z.ZodType<Prisma.Us
   inventoryUpdates: z.lazy(() => InventoryItemUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUpdateManyWithoutUserNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUpdateManyWithoutUserNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
-export const UserUncheckedUpdateWithoutProductionPlanItemInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutProductionPlanItemInput> = z.object({
+export const UserUncheckedUpdateWithoutProductionPlanItemsInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutProductionPlanItemsInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -30686,28 +30786,28 @@ export const UserUncheckedUpdateWithoutProductionPlanItemInputSchema: z.ZodType<
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
-export const ShiftCreateWithoutShiftTaskInputSchema: z.ZodType<Prisma.ShiftCreateWithoutShiftTaskInput> = z.object({
+export const ShiftCreateWithoutTasksInputSchema: z.ZodType<Prisma.ShiftCreateWithoutTasksInput> = z.object({
   startTime: z.coerce.date(),
   endTime: z.coerce.date(),
   status: z.lazy(() => ShiftStatusSchema),
   user: z.lazy(() => UserCreateNestedOneWithoutShiftsInputSchema)
 }).strict();
 
-export const ShiftUncheckedCreateWithoutShiftTaskInputSchema: z.ZodType<Prisma.ShiftUncheckedCreateWithoutShiftTaskInput> = z.object({
+export const ShiftUncheckedCreateWithoutTasksInputSchema: z.ZodType<Prisma.ShiftUncheckedCreateWithoutTasksInput> = z.object({
   id: z.number().int().optional(),
   userId: z.number().int(),
   startTime: z.coerce.date(),
@@ -30715,30 +30815,30 @@ export const ShiftUncheckedCreateWithoutShiftTaskInputSchema: z.ZodType<Prisma.S
   status: z.lazy(() => ShiftStatusSchema)
 }).strict();
 
-export const ShiftCreateOrConnectWithoutShiftTaskInputSchema: z.ZodType<Prisma.ShiftCreateOrConnectWithoutShiftTaskInput> = z.object({
+export const ShiftCreateOrConnectWithoutTasksInputSchema: z.ZodType<Prisma.ShiftCreateOrConnectWithoutTasksInput> = z.object({
   where: z.lazy(() => ShiftWhereUniqueInputSchema),
-  create: z.union([ z.lazy(() => ShiftCreateWithoutShiftTaskInputSchema),z.lazy(() => ShiftUncheckedCreateWithoutShiftTaskInputSchema) ]),
+  create: z.union([ z.lazy(() => ShiftCreateWithoutTasksInputSchema),z.lazy(() => ShiftUncheckedCreateWithoutTasksInputSchema) ]),
 }).strict();
 
-export const ShiftUpsertWithoutShiftTaskInputSchema: z.ZodType<Prisma.ShiftUpsertWithoutShiftTaskInput> = z.object({
-  update: z.union([ z.lazy(() => ShiftUpdateWithoutShiftTaskInputSchema),z.lazy(() => ShiftUncheckedUpdateWithoutShiftTaskInputSchema) ]),
-  create: z.union([ z.lazy(() => ShiftCreateWithoutShiftTaskInputSchema),z.lazy(() => ShiftUncheckedCreateWithoutShiftTaskInputSchema) ]),
+export const ShiftUpsertWithoutTasksInputSchema: z.ZodType<Prisma.ShiftUpsertWithoutTasksInput> = z.object({
+  update: z.union([ z.lazy(() => ShiftUpdateWithoutTasksInputSchema),z.lazy(() => ShiftUncheckedUpdateWithoutTasksInputSchema) ]),
+  create: z.union([ z.lazy(() => ShiftCreateWithoutTasksInputSchema),z.lazy(() => ShiftUncheckedCreateWithoutTasksInputSchema) ]),
   where: z.lazy(() => ShiftWhereInputSchema).optional()
 }).strict();
 
-export const ShiftUpdateToOneWithWhereWithoutShiftTaskInputSchema: z.ZodType<Prisma.ShiftUpdateToOneWithWhereWithoutShiftTaskInput> = z.object({
+export const ShiftUpdateToOneWithWhereWithoutTasksInputSchema: z.ZodType<Prisma.ShiftUpdateToOneWithWhereWithoutTasksInput> = z.object({
   where: z.lazy(() => ShiftWhereInputSchema).optional(),
-  data: z.union([ z.lazy(() => ShiftUpdateWithoutShiftTaskInputSchema),z.lazy(() => ShiftUncheckedUpdateWithoutShiftTaskInputSchema) ]),
+  data: z.union([ z.lazy(() => ShiftUpdateWithoutTasksInputSchema),z.lazy(() => ShiftUncheckedUpdateWithoutTasksInputSchema) ]),
 }).strict();
 
-export const ShiftUpdateWithoutShiftTaskInputSchema: z.ZodType<Prisma.ShiftUpdateWithoutShiftTaskInput> = z.object({
+export const ShiftUpdateWithoutTasksInputSchema: z.ZodType<Prisma.ShiftUpdateWithoutTasksInput> = z.object({
   startTime: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   endTime: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   status: z.union([ z.lazy(() => ShiftStatusSchema),z.lazy(() => EnumShiftStatusFieldUpdateOperationsInputSchema) ]).optional(),
   user: z.lazy(() => UserUpdateOneRequiredWithoutShiftsNestedInputSchema).optional()
 }).strict();
 
-export const ShiftUncheckedUpdateWithoutShiftTaskInputSchema: z.ZodType<Prisma.ShiftUncheckedUpdateWithoutShiftTaskInput> = z.object({
+export const ShiftUncheckedUpdateWithoutTasksInputSchema: z.ZodType<Prisma.ShiftUncheckedUpdateWithoutTasksInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   userId: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   startTime: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -30764,18 +30864,18 @@ export const UserCreateWithoutAvailabilityInputSchema: z.ZodType<Prisma.UserCrea
   inventoryUpdates: z.lazy(() => InventoryItemCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   sessions: z.lazy(() => SessionCreateNestedManyWithoutUserInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
 export const UserUncheckedCreateWithoutAvailabilityInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutAvailabilityInput> = z.object({
@@ -30797,18 +30897,18 @@ export const UserUncheckedCreateWithoutAvailabilityInputSchema: z.ZodType<Prisma
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
 export const UserCreateOrConnectWithoutAvailabilityInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutAvailabilityInput> = z.object({
@@ -30845,18 +30945,18 @@ export const UserUpdateWithoutAvailabilityInputSchema: z.ZodType<Prisma.UserUpda
   inventoryUpdates: z.lazy(() => InventoryItemUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUpdateManyWithoutUserNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
 export const UserUncheckedUpdateWithoutAvailabilityInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutAvailabilityInput> = z.object({
@@ -30878,21 +30978,21 @@ export const UserUncheckedUpdateWithoutAvailabilityInputSchema: z.ZodType<Prisma
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
-export const UserCreateWithoutSchedulingConstraintInputSchema: z.ZodType<Prisma.UserCreateWithoutSchedulingConstraintInput> = z.object({
+export const UserCreateWithoutSchedulingConstraintsInputSchema: z.ZodType<Prisma.UserCreateWithoutSchedulingConstraintsInput> = z.object({
   email: z.string(),
   sub: z.number().int().optional().nullable(),
   passwordHash: z.string(),
@@ -30910,21 +31010,21 @@ export const UserCreateWithoutSchedulingConstraintInputSchema: z.ZodType<Prisma.
   inventoryUpdates: z.lazy(() => InventoryItemCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   sessions: z.lazy(() => SessionCreateNestedManyWithoutUserInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
   availability: z.lazy(() => AvailabilityCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
-export const UserUncheckedCreateWithoutSchedulingConstraintInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutSchedulingConstraintInput> = z.object({
+export const UserUncheckedCreateWithoutSchedulingConstraintsInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutSchedulingConstraintsInput> = z.object({
   id: z.number().int().optional(),
   email: z.string(),
   sub: z.number().int().optional().nullable(),
@@ -30943,37 +31043,37 @@ export const UserUncheckedCreateWithoutSchedulingConstraintInputSchema: z.ZodTyp
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
-export const UserCreateOrConnectWithoutSchedulingConstraintInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutSchedulingConstraintInput> = z.object({
+export const UserCreateOrConnectWithoutSchedulingConstraintsInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutSchedulingConstraintsInput> = z.object({
   where: z.lazy(() => UserWhereUniqueInputSchema),
-  create: z.union([ z.lazy(() => UserCreateWithoutSchedulingConstraintInputSchema),z.lazy(() => UserUncheckedCreateWithoutSchedulingConstraintInputSchema) ]),
+  create: z.union([ z.lazy(() => UserCreateWithoutSchedulingConstraintsInputSchema),z.lazy(() => UserUncheckedCreateWithoutSchedulingConstraintsInputSchema) ]),
 }).strict();
 
-export const UserUpsertWithoutSchedulingConstraintInputSchema: z.ZodType<Prisma.UserUpsertWithoutSchedulingConstraintInput> = z.object({
-  update: z.union([ z.lazy(() => UserUpdateWithoutSchedulingConstraintInputSchema),z.lazy(() => UserUncheckedUpdateWithoutSchedulingConstraintInputSchema) ]),
-  create: z.union([ z.lazy(() => UserCreateWithoutSchedulingConstraintInputSchema),z.lazy(() => UserUncheckedCreateWithoutSchedulingConstraintInputSchema) ]),
+export const UserUpsertWithoutSchedulingConstraintsInputSchema: z.ZodType<Prisma.UserUpsertWithoutSchedulingConstraintsInput> = z.object({
+  update: z.union([ z.lazy(() => UserUpdateWithoutSchedulingConstraintsInputSchema),z.lazy(() => UserUncheckedUpdateWithoutSchedulingConstraintsInputSchema) ]),
+  create: z.union([ z.lazy(() => UserCreateWithoutSchedulingConstraintsInputSchema),z.lazy(() => UserUncheckedCreateWithoutSchedulingConstraintsInputSchema) ]),
   where: z.lazy(() => UserWhereInputSchema).optional()
 }).strict();
 
-export const UserUpdateToOneWithWhereWithoutSchedulingConstraintInputSchema: z.ZodType<Prisma.UserUpdateToOneWithWhereWithoutSchedulingConstraintInput> = z.object({
+export const UserUpdateToOneWithWhereWithoutSchedulingConstraintsInputSchema: z.ZodType<Prisma.UserUpdateToOneWithWhereWithoutSchedulingConstraintsInput> = z.object({
   where: z.lazy(() => UserWhereInputSchema).optional(),
-  data: z.union([ z.lazy(() => UserUpdateWithoutSchedulingConstraintInputSchema),z.lazy(() => UserUncheckedUpdateWithoutSchedulingConstraintInputSchema) ]),
+  data: z.union([ z.lazy(() => UserUpdateWithoutSchedulingConstraintsInputSchema),z.lazy(() => UserUncheckedUpdateWithoutSchedulingConstraintsInputSchema) ]),
 }).strict();
 
-export const UserUpdateWithoutSchedulingConstraintInputSchema: z.ZodType<Prisma.UserUpdateWithoutSchedulingConstraintInput> = z.object({
+export const UserUpdateWithoutSchedulingConstraintsInputSchema: z.ZodType<Prisma.UserUpdateWithoutSchedulingConstraintsInput> = z.object({
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
@@ -30991,21 +31091,21 @@ export const UserUpdateWithoutSchedulingConstraintInputSchema: z.ZodType<Prisma.
   inventoryUpdates: z.lazy(() => InventoryItemUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUpdateManyWithoutUserNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
-export const UserUncheckedUpdateWithoutSchedulingConstraintInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutSchedulingConstraintInput> = z.object({
+export const UserUncheckedUpdateWithoutSchedulingConstraintsInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutSchedulingConstraintsInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -31024,18 +31124,18 @@ export const UserUncheckedUpdateWithoutSchedulingConstraintInputSchema: z.ZodTyp
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
 export const InventoryItemCreateWithoutWithdrawalsInputSchema: z.ZodType<Prisma.InventoryItemCreateWithoutWithdrawalsInput> = z.object({
@@ -31178,7 +31278,7 @@ export const RecipeCreateOrConnectWithoutWithdrawalsInputSchema: z.ZodType<Prism
   create: z.union([ z.lazy(() => RecipeCreateWithoutWithdrawalsInputSchema),z.lazy(() => RecipeUncheckedCreateWithoutWithdrawalsInputSchema) ]),
 }).strict();
 
-export const UserCreateWithoutInventoryWithdrawalInputSchema: z.ZodType<Prisma.UserCreateWithoutInventoryWithdrawalInput> = z.object({
+export const UserCreateWithoutInventoryWithdrawalsInputSchema: z.ZodType<Prisma.UserCreateWithoutInventoryWithdrawalsInput> = z.object({
   email: z.string(),
   sub: z.number().int().optional().nullable(),
   passwordHash: z.string(),
@@ -31196,21 +31296,21 @@ export const UserCreateWithoutInventoryWithdrawalInputSchema: z.ZodType<Prisma.U
   inventoryUpdates: z.lazy(() => InventoryItemCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   sessions: z.lazy(() => SessionCreateNestedManyWithoutUserInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
   availability: z.lazy(() => AvailabilityCreateNestedManyWithoutUserInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
-export const UserUncheckedCreateWithoutInventoryWithdrawalInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutInventoryWithdrawalInput> = z.object({
+export const UserUncheckedCreateWithoutInventoryWithdrawalsInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutInventoryWithdrawalsInput> = z.object({
   id: z.number().int().optional(),
   email: z.string(),
   sub: z.number().int().optional().nullable(),
@@ -31229,23 +31329,23 @@ export const UserUncheckedCreateWithoutInventoryWithdrawalInputSchema: z.ZodType
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
-export const UserCreateOrConnectWithoutInventoryWithdrawalInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutInventoryWithdrawalInput> = z.object({
+export const UserCreateOrConnectWithoutInventoryWithdrawalsInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutInventoryWithdrawalsInput> = z.object({
   where: z.lazy(() => UserWhereUniqueInputSchema),
-  create: z.union([ z.lazy(() => UserCreateWithoutInventoryWithdrawalInputSchema),z.lazy(() => UserUncheckedCreateWithoutInventoryWithdrawalInputSchema) ]),
+  create: z.union([ z.lazy(() => UserCreateWithoutInventoryWithdrawalsInputSchema),z.lazy(() => UserUncheckedCreateWithoutInventoryWithdrawalsInputSchema) ]),
 }).strict();
 
 export const InventoryItemUpsertWithoutWithdrawalsInputSchema: z.ZodType<Prisma.InventoryItemUpsertWithoutWithdrawalsInput> = z.object({
@@ -31400,18 +31500,18 @@ export const RecipeUncheckedUpdateWithoutWithdrawalsInputSchema: z.ZodType<Prism
   recipeStats: z.lazy(() => RecipeStatsUncheckedUpdateOneWithoutRecipeNestedInputSchema).optional()
 }).strict();
 
-export const UserUpsertWithoutInventoryWithdrawalInputSchema: z.ZodType<Prisma.UserUpsertWithoutInventoryWithdrawalInput> = z.object({
-  update: z.union([ z.lazy(() => UserUpdateWithoutInventoryWithdrawalInputSchema),z.lazy(() => UserUncheckedUpdateWithoutInventoryWithdrawalInputSchema) ]),
-  create: z.union([ z.lazy(() => UserCreateWithoutInventoryWithdrawalInputSchema),z.lazy(() => UserUncheckedCreateWithoutInventoryWithdrawalInputSchema) ]),
+export const UserUpsertWithoutInventoryWithdrawalsInputSchema: z.ZodType<Prisma.UserUpsertWithoutInventoryWithdrawalsInput> = z.object({
+  update: z.union([ z.lazy(() => UserUpdateWithoutInventoryWithdrawalsInputSchema),z.lazy(() => UserUncheckedUpdateWithoutInventoryWithdrawalsInputSchema) ]),
+  create: z.union([ z.lazy(() => UserCreateWithoutInventoryWithdrawalsInputSchema),z.lazy(() => UserUncheckedCreateWithoutInventoryWithdrawalsInputSchema) ]),
   where: z.lazy(() => UserWhereInputSchema).optional()
 }).strict();
 
-export const UserUpdateToOneWithWhereWithoutInventoryWithdrawalInputSchema: z.ZodType<Prisma.UserUpdateToOneWithWhereWithoutInventoryWithdrawalInput> = z.object({
+export const UserUpdateToOneWithWhereWithoutInventoryWithdrawalsInputSchema: z.ZodType<Prisma.UserUpdateToOneWithWhereWithoutInventoryWithdrawalsInput> = z.object({
   where: z.lazy(() => UserWhereInputSchema).optional(),
-  data: z.union([ z.lazy(() => UserUpdateWithoutInventoryWithdrawalInputSchema),z.lazy(() => UserUncheckedUpdateWithoutInventoryWithdrawalInputSchema) ]),
+  data: z.union([ z.lazy(() => UserUpdateWithoutInventoryWithdrawalsInputSchema),z.lazy(() => UserUncheckedUpdateWithoutInventoryWithdrawalsInputSchema) ]),
 }).strict();
 
-export const UserUpdateWithoutInventoryWithdrawalInputSchema: z.ZodType<Prisma.UserUpdateWithoutInventoryWithdrawalInput> = z.object({
+export const UserUpdateWithoutInventoryWithdrawalsInputSchema: z.ZodType<Prisma.UserUpdateWithoutInventoryWithdrawalsInput> = z.object({
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
@@ -31429,21 +31529,21 @@ export const UserUpdateWithoutInventoryWithdrawalInputSchema: z.ZodType<Prisma.U
   inventoryUpdates: z.lazy(() => InventoryItemUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUpdateManyWithoutUserNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUpdateManyWithoutUserNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
-export const UserUncheckedUpdateWithoutInventoryWithdrawalInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutInventoryWithdrawalInput> = z.object({
+export const UserUncheckedUpdateWithoutInventoryWithdrawalsInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutInventoryWithdrawalsInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -31462,22 +31562,22 @@ export const UserUncheckedUpdateWithoutInventoryWithdrawalInputSchema: z.ZodType
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
 export const IngredientAllergenCreateWithoutAllergenInputSchema: z.ZodType<Prisma.IngredientAllergenCreateWithoutAllergenInput> = z.object({
-  ingredient: z.lazy(() => IngredientCreateNestedOneWithoutIngredientAllergenInputSchema)
+  ingredient: z.lazy(() => IngredientCreateNestedOneWithoutIngredientAllergensInputSchema)
 }).strict();
 
 export const IngredientAllergenUncheckedCreateWithoutAllergenInputSchema: z.ZodType<Prisma.IngredientAllergenUncheckedCreateWithoutAllergenInput> = z.object({
@@ -31520,11 +31620,12 @@ export const IngredientAllergenScalarWhereInputSchema: z.ZodType<Prisma.Ingredie
   allergenId: z.union([ z.lazy(() => IntFilterSchema),z.number() ]).optional(),
 }).strict();
 
-export const IngredientCreateWithoutIngredientAllergenInputSchema: z.ZodType<Prisma.IngredientCreateWithoutIngredientAllergenInput> = z.object({
+export const IngredientCreateWithoutIngredientAllergensInputSchema: z.ZodType<Prisma.IngredientCreateWithoutIngredientAllergensInput> = z.object({
   name: z.string(),
   category: z.string(),
   price: z.number(),
   density: z.number().optional().nullable(),
+  dietaryRestrictionId: z.number().int().optional().nullable(),
   calories: z.number().optional().nullable(),
   protein: z.number().optional().nullable(),
   carbohydrates: z.number().optional().nullable(),
@@ -31539,12 +31640,12 @@ export const IngredientCreateWithoutIngredientAllergenInputSchema: z.ZodType<Pri
   inventoryItems: z.lazy(() => InventoryItemCreateNestedManyWithoutIngredientInputSchema).optional(),
   orderItems: z.lazy(() => OrderItemCreateNestedManyWithoutIngredientInputSchema).optional(),
   vendors: z.lazy(() => VendorCreateNestedManyWithoutIngredientsInputSchema).optional(),
-  WasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutIngredienteInputSchema).optional(),
-  SupplierPriceHistory: z.lazy(() => SupplierPriceHistoryCreateNestedManyWithoutIngredientInputSchema).optional(),
-  DietaryRestriction: z.lazy(() => DietaryRestrictionCreateNestedOneWithoutIngredientsInputSchema).optional()
+  WasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutIngredienteInputSchema).optional(),
+  priceHistory: z.lazy(() => SupplierPriceHistoryCreateNestedManyWithoutIngredientInputSchema).optional(),
+  DietaryRestrictions: z.lazy(() => DietaryRestrictionCreateNestedManyWithoutIngredientsInputSchema).optional()
 }).strict();
 
-export const IngredientUncheckedCreateWithoutIngredientAllergenInputSchema: z.ZodType<Prisma.IngredientUncheckedCreateWithoutIngredientAllergenInput> = z.object({
+export const IngredientUncheckedCreateWithoutIngredientAllergensInputSchema: z.ZodType<Prisma.IngredientUncheckedCreateWithoutIngredientAllergensInput> = z.object({
   id: z.number().int().optional(),
   name: z.string(),
   category: z.string(),
@@ -31565,13 +31666,14 @@ export const IngredientUncheckedCreateWithoutIngredientAllergenInputSchema: z.Zo
   inventoryItems: z.lazy(() => InventoryItemUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
   orderItems: z.lazy(() => OrderItemUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
   vendors: z.lazy(() => VendorUncheckedCreateNestedManyWithoutIngredientsInputSchema).optional(),
-  WasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutIngredienteInputSchema).optional(),
-  SupplierPriceHistory: z.lazy(() => SupplierPriceHistoryUncheckedCreateNestedManyWithoutIngredientInputSchema).optional()
+  WasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutIngredienteInputSchema).optional(),
+  priceHistory: z.lazy(() => SupplierPriceHistoryUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
+  DietaryRestrictions: z.lazy(() => DietaryRestrictionUncheckedCreateNestedManyWithoutIngredientsInputSchema).optional()
 }).strict();
 
-export const IngredientCreateOrConnectWithoutIngredientAllergenInputSchema: z.ZodType<Prisma.IngredientCreateOrConnectWithoutIngredientAllergenInput> = z.object({
+export const IngredientCreateOrConnectWithoutIngredientAllergensInputSchema: z.ZodType<Prisma.IngredientCreateOrConnectWithoutIngredientAllergensInput> = z.object({
   where: z.lazy(() => IngredientWhereUniqueInputSchema),
-  create: z.union([ z.lazy(() => IngredientCreateWithoutIngredientAllergenInputSchema),z.lazy(() => IngredientUncheckedCreateWithoutIngredientAllergenInputSchema) ]),
+  create: z.union([ z.lazy(() => IngredientCreateWithoutIngredientAllergensInputSchema),z.lazy(() => IngredientUncheckedCreateWithoutIngredientAllergensInputSchema) ]),
 }).strict();
 
 export const AllergenCreateWithoutIngredientsInputSchema: z.ZodType<Prisma.AllergenCreateWithoutIngredientsInput> = z.object({
@@ -31590,22 +31692,23 @@ export const AllergenCreateOrConnectWithoutIngredientsInputSchema: z.ZodType<Pri
   create: z.union([ z.lazy(() => AllergenCreateWithoutIngredientsInputSchema),z.lazy(() => AllergenUncheckedCreateWithoutIngredientsInputSchema) ]),
 }).strict();
 
-export const IngredientUpsertWithoutIngredientAllergenInputSchema: z.ZodType<Prisma.IngredientUpsertWithoutIngredientAllergenInput> = z.object({
-  update: z.union([ z.lazy(() => IngredientUpdateWithoutIngredientAllergenInputSchema),z.lazy(() => IngredientUncheckedUpdateWithoutIngredientAllergenInputSchema) ]),
-  create: z.union([ z.lazy(() => IngredientCreateWithoutIngredientAllergenInputSchema),z.lazy(() => IngredientUncheckedCreateWithoutIngredientAllergenInputSchema) ]),
+export const IngredientUpsertWithoutIngredientAllergensInputSchema: z.ZodType<Prisma.IngredientUpsertWithoutIngredientAllergensInput> = z.object({
+  update: z.union([ z.lazy(() => IngredientUpdateWithoutIngredientAllergensInputSchema),z.lazy(() => IngredientUncheckedUpdateWithoutIngredientAllergensInputSchema) ]),
+  create: z.union([ z.lazy(() => IngredientCreateWithoutIngredientAllergensInputSchema),z.lazy(() => IngredientUncheckedCreateWithoutIngredientAllergensInputSchema) ]),
   where: z.lazy(() => IngredientWhereInputSchema).optional()
 }).strict();
 
-export const IngredientUpdateToOneWithWhereWithoutIngredientAllergenInputSchema: z.ZodType<Prisma.IngredientUpdateToOneWithWhereWithoutIngredientAllergenInput> = z.object({
+export const IngredientUpdateToOneWithWhereWithoutIngredientAllergensInputSchema: z.ZodType<Prisma.IngredientUpdateToOneWithWhereWithoutIngredientAllergensInput> = z.object({
   where: z.lazy(() => IngredientWhereInputSchema).optional(),
-  data: z.union([ z.lazy(() => IngredientUpdateWithoutIngredientAllergenInputSchema),z.lazy(() => IngredientUncheckedUpdateWithoutIngredientAllergenInputSchema) ]),
+  data: z.union([ z.lazy(() => IngredientUpdateWithoutIngredientAllergensInputSchema),z.lazy(() => IngredientUncheckedUpdateWithoutIngredientAllergensInputSchema) ]),
 }).strict();
 
-export const IngredientUpdateWithoutIngredientAllergenInputSchema: z.ZodType<Prisma.IngredientUpdateWithoutIngredientAllergenInput> = z.object({
+export const IngredientUpdateWithoutIngredientAllergensInputSchema: z.ZodType<Prisma.IngredientUpdateWithoutIngredientAllergensInput> = z.object({
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   category: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   price: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
   density: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
+  dietaryRestrictionId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   calories: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   protein: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   carbohydrates: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -31620,12 +31723,12 @@ export const IngredientUpdateWithoutIngredientAllergenInputSchema: z.ZodType<Pri
   inventoryItems: z.lazy(() => InventoryItemUpdateManyWithoutIngredientNestedInputSchema).optional(),
   orderItems: z.lazy(() => OrderItemUpdateManyWithoutIngredientNestedInputSchema).optional(),
   vendors: z.lazy(() => VendorUpdateManyWithoutIngredientsNestedInputSchema).optional(),
-  WasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutIngredienteNestedInputSchema).optional(),
-  SupplierPriceHistory: z.lazy(() => SupplierPriceHistoryUpdateManyWithoutIngredientNestedInputSchema).optional(),
-  DietaryRestriction: z.lazy(() => DietaryRestrictionUpdateOneWithoutIngredientsNestedInputSchema).optional()
+  WasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutIngredienteNestedInputSchema).optional(),
+  priceHistory: z.lazy(() => SupplierPriceHistoryUpdateManyWithoutIngredientNestedInputSchema).optional(),
+  DietaryRestrictions: z.lazy(() => DietaryRestrictionUpdateManyWithoutIngredientsNestedInputSchema).optional()
 }).strict();
 
-export const IngredientUncheckedUpdateWithoutIngredientAllergenInputSchema: z.ZodType<Prisma.IngredientUncheckedUpdateWithoutIngredientAllergenInput> = z.object({
+export const IngredientUncheckedUpdateWithoutIngredientAllergensInputSchema: z.ZodType<Prisma.IngredientUncheckedUpdateWithoutIngredientAllergensInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   category: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
@@ -31646,8 +31749,9 @@ export const IngredientUncheckedUpdateWithoutIngredientAllergenInputSchema: z.Zo
   inventoryItems: z.lazy(() => InventoryItemUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
   orderItems: z.lazy(() => OrderItemUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
   vendors: z.lazy(() => VendorUncheckedUpdateManyWithoutIngredientsNestedInputSchema).optional(),
-  WasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutIngredienteNestedInputSchema).optional(),
-  SupplierPriceHistory: z.lazy(() => SupplierPriceHistoryUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional()
+  WasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutIngredienteNestedInputSchema).optional(),
+  priceHistory: z.lazy(() => SupplierPriceHistoryUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
+  DietaryRestrictions: z.lazy(() => DietaryRestrictionUncheckedUpdateManyWithoutIngredientsNestedInputSchema).optional()
 }).strict();
 
 export const AllergenUpsertWithoutIngredientsInputSchema: z.ZodType<Prisma.AllergenUpsertWithoutIngredientsInput> = z.object({
@@ -31794,12 +31898,12 @@ export const RestaurantCreateWithoutOrganizationInputSchema: z.ZodType<Prisma.Re
   recipes: z.lazy(() => RecipeCreateNestedManyWithoutRestaurantInputSchema).optional(),
   menus: z.lazy(() => MenuCreateNestedManyWithoutRestaurantInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRestaurantInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRestaurantInputSchema).optional()
 }).strict();
 
 export const RestaurantUncheckedCreateWithoutOrganizationInputSchema: z.ZodType<Prisma.RestaurantUncheckedCreateWithoutOrganizationInput> = z.object({
@@ -31823,12 +31927,12 @@ export const RestaurantUncheckedCreateWithoutOrganizationInputSchema: z.ZodType<
   recipes: z.lazy(() => RecipeUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
   menus: z.lazy(() => MenuUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional()
 }).strict();
 
 export const RestaurantCreateOrConnectWithoutOrganizationInputSchema: z.ZodType<Prisma.RestaurantCreateOrConnectWithoutOrganizationInput> = z.object({
@@ -31858,19 +31962,19 @@ export const UserCreateWithoutOrganizationInputSchema: z.ZodType<Prisma.UserCrea
   inventoryUpdates: z.lazy(() => InventoryItemCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   sessions: z.lazy(() => SessionCreateNestedManyWithoutUserInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
   availability: z.lazy(() => AvailabilityCreateNestedManyWithoutUserInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
 export const UserUncheckedCreateWithoutOrganizationInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutOrganizationInput> = z.object({
@@ -31891,19 +31995,19 @@ export const UserUncheckedCreateWithoutOrganizationInputSchema: z.ZodType<Prisma
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
 export const UserCreateOrConnectWithoutOrganizationInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutOrganizationInput> = z.object({
@@ -32007,12 +32111,12 @@ export const RestaurantCreateWithoutInventoryInputSchema: z.ZodType<Prisma.Resta
   recipes: z.lazy(() => RecipeCreateNestedManyWithoutRestaurantInputSchema).optional(),
   menus: z.lazy(() => MenuCreateNestedManyWithoutRestaurantInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRestaurantInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRestaurantInputSchema).optional()
 }).strict();
 
 export const RestaurantUncheckedCreateWithoutInventoryInputSchema: z.ZodType<Prisma.RestaurantUncheckedCreateWithoutInventoryInput> = z.object({
@@ -32036,12 +32140,12 @@ export const RestaurantUncheckedCreateWithoutInventoryInputSchema: z.ZodType<Pri
   recipes: z.lazy(() => RecipeUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
   menus: z.lazy(() => MenuUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional()
 }).strict();
 
 export const RestaurantCreateOrConnectWithoutInventoryInputSchema: z.ZodType<Prisma.RestaurantCreateOrConnectWithoutInventoryInput> = z.object({
@@ -32119,7 +32223,7 @@ export const InventoryTransactionCreateWithoutInventoryInputSchema: z.ZodType<Pr
   notes: z.string().optional().nullable(),
   createdAt: z.coerce.date().optional(),
   item: z.lazy(() => InventoryItemCreateNestedOneWithoutTransactionsInputSchema),
-  createdBy: z.lazy(() => UserCreateNestedOneWithoutInventoryTransactionInputSchema)
+  createdBy: z.lazy(() => UserCreateNestedOneWithoutInventoryTransactionsInputSchema)
 }).strict();
 
 export const InventoryTransactionUncheckedCreateWithoutInventoryInputSchema: z.ZodType<Prisma.InventoryTransactionUncheckedCreateWithoutInventoryInput> = z.object({
@@ -32152,7 +32256,7 @@ export const StockCountCreateWithoutInventoryInputSchema: z.ZodType<Prisma.Stock
   startedAt: z.coerce.date(),
   completedAt: z.coerce.date().optional().nullable(),
   notes: z.string().optional().nullable(),
-  createdBy: z.lazy(() => UserCreateNestedOneWithoutStockCountInputSchema),
+  createdBy: z.lazy(() => UserCreateNestedOneWithoutStockCountsInputSchema),
   items: z.lazy(() => StockCountItemCreateNestedManyWithoutStockCountInputSchema).optional()
 }).strict();
 
@@ -32207,12 +32311,12 @@ export const RestaurantUpdateWithoutInventoryInputSchema: z.ZodType<Prisma.Resta
   recipes: z.lazy(() => RecipeUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   menus: z.lazy(() => MenuUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUpdateManyWithoutRestaurantNestedInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUpdateManyWithoutRestaurantNestedInputSchema).optional()
 }).strict();
 
 export const RestaurantUncheckedUpdateWithoutInventoryInputSchema: z.ZodType<Prisma.RestaurantUncheckedUpdateWithoutInventoryInput> = z.object({
@@ -32236,12 +32340,12 @@ export const RestaurantUncheckedUpdateWithoutInventoryInputSchema: z.ZodType<Pri
   recipes: z.lazy(() => RecipeUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   menus: z.lazy(() => MenuUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional()
 }).strict();
 
 export const InventoryItemUpsertWithWhereUniqueWithoutInventoryInputSchema: z.ZodType<Prisma.InventoryItemUpsertWithWhereUniqueWithoutInventoryInput> = z.object({
@@ -32389,19 +32493,19 @@ export const UserCreateWithoutRestaurantInputSchema: z.ZodType<Prisma.UserCreate
   inventoryUpdates: z.lazy(() => InventoryItemCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   sessions: z.lazy(() => SessionCreateNestedManyWithoutUserInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
   availability: z.lazy(() => AvailabilityCreateNestedManyWithoutUserInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
 export const UserUncheckedCreateWithoutRestaurantInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutRestaurantInput> = z.object({
@@ -32422,19 +32526,19 @@ export const UserUncheckedCreateWithoutRestaurantInputSchema: z.ZodType<Prisma.U
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
 export const UserCreateOrConnectWithoutRestaurantInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutRestaurantInput> = z.object({
@@ -32683,7 +32787,7 @@ export const LeftoverItemCreateWithoutRestaurantInputSchema: z.ZodType<Prisma.Le
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   menuItem: z.lazy(() => MenuItemCreateNestedOneWithoutLeftoverItemsInputSchema),
-  recordedBy: z.lazy(() => UserCreateNestedOneWithoutLeftoverItemInputSchema)
+  recordedBy: z.lazy(() => UserCreateNestedOneWithoutLeftoverItemsInputSchema)
 }).strict();
 
 export const LeftoverItemUncheckedCreateWithoutRestaurantInputSchema: z.ZodType<Prisma.LeftoverItemUncheckedCreateWithoutRestaurantInput> = z.object({
@@ -32714,8 +32818,8 @@ export const WasteRecordCreateWithoutRestaurantInputSchema: z.ZodType<Prisma.Was
   reason: z.string(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
-  ingrediente: z.lazy(() => IngredientCreateNestedOneWithoutWasteRecordInputSchema),
-  recordedBy: z.lazy(() => UserCreateNestedOneWithoutWasteRecordInputSchema)
+  ingrediente: z.lazy(() => IngredientCreateNestedOneWithoutWasteRecordsInputSchema),
+  recordedBy: z.lazy(() => UserCreateNestedOneWithoutWasteRecordsInputSchema)
 }).strict();
 
 export const WasteRecordUncheckedCreateWithoutRestaurantInputSchema: z.ZodType<Prisma.WasteRecordUncheckedCreateWithoutRestaurantInput> = z.object({
@@ -32742,15 +32846,17 @@ export const WasteRecordCreateManyRestaurantInputEnvelopeSchema: z.ZodType<Prism
 
 export const ProductionPlanCreateWithoutRestaurantInputSchema: z.ZodType<Prisma.ProductionPlanCreateWithoutRestaurantInput> = z.object({
   date: z.coerce.date(),
+  status: z.lazy(() => ProductionStatusSchema).optional(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
-  createdBy: z.lazy(() => UserCreateNestedOneWithoutProductionPlanInputSchema),
+  createdBy: z.lazy(() => UserCreateNestedOneWithoutProductionPlansInputSchema),
   items: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutProductionPlanInputSchema).optional()
 }).strict();
 
 export const ProductionPlanUncheckedCreateWithoutRestaurantInputSchema: z.ZodType<Prisma.ProductionPlanUncheckedCreateWithoutRestaurantInput> = z.object({
   id: z.number().int().optional(),
   date: z.coerce.date(),
+  status: z.lazy(() => ProductionStatusSchema).optional(),
   createdById: z.number().int(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
@@ -32854,7 +32960,7 @@ export const CustomerFeedbackCreateWithoutRestaurantInputSchema: z.ZodType<Prism
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   menuItem: z.lazy(() => MenuItemCreateNestedOneWithoutFeedbackInputSchema).optional(),
-  respondedBy: z.lazy(() => UserCreateNestedOneWithoutCustomerFeedbackInputSchema).optional()
+  respondedBy: z.lazy(() => UserCreateNestedOneWithoutCustomerFeedbackResponsesInputSchema).optional()
 }).strict();
 
 export const CustomerFeedbackUncheckedCreateWithoutRestaurantInputSchema: z.ZodType<Prisma.CustomerFeedbackUncheckedCreateWithoutRestaurantInput> = z.object({
@@ -33175,6 +33281,7 @@ export const ProductionPlanScalarWhereInputSchema: z.ZodType<Prisma.ProductionPl
   id: z.union([ z.lazy(() => IntFilterSchema),z.number() ]).optional(),
   restaurantId: z.union([ z.lazy(() => IntFilterSchema),z.number() ]).optional(),
   date: z.union([ z.lazy(() => DateTimeFilterSchema),z.coerce.date() ]).optional(),
+  status: z.union([ z.lazy(() => EnumProductionStatusFilterSchema),z.lazy(() => ProductionStatusSchema) ]).optional(),
   createdById: z.union([ z.lazy(() => IntFilterSchema),z.number() ]).optional(),
   createdAt: z.union([ z.lazy(() => DateTimeFilterSchema),z.coerce.date() ]).optional(),
   updatedAt: z.union([ z.lazy(() => DateTimeFilterSchema),z.coerce.date() ]).optional(),
@@ -33322,12 +33429,12 @@ export const RestaurantCreateWithoutUsersInputSchema: z.ZodType<Prisma.Restauran
   recipes: z.lazy(() => RecipeCreateNestedManyWithoutRestaurantInputSchema).optional(),
   menus: z.lazy(() => MenuCreateNestedManyWithoutRestaurantInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRestaurantInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRestaurantInputSchema).optional()
 }).strict();
 
 export const RestaurantUncheckedCreateWithoutUsersInputSchema: z.ZodType<Prisma.RestaurantUncheckedCreateWithoutUsersInput> = z.object({
@@ -33351,12 +33458,12 @@ export const RestaurantUncheckedCreateWithoutUsersInputSchema: z.ZodType<Prisma.
   recipes: z.lazy(() => RecipeUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
   menus: z.lazy(() => MenuUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional()
 }).strict();
 
 export const RestaurantCreateOrConnectWithoutUsersInputSchema: z.ZodType<Prisma.RestaurantCreateOrConnectWithoutUsersInput> = z.object({
@@ -33368,7 +33475,7 @@ export const ShiftCreateWithoutUserInputSchema: z.ZodType<Prisma.ShiftCreateWith
   startTime: z.coerce.date(),
   endTime: z.coerce.date(),
   status: z.lazy(() => ShiftStatusSchema),
-  ShiftTask: z.lazy(() => ShiftTaskCreateNestedManyWithoutShiftInputSchema).optional()
+  tasks: z.lazy(() => ShiftTaskCreateNestedManyWithoutShiftInputSchema).optional()
 }).strict();
 
 export const ShiftUncheckedCreateWithoutUserInputSchema: z.ZodType<Prisma.ShiftUncheckedCreateWithoutUserInput> = z.object({
@@ -33376,7 +33483,7 @@ export const ShiftUncheckedCreateWithoutUserInputSchema: z.ZodType<Prisma.ShiftU
   startTime: z.coerce.date(),
   endTime: z.coerce.date(),
   status: z.lazy(() => ShiftStatusSchema),
-  ShiftTask: z.lazy(() => ShiftTaskUncheckedCreateNestedManyWithoutShiftInputSchema).optional()
+  tasks: z.lazy(() => ShiftTaskUncheckedCreateNestedManyWithoutShiftInputSchema).optional()
 }).strict();
 
 export const ShiftCreateOrConnectWithoutUserInputSchema: z.ZodType<Prisma.ShiftCreateOrConnectWithoutUserInput> = z.object({
@@ -33530,7 +33637,7 @@ export const LeftoverItemCreateWithoutRecordedByInputSchema: z.ZodType<Prisma.Le
   reason: z.string(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
-  restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutLeftoverItemInputSchema),
+  restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutLeftoverItemsInputSchema),
   menuItem: z.lazy(() => MenuItemCreateNestedOneWithoutLeftoverItemsInputSchema)
 }).strict();
 
@@ -33562,8 +33669,8 @@ export const WasteRecordCreateWithoutRecordedByInputSchema: z.ZodType<Prisma.Was
   reason: z.string(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
-  restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutWasteRecordInputSchema),
-  ingrediente: z.lazy(() => IngredientCreateNestedOneWithoutWasteRecordInputSchema)
+  restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutWasteRecordsInputSchema),
+  ingrediente: z.lazy(() => IngredientCreateNestedOneWithoutWasteRecordsInputSchema)
 }).strict();
 
 export const WasteRecordUncheckedCreateWithoutRecordedByInputSchema: z.ZodType<Prisma.WasteRecordUncheckedCreateWithoutRecordedByInput> = z.object({
@@ -33590,9 +33697,10 @@ export const WasteRecordCreateManyRecordedByInputEnvelopeSchema: z.ZodType<Prism
 
 export const ProductionPlanCreateWithoutCreatedByInputSchema: z.ZodType<Prisma.ProductionPlanCreateWithoutCreatedByInput> = z.object({
   date: z.coerce.date(),
+  status: z.lazy(() => ProductionStatusSchema).optional(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
-  restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutProductionPlanInputSchema),
+  restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutProductionPlansInputSchema),
   items: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutProductionPlanInputSchema).optional()
 }).strict();
 
@@ -33600,6 +33708,7 @@ export const ProductionPlanUncheckedCreateWithoutCreatedByInputSchema: z.ZodType
   id: z.number().int().optional(),
   restaurantId: z.number().int(),
   date: z.coerce.date(),
+  status: z.lazy(() => ProductionStatusSchema).optional(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   items: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutProductionPlanInputSchema).optional()
@@ -33772,7 +33881,7 @@ export const CustomerFeedbackCreateWithoutRespondedByInputSchema: z.ZodType<Pris
   respondedAt: z.coerce.date().optional().nullable(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
-  restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutQustomerFeedbackInputSchema),
+  restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutCustomerFeedbacksInputSchema),
   menuItem: z.lazy(() => MenuItemCreateNestedOneWithoutFeedbackInputSchema).optional()
 }).strict();
 
@@ -34006,12 +34115,12 @@ export const RestaurantUpdateWithoutUsersInputSchema: z.ZodType<Prisma.Restauran
   recipes: z.lazy(() => RecipeUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   menus: z.lazy(() => MenuUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUpdateManyWithoutRestaurantNestedInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUpdateManyWithoutRestaurantNestedInputSchema).optional()
 }).strict();
 
 export const RestaurantUncheckedUpdateWithoutUsersInputSchema: z.ZodType<Prisma.RestaurantUncheckedUpdateWithoutUsersInput> = z.object({
@@ -34035,12 +34144,12 @@ export const RestaurantUncheckedUpdateWithoutUsersInputSchema: z.ZodType<Prisma.
   recipes: z.lazy(() => RecipeUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   menus: z.lazy(() => MenuUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional()
 }).strict();
 
 export const ShiftUpsertWithWhereUniqueWithoutUserInputSchema: z.ZodType<Prisma.ShiftUpsertWithWhereUniqueWithoutUserInput> = z.object({
@@ -34455,19 +34564,19 @@ export const UserCreateWithoutSessionsInputSchema: z.ZodType<Prisma.UserCreateWi
   prepItems: z.lazy(() => PrepItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
   inventoryUpdates: z.lazy(() => InventoryItemCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
   availability: z.lazy(() => AvailabilityCreateNestedManyWithoutUserInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
 export const UserUncheckedCreateWithoutSessionsInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutSessionsInput> = z.object({
@@ -34488,19 +34597,19 @@ export const UserUncheckedCreateWithoutSessionsInputSchema: z.ZodType<Prisma.Use
   prepItems: z.lazy(() => PrepItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
 export const UserCreateOrConnectWithoutSessionsInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutSessionsInput> = z.object({
@@ -34536,19 +34645,19 @@ export const UserUpdateWithoutSessionsInputSchema: z.ZodType<Prisma.UserUpdateWi
   prepItems: z.lazy(() => PrepItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   inventoryUpdates: z.lazy(() => InventoryItemUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUpdateManyWithoutUserNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
 export const UserUncheckedUpdateWithoutSessionsInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutSessionsInput> = z.object({
@@ -34569,19 +34678,19 @@ export const UserUncheckedUpdateWithoutSessionsInputSchema: z.ZodType<Prisma.Use
   prepItems: z.lazy(() => PrepItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
 export const RecipeCreateWithoutCookBookInputSchema: z.ZodType<Prisma.RecipeCreateWithoutCookBookInput> = z.object({
@@ -34695,12 +34804,12 @@ export const RestaurantCreateWithoutCookbooksInputSchema: z.ZodType<Prisma.Resta
   recipes: z.lazy(() => RecipeCreateNestedManyWithoutRestaurantInputSchema).optional(),
   menus: z.lazy(() => MenuCreateNestedManyWithoutRestaurantInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRestaurantInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRestaurantInputSchema).optional()
 }).strict();
 
 export const RestaurantUncheckedCreateWithoutCookbooksInputSchema: z.ZodType<Prisma.RestaurantUncheckedCreateWithoutCookbooksInput> = z.object({
@@ -34724,12 +34833,12 @@ export const RestaurantUncheckedCreateWithoutCookbooksInputSchema: z.ZodType<Pri
   recipes: z.lazy(() => RecipeUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
   menus: z.lazy(() => MenuUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional()
 }).strict();
 
 export const RestaurantCreateOrConnectWithoutCookbooksInputSchema: z.ZodType<Prisma.RestaurantCreateOrConnectWithoutCookbooksInput> = z.object({
@@ -34784,12 +34893,12 @@ export const RestaurantUpdateWithoutCookbooksInputSchema: z.ZodType<Prisma.Resta
   recipes: z.lazy(() => RecipeUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   menus: z.lazy(() => MenuUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUpdateManyWithoutRestaurantNestedInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUpdateManyWithoutRestaurantNestedInputSchema).optional()
 }).strict();
 
 export const RestaurantUncheckedUpdateWithoutCookbooksInputSchema: z.ZodType<Prisma.RestaurantUncheckedUpdateWithoutCookbooksInput> = z.object({
@@ -34813,12 +34922,12 @@ export const RestaurantUncheckedUpdateWithoutCookbooksInputSchema: z.ZodType<Pri
   recipes: z.lazy(() => RecipeUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   menus: z.lazy(() => MenuUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional()
 }).strict();
 
 export const RestaurantCreateWithoutRecipesInputSchema: z.ZodType<Prisma.RestaurantCreateWithoutRecipesInput> = z.object({
@@ -34841,12 +34950,12 @@ export const RestaurantCreateWithoutRecipesInputSchema: z.ZodType<Prisma.Restaur
   orders: z.lazy(() => OrderCreateNestedManyWithoutRestaurantInputSchema).optional(),
   menus: z.lazy(() => MenuCreateNestedManyWithoutRestaurantInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRestaurantInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRestaurantInputSchema).optional()
 }).strict();
 
 export const RestaurantUncheckedCreateWithoutRecipesInputSchema: z.ZodType<Prisma.RestaurantUncheckedCreateWithoutRecipesInput> = z.object({
@@ -34870,12 +34979,12 @@ export const RestaurantUncheckedCreateWithoutRecipesInputSchema: z.ZodType<Prism
   orders: z.lazy(() => OrderUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
   menus: z.lazy(() => MenuUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional()
 }).strict();
 
 export const RestaurantCreateOrConnectWithoutRecipesInputSchema: z.ZodType<Prisma.RestaurantCreateOrConnectWithoutRecipesInput> = z.object({
@@ -35155,7 +35264,7 @@ export const ProductionPlanItemCreateWithoutRecipeInputSchema: z.ZodType<Prisma.
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   productionPlan: z.lazy(() => ProductionPlanCreateNestedOneWithoutItemsInputSchema),
-  assignedTo: z.lazy(() => UserCreateNestedOneWithoutProductionPlanItemInputSchema).optional()
+  assignedTo: z.lazy(() => UserCreateNestedOneWithoutProductionPlanItemsInputSchema).optional()
 }).strict();
 
 export const ProductionPlanItemUncheckedCreateWithoutRecipeInputSchema: z.ZodType<Prisma.ProductionPlanItemUncheckedCreateWithoutRecipeInput> = z.object({
@@ -35185,7 +35294,7 @@ export const InventoryWithdrawalCreateWithoutRecipeInputSchema: z.ZodType<Prisma
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   inventoryItem: z.lazy(() => InventoryItemCreateNestedOneWithoutWithdrawalsInputSchema),
-  createdBy: z.lazy(() => UserCreateNestedOneWithoutInventoryWithdrawalInputSchema)
+  createdBy: z.lazy(() => UserCreateNestedOneWithoutInventoryWithdrawalsInputSchema)
 }).strict();
 
 export const InventoryWithdrawalUncheckedCreateWithoutRecipeInputSchema: z.ZodType<Prisma.InventoryWithdrawalUncheckedCreateWithoutRecipeInput> = z.object({
@@ -35298,7 +35407,7 @@ export const DietaryRestrictionCreateWithoutRecipesInputSchema: z.ZodType<Prisma
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   menuItems: z.lazy(() => MenuItemCreateNestedManyWithoutDietaryRestrictionsInputSchema).optional(),
-  ingredients: z.lazy(() => IngredientCreateNestedManyWithoutDietaryRestrictionInputSchema).optional()
+  ingredients: z.lazy(() => IngredientCreateNestedManyWithoutDietaryRestrictionsInputSchema).optional()
 }).strict();
 
 export const DietaryRestrictionUncheckedCreateWithoutRecipesInputSchema: z.ZodType<Prisma.DietaryRestrictionUncheckedCreateWithoutRecipesInput> = z.object({
@@ -35309,7 +35418,7 @@ export const DietaryRestrictionUncheckedCreateWithoutRecipesInputSchema: z.ZodTy
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   menuItems: z.lazy(() => MenuItemUncheckedCreateNestedManyWithoutDietaryRestrictionsInputSchema).optional(),
-  ingredients: z.lazy(() => IngredientUncheckedCreateNestedManyWithoutDietaryRestrictionInputSchema).optional()
+  ingredients: z.lazy(() => IngredientUncheckedCreateNestedManyWithoutDietaryRestrictionsInputSchema).optional()
 }).strict();
 
 export const DietaryRestrictionCreateOrConnectWithoutRecipesInputSchema: z.ZodType<Prisma.DietaryRestrictionCreateOrConnectWithoutRecipesInput> = z.object({
@@ -35595,12 +35704,12 @@ export const RestaurantUpdateWithoutRecipesInputSchema: z.ZodType<Prisma.Restaur
   orders: z.lazy(() => OrderUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   menus: z.lazy(() => MenuUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUpdateManyWithoutRestaurantNestedInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUpdateManyWithoutRestaurantNestedInputSchema).optional()
 }).strict();
 
 export const RestaurantUncheckedUpdateWithoutRecipesInputSchema: z.ZodType<Prisma.RestaurantUncheckedUpdateWithoutRecipesInput> = z.object({
@@ -35624,12 +35733,12 @@ export const RestaurantUncheckedUpdateWithoutRecipesInputSchema: z.ZodType<Prism
   orders: z.lazy(() => OrderUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   menus: z.lazy(() => MenuUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional()
 }).strict();
 
 export const CookBookUpsertWithoutRecipesInputSchema: z.ZodType<Prisma.CookBookUpsertWithoutRecipesInput> = z.object({
@@ -36376,8 +36485,8 @@ export const WasteRecordCreateWithoutIngredienteInputSchema: z.ZodType<Prisma.Wa
   reason: z.string(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
-  restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutWasteRecordInputSchema),
-  recordedBy: z.lazy(() => UserCreateNestedOneWithoutWasteRecordInputSchema)
+  restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutWasteRecordsInputSchema),
+  recordedBy: z.lazy(() => UserCreateNestedOneWithoutWasteRecordsInputSchema)
 }).strict();
 
 export const WasteRecordUncheckedCreateWithoutIngredienteInputSchema: z.ZodType<Prisma.WasteRecordUncheckedCreateWithoutIngredienteInput> = z.object({
@@ -36633,36 +36742,20 @@ export const SupplierPriceHistoryScalarWhereInputSchema: z.ZodType<Prisma.Suppli
   updatedAt: z.union([ z.lazy(() => DateTimeFilterSchema),z.coerce.date() ]).optional(),
 }).strict();
 
-export const DietaryRestrictionUpsertWithoutIngredientsInputSchema: z.ZodType<Prisma.DietaryRestrictionUpsertWithoutIngredientsInput> = z.object({
+export const DietaryRestrictionUpsertWithWhereUniqueWithoutIngredientsInputSchema: z.ZodType<Prisma.DietaryRestrictionUpsertWithWhereUniqueWithoutIngredientsInput> = z.object({
+  where: z.lazy(() => DietaryRestrictionWhereUniqueInputSchema),
   update: z.union([ z.lazy(() => DietaryRestrictionUpdateWithoutIngredientsInputSchema),z.lazy(() => DietaryRestrictionUncheckedUpdateWithoutIngredientsInputSchema) ]),
   create: z.union([ z.lazy(() => DietaryRestrictionCreateWithoutIngredientsInputSchema),z.lazy(() => DietaryRestrictionUncheckedCreateWithoutIngredientsInputSchema) ]),
-  where: z.lazy(() => DietaryRestrictionWhereInputSchema).optional()
 }).strict();
 
-export const DietaryRestrictionUpdateToOneWithWhereWithoutIngredientsInputSchema: z.ZodType<Prisma.DietaryRestrictionUpdateToOneWithWhereWithoutIngredientsInput> = z.object({
-  where: z.lazy(() => DietaryRestrictionWhereInputSchema).optional(),
+export const DietaryRestrictionUpdateWithWhereUniqueWithoutIngredientsInputSchema: z.ZodType<Prisma.DietaryRestrictionUpdateWithWhereUniqueWithoutIngredientsInput> = z.object({
+  where: z.lazy(() => DietaryRestrictionWhereUniqueInputSchema),
   data: z.union([ z.lazy(() => DietaryRestrictionUpdateWithoutIngredientsInputSchema),z.lazy(() => DietaryRestrictionUncheckedUpdateWithoutIngredientsInputSchema) ]),
 }).strict();
 
-export const DietaryRestrictionUpdateWithoutIngredientsInputSchema: z.ZodType<Prisma.DietaryRestrictionUpdateWithoutIngredientsInput> = z.object({
-  name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
-  description: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  icon: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
-  updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
-  menuItems: z.lazy(() => MenuItemUpdateManyWithoutDietaryRestrictionsNestedInputSchema).optional(),
-  recipes: z.lazy(() => RecipeUpdateManyWithoutDietaryRestrictionsNestedInputSchema).optional()
-}).strict();
-
-export const DietaryRestrictionUncheckedUpdateWithoutIngredientsInputSchema: z.ZodType<Prisma.DietaryRestrictionUncheckedUpdateWithoutIngredientsInput> = z.object({
-  id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
-  name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
-  description: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  icon: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
-  updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
-  menuItems: z.lazy(() => MenuItemUncheckedUpdateManyWithoutDietaryRestrictionsNestedInputSchema).optional(),
-  recipes: z.lazy(() => RecipeUncheckedUpdateManyWithoutDietaryRestrictionsNestedInputSchema).optional()
+export const DietaryRestrictionUpdateManyWithWhereWithoutIngredientsInputSchema: z.ZodType<Prisma.DietaryRestrictionUpdateManyWithWhereWithoutIngredientsInput> = z.object({
+  where: z.lazy(() => DietaryRestrictionScalarWhereInputSchema),
+  data: z.union([ z.lazy(() => DietaryRestrictionUpdateManyMutationInputSchema),z.lazy(() => DietaryRestrictionUncheckedUpdateManyWithoutIngredientsInputSchema) ]),
 }).strict();
 
 export const RecipeCreateWithoutIngredientsInputSchema: z.ZodType<Prisma.RecipeCreateWithoutIngredientsInput> = z.object({
@@ -36756,6 +36849,7 @@ export const IngredientCreateWithoutRecipeIngredientsInputSchema: z.ZodType<Pris
   category: z.string(),
   price: z.number(),
   density: z.number().optional().nullable(),
+  dietaryRestrictionId: z.number().int().optional().nullable(),
   calories: z.number().optional().nullable(),
   protein: z.number().optional().nullable(),
   carbohydrates: z.number().optional().nullable(),
@@ -36769,10 +36863,10 @@ export const IngredientCreateWithoutRecipeIngredientsInputSchema: z.ZodType<Pris
   inventoryItems: z.lazy(() => InventoryItemCreateNestedManyWithoutIngredientInputSchema).optional(),
   orderItems: z.lazy(() => OrderItemCreateNestedManyWithoutIngredientInputSchema).optional(),
   vendors: z.lazy(() => VendorCreateNestedManyWithoutIngredientsInputSchema).optional(),
-  WasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutIngredienteInputSchema).optional(),
-  IngredientAllergen: z.lazy(() => IngredientAllergenCreateNestedManyWithoutIngredientInputSchema).optional(),
-  SupplierPriceHistory: z.lazy(() => SupplierPriceHistoryCreateNestedManyWithoutIngredientInputSchema).optional(),
-  DietaryRestriction: z.lazy(() => DietaryRestrictionCreateNestedOneWithoutIngredientsInputSchema).optional()
+  WasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutIngredienteInputSchema).optional(),
+  IngredientAllergens: z.lazy(() => IngredientAllergenCreateNestedManyWithoutIngredientInputSchema).optional(),
+  priceHistory: z.lazy(() => SupplierPriceHistoryCreateNestedManyWithoutIngredientInputSchema).optional(),
+  DietaryRestrictions: z.lazy(() => DietaryRestrictionCreateNestedManyWithoutIngredientsInputSchema).optional()
 }).strict();
 
 export const IngredientUncheckedCreateWithoutRecipeIngredientsInputSchema: z.ZodType<Prisma.IngredientUncheckedCreateWithoutRecipeIngredientsInput> = z.object({
@@ -36795,9 +36889,10 @@ export const IngredientUncheckedCreateWithoutRecipeIngredientsInputSchema: z.Zod
   inventoryItems: z.lazy(() => InventoryItemUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
   orderItems: z.lazy(() => OrderItemUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
   vendors: z.lazy(() => VendorUncheckedCreateNestedManyWithoutIngredientsInputSchema).optional(),
-  WasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutIngredienteInputSchema).optional(),
-  IngredientAllergen: z.lazy(() => IngredientAllergenUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
-  SupplierPriceHistory: z.lazy(() => SupplierPriceHistoryUncheckedCreateNestedManyWithoutIngredientInputSchema).optional()
+  WasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutIngredienteInputSchema).optional(),
+  IngredientAllergens: z.lazy(() => IngredientAllergenUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
+  priceHistory: z.lazy(() => SupplierPriceHistoryUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
+  DietaryRestrictions: z.lazy(() => DietaryRestrictionUncheckedCreateNestedManyWithoutIngredientsInputSchema).optional()
 }).strict();
 
 export const IngredientCreateOrConnectWithoutRecipeIngredientsInputSchema: z.ZodType<Prisma.IngredientCreateOrConnectWithoutRecipeIngredientsInput> = z.object({
@@ -36947,6 +37042,7 @@ export const IngredientUpdateWithoutRecipeIngredientsInputSchema: z.ZodType<Pris
   category: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   price: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
   density: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
+  dietaryRestrictionId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   calories: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   protein: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   carbohydrates: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -36960,10 +37056,10 @@ export const IngredientUpdateWithoutRecipeIngredientsInputSchema: z.ZodType<Pris
   inventoryItems: z.lazy(() => InventoryItemUpdateManyWithoutIngredientNestedInputSchema).optional(),
   orderItems: z.lazy(() => OrderItemUpdateManyWithoutIngredientNestedInputSchema).optional(),
   vendors: z.lazy(() => VendorUpdateManyWithoutIngredientsNestedInputSchema).optional(),
-  WasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutIngredienteNestedInputSchema).optional(),
-  IngredientAllergen: z.lazy(() => IngredientAllergenUpdateManyWithoutIngredientNestedInputSchema).optional(),
-  SupplierPriceHistory: z.lazy(() => SupplierPriceHistoryUpdateManyWithoutIngredientNestedInputSchema).optional(),
-  DietaryRestriction: z.lazy(() => DietaryRestrictionUpdateOneWithoutIngredientsNestedInputSchema).optional()
+  WasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutIngredienteNestedInputSchema).optional(),
+  IngredientAllergens: z.lazy(() => IngredientAllergenUpdateManyWithoutIngredientNestedInputSchema).optional(),
+  priceHistory: z.lazy(() => SupplierPriceHistoryUpdateManyWithoutIngredientNestedInputSchema).optional(),
+  DietaryRestrictions: z.lazy(() => DietaryRestrictionUpdateManyWithoutIngredientsNestedInputSchema).optional()
 }).strict();
 
 export const IngredientUncheckedUpdateWithoutRecipeIngredientsInputSchema: z.ZodType<Prisma.IngredientUncheckedUpdateWithoutRecipeIngredientsInput> = z.object({
@@ -36986,9 +37082,10 @@ export const IngredientUncheckedUpdateWithoutRecipeIngredientsInputSchema: z.Zod
   inventoryItems: z.lazy(() => InventoryItemUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
   orderItems: z.lazy(() => OrderItemUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
   vendors: z.lazy(() => VendorUncheckedUpdateManyWithoutIngredientsNestedInputSchema).optional(),
-  WasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutIngredienteNestedInputSchema).optional(),
-  IngredientAllergen: z.lazy(() => IngredientAllergenUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
-  SupplierPriceHistory: z.lazy(() => SupplierPriceHistoryUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional()
+  WasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutIngredienteNestedInputSchema).optional(),
+  IngredientAllergens: z.lazy(() => IngredientAllergenUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
+  priceHistory: z.lazy(() => SupplierPriceHistoryUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
+  DietaryRestrictions: z.lazy(() => DietaryRestrictionUncheckedUpdateManyWithoutIngredientsNestedInputSchema).optional()
 }).strict();
 
 export const RecipeVersionUpsertWithoutIngredientsInputSchema: z.ZodType<Prisma.RecipeVersionUpsertWithoutIngredientsInput> = z.object({
@@ -37355,6 +37452,7 @@ export const IngredientCreateWithoutInventoryItemsInputSchema: z.ZodType<Prisma.
   category: z.string(),
   price: z.number(),
   density: z.number().optional().nullable(),
+  dietaryRestrictionId: z.number().int().optional().nullable(),
   calories: z.number().optional().nullable(),
   protein: z.number().optional().nullable(),
   carbohydrates: z.number().optional().nullable(),
@@ -37368,10 +37466,10 @@ export const IngredientCreateWithoutInventoryItemsInputSchema: z.ZodType<Prisma.
   recipeIngredients: z.lazy(() => RecipeIngredientCreateNestedManyWithoutIngredientInputSchema).optional(),
   orderItems: z.lazy(() => OrderItemCreateNestedManyWithoutIngredientInputSchema).optional(),
   vendors: z.lazy(() => VendorCreateNestedManyWithoutIngredientsInputSchema).optional(),
-  WasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutIngredienteInputSchema).optional(),
-  IngredientAllergen: z.lazy(() => IngredientAllergenCreateNestedManyWithoutIngredientInputSchema).optional(),
-  SupplierPriceHistory: z.lazy(() => SupplierPriceHistoryCreateNestedManyWithoutIngredientInputSchema).optional(),
-  DietaryRestriction: z.lazy(() => DietaryRestrictionCreateNestedOneWithoutIngredientsInputSchema).optional()
+  WasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutIngredienteInputSchema).optional(),
+  IngredientAllergens: z.lazy(() => IngredientAllergenCreateNestedManyWithoutIngredientInputSchema).optional(),
+  priceHistory: z.lazy(() => SupplierPriceHistoryCreateNestedManyWithoutIngredientInputSchema).optional(),
+  DietaryRestrictions: z.lazy(() => DietaryRestrictionCreateNestedManyWithoutIngredientsInputSchema).optional()
 }).strict();
 
 export const IngredientUncheckedCreateWithoutInventoryItemsInputSchema: z.ZodType<Prisma.IngredientUncheckedCreateWithoutInventoryItemsInput> = z.object({
@@ -37394,9 +37492,10 @@ export const IngredientUncheckedCreateWithoutInventoryItemsInputSchema: z.ZodTyp
   recipeIngredients: z.lazy(() => RecipeIngredientUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
   orderItems: z.lazy(() => OrderItemUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
   vendors: z.lazy(() => VendorUncheckedCreateNestedManyWithoutIngredientsInputSchema).optional(),
-  WasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutIngredienteInputSchema).optional(),
-  IngredientAllergen: z.lazy(() => IngredientAllergenUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
-  SupplierPriceHistory: z.lazy(() => SupplierPriceHistoryUncheckedCreateNestedManyWithoutIngredientInputSchema).optional()
+  WasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutIngredienteInputSchema).optional(),
+  IngredientAllergens: z.lazy(() => IngredientAllergenUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
+  priceHistory: z.lazy(() => SupplierPriceHistoryUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
+  DietaryRestrictions: z.lazy(() => DietaryRestrictionUncheckedCreateNestedManyWithoutIngredientsInputSchema).optional()
 }).strict();
 
 export const IngredientCreateOrConnectWithoutInventoryItemsInputSchema: z.ZodType<Prisma.IngredientCreateOrConnectWithoutInventoryItemsInput> = z.object({
@@ -37421,19 +37520,19 @@ export const UserCreateWithoutInventoryUpdatesInputSchema: z.ZodType<Prisma.User
   prepItems: z.lazy(() => PrepItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
   sessions: z.lazy(() => SessionCreateNestedManyWithoutUserInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
   availability: z.lazy(() => AvailabilityCreateNestedManyWithoutUserInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
 export const UserUncheckedCreateWithoutInventoryUpdatesInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutInventoryUpdatesInput> = z.object({
@@ -37454,19 +37553,19 @@ export const UserUncheckedCreateWithoutInventoryUpdatesInputSchema: z.ZodType<Pr
   prepItems: z.lazy(() => PrepItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
 export const UserCreateOrConnectWithoutInventoryUpdatesInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutInventoryUpdatesInput> = z.object({
@@ -37485,7 +37584,7 @@ export const InventoryTransactionCreateWithoutItemInputSchema: z.ZodType<Prisma.
   notes: z.string().optional().nullable(),
   createdAt: z.coerce.date().optional(),
   inventory: z.lazy(() => InventoryCreateNestedOneWithoutTransactionsInputSchema),
-  createdBy: z.lazy(() => UserCreateNestedOneWithoutInventoryTransactionInputSchema)
+  createdBy: z.lazy(() => UserCreateNestedOneWithoutInventoryTransactionsInputSchema)
 }).strict();
 
 export const InventoryTransactionUncheckedCreateWithoutItemInputSchema: z.ZodType<Prisma.InventoryTransactionUncheckedCreateWithoutItemInput> = z.object({
@@ -37520,7 +37619,7 @@ export const InventoryWithdrawalCreateWithoutInventoryItemInputSchema: z.ZodType
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   recipe: z.lazy(() => RecipeCreateNestedOneWithoutWithdrawalsInputSchema).optional(),
-  createdBy: z.lazy(() => UserCreateNestedOneWithoutInventoryWithdrawalInputSchema)
+  createdBy: z.lazy(() => UserCreateNestedOneWithoutInventoryWithdrawalsInputSchema)
 }).strict();
 
 export const InventoryWithdrawalUncheckedCreateWithoutInventoryItemInputSchema: z.ZodType<Prisma.InventoryWithdrawalUncheckedCreateWithoutInventoryItemInput> = z.object({
@@ -37621,6 +37720,7 @@ export const IngredientUpdateWithoutInventoryItemsInputSchema: z.ZodType<Prisma.
   category: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   price: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
   density: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
+  dietaryRestrictionId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   calories: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   protein: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   carbohydrates: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -37634,10 +37734,10 @@ export const IngredientUpdateWithoutInventoryItemsInputSchema: z.ZodType<Prisma.
   recipeIngredients: z.lazy(() => RecipeIngredientUpdateManyWithoutIngredientNestedInputSchema).optional(),
   orderItems: z.lazy(() => OrderItemUpdateManyWithoutIngredientNestedInputSchema).optional(),
   vendors: z.lazy(() => VendorUpdateManyWithoutIngredientsNestedInputSchema).optional(),
-  WasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutIngredienteNestedInputSchema).optional(),
-  IngredientAllergen: z.lazy(() => IngredientAllergenUpdateManyWithoutIngredientNestedInputSchema).optional(),
-  SupplierPriceHistory: z.lazy(() => SupplierPriceHistoryUpdateManyWithoutIngredientNestedInputSchema).optional(),
-  DietaryRestriction: z.lazy(() => DietaryRestrictionUpdateOneWithoutIngredientsNestedInputSchema).optional()
+  WasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutIngredienteNestedInputSchema).optional(),
+  IngredientAllergens: z.lazy(() => IngredientAllergenUpdateManyWithoutIngredientNestedInputSchema).optional(),
+  priceHistory: z.lazy(() => SupplierPriceHistoryUpdateManyWithoutIngredientNestedInputSchema).optional(),
+  DietaryRestrictions: z.lazy(() => DietaryRestrictionUpdateManyWithoutIngredientsNestedInputSchema).optional()
 }).strict();
 
 export const IngredientUncheckedUpdateWithoutInventoryItemsInputSchema: z.ZodType<Prisma.IngredientUncheckedUpdateWithoutInventoryItemsInput> = z.object({
@@ -37660,9 +37760,10 @@ export const IngredientUncheckedUpdateWithoutInventoryItemsInputSchema: z.ZodTyp
   recipeIngredients: z.lazy(() => RecipeIngredientUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
   orderItems: z.lazy(() => OrderItemUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
   vendors: z.lazy(() => VendorUncheckedUpdateManyWithoutIngredientsNestedInputSchema).optional(),
-  WasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutIngredienteNestedInputSchema).optional(),
-  IngredientAllergen: z.lazy(() => IngredientAllergenUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
-  SupplierPriceHistory: z.lazy(() => SupplierPriceHistoryUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional()
+  WasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutIngredienteNestedInputSchema).optional(),
+  IngredientAllergens: z.lazy(() => IngredientAllergenUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
+  priceHistory: z.lazy(() => SupplierPriceHistoryUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
+  DietaryRestrictions: z.lazy(() => DietaryRestrictionUncheckedUpdateManyWithoutIngredientsNestedInputSchema).optional()
 }).strict();
 
 export const UserUpsertWithoutInventoryUpdatesInputSchema: z.ZodType<Prisma.UserUpsertWithoutInventoryUpdatesInput> = z.object({
@@ -37693,19 +37794,19 @@ export const UserUpdateWithoutInventoryUpdatesInputSchema: z.ZodType<Prisma.User
   prepItems: z.lazy(() => PrepItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUpdateManyWithoutUserNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUpdateManyWithoutUserNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
 export const UserUncheckedUpdateWithoutInventoryUpdatesInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutInventoryUpdatesInput> = z.object({
@@ -37726,19 +37827,19 @@ export const UserUncheckedUpdateWithoutInventoryUpdatesInputSchema: z.ZodType<Pr
   prepItems: z.lazy(() => PrepItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
 export const InventoryTransactionUpsertWithWhereUniqueWithoutItemInputSchema: z.ZodType<Prisma.InventoryTransactionUpsertWithWhereUniqueWithoutItemInput> = z.object({
@@ -37884,7 +37985,7 @@ export const InventoryItemCreateOrConnectWithoutTransactionsInputSchema: z.ZodTy
   create: z.union([ z.lazy(() => InventoryItemCreateWithoutTransactionsInputSchema),z.lazy(() => InventoryItemUncheckedCreateWithoutTransactionsInputSchema) ]),
 }).strict();
 
-export const UserCreateWithoutInventoryTransactionInputSchema: z.ZodType<Prisma.UserCreateWithoutInventoryTransactionInput> = z.object({
+export const UserCreateWithoutInventoryTransactionsInputSchema: z.ZodType<Prisma.UserCreateWithoutInventoryTransactionsInput> = z.object({
   email: z.string(),
   sub: z.number().int().optional().nullable(),
   passwordHash: z.string(),
@@ -37902,21 +38003,21 @@ export const UserCreateWithoutInventoryTransactionInputSchema: z.ZodType<Prisma.
   inventoryUpdates: z.lazy(() => InventoryItemCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   sessions: z.lazy(() => SessionCreateNestedManyWithoutUserInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
   availability: z.lazy(() => AvailabilityCreateNestedManyWithoutUserInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
-export const UserUncheckedCreateWithoutInventoryTransactionInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutInventoryTransactionInput> = z.object({
+export const UserUncheckedCreateWithoutInventoryTransactionsInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutInventoryTransactionsInput> = z.object({
   id: z.number().int().optional(),
   email: z.string(),
   sub: z.number().int().optional().nullable(),
@@ -37935,23 +38036,23 @@ export const UserUncheckedCreateWithoutInventoryTransactionInputSchema: z.ZodTyp
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
-export const UserCreateOrConnectWithoutInventoryTransactionInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutInventoryTransactionInput> = z.object({
+export const UserCreateOrConnectWithoutInventoryTransactionsInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutInventoryTransactionsInput> = z.object({
   where: z.lazy(() => UserWhereUniqueInputSchema),
-  create: z.union([ z.lazy(() => UserCreateWithoutInventoryTransactionInputSchema),z.lazy(() => UserUncheckedCreateWithoutInventoryTransactionInputSchema) ]),
+  create: z.union([ z.lazy(() => UserCreateWithoutInventoryTransactionsInputSchema),z.lazy(() => UserUncheckedCreateWithoutInventoryTransactionsInputSchema) ]),
 }).strict();
 
 export const InventoryUpsertWithoutTransactionsInputSchema: z.ZodType<Prisma.InventoryUpsertWithoutTransactionsInput> = z.object({
@@ -38048,18 +38149,18 @@ export const InventoryItemUncheckedUpdateWithoutTransactionsInputSchema: z.ZodTy
   stockCounts: z.lazy(() => StockCountItemUncheckedUpdateManyWithoutItemNestedInputSchema).optional()
 }).strict();
 
-export const UserUpsertWithoutInventoryTransactionInputSchema: z.ZodType<Prisma.UserUpsertWithoutInventoryTransactionInput> = z.object({
-  update: z.union([ z.lazy(() => UserUpdateWithoutInventoryTransactionInputSchema),z.lazy(() => UserUncheckedUpdateWithoutInventoryTransactionInputSchema) ]),
-  create: z.union([ z.lazy(() => UserCreateWithoutInventoryTransactionInputSchema),z.lazy(() => UserUncheckedCreateWithoutInventoryTransactionInputSchema) ]),
+export const UserUpsertWithoutInventoryTransactionsInputSchema: z.ZodType<Prisma.UserUpsertWithoutInventoryTransactionsInput> = z.object({
+  update: z.union([ z.lazy(() => UserUpdateWithoutInventoryTransactionsInputSchema),z.lazy(() => UserUncheckedUpdateWithoutInventoryTransactionsInputSchema) ]),
+  create: z.union([ z.lazy(() => UserCreateWithoutInventoryTransactionsInputSchema),z.lazy(() => UserUncheckedCreateWithoutInventoryTransactionsInputSchema) ]),
   where: z.lazy(() => UserWhereInputSchema).optional()
 }).strict();
 
-export const UserUpdateToOneWithWhereWithoutInventoryTransactionInputSchema: z.ZodType<Prisma.UserUpdateToOneWithWhereWithoutInventoryTransactionInput> = z.object({
+export const UserUpdateToOneWithWhereWithoutInventoryTransactionsInputSchema: z.ZodType<Prisma.UserUpdateToOneWithWhereWithoutInventoryTransactionsInput> = z.object({
   where: z.lazy(() => UserWhereInputSchema).optional(),
-  data: z.union([ z.lazy(() => UserUpdateWithoutInventoryTransactionInputSchema),z.lazy(() => UserUncheckedUpdateWithoutInventoryTransactionInputSchema) ]),
+  data: z.union([ z.lazy(() => UserUpdateWithoutInventoryTransactionsInputSchema),z.lazy(() => UserUncheckedUpdateWithoutInventoryTransactionsInputSchema) ]),
 }).strict();
 
-export const UserUpdateWithoutInventoryTransactionInputSchema: z.ZodType<Prisma.UserUpdateWithoutInventoryTransactionInput> = z.object({
+export const UserUpdateWithoutInventoryTransactionsInputSchema: z.ZodType<Prisma.UserUpdateWithoutInventoryTransactionsInput> = z.object({
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
@@ -38077,21 +38178,21 @@ export const UserUpdateWithoutInventoryTransactionInputSchema: z.ZodType<Prisma.
   inventoryUpdates: z.lazy(() => InventoryItemUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUpdateManyWithoutUserNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUpdateManyWithoutUserNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
-export const UserUncheckedUpdateWithoutInventoryTransactionInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutInventoryTransactionInput> = z.object({
+export const UserUncheckedUpdateWithoutInventoryTransactionsInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutInventoryTransactionsInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -38110,18 +38211,18 @@ export const UserUncheckedUpdateWithoutInventoryTransactionInputSchema: z.ZodTyp
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
 export const InventoryCreateWithoutStockCountsInputSchema: z.ZodType<Prisma.InventoryCreateWithoutStockCountsInput> = z.object({
@@ -38152,7 +38253,7 @@ export const InventoryCreateOrConnectWithoutStockCountsInputSchema: z.ZodType<Pr
   create: z.union([ z.lazy(() => InventoryCreateWithoutStockCountsInputSchema),z.lazy(() => InventoryUncheckedCreateWithoutStockCountsInputSchema) ]),
 }).strict();
 
-export const UserCreateWithoutStockCountInputSchema: z.ZodType<Prisma.UserCreateWithoutStockCountInput> = z.object({
+export const UserCreateWithoutStockCountsInputSchema: z.ZodType<Prisma.UserCreateWithoutStockCountsInput> = z.object({
   email: z.string(),
   sub: z.number().int().optional().nullable(),
   passwordHash: z.string(),
@@ -38170,21 +38271,21 @@ export const UserCreateWithoutStockCountInputSchema: z.ZodType<Prisma.UserCreate
   inventoryUpdates: z.lazy(() => InventoryItemCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   sessions: z.lazy(() => SessionCreateNestedManyWithoutUserInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
   availability: z.lazy(() => AvailabilityCreateNestedManyWithoutUserInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
-export const UserUncheckedCreateWithoutStockCountInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutStockCountInput> = z.object({
+export const UserUncheckedCreateWithoutStockCountsInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutStockCountsInput> = z.object({
   id: z.number().int().optional(),
   email: z.string(),
   sub: z.number().int().optional().nullable(),
@@ -38203,23 +38304,23 @@ export const UserUncheckedCreateWithoutStockCountInputSchema: z.ZodType<Prisma.U
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
-export const UserCreateOrConnectWithoutStockCountInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutStockCountInput> = z.object({
+export const UserCreateOrConnectWithoutStockCountsInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutStockCountsInput> = z.object({
   where: z.lazy(() => UserWhereUniqueInputSchema),
-  create: z.union([ z.lazy(() => UserCreateWithoutStockCountInputSchema),z.lazy(() => UserUncheckedCreateWithoutStockCountInputSchema) ]),
+  create: z.union([ z.lazy(() => UserCreateWithoutStockCountsInputSchema),z.lazy(() => UserUncheckedCreateWithoutStockCountsInputSchema) ]),
 }).strict();
 
 export const StockCountItemCreateWithoutStockCountInputSchema: z.ZodType<Prisma.StockCountItemCreateWithoutStockCountInput> = z.object({
@@ -38283,18 +38384,18 @@ export const InventoryUncheckedUpdateWithoutStockCountsInputSchema: z.ZodType<Pr
   transactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutInventoryNestedInputSchema).optional()
 }).strict();
 
-export const UserUpsertWithoutStockCountInputSchema: z.ZodType<Prisma.UserUpsertWithoutStockCountInput> = z.object({
-  update: z.union([ z.lazy(() => UserUpdateWithoutStockCountInputSchema),z.lazy(() => UserUncheckedUpdateWithoutStockCountInputSchema) ]),
-  create: z.union([ z.lazy(() => UserCreateWithoutStockCountInputSchema),z.lazy(() => UserUncheckedCreateWithoutStockCountInputSchema) ]),
+export const UserUpsertWithoutStockCountsInputSchema: z.ZodType<Prisma.UserUpsertWithoutStockCountsInput> = z.object({
+  update: z.union([ z.lazy(() => UserUpdateWithoutStockCountsInputSchema),z.lazy(() => UserUncheckedUpdateWithoutStockCountsInputSchema) ]),
+  create: z.union([ z.lazy(() => UserCreateWithoutStockCountsInputSchema),z.lazy(() => UserUncheckedCreateWithoutStockCountsInputSchema) ]),
   where: z.lazy(() => UserWhereInputSchema).optional()
 }).strict();
 
-export const UserUpdateToOneWithWhereWithoutStockCountInputSchema: z.ZodType<Prisma.UserUpdateToOneWithWhereWithoutStockCountInput> = z.object({
+export const UserUpdateToOneWithWhereWithoutStockCountsInputSchema: z.ZodType<Prisma.UserUpdateToOneWithWhereWithoutStockCountsInput> = z.object({
   where: z.lazy(() => UserWhereInputSchema).optional(),
-  data: z.union([ z.lazy(() => UserUpdateWithoutStockCountInputSchema),z.lazy(() => UserUncheckedUpdateWithoutStockCountInputSchema) ]),
+  data: z.union([ z.lazy(() => UserUpdateWithoutStockCountsInputSchema),z.lazy(() => UserUncheckedUpdateWithoutStockCountsInputSchema) ]),
 }).strict();
 
-export const UserUpdateWithoutStockCountInputSchema: z.ZodType<Prisma.UserUpdateWithoutStockCountInput> = z.object({
+export const UserUpdateWithoutStockCountsInputSchema: z.ZodType<Prisma.UserUpdateWithoutStockCountsInput> = z.object({
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
@@ -38312,21 +38413,21 @@ export const UserUpdateWithoutStockCountInputSchema: z.ZodType<Prisma.UserUpdate
   inventoryUpdates: z.lazy(() => InventoryItemUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUpdateManyWithoutUserNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUpdateManyWithoutUserNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
-export const UserUncheckedUpdateWithoutStockCountInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutStockCountInput> = z.object({
+export const UserUncheckedUpdateWithoutStockCountsInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutStockCountsInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -38345,18 +38446,18 @@ export const UserUncheckedUpdateWithoutStockCountInputSchema: z.ZodType<Prisma.U
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
 export const StockCountItemUpsertWithWhereUniqueWithoutStockCountInputSchema: z.ZodType<Prisma.StockCountItemUpsertWithWhereUniqueWithoutStockCountInput> = z.object({
@@ -38381,7 +38482,7 @@ export const StockCountCreateWithoutItemsInputSchema: z.ZodType<Prisma.StockCoun
   completedAt: z.coerce.date().optional().nullable(),
   notes: z.string().optional().nullable(),
   inventory: z.lazy(() => InventoryCreateNestedOneWithoutStockCountsInputSchema),
-  createdBy: z.lazy(() => UserCreateNestedOneWithoutStockCountInputSchema)
+  createdBy: z.lazy(() => UserCreateNestedOneWithoutStockCountsInputSchema)
 }).strict();
 
 export const StockCountUncheckedCreateWithoutItemsInputSchema: z.ZodType<Prisma.StockCountUncheckedCreateWithoutItemsInput> = z.object({
@@ -38470,7 +38571,7 @@ export const StockCountUpdateWithoutItemsInputSchema: z.ZodType<Prisma.StockCoun
   completedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   notes: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   inventory: z.lazy(() => InventoryUpdateOneRequiredWithoutStockCountsNestedInputSchema).optional(),
-  createdBy: z.lazy(() => UserUpdateOneRequiredWithoutStockCountNestedInputSchema).optional()
+  createdBy: z.lazy(() => UserUpdateOneRequiredWithoutStockCountsNestedInputSchema).optional()
 }).strict();
 
 export const StockCountUncheckedUpdateWithoutItemsInputSchema: z.ZodType<Prisma.StockCountUncheckedUpdateWithoutItemsInput> = z.object({
@@ -38741,12 +38842,12 @@ export const RestaurantCreateWithoutOrdersInputSchema: z.ZodType<Prisma.Restaura
   recipes: z.lazy(() => RecipeCreateNestedManyWithoutRestaurantInputSchema).optional(),
   menus: z.lazy(() => MenuCreateNestedManyWithoutRestaurantInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRestaurantInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRestaurantInputSchema).optional()
 }).strict();
 
 export const RestaurantUncheckedCreateWithoutOrdersInputSchema: z.ZodType<Prisma.RestaurantUncheckedCreateWithoutOrdersInput> = z.object({
@@ -38770,12 +38871,12 @@ export const RestaurantUncheckedCreateWithoutOrdersInputSchema: z.ZodType<Prisma
   recipes: z.lazy(() => RecipeUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
   menus: z.lazy(() => MenuUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional()
 }).strict();
 
 export const RestaurantCreateOrConnectWithoutOrdersInputSchema: z.ZodType<Prisma.RestaurantCreateOrConnectWithoutOrdersInput> = z.object({
@@ -38867,12 +38968,12 @@ export const RestaurantUpdateWithoutOrdersInputSchema: z.ZodType<Prisma.Restaura
   recipes: z.lazy(() => RecipeUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   menus: z.lazy(() => MenuUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUpdateManyWithoutRestaurantNestedInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUpdateManyWithoutRestaurantNestedInputSchema).optional()
 }).strict();
 
 export const RestaurantUncheckedUpdateWithoutOrdersInputSchema: z.ZodType<Prisma.RestaurantUncheckedUpdateWithoutOrdersInput> = z.object({
@@ -38896,12 +38997,12 @@ export const RestaurantUncheckedUpdateWithoutOrdersInputSchema: z.ZodType<Prisma
   recipes: z.lazy(() => RecipeUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   menus: z.lazy(() => MenuUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional()
 }).strict();
 
 export const VendorUpsertWithoutOrdersInputSchema: z.ZodType<Prisma.VendorUpsertWithoutOrdersInput> = z.object({
@@ -38981,6 +39082,7 @@ export const IngredientCreateWithoutOrderItemsInputSchema: z.ZodType<Prisma.Ingr
   category: z.string(),
   price: z.number(),
   density: z.number().optional().nullable(),
+  dietaryRestrictionId: z.number().int().optional().nullable(),
   calories: z.number().optional().nullable(),
   protein: z.number().optional().nullable(),
   carbohydrates: z.number().optional().nullable(),
@@ -38994,10 +39096,10 @@ export const IngredientCreateWithoutOrderItemsInputSchema: z.ZodType<Prisma.Ingr
   recipeIngredients: z.lazy(() => RecipeIngredientCreateNestedManyWithoutIngredientInputSchema).optional(),
   inventoryItems: z.lazy(() => InventoryItemCreateNestedManyWithoutIngredientInputSchema).optional(),
   vendors: z.lazy(() => VendorCreateNestedManyWithoutIngredientsInputSchema).optional(),
-  WasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutIngredienteInputSchema).optional(),
-  IngredientAllergen: z.lazy(() => IngredientAllergenCreateNestedManyWithoutIngredientInputSchema).optional(),
-  SupplierPriceHistory: z.lazy(() => SupplierPriceHistoryCreateNestedManyWithoutIngredientInputSchema).optional(),
-  DietaryRestriction: z.lazy(() => DietaryRestrictionCreateNestedOneWithoutIngredientsInputSchema).optional()
+  WasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutIngredienteInputSchema).optional(),
+  IngredientAllergens: z.lazy(() => IngredientAllergenCreateNestedManyWithoutIngredientInputSchema).optional(),
+  priceHistory: z.lazy(() => SupplierPriceHistoryCreateNestedManyWithoutIngredientInputSchema).optional(),
+  DietaryRestrictions: z.lazy(() => DietaryRestrictionCreateNestedManyWithoutIngredientsInputSchema).optional()
 }).strict();
 
 export const IngredientUncheckedCreateWithoutOrderItemsInputSchema: z.ZodType<Prisma.IngredientUncheckedCreateWithoutOrderItemsInput> = z.object({
@@ -39020,9 +39122,10 @@ export const IngredientUncheckedCreateWithoutOrderItemsInputSchema: z.ZodType<Pr
   recipeIngredients: z.lazy(() => RecipeIngredientUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
   inventoryItems: z.lazy(() => InventoryItemUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
   vendors: z.lazy(() => VendorUncheckedCreateNestedManyWithoutIngredientsInputSchema).optional(),
-  WasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutIngredienteInputSchema).optional(),
-  IngredientAllergen: z.lazy(() => IngredientAllergenUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
-  SupplierPriceHistory: z.lazy(() => SupplierPriceHistoryUncheckedCreateNestedManyWithoutIngredientInputSchema).optional()
+  WasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutIngredienteInputSchema).optional(),
+  IngredientAllergens: z.lazy(() => IngredientAllergenUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
+  priceHistory: z.lazy(() => SupplierPriceHistoryUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
+  DietaryRestrictions: z.lazy(() => DietaryRestrictionUncheckedCreateNestedManyWithoutIngredientsInputSchema).optional()
 }).strict();
 
 export const IngredientCreateOrConnectWithoutOrderItemsInputSchema: z.ZodType<Prisma.IngredientCreateOrConnectWithoutOrderItemsInput> = z.object({
@@ -39074,6 +39177,7 @@ export const IngredientUpdateWithoutOrderItemsInputSchema: z.ZodType<Prisma.Ingr
   category: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   price: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
   density: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
+  dietaryRestrictionId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   calories: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   protein: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   carbohydrates: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -39087,10 +39191,10 @@ export const IngredientUpdateWithoutOrderItemsInputSchema: z.ZodType<Prisma.Ingr
   recipeIngredients: z.lazy(() => RecipeIngredientUpdateManyWithoutIngredientNestedInputSchema).optional(),
   inventoryItems: z.lazy(() => InventoryItemUpdateManyWithoutIngredientNestedInputSchema).optional(),
   vendors: z.lazy(() => VendorUpdateManyWithoutIngredientsNestedInputSchema).optional(),
-  WasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutIngredienteNestedInputSchema).optional(),
-  IngredientAllergen: z.lazy(() => IngredientAllergenUpdateManyWithoutIngredientNestedInputSchema).optional(),
-  SupplierPriceHistory: z.lazy(() => SupplierPriceHistoryUpdateManyWithoutIngredientNestedInputSchema).optional(),
-  DietaryRestriction: z.lazy(() => DietaryRestrictionUpdateOneWithoutIngredientsNestedInputSchema).optional()
+  WasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutIngredienteNestedInputSchema).optional(),
+  IngredientAllergens: z.lazy(() => IngredientAllergenUpdateManyWithoutIngredientNestedInputSchema).optional(),
+  priceHistory: z.lazy(() => SupplierPriceHistoryUpdateManyWithoutIngredientNestedInputSchema).optional(),
+  DietaryRestrictions: z.lazy(() => DietaryRestrictionUpdateManyWithoutIngredientsNestedInputSchema).optional()
 }).strict();
 
 export const IngredientUncheckedUpdateWithoutOrderItemsInputSchema: z.ZodType<Prisma.IngredientUncheckedUpdateWithoutOrderItemsInput> = z.object({
@@ -39113,9 +39217,10 @@ export const IngredientUncheckedUpdateWithoutOrderItemsInputSchema: z.ZodType<Pr
   recipeIngredients: z.lazy(() => RecipeIngredientUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
   inventoryItems: z.lazy(() => InventoryItemUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
   vendors: z.lazy(() => VendorUncheckedUpdateManyWithoutIngredientsNestedInputSchema).optional(),
-  WasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutIngredienteNestedInputSchema).optional(),
-  IngredientAllergen: z.lazy(() => IngredientAllergenUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
-  SupplierPriceHistory: z.lazy(() => SupplierPriceHistoryUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional()
+  WasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutIngredienteNestedInputSchema).optional(),
+  IngredientAllergens: z.lazy(() => IngredientAllergenUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
+  priceHistory: z.lazy(() => SupplierPriceHistoryUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
+  DietaryRestrictions: z.lazy(() => DietaryRestrictionUncheckedUpdateManyWithoutIngredientsNestedInputSchema).optional()
 }).strict();
 
 export const OrderCreateWithoutVendorInputSchema: z.ZodType<Prisma.OrderCreateWithoutVendorInput> = z.object({
@@ -39150,6 +39255,7 @@ export const IngredientCreateWithoutVendorsInputSchema: z.ZodType<Prisma.Ingredi
   category: z.string(),
   price: z.number(),
   density: z.number().optional().nullable(),
+  dietaryRestrictionId: z.number().int().optional().nullable(),
   calories: z.number().optional().nullable(),
   protein: z.number().optional().nullable(),
   carbohydrates: z.number().optional().nullable(),
@@ -39163,10 +39269,10 @@ export const IngredientCreateWithoutVendorsInputSchema: z.ZodType<Prisma.Ingredi
   recipeIngredients: z.lazy(() => RecipeIngredientCreateNestedManyWithoutIngredientInputSchema).optional(),
   inventoryItems: z.lazy(() => InventoryItemCreateNestedManyWithoutIngredientInputSchema).optional(),
   orderItems: z.lazy(() => OrderItemCreateNestedManyWithoutIngredientInputSchema).optional(),
-  WasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutIngredienteInputSchema).optional(),
-  IngredientAllergen: z.lazy(() => IngredientAllergenCreateNestedManyWithoutIngredientInputSchema).optional(),
-  SupplierPriceHistory: z.lazy(() => SupplierPriceHistoryCreateNestedManyWithoutIngredientInputSchema).optional(),
-  DietaryRestriction: z.lazy(() => DietaryRestrictionCreateNestedOneWithoutIngredientsInputSchema).optional()
+  WasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutIngredienteInputSchema).optional(),
+  IngredientAllergens: z.lazy(() => IngredientAllergenCreateNestedManyWithoutIngredientInputSchema).optional(),
+  priceHistory: z.lazy(() => SupplierPriceHistoryCreateNestedManyWithoutIngredientInputSchema).optional(),
+  DietaryRestrictions: z.lazy(() => DietaryRestrictionCreateNestedManyWithoutIngredientsInputSchema).optional()
 }).strict();
 
 export const IngredientUncheckedCreateWithoutVendorsInputSchema: z.ZodType<Prisma.IngredientUncheckedCreateWithoutVendorsInput> = z.object({
@@ -39189,9 +39295,10 @@ export const IngredientUncheckedCreateWithoutVendorsInputSchema: z.ZodType<Prism
   recipeIngredients: z.lazy(() => RecipeIngredientUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
   inventoryItems: z.lazy(() => InventoryItemUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
   orderItems: z.lazy(() => OrderItemUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
-  WasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutIngredienteInputSchema).optional(),
-  IngredientAllergen: z.lazy(() => IngredientAllergenUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
-  SupplierPriceHistory: z.lazy(() => SupplierPriceHistoryUncheckedCreateNestedManyWithoutIngredientInputSchema).optional()
+  WasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutIngredienteInputSchema).optional(),
+  IngredientAllergens: z.lazy(() => IngredientAllergenUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
+  priceHistory: z.lazy(() => SupplierPriceHistoryUncheckedCreateNestedManyWithoutIngredientInputSchema).optional(),
+  DietaryRestrictions: z.lazy(() => DietaryRestrictionUncheckedCreateNestedManyWithoutIngredientsInputSchema).optional()
 }).strict();
 
 export const IngredientCreateOrConnectWithoutVendorsInputSchema: z.ZodType<Prisma.IngredientCreateOrConnectWithoutVendorsInput> = z.object({
@@ -39207,7 +39314,7 @@ export const SupplierPriceHistoryCreateWithoutVendorInputSchema: z.ZodType<Prism
   notes: z.string().optional().nullable(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
-  ingredient: z.lazy(() => IngredientCreateNestedOneWithoutSupplierPriceHistoryInputSchema)
+  ingredient: z.lazy(() => IngredientCreateNestedOneWithoutPriceHistoryInputSchema)
 }).strict();
 
 export const SupplierPriceHistoryUncheckedCreateWithoutVendorInputSchema: z.ZodType<Prisma.SupplierPriceHistoryUncheckedCreateWithoutVendorInput> = z.object({
@@ -39297,19 +39404,19 @@ export const UserCreateWithoutShiftsInputSchema: z.ZodType<Prisma.UserCreateWith
   inventoryUpdates: z.lazy(() => InventoryItemCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   sessions: z.lazy(() => SessionCreateNestedManyWithoutUserInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
   availability: z.lazy(() => AvailabilityCreateNestedManyWithoutUserInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
 export const UserUncheckedCreateWithoutShiftsInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutShiftsInput> = z.object({
@@ -39330,19 +39437,19 @@ export const UserUncheckedCreateWithoutShiftsInputSchema: z.ZodType<Prisma.UserU
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
 export const UserCreateOrConnectWithoutShiftsInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutShiftsInput> = z.object({
@@ -39409,19 +39516,19 @@ export const UserUpdateWithoutShiftsInputSchema: z.ZodType<Prisma.UserUpdateWith
   inventoryUpdates: z.lazy(() => InventoryItemUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUpdateManyWithoutUserNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUpdateManyWithoutUserNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
 export const UserUncheckedUpdateWithoutShiftsInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutShiftsInput> = z.object({
@@ -39442,19 +39549,19 @@ export const UserUncheckedUpdateWithoutShiftsInputSchema: z.ZodType<Prisma.UserU
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
 export const ShiftTaskUpsertWithWhereUniqueWithoutShiftInputSchema: z.ZodType<Prisma.ShiftTaskUpsertWithWhereUniqueWithoutShiftInput> = z.object({
@@ -39756,19 +39863,19 @@ export const UserCreateWithoutPrepItemsInputSchema: z.ZodType<Prisma.UserCreateW
   inventoryUpdates: z.lazy(() => InventoryItemCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   sessions: z.lazy(() => SessionCreateNestedManyWithoutUserInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
   availability: z.lazy(() => AvailabilityCreateNestedManyWithoutUserInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
 export const UserUncheckedCreateWithoutPrepItemsInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutPrepItemsInput> = z.object({
@@ -39789,19 +39896,19 @@ export const UserUncheckedCreateWithoutPrepItemsInputSchema: z.ZodType<Prisma.Us
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
 export const UserCreateOrConnectWithoutPrepItemsInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutPrepItemsInput> = z.object({
@@ -39957,19 +40064,19 @@ export const UserUpdateWithoutPrepItemsInputSchema: z.ZodType<Prisma.UserUpdateW
   inventoryUpdates: z.lazy(() => InventoryItemUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUpdateManyWithoutUserNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUpdateManyWithoutUserNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
 export const UserUncheckedUpdateWithoutPrepItemsInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutPrepItemsInput> = z.object({
@@ -39990,19 +40097,19 @@ export const UserUncheckedUpdateWithoutPrepItemsInputSchema: z.ZodType<Prisma.Us
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
 export const UserCreateWithoutPasswordResetsInputSchema: z.ZodType<Prisma.UserCreateWithoutPasswordResetsInput> = z.object({
@@ -40022,19 +40129,19 @@ export const UserCreateWithoutPasswordResetsInputSchema: z.ZodType<Prisma.UserCr
   prepItems: z.lazy(() => PrepItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
   inventoryUpdates: z.lazy(() => InventoryItemCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   sessions: z.lazy(() => SessionCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
   availability: z.lazy(() => AvailabilityCreateNestedManyWithoutUserInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
 export const UserUncheckedCreateWithoutPasswordResetsInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutPasswordResetsInput> = z.object({
@@ -40055,19 +40162,19 @@ export const UserUncheckedCreateWithoutPasswordResetsInputSchema: z.ZodType<Pris
   prepItems: z.lazy(() => PrepItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
 }).strict();
 
 export const UserCreateOrConnectWithoutPasswordResetsInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutPasswordResetsInput> = z.object({
@@ -40103,19 +40210,19 @@ export const UserUpdateWithoutPasswordResetsInputSchema: z.ZodType<Prisma.UserUp
   prepItems: z.lazy(() => PrepItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   inventoryUpdates: z.lazy(() => InventoryItemUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUpdateManyWithoutUserNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
 export const UserUncheckedUpdateWithoutPasswordResetsInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutPasswordResetsInput> = z.object({
@@ -40136,19 +40243,19 @@ export const UserUncheckedUpdateWithoutPasswordResetsInputSchema: z.ZodType<Pris
   prepItems: z.lazy(() => PrepItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
 export const RestaurantCreateWithoutMenusInputSchema: z.ZodType<Prisma.RestaurantCreateWithoutMenusInput> = z.object({
@@ -40171,12 +40278,12 @@ export const RestaurantCreateWithoutMenusInputSchema: z.ZodType<Prisma.Restauran
   orders: z.lazy(() => OrderCreateNestedManyWithoutRestaurantInputSchema).optional(),
   recipes: z.lazy(() => RecipeCreateNestedManyWithoutRestaurantInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRestaurantInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRestaurantInputSchema).optional()
 }).strict();
 
 export const RestaurantUncheckedCreateWithoutMenusInputSchema: z.ZodType<Prisma.RestaurantUncheckedCreateWithoutMenusInput> = z.object({
@@ -40200,12 +40307,12 @@ export const RestaurantUncheckedCreateWithoutMenusInputSchema: z.ZodType<Prisma.
   orders: z.lazy(() => OrderUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
   recipes: z.lazy(() => RecipeUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRestaurantInputSchema).optional()
 }).strict();
 
 export const RestaurantCreateOrConnectWithoutMenusInputSchema: z.ZodType<Prisma.RestaurantCreateOrConnectWithoutMenusInput> = z.object({
@@ -40328,12 +40435,12 @@ export const RestaurantUpdateWithoutMenusInputSchema: z.ZodType<Prisma.Restauran
   orders: z.lazy(() => OrderUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   recipes: z.lazy(() => RecipeUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUpdateManyWithoutRestaurantNestedInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUpdateManyWithoutRestaurantNestedInputSchema).optional()
 }).strict();
 
 export const RestaurantUncheckedUpdateWithoutMenusInputSchema: z.ZodType<Prisma.RestaurantUncheckedUpdateWithoutMenusInput> = z.object({
@@ -40357,12 +40464,12 @@ export const RestaurantUncheckedUpdateWithoutMenusInputSchema: z.ZodType<Prisma.
   orders: z.lazy(() => OrderUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   recipes: z.lazy(() => RecipeUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional()
 }).strict();
 
 export const MenuItemUpsertWithWhereUniqueWithoutMenuInputSchema: z.ZodType<Prisma.MenuItemUpsertWithWhereUniqueWithoutMenuInput> = z.object({
@@ -40942,8 +41049,8 @@ export const LeftoverItemCreateWithoutMenuItemInputSchema: z.ZodType<Prisma.Left
   reason: z.string(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
-  restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutLeftoverItemInputSchema),
-  recordedBy: z.lazy(() => UserCreateNestedOneWithoutLeftoverItemInputSchema)
+  restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutLeftoverItemsInputSchema),
+  recordedBy: z.lazy(() => UserCreateNestedOneWithoutLeftoverItemsInputSchema)
 }).strict();
 
 export const LeftoverItemUncheckedCreateWithoutMenuItemInputSchema: z.ZodType<Prisma.LeftoverItemUncheckedCreateWithoutMenuItemInput> = z.object({
@@ -40977,8 +41084,8 @@ export const CustomerFeedbackCreateWithoutMenuItemInputSchema: z.ZodType<Prisma.
   respondedAt: z.coerce.date().optional().nullable(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
-  restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutQustomerFeedbackInputSchema),
-  respondedBy: z.lazy(() => UserCreateNestedOneWithoutCustomerFeedbackInputSchema).optional()
+  restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutCustomerFeedbacksInputSchema),
+  respondedBy: z.lazy(() => UserCreateNestedOneWithoutCustomerFeedbackResponsesInputSchema).optional()
 }).strict();
 
 export const CustomerFeedbackUncheckedCreateWithoutMenuItemInputSchema: z.ZodType<Prisma.CustomerFeedbackUncheckedCreateWithoutMenuItemInput> = z.object({
@@ -41013,7 +41120,7 @@ export const DietaryRestrictionCreateWithoutMenuItemsInputSchema: z.ZodType<Pris
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   recipes: z.lazy(() => RecipeCreateNestedManyWithoutDietaryRestrictionsInputSchema).optional(),
-  ingredients: z.lazy(() => IngredientCreateNestedManyWithoutDietaryRestrictionInputSchema).optional()
+  ingredients: z.lazy(() => IngredientCreateNestedManyWithoutDietaryRestrictionsInputSchema).optional()
 }).strict();
 
 export const DietaryRestrictionUncheckedCreateWithoutMenuItemsInputSchema: z.ZodType<Prisma.DietaryRestrictionUncheckedCreateWithoutMenuItemsInput> = z.object({
@@ -41024,7 +41131,7 @@ export const DietaryRestrictionUncheckedCreateWithoutMenuItemsInputSchema: z.Zod
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   recipes: z.lazy(() => RecipeUncheckedCreateNestedManyWithoutDietaryRestrictionsInputSchema).optional(),
-  ingredients: z.lazy(() => IngredientUncheckedCreateNestedManyWithoutDietaryRestrictionInputSchema).optional()
+  ingredients: z.lazy(() => IngredientUncheckedCreateNestedManyWithoutDietaryRestrictionsInputSchema).optional()
 }).strict();
 
 export const DietaryRestrictionCreateOrConnectWithoutMenuItemsInputSchema: z.ZodType<Prisma.DietaryRestrictionCreateOrConnectWithoutMenuItemsInput> = z.object({
@@ -41915,7 +42022,7 @@ export const RecipeEquipmentCreateManyEquipmentInputSchema: z.ZodType<Prisma.Rec
 
 export const MaintenanceLogCreateManyEquipmentInputSchema: z.ZodType<Prisma.MaintenanceLogCreateManyEquipmentInput> = z.object({
   id: z.number().int().optional(),
-  date: z.coerce.date(),
+  date: z.coerce.date().optional(),
   type: z.lazy(() => MaintenanceTypeSchema),
   description: z.string(),
   cost: z.number().optional().nullable(),
@@ -42035,7 +42142,7 @@ export const ChecklistCompleteUpdateWithoutChecklistInputSchema: z.ZodType<Prism
   notes: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
-  completedBy: z.lazy(() => UserUpdateOneRequiredWithoutChecklistCompleteNestedInputSchema).optional(),
+  completedBy: z.lazy(() => UserUpdateOneRequiredWithoutChecklistCompletesNestedInputSchema).optional(),
   items: z.lazy(() => ChecklistItemCompleteUpdateManyWithoutChecklistCompleteNestedInputSchema).optional()
 }).strict();
 
@@ -42134,24 +42241,6 @@ export const ChecklistItemCompleteUncheckedUpdateManyWithoutChecklistCompleteInp
   photoUrls: z.union([ z.lazy(() => ChecklistItemCompleteUpdatephotoUrlsInputSchema),z.string().array() ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
-}).strict();
-
-export const IngredientCreateManyDietaryRestrictionInputSchema: z.ZodType<Prisma.IngredientCreateManyDietaryRestrictionInput> = z.object({
-  id: z.number().int().optional(),
-  name: z.string(),
-  category: z.string(),
-  price: z.number(),
-  density: z.number().optional().nullable(),
-  calories: z.number().optional().nullable(),
-  protein: z.number().optional().nullable(),
-  carbohydrates: z.number().optional().nullable(),
-  fat: z.number().optional().nullable(),
-  fiber: z.number().optional().nullable(),
-  sugar: z.number().optional().nullable(),
-  sodium: z.number().optional().nullable(),
-  usdaFoodId: z.string().optional().nullable(),
-  nutritionSource: z.lazy(() => NutritionSourceSchema).optional().nullable(),
-  nutritionUpdatedAt: z.coerce.date().optional().nullable()
 }).strict();
 
 export const MenuItemUpdateWithoutDietaryRestrictionsInputSchema: z.ZodType<Prisma.MenuItemUpdateWithoutDietaryRestrictionsInput> = z.object({
@@ -42313,11 +42402,12 @@ export const RecipeUncheckedUpdateManyWithoutDietaryRestrictionsInputSchema: z.Z
   category: z.union([ z.lazy(() => CategorySchema),z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema) ]).optional(),
 }).strict();
 
-export const IngredientUpdateWithoutDietaryRestrictionInputSchema: z.ZodType<Prisma.IngredientUpdateWithoutDietaryRestrictionInput> = z.object({
+export const IngredientUpdateWithoutDietaryRestrictionsInputSchema: z.ZodType<Prisma.IngredientUpdateWithoutDietaryRestrictionsInput> = z.object({
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   category: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   price: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
   density: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
+  dietaryRestrictionId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   calories: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   protein: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   carbohydrates: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -42332,17 +42422,18 @@ export const IngredientUpdateWithoutDietaryRestrictionInputSchema: z.ZodType<Pri
   inventoryItems: z.lazy(() => InventoryItemUpdateManyWithoutIngredientNestedInputSchema).optional(),
   orderItems: z.lazy(() => OrderItemUpdateManyWithoutIngredientNestedInputSchema).optional(),
   vendors: z.lazy(() => VendorUpdateManyWithoutIngredientsNestedInputSchema).optional(),
-  WasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutIngredienteNestedInputSchema).optional(),
-  IngredientAllergen: z.lazy(() => IngredientAllergenUpdateManyWithoutIngredientNestedInputSchema).optional(),
-  SupplierPriceHistory: z.lazy(() => SupplierPriceHistoryUpdateManyWithoutIngredientNestedInputSchema).optional()
+  WasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutIngredienteNestedInputSchema).optional(),
+  IngredientAllergens: z.lazy(() => IngredientAllergenUpdateManyWithoutIngredientNestedInputSchema).optional(),
+  priceHistory: z.lazy(() => SupplierPriceHistoryUpdateManyWithoutIngredientNestedInputSchema).optional()
 }).strict();
 
-export const IngredientUncheckedUpdateWithoutDietaryRestrictionInputSchema: z.ZodType<Prisma.IngredientUncheckedUpdateWithoutDietaryRestrictionInput> = z.object({
+export const IngredientUncheckedUpdateWithoutDietaryRestrictionsInputSchema: z.ZodType<Prisma.IngredientUncheckedUpdateWithoutDietaryRestrictionsInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   category: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   price: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
   density: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
+  dietaryRestrictionId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   calories: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   protein: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   carbohydrates: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -42357,17 +42448,18 @@ export const IngredientUncheckedUpdateWithoutDietaryRestrictionInputSchema: z.Zo
   inventoryItems: z.lazy(() => InventoryItemUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
   orderItems: z.lazy(() => OrderItemUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
   vendors: z.lazy(() => VendorUncheckedUpdateManyWithoutIngredientsNestedInputSchema).optional(),
-  WasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutIngredienteNestedInputSchema).optional(),
-  IngredientAllergen: z.lazy(() => IngredientAllergenUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
-  SupplierPriceHistory: z.lazy(() => SupplierPriceHistoryUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional()
+  WasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutIngredienteNestedInputSchema).optional(),
+  IngredientAllergens: z.lazy(() => IngredientAllergenUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
+  priceHistory: z.lazy(() => SupplierPriceHistoryUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional()
 }).strict();
 
-export const IngredientUncheckedUpdateManyWithoutDietaryRestrictionInputSchema: z.ZodType<Prisma.IngredientUncheckedUpdateManyWithoutDietaryRestrictionInput> = z.object({
+export const IngredientUncheckedUpdateManyWithoutDietaryRestrictionsInputSchema: z.ZodType<Prisma.IngredientUncheckedUpdateManyWithoutDietaryRestrictionsInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   category: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   price: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
   density: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
+  dietaryRestrictionId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   calories: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   protein: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   carbohydrates: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -42497,7 +42589,7 @@ export const ProductionPlanItemUpdateWithoutProductionPlanInputSchema: z.ZodType
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   recipe: z.lazy(() => RecipeUpdateOneRequiredWithoutProductionPlanItemsNestedInputSchema).optional(),
-  assignedTo: z.lazy(() => UserUpdateOneWithoutProductionPlanItemNestedInputSchema).optional()
+  assignedTo: z.lazy(() => UserUpdateOneWithoutProductionPlanItemsNestedInputSchema).optional()
 }).strict();
 
 export const ProductionPlanItemUncheckedUpdateWithoutProductionPlanInputSchema: z.ZodType<Prisma.ProductionPlanItemUncheckedUpdateWithoutProductionPlanInput> = z.object({
@@ -42526,7 +42618,7 @@ export const IngredientAllergenCreateManyAllergenInputSchema: z.ZodType<Prisma.I
 }).strict();
 
 export const IngredientAllergenUpdateWithoutAllergenInputSchema: z.ZodType<Prisma.IngredientAllergenUpdateWithoutAllergenInput> = z.object({
-  ingredient: z.lazy(() => IngredientUpdateOneRequiredWithoutIngredientAllergenNestedInputSchema).optional()
+  ingredient: z.lazy(() => IngredientUpdateOneRequiredWithoutIngredientAllergensNestedInputSchema).optional()
 }).strict();
 
 export const IngredientAllergenUncheckedUpdateWithoutAllergenInputSchema: z.ZodType<Prisma.IngredientAllergenUncheckedUpdateWithoutAllergenInput> = z.object({
@@ -42590,12 +42682,12 @@ export const RestaurantUpdateWithoutOrganizationInputSchema: z.ZodType<Prisma.Re
   recipes: z.lazy(() => RecipeUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   menus: z.lazy(() => MenuUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUpdateManyWithoutRestaurantNestedInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUpdateManyWithoutRestaurantNestedInputSchema).optional()
 }).strict();
 
 export const RestaurantUncheckedUpdateWithoutOrganizationInputSchema: z.ZodType<Prisma.RestaurantUncheckedUpdateWithoutOrganizationInput> = z.object({
@@ -42619,12 +42711,12 @@ export const RestaurantUncheckedUpdateWithoutOrganizationInputSchema: z.ZodType<
   recipes: z.lazy(() => RecipeUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   menus: z.lazy(() => MenuUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
   salesTransactions: z.lazy(() => SalesTransactionsUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  equipment: z.lazy(() => EquipmentUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qualityChecklist: z.lazy(() => QualityChecklistUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
-  qustomerFeedback: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional()
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  equipments: z.lazy(() => EquipmentUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  qualityChecklists: z.lazy(() => QualityChecklistUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRestaurantNestedInputSchema).optional()
 }).strict();
 
 export const RestaurantUncheckedUpdateManyWithoutOrganizationInputSchema: z.ZodType<Prisma.RestaurantUncheckedUpdateManyWithoutOrganizationInput> = z.object({
@@ -42660,19 +42752,19 @@ export const UserUpdateWithoutOrganizationInputSchema: z.ZodType<Prisma.UserUpda
   inventoryUpdates: z.lazy(() => InventoryItemUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUpdateManyWithoutUserNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUpdateManyWithoutUserNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
 export const UserUncheckedUpdateWithoutOrganizationInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutOrganizationInput> = z.object({
@@ -42693,19 +42785,19 @@ export const UserUncheckedUpdateWithoutOrganizationInputSchema: z.ZodType<Prisma
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
 export const UserUncheckedUpdateManyWithoutOrganizationInputSchema: z.ZodType<Prisma.UserUncheckedUpdateManyWithoutOrganizationInput> = z.object({
@@ -42851,7 +42943,7 @@ export const InventoryTransactionUpdateWithoutInventoryInputSchema: z.ZodType<Pr
   notes: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   item: z.lazy(() => InventoryItemUpdateOneRequiredWithoutTransactionsNestedInputSchema).optional(),
-  createdBy: z.lazy(() => UserUpdateOneRequiredWithoutInventoryTransactionNestedInputSchema).optional()
+  createdBy: z.lazy(() => UserUpdateOneRequiredWithoutInventoryTransactionsNestedInputSchema).optional()
 }).strict();
 
 export const InventoryTransactionUncheckedUpdateWithoutInventoryInputSchema: z.ZodType<Prisma.InventoryTransactionUncheckedUpdateWithoutInventoryInput> = z.object({
@@ -42889,7 +42981,7 @@ export const StockCountUpdateWithoutInventoryInputSchema: z.ZodType<Prisma.Stock
   startedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   completedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   notes: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  createdBy: z.lazy(() => UserUpdateOneRequiredWithoutStockCountNestedInputSchema).optional(),
+  createdBy: z.lazy(() => UserUpdateOneRequiredWithoutStockCountsNestedInputSchema).optional(),
   items: z.lazy(() => StockCountItemUpdateManyWithoutStockCountNestedInputSchema).optional()
 }).strict();
 
@@ -43005,6 +43097,7 @@ export const WasteRecordCreateManyRestaurantInputSchema: z.ZodType<Prisma.WasteR
 export const ProductionPlanCreateManyRestaurantInputSchema: z.ZodType<Prisma.ProductionPlanCreateManyRestaurantInput> = z.object({
   id: z.number().int().optional(),
   date: z.coerce.date(),
+  status: z.lazy(() => ProductionStatusSchema).optional(),
   createdById: z.number().int(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional()
@@ -43067,19 +43160,19 @@ export const UserUpdateWithoutRestaurantInputSchema: z.ZodType<Prisma.UserUpdate
   inventoryUpdates: z.lazy(() => InventoryItemUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUpdateManyWithoutUserNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUpdateManyWithoutUserNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
 export const UserUncheckedUpdateWithoutRestaurantInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutRestaurantInput> = z.object({
@@ -43100,19 +43193,19 @@ export const UserUncheckedUpdateWithoutRestaurantInputSchema: z.ZodType<Prisma.U
   inventoryUpdates: z.lazy(() => InventoryItemUncheckedUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
   sessions: z.lazy(() => SessionUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
   passwordResets: z.lazy(() => PasswordResetUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  leftoverItem: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  wasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
-  productionPlan: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  productionPlanItem: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
   availability: z.lazy(() => AvailabilityUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  schedulingConstraint: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
-  inventoryWithdrawal: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  checklistComplete: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
-  customerFeedback: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransaction: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCount: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
 }).strict();
 
 export const UserUncheckedUpdateManyWithoutRestaurantInputSchema: z.ZodType<Prisma.UserUncheckedUpdateManyWithoutRestaurantInput> = z.object({
@@ -43340,7 +43433,7 @@ export const LeftoverItemUpdateWithoutRestaurantInputSchema: z.ZodType<Prisma.Le
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   menuItem: z.lazy(() => MenuItemUpdateOneRequiredWithoutLeftoverItemsNestedInputSchema).optional(),
-  recordedBy: z.lazy(() => UserUpdateOneRequiredWithoutLeftoverItemNestedInputSchema).optional()
+  recordedBy: z.lazy(() => UserUpdateOneRequiredWithoutLeftoverItemsNestedInputSchema).optional()
 }).strict();
 
 export const LeftoverItemUncheckedUpdateWithoutRestaurantInputSchema: z.ZodType<Prisma.LeftoverItemUncheckedUpdateWithoutRestaurantInput> = z.object({
@@ -43372,8 +43465,8 @@ export const WasteRecordUpdateWithoutRestaurantInputSchema: z.ZodType<Prisma.Was
   reason: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
-  ingrediente: z.lazy(() => IngredientUpdateOneRequiredWithoutWasteRecordNestedInputSchema).optional(),
-  recordedBy: z.lazy(() => UserUpdateOneRequiredWithoutWasteRecordNestedInputSchema).optional()
+  ingrediente: z.lazy(() => IngredientUpdateOneRequiredWithoutWasteRecordsNestedInputSchema).optional(),
+  recordedBy: z.lazy(() => UserUpdateOneRequiredWithoutWasteRecordsNestedInputSchema).optional()
 }).strict();
 
 export const WasteRecordUncheckedUpdateWithoutRestaurantInputSchema: z.ZodType<Prisma.WasteRecordUncheckedUpdateWithoutRestaurantInput> = z.object({
@@ -43402,15 +43495,17 @@ export const WasteRecordUncheckedUpdateManyWithoutRestaurantInputSchema: z.ZodTy
 
 export const ProductionPlanUpdateWithoutRestaurantInputSchema: z.ZodType<Prisma.ProductionPlanUpdateWithoutRestaurantInput> = z.object({
   date: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
+  status: z.union([ z.lazy(() => ProductionStatusSchema),z.lazy(() => EnumProductionStatusFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
-  createdBy: z.lazy(() => UserUpdateOneRequiredWithoutProductionPlanNestedInputSchema).optional(),
+  createdBy: z.lazy(() => UserUpdateOneRequiredWithoutProductionPlansNestedInputSchema).optional(),
   items: z.lazy(() => ProductionPlanItemUpdateManyWithoutProductionPlanNestedInputSchema).optional()
 }).strict();
 
 export const ProductionPlanUncheckedUpdateWithoutRestaurantInputSchema: z.ZodType<Prisma.ProductionPlanUncheckedUpdateWithoutRestaurantInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   date: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
+  status: z.union([ z.lazy(() => ProductionStatusSchema),z.lazy(() => EnumProductionStatusFieldUpdateOperationsInputSchema) ]).optional(),
   createdById: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -43420,6 +43515,7 @@ export const ProductionPlanUncheckedUpdateWithoutRestaurantInputSchema: z.ZodTyp
 export const ProductionPlanUncheckedUpdateManyWithoutRestaurantInputSchema: z.ZodType<Prisma.ProductionPlanUncheckedUpdateManyWithoutRestaurantInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   date: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
+  status: z.union([ z.lazy(() => ProductionStatusSchema),z.lazy(() => EnumProductionStatusFieldUpdateOperationsInputSchema) ]).optional(),
   createdById: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -43517,7 +43613,7 @@ export const CustomerFeedbackUpdateWithoutRestaurantInputSchema: z.ZodType<Prism
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   menuItem: z.lazy(() => MenuItemUpdateOneWithoutFeedbackNestedInputSchema).optional(),
-  respondedBy: z.lazy(() => UserUpdateOneWithoutCustomerFeedbackNestedInputSchema).optional()
+  respondedBy: z.lazy(() => UserUpdateOneWithoutCustomerFeedbackResponsesNestedInputSchema).optional()
 }).strict();
 
 export const CustomerFeedbackUncheckedUpdateWithoutRestaurantInputSchema: z.ZodType<Prisma.CustomerFeedbackUncheckedUpdateWithoutRestaurantInput> = z.object({
@@ -43630,6 +43726,7 @@ export const ProductionPlanCreateManyCreatedByInputSchema: z.ZodType<Prisma.Prod
   id: z.number().int().optional(),
   restaurantId: z.number().int(),
   date: z.coerce.date(),
+  status: z.lazy(() => ProductionStatusSchema).optional(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional()
 }).strict();
@@ -43753,7 +43850,7 @@ export const ShiftUpdateWithoutUserInputSchema: z.ZodType<Prisma.ShiftUpdateWith
   startTime: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   endTime: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   status: z.union([ z.lazy(() => ShiftStatusSchema),z.lazy(() => EnumShiftStatusFieldUpdateOperationsInputSchema) ]).optional(),
-  ShiftTask: z.lazy(() => ShiftTaskUpdateManyWithoutShiftNestedInputSchema).optional()
+  tasks: z.lazy(() => ShiftTaskUpdateManyWithoutShiftNestedInputSchema).optional()
 }).strict();
 
 export const ShiftUncheckedUpdateWithoutUserInputSchema: z.ZodType<Prisma.ShiftUncheckedUpdateWithoutUserInput> = z.object({
@@ -43761,7 +43858,7 @@ export const ShiftUncheckedUpdateWithoutUserInputSchema: z.ZodType<Prisma.ShiftU
   startTime: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   endTime: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   status: z.union([ z.lazy(() => ShiftStatusSchema),z.lazy(() => EnumShiftStatusFieldUpdateOperationsInputSchema) ]).optional(),
-  ShiftTask: z.lazy(() => ShiftTaskUncheckedUpdateManyWithoutShiftNestedInputSchema).optional()
+  tasks: z.lazy(() => ShiftTaskUncheckedUpdateManyWithoutShiftNestedInputSchema).optional()
 }).strict();
 
 export const ShiftUncheckedUpdateManyWithoutUserInputSchema: z.ZodType<Prisma.ShiftUncheckedUpdateManyWithoutUserInput> = z.object({
@@ -43918,7 +44015,7 @@ export const LeftoverItemUpdateWithoutRecordedByInputSchema: z.ZodType<Prisma.Le
   reason: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
-  restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutLeftoverItemNestedInputSchema).optional(),
+  restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutLeftoverItemsNestedInputSchema).optional(),
   menuItem: z.lazy(() => MenuItemUpdateOneRequiredWithoutLeftoverItemsNestedInputSchema).optional()
 }).strict();
 
@@ -43951,8 +44048,8 @@ export const WasteRecordUpdateWithoutRecordedByInputSchema: z.ZodType<Prisma.Was
   reason: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
-  restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutWasteRecordNestedInputSchema).optional(),
-  ingrediente: z.lazy(() => IngredientUpdateOneRequiredWithoutWasteRecordNestedInputSchema).optional()
+  restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutWasteRecordsNestedInputSchema).optional(),
+  ingrediente: z.lazy(() => IngredientUpdateOneRequiredWithoutWasteRecordsNestedInputSchema).optional()
 }).strict();
 
 export const WasteRecordUncheckedUpdateWithoutRecordedByInputSchema: z.ZodType<Prisma.WasteRecordUncheckedUpdateWithoutRecordedByInput> = z.object({
@@ -43981,9 +44078,10 @@ export const WasteRecordUncheckedUpdateManyWithoutRecordedByInputSchema: z.ZodTy
 
 export const ProductionPlanUpdateWithoutCreatedByInputSchema: z.ZodType<Prisma.ProductionPlanUpdateWithoutCreatedByInput> = z.object({
   date: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
+  status: z.union([ z.lazy(() => ProductionStatusSchema),z.lazy(() => EnumProductionStatusFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
-  restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutProductionPlanNestedInputSchema).optional(),
+  restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutProductionPlansNestedInputSchema).optional(),
   items: z.lazy(() => ProductionPlanItemUpdateManyWithoutProductionPlanNestedInputSchema).optional()
 }).strict();
 
@@ -43991,6 +44089,7 @@ export const ProductionPlanUncheckedUpdateWithoutCreatedByInputSchema: z.ZodType
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   restaurantId: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   date: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
+  status: z.union([ z.lazy(() => ProductionStatusSchema),z.lazy(() => EnumProductionStatusFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   items: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutProductionPlanNestedInputSchema).optional()
@@ -44000,6 +44099,7 @@ export const ProductionPlanUncheckedUpdateManyWithoutCreatedByInputSchema: z.Zod
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   restaurantId: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   date: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
+  status: z.union([ z.lazy(() => ProductionStatusSchema),z.lazy(() => EnumProductionStatusFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
 }).strict();
@@ -44161,7 +44261,7 @@ export const CustomerFeedbackUpdateWithoutRespondedByInputSchema: z.ZodType<Pris
   respondedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
-  restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutQustomerFeedbackNestedInputSchema).optional(),
+  restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutCustomerFeedbacksNestedInputSchema).optional(),
   menuItem: z.lazy(() => MenuItemUpdateOneWithoutFeedbackNestedInputSchema).optional()
 }).strict();
 
@@ -44890,7 +44990,7 @@ export const ProductionPlanItemUpdateWithoutRecipeInputSchema: z.ZodType<Prisma.
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   productionPlan: z.lazy(() => ProductionPlanUpdateOneRequiredWithoutItemsNestedInputSchema).optional(),
-  assignedTo: z.lazy(() => UserUpdateOneWithoutProductionPlanItemNestedInputSchema).optional()
+  assignedTo: z.lazy(() => UserUpdateOneWithoutProductionPlanItemsNestedInputSchema).optional()
 }).strict();
 
 export const ProductionPlanItemUncheckedUpdateWithoutRecipeInputSchema: z.ZodType<Prisma.ProductionPlanItemUncheckedUpdateWithoutRecipeInput> = z.object({
@@ -44920,7 +45020,7 @@ export const InventoryWithdrawalUpdateWithoutRecipeInputSchema: z.ZodType<Prisma
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   inventoryItem: z.lazy(() => InventoryItemUpdateOneRequiredWithoutWithdrawalsNestedInputSchema).optional(),
-  createdBy: z.lazy(() => UserUpdateOneRequiredWithoutInventoryWithdrawalNestedInputSchema).optional()
+  createdBy: z.lazy(() => UserUpdateOneRequiredWithoutInventoryWithdrawalsNestedInputSchema).optional()
 }).strict();
 
 export const InventoryWithdrawalUncheckedUpdateWithoutRecipeInputSchema: z.ZodType<Prisma.InventoryWithdrawalUncheckedUpdateWithoutRecipeInput> = z.object({
@@ -45037,7 +45137,7 @@ export const DietaryRestrictionUpdateWithoutRecipesInputSchema: z.ZodType<Prisma
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   menuItems: z.lazy(() => MenuItemUpdateManyWithoutDietaryRestrictionsNestedInputSchema).optional(),
-  ingredients: z.lazy(() => IngredientUpdateManyWithoutDietaryRestrictionNestedInputSchema).optional()
+  ingredients: z.lazy(() => IngredientUpdateManyWithoutDietaryRestrictionsNestedInputSchema).optional()
 }).strict();
 
 export const DietaryRestrictionUncheckedUpdateWithoutRecipesInputSchema: z.ZodType<Prisma.DietaryRestrictionUncheckedUpdateWithoutRecipesInput> = z.object({
@@ -45048,7 +45148,7 @@ export const DietaryRestrictionUncheckedUpdateWithoutRecipesInputSchema: z.ZodTy
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   menuItems: z.lazy(() => MenuItemUncheckedUpdateManyWithoutDietaryRestrictionsNestedInputSchema).optional(),
-  ingredients: z.lazy(() => IngredientUncheckedUpdateManyWithoutDietaryRestrictionNestedInputSchema).optional()
+  ingredients: z.lazy(() => IngredientUncheckedUpdateManyWithoutDietaryRestrictionsNestedInputSchema).optional()
 }).strict();
 
 export const DietaryRestrictionUncheckedUpdateManyWithoutRecipesInputSchema: z.ZodType<Prisma.DietaryRestrictionUncheckedUpdateManyWithoutRecipesInput> = z.object({
@@ -45473,8 +45573,8 @@ export const WasteRecordUpdateWithoutIngredienteInputSchema: z.ZodType<Prisma.Wa
   reason: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
-  restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutWasteRecordNestedInputSchema).optional(),
-  recordedBy: z.lazy(() => UserUpdateOneRequiredWithoutWasteRecordNestedInputSchema).optional()
+  restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutWasteRecordsNestedInputSchema).optional(),
+  recordedBy: z.lazy(() => UserUpdateOneRequiredWithoutWasteRecordsNestedInputSchema).optional()
 }).strict();
 
 export const WasteRecordUncheckedUpdateWithoutIngredienteInputSchema: z.ZodType<Prisma.WasteRecordUncheckedUpdateWithoutIngredienteInput> = z.object({
@@ -45546,6 +45646,36 @@ export const SupplierPriceHistoryUncheckedUpdateManyWithoutIngredientInputSchema
   startDate: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   endDate: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   notes: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
+  createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
+  updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
+}).strict();
+
+export const DietaryRestrictionUpdateWithoutIngredientsInputSchema: z.ZodType<Prisma.DietaryRestrictionUpdateWithoutIngredientsInput> = z.object({
+  name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  description: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
+  icon: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
+  createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
+  updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
+  menuItems: z.lazy(() => MenuItemUpdateManyWithoutDietaryRestrictionsNestedInputSchema).optional(),
+  recipes: z.lazy(() => RecipeUpdateManyWithoutDietaryRestrictionsNestedInputSchema).optional()
+}).strict();
+
+export const DietaryRestrictionUncheckedUpdateWithoutIngredientsInputSchema: z.ZodType<Prisma.DietaryRestrictionUncheckedUpdateWithoutIngredientsInput> = z.object({
+  id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
+  name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  description: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
+  icon: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
+  createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
+  updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
+  menuItems: z.lazy(() => MenuItemUncheckedUpdateManyWithoutDietaryRestrictionsNestedInputSchema).optional(),
+  recipes: z.lazy(() => RecipeUncheckedUpdateManyWithoutDietaryRestrictionsNestedInputSchema).optional()
+}).strict();
+
+export const DietaryRestrictionUncheckedUpdateManyWithoutIngredientsInputSchema: z.ZodType<Prisma.DietaryRestrictionUncheckedUpdateManyWithoutIngredientsInput> = z.object({
+  id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
+  name: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  description: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
+  icon: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
 }).strict();
@@ -45623,7 +45753,7 @@ export const InventoryTransactionUpdateWithoutItemInputSchema: z.ZodType<Prisma.
   notes: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   inventory: z.lazy(() => InventoryUpdateOneRequiredWithoutTransactionsNestedInputSchema).optional(),
-  createdBy: z.lazy(() => UserUpdateOneRequiredWithoutInventoryTransactionNestedInputSchema).optional()
+  createdBy: z.lazy(() => UserUpdateOneRequiredWithoutInventoryTransactionsNestedInputSchema).optional()
 }).strict();
 
 export const InventoryTransactionUncheckedUpdateWithoutItemInputSchema: z.ZodType<Prisma.InventoryTransactionUncheckedUpdateWithoutItemInput> = z.object({
@@ -45663,7 +45793,7 @@ export const InventoryWithdrawalUpdateWithoutInventoryItemInputSchema: z.ZodType
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   recipe: z.lazy(() => RecipeUpdateOneWithoutWithdrawalsNestedInputSchema).optional(),
-  createdBy: z.lazy(() => UserUpdateOneRequiredWithoutInventoryWithdrawalNestedInputSchema).optional()
+  createdBy: z.lazy(() => UserUpdateOneRequiredWithoutInventoryWithdrawalsNestedInputSchema).optional()
 }).strict();
 
 export const InventoryWithdrawalUncheckedUpdateWithoutInventoryItemInputSchema: z.ZodType<Prisma.InventoryWithdrawalUncheckedUpdateWithoutInventoryItemInput> = z.object({
@@ -45830,6 +45960,7 @@ export const IngredientUpdateWithoutVendorsInputSchema: z.ZodType<Prisma.Ingredi
   category: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   price: z.union([ z.number(),z.lazy(() => FloatFieldUpdateOperationsInputSchema) ]).optional(),
   density: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
+  dietaryRestrictionId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   calories: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   protein: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   carbohydrates: z.union([ z.number(),z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema) ]).optional().nullable(),
@@ -45843,10 +45974,10 @@ export const IngredientUpdateWithoutVendorsInputSchema: z.ZodType<Prisma.Ingredi
   recipeIngredients: z.lazy(() => RecipeIngredientUpdateManyWithoutIngredientNestedInputSchema).optional(),
   inventoryItems: z.lazy(() => InventoryItemUpdateManyWithoutIngredientNestedInputSchema).optional(),
   orderItems: z.lazy(() => OrderItemUpdateManyWithoutIngredientNestedInputSchema).optional(),
-  WasteRecord: z.lazy(() => WasteRecordUpdateManyWithoutIngredienteNestedInputSchema).optional(),
-  IngredientAllergen: z.lazy(() => IngredientAllergenUpdateManyWithoutIngredientNestedInputSchema).optional(),
-  SupplierPriceHistory: z.lazy(() => SupplierPriceHistoryUpdateManyWithoutIngredientNestedInputSchema).optional(),
-  DietaryRestriction: z.lazy(() => DietaryRestrictionUpdateOneWithoutIngredientsNestedInputSchema).optional()
+  WasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutIngredienteNestedInputSchema).optional(),
+  IngredientAllergens: z.lazy(() => IngredientAllergenUpdateManyWithoutIngredientNestedInputSchema).optional(),
+  priceHistory: z.lazy(() => SupplierPriceHistoryUpdateManyWithoutIngredientNestedInputSchema).optional(),
+  DietaryRestrictions: z.lazy(() => DietaryRestrictionUpdateManyWithoutIngredientsNestedInputSchema).optional()
 }).strict();
 
 export const IngredientUncheckedUpdateWithoutVendorsInputSchema: z.ZodType<Prisma.IngredientUncheckedUpdateWithoutVendorsInput> = z.object({
@@ -45869,9 +46000,10 @@ export const IngredientUncheckedUpdateWithoutVendorsInputSchema: z.ZodType<Prism
   recipeIngredients: z.lazy(() => RecipeIngredientUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
   inventoryItems: z.lazy(() => InventoryItemUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
   orderItems: z.lazy(() => OrderItemUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
-  WasteRecord: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutIngredienteNestedInputSchema).optional(),
-  IngredientAllergen: z.lazy(() => IngredientAllergenUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
-  SupplierPriceHistory: z.lazy(() => SupplierPriceHistoryUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional()
+  WasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutIngredienteNestedInputSchema).optional(),
+  IngredientAllergens: z.lazy(() => IngredientAllergenUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
+  priceHistory: z.lazy(() => SupplierPriceHistoryUncheckedUpdateManyWithoutIngredientNestedInputSchema).optional(),
+  DietaryRestrictions: z.lazy(() => DietaryRestrictionUncheckedUpdateManyWithoutIngredientsNestedInputSchema).optional()
 }).strict();
 
 export const IngredientUncheckedUpdateManyWithoutVendorsInputSchema: z.ZodType<Prisma.IngredientUncheckedUpdateManyWithoutVendorsInput> = z.object({
@@ -45901,7 +46033,7 @@ export const SupplierPriceHistoryUpdateWithoutVendorInputSchema: z.ZodType<Prism
   notes: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
-  ingredient: z.lazy(() => IngredientUpdateOneRequiredWithoutSupplierPriceHistoryNestedInputSchema).optional()
+  ingredient: z.lazy(() => IngredientUpdateOneRequiredWithoutPriceHistoryNestedInputSchema).optional()
 }).strict();
 
 export const SupplierPriceHistoryUncheckedUpdateWithoutVendorInputSchema: z.ZodType<Prisma.SupplierPriceHistoryUncheckedUpdateWithoutVendorInput> = z.object({
@@ -46441,8 +46573,8 @@ export const LeftoverItemUpdateWithoutMenuItemInputSchema: z.ZodType<Prisma.Left
   reason: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
-  restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutLeftoverItemNestedInputSchema).optional(),
-  recordedBy: z.lazy(() => UserUpdateOneRequiredWithoutLeftoverItemNestedInputSchema).optional()
+  restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutLeftoverItemsNestedInputSchema).optional(),
+  recordedBy: z.lazy(() => UserUpdateOneRequiredWithoutLeftoverItemsNestedInputSchema).optional()
 }).strict();
 
 export const LeftoverItemUncheckedUpdateWithoutMenuItemInputSchema: z.ZodType<Prisma.LeftoverItemUncheckedUpdateWithoutMenuItemInput> = z.object({
@@ -46477,8 +46609,8 @@ export const CustomerFeedbackUpdateWithoutMenuItemInputSchema: z.ZodType<Prisma.
   respondedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
-  restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutQustomerFeedbackNestedInputSchema).optional(),
-  respondedBy: z.lazy(() => UserUpdateOneWithoutCustomerFeedbackNestedInputSchema).optional()
+  restaurant: z.lazy(() => RestaurantUpdateOneRequiredWithoutCustomerFeedbacksNestedInputSchema).optional(),
+  respondedBy: z.lazy(() => UserUpdateOneWithoutCustomerFeedbackResponsesNestedInputSchema).optional()
 }).strict();
 
 export const CustomerFeedbackUncheckedUpdateWithoutMenuItemInputSchema: z.ZodType<Prisma.CustomerFeedbackUncheckedUpdateWithoutMenuItemInput> = z.object({
@@ -46518,7 +46650,7 @@ export const DietaryRestrictionUpdateWithoutMenuItemsInputSchema: z.ZodType<Pris
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   recipes: z.lazy(() => RecipeUpdateManyWithoutDietaryRestrictionsNestedInputSchema).optional(),
-  ingredients: z.lazy(() => IngredientUpdateManyWithoutDietaryRestrictionNestedInputSchema).optional()
+  ingredients: z.lazy(() => IngredientUpdateManyWithoutDietaryRestrictionsNestedInputSchema).optional()
 }).strict();
 
 export const DietaryRestrictionUncheckedUpdateWithoutMenuItemsInputSchema: z.ZodType<Prisma.DietaryRestrictionUncheckedUpdateWithoutMenuItemsInput> = z.object({
@@ -46529,7 +46661,7 @@ export const DietaryRestrictionUncheckedUpdateWithoutMenuItemsInputSchema: z.Zod
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   recipes: z.lazy(() => RecipeUncheckedUpdateManyWithoutDietaryRestrictionsNestedInputSchema).optional(),
-  ingredients: z.lazy(() => IngredientUncheckedUpdateManyWithoutDietaryRestrictionNestedInputSchema).optional()
+  ingredients: z.lazy(() => IngredientUncheckedUpdateManyWithoutDietaryRestrictionsNestedInputSchema).optional()
 }).strict();
 
 export const DietaryRestrictionUncheckedUpdateManyWithoutMenuItemsInputSchema: z.ZodType<Prisma.DietaryRestrictionUncheckedUpdateManyWithoutMenuItemsInput> = z.object({

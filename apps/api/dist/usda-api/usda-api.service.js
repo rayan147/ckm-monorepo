@@ -115,6 +115,7 @@ let UsdaApiService = class UsdaApiService {
             return allergens;
         const description = foodData.description || '';
         const ingredients = foodData.ingredients || '';
+        console.log(`description is ${description} and ingredients is ${ingredients}`);
         const combinedText = (description + ' ' + ingredients).toLowerCase();
         allergens.containsGluten = this.allergenKeywords.gluten.some(keyword => combinedText.includes(keyword));
         allergens.containsDairy = this.allergenKeywords.dairy.some(keyword => combinedText.includes(keyword));

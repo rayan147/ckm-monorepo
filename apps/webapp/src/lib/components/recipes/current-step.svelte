@@ -66,7 +66,7 @@
               {/if}
 
               <!-- Additional step details (if available) -->
-              {#if instruction.details || instruction.timeInMinutes || instruction.temperature}
+              {#if instruction.instruction || instruction.timeInMinutes || instruction.temperature}
                 <div
                   class="mt-3 p-3 bg-gray-50 rounded-md text-sm text-gray-700"
                   in:fade={{ delay: 250, duration: 300 }}
@@ -127,7 +127,7 @@
                 >
                   <h5 class="text-sm font-medium text-gray-900 mb-2">Helpful Tips:</h5>
                   <ul class="list-disc pl-5 text-sm text-gray-700 space-y-1">
-                    {#each instruction.tips as tip, i}
+                    {#each instruction.techniqueTips as tip, i}
                       <li in:fade={{ delay: 300 + i * 100, duration: 200 }}>{tip}</li>
                     {/each}
                   </ul>

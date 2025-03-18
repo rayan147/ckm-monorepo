@@ -217,7 +217,7 @@ export class RecipeService {
             instructions: { orderBy: { stepNumber: 'asc' } },
             tags: true,
             laborCosts: true,
-            equipment: true,
+            equipments: true,
             storage: true,
             cookBook: true,
             dietaryRestrictions: true,
@@ -235,7 +235,6 @@ export class RecipeService {
       this.logger.handleError(error, 'Failed to fetch recipes');
     }
   }
-
   /**
    * Retrieves a single recipe by its ID.
    */
@@ -260,7 +259,7 @@ export class RecipeService {
           dietaryRestrictions: true,
           laborCosts: true,
           yields: true,
-          equipment: true,
+          equipments: true,
           criticalPoints: true,
           temperatures: true,
           storage: true,

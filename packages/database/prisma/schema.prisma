@@ -43,13 +43,15 @@ model RecipeNutrition {
   containsFish      Boolean @default(false)
   containsShellfish Boolean @default(false)
   containsSesame    Boolean @default(false)
+
+  @@map("recipeNutrition")
 }
 
 // Recipe Critical Control Points
 model RecipeCriticalPoint {
   id          Int      @id @default(autoincrement())
   recipeId    Int
-  recipe      Recipe   @relation(fields: [recipeId], references: [id])
+  recipe      Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
   stepNumber  Int
   description String
   threshold   Float?
@@ -57,13 +59,15 @@ model RecipeCriticalPoint {
   action      String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+
+  @@map("recipeCriticalPoint")
 }
 
 // Recipe Storage Instructions
 model RecipeStorage {
   id            Int      @id @default(autoincrement())
   recipeId      Int      @unique
-  recipe        Recipe   @relation(fields: [recipeId], references: [id])
+  recipe        Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
   temperature   Float?
   method        String
   shelfLife     Int // in hours
@@ -71,27 +75,30 @@ model RecipeStorage {
   specialNotes  String?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
+
+  @@map("recipeStorage")
 }
 
 // Recipe Photos
 model RecipePhoto {
   id          Int       @id @default(autoincrement())
   recipeId    Int
-  recipe      Recipe    @relation(fields: [recipeId], references: [id])
+  recipe      Recipe    @relation(fields: [recipeId], references: [id], onDelete: Cascade)
   url         String
   type        PhotoType
   stepNumber  Int? // For step-by-step photos
   description String?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+
+  @@map("recipePhoto")
 }
 
 // Recipe Temperature Control Points
-
 model RecipeTemperature {
   id          Int      @id @default(autoincrement())
   recipeId    Int
-  recipe      Recipe   @relation(fields: [recipeId], references: [id])
+  recipe      Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
   stepNumber  Int // Corresponds to RecipeInstruction stepNumber
   minTemp     Float
   maxTemp     Float
@@ -108,7 +115,7 @@ model RecipeTemperature {
 model RecipeYield {
   id             Int      @id @default(autoincrement())
   recipeId       Int
-  recipe         Recipe   @relation(fields: [recipeId], references: [id])
+  recipe         Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
   expectedYield  Float
   actualYield    Float?
   unit           String
@@ -124,7 +131,7 @@ model RecipeYield {
 model RecipeLaborCost {
   id             Int      @id @default(autoincrement())
   recipeId       Int
-  recipe         Recipe   @relation(fields: [recipeId], references: [id])
+  recipe         Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
   prepTime       Int // minutes
   cookTime       Int // minutes
   laborRate      Float // per hour
@@ -143,9 +150,9 @@ model SalesTransactions {
   id               Int        @id @default(autoincrement())
   posTransactionID String?    @unique
   restaurantId     Int
-  restaurant       Restaurant @relation(fields: [restaurantId], references: [id])
+  restaurant       Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Restrict)
   menuItemId       Int
-  menuItem         MenuItem   @relation(fields: [menuItemId], references: [id])
+  menuItem         MenuItem   @relation(fields: [menuItemId], references: [id], onDelete: Restrict)
   price            Float
   total            Float
   transactionDate  DateTime
@@ -170,7 +177,7 @@ model MenuCategory {
   description  String?
   displayOrder Int // For ordering categories in the menu
   menuId       Int
-  menu         Menu       @relation(fields: [menuId], references: [id])
+  menu         Menu       @relation(fields: [menuId], references: [id], onDelete: Cascade)
   menuItems    MenuItem[]
   isActive     Boolean    @default(true)
   createdAt    DateTime   @default(now())
@@ -183,7 +190,7 @@ model MenuCategory {
 model RecipeVersion {
   id            Int                 @id @default(autoincrement())
   recipeId      Int
-  recipe        Recipe              @relation(fields: [recipeId], references: [id])
+  recipe        Recipe              @relation(fields: [recipeId], references: [id], onDelete: Cascade)
   versionNumber Int
   description   String?
   changes       String? // Description of changes from previous version
@@ -191,9 +198,9 @@ model RecipeVersion {
   instructions  RecipeInstruction[]
   isActive      Boolean             @default(false)
   createdById   Int
-  createdBy     User                @relation(fields: [createdById], references: [id])
+  createdBy     User                @relation(fields: [createdById], references: [id], onDelete: Restrict)
   approvedById  Int?
-  approvedBy    User?               @relation("RecipeApprover", fields: [approvedById], references: [id])
+  approvedBy    User?               @relation("RecipeApprover", fields: [approvedById], references: [id], onDelete: SetNull)
   approvedAt    DateTime?
   createdAt     DateTime            @default(now())
   updatedAt     DateTime            @updatedAt
@@ -215,7 +222,7 @@ model Equipment {
   status          EquipmentStatus   @default(ACTIVE)
   location        String?
   restaurantId    Int
-  restaurant      Restaurant        @relation(fields: [restaurantId], references: [id])
+  restaurant      Restaurant        @relation(fields: [restaurantId], references: [id], onDelete: Restrict)
   recipes         RecipeEquipment[]
   maintenanceLogs MaintenanceLog[]
   createdAt       DateTime          @default(now())
@@ -227,11 +234,11 @@ model Equipment {
 model RecipeEquipment {
   id                  Int                @id @default(autoincrement())
   recipeId            Int
-  recipe              Recipe             @relation(fields: [recipeId], references: [id])
+  recipe              Recipe             @relation(fields: [recipeId], references: [id], onDelete: Cascade)
   equipmentId         Int
-  equipment           Equipment          @relation(fields: [equipmentId], references: [id])
+  equipment           Equipment          @relation(fields: [equipmentId], references: [id], onDelete: Restrict)
   notes               String?
-  RecipeInstruction   RecipeInstruction? @relation(fields: [recipeInstructionId], references: [id])
+  RecipeInstruction   RecipeInstruction? @relation(fields: [recipeInstructionId], references: [id], onDelete: SetNull)
   recipeInstructionId Int?
 
   @@unique([recipeId, equipmentId])
@@ -242,7 +249,7 @@ model MaintenanceLog {
   id          Int             @id @default(autoincrement())
   equipmentId Int
   equipment   Equipment       @relation(fields: [equipmentId], references: [id])
-  date        DateTime
+  date        DateTime        @default(now())
   type        MaintenanceType
   description String
   cost        Float?
@@ -260,7 +267,7 @@ model QualityChecklist {
   name         String
   description  String?
   restaurantId Int
-  restaurant   Restaurant          @relation(fields: [restaurantId], references: [id])
+  restaurant   Restaurant          @relation(fields: [restaurantId], references: [id], onDelete: Restrict)
   items        ChecklistItem[]
   completions  ChecklistComplete[]
   frequency    ChecklistFrequency  @default(DAILY)
@@ -274,7 +281,7 @@ model QualityChecklist {
 model ChecklistItem {
   id             Int                     @id @default(autoincrement())
   checklistId    Int
-  checklist      QualityChecklist        @relation(fields: [checklistId], references: [id])
+  checklist      QualityChecklist        @relation(fields: [checklistId], references: [id], onDelete: Cascade)
   description    String
   order          Int
   type           ChecklistItemType
@@ -289,9 +296,9 @@ model ChecklistItem {
 model ChecklistComplete {
   id            Int                     @id @default(autoincrement())
   checklistId   Int
-  checklist     QualityChecklist        @relation(fields: [checklistId], references: [id])
+  checklist     QualityChecklist        @relation(fields: [checklistId], references: [id], onDelete: Cascade)
   completedById Int
-  completedBy   User                    @relation(fields: [completedById], references: [id])
+  completedBy   User                    @relation(fields: [completedById], references: [id], onDelete: Restrict)
   date          DateTime
   items         ChecklistItemComplete[]
   notes         String?
@@ -304,9 +311,9 @@ model ChecklistComplete {
 model ChecklistItemComplete {
   id                  Int               @id @default(autoincrement())
   checklistCompleteId Int
-  checklistComplete   ChecklistComplete @relation(fields: [checklistCompleteId], references: [id])
+  checklistComplete   ChecklistComplete @relation(fields: [checklistCompleteId], references: [id], onDelete: Cascade)
   checklistItemId     Int
-  checklistItem       ChecklistItem     @relation(fields: [checklistItemId], references: [id])
+  checklistItem       ChecklistItem     @relation(fields: [checklistItemId], references: [id], onDelete: Cascade)
   status              ChecklistStatus
   notes               String?
   photoUrls           String[]
@@ -320,9 +327,9 @@ model ChecklistItemComplete {
 model SupplierPriceHistory {
   id           Int        @id @default(autoincrement())
   vendorId     Int
-  vendor       Vendor     @relation(fields: [vendorId], references: [id])
+  vendor       Vendor     @relation(fields: [vendorId], references: [id], onDelete: Cascade)
   ingredientId Int
-  ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id], onDelete: Restrict)
   price        Float
   unit         String
   startDate    DateTime
@@ -338,9 +345,9 @@ model SupplierPriceHistory {
 model CustomerFeedback {
   id            Int            @id @default(autoincrement())
   restaurantId  Int
-  restaurant    Restaurant     @relation(fields: [restaurantId], references: [id])
+  restaurant    Restaurant     @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
   menuItemId    Int?
-  menuItem      MenuItem?      @relation(fields: [menuItemId], references: [id])
+  menuItem      MenuItem?      @relation(fields: [menuItemId], references: [id], onDelete: Restrict)
   rating        Int // 1-5 rating
   comment       String?
   source        FeedbackSource
@@ -349,7 +356,7 @@ model CustomerFeedback {
   responseText  String?
   respondedAt   DateTime?
   respondedById Int?
-  respondedBy   User?          @relation(fields: [respondedById], references: [id])
+  respondedBy   User?          @relation(fields: [respondedById], references: [id], onDelete: SetNull)
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
 
@@ -435,16 +442,18 @@ model RecipeTag {
 model LeftoverItem {
   id           Int        @id @default(autoincrement())
   restaurantId Int
-  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
   date         DateTime
   menuItemId   Int
-  menuItem     MenuItem   @relation(fields: [menuItemId], references: [id])
+  menuItem     MenuItem   @relation(fields: [menuItemId], references: [id], onDelete: Restrict)
   quantity     Int
   reason       String
   recordedById Int
-  recordedBy   User       @relation(fields: [recordedById], references: [id])
+  recordedBy   User       @relation(fields: [recordedById], references: [id], onDelete: Restrict)
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
+
+  @@map("leftoverItem")
 }
 
 //  Waste Tracking
@@ -453,10 +462,10 @@ model LeftoverItem {
 model WasteRecord {
   id           Int        @id @default(autoincrement())
   restaurantId Int
-  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
   date         DateTime
   ingredientId Int
-  ingrediente  Ingredient @relation(fields: [ingredientId], references: [id])
+  ingrediente  Ingredient @relation(fields: [ingredientId], references: [id], onDelete: Restrict)
   quantity     Float
   unit         String
   reason       String
@@ -464,6 +473,17 @@ model WasteRecord {
   recordedBy   User       @relation(fields: [recordedById], references: [id])
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
+
+  @@map("wasteRecord")
+}
+
+// schema.prisma
+enum ProductionStatus {
+  PLANNED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  HAS_NOT_START // Make sure this matches exactly
 }
 
 //Production Sheets
@@ -472,34 +492,32 @@ model WasteRecord {
 model ProductionPlan {
   id           Int                  @id @default(autoincrement())
   restaurantId Int
-  restaurant   Restaurant           @relation(fields: [restaurantId], references: [id])
+  restaurant   Restaurant           @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
   date         DateTime
+  status       ProductionStatus     @default(HAS_NOT_START)
   createdById  Int
-  createdBy    User                 @relation(fields: [createdById], references: [id])
+  createdBy    User                 @relation(fields: [createdById], references: [id], onDelete: Restrict)
   items        ProductionPlanItem[]
   createdAt    DateTime             @default(now())
   updatedAt    DateTime             @updatedAt
+
+  @@map("productionPlan")
 }
 
 model ProductionPlanItem {
   id               Int            @id @default(autoincrement())
   productionPlanId Int
-  productionPlan   ProductionPlan @relation(fields: [productionPlanId], references: [id])
+  productionPlan   ProductionPlan @relation(fields: [productionPlanId], references: [id], onDelete: Cascade)
   recipeId         Int
-  recipe           Recipe         @relation(fields: [recipeId], references: [id])
+  recipe           Recipe         @relation(fields: [recipeId], references: [id], onDelete: Restrict)
   quantity         Int
   unit             String
   assignedToId     Int?
-  assignedTo       User?          @relation(fields: [assignedToId], references: [id])
+  assignedTo       User?          @relation(fields: [assignedToId], references: [id], onDelete: SetNull)
   createdAt        DateTime       @default(now())
   updatedAt        DateTime       @updatedAt
-}
 
-enum ProductionStatus {
-  PLANNED
-  IN_PROGRESS
-  COMPLETED
-  CANCELLED
+  @@map("productionPlanItem")
 }
 
 //Time Tracking and Productivity Analysis
@@ -515,6 +533,8 @@ model ShiftTask {
   notes     String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@map("shiftTask")
 }
 
 enum TaskType {
@@ -537,6 +557,8 @@ model Availability {
   endTime   DateTime
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+
+  @@map("availability")
 }
 
 model SchedulingConstraint {
@@ -550,6 +572,8 @@ model SchedulingConstraint {
   notes           String?
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @updatedAt
+
+  @@map("schedulingConstraint")
 }
 
 enum DayOfWeek {
@@ -573,16 +597,18 @@ enum ConstraintType {
 model InventoryWithdrawal {
   id              Int           @id @default(autoincrement())
   inventoryItemId Int
-  inventoryItem   InventoryItem @relation(fields: [inventoryItemId], references: [id])
+  inventoryItem   InventoryItem @relation(fields: [inventoryItemId], references: [id], onDelete: Cascade)
   dateTime        DateTime
   quantity        Float
   unit            String
   recipeId        Int?
-  recipe          Recipe?       @relation(fields: [recipeId], references: [id])
+  recipe          Recipe?       @relation(fields: [recipeId], references: [id], onDelete: SetNull)
   createdById     Int
-  createdBy       User          @relation(fields: [createdById], references: [id])
+  createdBy       User          @relation(fields: [createdById], references: [id], onDelete: Restrict)
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
+
+  @@map("inventoryWithdrawal")
 }
 
 //Allergen Information
@@ -593,14 +619,19 @@ model Allergen {
   name        String               @unique
   description String?
   ingredients IngredientAllergen[]
+
+  @@map("allergen")
 }
 
 model IngredientAllergen {
   id           Int        @id @default(autoincrement())
   ingredientId Int
-  ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id], onDelete: Cascade)
   allergenId   Int
-  allergen     Allergen   @relation(fields: [allergenId], references: [id])
+  allergen     Allergen   @relation(fields: [allergenId], references: [id], onDelete: Cascade)
+
+  @@unique([ingredientId, allergenId])
+  @@map("ingredientAllergen")
 }
 
 //Nutritional Recommendations
@@ -608,10 +639,12 @@ model IngredientAllergen {
 model NutritionalRecommendation {
   id             Int      @id @default(autoincrement())
   menuItemId     Int
-  menuItem       MenuItem @relation(fields: [menuItemId], references: [id])
+  menuItem       MenuItem @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
   recommendation String
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
+
+  @@map("nutritionalRecommendation")
 }
 
 model EarlyAccess {
@@ -666,7 +699,7 @@ model Restaurant {
   state             String
   owner             String
   organizationId    Int?
-  organization      Organization?       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  organization      Organization?       @relation(fields: [organizationId], references: [id], onDelete: SetNull)
   users             User[]
   cookbooks         CookBook[]
   inventory         Inventory?
@@ -679,51 +712,51 @@ model Restaurant {
   isDeleted         Boolean             @default(false)
   deleted           DateTime?
   salesTransactions SalesTransactions[]
-  leftoverItem      LeftoverItem[]
-  wasteRecord       WasteRecord[]
-  productionPlan    ProductionPlan[]
-  equipment         Equipment[]
-  qualityChecklist  QualityChecklist[]
-  qustomerFeedback  CustomerFeedback[]
+  leftoverItems     LeftoverItem[]
+  wasteRecords      WasteRecord[]
+  productionPlans   ProductionPlan[]
+  equipments        Equipment[]
+  qualityChecklists QualityChecklist[]
+  customerFeedbacks CustomerFeedback[]
 
   @@index([name])
   @@map("restaurant")
 }
 
 model User {
-  id                     Int                    @id @default(autoincrement())
-  email                  String                 @unique
-  sub                    Int?                   @unique
-  passwordHash           String
-  firstName              String
-  lastName               String
-  profileImage           String?
-  verified               Boolean                @default(false)
-  role                   UserRole
-  organizationId         Int?
-  organization           Organization?          @relation(fields: [organizationId], references: [id], onDelete: Cascade)
-  restaurantId           Int?
-  restaurant             Restaurant?            @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
-  shifts                 Shift[]
-  prepItems              PrepItem[]
-  inventoryUpdates       InventoryItem[]        @relation("InventoryItemUpdater")
-  sessions               Session[]
-  passwordResets         PasswordReset[]
-  createdAt              DateTime               @default(now())
-  updatedAt              DateTime               @updatedAt
-  leftoverItem           LeftoverItem[]
-  wasteRecord            WasteRecord[]
-  productionPlan         ProductionPlan[]
-  productionPlanItem     ProductionPlanItem[]
-  availability           Availability[]
-  schedulingConstraint   SchedulingConstraint[]
-  inventoryWithdrawal    InventoryWithdrawal[]
-  checklistComplete      ChecklistComplete[]
-  customerFeedback       CustomerFeedback[]
-  recipeVersionsCreated  RecipeVersion[]
-  recipeVersionsApproved RecipeVersion[]        @relation("RecipeApprover")
-  InventoryTransaction   InventoryTransaction[]
-  StockCount             StockCount[]
+  id                        Int                    @id @default(autoincrement())
+  email                     String                 @unique
+  sub                       Int?                   @unique
+  passwordHash              String
+  firstName                 String
+  lastName                  String
+  profileImage              String?
+  verified                  Boolean                @default(false)
+  role                      UserRole
+  organizationId            Int?
+  organization              Organization?          @relation(fields: [organizationId], references: [id], onDelete: SetNull)
+  restaurantId              Int?
+  restaurant                Restaurant?            @relation(fields: [restaurantId], references: [id], onDelete: SetNull)
+  shifts                    Shift[]
+  prepItems                 PrepItem[]
+  inventoryUpdates          InventoryItem[]        @relation("InventoryItemUpdater")
+  sessions                  Session[]
+  passwordResets            PasswordReset[]
+  createdAt                 DateTime               @default(now())
+  updatedAt                 DateTime               @updatedAt
+  leftoverItems             LeftoverItem[]
+  wasteRecords              WasteRecord[]
+  productionPlans           ProductionPlan[]
+  productionPlanItems       ProductionPlanItem[]
+  availability              Availability[]
+  schedulingConstraints     SchedulingConstraint[]
+  inventoryWithdrawals      InventoryWithdrawal[]
+  checklistCompletes        ChecklistComplete[]
+  customerFeedbackResponses CustomerFeedback[]
+  recipeVersionsCreated     RecipeVersion[]
+  recipeVersionsApproved    RecipeVersion[]        @relation("RecipeApprover")
+  InventoryTransactions     InventoryTransaction[]
+  StockCounts               StockCount[]
 
   @@index([email])
   @@index([firstName, lastName])
@@ -750,7 +783,7 @@ model CookBook {
   category     String
   recipes      Recipe[]
   restaurantId Int?
-  restaurant   Restaurant? @relation(fields: [restaurantId], references: [id])
+  restaurant   Restaurant? @relation(fields: [restaurantId], references: [id], onDelete: SetNull)
 
   @@index([name])
   @@map("cookbook")
@@ -843,10 +876,10 @@ model Ingredient {
   vendors              Vendor[]
   //  position          Int?
   // embedding         Unsupported("vector(1024)")?
-  WasteRecord          WasteRecord[]
-  IngredientAllergen   IngredientAllergen[]
-  SupplierPriceHistory SupplierPriceHistory[]
-  DietaryRestriction   DietaryRestriction?    @relation(fields: [dietaryRestrictionId], references: [id])
+  WasteRecords         WasteRecord[]
+  IngredientAllergens  IngredientAllergen[]
+  priceHistory         SupplierPriceHistory[]
+  DietaryRestrictions  DietaryRestriction[]
   dietaryRestrictionId Int?
   // Nutritional information per 100g/ml
   calories             Float?
@@ -888,13 +921,13 @@ model RecipeIngredient {
   // Relationships
   recipe        Recipe         @relation(fields: [recipeId], references: [id], onDelete: Cascade)
   ingredient    Ingredient     @relation(fields: [ingredientId], references: [id], onDelete: Restrict)
-  recipeVersion RecipeVersion? @relation(fields: [recipeVersionId], references: [id])
+  recipeVersion RecipeVersion? @relation(fields: [recipeVersionId], references: [id], onDelete: SetNull)
 
   // Constraints
-  @@unique([recipeId, ingredientId])
-  @@index([ingredientId])
+  @@unique([recipeId, ingredientId, recipeVersionId], name: "unique_ingredient_per_version")
+  @@index([recipeVersionId])
   //  @@check(quantity > 0)
-  @@map("recipe_ingredient")
+  @@map("recipeIngredient")
 }
 
 model RecipeInstruction {
@@ -904,7 +937,7 @@ model RecipeInstruction {
   stepNumber      Int
   instruction     String
   imageUrl        String?
-  RecipeVersion   RecipeVersion?    @relation(fields: [recipeVersionId], references: [id])
+  RecipeVersion   RecipeVersion?    @relation(fields: [recipeVersionId], references: [id], onDelete: Cascade)
   recipeVersionId Int?
   timeInMinutes   Int?
   temperature     Float?
@@ -914,7 +947,7 @@ model RecipeInstruction {
   warningNotes    String?
   equipment       RecipeEquipment[]
 
-  @@unique([recipeId, stepNumber])
+  @@unique([recipeId, stepNumber, recipeVersionId])
   @@map("recipeInstruction")
 }
 
@@ -1073,7 +1106,7 @@ model Order {
   restaurantId Int
   restaurant   Restaurant  @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
   vendorId     Int
-  vendor       Vendor      @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  vendor       Vendor      @relation(fields: [vendorId], references: [id], onDelete: Restrict)
   status       OrderStatus
   items        OrderItem[]
   createdAt    DateTime    @default(now())
@@ -1087,7 +1120,7 @@ model OrderItem {
   orderId      Int
   order        Order      @relation(fields: [orderId], references: [id], onDelete: Cascade)
   ingredientId Int
-  ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id], onDelete: Restrict)
   quantity     Float
   unit         String
   price        Float
@@ -1117,7 +1150,7 @@ model Shift {
   startTime DateTime
   endTime   DateTime
   status    ShiftStatus
-  ShiftTask ShiftTask[]
+  tasks     ShiftTask[]
 
   @@map("shift")
 }
@@ -1127,9 +1160,9 @@ model PrepBoard {
   name      String
   status    PrepStatus
   recipes   Recipe[]
+  prepItems PrepItem[] @relation("PrepBoardToPrepItems")
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
-  prepItems PrepItem[] @relation("PrepBoardToPrepItems")
 
   @@map("prepBoard")
 }
@@ -1137,13 +1170,13 @@ model PrepBoard {
 model PrepItem {
   id           Int        @id @default(autoincrement())
   prepBoardId  Int
-  prepBoard    PrepBoard  @relation("PrepBoardToPrepItems", fields: [prepBoardId], references: [id])
+  prepBoard    PrepBoard  @relation("PrepBoardToPrepItems", fields: [prepBoardId], references: [id], onDelete: Cascade)
   recipeId     Int
-  recipe       Recipe     @relation(fields: [recipeId], references: [id])
+  recipe       Recipe     @relation(fields: [recipeId], references: [id], onDelete: Restrict)
   quantity     Int
   status       PrepStatus
   assignedToId Int
-  assignedTo   User       @relation(fields: [assignedToId], references: [id], onDelete: Cascade)
+  assignedTo   User       @relation(fields: [assignedToId], references: [id], onDelete: Restrict)
 
   @@map("prepItem")
 }
@@ -1164,7 +1197,7 @@ model Menu {
   id           Int            @id @default(autoincrement())
   name         String
   restaurantId Int
-  restaurant   Restaurant     @relation(fields: [restaurantId], references: [id])
+  restaurant   Restaurant     @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
   menuItems    MenuItem[]
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
@@ -1176,9 +1209,9 @@ model Menu {
 model MenuItemRecipe {
   id         Int      @id @default(autoincrement())
   menuItemId Int
-  menuItem   MenuItem @relation(fields: [menuItemId], references: [id])
+  menuItem   MenuItem @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
   recipeId   Int
-  recipe     Recipe   @relation(fields: [recipeId], references: [id])
+  recipe     Recipe   @relation(fields: [recipeId], references: [id], onDelete: Restrict)
   joinAt     DateTime @default(now())
 
   @@unique([menuItemId, recipeId])
@@ -1196,7 +1229,7 @@ model MenuItem {
   recipeIds            Int[]
   recipeServingsAmount Float[]
   recipeServingsCost   Float[]
-  allergens            String[]
+  allergens            String[] // Array of allergen names for quick lookup
   menuId               Int
   categoryId           Int?
 
@@ -1217,13 +1250,13 @@ model MenuItem {
   @@index([categoryId])
   @@index([name])
   //  @@check(price >= foodCost)
-  @@map("menu_item")
+  @@map("menuItem")
 }
 
 model NutritionalInfo {
   id            Int       @id @default(autoincrement())
   menuItemId    Int?      @unique
-  menuItem      MenuItem? @relation(fields: [menuItemId], references: [id])
+  menuItem      MenuItem? @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
   calories      Float
   fat           Float
   saturatedFat  Float
@@ -1243,7 +1276,7 @@ model NutritionalInfo {
 model FoodCostHistory {
   id        Int      @id @default(autoincrement())
   recipeId  Int
-  recipe    Recipe   @relation(fields: [recipeId], references: [id])
+  recipe    Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
   cost      Float
   date      DateTime
   createdAt DateTime @default(now())
@@ -1255,7 +1288,7 @@ model FoodCostHistory {
 model PrepHistory {
   id        Int      @id @default(autoincrement())
   recipeId  Int
-  recipe    Recipe   @relation(fields: [recipeId], references: [id])
+  recipe    Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
   quantity  Int
   date      DateTime
   createdAt DateTime @default(now())

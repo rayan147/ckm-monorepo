@@ -5,7 +5,9 @@
  * 
  * @param {Object} recipe - The recipe object to print
  */
-export function printRecipe(recipe) {
+import type { RecipeIncludes } from "$lib/contexts/recipe-context.svelte";
+export function printRecipe(recipe: RecipeIncludes) {
+  console.log(`Print recipe ${JSON.stringify(recipe, null, 2)}`)
   // Create a new window
   const printWindow = window.open('', '_blank', 'width=800,height=600');
 
@@ -248,10 +250,10 @@ export function printRecipe(recipe) {
           </ul>
           ` : '<p>No ingredients listed</p>'}
           
-          ${recipe.equipment && recipe.equipment.length > 0 ? `
+          ${recipe.equipments && recipe.equipments.length > 0 ? `
           <h2>Equipment</h2>
           <ul class="equipment-list">
-            ${recipe.equipment.map(eq => `
+            ${recipe.equipments.map(eq => `
               <li>
                 ${eq.equipmentId ? `Equipment #${eq.equipmentId}` : ''}
                 ${eq.notes ? ` - ${eq.notes}` : ''}

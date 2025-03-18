@@ -1,20 +1,22 @@
-import { getRecipeContext } from '$lib/contexts/recipe-context.svelte';
+<!-- src/lib/components/recipes/PrintableRecipe.svelte -->
+<script lang="ts">
+  import { getRecipeContext } from '$lib/contexts/recipe-context.svelte';
 
-const recipeState = getRecipeContext();
-const recipe = recipeState.recipe;
+  // Export the printRecipe function so it can be imported elsewhere
+  export function printRecipe() {
+    const recipeState = getRecipeContext();
+    const recipe = recipeState.recipe;
 
-// Function to generate and open a printable window
-export function printRecipe() {
-  // Create a new window
-  const printWindow = window.open('', '_blank', 'width=800,height=600');
+    // Create a new window
+    const printWindow = window.open('', '_blank', 'width=800,height=600');
 
-  if (!printWindow) {
-    alert('Please allow pop-ups to print this recipe');
-    return;
-  }
+    if (!printWindow) {
+      alert('Please allow pop-ups to print this recipe');
+      return;
+    }
 
-  // Generate the HTML content for the printable page
-  const html = `
+    // Generate the HTML content for the printable page
+    const html = `
       <!DOCTYPE html>
       <html lang="en">
       <head>
@@ -223,43 +225,65 @@ export function printRecipe() {
             <span class="meta-value">${recipe.servings}</span>
           </div>
           
-          ${recipe.skillLevel ? `
+          ${
+            recipe.skillLevel
+              ? `
           <div class="meta-item">
             <span class="meta-label">Skill Level</span>
             <span class="meta-value">${recipe.skillLevel}</span>
           </div>
-          ` : ''}
+          `
+              : ''
+          }
         </div>
         
         <div class="column-layout">
           <div class="column">
             <h2>Ingredients</h2>
-            ${recipe.ingredients && recipe.ingredients.length > 0 ? `
+            ${
+              recipe.ingredients && recipe.ingredients.length > 0
+                ? `
             <ul class="ingredients-list">
-              ${recipe.ingredients.map(ing => `
+              ${recipe.ingredients
+                .map(
+                  (ing) => `
                 <li>
                   ${ing.quantity ? ing.quantity.toFixed(2) : ''} 
                   ${ing.unit || ''} 
                   ${ing.ingredient?.name || ''}
                   ${ing.notes ? ` (${ing.notes})` : ''}
                 </li>
-              `).join('')}
+              `
+                )
+                .join('')}
             </ul>
-            ` : '<p>No ingredients listed</p>'}
+            `
+                : '<p>No ingredients listed</p>'
+            }
             
-            ${recipe.equipment && recipe.equipment.length > 0 ? `
+            ${
+              recipe.equipment && recipe.equipment.length > 0
+                ? `
             <h2>Equipment</h2>
             <ul class="equipment-list">
-              ${recipe.equipment.map(eq => `
+              ${recipe.equipment
+                .map(
+                  (eq) => `
                 <li>
-                  ${eq.equipmentId && `Equipment #${eq.equipmentId}`}
+                  ${eq.equipmentId ? `Equipment #${eq.equipmentId}` : ''}
                   ${eq.notes ? ` - ${eq.notes}` : ''}
                 </li>
-              `).join('')}
+              `
+                )
+                .join('')}
             </ul>
-            ` : ''}
+            `
+                : ''
+            }
             
-            ${recipe.nutritionalInfo ? `
+            ${
+              recipe.nutritionalInfo
+                ? `
             <h2>Nutritional Information</h2>
             <div class="meta-item">
               <span class="meta-label">Calories</span>
@@ -277,17 +301,20 @@ export function printRecipe() {
               <span class="meta-label">Fat</span>
               <span class="meta-value">${recipe.nutritionalInfo.fat.toFixed(1)}g</span>
             </div>
-            ` : ''}
+            `
+                : ''
+            }
             
-            ${recipe.nutritionalInfo && (
-      recipe.nutritionalInfo.containsDairy ||
-      recipe.nutritionalInfo.containsEggs ||
-      recipe.nutritionalInfo.containsFish ||
-      recipe.nutritionalInfo.containsGluten ||
-      recipe.nutritionalInfo.containsNuts ||
-      recipe.nutritionalInfo.containsShellfish ||
-      recipe.nutritionalInfo.containsSoy
-    ) ? `
+            ${
+              recipe.nutritionalInfo &&
+              (recipe.nutritionalInfo.containsDairy ||
+                recipe.nutritionalInfo.containsEggs ||
+                recipe.nutritionalInfo.containsFish ||
+                recipe.nutritionalInfo.containsGluten ||
+                recipe.nutritionalInfo.containsNuts ||
+                recipe.nutritionalInfo.containsShellfish ||
+                recipe.nutritionalInfo.containsSoy)
+                ? `
             <div class="allergies">
               <strong>Allergens:</strong> 
               ${recipe.nutritionalInfo.containsDairy ? 'Dairy, ' : ''}
@@ -298,41 +325,61 @@ export function printRecipe() {
               ${recipe.nutritionalInfo.containsShellfish ? 'Shellfish, ' : ''}
               ${recipe.nutritionalInfo.containsSoy ? 'Soy' : ''}
             </div>
-            ` : ''}
+            `
+                : ''
+            }
           </div>
           
           <div class="column">
             <h2>Instructions</h2>
-            ${recipe.instructions && recipe.instructions.length > 0 ? `
+            ${
+              recipe.instructions && recipe.instructions.length > 0
+                ? `
             <div class="instructions-list">
-              ${recipe.instructions.map(step => `
+              ${recipe.instructions
+                .map(
+                  (step) => `
                 <div class="instruction-step">
                   <div>
                     <span class="step-number">${step.stepNumber}</span>
                     <span class="step-text">${step.instruction}</span>
                   </div>
                   
-                  ${(step.timeInMinutes || step.temperature) ? `
+                  ${
+                    step.timeInMinutes || step.temperature
+                      ? `
                   <div class="step-details">
                     ${step.timeInMinutes ? `Time: ${step.timeInMinutes} minutes` : ''}
                     ${step.timeInMinutes && step.temperature ? ' | ' : ''}
                     ${step.temperature ? `Temperature: ${step.temperature}° ${step.temperatureUnit || ''}` : ''}
                   </div>
-                  ` : ''}
+                  `
+                      : ''
+                  }
                   
-                  ${step.techniqueTips ? `
+                  ${
+                    step.techniqueTips
+                      ? `
                   <div class="tips">
                     <strong>Technique tips:</strong> ${step.techniqueTips}
                   </div>
-                  ` : ''}
+                  `
+                      : ''
+                  }
                 </div>
-              `).join('')}
+              `
+                )
+                .join('')}
             </div>
-            ` : '<p>No instructions listed</p>'}
+            `
+                : '<p>No instructions listed</p>'
+            }
           </div>
         </div>
         
-        ${recipe.storage ? `
+        ${
+          recipe.storage
+            ? `
         <h2>Storage Instructions</h2>
         <div class="storage-info">
           <p>
@@ -343,7 +390,9 @@ export function printRecipe() {
           ${recipe.storage.shelfLife ? `<p>Shelf life: ${recipe.storage.shelfLife} days</p>` : ''}
           ${recipe.storage.specialNotes ? `<p>Special notes: ${recipe.storage.specialNotes}</p>` : ''}
         </div>
-        ` : ''}
+        `
+            : ''
+        }
         
         <div class="recipe-footer">
           <p>Recipe ID: ${recipe.id} | Printed on ${new Date().toLocaleDateString()}</p>
@@ -352,11 +401,14 @@ export function printRecipe() {
       </html>
     `;
 
-  // Write to the new window document
-  printWindow.document.open();
-  printWindow.document.write(html);
-  printWindow.document.close();
+    // Write to the new window document
+    printWindow.document.open();
+    printWindow.document.write(html);
+    printWindow.document.close();
 
-  // Focus on the new window
-  printWindow.focus();
-}
+    // Focus on the new window
+    printWindow.focus();
+  }
+</script>
+
+<!-- No visible UI for this component as it's only for the printing functionality -->

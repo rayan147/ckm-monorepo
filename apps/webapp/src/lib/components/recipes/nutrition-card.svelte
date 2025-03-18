@@ -14,19 +14,16 @@
   import IngredientMatchDialog from './ingredient-match-dialog.svelte';
   import * as Table from '$lib/components/ui/table';
   import { Checkbox } from '$lib/components/ui/checkbox';
-  import type { RecipeNutrition } from '@ckm/db';
+  import { zodSchemas, type RecipeIngredient, type RecipeNutrition } from '@ckm/db';
+  import { z } from 'zod';
 
-  interface Ingredient {
-    name: string;
-    calories: number;
-    protein: number;
-    carbohydrates: number;
-    fat: number;
-    fiber: number;
-    sugar: number;
-    sodium: number;
-  }
+  const RecipeIngredientSchema = zodSchemas.RecipeIngredientSchema.extend({
+    ingredient: zodSchemas.IngredientSchema.omit({
+      id: true
+    })
+  });
 
+  type RecipeIngredientIncludeIngredient = z.infer<typeof RecipeIngredientSchema>;
   const recipeState = getRecipeContext();
   const recipe = recipeState.recipe;
 
@@ -282,7 +279,7 @@
   }
 
   // Function to manually start matching for a specific ingredient
-  function startMatchingForIngredient(ingredient: Ingredient) {
+  function startMatchingForIngredient(ingredient: RecipeIngredientIncludeIngredient) {
     if (!ingredient) return;
 
     currentIngredient = ingredient;
@@ -291,7 +288,7 @@
   }
 
   // Open the manual nutrition input dialog
-  function openManualInputDialog(ingredient: RecipeNutrition) {
+  function openManualInputDialog(ingredient: RecipeIngredientIncludeIngredient) {
     selectedIngredient = ingredient;
 
     // Pre-fill existing values if they exist

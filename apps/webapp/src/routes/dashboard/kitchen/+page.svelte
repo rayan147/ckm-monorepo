@@ -267,7 +267,7 @@
             {#if navigating.to}
               {#each skeletonRows.slice(0, 8) as _, i}
                 <li>
-                  <Card.Root>
+                  <Card.Root class="h-full">
                     <Card.Header class="p-0">
                       <Skeleton class="h-48 w-full rounded-t-lg" />
                     </Card.Header>
@@ -304,7 +304,7 @@
                               <img
                                 src={recipe.imageUrls[0]}
                                 class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                                alt=""
+                                alt={`Image of ${recipe.name}`}
                                 loading="lazy"
                               />
                             {:else}
@@ -344,14 +344,16 @@
                           <h3 class="font-medium text-lg line-clamp-1 mb-1">{recipe.name}</h3>
 
                           {#if recipe.cookBook}
-                            {@const cookBook = recipe.cookBook}
-                            <div class="text-sm text-muted-foreground mb-2 line-clamp-1">
-                              <dt class="sr-only">Cook Book</dt>
-                              <BookIcon class="h-3 w-3 mr-1" aria-hidden="true" />
-                              <dd>{cookBook.name} {cookBook.category}</dd>
-                              <figure>
-                                <img src={cookBook.imageUrl} alt={cookBook.category} />
-                              </figure>
+                            <div
+                              class="text-sm text-muted-foreground mb-2 line-clamp-1 flex items-center"
+                            >
+                              <BookIcon class="h-3 w-3 mr-1 flex-shrink-0" aria-hidden="true" />
+                              <span class="truncate">{recipe.cookBook.name}</span>
+                              <span
+                                class="ml-1 px-1.5 py-0.5 text-xs bg-primary/10 text-secondary-foreground rounded-full whitespace-nowrap"
+                              >
+                                {recipe.cookBook.category}
+                              </span>
                             </div>
                           {/if}
 
@@ -366,11 +368,7 @@
                             <div class="flex items-center">
                               <dt class="sr-only">Food Cost</dt>
                               <DollarSign class="h-3 w-3 mr-1" aria-hidden="true" />
-                              {#if recipe.foodCost}
-                                <dd>{formatPrice(recipe.foodCost)}</dd>
-                              {:else}
-                                <dd>{formatPrice(0)}</dd>
-                              {/if}
+                              <dd>{formatPrice(recipe?.foodCost ?? 0)}</dd>
                             </div>
                           </dl>
 
@@ -388,23 +386,22 @@
 
                             <div class="flex space-x-1 ml-auto">
                               <!-- Delete button -->
-                              <Button
+                              <button
                                 type="button"
-                                variant="ghost"
-                                size="icon"
-                                class="h-8 w-8 text-destructive hover:text-destructive hover:bg-destructive/10"
-                                onclick={(e) => confirmDelete(recipe, e)}
+                                class="h-8 w-8 rounded-md flex items-center justify-center text-destructive hover:text-destructive hover:bg-destructive/10 transition-colors"
+                                onclick={(e) => {
+                                  e.stopPropagation();
+                                  confirmDelete(recipe, e);
+                                }}
                                 aria-label={`Delete ${recipe.name}`}
                               >
                                 <Trash2 class="h-4 w-4" aria-hidden="true" />
-                              </Button>
+                              </button>
 
                               <!-- Edit button -->
-                              <Button
+                              <button
                                 type="button"
-                                variant="ghost"
-                                size="icon"
-                                class="h-8 w-8 hover:bg-primary/10"
+                                class="h-8 w-8 rounded-md flex items-center justify-center hover:bg-primary/10 transition-colors"
                                 onclick={(e) => {
                                   e.stopPropagation();
                                   navigateToRecipeDetails(recipe.id);
@@ -412,7 +409,7 @@
                                 aria-label={`Edit ${recipe.name}`}
                               >
                                 <Edit class="h-4 w-4" aria-hidden="true" />
-                              </Button>
+                              </button>
                             </div>
                           </div>
                         </Card.Content>
@@ -479,70 +476,37 @@
                           onclick={() => navigateToRecipeDetails(recipe.id)}
                           aria-label={`View details for ${recipe.name}`}
                         >
-                          <Avatar.Root class="h-10 w-10 rounded-md overflow-hidden flex-shrink-0">
+                          <div class="h-10 w-10 rounded-md overflow-hidden flex-shrink-0 bg-muted">
                             {#if recipe.imageUrls && recipe.imageUrls.length > 0}
-                              <Avatar.Image
+                              <img
                                 src={recipe.imageUrls[0]}
                                 alt={`Image of ${recipe.name}`}
+                                class="h-full w-full object-cover"
                               />
+                            {:else}
+                              <div class="h-full w-full flex items-center justify-center">
+                                <Chef class="h-5 w-5 text-muted-foreground" aria-hidden="true" />
+                              </div>
                             {/if}
-                            <Avatar.Fallback class="bg-muted">
-                              <Chef class="h-5 w-5 text-muted-foreground" aria-hidden="true" />
-                            </Avatar.Fallback>
-                          </Avatar.Root>
+                          </div>
 
                           <div class="min-w-0 flex-1">
                             <div class="font-medium text-sm">{recipe.name}</div>
 
-                            <!-- Improved Cookbook Display -->
                             {#if recipe.cookBook}
                               <div class="mt-0.5 flex items-center">
                                 <BookIcon
                                   class="h-3 w-3 mr-1 text-muted-foreground flex-shrink-0"
                                   aria-hidden="true"
                                 />
-                                <Tooltip.Provider>
-                                  <Tooltip.Root>
-                                    <Tooltip.Trigger>
-                                      <div class="flex items-center gap-x-1 max-w-[200px]">
-                                        <span class="text-xs text-muted-foreground truncate"
-                                          >{recipe.cookBook.name}</span
-                                        >
-                                        <span
-                                          class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-secondary-foreground whitespace-nowrap"
-                                        >
-                                          {recipe.cookBook.category}
-                                        </span>
-                                      </div>
-                                    </Tooltip.Trigger>
-                                    <Tooltip.Content
-                                      side="bottom"
-                                      sideOffset={5}
-                                      class="p-0 overflow-hidden"
-                                    >
-                                      <div
-                                        class="bg-card border rounded-lg shadow-md p-3 w-[250px]"
-                                      >
-                                        <div class="flex items-start gap-3">
-                                          {#if recipe.cookBook.imageUrl}
-                                            <img
-                                              src={recipe.cookBook.imageUrl}
-                                              alt={recipe.cookBook.name}
-                                              class="h-16 w-16 object-cover rounded-md flex-shrink-0"
-                                            />
-                                          {/if}
-                                          <div>
-                                            <div class="font-medium">{recipe.cookBook.name}</div>
-                                            <div class="text-xs text-muted-foreground mt-1">
-                                              <span class="font-semibold">Category:</span>
-                                              {recipe.cookBook.category}
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </Tooltip.Content>
-                                  </Tooltip.Root>
-                                </Tooltip.Provider>
+                                <span class="text-xs text-muted-foreground truncate mr-1">
+                                  {recipe.cookBook.name}
+                                </span>
+                                <span
+                                  class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-secondary-foreground whitespace-nowrap"
+                                >
+                                  {recipe.cookBook.category}
+                                </span>
                               </div>
                             {:else}
                               <div class="text-xs text-muted-foreground mt-0.5">Uncategorized</div>
@@ -574,51 +538,29 @@
                       </Table.Cell>
                       <Table.Cell class="w-[100px]">
                         <div class="flex items-center justify-end gap-2">
-                          <Tooltip.Provider>
-                            <Tooltip.Root>
-                              <Tooltip.Trigger>
-                                <Button
-                                  type="button"
-                                  variant="ghost"
-                                  size="icon"
-                                  class="h-8 w-8 text-destructive hover:text-destructive hover:bg-destructive/10"
-                                  onclick={(e) => {
-                                    e.stopPropagation();
-                                    confirmDelete(recipe, e);
-                                  }}
-                                  aria-label={`Delete ${recipe.name}`}
-                                >
-                                  <Trash2 class="h-4 w-4" aria-hidden="true" />
-                                </Button>
-                              </Tooltip.Trigger>
-                              <Tooltip.Content>
-                                <p>Delete recipe</p>
-                              </Tooltip.Content>
-                            </Tooltip.Root>
-                          </Tooltip.Provider>
+                          <button
+                            type="button"
+                            class="h-8 w-8 rounded-md flex items-center justify-center text-destructive hover:text-destructive hover:bg-destructive/10 transition-colors"
+                            onclick={(e) => {
+                              e.stopPropagation();
+                              confirmDelete(recipe, e);
+                            }}
+                            aria-label={`Delete ${recipe.name}`}
+                          >
+                            <Trash2 class="h-4 w-4" aria-hidden="true" />
+                          </button>
 
-                          <Tooltip.Provider>
-                            <Tooltip.Root>
-                              <Tooltip.Trigger>
-                                <Button
-                                  type="button"
-                                  variant="ghost"
-                                  size="icon"
-                                  class="h-8 w-8"
-                                  onclick={(e) => {
-                                    e.stopPropagation();
-                                    navigateToRecipeDetails(recipe.id);
-                                  }}
-                                  aria-label={`Edit ${recipe.name}`}
-                                >
-                                  <Edit class="h-4 w-4" aria-hidden="true" />
-                                </Button>
-                              </Tooltip.Trigger>
-                              <Tooltip.Content>
-                                <p>Edit recipe</p>
-                              </Tooltip.Content>
-                            </Tooltip.Root>
-                          </Tooltip.Provider>
+                          <button
+                            type="button"
+                            class="h-8 w-8 rounded-md flex items-center justify-center hover:bg-primary/10 transition-colors"
+                            onclick={(e) => {
+                              e.stopPropagation();
+                              navigateToRecipeDetails(recipe.id);
+                            }}
+                            aria-label={`Edit ${recipe.name}`}
+                          >
+                            <Edit class="h-4 w-4" aria-hidden="true" />
+                          </button>
                         </div>
                       </Table.Cell>
                     </Table.Row>
