@@ -35203,3 +35203,73 @@
   "service": "LoggingService",
   "timestamp": "2025-03-21T20:59:19.924Z"
 }
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 23",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T21:20:00.487Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 23",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T21:20:00.488Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 23",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T21:20:11.562Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 23",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T21:20:11.563Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 23",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T21:20:14.316Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 23",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T21:20:14.317Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 23",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T21:20:20.069Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 23",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T21:20:20.069Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T21:20:23.242Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T21:20:23.243Z"
+}

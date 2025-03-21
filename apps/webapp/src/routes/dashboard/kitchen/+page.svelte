@@ -29,6 +29,7 @@
   import type { ActionData } from './$types';
   import { LocalStorage } from '$lib/hooks/local-storage.svelte';
   import * as AlertDialog from '$lib/components/ui/alert-dialog';
+  import { z } from 'zod';
 
   type ViewMode = 'grid' | 'list';
 
@@ -150,20 +151,38 @@
     }
   }
 
-  // Get skill level badge color
-  function getSkillLevelColor(level: string): string {
-    switch (level?.toLowerCase()) {
-      case 'beginner':
-        return 'bg-emerald-100 text-emerald-800';
-      case 'intermediate':
-        return 'bg-blue-100 text-blue-800';
-      case 'advanced':
-        return 'bg-amber-100 text-amber-800';
-      case 'expert':
-        return 'bg-rose-100 text-rose-800';
-      default:
-        return 'bg-gray-100 text-gray-800';
+  const SkillLevelSchema = z.enum(['beginner', 'intermediate', 'advanced', 'expert']);
+
+  // Create a type from the schema
+  type SkillLevel = z.infer<typeof SkillLevelSchema>;
+
+  // Define a mapping for colors as a constant
+  const SKILL_LEVEL_COLORS = {
+    beginner: 'bg-emerald-100 text-emerald-800',
+    intermediate: 'bg-blue-100 text-blue-800',
+    advanced: 'bg-amber-100 text-amber-800',
+    expert: 'bg-rose-100 text-rose-800'
+  } as const;
+
+  // Default color as a constant
+  const DEFAULT_COLOR = 'bg-gray-100 text-gray-800' as const;
+
+  /**
+   * Returns the appropriate color classes for a given skill level
+   * @param level - The skill level to get colors for
+   * @returns CSS class string for the skill level
+   */
+  function getSkillLevelColor(level: string | null | undefined): string {
+    if (!level) return DEFAULT_COLOR;
+
+    const normalizedLevel = level.toLowerCase();
+
+    // Type guard to check if it's a valid skill level
+    if (SkillLevelSchema.safeParse(normalizedLevel).success) {
+      return SKILL_LEVEL_COLORS[normalizedLevel as SkillLevel];
     }
+
+    return DEFAULT_COLOR;
   }
 
   // Get formatted price
