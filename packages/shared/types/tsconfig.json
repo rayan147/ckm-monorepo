@@ -12,6 +12,11 @@
     "outDir": "dist",
     "rootDir": "src",
     "skipLibCheck": true,
+    "paths": {
+      "@ckm/db": [
+        "../../database/dist"
+      ]
+    }
   },
   "include": [
     "src/**/*"

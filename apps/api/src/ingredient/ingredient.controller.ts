@@ -1,17 +1,16 @@
-import { Controller } from '@nestjs/common';
-import { TsRest, TsRestHandler, tsRestHandler } from '@ts-rest/nest';
 import { contract } from '@ckm/contracts';
-import { IngredientService } from './ingredient.service';
+import { Controller } from '@nestjs/common';
+import { TsRestHandler, tsRestHandler } from '@ts-rest/nest';
 import { LoggingService } from '../logging/logging.service';
+import { IngredientService } from './ingredient.service';
 
-@TsRest({ jsonQuery: true })
 @Controller()
 export class IngredientController {
   constructor(
     private readonly ingredientService: IngredientService,
     private readonly logger: LoggingService,
   ) {
-    this.logger.setContext('IngredientController');
+    this.logger.setContext(IngredientController.name);
   }
 
   @TsRestHandler(contract.ingredient.createIngredient)

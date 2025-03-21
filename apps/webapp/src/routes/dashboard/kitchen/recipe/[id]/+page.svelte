@@ -10,6 +10,7 @@
   import { Badge } from '$lib/components/ui/badge';
   import { Tabs, TabsContent, TabsList, TabsTrigger } from '$lib/components/ui/tabs';
   import * as Carousel from '$lib/components/ui/carousel/index.js';
+
   // Using existing recipe header component
   import RecipeHeader from '$lib/components/recipes/recipe-header.svelte';
   import RecipeAllergens from '$lib/components/recipes/recipe-allergens.svelte';
@@ -23,11 +24,11 @@
   import CompletionModal from '$lib/components/recipes/completion-modal.svelte';
 
   // Initialize props
-  let { data }: PageProps = $props();
+  let { form, data }: PageProps = $props();
+  const { recipe, dailyValues, usdaMatches, ingredientToMatch } = data;
 
   // Create recipe state instance
-  const recipeState = $state(new RecipeState(data.recipe));
-  console.log({ data });
+  const recipeState = $state(new RecipeState(recipe));
 
   // Set context for child components
   setRecipeContext(recipeState);
@@ -44,7 +45,9 @@
 
       // Update on select event
       carouselApi.on('select', () => {
-        currentSlide = carouselApi?.selectedScrollSnap();
+        if (carouselApi && carouselApi.selectedScrollSnap() !== undefined) {
+          currentSlide = carouselApi.selectedScrollSnap();
+        }
       });
     }
   });
@@ -227,7 +230,7 @@
           </TabsList>
 
           <TabsContent value="overview" class="space-y-6">
-            <RecipeOverview />
+            <RecipeOverview {dailyValues} {usdaMatches} {form} {ingredientToMatch} />
           </TabsContent>
 
           <TabsContent value="ingredients">

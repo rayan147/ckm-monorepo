@@ -1,26 +1,28 @@
 <!-- src/lib/recipe/tabs/NutritionTab.svelte -->
 <script lang="ts">
-  import * as Card from '$lib/components/ui/card';
   import * as AlertDialog from '$lib/components/ui/alert-dialog';
-  import { Separator } from '$lib/components/ui/separator';
   import { Button } from '$lib/components/ui/button';
-  import { Progress } from '$lib/components/ui/progress';
+  import * as Card from '$lib/components/ui/card';
+  import { Checkbox } from '$lib/components/ui/checkbox';
   import { Input } from '$lib/components/ui/input';
   import { Label } from '$lib/components/ui/label';
-  import { getRecipeContext } from '$lib/contexts/recipe-context.svelte';
-  import { RotateCw, AlertCircle, Check, ArrowRight, Info, Edit } from 'lucide-svelte';
-  import { api } from '@ckm/lib-api';
-  import { toast } from 'svelte-sonner';
-  import IngredientMatchDialog from './ingredient-match-dialog.svelte';
+  import { Progress } from '$lib/components/ui/progress';
+  import { Separator } from '$lib/components/ui/separator';
   import * as Table from '$lib/components/ui/table';
-  import { Checkbox } from '$lib/components/ui/checkbox';
-  import { zodSchemas, type RecipeIngredient, type RecipeNutrition } from '@ckm/db';
+  import { getRecipeContext } from '$lib/contexts/recipe-context.svelte';
+  import { zodSchemas, type RecipeNutrition } from '@ckm/db';
+  import { api } from '@ckm/lib-api';
+  import { AlertCircle, Check, Info, RotateCw } from 'lucide-svelte';
+  import { toast } from 'svelte-sonner';
   import { z } from 'zod';
+  import IngredientMatchDialog from './ingredient-match-dialog.svelte';
+  import { enhance } from '$app/forms';
+  import { goto } from '$app/navigation';
+
+  let { dailyValues, form, usdaMatches = [] } = $props();
 
   const RecipeIngredientSchema = zodSchemas.RecipeIngredientSchema.extend({
-    ingredient: zodSchemas.IngredientSchema.omit({
-      id: true
-    })
+    ingredient: zodSchemas.IngredientSchema
   });
 
   type RecipeIngredientIncludeIngredient = z.infer<typeof RecipeIngredientSchema>;
@@ -30,7 +32,7 @@
   // State variables
   let calculating = $state(false);
   let dialogOpen = $state(false);
-  let usdaMatches = $state<any[]>([]);
+  // let usdaMatches = $state<any[]>([]);
   let currentIngredient = $state<any>(null);
   let processingIngredients = $state(false);
   let ingredientsNeedingMatching = $state<any[]>([]);
@@ -40,7 +42,7 @@
   // Manual nutrition input states
   let showManualInputDialog = $state(false);
   let selectedIngredient = $state<any>(null);
-  let manualNutritionData = $state({
+  let manualNutritionData = $state<Partial<RecipeNutrition>>({
     calories: 0,
     protein: 0,
     carbohydrates: 0,
@@ -57,17 +59,6 @@
     containsNuts: false,
     containsGluten: false
   });
-
-  // Daily recommended values
-  const dailyValues = {
-    calories: 2000,
-    fat: 65,
-    carbohydrates: 300,
-    fiber: 25,
-    protein: 50,
-    sugar: 50,
-    sodium: 2300 // in mg
-  };
 
   // Get ingredients that need nutrition data
   function getIngredientsNeedingMatching() {
@@ -90,7 +81,7 @@
       ingredientsNeedingMatching = getIngredientsNeedingMatching();
 
       if (ingredientsNeedingMatching.length > 0) {
-        // If there are ingredients needing matching, start the process
+        L; // If there are ingredients needing matching, start the process
         processingIngredients = true;
         currentIngredientIndex = 0;
         currentIngredient = ingredientsNeedingMatching[0];
@@ -278,17 +269,19 @@
     }
   }
 
-  // Function to manually start matching for a specific ingredient
   function startMatchingForIngredient(ingredient: RecipeIngredientIncludeIngredient) {
-    if (!ingredient) return;
-
     currentIngredient = ingredient;
-    searchUsdaForIngredient(ingredient.ingredient?.name || '');
+    // Use goto to navigate with the query parameter
+    goto(`?matchIngredient=${encodeURIComponent(ingredient.ingredient?.name || '')}`, {
+      keepFocus: true
+    });
+    // Dialog will show based on usdaMatches from the load function
     dialogOpen = true;
   }
 
   // Open the manual nutrition input dialog
   function openManualInputDialog(ingredient: RecipeIngredientIncludeIngredient) {
+    console.table(ingredient);
     selectedIngredient = ingredient;
 
     // Pre-fill existing values if they exist
@@ -493,26 +486,78 @@
               {matchingProgress}
             </span>
           {/if}
+          {#if form?.error}
+            <p class="text-red-500">{form.error}</p>
+          {/if}
+          <form
+            method="POST"
+            action="?/calculateNutrition"
+            use:enhance={() => {
+              calculating = true;
+              return async ({ result, update }) => {
+                // Reset state
+                calculating = false;
+                ingredientsNeedingMatching = getIngredientsNeedingMatching();
+                if (ingredientsNeedingMatching.length > 0) {
+                  // If there are ingredients needing matching, start the process
+                  processingIngredients = true;
+                  currentIngredientIndex = 0;
+                  currentIngredient = ingredientsNeedingMatching[0];
 
-          <Button
-            variant={hasIncompleteData ? 'default' : 'outline'}
-            size="sm"
-            class={hasIncompleteData
-              ? 'bg-green-600 hover:bg-green-700 text-white font-medium'
-              : 'border-gray-300 text-gray-700'}
-            onclick={startNutritionCalculation}
-            disabled={calculating || processingIngredients}
-            aria-live="polite"
-            aria-busy={calculating || processingIngredients}
-            aria-describedby="nutrition-description"
+                  // Search for the first ingredient
+                  await searchForCurrentIngredient();
+                  dialogOpen = true;
+                }
+
+                if (result.type === 'success') {
+                  console.log({ result });
+                  // Update recipe data
+                  if (result.data?.nutritionalInfo) {
+                    recipe.nutritionalInfo = result.data.nutritionalInfo;
+                  }
+
+                  if (result.data?.updatedRecipe) {
+                    Object.assign(recipe, result.data.updatedRecipe);
+                  }
+
+                  toast.success('Success', {
+                    description: result.data?.message || 'Nutrition calculated successfully'
+                  });
+                } else if (result.type === 'failure') {
+                  toast.error('Error', {
+                    description: result.data?.message || 'Calculation failed'
+                  });
+                } else if (result.type === 'error') {
+                  toast.error('Error', {
+                    description: 'An unexpected error occurred'
+                  });
+                }
+
+                // Call update to apply default behaviors
+                update();
+              };
+            }}
           >
-            {#if calculating || processingIngredients}
-              <RotateCw class="h-4 w-4 mr-2 animate-spin" aria-hidden="true" />
-              <span>{processingIngredients ? 'Matching...' : 'Calculating...'}</span>
-            {:else}
-              <span>{hasIncompleteData ? 'Calculate Nutrition' : 'Recalculate Nutrition'}</span>
-            {/if}
-          </Button>
+            <Button
+              type="submit"
+              variant={hasIncompleteData ? 'default' : 'outline'}
+              size="sm"
+              class={hasIncompleteData
+                ? 'bg-green-600 hover:bg-green-700 text-white font-medium'
+                : 'border-gray-300 text-gray-700'}
+              disabled={calculating || processingIngredients}
+              aria-live="polite"
+              aria-busy={calculating || processingIngredients}
+              aria-describedby="nutrition-description"
+            >
+              {#if calculating || processingIngredients}
+                <RotateCw class="h-4 w-4 mr-2 animate-spin" aria-hidden="true" />
+                <span>{processingIngredients ? 'Matching...' : 'Calculating...'}</span>
+              {:else}
+                <span>{hasIncompleteData ? 'Calculate Nutrition' : 'Recalculate Nutrition'}</span>
+              {/if}
+            </Button>
+          </form>
         </div>
       </div>
     </Card.Header>
@@ -549,12 +594,12 @@
 
                   <div class="mt-3">
                     <Progress
-                      value={completionPercentage}
+                      value={completionPercentage()}
                       class="h-2 bg-amber-100"
                       aria-label="Ingredient completion percentage"
                       aria-valuemin="0"
                       aria-valuemax="100"
-                      aria-valuenow={completionPercentage}
+                      aria-valuenow={completionPercentage()}
                     />
                     <p class="text-xs text-amber-700 mt-2 flex justify-between" aria-live="polite">
                       <span>{completionPercentage}% complete</span>
@@ -981,148 +1026,152 @@
           Manually enter nutrition data for {selectedIngredient.ingredient?.name} (per 100g)
         </AlertDialog.Description>
       </AlertDialog.Header>
-
-      <div class="bg-blue-50 border border-blue-200 rounded-md p-3 my-3">
-        <p class="text-xs text-blue-800">
-          <strong>Note:</strong> Enter values per 100g of the ingredient, regardless of the recipe quantity.
-          The system will automatically calculate the nutrition based on the actual quantity used.
-        </p>
-      </div>
-
-      <div class="space-y-4 pt-2">
-        <div class="grid grid-cols-2 gap-4">
-          <div class="space-y-2">
-            <Label for="calories">Calories</Label>
-            <Input
-              id="calories"
-              type="number"
-              min="0"
-              placeholder="kcal per 100g"
-              bind:value={manualNutritionData.calories}
-            />
-            <p class="text-xs text-muted-foreground">Typical range: 0-900 kcal</p>
-          </div>
-          <div class="space-y-2">
-            <Label for="protein">Protein (g)</Label>
-            <Input
-              id="protein"
-              type="number"
-              min="0"
-              step="0.1"
-              placeholder="g per 100g"
-              bind:value={manualNutritionData.protein}
-            />
-            <p class="text-xs text-muted-foreground">Typical range: 0-30g</p>
-          </div>
-          <div class="space-y-2">
-            <Label for="carbohydrates">Carbohydrates (g)</Label>
-            <Input
-              id="carbohydrates"
-              type="number"
-              min="0"
-              step="0.1"
-              placeholder="g per 100g"
-              bind:value={manualNutritionData.carbohydrates}
-            />
-            <p class="text-xs text-muted-foreground">Typical range: 0-90g</p>
-          </div>
-          <div class="space-y-2">
-            <Label for="fat">Fat (g)</Label>
-            <Input
-              id="fat"
-              type="number"
-              min="0"
-              step="0.1"
-              placeholder="g per 100g"
-              bind:value={manualNutritionData.fat}
-            />
-            <p class="text-xs text-muted-foreground">Typical range: 0-100g</p>
-          </div>
-          <div class="space-y-2">
-            <Label for="fiber">Fiber (g)</Label>
-            <Input
-              id="fiber"
-              type="number"
-              min="0"
-              step="0.1"
-              placeholder="g per 100g"
-              bind:value={manualNutritionData.fiber}
-            />
-            <p class="text-xs text-muted-foreground">Typical range: 0-15g</p>
-          </div>
-          <div class="space-y-2">
-            <Label for="sugar">Sugar (g)</Label>
-            <Input
-              id="sugar"
-              type="number"
-              min="0"
-              step="0.1"
-              placeholder="g per 100g"
-              bind:value={manualNutritionData.sugar}
-            />
-            <p class="text-xs text-muted-foreground">Typical range: 0-70g</p>
-          </div>
-          <div class="space-y-2 col-span-2">
-            <Label for="sodium">Sodium (mg)</Label>
-            <Input
-              id="sodium"
-              type="number"
-              min="0"
-              step="1"
-              placeholder="mg per 100g"
-              bind:value={manualNutritionData.sodium}
-            />
-            <p class="text-xs text-muted-foreground">Typical range: 0-2000mg</p>
-          </div>
+      <form method="POST" action="?/saveManualNutrition" use:enhance>
+        <input type="hidden" name="ingredientId" value={selectedIngredient.ingredient?.id} />
+        <div class="bg-blue-50 border border-blue-200 rounded-md p-3 my-3">
+          <p class="text-xs text-blue-800">
+            <strong>Note:</strong> Enter values per 100g of the ingredient, regardless of the recipe
+            quantity. The system will automatically calculate the nutrition based on the actual quantity
+            used.
+          </p>
         </div>
 
-        <!-- Allergen Section -->
-        <div class="pt-4 border-t border-gray-200">
-          <h3 class="text-sm font-medium mb-3">Allergen Information</h3>
-          <div class="grid grid-cols-2 gap-3">
-            <div class="flex items-center space-x-2">
-              <Checkbox id="containsGluten" bind:checked={manualNutritionData.containsGluten} />
-              <Label for="containsGluten" class="text-sm font-normal">Contains Gluten</Label>
-            </div>
-            <div class="flex items-center space-x-2">
-              <Checkbox id="containsDairy" bind:checked={manualNutritionData.containsDairy} />
-              <Label for="containsDairy" class="text-sm font-normal">Contains Dairy</Label>
-            </div>
-            <div class="flex items-center space-x-2">
-              <Checkbox id="containsNuts" bind:checked={manualNutritionData.containsNuts} />
-              <Label for="containsNuts" class="text-sm font-normal">Contains Nuts</Label>
-            </div>
-            <div class="flex items-center space-x-2">
-              <Checkbox id="containsEggs" bind:checked={manualNutritionData.containsEggs} />
-              <Label for="containsEggs" class="text-sm font-normal">Contains Eggs</Label>
-            </div>
-            <div class="flex items-center space-x-2">
-              <Checkbox id="containsSoy" bind:checked={manualNutritionData.containsSoy} />
-              <Label for="containsSoy" class="text-sm font-normal">Contains Soy</Label>
-            </div>
-            <div class="flex items-center space-x-2">
-              <Checkbox id="containsFish" bind:checked={manualNutritionData.containsFish} />
-              <Label for="containsFish" class="text-sm font-normal">Contains Fish</Label>
-            </div>
-            <div class="flex items-center space-x-2">
-              <Checkbox
-                id="containsShellfish"
-                bind:checked={manualNutritionData.containsShellfish}
+        <div class="space-y-4 pt-2">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="space-y-2">
+              <Label for="calories">Calories</Label>
+              <Input
+                id="calories"
+                type="number"
+                min="0"
+                placeholder="kcal per 100g"
+                bind:value={manualNutritionData.calories}
               />
-              <Label for="containsShellfish" class="text-sm font-normal">Contains Shellfish</Label>
+              <p class="text-xs text-muted-foreground">Typical range: 0-900 kcal</p>
             </div>
-            <div class="flex items-center space-x-2">
-              <Checkbox id="containsSesame" bind:checked={manualNutritionData.containsSesame} />
-              <Label for="containsSesame" class="text-sm font-normal">Contains Sesame</Label>
+            <div class="space-y-2">
+              <Label for="protein">Protein (g)</Label>
+              <Input
+                id="protein"
+                type="number"
+                min="0"
+                step="0.1"
+                placeholder="g per 100g"
+                bind:value={manualNutritionData.protein}
+              />
+              <p class="text-xs text-muted-foreground">Typical range: 0-30g</p>
+            </div>
+            <div class="space-y-2">
+              <Label for="carbohydrates">Carbohydrates (g)</Label>
+              <Input
+                id="carbohydrates"
+                type="number"
+                min="0"
+                step="0.1"
+                placeholder="g per 100g"
+                bind:value={manualNutritionData.carbohydrates}
+              />
+              <p class="text-xs text-muted-foreground">Typical range: 0-90g</p>
+            </div>
+            <div class="space-y-2">
+              <Label for="fat">Fat (g)</Label>
+              <Input
+                id="fat"
+                type="number"
+                min="0"
+                step="0.1"
+                placeholder="g per 100g"
+                bind:value={manualNutritionData.fat}
+              />
+              <p class="text-xs text-muted-foreground">Typical range: 0-100g</p>
+            </div>
+            <div class="space-y-2">
+              <Label for="fiber">Fiber (g)</Label>
+              <Input
+                id="fiber"
+                type="number"
+                min="0"
+                step="0.1"
+                placeholder="g per 100g"
+                bind:value={manualNutritionData.fiber}
+              />
+              <p class="text-xs text-muted-foreground">Typical range: 0-15g</p>
+            </div>
+            <div class="space-y-2">
+              <Label for="sugar">Sugar (g)</Label>
+              <Input
+                id="sugar"
+                type="number"
+                min="0"
+                step="0.1"
+                placeholder="g per 100g"
+                bind:value={manualNutritionData.sugar}
+              />
+              <p class="text-xs text-muted-foreground">Typical range: 0-70g</p>
+            </div>
+            <div class="space-y-2 col-span-2">
+              <Label for="sodium">Sodium (mg)</Label>
+              <Input
+                id="sodium"
+                type="number"
+                min="0"
+                step="1"
+                placeholder="mg per 100g"
+                bind:value={manualNutritionData.sodium}
+              />
+              <p class="text-xs text-muted-foreground">Typical range: 0-2000mg</p>
+            </div>
+          </div>
+
+          <!-- Allergen Section -->
+          <div class="pt-4 border-t border-gray-200">
+            <h3 class="text-sm font-medium mb-3">Allergen Information</h3>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="flex items-center space-x-2">
+                <Checkbox id="containsGluten" bind:checked={manualNutritionData.containsGluten} />
+                <Label for="containsGluten" class="text-sm font-normal">Contains Gluten</Label>
+              </div>
+              <div class="flex items-center space-x-2">
+                <Checkbox id="containsDairy" bind:checked={manualNutritionData.containsDairy} />
+                <Label for="containsDairy" class="text-sm font-normal">Contains Dairy</Label>
+              </div>
+              <div class="flex items-center space-x-2">
+                <Checkbox id="containsNuts" bind:checked={manualNutritionData.containsNuts} />
+                <Label for="containsNuts" class="text-sm font-normal">Contains Nuts</Label>
+              </div>
+              <div class="flex items-center space-x-2">
+                <Checkbox id="containsEggs" bind:checked={manualNutritionData.containsEggs} />
+                <Label for="containsEggs" class="text-sm font-normal">Contains Eggs</Label>
+              </div>
+              <div class="flex items-center space-x-2">
+                <Checkbox id="containsSoy" bind:checked={manualNutritionData.containsSoy} />
+                <Label for="containsSoy" class="text-sm font-normal">Contains Soy</Label>
+              </div>
+              <div class="flex items-center space-x-2">
+                <Checkbox id="containsFish" bind:checked={manualNutritionData.containsFish} />
+                <Label for="containsFish" class="text-sm font-normal">Contains Fish</Label>
+              </div>
+              <div class="flex items-center space-x-2">
+                <Checkbox
+                  id="containsShellfish"
+                  bind:checked={manualNutritionData.containsShellfish}
+                />
+                <Label for="containsShellfish" class="text-sm font-normal">Contains Shellfish</Label
+                >
+              </div>
+              <div class="flex items-center space-x-2">
+                <Checkbox id="containsSesame" bind:checked={manualNutritionData.containsSesame} />
+                <Label for="containsSesame" class="text-sm font-normal">Contains Sesame</Label>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <AlertDialog.Footer class="mt-4">
-        <AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
-        <AlertDialog.Action onclick={saveManualNutritionData}>Save Data</AlertDialog.Action>
-      </AlertDialog.Footer>
+        <AlertDialog.Footer class="mt-4">
+          <AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
+          <AlertDialog.Action onclick={saveManualNutritionData}>Save Data</AlertDialog.Action>
+        </AlertDialog.Footer>
+      </form>
     </AlertDialog.Content>
   </AlertDialog.Root>
 {/if}

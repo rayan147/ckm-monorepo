@@ -8,18 +8,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var IngredientController_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.IngredientController = void 0;
+const contracts_1 = require("@ckm/contracts");
 const common_1 = require("@nestjs/common");
 const nest_1 = require("@ts-rest/nest");
-const contracts_1 = require("@ckm/contracts");
-const ingredient_service_1 = require("./ingredient.service");
 const logging_service_1 = require("../logging/logging.service");
-let IngredientController = class IngredientController {
+const ingredient_service_1 = require("./ingredient.service");
+let IngredientController = IngredientController_1 = class IngredientController {
     constructor(ingredientService, logger) {
         this.ingredientService = ingredientService;
         this.logger = logger;
-        this.logger.setContext('IngredientController');
+        this.logger.setContext(IngredientController_1.name);
     }
     async createIngredient() {
         return (0, nest_1.tsRestHandler)(contracts_1.contract.ingredient.createIngredient, async ({ body }) => {
@@ -96,8 +97,7 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], IngredientController.prototype, "deleteIngredient", null);
-exports.IngredientController = IngredientController = __decorate([
-    (0, nest_1.TsRest)({ jsonQuery: true }),
+exports.IngredientController = IngredientController = IngredientController_1 = __decorate([
     (0, common_1.Controller)(),
     __metadata("design:paramtypes", [ingredient_service_1.IngredientService,
         logging_service_1.LoggingService])

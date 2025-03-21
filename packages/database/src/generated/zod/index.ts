@@ -7177,18 +7177,35 @@ export const RecipeIngredientOrderByWithRelationInputSchema: z.ZodType<Prisma.Re
 export const RecipeIngredientWhereUniqueInputSchema: z.ZodType<Prisma.RecipeIngredientWhereUniqueInput> = z.union([
   z.object({
     id: z.number().int(),
-    unique_ingredient_per_version: z.lazy(() => RecipeIngredientUnique_ingredient_per_versionCompoundUniqueInputSchema)
+    unique_ingredient_per_version: z.lazy(() => RecipeIngredientUnique_ingredient_per_versionCompoundUniqueInputSchema),
+    recipeId_ingredientId: z.lazy(() => RecipeIngredientRecipeIdIngredientIdCompoundUniqueInputSchema)
+  }),
+  z.object({
+    id: z.number().int(),
+    unique_ingredient_per_version: z.lazy(() => RecipeIngredientUnique_ingredient_per_versionCompoundUniqueInputSchema),
+  }),
+  z.object({
+    id: z.number().int(),
+    recipeId_ingredientId: z.lazy(() => RecipeIngredientRecipeIdIngredientIdCompoundUniqueInputSchema),
   }),
   z.object({
     id: z.number().int(),
   }),
   z.object({
     unique_ingredient_per_version: z.lazy(() => RecipeIngredientUnique_ingredient_per_versionCompoundUniqueInputSchema),
+    recipeId_ingredientId: z.lazy(() => RecipeIngredientRecipeIdIngredientIdCompoundUniqueInputSchema),
+  }),
+  z.object({
+    unique_ingredient_per_version: z.lazy(() => RecipeIngredientUnique_ingredient_per_versionCompoundUniqueInputSchema),
+  }),
+  z.object({
+    recipeId_ingredientId: z.lazy(() => RecipeIngredientRecipeIdIngredientIdCompoundUniqueInputSchema),
   }),
 ])
 .and(z.object({
   id: z.number().int().optional(),
   unique_ingredient_per_version: z.lazy(() => RecipeIngredientUnique_ingredient_per_versionCompoundUniqueInputSchema).optional(),
+  recipeId_ingredientId: z.lazy(() => RecipeIngredientRecipeIdIngredientIdCompoundUniqueInputSchema).optional(),
   AND: z.union([ z.lazy(() => RecipeIngredientWhereInputSchema),z.lazy(() => RecipeIngredientWhereInputSchema).array() ]).optional(),
   OR: z.lazy(() => RecipeIngredientWhereInputSchema).array().optional(),
   NOT: z.union([ z.lazy(() => RecipeIngredientWhereInputSchema),z.lazy(() => RecipeIngredientWhereInputSchema).array() ]).optional(),
@@ -17188,6 +17205,11 @@ export const RecipeIngredientUnique_ingredient_per_versionCompoundUniqueInputSch
   recipeId: z.number(),
   ingredientId: z.number(),
   recipeVersionId: z.number()
+}).strict();
+
+export const RecipeIngredientRecipeIdIngredientIdCompoundUniqueInputSchema: z.ZodType<Prisma.RecipeIngredientRecipeIdIngredientIdCompoundUniqueInput> = z.object({
+  recipeId: z.number(),
+  ingredientId: z.number()
 }).strict();
 
 export const RecipeIngredientCountOrderByAggregateInputSchema: z.ZodType<Prisma.RecipeIngredientCountOrderByAggregateInput> = z.object({

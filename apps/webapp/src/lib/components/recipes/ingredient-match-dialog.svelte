@@ -7,7 +7,7 @@
   import { Input } from '$lib/components/ui/input/index.js';
   import { Separator } from '$lib/components/ui/separator/index.js';
   import { ScrollArea } from '$lib/components/ui/scroll-area/index.js';
-  import { Search, X, RotateCw, ArrowRight, CheckCircle2, Edit } from 'lucide-svelte';
+  import { Search, X, RotateCw, CheckCircle2, Edit } from 'lucide-svelte';
   import { toast } from 'svelte-sonner';
 
   // Props using Svelte 5 syntax - all in one $props() call

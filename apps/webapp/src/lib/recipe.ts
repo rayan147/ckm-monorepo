@@ -1,4 +1,4 @@
-import { conversions, typ Conversion } from "./utils/ingredientsConversion";
+import { conversions, type Conversion } from "./utils/ingredientsConversion";
 
 type ConversionGraph = Map<string, Map<string, number>>;
 // Build the conversion graph

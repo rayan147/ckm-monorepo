@@ -1,0 +1,2710 @@
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T12:40:10.835Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T12:40:10.845Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T12:40:20.465Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T12:40:20.466Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T12:49:06.436Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T12:49:06.438Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T12:49:12.830Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T12:49:12.830Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 11",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:14:19.424Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 11",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:14:19.431Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 11",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:14:52.520Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 11",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:14:52.521Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 11",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:14:58.845Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 11",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:14:58.845Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:15:08.362Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:15:08.363Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 11",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:15:12.890Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 11",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:15:12.891Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:18:28.447Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:18:28.448Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:18:41.611Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:18:41.612Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:42:35.042Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:42:35.043Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:42:43.104Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:42:43.105Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:46:40.476Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:46:40.477Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:46:46.956Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:46:46.957Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:48:24.849Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:48:24.850Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:48:31.341Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:48:31.342Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:52:51.701Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:52:51.702Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:52:58.517Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:52:58.518Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:53:23.149Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:53:23.150Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:53:23.588Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:53:23.589Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:53:28.443Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:53:28.443Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:53:43.533Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":10,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:53:43.533Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:53:46.800Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":20,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:53:46.800Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:54:12.566Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:54:12.567Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:54:39.861Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":30,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:54:39.863Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:54:49.527Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":40,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T14:54:49.528Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:15:27.749Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:15:27.751Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:15:27.855Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":10,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:15:27.856Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:15:30.709Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":10,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:15:30.711Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:15:37.767Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":10,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:15:37.767Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 12",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:40:25.161Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 12",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:40:25.163Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:41:07.776Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:41:07.777Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to delete recipe with ID 2",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:41:12.611Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Deleting (soft) recipe th ID 2",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:41:12.613Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Recipe soft-deleted successfully: {\"id\":2,\"name\":\"Recipe-abd89069-62d7-49a1-ba61-32d5a8ae677b\",\"imageUrls\":[\"https://picsum.photos/seed/dX5yvk/2734/2419?blur=2\",\"https://picsum.photos/seed/hLv7sMTKJ/2977/3228?blur=3\",\"https://picsum.photos/seed/DQl24bwWYk/957/1030?blur=10\",\"https://picsum.photos/seed/GVQj2tHLZ/2719/639?grayscale&blur=5\",\"https://picsum.photos/seed/0kLg7W0Kf1/1225/1174?grayscale\",\"https://picsum.photos/seed/ymvs1njxe/2848/3356?blur=6\",\"https://picsum.photos/seed/aHTZv1cN/156/2578?grayscale&blur=7\"],\"description\":\"A slow-roasted Palm Warbler with a sour, sweet exterior. Stuffed with butternut pumpkin and covered in longan sauce. Sides with hijiki puree and wild eggplant.\",\"servings\":5,\"cookTime\":73,\"prepTime\":118,\"frequency\":null,\"restaurantId\":1,\"cookBookId\":3,\"foodCost\":null,\"isDeleted\":true,\"isPublished\":false,\"publishedAt\":null,\"language\":\"en\",\"skillLevel\":\"INTERMEDIATE\",\"category\":\"MAIN_COURSE\",\"ingredients\":[{\"id\":21,\"recipeId\":2,\"ingredientId\":17,\"quantity\":2.121436953654593,\"unit\":\"gallon\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.716Z\",\"recipeVersionId\":null},{\"id\":22,\"recipeId\":2,\"ingredientId\":29,\"quantity\":9.90311602534279,\"unit\":\"kilogram\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.716Z\",\"recipeVersionId\":null},{\"id\":23,\"recipeId\":2,\"ingredientId\":45,\"quantity\":8.364612773783847,\"unit\":\"ton\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.716Z\",\"recipeVersionId\":null},{\"id\":24,\"recipeId\":2,\"ingredientId\":34,\"quantity\":5.213789664115568,\"unit\":\"ton\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.717Z\",\"recipeVersionId\":null},{\"id\":25,\"recipeId\":2,\"ingredientId\":8,\"quantity\":8.479213167119218,\"unit\":\"kilogram\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.717Z\",\"recipeVersionId\":null}],\"instructions\":[{\"id\":23,\"recipeId\":2,\"stepNumber\":5,\"instruction\":\"Combine all the ingredients in a large bowl and Grill thoroughly.\",\"imageUrl\":\"https://picsum.photos/seed/8DFFxcoM/77/3195\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":22,\"recipeId\":2,\"stepNumber\":4,\"instruction\":\"Preheat the oven to 359°F (182°C).\",\"imageUrl\":\"https://picsum.photos/seed/Ne23Lp3/1760/3644?grayscale&blur=5\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":21,\"recipeId\":2,\"stepNumber\":1,\"instruction\":\"Prepare the ingredients: Boil the lychees.\",\"imageUrl\":\"https://picsum.photos/seed/DpS3HTE/682/3919?grayscale&blur=6\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":24,\"recipeId\":2,\"stepNumber\":2,\"instruction\":\"Heat a pan over medium heat and add beef.\",\"imageUrl\":\"https://picsum.photos/seed/b2QzfCHUi/277/3964?blur=4\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":25,\"recipeId\":2,\"stepNumber\":3,\"instruction\":\"Cook the tomatoes for 21 minutes, stirring occasionally.\",\"imageUrl\":\"https://picsum.photos/seed/ERx6U/2529/1616?blur=7\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null}]}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:41:11.961Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:41:12.024Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:41:12.025Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 6",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:41:23.816Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 6",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:41:23.817Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:41:26.688Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:41:26.689Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to delete recipe with ID 4",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:41:29.967Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Deleting (soft) recipe th ID 4",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:41:29.969Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Recipe soft-deleted successfully: {\"id\":4,\"name\":\"Recipe-ad097f75-958a-4bbf-93e8-fbc9813f181b\",\"imageUrls\":[\"https://picsum.photos/seed/ZXb5iQK/2696/2727?blur=10\",\"https://picsum.photos/seed/cl6lE4N1y/943/3081?grayscale&blur=1\",\"https://picsum.photos/seed/6Gje1ukt2/1435/3267?blur=10\",\"https://picsum.photos/seed/mA1ZzE/3190/2580?blur=6\",\"https://picsum.photos/seed/bS1TFK/593/930?blur=1\",\"https://picsum.photos/seed/zFdpZoCph/1333/2522?grayscale&blur=1\",\"https://picsum.photos/seed/GO6Pk/2402/2566?grayscale&blur=3\"],\"description\":\"Hearty sausages and emu stew, slow-cooked with peppercorns and broccoli for a comforting, flavorful meal.\",\"servings\":5,\"cookTime\":64,\"prepTime\":11,\"frequency\":null,\"restaurantId\":3,\"cookBookId\":2,\"foodCost\":null,\"isDeleted\":true,\"isPublished\":false,\"publishedAt\":null,\"language\":\"en\",\"skillLevel\":\"INTERMEDIATE\",\"category\":\"MAIN_COURSE\",\"ingredients\":[{\"id\":101,\"recipeId\":4,\"ingredientId\":11,\"quantity\":6.064865235081155,\"unit\":\"kilogram\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.887Z\",\"recipeVersionId\":null},{\"id\":102,\"recipeId\":4,\"ingredientId\":35,\"quantity\":7.295676140406454,\"unit\":\"ton\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.887Z\",\"recipeVersionId\":null},{\"id\":103,\"recipeId\":4,\"ingredientId\":46,\"quantity\":5.918948606448598,\"unit\":\"kilogram\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.887Z\",\"recipeVersionId\":null},{\"id\":104,\"recipeId\":4,\"ingredientId\":35,\"quantity\":9.245690020578028,\"unit\":\"kilogram\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.887Z\",\"recipeVersionId\":null},{\"id\":105,\"recipeId\":4,\"ingredientId\":13,\"quantity\":5.348837926373072,\"unit\":\"gallon\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.887Z\",\"recipeVersionId\":null}],\"instructions\":[{\"id\":102,\"recipeId\":4,\"stepNumber\":2,\"instruction\":\"Heat a pan over medium heat and add salt.\",\"imageUrl\":\"https://picsum.photos/seed/XqghZiN/1685/2281?grayscale&blur=8\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":104,\"recipeId\":4,\"stepNumber\":4,\"instruction\":\"Preheat the oven to 443°F (228°C).\",\"imageUrl\":\"https://picsum.photos/seed/Rx5yjCnh5/2745/1719?blur=1\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":103,\"recipeId\":4,\"stepNumber\":5,\"instruction\":\"Combine all the ingredients in a large bowl and Grill thoroughly.\",\"imageUrl\":\"https://picsum.photos/seed/zNxnfhC4L/2852/329?grayscale&blur=3\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":105,\"recipeId\":4,\"stepNumber\":1,\"instruction\":\"Prepare the ingredients: Grill the onions.\",\"imageUrl\":\"https://picsum.photos/seed/weVXr6c/3113/844?grayscale&blur=4\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":101,\"recipeId\":4,\"stepNumber\":3,\"instruction\":\"Cook the carrots for 15 minutes, stirring occasionally.\",\"imageUrl\":\"https://picsum.photos/seed/D9rsNMOC/975/471?grayscale&blur=10\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null}]}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:41:30.000Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:41:30.058Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:41:30.060Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to delete recipe with ID 3",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:41:48.396Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Deleting (soft) recipe th ID 3",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:41:48.397Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Recipe soft-deleted successfully: {\"id\":3,\"name\":\"Recipe-72e370b5-748b-4af2-9018-56e9d528dcc3\",\"imageUrls\":[\"https://picsum.photos/seed/Yl5ihc4A7/1557/2316?grayscale&blur=2\",\"https://picsum.photos/seed/pvQrZ/897/2339?blur=3\",\"https://picsum.photos/seed/NiZa5B/3937/1190?grayscale&blur=4\",\"https://picsum.photos/seed/1R0Iho0/1656/2398?grayscale&blur=8\",\"https://picsum.photos/seed/pJmUCiENS2/2769/1423?blur=2\",\"https://picsum.photos/seed/f2wAeTuce/3892/2268?blur=1\",\"https://picsum.photos/seed/IjnK2WheB/3066/3869?blur=2\"],\"description\":\"Fresh elderberry with a pinch of poudre de colombo, topped by a caramelized goji berry with whipped cream\",\"servings\":9,\"cookTime\":23,\"prepTime\":96,\"frequency\":null,\"restaurantId\":1,\"cookBookId\":1,\"foodCost\":null,\"isDeleted\":true,\"isPublished\":false,\"publishedAt\":null,\"language\":\"en\",\"skillLevel\":\"INTERMEDIATE\",\"category\":\"MAIN_COURSE\",\"ingredients\":[{\"id\":71,\"recipeId\":3,\"ingredientId\":8,\"quantity\":9.591031835378457,\"unit\":\"kilogram\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.827Z\",\"recipeVersionId\":null},{\"id\":72,\"recipeId\":3,\"ingredientId\":33,\"quantity\":3.392434570879693,\"unit\":\"ton\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.828Z\",\"recipeVersionId\":null},{\"id\":73,\"recipeId\":3,\"ingredientId\":47,\"quantity\":2.345024330890906,\"unit\":\"kilogram\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.828Z\",\"recipeVersionId\":null},{\"id\":74,\"recipeId\":3,\"ingredientId\":19,\"quantity\":1.341143013129237,\"unit\":\"quart\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.828Z\",\"recipeVersionId\":null},{\"id\":75,\"recipeId\":3,\"ingredientId\":6,\"quantity\":3.697698613008064,\"unit\":\"kilogram\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.828Z\",\"recipeVersionId\":null}],\"instructions\":[{\"id\":72,\"recipeId\":3,\"stepNumber\":2,\"instruction\":\"Heat a pan over medium heat and add cheese.\",\"imageUrl\":\"https://picsum.photos/seed/5VqY2WekA/688/1537?blur=6\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":74,\"recipeId\":3,\"stepNumber\":5,\"instruction\":\"Combine all the ingredients in a large bowl and Blend thoroughly.\",\"imageUrl\":\"https://picsum.photos/seed/czlMtN/1518/512?grayscale\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":75,\"recipeId\":3,\"stepNumber\":3,\"instruction\":\"Cook the goji berry for 25 minutes, stirring occasionally.\",\"imageUrl\":\"https://picsum.photos/seed/paLCta/2/3420\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":71,\"recipeId\":3,\"stepNumber\":1,\"instruction\":\"Prepare the ingredients: Bake the onions.\",\"imageUrl\":\"https://picsum.photos/seed/XvZri9b/1769/1414?grayscale&blur=4\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":73,\"recipeId\":3,\"stepNumber\":4,\"instruction\":\"Preheat the oven to 448°F (231°C).\",\"imageUrl\":\"https://picsum.photos/seed/rRvei4UBd/3538/3712?grayscale&blur=9\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null}]}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:41:48.427Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:41:50.679Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:41:50.681Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to delete recipe with ID 14",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:42:29.689Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Deleting (soft) recipe th ID 14",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:42:29.690Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Recipe soft-deleted successfully: {\"id\":14,\"name\":\"Recipe-6ba0a825-b004-4863-8eb1-976722372d6f\",\"imageUrls\":[\"https://picsum.photos/seed/qYa4Cv6/1700/1965?blur=2\",\"https://picsum.photos/seed/riRHL3/385/657?grayscale&blur=9\",\"https://picsum.photos/seed/19rim0O/1122/3792?grayscale&blur=3\",\"https://picsum.photos/seed/66XdeWcH/3824/2658?grayscale&blur=9\",\"https://picsum.photos/seed/t2coFb/2204/2258?blur=10\",\"https://picsum.photos/seed/pAsZr2gP1/1520/332\",\"https://picsum.photos/seed/mz8PV/3690/2935?grayscale&blur=6\"],\"description\":\"Three spearmint with french eschallots, dried chinese broccoli, raspberry, broccolini and pepitas. With a side of baked nectarine, and your choice of redfish or raspberry.\",\"servings\":4,\"cookTime\":120,\"prepTime\":100,\"frequency\":null,\"restaurantId\":3,\"cookBookId\":1,\"foodCost\":null,\"isDeleted\":true,\"isPublished\":false,\"publishedAt\":null,\"language\":\"en\",\"skillLevel\":\"INTERMEDIATE\",\"category\":\"MAIN_COURSE\",\"ingredients\":[{\"id\":135,\"recipeId\":14,\"ingredientId\":36,\"quantity\":3.759816171433591,\"unit\":\"quart\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.962Z\",\"recipeVersionId\":null},{\"id\":131,\"recipeId\":14,\"ingredientId\":21,\"quantity\":3.317555815876822,\"unit\":\"gallon\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.962Z\",\"recipeVersionId\":null},{\"id\":134,\"recipeId\":14,\"ingredientId\":3,\"quantity\":6.908081820857237,\"unit\":\"quart\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.962Z\",\"recipeVersionId\":null},{\"id\":133,\"recipeId\":14,\"ingredientId\":8,\"quantity\":2.91338213490755,\"unit\":\"ton\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.962Z\",\"recipeVersionId\":null},{\"id\":132,\"recipeId\":14,\"ingredientId\":21,\"quantity\":2.743675643100997,\"unit\":\"kilogram\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.962Z\",\"recipeVersionId\":null}],\"instructions\":[{\"id\":132,\"recipeId\":14,\"stepNumber\":5,\"instruction\":\"Combine all the ingredients in a large bowl and Slice thoroughly.\",\"imageUrl\":\"https://picsum.photos/seed/EdbPN10O/3377/2730?blur=4\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":134,\"recipeId\":14,\"stepNumber\":4,\"instruction\":\"Preheat the oven to 205°F (96°C).\",\"imageUrl\":\"https://picsum.photos/seed/imb1rJ/2942/3601?blur=1\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":131,\"recipeId\":14,\"stepNumber\":1,\"instruction\":\"Prepare the ingredients: Bake the herbs.\",\"imageUrl\":\"https://picsum.photos/seed/pwJdwTWeQL/3164/2043?grayscale&blur=10\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":133,\"recipeId\":14,\"stepNumber\":3,\"instruction\":\"Cook the annatto seed for 10 minutes, stirring occasionally.\",\"imageUrl\":\"https://picsum.photos/seed/e4FJMhdh/1605/1066?grayscale&blur=10\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":135,\"recipeId\":14,\"stepNumber\":2,\"instruction\":\"Heat a pan over medium heat and add garlic.\",\"imageUrl\":\"https://picsum.photos/seed/2hoh6MfQcf/3183/3594\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null}]}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:42:29.711Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:42:31.959Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:42:31.960Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:42:49.630Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":10,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:42:49.631Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to delete recipe with ID 17",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:43:08.051Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Deleting (soft) recipe th ID 17",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:43:08.051Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Recipe soft-deleted successfully: {\"id\":17,\"name\":\"Recipe-c79dea84-1500-4d05-a4c5-dced78bcb1ac\",\"imageUrls\":[\"https://picsum.photos/seed/HULZoJXJ9D/3160/1646?grayscale&blur=4\",\"https://picsum.photos/seed/82yPnj/1494/1460?grayscale&blur=8\",\"https://picsum.photos/seed/M2jsNgi/694/2470?grayscale&blur=4\",\"https://picsum.photos/seed/AvNOf/1191/2272?grayscale&blur=7\",\"https://picsum.photos/seed/7QKjlo/904/2707?blur=6\",\"https://picsum.photos/seed/5Z1g1C/666/1880?blur=10\",\"https://picsum.photos/seed/AOESq4/1744/3738?grayscale&blur=2\"],\"description\":\"Tender ostrich skewers, glazed with a sweet and tangy juniper berry sauce, served over a bed of fragrant jasmine rice.\",\"servings\":3,\"cookTime\":58,\"prepTime\":84,\"frequency\":null,\"restaurantId\":3,\"cookBookId\":1,\"foodCost\":null,\"isDeleted\":true,\"isPublished\":false,\"publishedAt\":null,\"language\":\"en\",\"skillLevel\":\"INTERMEDIATE\",\"category\":\"MAIN_COURSE\",\"ingredients\":[{\"id\":136,\"recipeId\":17,\"ingredientId\":38,\"quantity\":5.078797482444049,\"unit\":\"ton\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.973Z\",\"recipeVersionId\":null},{\"id\":137,\"recipeId\":17,\"ingredientId\":38,\"quantity\":9.917434234721698,\"unit\":\"quart\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.973Z\",\"recipeVersionId\":null},{\"id\":140,\"recipeId\":17,\"ingredientId\":21,\"quantity\":4.473242774103761,\"unit\":\"gallon\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.973Z\",\"recipeVersionId\":null},{\"id\":139,\"recipeId\":17,\"ingredientId\":14,\"quantity\":5.491994639782879,\"unit\":\"quart\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.973Z\",\"recipeVersionId\":null},{\"id\":138,\"recipeId\":17,\"ingredientId\":24,\"quantity\":9.49574972919399,\"unit\":\"ton\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.973Z\",\"recipeVersionId\":null}],\"instructions\":[{\"id\":136,\"recipeId\":17,\"stepNumber\":4,\"instruction\":\"Preheat the oven to 398°F (203°C).\",\"imageUrl\":\"https://picsum.photos/seed/U0A8W9/2408/1582?grayscale&blur=7\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":140,\"recipeId\":17,\"stepNumber\":5,\"instruction\":\"Combine all the ingredients in a large bowl and Fold thoroughly.\",\"imageUrl\":\"https://picsum.photos/seed/FDoh1qQE/2299/2442?grayscale&blur=8\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":138,\"recipeId\":17,\"stepNumber\":3,\"instruction\":\"Cook the fish for 5 minutes, stirring occasionally.\",\"imageUrl\":\"https://picsum.photos/seed/Z5dH4vw73d/1249/3879?grayscale&blur=5\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":139,\"recipeId\":17,\"stepNumber\":1,\"instruction\":\"Prepare the ingredients: Blend the onions.\",\"imageUrl\":\"https://picsum.photos/seed/Ae9eKoGTb/799/824?grayscale&blur=3\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":137,\"recipeId\":17,\"stepNumber\":2,\"instruction\":\"Heat a pan over medium heat and add chicken.\",\"imageUrl\":\"https://picsum.photos/seed/GA2vV/3033/195?blur=2\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null}]}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:43:08.079Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:43:10.340Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":10,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:43:10.342Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:43:15.431Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:43:15.431Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:48:19.079Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":10,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:48:19.080Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:48:29.854Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":10,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:48:29.855Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:54:47.789Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":10,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:54:47.791Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:54:58.235Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":10,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:54:58.236Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:57:03.894Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":10,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:57:03.895Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:57:15.224Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":10,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:57:15.225Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:58:05.230Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":10,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:58:05.232Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 24",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:58:13.786Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 24",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:58:13.787Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:58:16.536Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:58:16.537Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 12",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:58:18.460Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 12",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:58:18.461Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:58:23.606Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:58:23.607Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 12",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:58:25.396Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 12",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:58:25.397Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:58:27.674Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:58:27.675Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:59:05.845Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:59:05.846Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:59:18.598Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:59:18.599Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to delete recipe with ID 5",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:59:24.567Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Deleting (soft) recipe th ID 5",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:59:24.569Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Recipe soft-deleted successfully: {\"id\":5,\"name\":\"Recipe-0bfde227-1c7e-48f4-80e1-ca1fdcc9c544\",\"imageUrls\":[\"https://picsum.photos/seed/Df7egNLRJ/2192/1812?grayscale\",\"https://picsum.photos/seed/QK7t4k9N/557/375?blur=5\",\"https://picsum.photos/seed/O1OUP/3057/3030?grayscale&blur=2\",\"https://picsum.photos/seed/F5Zcesyq/3771/2701?blur=10\",\"https://picsum.photos/seed/lP5qgc/1443/3606?blur=7\",\"https://picsum.photos/seed/1aJdcuF/3365/3965?blur=4\",\"https://picsum.photos/seed/Ysf2TW/182/103?grayscale&blur=5\"],\"description\":\"A classic pie filled with delicious duck and fresh beef stock, baked in a smoky pastry crust and topped with a golden-brown lattice.\",\"servings\":3,\"cookTime\":74,\"prepTime\":115,\"frequency\":null,\"restaurantId\":3,\"cookBookId\":3,\"foodCost\":null,\"isDeleted\":true,\"isPublished\":false,\"publishedAt\":null,\"language\":\"en\",\"skillLevel\":\"INTERMEDIATE\",\"category\":\"MAIN_COURSE\",\"ingredients\":[{\"id\":81,\"recipeId\":5,\"ingredientId\":27,\"quantity\":0.7796045104021444,\"unit\":\"quart\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.848Z\",\"recipeVersionId\":null},{\"id\":82,\"recipeId\":5,\"ingredientId\":28,\"quantity\":2.790796575138936,\"unit\":\"ton\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.848Z\",\"recipeVersionId\":null},{\"id\":83,\"recipeId\":5,\"ingredientId\":44,\"quantity\":3.728241268289632,\"unit\":\"gallon\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.848Z\",\"recipeVersionId\":null},{\"id\":84,\"recipeId\":5,\"ingredientId\":17,\"quantity\":8.736674285362882,\"unit\":\"gallon\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.848Z\",\"recipeVersionId\":null},{\"id\":85,\"recipeId\":5,\"ingredientId\":14,\"quantity\":5.310738841967119,\"unit\":\"quart\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.848Z\",\"recipeVersionId\":null}],\"instructions\":[{\"id\":82,\"recipeId\":5,\"stepNumber\":2,\"instruction\":\"Heat a pan over medium heat and add onions.\",\"imageUrl\":\"https://picsum.photos/seed/YHgFnu/1860/3112?blur=6\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":81,\"recipeId\":5,\"stepNumber\":3,\"instruction\":\"Cook the olive oil for 28 minutes, stirring occasionally.\",\"imageUrl\":\"https://picsum.photos/seed/72DXD/3461/2387?grayscale&blur=5\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":83,\"recipeId\":5,\"stepNumber\":1,\"instruction\":\"Prepare the ingredients: Fry the chicken.\",\"imageUrl\":\"https://picsum.photos/seed/tepjFlDJY/1072/1731?blur=1\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":85,\"recipeId\":5,\"stepNumber\":5,\"instruction\":\"Combine all the ingredients in a large bowl and Garnish thoroughly.\",\"imageUrl\":\"https://picsum.photos/seed/Kmt0pPd0Z0/2921/3746?grayscale&blur=2\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":84,\"recipeId\":5,\"stepNumber\":4,\"instruction\":\"Preheat the oven to 319°F (159°C).\",\"imageUrl\":\"https://picsum.photos/seed/lwtg2a/3919/3690?grayscale&blur=6\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null}]}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:59:24.619Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:59:24.990Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:59:24.991Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to delete recipe with ID 5",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:59:26.949Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Deleting (soft) recipe th ID 5",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:59:26.951Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 5 not found or already deleted",
+  "level": "error",
+  "message": "Failed to delete recipe with ID 5: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:59:26.960Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:59:27.093Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:59:27.094Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 8",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T16:01:06.230Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 8",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T16:01:06.230Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T16:01:16.439Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T16:01:16.440Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T16:04:05.295Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T16:04:05.296Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T16:04:15.658Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T16:04:15.660Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T16:04:46.578Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T16:04:46.579Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T16:04:56.857Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T16:04:56.858Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 6",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T17:36:49.960Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 6",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T17:36:49.968Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T17:36:52.651Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T17:36:52.652Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T17:49:48.027Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T17:49:48.029Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T17:49:56.291Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T17:49:56.293Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T17:51:48.117Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T17:51:48.120Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T17:51:56.408Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T17:51:56.409Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T17:52:22.619Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T17:52:22.620Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T17:52:29.855Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T17:52:29.856Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T17:53:24.846Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T17:53:24.847Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T17:53:30.617Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T17:53:30.618Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T17:53:53.024Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T17:53:53.026Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T17:53:59.273Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T17:53:59.274Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T17:54:07.416Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":10,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T17:54:07.417Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T17:54:39.112Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":20,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T17:54:39.113Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:00:25.737Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":20,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:00:25.739Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:00:33.715Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":20,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:00:33.715Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:03:16.793Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":20,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:03:16.795Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:03:25.114Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":20,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:03:25.115Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to delete recipe with ID 28",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:03:28.751Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Deleting (soft) recipe th ID 28",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:03:28.752Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Recipe soft-deleted successfully: {\"id\":28,\"name\":\"Recipe-9df65fd5-214f-4924-be8c-990bf265d59f\",\"imageUrls\":[\"https://picsum.photos/seed/4gjSt0HM8l/988/2360?blur=5\",\"https://picsum.photos/seed/FMp7lqrW/1504/420?grayscale&blur=7\",\"https://picsum.photos/seed/leNMX/766/523?blur=10\",\"https://picsum.photos/seed/56C1ZoKp/1335/1108?grayscale&blur=6\",\"https://picsum.photos/seed/QF0fN6bKJc/1038/242?blur=9\",\"https://picsum.photos/seed/CDkgGM0/1101/3244?grayscale&blur=1\",\"https://picsum.photos/seed/q0KJAbxw/2435/1623?blur=10\"],\"description\":\"Crispy fried pigeon bites, seasoned with five spice and served with a tangy tomato dipping sauce.\",\"servings\":1,\"cookTime\":31,\"prepTime\":18,\"frequency\":null,\"restaurantId\":3,\"cookBookId\":2,\"foodCost\":null,\"isDeleted\":true,\"isPublished\":false,\"publishedAt\":null,\"language\":\"en\",\"skillLevel\":\"INTERMEDIATE\",\"category\":\"MAIN_COURSE\",\"ingredients\":[{\"id\":108,\"recipeId\":28,\"ingredientId\":15,\"quantity\":4.928007943919329,\"unit\":\"gallon\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.901Z\",\"recipeVersionId\":null},{\"id\":106,\"recipeId\":28,\"ingredientId\":3,\"quantity\":2.19580011768718,\"unit\":\"quart\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.900Z\",\"recipeVersionId\":null},{\"id\":107,\"recipeId\":28,\"ingredientId\":40,\"quantity\":4.263489224574291,\"unit\":\"ton\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.900Z\",\"recipeVersionId\":null},{\"id\":110,\"recipeId\":28,\"ingredientId\":30,\"quantity\":2.494586629412345,\"unit\":\"ton\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.900Z\",\"recipeVersionId\":null},{\"id\":109,\"recipeId\":28,\"ingredientId\":40,\"quantity\":1.724688952219146,\"unit\":\"quart\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.900Z\",\"recipeVersionId\":null}],\"instructions\":[{\"id\":110,\"recipeId\":28,\"stepNumber\":5,\"instruction\":\"Combine all the ingredients in a large bowl and Slice thoroughly.\",\"imageUrl\":\"https://picsum.photos/seed/7scjtG3D8/1030/2333?grayscale&blur=5\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":107,\"recipeId\":28,\"stepNumber\":2,\"instruction\":\"Heat a pan over medium heat and add flour.\",\"imageUrl\":\"https://picsum.photos/seed/PyDI7U/3791/3813?blur=2\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":108,\"recipeId\":28,\"stepNumber\":4,\"instruction\":\"Preheat the oven to 239°F (115°C).\",\"imageUrl\":\"https://picsum.photos/seed/b9lPSi/938/2975?blur=6\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":106,\"recipeId\":28,\"stepNumber\":3,\"instruction\":\"Cook the flour for 12 minutes, stirring occasionally.\",\"imageUrl\":\"https://picsum.photos/seed/H48HNXTMeW/1577/1193?blur=2\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":109,\"recipeId\":28,\"stepNumber\":1,\"instruction\":\"Prepare the ingredients: Marinate the onions.\",\"imageUrl\":\"https://picsum.photos/seed/r9YydMnop/1168/2491?grayscale&blur=3\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null}]}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:03:28.800Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:03:28.838Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":20,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:03:28.839Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 30",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:03:46.741Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 30",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:03:46.741Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:04:24.906Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:04:24.907Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:05:40.663Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":20,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:05:40.664Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:08:52.273Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:08:52.274Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:09:01.914Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:09:01.915Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:09:55.168Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:09:55.169Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:10:04.133Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:10:04.134Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 6",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:10:13.178Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 6",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:10:13.179Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 30",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:10:13.185Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 30",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:10:13.186Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:10:16.180Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:10:16.180Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to delete recipe with ID 6",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:14:25.846Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Deleting (soft) recipe th ID 6",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:14:25.860Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Recipe soft-deleted successfully: {\"id\":6,\"name\":\"Recipe-f7fefc1c-9b2c-4ce9-952f-617a3c70ae80\",\"imageUrls\":[\"https://picsum.photos/seed/HZHSkHP8B9/1009/550?grayscale\",\"https://picsum.photos/seed/WGaNT586/2102/1583?blur=3\",\"https://picsum.photos/seed/rAvgj0C/656/3994?grayscale&blur=7\",\"https://picsum.photos/seed/BcfjwjBfT/1832/687?grayscale&blur=7\",\"https://picsum.photos/seed/h00xcWH/490/1234?grayscale&blur=7\",\"https://picsum.photos/seed/9pXkYxw/3021/665?blur=3\",\"https://picsum.photos/seed/XUpHHz/3323/1030?grayscale&blur=1\"],\"description\":\"Tender goose skewers, glazed with a sweet and tangy starfruit sauce, served over a bed of fragrant jasmine rice.\",\"servings\":6,\"cookTime\":24,\"prepTime\":108,\"frequency\":null,\"restaurantId\":1,\"cookBookId\":2,\"foodCost\":null,\"isDeleted\":true,\"isPublished\":false,\"publishedAt\":null,\"language\":\"en\",\"skillLevel\":\"INTERMEDIATE\",\"category\":\"MAIN_COURSE\",\"ingredients\":[{\"id\":31,\"recipeId\":6,\"ingredientId\":26,\"quantity\":6.561837048828447,\"unit\":\"quart\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.741Z\",\"recipeVersionId\":null},{\"id\":32,\"recipeId\":6,\"ingredientId\":34,\"quantity\":6.828696158686919,\"unit\":\"kilogram\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.741Z\",\"recipeVersionId\":null},{\"id\":33,\"recipeId\":6,\"ingredientId\":26,\"quantity\":4.360895799480326,\"unit\":\"ton\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.741Z\",\"recipeVersionId\":null},{\"id\":34,\"recipeId\":6,\"ingredientId\":44,\"quantity\":2.703051547249363,\"unit\":\"gallon\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.742Z\",\"recipeVersionId\":null},{\"id\":35,\"recipeId\":6,\"ingredientId\":17,\"quantity\":9.272000866938376,\"unit\":\"gallon\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.742Z\",\"recipeVersionId\":null}],\"instructions\":[{\"id\":31,\"recipeId\":6,\"stepNumber\":4,\"instruction\":\"Preheat the oven to 328°F (164°C).\",\"imageUrl\":\"https://picsum.photos/seed/imFIhvsM/3751/40?blur=5\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":34,\"recipeId\":6,\"stepNumber\":3,\"instruction\":\"Cook the fruit for 17 minutes, stirring occasionally.\",\"imageUrl\":\"https://picsum.photos/seed/tpz5o/1246/3186?grayscale&blur=6\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":32,\"recipeId\":6,\"stepNumber\":2,\"instruction\":\"Heat a pan over medium heat and add rice.\",\"imageUrl\":\"https://picsum.photos/seed/GfJyI/1002/906?blur=3\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":33,\"recipeId\":6,\"stepNumber\":1,\"instruction\":\"Prepare the ingredients: Knead the butter.\",\"imageUrl\":\"https://picsum.photos/seed/76fRF/18/3538?blur=1\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":35,\"recipeId\":6,\"stepNumber\":5,\"instruction\":\"Combine all the ingredients in a large bowl and Fold thoroughly.\",\"imageUrl\":\"https://picsum.photos/seed/clOrGJpNIp/2851/3528?blur=4\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null}]}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:14:25.936Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:14:28.246Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:14:28.247Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to delete recipe with ID 7",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:14:31.145Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Deleting (soft) recipe th ID 7",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:14:31.146Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Recipe soft-deleted successfully: {\"id\":7,\"name\":\"Recipe-b67ff5c9-6a36-4163-b17e-70cfaf675db0\",\"imageUrls\":[\"https://picsum.photos/seed/lMTxP51v/300/1019?blur=2\",\"https://picsum.photos/seed/mNrSeF/3060/1288\",\"https://picsum.photos/seed/d9THeXDE/270/2702?grayscale&blur=1\",\"https://picsum.photos/seed/0cJ0s/3741/1475?blur=1\",\"https://picsum.photos/seed/tjnAk6Bj/1836/1917\",\"https://picsum.photos/seed/K4ma9/1122/1362?grayscale&blur=7\",\"https://picsum.photos/seed/7XdaI/2792/1672\"],\"description\":\"Grilled goose kebabs, marinated in Nepalese spices and served with a fresh chinese cabbage and melon salad.\",\"servings\":5,\"cookTime\":50,\"prepTime\":71,\"frequency\":null,\"restaurantId\":1,\"cookBookId\":2,\"foodCost\":null,\"isDeleted\":true,\"isPublished\":false,\"publishedAt\":null,\"language\":\"en\",\"skillLevel\":\"INTERMEDIATE\",\"category\":\"MAIN_COURSE\",\"ingredients\":[{\"id\":46,\"recipeId\":7,\"ingredientId\":1,\"quantity\":9.864338589559656,\"unit\":\"ton\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.775Z\",\"recipeVersionId\":null},{\"id\":47,\"recipeId\":7,\"ingredientId\":9,\"quantity\":6.521379889244518,\"unit\":\"ton\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.776Z\",\"recipeVersionId\":null},{\"id\":48,\"recipeId\":7,\"ingredientId\":3,\"quantity\":6.003100281580835,\"unit\":\"ton\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.776Z\",\"recipeVersionId\":null},{\"id\":49,\"recipeId\":7,\"ingredientId\":27,\"quantity\":4.158655600132113,\"unit\":\"quart\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.776Z\",\"recipeVersionId\":null},{\"id\":50,\"recipeId\":7,\"ingredientId\":26,\"quantity\":0.4758976563246835,\"unit\":\"kilogram\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.776Z\",\"recipeVersionId\":null}],\"instructions\":[{\"id\":50,\"recipeId\":7,\"stepNumber\":4,\"instruction\":\"Preheat the oven to 379°F (193°C).\",\"imageUrl\":\"https://picsum.photos/seed/aAuGLN1elh/1250/949?blur=7\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":48,\"recipeId\":7,\"stepNumber\":5,\"instruction\":\"Combine all the ingredients in a large bowl and Knead thoroughly.\",\"imageUrl\":\"https://picsum.photos/seed/S7q0uIIkWd/2198/2250?blur=5\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":47,\"recipeId\":7,\"stepNumber\":3,\"instruction\":\"Cook the olive oil for 22 minutes, stirring occasionally.\",\"imageUrl\":\"https://picsum.photos/seed/ednV4eqou/2230/3164?grayscale\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":46,\"recipeId\":7,\"stepNumber\":1,\"instruction\":\"Prepare the ingredients: Slice the pasta.\",\"imageUrl\":\"https://picsum.photos/seed/FnzSvY7e/739/1321?grayscale\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":49,\"recipeId\":7,\"stepNumber\":2,\"instruction\":\"Heat a pan over medium heat and add salt.\",\"imageUrl\":\"https://picsum.photos/seed/PQxSvko4m/366/935?grayscale&blur=5\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null}]}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:14:31.179Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:14:31.247Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:14:31.249Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to delete recipe with ID 8",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:14:33.744Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Deleting (soft) recipe th ID 8",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:14:33.746Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Recipe soft-deleted successfully: {\"id\":8,\"name\":\"Recipe-65471e54-87c4-4aff-a8a6-9aff5cf5252e\",\"imageUrls\":[\"https://picsum.photos/seed/LBEr3o6/3141/880?grayscale&blur=4\",\"https://picsum.photos/seed/G9F4iG/1333/125?blur=9\",\"https://picsum.photos/seed/6O1Dh2Gzi5/3347/684?blur=3\",\"https://picsum.photos/seed/hxNSfTv/1995/3882?blur=6\",\"https://picsum.photos/seed/EU4pic5/2879/1919?blur=5\",\"https://picsum.photos/seed/TLNJE58/2038/1952?grayscale&blur=5\",\"https://picsum.photos/seed/slcW1sU3/2831/2134?blur=3\"],\"description\":\"Tender pork skewers, glazed with a sweet and tangy blood orange sauce, served over a bed of fragrant jasmine rice.\",\"servings\":3,\"cookTime\":104,\"prepTime\":64,\"frequency\":null,\"restaurantId\":1,\"cookBookId\":2,\"foodCost\":null,\"isDeleted\":true,\"isPublished\":false,\"publishedAt\":null,\"language\":\"en\",\"skillLevel\":\"INTERMEDIATE\",\"category\":\"MAIN_COURSE\",\"ingredients\":[{\"id\":36,\"recipeId\":8,\"ingredientId\":39,\"quantity\":8.503777120191854,\"unit\":\"ton\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.753Z\",\"recipeVersionId\":null},{\"id\":37,\"recipeId\":8,\"ingredientId\":41,\"quantity\":0.7898973765555424,\"unit\":\"kilogram\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.753Z\",\"recipeVersionId\":null},{\"id\":38,\"recipeId\":8,\"ingredientId\":13,\"quantity\":2.813378656854241,\"unit\":\"kilogram\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.753Z\",\"recipeVersionId\":null},{\"id\":39,\"recipeId\":8,\"ingredientId\":2,\"quantity\":1.751171427235138,\"unit\":\"ton\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.754Z\",\"recipeVersionId\":null},{\"id\":40,\"recipeId\":8,\"ingredientId\":21,\"quantity\":9.765793483517907,\"unit\":\"gallon\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.754Z\",\"recipeVersionId\":null}],\"instructions\":[{\"id\":39,\"recipeId\":8,\"stepNumber\":5,\"instruction\":\"Combine all the ingredients in a large bowl and Knead thoroughly.\",\"imageUrl\":\"https://picsum.photos/seed/Mc1Ye/2462/2974?blur=3\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":40,\"recipeId\":8,\"stepNumber\":3,\"instruction\":\"Cook the onions for 18 minutes, stirring occasionally.\",\"imageUrl\":\"https://picsum.photos/seed/Btx7plQS/2174/6?blur=9\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":36,\"recipeId\":8,\"stepNumber\":4,\"instruction\":\"Preheat the oven to 363°F (184°C).\",\"imageUrl\":\"https://picsum.photos/seed/QJrud/1322/3784?grayscale&blur=4\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":38,\"recipeId\":8,\"stepNumber\":1,\"instruction\":\"Prepare the ingredients: Season the garlic.\",\"imageUrl\":\"https://picsum.photos/seed/8YrXBxpfZu/1805/1933?grayscale&blur=6\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":37,\"recipeId\":8,\"stepNumber\":2,\"instruction\":\"Heat a pan over medium heat and add herbs.\",\"imageUrl\":\"https://picsum.photos/seed/oT37DtP/3685/2754?blur=5\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null}]}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:14:33.779Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:14:33.842Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:14:33.843Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to delete recipe with ID 9",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:17:01.788Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Deleting (soft) recipe th ID 9",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:17:01.789Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Recipe soft-deleted successfully: {\"id\":9,\"name\":\"Recipe-35ff1042-9bf0-4de7-88a7-0beaaba2a4e2\",\"imageUrls\":[\"https://picsum.photos/seed/R0bak/1108/1150?grayscale&blur=5\",\"https://picsum.photos/seed/XFKHhNaA/3476/381?grayscale\",\"https://picsum.photos/seed/x4AsSIpl/1010/2144?grayscale&blur=5\",\"https://picsum.photos/seed/dn5wFu3lL/3753/2764?grayscale&blur=7\",\"https://picsum.photos/seed/VlY4A/2825/1346?blur=4\",\"https://picsum.photos/seed/wrHZw/719/3687?blur=10\",\"https://picsum.photos/seed/O6Uy8JJ30C/2578/1542?grayscale&blur=10\"],\"description\":\"Tenderly braised turkey in a rich korma and cos lettuce sauce, served with a side of creamy jerusalem artichoke.\",\"servings\":4,\"cookTime\":11,\"prepTime\":19,\"frequency\":null,\"restaurantId\":1,\"cookBookId\":3,\"foodCost\":null,\"isDeleted\":true,\"isPublished\":false,\"publishedAt\":null,\"language\":\"en\",\"skillLevel\":\"INTERMEDIATE\",\"category\":\"MAIN_COURSE\",\"ingredients\":[{\"id\":1,\"recipeId\":9,\"ingredientId\":36,\"quantity\":1.070445273119208,\"unit\":\"gallon\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.658Z\",\"recipeVersionId\":null},{\"id\":2,\"recipeId\":9,\"ingredientId\":49,\"quantity\":1.115782419948495,\"unit\":\"quart\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.658Z\",\"recipeVersionId\":null},{\"id\":3,\"recipeId\":9,\"ingredientId\":16,\"quantity\":4.897799089862021,\"unit\":\"kilogram\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.658Z\",\"recipeVersionId\":null},{\"id\":4,\"recipeId\":9,\"ingredientId\":12,\"quantity\":4.600128364834552,\"unit\":\"ton\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.658Z\",\"recipeVersionId\":null},{\"id\":5,\"recipeId\":9,\"ingredientId\":50,\"quantity\":2.022096919734617,\"unit\":\"gallon\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.659Z\",\"recipeVersionId\":null}],\"instructions\":[{\"id\":1,\"recipeId\":9,\"stepNumber\":2,\"instruction\":\"Heat a pan over medium heat and add sugar.\",\"imageUrl\":\"https://picsum.photos/seed/2QE2deDwa/3331/2010?grayscale&blur=7\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":3,\"recipeId\":9,\"stepNumber\":3,\"instruction\":\"Cook the cheese for 15 minutes, stirring occasionally.\",\"imageUrl\":\"https://picsum.photos/seed/1LfXogpV/595/641?grayscale\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":2,\"recipeId\":9,\"stepNumber\":5,\"instruction\":\"Combine all the ingredients in a large bowl and Stir thoroughly.\",\"imageUrl\":\"https://picsum.photos/seed/cTEGq/1802/227?grayscale&blur=3\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":4,\"recipeId\":9,\"stepNumber\":4,\"instruction\":\"Preheat the oven to 256°F (124°C).\",\"imageUrl\":\"https://picsum.photos/seed/J45rWif6c/1313/1897?grayscale&blur=6\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":5,\"recipeId\":9,\"stepNumber\":1,\"instruction\":\"Prepare the ingredients: Boil the tomatoes.\",\"imageUrl\":\"https://picsum.photos/seed/AP2xXoX/2026/3770?blur=8\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null}]}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:17:01.816Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:17:04.115Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:17:04.115Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to delete recipe with ID 11",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:17:06.523Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Deleting (soft) recipe th ID 11",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:17:06.524Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Recipe soft-deleted successfully: {\"id\":11,\"name\":\"Recipe-0feac41a-97e7-41fa-a080-60f674d56cad\",\"imageUrls\":[\"https://picsum.photos/seed/0AgwfT7/524/590?blur=6\",\"https://picsum.photos/seed/4uuOC/3617/1482?grayscale&blur=3\",\"https://picsum.photos/seed/zHdTvu/2610/2853?grayscale&blur=8\",\"https://picsum.photos/seed/rdDMRxlir/1787/2704\",\"https://picsum.photos/seed/v4VXz/1160/1825?blur=3\",\"https://picsum.photos/seed/XIBrJI/3688/1580?blur=6\",\"https://picsum.photos/seed/Jh3se/1922/3560?grayscale&blur=2\"],\"description\":\"Baked cannellini beans-stuffed crocodile, seasoned with bbq and crunchy herbs, accompanied by roasted artichoke medley.\",\"servings\":9,\"cookTime\":85,\"prepTime\":20,\"frequency\":null,\"restaurantId\":3,\"cookBookId\":1,\"foodCost\":null,\"isDeleted\":true,\"isPublished\":false,\"publishedAt\":null,\"language\":\"en\",\"skillLevel\":\"INTERMEDIATE\",\"category\":\"MAIN_COURSE\",\"ingredients\":[{\"id\":128,\"recipeId\":11,\"ingredientId\":17,\"quantity\":8.55194811908874,\"unit\":\"gallon\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.951Z\",\"recipeVersionId\":null},{\"id\":129,\"recipeId\":11,\"ingredientId\":22,\"quantity\":1.180380716241289,\"unit\":\"kilogram\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.951Z\",\"recipeVersionId\":null},{\"id\":127,\"recipeId\":11,\"ingredientId\":22,\"quantity\":2.973462902523441,\"unit\":\"ton\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.951Z\",\"recipeVersionId\":null},{\"id\":130,\"recipeId\":11,\"ingredientId\":16,\"quantity\":0.2237928998431621,\"unit\":\"quart\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.951Z\",\"recipeVersionId\":null},{\"id\":126,\"recipeId\":11,\"ingredientId\":34,\"quantity\":7.169892940870195,\"unit\":\"ton\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.951Z\",\"recipeVersionId\":null}],\"instructions\":[{\"id\":126,\"recipeId\":11,\"stepNumber\":1,\"instruction\":\"Prepare the ingredients: Simmer the beef.\",\"imageUrl\":\"https://picsum.photos/seed/gXjvtk54i/2455/1446?grayscale\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":128,\"recipeId\":11,\"stepNumber\":4,\"instruction\":\"Preheat the oven to 365°F (185°C).\",\"imageUrl\":\"https://picsum.photos/seed/CIFQCB/2797/1076?grayscale&blur=10\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":130,\"recipeId\":11,\"stepNumber\":3,\"instruction\":\"Cook the rice for 9 minutes, stirring occasionally.\",\"imageUrl\":\"https://picsum.photos/seed/AYlTRJi/1223/3338?grayscale&blur=6\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":127,\"recipeId\":11,\"stepNumber\":5,\"instruction\":\"Combine all the ingredients in a large bowl and Boil thoroughly.\",\"imageUrl\":\"https://picsum.photos/seed/mSn4GaNMh/3332/271?blur=5\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":129,\"recipeId\":11,\"stepNumber\":2,\"instruction\":\"Heat a pan over medium heat and add rice.\",\"imageUrl\":\"https://picsum.photos/seed/zzlaK/856/2917?grayscale&blur=4\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null}]}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:17:06.551Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:17:06.608Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:17:06.609Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to delete recipe with ID 20",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:20:30.591Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Deleting (soft) recipe th ID 20",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:20:30.592Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Recipe soft-deleted successfully: {\"id\":20,\"name\":\"Recipe-280715da-949a-4f6e-8333-95c28cc1f73b\",\"imageUrls\":[\"https://picsum.photos/seed/XYQdZb3Xe/422/3964?blur=1\",\"https://picsum.photos/seed/Ef0mDx/3985/642?blur=5\",\"https://picsum.photos/seed/iLkVD9/3789/1005?grayscale&blur=6\",\"https://picsum.photos/seed/PZ4aPscZ/2948/2181?grayscale&blur=2\",\"https://picsum.photos/seed/mwV7n/3786/1621?blur=10\",\"https://picsum.photos/seed/QoE5j4/863/1879\",\"https://picsum.photos/seed/gYJR8mf1/1892/859?grayscale&blur=5\"],\"description\":\"Fresh farmed prawns with a pinch of chervil, topped by a caramelized passionfruit with whipped cream\",\"servings\":10,\"cookTime\":16,\"prepTime\":19,\"frequency\":null,\"restaurantId\":1,\"cookBookId\":2,\"foodCost\":null,\"isDeleted\":true,\"isPublished\":false,\"publishedAt\":null,\"language\":\"en\",\"skillLevel\":\"INTERMEDIATE\",\"category\":\"MAIN_COURSE\",\"ingredients\":[{\"id\":26,\"recipeId\":20,\"ingredientId\":8,\"quantity\":7.255654536457055,\"unit\":\"quart\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.728Z\",\"recipeVersionId\":null},{\"id\":27,\"recipeId\":20,\"ingredientId\":16,\"quantity\":6.120388570028125,\"unit\":\"gallon\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.728Z\",\"recipeVersionId\":null},{\"id\":28,\"recipeId\":20,\"ingredientId\":12,\"quantity\":7.004244764185143,\"unit\":\"kilogram\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.729Z\",\"recipeVersionId\":null},{\"id\":29,\"recipeId\":20,\"ingredientId\":2,\"quantity\":4.717073468667338,\"unit\":\"kilogram\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.729Z\",\"recipeVersionId\":null},{\"id\":30,\"recipeId\":20,\"ingredientId\":13,\"quantity\":1.469747475446584,\"unit\":\"gallon\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.729Z\",\"recipeVersionId\":null}],\"instructions\":[{\"id\":26,\"recipeId\":20,\"stepNumber\":4,\"instruction\":\"Preheat the oven to 327°F (164°C).\",\"imageUrl\":\"https://picsum.photos/seed/zFRLoxY/3784/334?blur=6\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":28,\"recipeId\":20,\"stepNumber\":2,\"instruction\":\"Heat a pan over medium heat and add potatoes.\",\"imageUrl\":\"https://picsum.photos/seed/KGeWX2D/937/3039?grayscale&blur=3\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":27,\"recipeId\":20,\"stepNumber\":5,\"instruction\":\"Combine all the ingredients in a large bowl and Slice thoroughly.\",\"imageUrl\":\"https://picsum.photos/seed/5ut97Azf/1114/435?blur=1\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":29,\"recipeId\":20,\"stepNumber\":1,\"instruction\":\"Prepare the ingredients: Season the herbs.\",\"imageUrl\":\"https://picsum.photos/seed/A1OMD6PO1l/405/3098?grayscale\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":30,\"recipeId\":20,\"stepNumber\":3,\"instruction\":\"Cook the fish for 15 minutes, stirring occasionally.\",\"imageUrl\":\"https://picsum.photos/seed/jrfsg0wGN/777/2589?blur=1\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null}]}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:20:30.667Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:20:32.933Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:20:32.934Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to delete recipe with ID 21",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:20:35.935Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Deleting (soft) recipe th ID 21",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:20:35.937Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Recipe soft-deleted successfully: {\"id\":21,\"name\":\"Recipe-1cc680a0-42cc-45a1-976b-60ddd157003f\",\"imageUrls\":[\"https://picsum.photos/seed/QuAUdIncR/1229/1320?blur=7\",\"https://picsum.photos/seed/UO3FIC/1200/3846?blur=7\",\"https://picsum.photos/seed/zi6rw/1087/3477?blur=8\",\"https://picsum.photos/seed/yqgJeum/760/2000?grayscale&blur=7\",\"https://picsum.photos/seed/vSY2E9A/1494/3927?blur=7\",\"https://picsum.photos/seed/mV4g0pty9/2784/1881?blur=2\",\"https://picsum.photos/seed/KcQOy/431/3543?blur=5\"],\"description\":\"Crispy fried chicken bites, seasoned with fennel seed and served with a tangy nectarine dipping sauce.\",\"servings\":9,\"cookTime\":94,\"prepTime\":41,\"frequency\":null,\"restaurantId\":2,\"cookBookId\":3,\"foodCost\":null,\"isDeleted\":true,\"isPublished\":false,\"publishedAt\":null,\"language\":\"en\",\"skillLevel\":\"INTERMEDIATE\",\"category\":\"MAIN_COURSE\",\"ingredients\":[{\"id\":168,\"recipeId\":21,\"ingredientId\":26,\"quantity\":6.689026524642435,\"unit\":\"quart\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:38.038Z\",\"recipeVersionId\":null},{\"id\":167,\"recipeId\":21,\"ingredientId\":27,\"quantity\":5.893841944432683,\"unit\":\"kilogram\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:38.038Z\",\"recipeVersionId\":null},{\"id\":169,\"recipeId\":21,\"ingredientId\":34,\"quantity\":1.498030922867926,\"unit\":\"kilogram\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:38.038Z\",\"recipeVersionId\":null},{\"id\":166,\"recipeId\":21,\"ingredientId\":9,\"quantity\":4.385811998875587,\"unit\":\"kilogram\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:38.038Z\",\"recipeVersionId\":null},{\"id\":170,\"recipeId\":21,\"ingredientId\":26,\"quantity\":3.18023487414432,\"unit\":\"kilogram\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:38.038Z\",\"recipeVersionId\":null}],\"instructions\":[{\"id\":167,\"recipeId\":21,\"stepNumber\":2,\"instruction\":\"Heat a pan over medium heat and add rice.\",\"imageUrl\":\"https://picsum.photos/seed/cESpAkVyLZ/2424/775?blur=7\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":166,\"recipeId\":21,\"stepNumber\":3,\"instruction\":\"Cook the bell peppers for 26 minutes, stirring occasionally.\",\"imageUrl\":\"https://picsum.photos/seed/G7z2pqJR7/2162/1455\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":168,\"recipeId\":21,\"stepNumber\":1,\"instruction\":\"Prepare the ingredients: Season the pepper.\",\"imageUrl\":\"https://picsum.photos/seed/BBats283/1715/3501?blur=7\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":169,\"recipeId\":21,\"stepNumber\":4,\"instruction\":\"Preheat the oven to 162°F (72°C).\",\"imageUrl\":\"https://picsum.photos/seed/2bSAD/1936/2541?grayscale&blur=7\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":170,\"recipeId\":21,\"stepNumber\":5,\"instruction\":\"Combine all the ingredients in a large bowl and Simmer thoroughly.\",\"imageUrl\":\"https://picsum.photos/seed/Q7rLfbgd/388/1008?grayscale&blur=1\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null}]}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:20:35.956Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:20:36.018Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:20:36.019Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to delete recipe with ID 15",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:21:52.848Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Deleting (soft) recipe th ID 15",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:21:52.849Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Recipe soft-deleted successfully: {\"id\":15,\"name\":\"Recipe-fde39043-77cb-43c7-8753-35fac824b4b2\",\"imageUrls\":[\"https://picsum.photos/seed/YdgyL/3800/1381?grayscale&blur=1\",\"https://picsum.photos/seed/CCbFg/2950/58?blur=2\",\"https://picsum.photos/seed/lNX9ccTDR/3186/3525?grayscale&blur=3\",\"https://picsum.photos/seed/GtX2CxeV/1983/119?grayscale&blur=6\",\"https://picsum.photos/seed/RPpkrJ8pe/2572/1060?grayscale&blur=10\",\"https://picsum.photos/seed/cKs4TZPqk/1348/3302?grayscale&blur=10\",\"https://picsum.photos/seed/ZqX4ja/2058/294?blur=3\"],\"description\":\"Tender ostrich skewers, glazed with a sweet and tangy dried apricot sauce, served over a bed of fragrant jasmine rice.\",\"servings\":10,\"cookTime\":55,\"prepTime\":105,\"frequency\":null,\"restaurantId\":1,\"cookBookId\":1,\"foodCost\":null,\"isDeleted\":true,\"isPublished\":false,\"publishedAt\":null,\"language\":\"en\",\"skillLevel\":\"INTERMEDIATE\",\"category\":\"MAIN_COURSE\",\"ingredients\":[{\"id\":56,\"recipeId\":15,\"ingredientId\":15,\"quantity\":0.4959985159480077,\"unit\":\"kilogram\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.798Z\",\"recipeVersionId\":null},{\"id\":57,\"recipeId\":15,\"ingredientId\":49,\"quantity\":1.933818347367194,\"unit\":\"ton\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.798Z\",\"recipeVersionId\":null},{\"id\":58,\"recipeId\":15,\"ingredientId\":44,\"quantity\":4.57021799487964,\"unit\":\"kilogram\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.799Z\",\"recipeVersionId\":null},{\"id\":59,\"recipeId\":15,\"ingredientId\":21,\"quantity\":5.114447053939902,\"unit\":\"kilogram\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.799Z\",\"recipeVersionId\":null},{\"id\":60,\"recipeId\":15,\"ingredientId\":40,\"quantity\":2.967849159468583,\"unit\":\"gallon\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.799Z\",\"recipeVersionId\":null}],\"instructions\":[{\"id\":60,\"recipeId\":15,\"stepNumber\":1,\"instruction\":\"Prepare the ingredients: Grate the chicken.\",\"imageUrl\":\"https://picsum.photos/seed/yzJKseGXc/1069/2806?grayscale&blur=10\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":59,\"recipeId\":15,\"stepNumber\":3,\"instruction\":\"Cook the garlic for 11 minutes, stirring occasionally.\",\"imageUrl\":\"https://picsum.photos/seed/ZyBVXZ/259/663?blur=10\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":56,\"recipeId\":15,\"stepNumber\":5,\"instruction\":\"Combine all the ingredients in a large bowl and Grill thoroughly.\",\"imageUrl\":\"https://picsum.photos/seed/gvRPx9L7hK/2088/236?blur=10\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":57,\"recipeId\":15,\"stepNumber\":2,\"instruction\":\"Heat a pan over medium heat and add carrots.\",\"imageUrl\":\"https://picsum.photos/seed/W833YCi/336/2597?blur=8\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":58,\"recipeId\":15,\"stepNumber\":4,\"instruction\":\"Preheat the oven to 152°F (67°C).\",\"imageUrl\":\"https://picsum.photos/seed/yfXEE/1306/329?grayscale&blur=7\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null}]}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:21:52.881Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:21:55.181Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:21:55.182Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to delete recipe with ID 19",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:22:40.537Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Deleting (soft) recipe th ID 19",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:22:40.539Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Recipe soft-deleted successfully: {\"id\":19,\"name\":\"Recipe-a20e301c-d4d8-4875-b602-ca4659d59cc2\",\"imageUrls\":[\"https://picsum.photos/seed/BL0PsKCgVS/2981/3663?grayscale&blur=2\",\"https://picsum.photos/seed/CQ9f36/3697/3361?grayscale&blur=1\",\"https://picsum.photos/seed/fqH8eBiV8i/3526/1581\",\"https://picsum.photos/seed/9vpVS3w4/1441/2924?grayscale&blur=6\",\"https://picsum.photos/seed/5rGAyixxs/1775/1895?blur=8\",\"https://picsum.photos/seed/QZkTxCEXcZ/974/398?grayscale&blur=7\",\"https://picsum.photos/seed/YbV2ENKD/1713/2130?grayscale&blur=6\"],\"description\":\"A simple nashi pear pie. No fancy stuff. Just pie.\",\"servings\":2,\"cookTime\":112,\"prepTime\":49,\"frequency\":null,\"restaurantId\":3,\"cookBookId\":2,\"foodCost\":null,\"isDeleted\":true,\"isPublished\":false,\"publishedAt\":null,\"language\":\"en\",\"skillLevel\":\"INTERMEDIATE\",\"category\":\"MAIN_COURSE\",\"ingredients\":[{\"id\":112,\"recipeId\":19,\"ingredientId\":12,\"quantity\":1.252438748751424,\"unit\":\"gallon\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.913Z\",\"recipeVersionId\":null},{\"id\":114,\"recipeId\":19,\"ingredientId\":16,\"quantity\":4.062961880778016,\"unit\":\"ton\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.914Z\",\"recipeVersionId\":null},{\"id\":111,\"recipeId\":19,\"ingredientId\":31,\"quantity\":5.752845392615129,\"unit\":\"ton\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.914Z\",\"recipeVersionId\":null},{\"id\":113,\"recipeId\":19,\"ingredientId\":12,\"quantity\":2.814797160743313,\"unit\":\"ton\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.914Z\",\"recipeVersionId\":null},{\"id\":115,\"recipeId\":19,\"ingredientId\":38,\"quantity\":6.734725185603156,\"unit\":\"gallon\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.914Z\",\"recipeVersionId\":null}],\"instructions\":[{\"id\":114,\"recipeId\":19,\"stepNumber\":3,\"instruction\":\"Cook the rice for 7 minutes, stirring occasionally.\",\"imageUrl\":\"https://picsum.photos/seed/lcqsm/2522/270?grayscale&blur=9\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":111,\"recipeId\":19,\"stepNumber\":2,\"instruction\":\"Heat a pan over medium heat and add onions.\",\"imageUrl\":\"https://picsum.photos/seed/P4mlVUAuO/270/2652?grayscale&blur=1\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":113,\"recipeId\":19,\"stepNumber\":5,\"instruction\":\"Combine all the ingredients in a large bowl and Chop thoroughly.\",\"imageUrl\":\"https://picsum.photos/seed/XW9PTE/3586/434?grayscale&blur=8\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":115,\"recipeId\":19,\"stepNumber\":4,\"instruction\":\"Preheat the oven to 353°F (178°C).\",\"imageUrl\":\"https://picsum.photos/seed/fjknIhXYA/221/1350?blur=6\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":112,\"recipeId\":19,\"stepNumber\":1,\"instruction\":\"Prepare the ingredients: Bake the fish.\",\"imageUrl\":\"https://picsum.photos/seed/7AZl3/2585/994?grayscale&blur=7\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null}]}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:22:40.571Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:22:42.887Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:22:42.889Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to delete recipe with ID 10",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:23:10.648Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Deleting (soft) recipe th ID 10",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:23:10.649Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Recipe soft-deleted successfully: {\"id\":10,\"name\":\"Recipe-70f60a96-b417-437e-a2ab-b4f560b92e29\",\"imageUrls\":[\"https://picsum.photos/seed/835MkeOlxC/3322/1199?grayscale&blur=4\",\"https://picsum.photos/seed/A9H7L/3611/1551?blur=10\",\"https://picsum.photos/seed/deH2LEQR/1516/693?blur=6\",\"https://picsum.photos/seed/8G3gF/1606/2970?grayscale\",\"https://picsum.photos/seed/LWdW5kHo/3299/3239?grayscale&blur=8\",\"https://picsum.photos/seed/rUl2Qs3jbl/3338/3202?grayscale&blur=10\",\"https://picsum.photos/seed/R7GfXsx/815/2452?blur=4\"],\"description\":\"Fresh strawberries with a pinch of celery, topped by a caramelized sprout with whipped cream\",\"servings\":8,\"cookTime\":81,\"prepTime\":118,\"frequency\":null,\"restaurantId\":1,\"cookBookId\":3,\"foodCost\":null,\"isDeleted\":true,\"isPublished\":false,\"publishedAt\":null,\"language\":\"en\",\"skillLevel\":\"INTERMEDIATE\",\"category\":\"MAIN_COURSE\",\"ingredients\":[{\"id\":6,\"recipeId\":10,\"ingredientId\":24,\"quantity\":1.685413546996949,\"unit\":\"kilogram\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.673Z\",\"recipeVersionId\":null},{\"id\":7,\"recipeId\":10,\"ingredientId\":11,\"quantity\":8.749018246334686,\"unit\":\"ton\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.673Z\",\"recipeVersionId\":null},{\"id\":8,\"recipeId\":10,\"ingredientId\":16,\"quantity\":4.982803770646186,\"unit\":\"kilogram\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.673Z\",\"recipeVersionId\":null},{\"id\":9,\"recipeId\":10,\"ingredientId\":40,\"quantity\":5.115408746292319,\"unit\":\"ton\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.673Z\",\"recipeVersionId\":null},{\"id\":10,\"recipeId\":10,\"ingredientId\":9,\"quantity\":5.162922562891921,\"unit\":\"gallon\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.674Z\",\"recipeVersionId\":null}],\"instructions\":[{\"id\":6,\"recipeId\":10,\"stepNumber\":4,\"instruction\":\"Preheat the oven to 267°F (131°C).\",\"imageUrl\":\"https://picsum.photos/seed/Q7OI0e9/2867/825?blur=4\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":8,\"recipeId\":10,\"stepNumber\":1,\"instruction\":\"Prepare the ingredients: Simmer the butter.\",\"imageUrl\":\"https://picsum.photos/seed/sFAuaO/1660/1759?blur=2\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":10,\"recipeId\":10,\"stepNumber\":3,\"instruction\":\"Cook the cheese for 20 minutes, stirring occasionally.\",\"imageUrl\":\"https://picsum.photos/seed/DFtcyb40v/3658/3819?grayscale&blur=1\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":9,\"recipeId\":10,\"stepNumber\":5,\"instruction\":\"Combine all the ingredients in a large bowl and Boil thoroughly.\",\"imageUrl\":\"https://picsum.photos/seed/igVIPCDV5/1427/482?blur=2\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":7,\"recipeId\":10,\"stepNumber\":2,\"instruction\":\"Heat a pan over medium heat and add olive oil.\",\"imageUrl\":\"https://picsum.photos/seed/r1rJn/3842/3740?grayscale&blur=10\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null}]}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:23:10.680Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:23:13.000Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:23:13.001Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to delete recipe with ID 12",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:23:21.968Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Deleting (soft) recipe th ID 12",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:23:21.969Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Recipe soft-deleted successfully: {\"id\":12,\"name\":\"Recipe-655aca44-fa62-4ae8-be1e-95a675c8a7b1\",\"imageUrls\":[\"https://picsum.photos/seed/Z7EhG/1993/1971?grayscale&blur=6\",\"https://picsum.photos/seed/tAXJi/898/727?grayscale&blur=10\",\"https://picsum.photos/seed/b1ieL/2864/3729?grayscale\",\"https://picsum.photos/seed/HDDX5j/3320/1983?blur=4\",\"https://picsum.photos/seed/siHf2/2399/2529?blur=2\",\"https://picsum.photos/seed/QvUyypQJ6G/2434/127?grayscale&blur=9\",\"https://picsum.photos/seed/n1PcKWBo/299/1174?grayscale\"],\"description\":\"A delightful tart combining tangy okra and sweet fig, set in a buttery pastry shell and finished with a hint of rice paper.\",\"servings\":5,\"cookTime\":113,\"prepTime\":63,\"frequency\":null,\"restaurantId\":3,\"cookBookId\":1,\"foodCost\":null,\"isDeleted\":true,\"isPublished\":false,\"publishedAt\":null,\"language\":\"en\",\"skillLevel\":\"INTERMEDIATE\",\"category\":\"MAIN_COURSE\",\"ingredients\":[{\"id\":148,\"recipeId\":12,\"ingredientId\":50,\"quantity\":7.834428594883366,\"unit\":\"ton\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.992Z\",\"recipeVersionId\":null},{\"id\":147,\"recipeId\":12,\"ingredientId\":21,\"quantity\":4.740474449756289,\"unit\":\"gallon\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.992Z\",\"recipeVersionId\":null},{\"id\":146,\"recipeId\":12,\"ingredientId\":8,\"quantity\":7.601960701401391,\"unit\":\"quart\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.992Z\",\"recipeVersionId\":null},{\"id\":150,\"recipeId\":12,\"ingredientId\":24,\"quantity\":7.000208769529056,\"unit\":\"gallon\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.992Z\",\"recipeVersionId\":null},{\"id\":149,\"recipeId\":12,\"ingredientId\":14,\"quantity\":1.293212884683935,\"unit\":\"quart\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.993Z\",\"recipeVersionId\":null}],\"instructions\":[{\"id\":146,\"recipeId\":12,\"stepNumber\":1,\"instruction\":\"Prepare the ingredients: Grate the pepper.\",\"imageUrl\":\"https://picsum.photos/seed/hxPlMB/1999/382?blur=10\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":148,\"recipeId\":12,\"stepNumber\":2,\"instruction\":\"Heat a pan over medium heat and add olive oil.\",\"imageUrl\":\"https://picsum.photos/seed/WE7Btu0a/3103/856?grayscale&blur=10\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":149,\"recipeId\":12,\"stepNumber\":5,\"instruction\":\"Combine all the ingredients in a large bowl and Garnish thoroughly.\",\"imageUrl\":\"https://picsum.photos/seed/Nz5LPCeCQm/2082/3101?blur=7\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":147,\"recipeId\":12,\"stepNumber\":4,\"instruction\":\"Preheat the oven to 357°F (181°C).\",\"imageUrl\":\"https://picsum.photos/seed/7E6fBNZq/351/119?blur=4\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":150,\"recipeId\":12,\"stepNumber\":3,\"instruction\":\"Cook the pepper for 9 minutes, stirring occasionally.\",\"imageUrl\":\"https://picsum.photos/seed/LTfdIvk/2204/1118?grayscale&blur=1\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null}]}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:23:21.986Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:23:24.295Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:23:24.297Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to delete recipe with ID 16",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:23:35.104Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Deleting (soft) recipe th ID 16",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:23:35.105Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Recipe soft-deleted successfully: {\"id\":16,\"name\":\"Recipe-cb364ec8-65ee-49c0-add6-6d7a981228cb\",\"imageUrls\":[\"https://picsum.photos/seed/CqOrSzyUCW/3066/46?blur=10\",\"https://picsum.photos/seed/N2YFBlJ/2765/2792?blur=6\",\"https://picsum.photos/seed/UJttBSK/2434/2887?grayscale&blur=9\",\"https://picsum.photos/seed/gpuuIpJxM/131/565?grayscale&blur=8\",\"https://picsum.photos/seed/1EQIl/1443/949?grayscale&blur=2\",\"https://picsum.photos/seed/39hFHaKW/948/2069?blur=7\",\"https://picsum.photos/seed/4nsV045oFT/1788/3615\"],\"description\":\"A delightful tart combining sour chives and sweet watermelon, set in a buttery pastry shell and finished with a hint of fennel seed.\",\"servings\":8,\"cookTime\":18,\"prepTime\":111,\"frequency\":null,\"restaurantId\":2,\"cookBookId\":3,\"foodCost\":null,\"isDeleted\":true,\"isPublished\":false,\"publishedAt\":null,\"language\":\"en\",\"skillLevel\":\"INTERMEDIATE\",\"category\":\"MAIN_COURSE\",\"ingredients\":[{\"id\":157,\"recipeId\":16,\"ingredientId\":36,\"quantity\":8.321130976314148,\"unit\":\"quart\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:38.015Z\",\"recipeVersionId\":null},{\"id\":158,\"recipeId\":16,\"ingredientId\":49,\"quantity\":4.655508990688562,\"unit\":\"quart\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:38.016Z\",\"recipeVersionId\":null},{\"id\":160,\"recipeId\":16,\"ingredientId\":30,\"quantity\":5.858071913296538,\"unit\":\"gallon\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:38.017Z\",\"recipeVersionId\":null},{\"id\":159,\"recipeId\":16,\"ingredientId\":16,\"quantity\":9.816719222561346,\"unit\":\"gallon\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:38.016Z\",\"recipeVersionId\":null},{\"id\":156,\"recipeId\":16,\"ingredientId\":36,\"quantity\":8.167970122232878,\"unit\":\"quart\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:38.016Z\",\"recipeVersionId\":null}],\"instructions\":[{\"id\":158,\"recipeId\":16,\"stepNumber\":2,\"instruction\":\"Heat a pan over medium heat and add potatoes.\",\"imageUrl\":\"https://picsum.photos/seed/fkNbh3xp/2354/1572?blur=3\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":157,\"recipeId\":16,\"stepNumber\":4,\"instruction\":\"Preheat the oven to 424°F (218°C).\",\"imageUrl\":\"https://picsum.photos/seed/SA0mzW/131/866?blur=3\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":156,\"recipeId\":16,\"stepNumber\":1,\"instruction\":\"Prepare the ingredients: Chop the beef.\",\"imageUrl\":\"https://picsum.photos/seed/iOOPkrj/2631/3008?grayscale&blur=3\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":160,\"recipeId\":16,\"stepNumber\":5,\"instruction\":\"Combine all the ingredients in a large bowl and Season thoroughly.\",\"imageUrl\":\"https://picsum.photos/seed/WShtQ7qs/3193/1200?blur=2\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":159,\"recipeId\":16,\"stepNumber\":3,\"instruction\":\"Cook the beef for 5 minutes, stirring occasionally.\",\"imageUrl\":\"https://picsum.photos/seed/ocpUEO/43/1257?grayscale&blur=8\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null}]}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:23:35.134Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:23:37.416Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:23:37.417Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to delete recipe with ID 22",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:23:42.269Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Deleting (soft) recipe th ID 22",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:23:42.271Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Recipe soft-deleted successfully: {\"id\":22,\"name\":\"Recipe-2b850c87-90b3-4270-9d52-ccc42c614490\",\"imageUrls\":[\"https://picsum.photos/seed/JZqGFT1orz/874/742?grayscale\",\"https://picsum.photos/seed/60H2L/1353/501?grayscale&blur=5\",\"https://picsum.photos/seed/rIcjK77GK/3404/1353?grayscale&blur=6\",\"https://picsum.photos/seed/ARkk00LhQY/797/2479?blur=1\",\"https://picsum.photos/seed/ogV7eB/2498/2365?blur=9\",\"https://picsum.photos/seed/2ul5LP3Q/1889/568?blur=10\",\"https://picsum.photos/seed/8YYcg5ZvK/697/986?grayscale&blur=9\"],\"description\":\"Crispy fried emu bites, seasoned with poppy seed and served with a tangy sultana dipping sauce.\",\"servings\":3,\"cookTime\":91,\"prepTime\":33,\"frequency\":null,\"restaurantId\":2,\"cookBookId\":2,\"foodCost\":null,\"isDeleted\":true,\"isPublished\":false,\"publishedAt\":null,\"language\":\"en\",\"skillLevel\":\"INTERMEDIATE\",\"category\":\"MAIN_COURSE\",\"ingredients\":[{\"id\":183,\"recipeId\":22,\"ingredientId\":33,\"quantity\":0.8622538181011387,\"unit\":\"ton\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:38.069Z\",\"recipeVersionId\":null},{\"id\":182,\"recipeId\":22,\"ingredientId\":49,\"quantity\":0.4678545933929606,\"unit\":\"kilogram\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:38.068Z\",\"recipeVersionId\":null},{\"id\":185,\"recipeId\":22,\"ingredientId\":17,\"quantity\":1.964952574022911,\"unit\":\"kilogram\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:38.069Z\",\"recipeVersionId\":null},{\"id\":184,\"recipeId\":22,\"ingredientId\":7,\"quantity\":7.418822483372936,\"unit\":\"gallon\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:38.068Z\",\"recipeVersionId\":null},{\"id\":181,\"recipeId\":22,\"ingredientId\":49,\"quantity\":2.978851846605628,\"unit\":\"quart\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:38.068Z\",\"recipeVersionId\":null}],\"instructions\":[{\"id\":183,\"recipeId\":22,\"stepNumber\":1,\"instruction\":\"Prepare the ingredients: Fry the salt.\",\"imageUrl\":\"https://picsum.photos/seed/B73zQoj/108/3206?blur=7\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":184,\"recipeId\":22,\"stepNumber\":3,\"instruction\":\"Cook the chicken for 25 minutes, stirring occasionally.\",\"imageUrl\":\"https://picsum.photos/seed/tJYG46NRG/2536/3292?grayscale&blur=1\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":181,\"recipeId\":22,\"stepNumber\":2,\"instruction\":\"Heat a pan over medium heat and add pepper.\",\"imageUrl\":\"https://picsum.photos/seed/jUSFw/1875/3040?grayscale&blur=4\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":182,\"recipeId\":22,\"stepNumber\":5,\"instruction\":\"Combine all the ingredients in a large bowl and Knead thoroughly.\",\"imageUrl\":\"https://picsum.photos/seed/sJ4zq/1939/1691?grayscale&blur=3\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":185,\"recipeId\":22,\"stepNumber\":4,\"instruction\":\"Preheat the oven to 301°F (149°C).\",\"imageUrl\":\"https://picsum.photos/seed/CEz0UmxNU/1192/564?blur=1\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null}]}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:23:42.304Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:23:44.609Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:23:44.609Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to delete recipe with ID 25",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:24:16.484Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Deleting (soft) recipe th ID 25",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:24:16.485Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Recipe soft-deleted successfully: {\"id\":25,\"name\":\"Recipe-dcb0e271-518a-40fb-9387-55f011151d43\",\"imageUrls\":[\"https://picsum.photos/seed/Nygkq0Od/2142/2820?blur=5\",\"https://picsum.photos/seed/p5xZd/3831/3955?grayscale&blur=5\",\"https://picsum.photos/seed/EW0wDVs/886/3815?grayscale&blur=5\",\"https://picsum.photos/seed/O0ktvTxNB/3862/733?grayscale&blur=3\",\"https://picsum.photos/seed/P2Dntn3h/412/3517?grayscale&blur=3\",\"https://picsum.photos/seed/lGzutKv4/1099/2817?grayscale&blur=10\",\"https://picsum.photos/seed/rqTcuTQz/2276/312?grayscale&blur=6\"],\"description\":\"A special yellow cheddar from Estonia. To support the strong flavor it is sided with a tablespoon of chilli.\",\"servings\":5,\"cookTime\":39,\"prepTime\":17,\"frequency\":null,\"restaurantId\":3,\"cookBookId\":3,\"foodCost\":null,\"isDeleted\":true,\"isPublished\":false,\"publishedAt\":null,\"language\":\"en\",\"skillLevel\":\"INTERMEDIATE\",\"category\":\"MAIN_COURSE\",\"ingredients\":[{\"id\":96,\"recipeId\":25,\"ingredientId\":24,\"quantity\":3.701476326285549,\"unit\":\"quart\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.874Z\",\"recipeVersionId\":null},{\"id\":97,\"recipeId\":25,\"ingredientId\":21,\"quantity\":5.363757185027691,\"unit\":\"gallon\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.874Z\",\"recipeVersionId\":null},{\"id\":98,\"recipeId\":25,\"ingredientId\":19,\"quantity\":5.0749977163722,\"unit\":\"kilogram\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.874Z\",\"recipeVersionId\":null},{\"id\":99,\"recipeId\":25,\"ingredientId\":3,\"quantity\":1.718895576936528,\"unit\":\"ton\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.875Z\",\"recipeVersionId\":null},{\"id\":100,\"recipeId\":25,\"ingredientId\":8,\"quantity\":4.732658689041857,\"unit\":\"quart\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.875Z\",\"recipeVersionId\":null}],\"instructions\":[{\"id\":100,\"recipeId\":25,\"stepNumber\":3,\"instruction\":\"Cook the bell peppers for 3 minutes, stirring occasionally.\",\"imageUrl\":\"https://picsum.photos/seed/vJvCZOX/3517/3740?blur=8\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":99,\"recipeId\":25,\"stepNumber\":2,\"instruction\":\"Heat a pan over medium heat and add flour.\",\"imageUrl\":\"https://picsum.photos/seed/muyRbtkb/3056/3694?blur=2\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":98,\"recipeId\":25,\"stepNumber\":4,\"instruction\":\"Preheat the oven to 435°F (224°C).\",\"imageUrl\":\"https://picsum.photos/seed/Z5oAxHQ/1172/2658\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":97,\"recipeId\":25,\"stepNumber\":1,\"instruction\":\"Prepare the ingredients: Fold the cheese.\",\"imageUrl\":\"https://picsum.photos/seed/gNpNoL0da6/481/2791?blur=8\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":96,\"recipeId\":25,\"stepNumber\":5,\"instruction\":\"Combine all the ingredients in a large bowl and Stir thoroughly.\",\"imageUrl\":\"https://picsum.photos/seed/rI6pG/1281/3098?grayscale&blur=5\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null}]}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:24:16.510Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:24:18.827Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:24:18.828Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to delete recipe with ID 13",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:44:46.020Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Deleting (soft) recipe th ID 13",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:44:46.022Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Recipe soft-deleted successfully: {\"id\":13,\"name\":\"Recipe-9dc57132-5fe6-4b4d-849e-a8ab6e0b49eb\",\"imageUrls\":[\"https://picsum.photos/seed/CAotQMw2Ck/556/1279?grayscale\",\"https://picsum.photos/seed/aWHSEwcfiQ/2486/1842?grayscale&blur=3\",\"https://picsum.photos/seed/x2Qkf/1802/2234?blur=3\",\"https://picsum.photos/seed/izFPepT/2638/354?blur=7\",\"https://picsum.photos/seed/N4Xnp/1514/3709?blur=7\",\"https://picsum.photos/seed/TaZfX/3481/3550?blur=7\",\"https://picsum.photos/seed/TrwHmG/487/767?grayscale&blur=1\"],\"description\":\"99-day aged venison steak, with choice of 3 sides.\",\"servings\":9,\"cookTime\":11,\"prepTime\":14,\"frequency\":null,\"restaurantId\":1,\"cookBookId\":3,\"foodCost\":null,\"isDeleted\":true,\"isPublished\":false,\"publishedAt\":null,\"language\":\"en\",\"skillLevel\":\"INTERMEDIATE\",\"category\":\"MAIN_COURSE\",\"ingredients\":[{\"id\":11,\"recipeId\":13,\"ingredientId\":33,\"quantity\":0.4373421318203651,\"unit\":\"gallon\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.687Z\",\"recipeVersionId\":null},{\"id\":12,\"recipeId\":13,\"ingredientId\":40,\"quantity\":1.585538776495176,\"unit\":\"gallon\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.688Z\",\"recipeVersionId\":null},{\"id\":13,\"recipeId\":13,\"ingredientId\":41,\"quantity\":8.165825815809544,\"unit\":\"ton\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.688Z\",\"recipeVersionId\":null},{\"id\":14,\"recipeId\":13,\"ingredientId\":8,\"quantity\":5.764321866510511,\"unit\":\"kilogram\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.688Z\",\"recipeVersionId\":null},{\"id\":15,\"recipeId\":13,\"ingredientId\":40,\"quantity\":3.933581826690418,\"unit\":\"ton\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.689Z\",\"recipeVersionId\":null}],\"instructions\":[{\"id\":12,\"recipeId\":13,\"stepNumber\":2,\"instruction\":\"Heat a pan over medium heat and add rice.\",\"imageUrl\":\"https://picsum.photos/seed/8dlHLA7/1790/319?grayscale&blur=4\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":13,\"recipeId\":13,\"stepNumber\":1,\"instruction\":\"Prepare the ingredients: Fry the flour.\",\"imageUrl\":\"https://picsum.photos/seed/KwoIQ81ExX/1420/3716?blur=7\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":11,\"recipeId\":13,\"stepNumber\":4,\"instruction\":\"Preheat the oven to 191°F (88°C).\",\"imageUrl\":\"https://picsum.photos/seed/xBmFRx/3606/10?blur=2\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":15,\"recipeId\":13,\"stepNumber\":3,\"instruction\":\"Cook the spices for 20 minutes, stirring occasionally.\",\"imageUrl\":\"https://picsum.photos/seed/g50vrG/3127/3724?grayscale&blur=10\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":14,\"recipeId\":13,\"stepNumber\":5,\"instruction\":\"Combine all the ingredients in a large bowl and Mix thoroughly.\",\"imageUrl\":\"https://picsum.photos/seed/TaSUQKa/3269/3517?grayscale&blur=10\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null}]}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:44:46.102Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:44:48.385Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:44:48.385Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to delete recipe with ID 30",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:44:53.849Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Deleting (soft) recipe th ID 30",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:44:53.850Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Recipe soft-deleted successfully: {\"id\":30,\"name\":\"Recipe-12aaa037-f747-48fa-af88-aef44186154c\",\"imageUrls\":[\"https://picsum.photos/seed/URqPKjO/2842/1616?grayscale&blur=5\",\"https://picsum.photos/seed/0BadLul/3706/3723?blur=6\",\"https://picsum.photos/seed/Te0Hi/1898/3216?grayscale&blur=1\",\"https://picsum.photos/seed/O3Gyq/2793/2508?grayscale\",\"https://picsum.photos/seed/7aemw/892/733?grayscale&blur=1\",\"https://picsum.photos/seed/2qwZtiew/632/1748?blur=6\",\"https://picsum.photos/seed/pOAR04ab/1862/1652?grayscale&blur=5\"],\"description\":\"Hearty white rice and venison stew, slow-cooked with china star and chives for a comforting, flavorful meal.\",\"servings\":7,\"cookTime\":106,\"prepTime\":75,\"frequency\":null,\"restaurantId\":1,\"cookBookId\":1,\"foodCost\":null,\"isDeleted\":true,\"isPublished\":false,\"publishedAt\":null,\"language\":\"en\",\"skillLevel\":\"INTERMEDIATE\",\"category\":\"MAIN_COURSE\",\"ingredients\":[{\"id\":51,\"recipeId\":30,\"ingredientId\":26,\"quantity\":3.362655222051754,\"unit\":\"kilogram\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.787Z\",\"recipeVersionId\":null},{\"id\":52,\"recipeId\":30,\"ingredientId\":28,\"quantity\":7.135722272911003,\"unit\":\"kilogram\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.788Z\",\"recipeVersionId\":null},{\"id\":53,\"recipeId\":30,\"ingredientId\":8,\"quantity\":7.923701236006026,\"unit\":\"quart\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.788Z\",\"recipeVersionId\":null},{\"id\":54,\"recipeId\":30,\"ingredientId\":36,\"quantity\":5.809096054586709,\"unit\":\"gallon\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.788Z\",\"recipeVersionId\":null},{\"id\":55,\"recipeId\":30,\"ingredientId\":29,\"quantity\":6.753913702010808,\"unit\":\"ton\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:37.789Z\",\"recipeVersionId\":null}],\"instructions\":[{\"id\":52,\"recipeId\":30,\"stepNumber\":2,\"instruction\":\"Heat a pan over medium heat and add salt.\",\"imageUrl\":\"https://picsum.photos/seed/Ortnb/21/2592?blur=5\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":55,\"recipeId\":30,\"stepNumber\":4,\"instruction\":\"Preheat the oven to 269°F (132°C).\",\"imageUrl\":\"https://picsum.photos/seed/1eXIKRqa/2756/1324?grayscale&blur=3\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":53,\"recipeId\":30,\"stepNumber\":1,\"instruction\":\"Prepare the ingredients: Boil the olive oil.\",\"imageUrl\":\"https://picsum.photos/seed/DD5RD/641/3628?blur=3\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":51,\"recipeId\":30,\"stepNumber\":3,\"instruction\":\"Cook the chicken for 7 minutes, stirring occasionally.\",\"imageUrl\":\"https://picsum.photos/seed/yN2mM5/1968/1743?blur=3\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":54,\"recipeId\":30,\"stepNumber\":5,\"instruction\":\"Combine all the ingredients in a large bowl and Season thoroughly.\",\"imageUrl\":\"https://picsum.photos/seed/9J4Xh/174/3070?grayscale&blur=10\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null}]}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:44:53.893Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:44:53.943Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:44:53.943Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:44:57.786Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":10,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:44:57.787Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 40",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:44:59.891Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 40",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T18:44:59.892Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 40",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:06:13.284Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 40",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:06:13.286Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:06:29.866Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:06:29.867Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:06:32.156Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"d\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:06:32.157Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:06:32.078Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"ds\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:06:32.078Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:06:35.064Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"dat\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:06:35.065Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:06:38.562Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:06:38.563Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:06:40.668Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"dat\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:06:40.669Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:06:46.068Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"recip\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:06:46.069Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:06:46.433Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"recipe\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:06:46.434Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:06:55.795Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"recipe-\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:06:55.795Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:06:55.823Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"recipe-ff\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:06:55.824Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:06:55.849Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"recipe-f\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:06:55.850Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:32:34.086Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:32:34.087Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 40",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:36:03.693Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 40",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:36:03.694Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:36:07.270Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"recipe-ff\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:36:07.271Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:36:11.419Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"recipe-ff\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:36:11.420Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:36:37.047Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"recipe-ff\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:36:37.047Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:36:41.471Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"recipe-ff\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:36:41.471Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:37:31.306Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"recipe-ff\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:37:31.307Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:37:37.757Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"recipe-ff\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:37:37.757Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 18",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:37:56.868Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 18",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:37:56.868Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:37:59.787Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:37:59.788Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:37:59.946Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:37:59.948Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:38:02.348Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":10,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:38:02.349Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:38:41.938Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":20,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:38:41.938Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:38:42.008Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:38:42.008Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 18",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:38:51.709Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 18",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:38:51.710Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:39:01.997Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":10,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:39:01.998Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:39:02.144Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:39:02.144Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:39:11.109Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:39:11.109Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:39:16.848Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:39:16.848Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:39:23.054Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:39:23.055Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:44:47.305Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:44:47.306Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:45:41.120Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:45:41.121Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:45:44.732Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"d\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:45:44.732Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:45:47.388Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"ds\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:45:47.389Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:45:52.613Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"d\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:45:52.613Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:45:58.025Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:45:58.025Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:45:58.058Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"rec\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:45:58.058Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:45:58.107Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"re\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:45:58.108Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:59:08.474Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"re\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:59:08.475Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:59:12.457Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10,\"searchTerm\":\"r\"}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:59:12.458Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:59:16.670Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:59:16.670Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to delete recipe with ID 18",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:59:19.861Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Deleting (soft) recipe th ID 18",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:59:19.862Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Recipe soft-deleted successfully: {\"id\":18,\"name\":\"Recipe-ff553de3-74a8-4950-bd85-70ec122d5064\",\"imageUrls\":[\"https://picsum.photos/seed/6I8wc/1808/1921?grayscale&blur=5\",\"https://picsum.photos/seed/fglQjdDZ/1189/3124?grayscale&blur=8\",\"https://picsum.photos/seed/Xoy43u/3385/1992?blur=10\",\"https://picsum.photos/seed/HjjFWrL/3600/1675?grayscale&blur=7\",\"https://picsum.photos/seed/ei1yC8AF/3529/2177?blur=5\",\"https://picsum.photos/seed/CyhekC2B/2275/2906?grayscale&blur=10\",\"https://picsum.photos/seed/3WvRlhu/2005/1283?grayscale&blur=4\"],\"description\":\"Fresh mixed greens tossed with methi-rubbed crocodile, onion, and a light dressing.\",\"servings\":3,\"cookTime\":69,\"prepTime\":92,\"frequency\":null,\"restaurantId\":2,\"cookBookId\":3,\"foodCost\":null,\"isDeleted\":true,\"isPublished\":false,\"publishedAt\":null,\"language\":\"en\",\"skillLevel\":\"INTERMEDIATE\",\"category\":\"MAIN_COURSE\",\"ingredients\":[{\"id\":164,\"recipeId\":18,\"ingredientId\":5,\"quantity\":9.805473665036605,\"unit\":\"gallon\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:38.028Z\",\"recipeVersionId\":null},{\"id\":163,\"recipeId\":18,\"ingredientId\":46,\"quantity\":8.579853823026852,\"unit\":\"quart\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:38.028Z\",\"recipeVersionId\":null},{\"id\":165,\"recipeId\":18,\"ingredientId\":12,\"quantity\":2.033205688520362,\"unit\":\"kilogram\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:38.028Z\",\"recipeVersionId\":null},{\"id\":162,\"recipeId\":18,\"ingredientId\":26,\"quantity\":4.958999136997392,\"unit\":\"ton\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:38.027Z\",\"recipeVersionId\":null},{\"id\":161,\"recipeId\":18,\"ingredientId\":30,\"quantity\":5.492733279247235,\"unit\":\"gallon\",\"processingInstructions\":null,\"substituteIngredients\":[],\"isOptional\":false,\"notes\":null,\"cost\":null,\"density\":null,\"yield\":null,\"joinAt\":\"2025-03-18T17:59:38.027Z\",\"recipeVersionId\":null}],\"instructions\":[{\"id\":163,\"recipeId\":18,\"stepNumber\":3,\"instruction\":\"Cook the garlic for 1 minutes, stirring occasionally.\",\"imageUrl\":\"https://picsum.photos/seed/9GXy7/2788/218?blur=1\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":164,\"recipeId\":18,\"stepNumber\":2,\"instruction\":\"Heat a pan over medium heat and add beef.\",\"imageUrl\":\"https://picsum.photos/seed/u466z/3816/1957?grayscale&blur=9\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":161,\"recipeId\":18,\"stepNumber\":1,\"instruction\":\"Prepare the ingredients: Strain the tomatoes.\",\"imageUrl\":\"https://picsum.photos/seed/jh9y4uB/197/3984?blur=5\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":162,\"recipeId\":18,\"stepNumber\":4,\"instruction\":\"Preheat the oven to 157°F (69°C).\",\"imageUrl\":\"https://picsum.photos/seed/elx9RcO/1744/3998?grayscale&blur=4\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null},{\"id\":165,\"recipeId\":18,\"stepNumber\":5,\"instruction\":\"Combine all the ingredients in a large bowl and Simmer thoroughly.\",\"imageUrl\":\"https://picsum.photos/seed/vLNDbcI/399/559?blur=8\",\"recipeVersionId\":null,\"timeInMinutes\":null,\"temperature\":null,\"temperatureUnit\":\"C\",\"isCritical\":false,\"techniqueTips\":null,\"warningNotes\":null}]}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:59:19.890Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:59:19.923Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T20:59:19.924Z"
+}

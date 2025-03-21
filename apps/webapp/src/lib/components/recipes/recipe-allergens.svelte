@@ -531,7 +531,6 @@
         {@const status = allergenStatus(allergen)}
         {@const allergenIngredients = status ? findAllergensInIngredients(allergen) : []}
         {@const hasIngredients = allergenIngredients.length > 0}
-        {console.log({ allergenIngredients })}
 
         <div class="rounded-md border overflow-hidden">
           <button

@@ -6,6 +6,7 @@
   import NutritionCard from '$lib/components/recipes/nutrition-card.svelte';
   import CostAnalysis from '$lib/components/recipes/cost-analysis.svelte';
 
+  let { dailyValues, form, usdaMatches, ingredientToMatch } = $props();
   const recipeState = getRecipeContext();
   const recipe = recipeState.recipe;
 </script>
@@ -213,5 +214,5 @@
 <Separator class="mb-4" />
 
 {#if recipe.nutritionalInfo}
-  <NutritionCard />
+  <NutritionCard {dailyValues} {form} {usdaMatches} {ingredientToMatch} />
 {/if}

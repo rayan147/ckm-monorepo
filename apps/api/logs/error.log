@@ -566,3 +566,11 @@
   "service": "LoggingService",
   "timestamp": "2025-03-18T17:59:53.025Z"
 }
+{
+  "context": "ApplicationError",
+  "error": "Recipe with ID 5 not found or already deleted",
+  "level": "error",
+  "message": "Failed to delete recipe with ID 5: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-03-21T15:59:26.960Z"
+}

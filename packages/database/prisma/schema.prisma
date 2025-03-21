@@ -188,7 +188,7 @@ model MenuCategory {
 }
 
 model RecipeVersion {
-  id            Int                 @id @default(autoincrement())
+  id           Int        @id @default(autoincrement())
   recipeId      Int
   recipe        Recipe              @relation(fields: [recipeId], references: [id], onDelete: Cascade)
   versionNumber Int
@@ -924,7 +924,9 @@ model RecipeIngredient {
   recipeVersion RecipeVersion? @relation(fields: [recipeVersionId], references: [id], onDelete: SetNull)
 
   // Constraints
+
   @@unique([recipeId, ingredientId, recipeVersionId], name: "unique_ingredient_per_version")
+  @@unique([recipeId, ingredientId])
   @@index([recipeVersionId])
   //  @@check(quantity > 0)
   @@map("recipeIngredient")

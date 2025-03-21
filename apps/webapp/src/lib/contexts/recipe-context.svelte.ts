@@ -9,14 +9,12 @@ const RecipeIngredientWithRelationSchema = zodSchemas.RecipeIngredientSchema.ext
 
 const RecipeCriticalPointSchema = zodSchemas.RecipeCriticalPointSchema.omit({
   id: true,
-  recipeId: true,
   createdAt: true,
   updatedAt: true
 })
 
 const RecipeEquipmentSchema = zodSchemas.RecipeEquipmentSchema.omit({
   id: true,
-  recipeId: true
 })
 
 const RecipeTags = zodSchemas.RecipeTagSchema.omit({
@@ -33,21 +31,24 @@ const DietaryRestrictionSchema = zodSchemas.DietaryRestrictionSchema.omit({
 
 const CookBookSchema = zodSchemas.CookBookSchema.omit({
   id: true,
-  restaurantId: true
 
 })
 
 const NutritionalInfoSchema = zodSchemas.RecipeNutritionSchema.omit({
   id: true,
-  recipeId: true
 })
 const StorageSchema = zodSchemas.RecipeStorageSchema.omit({
   id: true,
   createdAt: true,
   updatedAt: true,
-  recipeId: true
-
 })
+
+const LaborCostsSchema = zodSchemas.RecipeLaborCostSchema.omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+})
+
 const RecipeWithNutritionAndInstructionsAndIngredientsSchema = zodSchemas.RecipeSchema.extend({
   nutritionalInfo: NutritionalInfoSchema.nullable(),
   instructions: z.array(zodSchemas.RecipeInstructionSchema),
@@ -58,10 +59,16 @@ const RecipeWithNutritionAndInstructionsAndIngredientsSchema = zodSchemas.Recipe
   equipments: z.array(RecipeEquipmentSchema),
   criticalPoints: z.array(RecipeCriticalPointSchema),
   storage: StorageSchema,
+  laborCosts: z.array(LaborCostsSchema)
 
 })
 
-export type RecipeIncludes = z.infer<typeof RecipeWithNutritionAndInstructionsAndIngredientsSchema>
+export type Prettify<T> = {
+  [K in keyof T]: T[K] & {}
+}
+
+type Recipe = z.infer<typeof RecipeWithNutritionAndInstructionsAndIngredientsSchema>
+export type RecipeIncludes = Prettify<Recipe>
 
 export class RecipeState {
   recipe = $state<RecipeIncludes>({
@@ -78,7 +85,7 @@ export class RecipeState {
     frequency: 0,
     isDeleted: false,
     isPublished: false,
-    publishedAt: null,
+    publishedAt: new Date(),
     language: 'en',
     skillLevel: 'INTERMEDIATE',
     category: zodSchemas.CategorySchema.enum.MAIN_COURSE,
@@ -86,6 +93,7 @@ export class RecipeState {
     ingredients: [],
     instructions: [],
     nutritionalInfo: {
+      recipeId: 0,
       calories: 0,
       protein: 0,
       carbohydrates: 0,
@@ -115,18 +123,21 @@ export class RecipeState {
       icon: '',
     }],
     cookBook: {
+      restaurantId: 0,
       name: '',
       category: '',
       imageUrl: ''
     },
     equipments: [{
       notes: '',
+      recipeId: 0,
       equipmentId: 1,
       recipeInstructionId: 1,
 
     }],
     criticalPoints: [
       {
+        recipeId: 0,
         stepNumber: 0,
         description: '',
         unit: '',
@@ -135,14 +146,22 @@ export class RecipeState {
       }
     ],
     storage: {
+      recipeId: 0,
       temperature: 40,
       method: '',
       shelfLife: 7,
       containerType: '',
       specialNotes: '',
-
-
-    }
+    },
+    laborCosts: [
+      {
+        recipeId: 0,
+        prepTime: 0,
+        cookTime: 0,
+        laborRate: 0,
+        totalLaborCost: 0
+      }
+    ]
   })
   currentStep: number = $state(1);
   completedSteps: number[] = $state([]);

@@ -1009,6 +1009,7 @@ declare const api: {
                 frequency: number | null;
                 foodCost: number | null;
                 isDeleted: boolean;
+                category: "APPETIZER" | "SOUP" | "SALAD" | "MAIN_COURSE" | "SIDE_DISH" | "DESSERT" | "BEVERAGE" | "BREAKFAST" | "BRUNCH" | "LUNCH" | "DINNER" | "SNACK" | "BAKED_GOOD" | "SAUCE" | "CONDIMENT" | "SPECIAL";
                 imageUrls: string[];
                 servings: number;
                 cookBookId: number;
@@ -1076,6 +1077,7 @@ declare const api: {
                     frequency: number | null;
                     foodCost: number | null;
                     isDeleted: boolean;
+                    category: "APPETIZER" | "SOUP" | "SALAD" | "MAIN_COURSE" | "SIDE_DISH" | "DESSERT" | "BEVERAGE" | "BREAKFAST" | "BRUNCH" | "LUNCH" | "DINNER" | "SNACK" | "BAKED_GOOD" | "SAUCE" | "CONDIMENT" | "SPECIAL";
                     imageUrls: string[];
                     servings: number;
                     cookBookId: number;
@@ -1112,6 +1114,7 @@ declare const api: {
                 frequency: number | null;
                 foodCost: number | null;
                 isDeleted: boolean;
+                category: "APPETIZER" | "SOUP" | "SALAD" | "MAIN_COURSE" | "SIDE_DISH" | "DESSERT" | "BEVERAGE" | "BREAKFAST" | "BRUNCH" | "LUNCH" | "DINNER" | "SNACK" | "BAKED_GOOD" | "SAUCE" | "CONDIMENT" | "SPECIAL";
                 imageUrls: string[];
                 servings: number;
                 cookBookId: number;
@@ -1165,6 +1168,7 @@ declare const api: {
                 frequency: number | null;
                 foodCost: number | null;
                 isDeleted: boolean;
+                category: "APPETIZER" | "SOUP" | "SALAD" | "MAIN_COURSE" | "SIDE_DISH" | "DESSERT" | "BEVERAGE" | "BREAKFAST" | "BRUNCH" | "LUNCH" | "DINNER" | "SNACK" | "BAKED_GOOD" | "SAUCE" | "CONDIMENT" | "SPECIAL";
                 imageUrls: string[];
                 servings: number;
                 cookBookId: number;
@@ -1205,6 +1209,7 @@ declare const api: {
                 frequency: number | null;
                 foodCost: number | null;
                 isDeleted: boolean;
+                category: "APPETIZER" | "SOUP" | "SALAD" | "MAIN_COURSE" | "SIDE_DISH" | "DESSERT" | "BEVERAGE" | "BREAKFAST" | "BRUNCH" | "LUNCH" | "DINNER" | "SNACK" | "BAKED_GOOD" | "SAUCE" | "CONDIMENT" | "SPECIAL";
                 imageUrls: string[];
                 servings: number;
                 cookBookId: number;
@@ -3088,6 +3093,7 @@ declare const api: {
                         frequency: number | null;
                         foodCost: number | null;
                         isDeleted: boolean;
+                        category: "APPETIZER" | "SOUP" | "SALAD" | "MAIN_COURSE" | "SIDE_DISH" | "DESSERT" | "BEVERAGE" | "BREAKFAST" | "BRUNCH" | "LUNCH" | "DINNER" | "SNACK" | "BAKED_GOOD" | "SAUCE" | "CONDIMENT" | "SPECIAL";
                         imageUrls: string[];
                         servings: number;
                         cookBookId: number;
@@ -3617,6 +3623,14 @@ declare const api: {
                 fiber: number;
                 sugar: number;
                 sodium: number;
+                containsGluten: boolean;
+                containsDairy: boolean;
+                containsNuts: boolean;
+                containsEggs: boolean;
+                containsSoy: boolean;
+                containsFish: boolean;
+                containsShellfish: boolean;
+                containsSesame: boolean;
             };
             headers: Headers;
         } | {
@@ -3652,6 +3666,14 @@ declare const api: {
                 fiber: number;
                 sugar: number;
                 sodium: number;
+                containsGluten: boolean;
+                containsDairy: boolean;
+                containsNuts: boolean;
+                containsEggs: boolean;
+                containsSoy: boolean;
+                containsFish: boolean;
+                containsShellfish: boolean;
+                containsSesame: boolean;
             };
             headers: Headers;
         } | {

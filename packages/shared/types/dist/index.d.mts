@@ -352,6 +352,468 @@ interface Recipe extends Recipe$1 {
         ingredientId: number;
     }>;
 }
+declare const usdaFoodItemSchema: z.ZodObject<{
+    fdcId: z.ZodNumber;
+    description: z.ZodString;
+    dataType: z.ZodEnum<["Branded", "Survey (FNDDS)", "Foundation", "SR Legacy"]>;
+    brandName: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    brandOwner: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    dataSource: z.ZodOptional<z.ZodString>;
+    allHighlightFields: z.ZodOptional<z.ZodString>;
+    finalFoodInputFoods: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        foodDescription: z.ZodString;
+        gramWeight: z.ZodNumber;
+        id: z.ZodNumber;
+        portionCode: z.ZodOptional<z.ZodString>;
+        portionDescription: z.ZodOptional<z.ZodString>;
+        unit: z.ZodOptional<z.ZodString>;
+    }, "strip", z.ZodTypeAny, {
+        id: number;
+        gramWeight: number;
+        foodDescription: string;
+        unit?: string | undefined;
+        portionCode?: string | undefined;
+        portionDescription?: string | undefined;
+    }, {
+        id: number;
+        gramWeight: number;
+        foodDescription: string;
+        unit?: string | undefined;
+        portionCode?: string | undefined;
+        portionDescription?: string | undefined;
+    }>, "many">>;
+    foodAttributeTypes: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
+    foodAttributes: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        id: z.ZodNumber;
+        value: z.ZodUnion<[z.ZodString, z.ZodNumber]>;
+        name: z.ZodString;
+        sequenceNumber: z.ZodOptional<z.ZodNumber>;
+    }, "strip", z.ZodTypeAny, {
+        id: number;
+        value: string | number;
+        name: string;
+        sequenceNumber?: number | undefined;
+    }, {
+        id: number;
+        value: string | number;
+        name: string;
+        sequenceNumber?: number | undefined;
+    }>, "many">>;
+    foodCategory: z.ZodString;
+    foodMeasures: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        disseminationText: z.ZodOptional<z.ZodString>;
+        gramWeight: z.ZodOptional<z.ZodNumber>;
+        id: z.ZodOptional<z.ZodNumber>;
+        modifier: z.ZodOptional<z.ZodString>;
+        rank: z.ZodOptional<z.ZodNumber>;
+    }, "strip", z.ZodTypeAny, {
+        id?: number | undefined;
+        disseminationText?: string | undefined;
+        gramWeight?: number | undefined;
+        modifier?: string | undefined;
+        rank?: number | undefined;
+    }, {
+        id?: number | undefined;
+        disseminationText?: string | undefined;
+        gramWeight?: number | undefined;
+        modifier?: string | undefined;
+        rank?: number | undefined;
+    }>, "many">>;
+    foodNutrients: z.ZodArray<z.ZodObject<{
+        nutrientId: z.ZodNumber;
+        nutrientName: z.ZodString;
+        nutrientNumber: z.ZodString;
+        value: z.ZodOptional<z.ZodNumber>;
+        unitName: z.ZodOptional<z.ZodString>;
+        derivationCode: z.ZodOptional<z.ZodString>;
+        derivationDescription: z.ZodOptional<z.ZodString>;
+    }, "strip", z.ZodTypeAny, {
+        nutrientId: number;
+        nutrientName: string;
+        nutrientNumber: string;
+        value?: number | undefined;
+        unitName?: string | undefined;
+        derivationCode?: string | undefined;
+        derivationDescription?: string | undefined;
+    }, {
+        nutrientId: number;
+        nutrientName: string;
+        nutrientNumber: string;
+        value?: number | undefined;
+        unitName?: string | undefined;
+        derivationCode?: string | undefined;
+        derivationDescription?: string | undefined;
+    }>, "many">;
+    foodVersionIds: z.ZodOptional<z.ZodArray<z.ZodNumber, "many">>;
+    gtinUpc: z.ZodOptional<z.ZodString>;
+    householdServingFullText: z.ZodOptional<z.ZodString>;
+    ingredients: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    marketCountry: z.ZodOptional<z.ZodString>;
+    microbes: z.ZodOptional<z.ZodArray<z.ZodUnknown, "many">>;
+    modifiedDate: z.ZodString;
+    packageWeight: z.ZodOptional<z.ZodString>;
+    publishedDate: z.ZodString;
+    score: z.ZodOptional<z.ZodNumber>;
+    servingSize: z.ZodOptional<z.ZodNumber>;
+    servingSizeUnit: z.ZodOptional<z.ZodString>;
+    subbrandName: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    tradeChannels: z.ZodOptional<z.ZodArray<z.ZodEnum<["NO_TRADE_CHANNEL", "CHILD_NUTRITION_FOOD_PROGRAMS", "GROCERY", "MASS_MERCHANDISING"]>, "many">>;
+    additionalDescriptions: z.ZodOptional<z.ZodString>;
+    foodCode: z.ZodOptional<z.ZodNumber>;
+    foodClass: z.ZodOptional<z.ZodString>;
+    scientificName: z.ZodOptional<z.ZodString>;
+    ndbNumber: z.ZodOptional<z.ZodNumber>;
+}, "strip", z.ZodTypeAny, {
+    description: string;
+    fdcId: number;
+    dataType: "Branded" | "Survey (FNDDS)" | "Foundation" | "SR Legacy";
+    foodCategory: string;
+    foodNutrients: {
+        nutrientId: number;
+        nutrientName: string;
+        nutrientNumber: string;
+        value?: number | undefined;
+        unitName?: string | undefined;
+        derivationCode?: string | undefined;
+        derivationDescription?: string | undefined;
+    }[];
+    modifiedDate: string;
+    publishedDate: string;
+    ingredients?: string | null | undefined;
+    brandName?: string | null | undefined;
+    brandOwner?: string | null | undefined;
+    dataSource?: string | undefined;
+    allHighlightFields?: string | undefined;
+    finalFoodInputFoods?: {
+        id: number;
+        gramWeight: number;
+        foodDescription: string;
+        unit?: string | undefined;
+        portionCode?: string | undefined;
+        portionDescription?: string | undefined;
+    }[] | undefined;
+    foodAttributeTypes?: string[] | undefined;
+    foodAttributes?: {
+        id: number;
+        value: string | number;
+        name: string;
+        sequenceNumber?: number | undefined;
+    }[] | undefined;
+    foodMeasures?: {
+        id?: number | undefined;
+        disseminationText?: string | undefined;
+        gramWeight?: number | undefined;
+        modifier?: string | undefined;
+        rank?: number | undefined;
+    }[] | undefined;
+    foodVersionIds?: number[] | undefined;
+    gtinUpc?: string | undefined;
+    householdServingFullText?: string | undefined;
+    marketCountry?: string | undefined;
+    microbes?: unknown[] | undefined;
+    packageWeight?: string | undefined;
+    score?: number | undefined;
+    servingSize?: number | undefined;
+    servingSizeUnit?: string | undefined;
+    subbrandName?: string | null | undefined;
+    tradeChannels?: ("NO_TRADE_CHANNEL" | "CHILD_NUTRITION_FOOD_PROGRAMS" | "GROCERY" | "MASS_MERCHANDISING")[] | undefined;
+    additionalDescriptions?: string | undefined;
+    foodCode?: number | undefined;
+    foodClass?: string | undefined;
+    scientificName?: string | undefined;
+    ndbNumber?: number | undefined;
+}, {
+    description: string;
+    fdcId: number;
+    dataType: "Branded" | "Survey (FNDDS)" | "Foundation" | "SR Legacy";
+    foodCategory: string;
+    foodNutrients: {
+        nutrientId: number;
+        nutrientName: string;
+        nutrientNumber: string;
+        value?: number | undefined;
+        unitName?: string | undefined;
+        derivationCode?: string | undefined;
+        derivationDescription?: string | undefined;
+    }[];
+    modifiedDate: string;
+    publishedDate: string;
+    ingredients?: string | null | undefined;
+    brandName?: string | null | undefined;
+    brandOwner?: string | null | undefined;
+    dataSource?: string | undefined;
+    allHighlightFields?: string | undefined;
+    finalFoodInputFoods?: {
+        id: number;
+        gramWeight: number;
+        foodDescription: string;
+        unit?: string | undefined;
+        portionCode?: string | undefined;
+        portionDescription?: string | undefined;
+    }[] | undefined;
+    foodAttributeTypes?: string[] | undefined;
+    foodAttributes?: {
+        id: number;
+        value: string | number;
+        name: string;
+        sequenceNumber?: number | undefined;
+    }[] | undefined;
+    foodMeasures?: {
+        id?: number | undefined;
+        disseminationText?: string | undefined;
+        gramWeight?: number | undefined;
+        modifier?: string | undefined;
+        rank?: number | undefined;
+    }[] | undefined;
+    foodVersionIds?: number[] | undefined;
+    gtinUpc?: string | undefined;
+    householdServingFullText?: string | undefined;
+    marketCountry?: string | undefined;
+    microbes?: unknown[] | undefined;
+    packageWeight?: string | undefined;
+    score?: number | undefined;
+    servingSize?: number | undefined;
+    servingSizeUnit?: string | undefined;
+    subbrandName?: string | null | undefined;
+    tradeChannels?: ("NO_TRADE_CHANNEL" | "CHILD_NUTRITION_FOOD_PROGRAMS" | "GROCERY" | "MASS_MERCHANDISING")[] | undefined;
+    additionalDescriptions?: string | undefined;
+    foodCode?: number | undefined;
+    foodClass?: string | undefined;
+    scientificName?: string | undefined;
+    ndbNumber?: number | undefined;
+}>;
+declare const usdaMatchesSchema: z.ZodArray<z.ZodObject<{
+    fdcId: z.ZodNumber;
+    description: z.ZodString;
+    dataType: z.ZodEnum<["Branded", "Survey (FNDDS)", "Foundation", "SR Legacy"]>;
+    brandName: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    brandOwner: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    dataSource: z.ZodOptional<z.ZodString>;
+    allHighlightFields: z.ZodOptional<z.ZodString>;
+    finalFoodInputFoods: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        foodDescription: z.ZodString;
+        gramWeight: z.ZodNumber;
+        id: z.ZodNumber;
+        portionCode: z.ZodOptional<z.ZodString>;
+        portionDescription: z.ZodOptional<z.ZodString>;
+        unit: z.ZodOptional<z.ZodString>;
+    }, "strip", z.ZodTypeAny, {
+        id: number;
+        gramWeight: number;
+        foodDescription: string;
+        unit?: string | undefined;
+        portionCode?: string | undefined;
+        portionDescription?: string | undefined;
+    }, {
+        id: number;
+        gramWeight: number;
+        foodDescription: string;
+        unit?: string | undefined;
+        portionCode?: string | undefined;
+        portionDescription?: string | undefined;
+    }>, "many">>;
+    foodAttributeTypes: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
+    foodAttributes: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        id: z.ZodNumber;
+        value: z.ZodUnion<[z.ZodString, z.ZodNumber]>;
+        name: z.ZodString;
+        sequenceNumber: z.ZodOptional<z.ZodNumber>;
+    }, "strip", z.ZodTypeAny, {
+        id: number;
+        value: string | number;
+        name: string;
+        sequenceNumber?: number | undefined;
+    }, {
+        id: number;
+        value: string | number;
+        name: string;
+        sequenceNumber?: number | undefined;
+    }>, "many">>;
+    foodCategory: z.ZodString;
+    foodMeasures: z.ZodOptional<z.ZodArray<z.ZodObject<{
+        disseminationText: z.ZodOptional<z.ZodString>;
+        gramWeight: z.ZodOptional<z.ZodNumber>;
+        id: z.ZodOptional<z.ZodNumber>;
+        modifier: z.ZodOptional<z.ZodString>;
+        rank: z.ZodOptional<z.ZodNumber>;
+    }, "strip", z.ZodTypeAny, {
+        id?: number | undefined;
+        disseminationText?: string | undefined;
+        gramWeight?: number | undefined;
+        modifier?: string | undefined;
+        rank?: number | undefined;
+    }, {
+        id?: number | undefined;
+        disseminationText?: string | undefined;
+        gramWeight?: number | undefined;
+        modifier?: string | undefined;
+        rank?: number | undefined;
+    }>, "many">>;
+    foodNutrients: z.ZodArray<z.ZodObject<{
+        nutrientId: z.ZodNumber;
+        nutrientName: z.ZodString;
+        nutrientNumber: z.ZodString;
+        value: z.ZodOptional<z.ZodNumber>;
+        unitName: z.ZodOptional<z.ZodString>;
+        derivationCode: z.ZodOptional<z.ZodString>;
+        derivationDescription: z.ZodOptional<z.ZodString>;
+    }, "strip", z.ZodTypeAny, {
+        nutrientId: number;
+        nutrientName: string;
+        nutrientNumber: string;
+        value?: number | undefined;
+        unitName?: string | undefined;
+        derivationCode?: string | undefined;
+        derivationDescription?: string | undefined;
+    }, {
+        nutrientId: number;
+        nutrientName: string;
+        nutrientNumber: string;
+        value?: number | undefined;
+        unitName?: string | undefined;
+        derivationCode?: string | undefined;
+        derivationDescription?: string | undefined;
+    }>, "many">;
+    foodVersionIds: z.ZodOptional<z.ZodArray<z.ZodNumber, "many">>;
+    gtinUpc: z.ZodOptional<z.ZodString>;
+    householdServingFullText: z.ZodOptional<z.ZodString>;
+    ingredients: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    marketCountry: z.ZodOptional<z.ZodString>;
+    microbes: z.ZodOptional<z.ZodArray<z.ZodUnknown, "many">>;
+    modifiedDate: z.ZodString;
+    packageWeight: z.ZodOptional<z.ZodString>;
+    publishedDate: z.ZodString;
+    score: z.ZodOptional<z.ZodNumber>;
+    servingSize: z.ZodOptional<z.ZodNumber>;
+    servingSizeUnit: z.ZodOptional<z.ZodString>;
+    subbrandName: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    tradeChannels: z.ZodOptional<z.ZodArray<z.ZodEnum<["NO_TRADE_CHANNEL", "CHILD_NUTRITION_FOOD_PROGRAMS", "GROCERY", "MASS_MERCHANDISING"]>, "many">>;
+    additionalDescriptions: z.ZodOptional<z.ZodString>;
+    foodCode: z.ZodOptional<z.ZodNumber>;
+    foodClass: z.ZodOptional<z.ZodString>;
+    scientificName: z.ZodOptional<z.ZodString>;
+    ndbNumber: z.ZodOptional<z.ZodNumber>;
+}, "strip", z.ZodTypeAny, {
+    description: string;
+    fdcId: number;
+    dataType: "Branded" | "Survey (FNDDS)" | "Foundation" | "SR Legacy";
+    foodCategory: string;
+    foodNutrients: {
+        nutrientId: number;
+        nutrientName: string;
+        nutrientNumber: string;
+        value?: number | undefined;
+        unitName?: string | undefined;
+        derivationCode?: string | undefined;
+        derivationDescription?: string | undefined;
+    }[];
+    modifiedDate: string;
+    publishedDate: string;
+    ingredients?: string | null | undefined;
+    brandName?: string | null | undefined;
+    brandOwner?: string | null | undefined;
+    dataSource?: string | undefined;
+    allHighlightFields?: string | undefined;
+    finalFoodInputFoods?: {
+        id: number;
+        gramWeight: number;
+        foodDescription: string;
+        unit?: string | undefined;
+        portionCode?: string | undefined;
+        portionDescription?: string | undefined;
+    }[] | undefined;
+    foodAttributeTypes?: string[] | undefined;
+    foodAttributes?: {
+        id: number;
+        value: string | number;
+        name: string;
+        sequenceNumber?: number | undefined;
+    }[] | undefined;
+    foodMeasures?: {
+        id?: number | undefined;
+        disseminationText?: string | undefined;
+        gramWeight?: number | undefined;
+        modifier?: string | undefined;
+        rank?: number | undefined;
+    }[] | undefined;
+    foodVersionIds?: number[] | undefined;
+    gtinUpc?: string | undefined;
+    householdServingFullText?: string | undefined;
+    marketCountry?: string | undefined;
+    microbes?: unknown[] | undefined;
+    packageWeight?: string | undefined;
+    score?: number | undefined;
+    servingSize?: number | undefined;
+    servingSizeUnit?: string | undefined;
+    subbrandName?: string | null | undefined;
+    tradeChannels?: ("NO_TRADE_CHANNEL" | "CHILD_NUTRITION_FOOD_PROGRAMS" | "GROCERY" | "MASS_MERCHANDISING")[] | undefined;
+    additionalDescriptions?: string | undefined;
+    foodCode?: number | undefined;
+    foodClass?: string | undefined;
+    scientificName?: string | undefined;
+    ndbNumber?: number | undefined;
+}, {
+    description: string;
+    fdcId: number;
+    dataType: "Branded" | "Survey (FNDDS)" | "Foundation" | "SR Legacy";
+    foodCategory: string;
+    foodNutrients: {
+        nutrientId: number;
+        nutrientName: string;
+        nutrientNumber: string;
+        value?: number | undefined;
+        unitName?: string | undefined;
+        derivationCode?: string | undefined;
+        derivationDescription?: string | undefined;
+    }[];
+    modifiedDate: string;
+    publishedDate: string;
+    ingredients?: string | null | undefined;
+    brandName?: string | null | undefined;
+    brandOwner?: string | null | undefined;
+    dataSource?: string | undefined;
+    allHighlightFields?: string | undefined;
+    finalFoodInputFoods?: {
+        id: number;
+        gramWeight: number;
+        foodDescription: string;
+        unit?: string | undefined;
+        portionCode?: string | undefined;
+        portionDescription?: string | undefined;
+    }[] | undefined;
+    foodAttributeTypes?: string[] | undefined;
+    foodAttributes?: {
+        id: number;
+        value: string | number;
+        name: string;
+        sequenceNumber?: number | undefined;
+    }[] | undefined;
+    foodMeasures?: {
+        id?: number | undefined;
+        disseminationText?: string | undefined;
+        gramWeight?: number | undefined;
+        modifier?: string | undefined;
+        rank?: number | undefined;
+    }[] | undefined;
+    foodVersionIds?: number[] | undefined;
+    gtinUpc?: string | undefined;
+    householdServingFullText?: string | undefined;
+    marketCountry?: string | undefined;
+    microbes?: unknown[] | undefined;
+    packageWeight?: string | undefined;
+    score?: number | undefined;
+    servingSize?: number | undefined;
+    servingSizeUnit?: string | undefined;
+    subbrandName?: string | null | undefined;
+    tradeChannels?: ("NO_TRADE_CHANNEL" | "CHILD_NUTRITION_FOOD_PROGRAMS" | "GROCERY" | "MASS_MERCHANDISING")[] | undefined;
+    additionalDescriptions?: string | undefined;
+    foodCode?: number | undefined;
+    foodClass?: string | undefined;
+    scientificName?: string | undefined;
+    ndbNumber?: number | undefined;
+}>, "many">;
+type USDAFoodItem = z.infer<typeof usdaFoodItemSchema>;
+type USDAMatches = z.infer<typeof usdaMatchesSchema>;
 declare const RecipeUpdateSchema: z.ZodObject<{
     name: z.ZodOptional<z.ZodString>;
     imageUrl: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
@@ -1278,4 +1740,4 @@ type RegistrationData = {
     restaurants: Restaurant$1 | Restaurant$1[];
 };
 
-export { AuthError, type ChangePasswordResponse, ChangePasswordResponseSchema, IngredientSchema, InventoryItemSchema, InventorySchema, type LoginResponse, LoginResponseSchema, type LogoutResponse, LogoutResponseSchema, MessageSchema, type Order, type OrderCreate, type OrderCreateInput, OrderCreateSchema, type OrderItem, type OrderItemCreate, OrderItemCreateSchema, OrderItemSchema, type OrderItemUpdate, OrderItemUpdateSchema, OrderSchema, OrderStatusEnum, type OrderUpdate, type OrderUpdateInput, OrderUpdateSchema, type OrganizationCreateInput, OrganizationCreateSchema, OrganizationSchema, type OrganizationUpdateInput, OrganizationUpdateSchema, type PrepBoardCreate, type PrepBoardUpdate, type Prettify, type Recipe, type RecipeCreate, RecipeCreateSchema, type RecipeFormData, RecipeFormDataSchema, RecipeIngredientCreateSchema, RecipeInstructionCreateSchema, RecipeInstructionSchema, type RecipeUpdate, RecipeUpdateSchema, type RegisterResponse, RegisterResponseSchema, type RegistrationData, type Restaurant, type RestaurantCreate, type RestaurantUpdate, ShiftCreateInput, ShiftStatus, type UserCreateInput, UserCreateSchema, UserRoleEnum, UserSchema, UserUpdateSchema, type Vendor, type VendorCreate, VendorCreateSchema, VendorSchema, type VendorUpdate, VendorUpdateSchema };
+export { AuthError, type ChangePasswordResponse, ChangePasswordResponseSchema, IngredientSchema, InventoryItemSchema, InventorySchema, type LoginResponse, LoginResponseSchema, type LogoutResponse, LogoutResponseSchema, MessageSchema, type Order, type OrderCreate, type OrderCreateInput, OrderCreateSchema, type OrderItem, type OrderItemCreate, OrderItemCreateSchema, OrderItemSchema, type OrderItemUpdate, OrderItemUpdateSchema, OrderSchema, OrderStatusEnum, type OrderUpdate, type OrderUpdateInput, OrderUpdateSchema, type OrganizationCreateInput, OrganizationCreateSchema, OrganizationSchema, type OrganizationUpdateInput, OrganizationUpdateSchema, type PrepBoardCreate, type PrepBoardUpdate, type Prettify, type Recipe, type RecipeCreate, RecipeCreateSchema, type RecipeFormData, RecipeFormDataSchema, RecipeIngredientCreateSchema, RecipeInstructionCreateSchema, RecipeInstructionSchema, type RecipeUpdate, RecipeUpdateSchema, type RegisterResponse, RegisterResponseSchema, type RegistrationData, type Restaurant, type RestaurantCreate, type RestaurantUpdate, ShiftCreateInput, ShiftStatus, type USDAFoodItem, type USDAMatches, type UserCreateInput, UserCreateSchema, UserRoleEnum, UserSchema, UserUpdateSchema, type Vendor, type VendorCreate, VendorCreateSchema, VendorSchema, type VendorUpdate, VendorUpdateSchema, usdaMatchesSchema };

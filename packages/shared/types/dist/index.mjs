@@ -4143,6 +4143,74 @@ var RecipeFormDataSchema = z.object({
   ingredients: z.array(RecipeIngredientCreateSchema),
   instructions: z.array(RecipeInstructionCreateSchema)
 });
+var nutrientSchema = z.object({
+  nutrientId: z.number(),
+  nutrientName: z.string(),
+  nutrientNumber: z.string(),
+  value: z.number().optional(),
+  // Assuming nutrient values exist
+  unitName: z.string().optional(),
+  derivationCode: z.string().optional(),
+  derivationDescription: z.string().optional()
+});
+var foodMeasureSchema = z.object({
+  disseminationText: z.string().optional(),
+  gramWeight: z.number().optional(),
+  id: z.number().optional(),
+  modifier: z.string().optional(),
+  rank: z.number().optional()
+});
+var foodAttributeSchema = z.object({
+  id: z.number(),
+  value: z.union([z.string(), z.number()]),
+  name: z.string(),
+  sequenceNumber: z.number().optional()
+});
+var finalFoodInputFoodSchema = z.object({
+  foodDescription: z.string(),
+  gramWeight: z.number(),
+  id: z.number(),
+  portionCode: z.string().optional(),
+  portionDescription: z.string().optional(),
+  unit: z.string().optional()
+});
+var usdaFoodItemSchema = z.object({
+  fdcId: z.number(),
+  description: z.string(),
+  dataType: z.enum(["Branded", "Survey (FNDDS)", "Foundation", "SR Legacy"]),
+  brandName: z.string().nullable().optional(),
+  brandOwner: z.string().nullable().optional(),
+  dataSource: z.string().optional(),
+  allHighlightFields: z.string().optional(),
+  finalFoodInputFoods: z.array(finalFoodInputFoodSchema).optional(),
+  foodAttributeTypes: z.array(z.string()).optional(),
+  // Adjust based on actual structure
+  foodAttributes: z.array(foodAttributeSchema).optional(),
+  foodCategory: z.string(),
+  foodMeasures: z.array(foodMeasureSchema).optional(),
+  foodNutrients: z.array(nutrientSchema),
+  foodVersionIds: z.array(z.number()).optional(),
+  gtinUpc: z.string().optional(),
+  householdServingFullText: z.string().optional(),
+  ingredients: z.string().nullable().optional(),
+  marketCountry: z.string().optional(),
+  microbes: z.array(z.unknown()).optional(),
+  // Update if structure is known
+  modifiedDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  packageWeight: z.string().optional(),
+  publishedDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  score: z.number().optional(),
+  servingSize: z.number().optional(),
+  servingSizeUnit: z.string().optional(),
+  subbrandName: z.string().nullable().optional(),
+  tradeChannels: z.array(z.enum(["NO_TRADE_CHANNEL", "CHILD_NUTRITION_FOOD_PROGRAMS", "GROCERY", "MASS_MERCHANDISING"])).optional(),
+  additionalDescriptions: z.string().optional(),
+  foodCode: z.number().optional(),
+  foodClass: z.string().optional(),
+  scientificName: z.string().optional(),
+  ndbNumber: z.number().optional()
+});
+var usdaMatchesSchema = z.array(usdaFoodItemSchema);
 var RecipeUpdateSchema = RecipeCreateSchema.partial();
 
 // src/order-item/index.ts
@@ -4315,6 +4383,7 @@ export {
   UserUpdateSchema,
   VendorCreateSchema,
   VendorSchema2 as VendorSchema,
-  VendorUpdateSchema
+  VendorUpdateSchema,
+  usdaMatchesSchema
 };
 //# sourceMappingURL=index.mjs.map
