@@ -1,4 +1,4 @@
-import { MiddlewareConsumer, Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
@@ -55,13 +55,15 @@ import { ThrottlerModule } from '@nestjs/throttler'
 import { CsrfController } from './csrf/csrf.controller';
 import { CsrfModule } from './csrf/csrf.module';
 import { EnvService } from './env/env.service';
-import { createCsrfUtilities } from './csrf/csrf.config';
 import { NutritionService } from './nutrition-service/nutrition-service.service';
 import { NutritionController } from './nutrition-service/nutrition-service.controller';
 import { UsdaApiService } from './usda-api/usda-api.service';
 import { NutritionModule } from './nutrition-service/nutrition-service.module';
-import cookieParser from 'cookie-parser';
 import { HttpModule } from '@nestjs/axios'
+import { AuthMiddleware } from './auth/auth.middleware.service';
+import { createCsrfUtilities } from './csrf/csrf.config';
+import { NextFunction, Response, Request } from 'express';
+import { CsrfMiddleware } from './csrf/csrf.middleware';
 
 
 @Module({
@@ -70,10 +72,23 @@ import { HttpModule } from '@nestjs/axios'
       isGlobal: true,
       validate: (env) => envSchema.parse(env),
     }),
-    ThrottlerModule.forRoot([{
-      ttl: 6000,
-      limit: 10
-    }]),
+    ThrottlerModule.forRoot([
+      {
+        name: 'short',
+        ttl: 1000,
+        limit: 3,
+      },
+      {
+        name: 'medium',
+        ttl: 10000,
+        limit: 20
+      },
+      {
+        name: 'long',
+        ttl: 60000,
+        limit: 100
+      }
+    ]),
     UsersModule,
     PrismaModule,
     VendorModule,
@@ -116,6 +131,7 @@ import { HttpModule } from '@nestjs/axios'
     IngredientController,
     AiassistantController,
     NutritionController,
+    CsrfController,
   ],
   providers: [
     AppService,
@@ -136,20 +152,10 @@ import { HttpModule } from '@nestjs/axios'
     UsdaApiService,
   ],
 })
-export class AppModule {
-  /**
-   *
-   */
-  constructor(private envService: EnvService) { }
+export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    const { doubleCsrfProtection } = createCsrfUtilities(this.envService);
-
-    consumer.apply(cookieParser())
-      .forRoutes('*')
-    // .apply(doubleCsrfProtection)
-    // .exclude('csrf')
-    // .forRoutes('*')
-
-
+    consumer
+      .apply(CsrfMiddleware)
+      .forRoutes('*');
   }
 }

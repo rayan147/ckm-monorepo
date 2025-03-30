@@ -5,12 +5,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
@@ -67,22 +61,18 @@ const aiassistant_service_1 = require("./aiassistant/aiassistant.service");
 const aiassistant_controller_1 = require("./aiassistant/aiassistant.controller");
 const aiassistant_module_1 = require("./aiassistant/aiassistant.module");
 const throttler_1 = require("@nestjs/throttler");
+const csrf_controller_1 = require("./csrf/csrf.controller");
 const csrf_module_1 = require("./csrf/csrf.module");
-const env_service_1 = require("./env/env.service");
-const csrf_config_1 = require("./csrf/csrf.config");
 const nutrition_service_service_1 = require("./nutrition-service/nutrition-service.service");
 const nutrition_service_controller_1 = require("./nutrition-service/nutrition-service.controller");
 const usda_api_service_1 = require("./usda-api/usda-api.service");
 const nutrition_service_module_1 = require("./nutrition-service/nutrition-service.module");
-const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const axios_1 = require("@nestjs/axios");
+const csrf_middleware_1 = require("./csrf/csrf.middleware");
 let AppModule = class AppModule {
-    constructor(envService) {
-        this.envService = envService;
-    }
     configure(consumer) {
-        const { doubleCsrfProtection } = (0, csrf_config_1.createCsrfUtilities)(this.envService);
-        consumer.apply((0, cookie_parser_1.default)())
+        consumer
+            .apply(csrf_middleware_1.CsrfMiddleware)
             .forRoutes('*');
     }
 };
@@ -94,10 +84,23 @@ exports.AppModule = AppModule = __decorate([
                 isGlobal: true,
                 validate: (env) => env_1.envSchema.parse(env),
             }),
-            throttler_1.ThrottlerModule.forRoot([{
-                    ttl: 6000,
-                    limit: 10
-                }]),
+            throttler_1.ThrottlerModule.forRoot([
+                {
+                    name: 'short',
+                    ttl: 1000,
+                    limit: 3,
+                },
+                {
+                    name: 'medium',
+                    ttl: 10000,
+                    limit: 20
+                },
+                {
+                    name: 'long',
+                    ttl: 60000,
+                    limit: 100
+                }
+            ]),
             users_module_1.UsersModule,
             prisma_module_1.PrismaModule,
             vendor_module_1.VendorModule,
@@ -140,6 +143,7 @@ exports.AppModule = AppModule = __decorate([
             ingredient_controller_1.IngredientController,
             aiassistant_controller_1.AiassistantController,
             nutrition_service_controller_1.NutritionController,
+            csrf_controller_1.CsrfController,
         ],
         providers: [
             app_service_1.AppService,
@@ -159,7 +163,6 @@ exports.AppModule = AppModule = __decorate([
             nutrition_service_service_1.NutritionService,
             usda_api_service_1.UsdaApiService,
         ],
-    }),
-    __metadata("design:paramtypes", [env_service_1.EnvService])
+    })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map

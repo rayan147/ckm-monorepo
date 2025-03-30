@@ -10,22 +10,21 @@ export const authContract = c.router({
     path: '/auth/resend-code',
     responses: {
       200: z.object({
-        code: z.string(),
+        message: z.string(),
       }),
       401: z.object({ message: z.string() }),
     },
     body: z.object({
       email: z.string().email(),
     }),
-    summary: 'Resend the verifyLoginCode',
+    summary: 'Resend verification code',
   },
   login: {
     method: 'POST',
     path: '/auth/login',
     responses: {
       200: z.object({
-        code: z.string(),
-        csrfToken: z.string().optional(),
+        success: z.boolean()
       }),
       401: z.object({ message: z.string() }),
     },
@@ -40,13 +39,13 @@ export const authContract = c.router({
     path: '/auth/verify-login',
     responses: {
       200: z.object({
-        accessToken: z.string(),
-        user: zodSchemas.UserSchema.omit({ passwordHash: true }),
+        sessionToken: z.string(),
+        user: zodSchemas.UserSchema,
       }),
       401: z.object({ message: z.string() }),
     },
     body: z.object({
-      code: z.string(),
+      verificationCode: z.string(),
     }),
     summary: 'Verify login code',
   },
@@ -54,12 +53,18 @@ export const authContract = c.router({
     method: 'POST',
     path: '/auth/register',
     responses: {
-      201: zodSchemas.UserSchema.omit({ passwordHash: true }),
+      201: zodSchemas.UserSchema,
       400: z.object({ message: z.string() }),
     },
-    body: zodSchemas.UserUncheckedCreateInputSchema,
+    body: z.intersection(zodSchemas.UserCreateInputSchema,
+      z.object({
+        password: z.string(),
+        role: zodSchemas.UserRoleSchema.optional()
+      })
+    ),
     summary: 'User registration',
   },
+
   changePassword: {
     method: 'POST',
     path: '/auth/change-password/:userId',
@@ -85,7 +90,6 @@ export const authContract = c.router({
     },
     body: z.object({
       userId: z.number(),
-      accessToken: z.string(),
     }),
     summary: 'User logout',
   },

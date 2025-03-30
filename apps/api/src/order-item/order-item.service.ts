@@ -4,14 +4,13 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { Prisma } from '@ckm/db';
-import { OrderItem, OrderItemCreate, OrderItemUpdate } from '@ckm/types';
+import { OrderItem, Prisma } from '@ckm/db';
 
 @Injectable()
 export class OrderItemService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
-  async createOrderItem(data: OrderItemCreate): Promise<OrderItem> {
+  async createOrderItem(data: Prisma.OrderItemCreateInput): Promise<OrderItem> {
     try {
       return await this.prisma.orderItem.create({ data });
     } catch (error) {
@@ -49,7 +48,7 @@ export class OrderItemService {
     }
   }
 
-  async updateOrderItem(id: number, data: OrderItemUpdate): Promise<OrderItem> {
+  async updateOrderItem(id: number, data: Prisma.OrderItemUpdateInput): Promise<OrderItem> {
     try {
       return await this.prisma.orderItem.update({
         where: { id },

@@ -7,10 +7,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CsrfModule = void 0;
+const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
 const env_service_1 = require("../env/env.service");
 const csrf_controller_1 = require("./csrf.controller");
-const common_1 = require("@nestjs/common");
+const csrf_guard_1 = require("./csrf.guard");
 let CsrfModule = class CsrfModule {
 };
 exports.CsrfModule = CsrfModule;
@@ -18,7 +19,8 @@ exports.CsrfModule = CsrfModule = __decorate([
     (0, common_1.Module)({
         imports: [config_1.ConfigModule],
         controllers: [csrf_controller_1.CsrfController],
-        providers: [env_service_1.EnvService]
+        providers: [env_service_1.EnvService, csrf_guard_1.CsrfGuard],
+        exports: [csrf_guard_1.CsrfGuard]
     })
 ], CsrfModule);
 //# sourceMappingURL=csrf.module.js.map

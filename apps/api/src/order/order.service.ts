@@ -4,15 +4,13 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { Prisma, zodSchemas } from '@ckm/db';
-import { OrderCreateInput, Order, OrderUpdateInput } from '@ckm/types';
-
+import { Order, Prisma, zodSchemas } from '@ckm/db';
 
 @Injectable()
 export class OrderService {
   constructor(private prisma: PrismaService) { }
 
-  async createOrder(data: OrderCreateInput): Promise<zodSchemas.Order> {
+  async createOrder(data: Prisma.OrderCreateInput): Promise<zodSchemas.Order> {
     try {
       const order = await this.prisma.order.create({ data });
 
@@ -81,7 +79,7 @@ export class OrderService {
     }
   }
 
-  async updateOrder(id: number, data: OrderUpdateInput): Promise<Order> {
+  async updateOrder(id: number, data: Prisma.OrderUpdateInput): Promise<Order> {
     try {
       // const prismaUpdateInput = transformOrderUpdate(data);
       const updatedOrder = await this.prisma.order.update({

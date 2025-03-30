@@ -54,22 +54,43 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
+const db_1 = require("@ckm/db");
 const common_1 = require("@nestjs/common");
-const prisma_service_1 = require("../prisma/prisma.service");
 const bcrypt = __importStar(require("bcryptjs"));
+const prisma_service_1 = require("../prisma/prisma.service");
 let UserService = class UserService {
     constructor(prisma) {
         this.prisma = prisma;
     }
+    async getAuthgUserByEmail(email) {
+        const user = await this.prisma.user.findUnique({ where: { email }, include: { auth: true } });
+        if (!user) {
+            throw new common_1.NotFoundException('User not found');
+        }
+        return user;
+    }
     async getUserByEmail(email) {
-        const user = await this.prisma.user.findUnique({ where: { email } });
+        const user = await this.prisma.user.findUnique({ where: { email }, include: { auth: true } });
         if (!user) {
             throw new common_1.NotFoundException('User not found');
         }
         return user;
     }
     async getUser(id) {
-        const user = await this.prisma.user.findUnique({ where: { id } });
+        const user = await this.prisma.user.findUnique({
+            where: { id }
+        });
+        if (!user) {
+            throw new common_1.NotFoundException('User not found');
+        }
+        return user;
+    }
+    async getAuthUser(id) {
+        const user = await this.prisma.user.findUnique({
+            where: { id }, include: {
+                auth: true
+            }
+        });
         if (!user) {
             throw new common_1.NotFoundException('User not found');
         }
@@ -83,18 +104,19 @@ let UserService = class UserService {
             orderBy: orderBy ? { [orderBy]: 'asc' } : undefined,
         });
     }
-    async createUser(data) {
+    async createUser(userData) {
         try {
-            const hashedPassword = await bcrypt.hash(data.passwordHash, 10);
-            const { restaurantId, organizationId } = data, rest = __rest(data, ["restaurantId", "organizationId"]);
-            const createData = Object.assign(Object.assign({}, rest), { passwordHash: hashedPassword });
-            if (organizationId) {
-                createData.organization = { connect: { id: organizationId } };
-            }
-            if (restaurantId) {
-                createData.restaurant = { connect: { id: restaurantId } };
-            }
-            return await this.prisma.user.create({ data: createData });
+            const hashedPassword = await bcrypt.hash(userData.password, 10);
+            const { password, role = db_1.UserRole.STAFF } = userData, userDataWithoutAuth = __rest(userData, ["password", "role"]);
+            const user = await this.prisma.user.create({
+                data: Object.assign(Object.assign({}, userDataWithoutAuth), { auth: {
+                        create: {
+                            passwordHash: hashedPassword,
+                            role: role
+                        }
+                    } }),
+            });
+            return user;
         }
         catch (error) {
             throw new common_1.InternalServerErrorException(error);
@@ -119,22 +141,19 @@ let UserService = class UserService {
             throw new common_1.InternalServerErrorException(error);
         }
     }
-    async deleteSession(userId, sessionToken) {
-        try {
-            await this.prisma.session.delete({
-                where: { token: sessionToken },
-            });
-        }
-        catch (error) {
-            throw new common_1.InternalServerErrorException(error);
-        }
-    }
     async updateUserRole(userId, newRole) {
         try {
-            return await this.prisma.user.update({
-                where: { id: userId },
-                data: { role: newRole },
+            const user = await this.getAuthUser(userId);
+            const priorityOrder = [db_1.UserRole.ADMIN, db_1.UserRole.MANAGER, db_1.UserRole.STAFF];
+            const sortedAuth = [...user.auth].sort((a, b) => {
+                return priorityOrder.indexOf(a.role) - priorityOrder.indexOf(b.role);
             });
+            const authToUpdate = sortedAuth[0];
+            await this.prisma.auth.update({
+                where: { id: authToUpdate.id },
+                data: { role: newRole }
+            });
+            return this.getUser(userId);
         }
         catch (error) {
             throw new common_1.InternalServerErrorException(error);
@@ -142,7 +161,18 @@ let UserService = class UserService {
     }
     async getUsersByRole(role) {
         try {
-            return await this.prisma.user.findMany({ where: { role } });
+            return await this.prisma.user.findMany({
+                where: {
+                    auth: {
+                        some: {
+                            role: role
+                        }
+                    }
+                },
+                include: {
+                    auth: true
+                }
+            });
         }
         catch (error) {
             throw new common_1.InternalServerErrorException(error);

@@ -12,7 +12,12 @@ export const userContract = c.router({
       201: zodSchemas.UserSchema,
       400: z.object({ message: z.string() }),
     },
-    body: zodSchemas.UserCreateWithoutRestaurantInputSchema,
+    body: z.intersection(zodSchemas.UserCreateInputSchema,
+      z.object({
+        password: z.string(),
+        role: zodSchemas.UserRoleSchema.optional()
+      }),
+    ),
     summary: 'Create a new user',
   },
 

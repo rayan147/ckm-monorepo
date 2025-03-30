@@ -1,30 +1,18 @@
-import * as _ckm_db from '@ckm/db';
 import * as zod from 'zod';
+import * as _ckm_db from '@ckm/db';
 
 declare const contract: {
     orgs: {
         createOrganization: {
             summary: "Create a new organization";
             method: "POST";
-            body: zod.ZodObject<Omit<{
-                id: zod.ZodNumber;
-                name: zod.ZodString;
-                imageUrl: zod.ZodNullable<zod.ZodOptional<zod.ZodString>>;
-                createdAt: zod.ZodDate;
-                updatedAt: zod.ZodDate;
-            }, "id" | "createdAt" | "updatedAt">, "strip", zod.ZodTypeAny, {
-                name: string;
-                imageUrl?: string | null | undefined;
-            }, {
-                name: string;
-                imageUrl?: string | null | undefined;
-            }>;
+            body: zod.ZodType<_ckm_db.Prisma.OrganizationCreateInput, zod.ZodTypeDef, _ckm_db.Prisma.OrganizationCreateInput>;
             path: "/api/v1/organizations";
             responses: {
                 201: zod.ZodObject<{
                     id: zod.ZodNumber;
                     name: zod.ZodString;
-                    imageUrl: zod.ZodNullable<zod.ZodOptional<zod.ZodString>>;
+                    imageUrl: zod.ZodNullable<zod.ZodString>;
                     createdAt: zod.ZodDate;
                     updatedAt: zod.ZodDate;
                 }, "strip", zod.ZodTypeAny, {
@@ -32,13 +20,13 @@ declare const contract: {
                     createdAt: Date;
                     updatedAt: Date;
                     name: string;
-                    imageUrl?: string | null | undefined;
+                    imageUrl: string | null;
                 }, {
                     id: number;
                     createdAt: Date;
                     updatedAt: Date;
                     name: string;
-                    imageUrl?: string | null | undefined;
+                    imageUrl: string | null;
                 }>;
                 400: zod.ZodObject<{
                     message: zod.ZodString;
@@ -70,7 +58,7 @@ declare const contract: {
                 200: zod.ZodArray<zod.ZodObject<{
                     id: zod.ZodNumber;
                     name: zod.ZodString;
-                    imageUrl: zod.ZodNullable<zod.ZodOptional<zod.ZodString>>;
+                    imageUrl: zod.ZodNullable<zod.ZodString>;
                     createdAt: zod.ZodDate;
                     updatedAt: zod.ZodDate;
                 }, "strip", zod.ZodTypeAny, {
@@ -78,13 +66,13 @@ declare const contract: {
                     createdAt: Date;
                     updatedAt: Date;
                     name: string;
-                    imageUrl?: string | null | undefined;
+                    imageUrl: string | null;
                 }, {
                     id: number;
                     createdAt: Date;
                     updatedAt: Date;
                     name: string;
-                    imageUrl?: string | null | undefined;
+                    imageUrl: string | null;
                 }>, "many">;
             };
         };
@@ -103,7 +91,7 @@ declare const contract: {
                 200: zod.ZodObject<{
                     id: zod.ZodNumber;
                     name: zod.ZodString;
-                    imageUrl: zod.ZodNullable<zod.ZodOptional<zod.ZodString>>;
+                    imageUrl: zod.ZodNullable<zod.ZodString>;
                     createdAt: zod.ZodDate;
                     updatedAt: zod.ZodDate;
                 }, "strip", zod.ZodTypeAny, {
@@ -111,13 +99,13 @@ declare const contract: {
                     createdAt: Date;
                     updatedAt: Date;
                     name: string;
-                    imageUrl?: string | null | undefined;
+                    imageUrl: string | null;
                 }, {
                     id: number;
                     createdAt: Date;
                     updatedAt: Date;
                     name: string;
-                    imageUrl?: string | null | undefined;
+                    imageUrl: string | null;
                 }>;
                 404: zod.ZodObject<{
                     message: zod.ZodString;
@@ -138,22 +126,13 @@ declare const contract: {
             }>;
             summary: "Update an organization";
             method: "PUT";
-            body: zod.ZodObject<{
-                name: zod.ZodOptional<zod.ZodString>;
-                imageUrl: zod.ZodOptional<zod.ZodNullable<zod.ZodOptional<zod.ZodString>>>;
-            }, "strip", zod.ZodTypeAny, {
-                name?: string | undefined;
-                imageUrl?: string | null | undefined;
-            }, {
-                name?: string | undefined;
-                imageUrl?: string | null | undefined;
-            }>;
+            body: zod.ZodType<_ckm_db.Prisma.OrganizationUpdateInput, zod.ZodTypeDef, _ckm_db.Prisma.OrganizationUpdateInput>;
             path: "/api/v1/organizations/:id";
             responses: {
                 200: zod.ZodObject<{
                     id: zod.ZodNumber;
                     name: zod.ZodString;
-                    imageUrl: zod.ZodNullable<zod.ZodOptional<zod.ZodString>>;
+                    imageUrl: zod.ZodNullable<zod.ZodString>;
                     createdAt: zod.ZodDate;
                     updatedAt: zod.ZodDate;
                 }, "strip", zod.ZodTypeAny, {
@@ -161,13 +140,13 @@ declare const contract: {
                     createdAt: Date;
                     updatedAt: Date;
                     name: string;
-                    imageUrl?: string | null | undefined;
+                    imageUrl: string | null;
                 }, {
                     id: number;
                     createdAt: Date;
                     updatedAt: Date;
                     name: string;
-                    imageUrl?: string | null | undefined;
+                    imageUrl: string | null;
                 }>;
                 404: zod.ZodObject<{
                     message: zod.ZodString;
@@ -193,7 +172,7 @@ declare const contract: {
                 200: zod.ZodObject<{
                     id: zod.ZodNumber;
                     name: zod.ZodString;
-                    imageUrl: zod.ZodNullable<zod.ZodOptional<zod.ZodString>>;
+                    imageUrl: zod.ZodNullable<zod.ZodString>;
                     createdAt: zod.ZodDate;
                     updatedAt: zod.ZodDate;
                 }, "strip", zod.ZodTypeAny, {
@@ -201,13 +180,13 @@ declare const contract: {
                     createdAt: Date;
                     updatedAt: Date;
                     name: string;
-                    imageUrl?: string | null | undefined;
+                    imageUrl: string | null;
                 }, {
                     id: number;
                     createdAt: Date;
                     updatedAt: Date;
                     name: string;
-                    imageUrl?: string | null | undefined;
+                    imageUrl: string | null;
                 }>;
                 404: zod.ZodObject<{
                     message: zod.ZodString;
@@ -223,19 +202,25 @@ declare const contract: {
         createUser: {
             summary: "Create a new user";
             method: "POST";
-            body: zod.ZodType<_ckm_db.Prisma.UserCreateWithoutRestaurantInput, zod.ZodTypeDef, _ckm_db.Prisma.UserCreateWithoutRestaurantInput>;
+            body: zod.ZodIntersection<zod.ZodType<_ckm_db.Prisma.UserCreateInput, zod.ZodTypeDef, _ckm_db.Prisma.UserCreateInput>, zod.ZodObject<{
+                password: zod.ZodString;
+                role: zod.ZodOptional<zod.ZodEnum<["ADMIN", "MANAGER", "CHEF", "STAFF", "VENDOR"]>>;
+            }, "strip", zod.ZodTypeAny, {
+                password: string;
+                role?: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR" | undefined;
+            }, {
+                password: string;
+                role?: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR" | undefined;
+            }>>;
             path: "/api/v1/users";
             responses: {
                 201: zod.ZodObject<{
-                    role: zod.ZodEnum<["ADMIN", "MANAGER", "CHEF", "STAFF", "VENDOR"]>;
                     id: zod.ZodNumber;
                     email: zod.ZodString;
                     sub: zod.ZodNullable<zod.ZodNumber>;
-                    passwordHash: zod.ZodString;
                     firstName: zod.ZodString;
                     lastName: zod.ZodString;
                     profileImage: zod.ZodNullable<zod.ZodString>;
-                    verified: zod.ZodBoolean;
                     organizationId: zod.ZodNullable<zod.ZodNumber>;
                     restaurantId: zod.ZodNullable<zod.ZodNumber>;
                     createdAt: zod.ZodDate;
@@ -248,12 +233,9 @@ declare const contract: {
                     email: string;
                     organizationId: number | null;
                     sub: number | null;
-                    passwordHash: string;
                     firstName: string;
                     lastName: string;
                     profileImage: string | null;
-                    verified: boolean;
-                    role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
                 }, {
                     id: number;
                     createdAt: Date;
@@ -262,12 +244,9 @@ declare const contract: {
                     email: string;
                     organizationId: number | null;
                     sub: number | null;
-                    passwordHash: string;
                     firstName: string;
                     lastName: string;
                     profileImage: string | null;
-                    verified: boolean;
-                    role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
                 }>;
                 400: zod.ZodObject<{
                     message: zod.ZodString;
@@ -297,15 +276,12 @@ declare const contract: {
             path: "/api/v1/users";
             responses: {
                 200: zod.ZodArray<zod.ZodObject<{
-                    role: zod.ZodEnum<["ADMIN", "MANAGER", "CHEF", "STAFF", "VENDOR"]>;
                     id: zod.ZodNumber;
                     email: zod.ZodString;
                     sub: zod.ZodNullable<zod.ZodNumber>;
-                    passwordHash: zod.ZodString;
                     firstName: zod.ZodString;
                     lastName: zod.ZodString;
                     profileImage: zod.ZodNullable<zod.ZodString>;
-                    verified: zod.ZodBoolean;
                     organizationId: zod.ZodNullable<zod.ZodNumber>;
                     restaurantId: zod.ZodNullable<zod.ZodNumber>;
                     createdAt: zod.ZodDate;
@@ -318,12 +294,9 @@ declare const contract: {
                     email: string;
                     organizationId: number | null;
                     sub: number | null;
-                    passwordHash: string;
                     firstName: string;
                     lastName: string;
                     profileImage: string | null;
-                    verified: boolean;
-                    role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
                 }, {
                     id: number;
                     createdAt: Date;
@@ -332,12 +305,9 @@ declare const contract: {
                     email: string;
                     organizationId: number | null;
                     sub: number | null;
-                    passwordHash: string;
                     firstName: string;
                     lastName: string;
                     profileImage: string | null;
-                    verified: boolean;
-                    role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
                 }>, "many">;
                 404: zod.ZodObject<{
                     message: zod.ZodString;
@@ -361,15 +331,12 @@ declare const contract: {
             path: "/api/v1/users/:id";
             responses: {
                 200: zod.ZodObject<{
-                    role: zod.ZodEnum<["ADMIN", "MANAGER", "CHEF", "STAFF", "VENDOR"]>;
                     id: zod.ZodNumber;
                     email: zod.ZodString;
                     sub: zod.ZodNullable<zod.ZodNumber>;
-                    passwordHash: zod.ZodString;
                     firstName: zod.ZodString;
                     lastName: zod.ZodString;
                     profileImage: zod.ZodNullable<zod.ZodString>;
-                    verified: zod.ZodBoolean;
                     organizationId: zod.ZodNullable<zod.ZodNumber>;
                     restaurantId: zod.ZodNullable<zod.ZodNumber>;
                     createdAt: zod.ZodDate;
@@ -382,12 +349,9 @@ declare const contract: {
                     email: string;
                     organizationId: number | null;
                     sub: number | null;
-                    passwordHash: string;
                     firstName: string;
                     lastName: string;
                     profileImage: string | null;
-                    verified: boolean;
-                    role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
                 }, {
                     id: number;
                     createdAt: Date;
@@ -396,12 +360,9 @@ declare const contract: {
                     email: string;
                     organizationId: number | null;
                     sub: number | null;
-                    passwordHash: string;
                     firstName: string;
                     lastName: string;
                     profileImage: string | null;
-                    verified: boolean;
-                    role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
                 }>;
                 404: zod.ZodObject<{
                     message: zod.ZodString;
@@ -426,15 +387,12 @@ declare const contract: {
             path: "/api/v1/users/:id";
             responses: {
                 200: zod.ZodObject<{
-                    role: zod.ZodEnum<["ADMIN", "MANAGER", "CHEF", "STAFF", "VENDOR"]>;
                     id: zod.ZodNumber;
                     email: zod.ZodString;
                     sub: zod.ZodNullable<zod.ZodNumber>;
-                    passwordHash: zod.ZodString;
                     firstName: zod.ZodString;
                     lastName: zod.ZodString;
                     profileImage: zod.ZodNullable<zod.ZodString>;
-                    verified: zod.ZodBoolean;
                     organizationId: zod.ZodNullable<zod.ZodNumber>;
                     restaurantId: zod.ZodNullable<zod.ZodNumber>;
                     createdAt: zod.ZodDate;
@@ -447,12 +405,9 @@ declare const contract: {
                     email: string;
                     organizationId: number | null;
                     sub: number | null;
-                    passwordHash: string;
                     firstName: string;
                     lastName: string;
                     profileImage: string | null;
-                    verified: boolean;
-                    role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
                 }, {
                     id: number;
                     createdAt: Date;
@@ -461,12 +416,9 @@ declare const contract: {
                     email: string;
                     organizationId: number | null;
                     sub: number | null;
-                    passwordHash: string;
                     firstName: string;
                     lastName: string;
                     profileImage: string | null;
-                    verified: boolean;
-                    role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
                 }>;
                 404: zod.ZodObject<{
                     message: zod.ZodString;
@@ -490,15 +442,12 @@ declare const contract: {
             path: "/api/v1/users/:id";
             responses: {
                 200: zod.ZodObject<{
-                    role: zod.ZodEnum<["ADMIN", "MANAGER", "CHEF", "STAFF", "VENDOR"]>;
                     id: zod.ZodNumber;
                     email: zod.ZodString;
                     sub: zod.ZodNullable<zod.ZodNumber>;
-                    passwordHash: zod.ZodString;
                     firstName: zod.ZodString;
                     lastName: zod.ZodString;
                     profileImage: zod.ZodNullable<zod.ZodString>;
-                    verified: zod.ZodBoolean;
                     organizationId: zod.ZodNullable<zod.ZodNumber>;
                     restaurantId: zod.ZodNullable<zod.ZodNumber>;
                     createdAt: zod.ZodDate;
@@ -511,12 +460,9 @@ declare const contract: {
                     email: string;
                     organizationId: number | null;
                     sub: number | null;
-                    passwordHash: string;
                     firstName: string;
                     lastName: string;
                     profileImage: string | null;
-                    verified: boolean;
-                    role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
                 }, {
                     id: number;
                     createdAt: Date;
@@ -525,12 +471,9 @@ declare const contract: {
                     email: string;
                     organizationId: number | null;
                     sub: number | null;
-                    passwordHash: string;
                     firstName: string;
                     lastName: string;
                     profileImage: string | null;
-                    verified: boolean;
-                    role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
                 }>;
                 404: zod.ZodObject<{
                     message: zod.ZodString;
@@ -546,7 +489,7 @@ declare const contract: {
         createOrder: {
             summary: "Create a new order";
             method: "POST";
-            body: zod.ZodType<_ckm_db.Prisma.OrderUncheckedCreateInput, zod.ZodTypeDef, _ckm_db.Prisma.OrderUncheckedCreateInput>;
+            body: zod.ZodType<_ckm_db.Prisma.OrderCreateInput, zod.ZodTypeDef, _ckm_db.Prisma.OrderCreateInput>;
             path: "/api/v1/orders";
             responses: {
                 201: zod.ZodObject<{
@@ -684,7 +627,7 @@ declare const contract: {
             }>;
             summary: "Update an order";
             method: "PUT";
-            body: zod.ZodType<_ckm_db.Prisma.OrderUncheckedUpdateInput, zod.ZodTypeDef, _ckm_db.Prisma.OrderUncheckedUpdateInput>;
+            body: zod.ZodType<_ckm_db.Prisma.OrderUpdateInput, zod.ZodTypeDef, _ckm_db.Prisma.OrderUpdateInput>;
             path: "/api/v1/orders/:id";
             responses: {
                 200: zod.ZodObject<{
@@ -766,26 +709,7 @@ declare const contract: {
         createOrderItem: {
             summary: "Create a new order item";
             method: "POST";
-            body: zod.ZodObject<Omit<{
-                id: zod.ZodNumber;
-                orderId: zod.ZodNumber;
-                ingredientId: zod.ZodNumber;
-                quantity: zod.ZodNumber;
-                unit: zod.ZodString;
-                price: zod.ZodNumber;
-            }, "id">, "strip", zod.ZodTypeAny, {
-                orderId: number;
-                ingredientId: number;
-                quantity: number;
-                unit: string;
-                price: number;
-            }, {
-                orderId: number;
-                ingredientId: number;
-                quantity: number;
-                unit: string;
-                price: number;
-            }>;
+            body: zod.ZodType<_ckm_db.Prisma.OrderItemCreateInput, zod.ZodTypeDef, _ckm_db.Prisma.OrderItemCreateInput>;
             path: "/api/v1/order-items";
             responses: {
                 201: zod.ZodObject<{
@@ -797,18 +721,18 @@ declare const contract: {
                     price: zod.ZodNumber;
                 }, "strip", zod.ZodTypeAny, {
                     id: number;
-                    orderId: number;
-                    ingredientId: number;
-                    quantity: number;
                     unit: string;
                     price: number;
+                    ingredientId: number;
+                    quantity: number;
+                    orderId: number;
                 }, {
                     id: number;
-                    orderId: number;
-                    ingredientId: number;
-                    quantity: number;
                     unit: string;
                     price: number;
+                    ingredientId: number;
+                    quantity: number;
+                    orderId: number;
                 }>;
                 400: zod.ZodObject<{
                     message: zod.ZodString;
@@ -846,18 +770,18 @@ declare const contract: {
                     price: zod.ZodNumber;
                 }, "strip", zod.ZodTypeAny, {
                     id: number;
-                    orderId: number;
-                    ingredientId: number;
-                    quantity: number;
                     unit: string;
                     price: number;
+                    ingredientId: number;
+                    quantity: number;
+                    orderId: number;
                 }, {
                     id: number;
-                    orderId: number;
-                    ingredientId: number;
-                    quantity: number;
                     unit: string;
                     price: number;
+                    ingredientId: number;
+                    quantity: number;
+                    orderId: number;
                 }>, "many">;
             };
         };
@@ -882,18 +806,18 @@ declare const contract: {
                     price: zod.ZodNumber;
                 }, "strip", zod.ZodTypeAny, {
                     id: number;
-                    orderId: number;
-                    ingredientId: number;
-                    quantity: number;
                     unit: string;
                     price: number;
+                    ingredientId: number;
+                    quantity: number;
+                    orderId: number;
                 }, {
                     id: number;
-                    orderId: number;
-                    ingredientId: number;
-                    quantity: number;
                     unit: string;
                     price: number;
+                    ingredientId: number;
+                    quantity: number;
+                    orderId: number;
                 }>;
                 404: zod.ZodObject<{
                     message: zod.ZodString;
@@ -914,24 +838,7 @@ declare const contract: {
             }>;
             summary: "Update an order item";
             method: "PUT";
-            body: zod.ZodObject<Omit<{
-                id: zod.ZodOptional<zod.ZodNumber>;
-                orderId: zod.ZodOptional<zod.ZodNumber>;
-                ingredientId: zod.ZodOptional<zod.ZodNumber>;
-                quantity: zod.ZodOptional<zod.ZodNumber>;
-                unit: zod.ZodOptional<zod.ZodString>;
-                price: zod.ZodOptional<zod.ZodNumber>;
-            }, "id" | "orderId">, "strip", zod.ZodTypeAny, {
-                ingredientId?: number | undefined;
-                quantity?: number | undefined;
-                unit?: string | undefined;
-                price?: number | undefined;
-            }, {
-                ingredientId?: number | undefined;
-                quantity?: number | undefined;
-                unit?: string | undefined;
-                price?: number | undefined;
-            }>;
+            body: zod.ZodType<_ckm_db.Prisma.OrderItemUpdateInput, zod.ZodTypeDef, _ckm_db.Prisma.OrderItemUpdateInput>;
             path: "/api/v1/order-items/:id";
             responses: {
                 200: zod.ZodObject<{
@@ -943,18 +850,18 @@ declare const contract: {
                     price: zod.ZodNumber;
                 }, "strip", zod.ZodTypeAny, {
                     id: number;
-                    orderId: number;
-                    ingredientId: number;
-                    quantity: number;
                     unit: string;
                     price: number;
+                    ingredientId: number;
+                    quantity: number;
+                    orderId: number;
                 }, {
                     id: number;
-                    orderId: number;
-                    ingredientId: number;
-                    quantity: number;
                     unit: string;
                     price: number;
+                    ingredientId: number;
+                    quantity: number;
+                    orderId: number;
                 }>;
                 404: zod.ZodObject<{
                     message: zod.ZodString;
@@ -986,18 +893,18 @@ declare const contract: {
                     price: zod.ZodNumber;
                 }, "strip", zod.ZodTypeAny, {
                     id: number;
-                    orderId: number;
-                    ingredientId: number;
-                    quantity: number;
                     unit: string;
                     price: number;
+                    ingredientId: number;
+                    quantity: number;
+                    orderId: number;
                 }, {
                     id: number;
-                    orderId: number;
-                    ingredientId: number;
-                    quantity: number;
                     unit: string;
                     price: number;
+                    ingredientId: number;
+                    quantity: number;
+                    orderId: number;
                 }>;
                 404: zod.ZodObject<{
                     message: zod.ZodString;
@@ -2894,94 +2801,7 @@ declare const contract: {
         createVendor: {
             summary: "Create a new vendor";
             method: "POST";
-            body: zod.ZodObject<Omit<{
-                id: zod.ZodNumber;
-                name: zod.ZodString;
-                contact: zod.ZodString;
-                email: zod.ZodString;
-                phone: zod.ZodString;
-                orders: zod.ZodArray<zod.ZodObject<{
-                    status: zod.ZodOptional<zod.ZodEnum<["PENDING", "APPROVED", "ORDERED", "RECEIVED", "CANCELLED"]>>;
-                    restaurantId: zod.ZodOptional<zod.ZodNumber>;
-                    vendorId: zod.ZodOptional<zod.ZodNumber>;
-                    vendor: zod.ZodOptional<zod.ZodObject<{
-                        id: zod.ZodNumber;
-                        name: zod.ZodString;
-                    }, "strip", zod.ZodTypeAny, {
-                        id: number;
-                        name: string;
-                    }, {
-                        id: number;
-                        name: string;
-                    }>>;
-                    items: zod.ZodOptional<zod.ZodArray<zod.ZodObject<{
-                        id: zod.ZodNumber;
-                        orderId: zod.ZodNumber;
-                        ingredientId: zod.ZodNumber;
-                        quantity: zod.ZodNumber;
-                        unit: zod.ZodString;
-                        price: zod.ZodNumber;
-                    }, "strip", zod.ZodTypeAny, {
-                        id: number;
-                        orderId: number;
-                        ingredientId: number;
-                        quantity: number;
-                        unit: string;
-                        price: number;
-                    }, {
-                        id: number;
-                        orderId: number;
-                        ingredientId: number;
-                        quantity: number;
-                        unit: string;
-                        price: number;
-                    }>, "many">>;
-                }, "strip", zod.ZodTypeAny, {
-                    status?: "PENDING" | "APPROVED" | "ORDERED" | "RECEIVED" | "CANCELLED" | undefined;
-                    restaurantId?: number | undefined;
-                    vendorId?: number | undefined;
-                    vendor?: {
-                        id: number;
-                        name: string;
-                    } | undefined;
-                    items?: {
-                        id: number;
-                        orderId: number;
-                        ingredientId: number;
-                        quantity: number;
-                        unit: string;
-                        price: number;
-                    }[] | undefined;
-                }, {
-                    status?: "PENDING" | "APPROVED" | "ORDERED" | "RECEIVED" | "CANCELLED" | undefined;
-                    restaurantId?: number | undefined;
-                    vendorId?: number | undefined;
-                    vendor?: {
-                        id: number;
-                        name: string;
-                    } | undefined;
-                    items?: {
-                        id: number;
-                        orderId: number;
-                        ingredientId: number;
-                        quantity: number;
-                        unit: string;
-                        price: number;
-                    }[] | undefined;
-                }>, "many">;
-                createdAt: zod.ZodDate;
-                updatedAt: zod.ZodDate;
-            }, "id" | "createdAt" | "updatedAt" | "orders">, "strip", zod.ZodTypeAny, {
-                name: string;
-                contact: string;
-                email: string;
-                phone: string;
-            }, {
-                name: string;
-                contact: string;
-                email: string;
-                phone: string;
-            }>;
+            body: zod.ZodType<_ckm_db.Prisma.VendorCreateInput, zod.ZodTypeDef, _ckm_db.Prisma.VendorCreateInput>;
             path: "/api/v1/vendors";
             responses: {
                 201: zod.ZodObject<{
@@ -2990,75 +2810,6 @@ declare const contract: {
                     contact: zod.ZodString;
                     email: zod.ZodString;
                     phone: zod.ZodString;
-                    orders: zod.ZodArray<zod.ZodObject<{
-                        status: zod.ZodOptional<zod.ZodEnum<["PENDING", "APPROVED", "ORDERED", "RECEIVED", "CANCELLED"]>>;
-                        restaurantId: zod.ZodOptional<zod.ZodNumber>;
-                        vendorId: zod.ZodOptional<zod.ZodNumber>;
-                        vendor: zod.ZodOptional<zod.ZodObject<{
-                            id: zod.ZodNumber;
-                            name: zod.ZodString;
-                        }, "strip", zod.ZodTypeAny, {
-                            id: number;
-                            name: string;
-                        }, {
-                            id: number;
-                            name: string;
-                        }>>;
-                        items: zod.ZodOptional<zod.ZodArray<zod.ZodObject<{
-                            id: zod.ZodNumber;
-                            orderId: zod.ZodNumber;
-                            ingredientId: zod.ZodNumber;
-                            quantity: zod.ZodNumber;
-                            unit: zod.ZodString;
-                            price: zod.ZodNumber;
-                        }, "strip", zod.ZodTypeAny, {
-                            id: number;
-                            orderId: number;
-                            ingredientId: number;
-                            quantity: number;
-                            unit: string;
-                            price: number;
-                        }, {
-                            id: number;
-                            orderId: number;
-                            ingredientId: number;
-                            quantity: number;
-                            unit: string;
-                            price: number;
-                        }>, "many">>;
-                    }, "strip", zod.ZodTypeAny, {
-                        status?: "PENDING" | "APPROVED" | "ORDERED" | "RECEIVED" | "CANCELLED" | undefined;
-                        restaurantId?: number | undefined;
-                        vendorId?: number | undefined;
-                        vendor?: {
-                            id: number;
-                            name: string;
-                        } | undefined;
-                        items?: {
-                            id: number;
-                            orderId: number;
-                            ingredientId: number;
-                            quantity: number;
-                            unit: string;
-                            price: number;
-                        }[] | undefined;
-                    }, {
-                        status?: "PENDING" | "APPROVED" | "ORDERED" | "RECEIVED" | "CANCELLED" | undefined;
-                        restaurantId?: number | undefined;
-                        vendorId?: number | undefined;
-                        vendor?: {
-                            id: number;
-                            name: string;
-                        } | undefined;
-                        items?: {
-                            id: number;
-                            orderId: number;
-                            ingredientId: number;
-                            quantity: number;
-                            unit: string;
-                            price: number;
-                        }[] | undefined;
-                    }>, "many">;
                     createdAt: zod.ZodDate;
                     updatedAt: zod.ZodDate;
                 }, "strip", zod.ZodTypeAny, {
@@ -3066,50 +2817,16 @@ declare const contract: {
                     createdAt: Date;
                     updatedAt: Date;
                     name: string;
-                    orders: {
-                        status?: "PENDING" | "APPROVED" | "ORDERED" | "RECEIVED" | "CANCELLED" | undefined;
-                        restaurantId?: number | undefined;
-                        vendorId?: number | undefined;
-                        vendor?: {
-                            id: number;
-                            name: string;
-                        } | undefined;
-                        items?: {
-                            id: number;
-                            orderId: number;
-                            ingredientId: number;
-                            quantity: number;
-                            unit: string;
-                            price: number;
-                        }[] | undefined;
-                    }[];
-                    contact: string;
                     email: string;
+                    contact: string;
                     phone: string;
                 }, {
                     id: number;
                     createdAt: Date;
                     updatedAt: Date;
                     name: string;
-                    orders: {
-                        status?: "PENDING" | "APPROVED" | "ORDERED" | "RECEIVED" | "CANCELLED" | undefined;
-                        restaurantId?: number | undefined;
-                        vendorId?: number | undefined;
-                        vendor?: {
-                            id: number;
-                            name: string;
-                        } | undefined;
-                        items?: {
-                            id: number;
-                            orderId: number;
-                            ingredientId: number;
-                            quantity: number;
-                            unit: string;
-                            price: number;
-                        }[] | undefined;
-                    }[];
-                    contact: string;
                     email: string;
+                    contact: string;
                     phone: string;
                 }>;
                 400: zod.ZodObject<{
@@ -3127,13 +2844,13 @@ declare const contract: {
                 take: zod.ZodOptional<zod.ZodString>;
                 name: zod.ZodOptional<zod.ZodString>;
             }, "strip", zod.ZodTypeAny, {
-                name?: string | undefined;
                 skip?: string | undefined;
                 take?: string | undefined;
+                name?: string | undefined;
             }, {
-                name?: string | undefined;
                 skip?: string | undefined;
                 take?: string | undefined;
+                name?: string | undefined;
             }>;
             summary: "Get all vendors";
             method: "GET";
@@ -3145,75 +2862,6 @@ declare const contract: {
                     contact: zod.ZodString;
                     email: zod.ZodString;
                     phone: zod.ZodString;
-                    orders: zod.ZodArray<zod.ZodObject<{
-                        status: zod.ZodOptional<zod.ZodEnum<["PENDING", "APPROVED", "ORDERED", "RECEIVED", "CANCELLED"]>>;
-                        restaurantId: zod.ZodOptional<zod.ZodNumber>;
-                        vendorId: zod.ZodOptional<zod.ZodNumber>;
-                        vendor: zod.ZodOptional<zod.ZodObject<{
-                            id: zod.ZodNumber;
-                            name: zod.ZodString;
-                        }, "strip", zod.ZodTypeAny, {
-                            id: number;
-                            name: string;
-                        }, {
-                            id: number;
-                            name: string;
-                        }>>;
-                        items: zod.ZodOptional<zod.ZodArray<zod.ZodObject<{
-                            id: zod.ZodNumber;
-                            orderId: zod.ZodNumber;
-                            ingredientId: zod.ZodNumber;
-                            quantity: zod.ZodNumber;
-                            unit: zod.ZodString;
-                            price: zod.ZodNumber;
-                        }, "strip", zod.ZodTypeAny, {
-                            id: number;
-                            orderId: number;
-                            ingredientId: number;
-                            quantity: number;
-                            unit: string;
-                            price: number;
-                        }, {
-                            id: number;
-                            orderId: number;
-                            ingredientId: number;
-                            quantity: number;
-                            unit: string;
-                            price: number;
-                        }>, "many">>;
-                    }, "strip", zod.ZodTypeAny, {
-                        status?: "PENDING" | "APPROVED" | "ORDERED" | "RECEIVED" | "CANCELLED" | undefined;
-                        restaurantId?: number | undefined;
-                        vendorId?: number | undefined;
-                        vendor?: {
-                            id: number;
-                            name: string;
-                        } | undefined;
-                        items?: {
-                            id: number;
-                            orderId: number;
-                            ingredientId: number;
-                            quantity: number;
-                            unit: string;
-                            price: number;
-                        }[] | undefined;
-                    }, {
-                        status?: "PENDING" | "APPROVED" | "ORDERED" | "RECEIVED" | "CANCELLED" | undefined;
-                        restaurantId?: number | undefined;
-                        vendorId?: number | undefined;
-                        vendor?: {
-                            id: number;
-                            name: string;
-                        } | undefined;
-                        items?: {
-                            id: number;
-                            orderId: number;
-                            ingredientId: number;
-                            quantity: number;
-                            unit: string;
-                            price: number;
-                        }[] | undefined;
-                    }>, "many">;
                     createdAt: zod.ZodDate;
                     updatedAt: zod.ZodDate;
                 }, "strip", zod.ZodTypeAny, {
@@ -3221,50 +2869,16 @@ declare const contract: {
                     createdAt: Date;
                     updatedAt: Date;
                     name: string;
-                    orders: {
-                        status?: "PENDING" | "APPROVED" | "ORDERED" | "RECEIVED" | "CANCELLED" | undefined;
-                        restaurantId?: number | undefined;
-                        vendorId?: number | undefined;
-                        vendor?: {
-                            id: number;
-                            name: string;
-                        } | undefined;
-                        items?: {
-                            id: number;
-                            orderId: number;
-                            ingredientId: number;
-                            quantity: number;
-                            unit: string;
-                            price: number;
-                        }[] | undefined;
-                    }[];
-                    contact: string;
                     email: string;
+                    contact: string;
                     phone: string;
                 }, {
                     id: number;
                     createdAt: Date;
                     updatedAt: Date;
                     name: string;
-                    orders: {
-                        status?: "PENDING" | "APPROVED" | "ORDERED" | "RECEIVED" | "CANCELLED" | undefined;
-                        restaurantId?: number | undefined;
-                        vendorId?: number | undefined;
-                        vendor?: {
-                            id: number;
-                            name: string;
-                        } | undefined;
-                        items?: {
-                            id: number;
-                            orderId: number;
-                            ingredientId: number;
-                            quantity: number;
-                            unit: string;
-                            price: number;
-                        }[] | undefined;
-                    }[];
-                    contact: string;
                     email: string;
+                    contact: string;
                     phone: string;
                 }>, "many">;
             };
@@ -3287,75 +2901,6 @@ declare const contract: {
                     contact: zod.ZodString;
                     email: zod.ZodString;
                     phone: zod.ZodString;
-                    orders: zod.ZodArray<zod.ZodObject<{
-                        status: zod.ZodOptional<zod.ZodEnum<["PENDING", "APPROVED", "ORDERED", "RECEIVED", "CANCELLED"]>>;
-                        restaurantId: zod.ZodOptional<zod.ZodNumber>;
-                        vendorId: zod.ZodOptional<zod.ZodNumber>;
-                        vendor: zod.ZodOptional<zod.ZodObject<{
-                            id: zod.ZodNumber;
-                            name: zod.ZodString;
-                        }, "strip", zod.ZodTypeAny, {
-                            id: number;
-                            name: string;
-                        }, {
-                            id: number;
-                            name: string;
-                        }>>;
-                        items: zod.ZodOptional<zod.ZodArray<zod.ZodObject<{
-                            id: zod.ZodNumber;
-                            orderId: zod.ZodNumber;
-                            ingredientId: zod.ZodNumber;
-                            quantity: zod.ZodNumber;
-                            unit: zod.ZodString;
-                            price: zod.ZodNumber;
-                        }, "strip", zod.ZodTypeAny, {
-                            id: number;
-                            orderId: number;
-                            ingredientId: number;
-                            quantity: number;
-                            unit: string;
-                            price: number;
-                        }, {
-                            id: number;
-                            orderId: number;
-                            ingredientId: number;
-                            quantity: number;
-                            unit: string;
-                            price: number;
-                        }>, "many">>;
-                    }, "strip", zod.ZodTypeAny, {
-                        status?: "PENDING" | "APPROVED" | "ORDERED" | "RECEIVED" | "CANCELLED" | undefined;
-                        restaurantId?: number | undefined;
-                        vendorId?: number | undefined;
-                        vendor?: {
-                            id: number;
-                            name: string;
-                        } | undefined;
-                        items?: {
-                            id: number;
-                            orderId: number;
-                            ingredientId: number;
-                            quantity: number;
-                            unit: string;
-                            price: number;
-                        }[] | undefined;
-                    }, {
-                        status?: "PENDING" | "APPROVED" | "ORDERED" | "RECEIVED" | "CANCELLED" | undefined;
-                        restaurantId?: number | undefined;
-                        vendorId?: number | undefined;
-                        vendor?: {
-                            id: number;
-                            name: string;
-                        } | undefined;
-                        items?: {
-                            id: number;
-                            orderId: number;
-                            ingredientId: number;
-                            quantity: number;
-                            unit: string;
-                            price: number;
-                        }[] | undefined;
-                    }>, "many">;
                     createdAt: zod.ZodDate;
                     updatedAt: zod.ZodDate;
                 }, "strip", zod.ZodTypeAny, {
@@ -3363,50 +2908,16 @@ declare const contract: {
                     createdAt: Date;
                     updatedAt: Date;
                     name: string;
-                    orders: {
-                        status?: "PENDING" | "APPROVED" | "ORDERED" | "RECEIVED" | "CANCELLED" | undefined;
-                        restaurantId?: number | undefined;
-                        vendorId?: number | undefined;
-                        vendor?: {
-                            id: number;
-                            name: string;
-                        } | undefined;
-                        items?: {
-                            id: number;
-                            orderId: number;
-                            ingredientId: number;
-                            quantity: number;
-                            unit: string;
-                            price: number;
-                        }[] | undefined;
-                    }[];
-                    contact: string;
                     email: string;
+                    contact: string;
                     phone: string;
                 }, {
                     id: number;
                     createdAt: Date;
                     updatedAt: Date;
                     name: string;
-                    orders: {
-                        status?: "PENDING" | "APPROVED" | "ORDERED" | "RECEIVED" | "CANCELLED" | undefined;
-                        restaurantId?: number | undefined;
-                        vendorId?: number | undefined;
-                        vendor?: {
-                            id: number;
-                            name: string;
-                        } | undefined;
-                        items?: {
-                            id: number;
-                            orderId: number;
-                            ingredientId: number;
-                            quantity: number;
-                            unit: string;
-                            price: number;
-                        }[] | undefined;
-                    }[];
-                    contact: string;
                     email: string;
+                    contact: string;
                     phone: string;
                 }>;
                 404: zod.ZodObject<{
@@ -3428,22 +2939,7 @@ declare const contract: {
             }>;
             summary: "Update a vendor";
             method: "PUT";
-            body: zod.ZodObject<{
-                name: zod.ZodOptional<zod.ZodString>;
-                contact: zod.ZodOptional<zod.ZodString>;
-                email: zod.ZodOptional<zod.ZodString>;
-                phone: zod.ZodOptional<zod.ZodString>;
-            }, "strip", zod.ZodTypeAny, {
-                name?: string | undefined;
-                contact?: string | undefined;
-                email?: string | undefined;
-                phone?: string | undefined;
-            }, {
-                name?: string | undefined;
-                contact?: string | undefined;
-                email?: string | undefined;
-                phone?: string | undefined;
-            }>;
+            body: zod.ZodType<_ckm_db.Prisma.VendorUpdateInput, zod.ZodTypeDef, _ckm_db.Prisma.VendorUpdateInput>;
             path: "/api/v1/vendors/:id";
             responses: {
                 200: zod.ZodObject<{
@@ -3452,75 +2948,6 @@ declare const contract: {
                     contact: zod.ZodString;
                     email: zod.ZodString;
                     phone: zod.ZodString;
-                    orders: zod.ZodArray<zod.ZodObject<{
-                        status: zod.ZodOptional<zod.ZodEnum<["PENDING", "APPROVED", "ORDERED", "RECEIVED", "CANCELLED"]>>;
-                        restaurantId: zod.ZodOptional<zod.ZodNumber>;
-                        vendorId: zod.ZodOptional<zod.ZodNumber>;
-                        vendor: zod.ZodOptional<zod.ZodObject<{
-                            id: zod.ZodNumber;
-                            name: zod.ZodString;
-                        }, "strip", zod.ZodTypeAny, {
-                            id: number;
-                            name: string;
-                        }, {
-                            id: number;
-                            name: string;
-                        }>>;
-                        items: zod.ZodOptional<zod.ZodArray<zod.ZodObject<{
-                            id: zod.ZodNumber;
-                            orderId: zod.ZodNumber;
-                            ingredientId: zod.ZodNumber;
-                            quantity: zod.ZodNumber;
-                            unit: zod.ZodString;
-                            price: zod.ZodNumber;
-                        }, "strip", zod.ZodTypeAny, {
-                            id: number;
-                            orderId: number;
-                            ingredientId: number;
-                            quantity: number;
-                            unit: string;
-                            price: number;
-                        }, {
-                            id: number;
-                            orderId: number;
-                            ingredientId: number;
-                            quantity: number;
-                            unit: string;
-                            price: number;
-                        }>, "many">>;
-                    }, "strip", zod.ZodTypeAny, {
-                        status?: "PENDING" | "APPROVED" | "ORDERED" | "RECEIVED" | "CANCELLED" | undefined;
-                        restaurantId?: number | undefined;
-                        vendorId?: number | undefined;
-                        vendor?: {
-                            id: number;
-                            name: string;
-                        } | undefined;
-                        items?: {
-                            id: number;
-                            orderId: number;
-                            ingredientId: number;
-                            quantity: number;
-                            unit: string;
-                            price: number;
-                        }[] | undefined;
-                    }, {
-                        status?: "PENDING" | "APPROVED" | "ORDERED" | "RECEIVED" | "CANCELLED" | undefined;
-                        restaurantId?: number | undefined;
-                        vendorId?: number | undefined;
-                        vendor?: {
-                            id: number;
-                            name: string;
-                        } | undefined;
-                        items?: {
-                            id: number;
-                            orderId: number;
-                            ingredientId: number;
-                            quantity: number;
-                            unit: string;
-                            price: number;
-                        }[] | undefined;
-                    }>, "many">;
                     createdAt: zod.ZodDate;
                     updatedAt: zod.ZodDate;
                 }, "strip", zod.ZodTypeAny, {
@@ -3528,50 +2955,16 @@ declare const contract: {
                     createdAt: Date;
                     updatedAt: Date;
                     name: string;
-                    orders: {
-                        status?: "PENDING" | "APPROVED" | "ORDERED" | "RECEIVED" | "CANCELLED" | undefined;
-                        restaurantId?: number | undefined;
-                        vendorId?: number | undefined;
-                        vendor?: {
-                            id: number;
-                            name: string;
-                        } | undefined;
-                        items?: {
-                            id: number;
-                            orderId: number;
-                            ingredientId: number;
-                            quantity: number;
-                            unit: string;
-                            price: number;
-                        }[] | undefined;
-                    }[];
-                    contact: string;
                     email: string;
+                    contact: string;
                     phone: string;
                 }, {
                     id: number;
                     createdAt: Date;
                     updatedAt: Date;
                     name: string;
-                    orders: {
-                        status?: "PENDING" | "APPROVED" | "ORDERED" | "RECEIVED" | "CANCELLED" | undefined;
-                        restaurantId?: number | undefined;
-                        vendorId?: number | undefined;
-                        vendor?: {
-                            id: number;
-                            name: string;
-                        } | undefined;
-                        items?: {
-                            id: number;
-                            orderId: number;
-                            ingredientId: number;
-                            quantity: number;
-                            unit: string;
-                            price: number;
-                        }[] | undefined;
-                    }[];
-                    contact: string;
                     email: string;
+                    contact: string;
                     phone: string;
                 }>;
                 404: zod.ZodObject<{
@@ -3601,75 +2994,6 @@ declare const contract: {
                     contact: zod.ZodString;
                     email: zod.ZodString;
                     phone: zod.ZodString;
-                    orders: zod.ZodArray<zod.ZodObject<{
-                        status: zod.ZodOptional<zod.ZodEnum<["PENDING", "APPROVED", "ORDERED", "RECEIVED", "CANCELLED"]>>;
-                        restaurantId: zod.ZodOptional<zod.ZodNumber>;
-                        vendorId: zod.ZodOptional<zod.ZodNumber>;
-                        vendor: zod.ZodOptional<zod.ZodObject<{
-                            id: zod.ZodNumber;
-                            name: zod.ZodString;
-                        }, "strip", zod.ZodTypeAny, {
-                            id: number;
-                            name: string;
-                        }, {
-                            id: number;
-                            name: string;
-                        }>>;
-                        items: zod.ZodOptional<zod.ZodArray<zod.ZodObject<{
-                            id: zod.ZodNumber;
-                            orderId: zod.ZodNumber;
-                            ingredientId: zod.ZodNumber;
-                            quantity: zod.ZodNumber;
-                            unit: zod.ZodString;
-                            price: zod.ZodNumber;
-                        }, "strip", zod.ZodTypeAny, {
-                            id: number;
-                            orderId: number;
-                            ingredientId: number;
-                            quantity: number;
-                            unit: string;
-                            price: number;
-                        }, {
-                            id: number;
-                            orderId: number;
-                            ingredientId: number;
-                            quantity: number;
-                            unit: string;
-                            price: number;
-                        }>, "many">>;
-                    }, "strip", zod.ZodTypeAny, {
-                        status?: "PENDING" | "APPROVED" | "ORDERED" | "RECEIVED" | "CANCELLED" | undefined;
-                        restaurantId?: number | undefined;
-                        vendorId?: number | undefined;
-                        vendor?: {
-                            id: number;
-                            name: string;
-                        } | undefined;
-                        items?: {
-                            id: number;
-                            orderId: number;
-                            ingredientId: number;
-                            quantity: number;
-                            unit: string;
-                            price: number;
-                        }[] | undefined;
-                    }, {
-                        status?: "PENDING" | "APPROVED" | "ORDERED" | "RECEIVED" | "CANCELLED" | undefined;
-                        restaurantId?: number | undefined;
-                        vendorId?: number | undefined;
-                        vendor?: {
-                            id: number;
-                            name: string;
-                        } | undefined;
-                        items?: {
-                            id: number;
-                            orderId: number;
-                            ingredientId: number;
-                            quantity: number;
-                            unit: string;
-                            price: number;
-                        }[] | undefined;
-                    }>, "many">;
                     createdAt: zod.ZodDate;
                     updatedAt: zod.ZodDate;
                 }, "strip", zod.ZodTypeAny, {
@@ -3677,50 +3001,16 @@ declare const contract: {
                     createdAt: Date;
                     updatedAt: Date;
                     name: string;
-                    orders: {
-                        status?: "PENDING" | "APPROVED" | "ORDERED" | "RECEIVED" | "CANCELLED" | undefined;
-                        restaurantId?: number | undefined;
-                        vendorId?: number | undefined;
-                        vendor?: {
-                            id: number;
-                            name: string;
-                        } | undefined;
-                        items?: {
-                            id: number;
-                            orderId: number;
-                            ingredientId: number;
-                            quantity: number;
-                            unit: string;
-                            price: number;
-                        }[] | undefined;
-                    }[];
-                    contact: string;
                     email: string;
+                    contact: string;
                     phone: string;
                 }, {
                     id: number;
                     createdAt: Date;
                     updatedAt: Date;
                     name: string;
-                    orders: {
-                        status?: "PENDING" | "APPROVED" | "ORDERED" | "RECEIVED" | "CANCELLED" | undefined;
-                        restaurantId?: number | undefined;
-                        vendorId?: number | undefined;
-                        vendor?: {
-                            id: number;
-                            name: string;
-                        } | undefined;
-                        items?: {
-                            id: number;
-                            orderId: number;
-                            ingredientId: number;
-                            quantity: number;
-                            unit: string;
-                            price: number;
-                        }[] | undefined;
-                    }[];
-                    contact: string;
                     email: string;
+                    contact: string;
                     phone: string;
                 }>;
                 404: zod.ZodObject<{
@@ -3922,7 +3212,7 @@ declare const contract: {
     };
     auth: {
         resendCode: {
-            summary: "Resend the verifyLoginCode";
+            summary: "Resend verification code";
             method: "POST";
             body: zod.ZodObject<{
                 email: zod.ZodString;
@@ -3934,11 +3224,11 @@ declare const contract: {
             path: "/api/v1/auth/resend-code";
             responses: {
                 200: zod.ZodObject<{
-                    code: zod.ZodString;
+                    message: zod.ZodString;
                 }, "strip", zod.ZodTypeAny, {
-                    code: string;
+                    message: string;
                 }, {
-                    code: string;
+                    message: string;
                 }>;
                 401: zod.ZodObject<{
                     message: zod.ZodString;
@@ -3956,23 +3246,20 @@ declare const contract: {
                 email: zod.ZodString;
                 password: zod.ZodString;
             }, "strip", zod.ZodTypeAny, {
-                email: string;
                 password: string;
+                email: string;
             }, {
-                email: string;
                 password: string;
+                email: string;
             }>;
             path: "/api/v1/auth/login";
             responses: {
                 200: zod.ZodObject<{
-                    code: zod.ZodString;
-                    csrfToken: zod.ZodOptional<zod.ZodString>;
+                    success: zod.ZodBoolean;
                 }, "strip", zod.ZodTypeAny, {
-                    code: string;
-                    csrfToken?: string | undefined;
+                    success: boolean;
                 }, {
-                    code: string;
-                    csrfToken?: string | undefined;
+                    success: boolean;
                 }>;
                 401: zod.ZodObject<{
                     message: zod.ZodString;
@@ -3987,88 +3274,77 @@ declare const contract: {
             summary: "Verify login code";
             method: "POST";
             body: zod.ZodObject<{
-                code: zod.ZodString;
+                verificationCode: zod.ZodString;
             }, "strip", zod.ZodTypeAny, {
-                code: string;
+                verificationCode: string;
             }, {
-                code: string;
+                verificationCode: string;
             }>;
             path: "/api/v1/auth/verify-login";
             responses: {
                 200: zod.ZodObject<{
-                    accessToken: zod.ZodString;
-                    user: zod.ZodObject<Omit<{
-                        role: zod.ZodEnum<["ADMIN", "MANAGER", "CHEF", "STAFF", "VENDOR"]>;
+                    sessionToken: zod.ZodString;
+                    user: zod.ZodObject<{
                         id: zod.ZodNumber;
                         email: zod.ZodString;
                         sub: zod.ZodNullable<zod.ZodNumber>;
-                        passwordHash: zod.ZodString;
                         firstName: zod.ZodString;
                         lastName: zod.ZodString;
                         profileImage: zod.ZodNullable<zod.ZodString>;
-                        verified: zod.ZodBoolean;
                         organizationId: zod.ZodNullable<zod.ZodNumber>;
                         restaurantId: zod.ZodNullable<zod.ZodNumber>;
                         createdAt: zod.ZodDate;
                         updatedAt: zod.ZodDate;
-                    }, "passwordHash">, "strip", zod.ZodTypeAny, {
-                        sub: number | null;
+                    }, "strip", zod.ZodTypeAny, {
                         id: number;
                         createdAt: Date;
                         updatedAt: Date;
                         restaurantId: number | null;
-                        organizationId: number | null;
                         email: string;
-                        role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
+                        organizationId: number | null;
+                        sub: number | null;
                         firstName: string;
                         lastName: string;
                         profileImage: string | null;
-                        verified: boolean;
                     }, {
-                        sub: number | null;
                         id: number;
                         createdAt: Date;
                         updatedAt: Date;
                         restaurantId: number | null;
-                        organizationId: number | null;
                         email: string;
-                        role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
+                        organizationId: number | null;
+                        sub: number | null;
                         firstName: string;
                         lastName: string;
                         profileImage: string | null;
-                        verified: boolean;
                     }>;
                 }, "strip", zod.ZodTypeAny, {
-                    accessToken: string;
+                    sessionToken: string;
                     user: {
-                        sub: number | null;
                         id: number;
                         createdAt: Date;
                         updatedAt: Date;
                         restaurantId: number | null;
-                        organizationId: number | null;
                         email: string;
-                        role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
+                        organizationId: number | null;
+                        sub: number | null;
                         firstName: string;
                         lastName: string;
                         profileImage: string | null;
-                        verified: boolean;
                     };
                 }, {
-                    accessToken: string;
+                    sessionToken: string;
                     user: {
-                        sub: number | null;
                         id: number;
                         createdAt: Date;
                         updatedAt: Date;
                         restaurantId: number | null;
-                        organizationId: number | null;
                         email: string;
-                        role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
+                        organizationId: number | null;
+                        sub: number | null;
                         firstName: string;
                         lastName: string;
                         profileImage: string | null;
-                        verified: boolean;
                     };
                 }>;
                 401: zod.ZodObject<{
@@ -4083,49 +3359,51 @@ declare const contract: {
         register: {
             summary: "User registration";
             method: "POST";
-            body: zod.ZodType<_ckm_db.Prisma.UserUncheckedCreateInput, zod.ZodTypeDef, _ckm_db.Prisma.UserUncheckedCreateInput>;
+            body: zod.ZodIntersection<zod.ZodType<_ckm_db.Prisma.UserCreateInput, zod.ZodTypeDef, _ckm_db.Prisma.UserCreateInput>, zod.ZodObject<{
+                password: zod.ZodString;
+                role: zod.ZodOptional<zod.ZodEnum<["ADMIN", "MANAGER", "CHEF", "STAFF", "VENDOR"]>>;
+            }, "strip", zod.ZodTypeAny, {
+                password: string;
+                role?: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR" | undefined;
+            }, {
+                password: string;
+                role?: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR" | undefined;
+            }>>;
             path: "/api/v1/auth/register";
             responses: {
-                201: zod.ZodObject<Omit<{
-                    role: zod.ZodEnum<["ADMIN", "MANAGER", "CHEF", "STAFF", "VENDOR"]>;
+                201: zod.ZodObject<{
                     id: zod.ZodNumber;
                     email: zod.ZodString;
                     sub: zod.ZodNullable<zod.ZodNumber>;
-                    passwordHash: zod.ZodString;
                     firstName: zod.ZodString;
                     lastName: zod.ZodString;
                     profileImage: zod.ZodNullable<zod.ZodString>;
-                    verified: zod.ZodBoolean;
                     organizationId: zod.ZodNullable<zod.ZodNumber>;
                     restaurantId: zod.ZodNullable<zod.ZodNumber>;
                     createdAt: zod.ZodDate;
                     updatedAt: zod.ZodDate;
-                }, "passwordHash">, "strip", zod.ZodTypeAny, {
-                    sub: number | null;
+                }, "strip", zod.ZodTypeAny, {
                     id: number;
                     createdAt: Date;
                     updatedAt: Date;
                     restaurantId: number | null;
-                    organizationId: number | null;
                     email: string;
-                    role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
+                    organizationId: number | null;
+                    sub: number | null;
                     firstName: string;
                     lastName: string;
                     profileImage: string | null;
-                    verified: boolean;
                 }, {
-                    sub: number | null;
                     id: number;
                     createdAt: Date;
                     updatedAt: Date;
                     restaurantId: number | null;
-                    organizationId: number | null;
                     email: string;
-                    role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
+                    organizationId: number | null;
+                    sub: number | null;
                     firstName: string;
                     lastName: string;
                     profileImage: string | null;
-                    verified: boolean;
                 }>;
                 400: zod.ZodObject<{
                     message: zod.ZodString;
@@ -4179,13 +3457,10 @@ declare const contract: {
             method: "POST";
             body: zod.ZodObject<{
                 userId: zod.ZodNumber;
-                accessToken: zod.ZodString;
             }, "strip", zod.ZodTypeAny, {
                 userId: number;
-                accessToken: string;
             }, {
                 userId: number;
-                accessToken: string;
             }>;
             path: "/api/v1/auth/logout";
             responses: {
@@ -4420,11 +3695,11 @@ declare const contract: {
                 name: zod.ZodString;
                 restaurantId: zod.ZodNumber;
             }, "strip", zod.ZodTypeAny, {
-                name: string;
                 restaurantId: number;
+                name: string;
             }, {
-                name: string;
                 restaurantId: number;
+                name: string;
             }>;
             path: "/api/v1/menus";
             responses: {
@@ -5571,13 +4846,13 @@ declare const contract: {
             }, "strip", zod.ZodTypeAny, {
                 name: string;
                 category: string;
-                imageUrl?: string | undefined;
                 restaurantId?: number | undefined;
+                imageUrl?: string | undefined;
             }, {
                 name: string;
                 category: string;
-                imageUrl?: string | undefined;
                 restaurantId?: number | undefined;
+                imageUrl?: string | undefined;
             }>;
             path: "/api/v1/cookbooks";
             responses: {
@@ -5704,14 +4979,14 @@ declare const contract: {
                 category: zod.ZodOptional<zod.ZodString>;
                 restaurantId: zod.ZodOptional<zod.ZodNumber>;
             }, "strip", zod.ZodTypeAny, {
+                restaurantId?: number | undefined;
                 name?: string | undefined;
                 imageUrl?: string | undefined;
-                restaurantId?: number | undefined;
                 category?: string | undefined;
             }, {
+                restaurantId?: number | undefined;
                 name?: string | undefined;
                 imageUrl?: string | undefined;
-                restaurantId?: number | undefined;
                 category?: string | undefined;
             }>;
             path: "/api/v1/cookbooks/:id";
@@ -5782,12 +5057,12 @@ declare const contract: {
                 category: zod.ZodString;
                 price: zod.ZodNumber;
             }, "strip", zod.ZodTypeAny, {
-                name: string;
                 price: number;
+                name: string;
                 category: string;
             }, {
-                name: string;
                 price: number;
+                name: string;
                 category: string;
             }>;
             path: "/api/v1/ingredients";
@@ -6016,12 +5291,12 @@ declare const contract: {
                 category: zod.ZodOptional<zod.ZodString>;
                 price: zod.ZodOptional<zod.ZodNumber>;
             }, "strip", zod.ZodTypeAny, {
-                name?: string | undefined;
                 price?: number | undefined;
+                name?: string | undefined;
                 category?: string | undefined;
             }, {
-                name?: string | undefined;
                 price?: number | undefined;
+                name?: string | undefined;
                 category?: string | undefined;
             }>;
             path: "/api/v1/ingredients/:id";

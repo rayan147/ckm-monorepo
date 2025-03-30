@@ -110,35 +110,29 @@
     }
   }
 
-  // Page navigation
   function handlePageChange(newPage: number) {
     const params = new URLSearchParams(page.url.searchParams);
     params.set('page', newPage.toString());
     goto(`?${params.toString()}`);
   }
 
-  // View mode toggle (grid/list)
   function toggleViewMode(mode: ViewMode) {
     viewMode.value = mode;
   }
 
-  // Delete confirmation
   function confirmDelete(recipe: RecipeIncludes) {
     recipeToDelete = recipe;
     isDialogOpen = true;
   }
 
-  // Navigation to recipe details
   function navigateToRecipeDetails(id: number) {
     goto(`/dashboard/kitchen/recipe/${id}`);
   }
 
-  // Create a new recipe
   function createNewRecipe() {
     goto(`/dashboard/kitchen/recipe/new`);
   }
 
-  // Format cook time
   function formatCookTime(minutes: number): string {
     if (!minutes || isNaN(minutes)) return 'N/A';
 

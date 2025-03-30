@@ -16,7 +16,7 @@ export const envSchema = z.object({
   SMS_POOL_ORIGINATION_NUMBER: z.string(),
   CORS_ORIGIN: z.enum([
     'http://localhost:5173',
-    'http://localhost:5174',
+    'http://localhost:3000',
     'http://localhost:5175',
     'http://localhost:5176',
     'https://ckm.rayanr.com',
@@ -30,6 +30,8 @@ export const envSchema = z.object({
   CSRF_SECRET: z.string(),
   COOKIE_SECRET: z.string(),
   USDA_API_KEY: z.string(),
+  BASE_URL: z.string().default('https://ckm.rayanr.com'),
+  BASE_URL_DEV: z.string().default('http://localhost')
 });
 
 export type Env = z.infer<typeof envSchema>;

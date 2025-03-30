@@ -1,15 +1,15 @@
+// src/csrf/csrf.guard.ts
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
-import { doubleCsrf } from 'csrf-csrf';
+import { createCsrfUtilities } from './csrf.config';
 import { EnvService } from '../env/env.service';
 
 @Injectable()
 export class CsrfGuard implements CanActivate {
-  constructor(private envService: EnvService) { }
+  private csrfUtilities: ReturnType<typeof createCsrfUtilities>;
 
-  private validateRequest = doubleCsrf({
-    getSecret: () => this.envService.get('CSRF_SECRET'),
-    cookieName: '__Host-psifi.x-csrf-token'
-  }).validateRequest;
+  constructor(private envService: EnvService) {
+    this.csrfUtilities = createCsrfUtilities(envService);
+  }
 
   canActivate(context: ExecutionContext): boolean {
     const request = context.switchToHttp().getRequest();
@@ -18,9 +18,11 @@ export class CsrfGuard implements CanActivate {
     console.log('CSRF Cookie:', request.cookies['__Host-psifi.x-csrf-token']);
 
     try {
-      this.validateRequest(request);
+      // The validateRequest function only takes one argument
+      this.csrfUtilities.validateRequest(request);
       return true;
     } catch (error) {
+      console.error('CSRF Validation Failed:', error);
       return false;
     }
   }

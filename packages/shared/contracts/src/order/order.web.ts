@@ -12,7 +12,7 @@ export const orderContract = c.router({
       201: zodSchemas.OrderSchema,
       400: z.object({ message: z.string() }),
     },
-    body: zodSchemas.OrderUncheckedCreateInputSchema,
+    body: zodSchemas.OrderCreateInputSchema,
     summary: 'Create a new order',
   },
 
@@ -56,7 +56,7 @@ export const orderContract = c.router({
       200: zodSchemas.OrderSchema,
       404: z.object({ message: z.string() }),
     },
-    body: zodSchemas.OrderUncheckedUpdateInputSchema,
+    body: zodSchemas.OrderUpdateInputSchema,
     summary: 'Update an order',
   },
 
@@ -74,5 +74,3 @@ export const orderContract = c.router({
   },
 });
 
-export type OrderType = z.infer<typeof zodSchemas.OrderSchema>
-export type OrderCreate = z.infer<typeof zodSchemas.OrderUncheckedCreateInputSchema>

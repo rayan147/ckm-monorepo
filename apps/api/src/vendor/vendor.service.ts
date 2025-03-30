@@ -1,9 +1,7 @@
+import { Ingredient, Order, Prisma, Vendor } from '@ckm/db';
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
 import { LoggingService } from '../logging/logging.service';
-import { Vendor, VendorCreate, VendorUpdate } from '@ckm/types';
-import { Prisma } from '@ckm/db';
-import { zodSchemas } from '@ckm/db';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class VendorService {
@@ -14,7 +12,7 @@ export class VendorService {
     this.logger.setContext('VendorService');
   }
 
-  async createVendor(data: VendorCreate): Promise<Vendor> {
+  async createVendor(data: Prisma.VendorCreateInput): Promise<Vendor> {
     this.logger.log(`Creating new vendor: ${data.name}`);
     try {
       return await this.prisma.vendor.create({
@@ -30,7 +28,7 @@ export class VendorService {
     skip?: number;
     take?: number;
     name?: string;
-  }): Promise<Vendor[]> {
+  }): Promise<Array<Vendor & { orders: Order[] }>> {
     const { skip, take, name } = params;
     this.logger.log(`Fetching vendors with params: ${JSON.stringify(params)}`);
     try {
@@ -49,7 +47,7 @@ export class VendorService {
     }
   }
 
-  async getVendor(id: number): Promise<Vendor> {
+  async getVendor(id: number): Promise<Vendor & { orders: Order[] }> {
     this.logger.log(`Fetching vendor with ID ${id}`);
     try {
       const vendor = await this.prisma.vendor.findUnique({
@@ -68,7 +66,7 @@ export class VendorService {
     }
   }
 
-  async updateVendor(id: number, data: VendorUpdate): Promise<Vendor> {
+  async updateVendor(id: number, data: Prisma.VendorUpdateInput): Promise<Vendor & { orders: Order[] }> {
     this.logger.log(`Updating vendor with ID ${id}`);
     try {
       return await this.prisma.vendor.update({
@@ -92,7 +90,7 @@ export class VendorService {
     }
   }
 
-  async deleteVendor(id: number): Promise<Vendor> {
+  async deleteVendor(id: number): Promise<Vendor & { orders: Order[] }> {
     this.logger.log(`Deleting vendor with ID ${id}`);
     try {
       return await this.prisma.vendor.delete({
@@ -117,7 +115,7 @@ export class VendorService {
     ingredientId: number,
     vendorId: number,
     newPrice: number,
-  ): Promise<zodSchemas.Ingredient> {
+  ): Promise<Ingredient> {
     this.logger.log(
       `Updating price for ingredient ${ingredientId} from vendor ${vendorId}`,
     );
@@ -137,7 +135,7 @@ export class VendorService {
       );
     }
   }
-  async getVendorIngredients(vendorId: number): Promise<zodSchemas.Ingredient[]> {
+  async getVendorIngredients(vendorId: number): Promise<Ingredient[]> {
     this.logger.log(`Fetching ingredients for vendor ${vendorId}`);
     try {
       const vendor = await this.prisma.vendor.findUnique({

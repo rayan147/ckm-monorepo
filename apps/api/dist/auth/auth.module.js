@@ -8,20 +8,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthModule = void 0;
 const common_1 = require("@nestjs/common");
-const auth_service_1 = require("./auth.service");
-const users_module_1 = require("../users/users.module");
-const prisma_module_1 = require("../prisma/prisma.module");
 const passport_1 = require("@nestjs/passport");
-const jwt_1 = require("@nestjs/jwt");
-const auth_controller_1 = require("./auth.controller");
-const jwt_strategy_1 = require("./jwt.strategy");
+const csrf_guard_1 = require("../csrf/csrf.guard");
+const env_module_1 = require("../env/env.module");
+const aws_module_1 = require("../helpers/aws/aws.module");
 const i18n_module_1 = require("../i18n/i18n.module");
 const role_guard_1 = require("../guards/role.guard");
-const env_module_1 = require("../env/env.module");
-const env_service_1 = require("../env/env.service");
+const prisma_module_1 = require("../prisma/prisma.module");
+const users_module_1 = require("../users/users.module");
+const auth_controller_1 = require("./auth.controller");
+const auth_middleware_service_1 = require("./auth.middleware.service");
+const auth_service_1 = require("./auth.service");
 const auth_sessions_service_1 = require("./utils/auth.sessions.service");
-const aws_module_1 = require("../helpers/aws/aws.module");
-const csrf_guard_1 = require("../csrf/csrf.guard");
+const email_template_service_1 = require("../templates/email-template.service");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
@@ -34,18 +33,10 @@ exports.AuthModule = AuthModule = __decorate([
             prisma_module_1.PrismaModule,
             passport_1.PassportModule,
             env_module_1.EnvModule,
-            jwt_1.JwtModule.registerAsync(({
-                imports: [env_module_1.EnvModule],
-                inject: [env_service_1.EnvService],
-                useFactory: async (envService) => ({
-                    secret: envService.get('JWT_SECRET_KEY'),
-                    signOptions: { expiresIn: '60s' }
-                })
-            }))
         ],
-        providers: [auth_service_1.AuthService, jwt_strategy_1.JwtStrategy, role_guard_1.RoleGuard, auth_sessions_service_1.AuthSessionsService, csrf_guard_1.CsrfGuard],
+        providers: [auth_service_1.AuthService, role_guard_1.RoleGuard, auth_sessions_service_1.AuthSessionsService, csrf_guard_1.CsrfGuard, auth_middleware_service_1.AuthMiddleware, email_template_service_1.EmailTemplateService],
         controllers: [auth_controller_1.AuthController],
-        exports: [auth_service_1.AuthService],
+        exports: [auth_service_1.AuthService, auth_sessions_service_1.AuthSessionsService],
     })
 ], AuthModule);
 //# sourceMappingURL=auth.module.js.map

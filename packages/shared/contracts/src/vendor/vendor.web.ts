@@ -1,6 +1,6 @@
-import { array, z } from 'zod';
+import { zodSchemas } from '@ckm/db';
 import { initContract } from '@ts-rest/core';
-import { VendorSchema, VendorCreateSchema, VendorUpdateSchema } from '../../../types/src';
+import { z } from 'zod';
 
 const c = initContract();
 
@@ -10,17 +10,17 @@ export const vendorContract = c.router({
     method: 'POST',
     path: '/vendors',
     responses: {
-      201: VendorSchema,
+      201: zodSchemas.VendorSchema,
       400: z.object({ message: z.string() }),
     },
-    body: VendorCreateSchema,
+    body: zodSchemas.VendorCreateInputSchema,
     summary: 'Create a new vendor',
   },
   getVendors: {
     method: 'GET',
     path: '/vendors',
     responses: {
-      200: z.array(VendorSchema),
+      200: z.array(zodSchemas.VendorSchema),
     },
     query: z.object({
       skip: z.string().optional(),
@@ -33,10 +33,10 @@ export const vendorContract = c.router({
     method: 'GET',
     path: '/vendors/:id',
     pathParams: z.object({
-        id: z.coerce.number()
+      id: z.coerce.number()
     }),
     responses: {
-      200: VendorSchema,
+      200: zodSchemas.VendorSchema,
       404: z.object({ message: z.string() }),
     },
     summary: 'Get a vendor by ID',
@@ -45,23 +45,23 @@ export const vendorContract = c.router({
     method: 'PUT',
     path: '/vendors/:id',
     pathParams: z.object({
-        id: z.coerce.number()
+      id: z.coerce.number()
     }),
     responses: {
-      200: VendorSchema,
+      200: zodSchemas.VendorSchema,
       404: z.object({ message: z.string() }),
     },
-    body: VendorUpdateSchema,
+    body: zodSchemas.VendorUpdateInputSchema,
     summary: 'Update a vendor',
   },
   deleteVendor: {
     method: 'DELETE',
     path: '/vendors/:id',
     pathParams: z.object({
-        id: z.coerce.number()
+      id: z.coerce.number()
     }),
     responses: {
-      200: VendorSchema,
+      200: zodSchemas.VendorSchema,
       404: z.object({ message: z.string() }),
     },
     summary: 'Delete a vendor',

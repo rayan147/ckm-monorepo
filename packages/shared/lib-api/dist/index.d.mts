@@ -1,13 +1,10 @@
-import * as _ckm_db from '@ckm/db';
 import * as _ts_rest_core from '@ts-rest/core';
+import * as _ckm_db from '@ckm/db';
 
 declare const api: {
     orgs: {
         createOrganization: (args: {
-            body: {
-                name: string;
-                imageUrl?: string | null | undefined;
-            };
+            body: _ckm_db.Prisma.OrganizationCreateInput;
             cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
@@ -19,7 +16,7 @@ declare const api: {
                 createdAt: Date;
                 updatedAt: Date;
                 name: string;
-                imageUrl?: string | null | undefined;
+                imageUrl: string | null;
             };
             headers: Headers;
         } | {
@@ -50,7 +47,7 @@ declare const api: {
                 createdAt: Date;
                 updatedAt: Date;
                 name: string;
-                imageUrl?: string | null | undefined;
+                imageUrl: string | null;
             }[];
             headers: Headers;
         } | {
@@ -73,7 +70,7 @@ declare const api: {
                 createdAt: Date;
                 updatedAt: Date;
                 name: string;
-                imageUrl?: string | null | undefined;
+                imageUrl: string | null;
             };
             headers: Headers;
         } | {
@@ -95,10 +92,7 @@ declare const api: {
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
-            body?: {
-                name?: string | undefined;
-                imageUrl?: string | null | undefined;
-            } | undefined;
+            body?: _ckm_db.Prisma.OrganizationUpdateInput | undefined;
         }) => Promise<{
             status: 200;
             body: {
@@ -106,7 +100,7 @@ declare const api: {
                 createdAt: Date;
                 updatedAt: Date;
                 name: string;
-                imageUrl?: string | null | undefined;
+                imageUrl: string | null;
             };
             headers: Headers;
         } | {
@@ -135,7 +129,7 @@ declare const api: {
                 createdAt: Date;
                 updatedAt: Date;
                 name: string;
-                imageUrl?: string | null | undefined;
+                imageUrl: string | null;
             };
             headers: Headers;
         } | {
@@ -1768,9 +1762,6 @@ declare const api: {
             status: 201;
             body: {
                 id: number;
-                createdAt: Date;
-                updatedAt: Date;
-                name: string;
                 orders: {
                     status?: "PENDING" | "APPROVED" | "ORDERED" | "RECEIVED" | "CANCELLED" | undefined;
                     restaurantId?: number | undefined;
@@ -1788,9 +1779,12 @@ declare const api: {
                         price: number;
                     }[] | undefined;
                 }[];
+                name: string;
                 contact: string;
                 email: string;
                 phone: string;
+                createdAt: Date;
+                updatedAt: Date;
             };
             headers: Headers;
         } | {
@@ -1810,17 +1804,14 @@ declare const api: {
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
             query?: {
-                name?: string | undefined;
                 skip?: string | undefined;
                 take?: string | undefined;
+                name?: string | undefined;
             } | undefined;
         } | undefined) => Promise<{
             status: 200;
             body: {
                 id: number;
-                createdAt: Date;
-                updatedAt: Date;
-                name: string;
                 orders: {
                     status?: "PENDING" | "APPROVED" | "ORDERED" | "RECEIVED" | "CANCELLED" | undefined;
                     restaurantId?: number | undefined;
@@ -1838,9 +1829,12 @@ declare const api: {
                         price: number;
                     }[] | undefined;
                 }[];
+                name: string;
                 contact: string;
                 email: string;
                 phone: string;
+                createdAt: Date;
+                updatedAt: Date;
             }[];
             headers: Headers;
         } | {
@@ -1860,9 +1854,6 @@ declare const api: {
             status: 200;
             body: {
                 id: number;
-                createdAt: Date;
-                updatedAt: Date;
-                name: string;
                 orders: {
                     status?: "PENDING" | "APPROVED" | "ORDERED" | "RECEIVED" | "CANCELLED" | undefined;
                     restaurantId?: number | undefined;
@@ -1880,9 +1871,12 @@ declare const api: {
                         price: number;
                     }[] | undefined;
                 }[];
+                name: string;
                 contact: string;
                 email: string;
                 phone: string;
+                createdAt: Date;
+                updatedAt: Date;
             };
             headers: Headers;
         } | {
@@ -1914,9 +1908,6 @@ declare const api: {
             status: 200;
             body: {
                 id: number;
-                createdAt: Date;
-                updatedAt: Date;
-                name: string;
                 orders: {
                     status?: "PENDING" | "APPROVED" | "ORDERED" | "RECEIVED" | "CANCELLED" | undefined;
                     restaurantId?: number | undefined;
@@ -1934,9 +1925,12 @@ declare const api: {
                         price: number;
                     }[] | undefined;
                 }[];
+                name: string;
                 contact: string;
                 email: string;
                 phone: string;
+                createdAt: Date;
+                updatedAt: Date;
             };
             headers: Headers;
         } | {
@@ -1962,9 +1956,6 @@ declare const api: {
             status: 200;
             body: {
                 id: number;
-                createdAt: Date;
-                updatedAt: Date;
-                name: string;
                 orders: {
                     status?: "PENDING" | "APPROVED" | "ORDERED" | "RECEIVED" | "CANCELLED" | undefined;
                     restaurantId?: number | undefined;
@@ -1982,9 +1973,12 @@ declare const api: {
                         price: number;
                     }[] | undefined;
                 }[];
+                name: string;
                 contact: string;
                 email: string;
                 phone: string;
+                createdAt: Date;
+                updatedAt: Date;
             };
             headers: Headers;
         } | {
@@ -2206,11 +2200,11 @@ declare const api: {
                 user: {
                     sub: number | null;
                     id: number;
-                    createdAt: Date;
-                    updatedAt: Date;
                     restaurantId: number | null;
                     organizationId: number | null;
                     email: string;
+                    createdAt: Date;
+                    updatedAt: Date;
                     role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
                     firstName: string;
                     lastName: string;
@@ -2241,11 +2235,11 @@ declare const api: {
             body: {
                 sub: number | null;
                 id: number;
-                createdAt: Date;
-                updatedAt: Date;
                 restaurantId: number | null;
                 organizationId: number | null;
                 email: string;
+                createdAt: Date;
+                updatedAt: Date;
                 role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
                 firstName: string;
                 lastName: string;
@@ -2487,8 +2481,8 @@ declare const api: {
     menu: {
         createMenu: (args: {
             body: {
-                name: string;
                 restaurantId: number;
+                name: string;
             };
             cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
@@ -3117,8 +3111,8 @@ declare const api: {
             body: {
                 name: string;
                 category: string;
-                imageUrl?: string | undefined;
                 restaurantId?: number | undefined;
+                imageUrl?: string | undefined;
             };
             cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
@@ -3208,9 +3202,9 @@ declare const api: {
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
             body?: {
+                restaurantId?: number | undefined;
                 name?: string | undefined;
                 imageUrl?: string | undefined;
-                restaurantId?: number | undefined;
                 category?: string | undefined;
             } | undefined;
         }) => Promise<{
@@ -3263,8 +3257,8 @@ declare const api: {
     ingredient: {
         createIngredient: (args: {
             body: {
-                name: string;
                 price: number;
+                name: string;
                 category: string;
             };
             cache?: RequestCache | undefined;
@@ -3389,8 +3383,8 @@ declare const api: {
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
             body?: {
-                name?: string | undefined;
                 price?: number | undefined;
+                name?: string | undefined;
                 category?: string | undefined;
             } | undefined;
         }) => Promise<{

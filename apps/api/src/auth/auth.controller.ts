@@ -8,6 +8,8 @@ import { EnvService } from 'src/env/env.service';
 import { createCsrfUtilities } from 'src/csrf/csrf.config';
 import { Request, Response } from 'express';
 import { CsrfGuard } from 'src/csrf/csrf.guard';
+import { AuthSessionsService } from './utils/auth.sessions.service';
+import { Public } from 'src/decorators/public.decorator';
 
 @Controller()
 export class AuthController {
@@ -16,15 +18,16 @@ export class AuthController {
     private authService: AuthService,
     private i18nService: I18nService,
     private envService: EnvService,
+    private authSession: AuthSessionsService
   ) {
     this.csrfUtilities = createCsrfUtilities(envService)
   }
 
-  // Add this helper method to handle CSRF token generation
   private setCsrfToken(req: Request, res: Response) {
     return this.csrfUtilities.generateToken(req, res, true);
   }
 
+  @Public()
   @TsRestHandler(contract.auth.resendCode)
   async resendCode() {
     return tsRestHandler(contract.auth.resendCode, async ({ body }) => {
@@ -46,7 +49,6 @@ export class AuthController {
   @UseGuards(CsrfGuard)
   @TsRestHandler(contract.auth.login)
   async login(@Headers('x-csrf-token') csrfToken: string) {
-
     return tsRestHandler(contract.auth.login, async ({ body }) => {
       try {
         const result = await this.authService.login(body.email, body.password);
@@ -66,11 +68,15 @@ export class AuthController {
     });
   }
 
+  @Public()
+  @UseGuards(CsrfGuard)
   @TsRestHandler(contract.auth.verifyLoginCode)
-  async verifyLoginCode() {
+  async verifyLoginCode(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
     return tsRestHandler(contract.auth.verifyLoginCode, async ({ body }) => {
       try {
-        const result = await this.authService.verifyLoginCode(body.code);
+        const result = await this.authService.verifyLoginCode(body.verificationCode);
+        this.authSession.seSessionCookie(res, result.sessionToken)
+
         return {
           status: 200 as const,
           body: result,
@@ -84,15 +90,16 @@ export class AuthController {
     });
   }
 
+  @Public()
+  @UseGuards(CsrfGuard)
   @TsRestHandler(contract.auth.register)
   async register() {
     return tsRestHandler(contract.auth.register, async ({ body }) => {
       try {
         const user = await this.authService.register(body);
-        const { passwordHash, ...restUser } = user;
         return {
           status: 201 as const,
-          body: restUser,
+          body: user
         };
       } catch (error) {
         return {
@@ -130,10 +137,20 @@ export class AuthController {
   }
 
   @TsRestHandler(contract.auth.logout)
-  async logout() {
+  async logout(@Req() request: Request,
+    @Res({ passthrough: true }) response: Response,) {
     return tsRestHandler(contract.auth.logout, async ({ body }) => {
       try {
-        await this.authService.logout(body.userId, body.accessToken);
+        await this.authService.logout(body.userId);
+        const token = request.cookies['session_token']
+        if (token) {
+          const { user } = await this.authSession.validateSessionToken(token);
+          if (user) {
+            await this.authSession.invalidateSession(user.id)
+          }
+        }
+
+        this.authSession.clearSessionCookie(response)
         return {
           status: 200 as const,
           body: {

@@ -34,7 +34,7 @@
   }
 </script>
 
-<aside class="min-h-screen text-gray-100 bg-gradient-to-b from-blue-800 to-indigo-900">
+<aside class="min-h-screen text-gray-100 bg-gradient-to-b from-blue-800 to-indigo-900 rounded-lg">
   <div class="flex flex-col h-full">
     <!-- Logo or Branding -->
     <a href="/" class="flex items-center h-20 px-6 bg-blue-900 bg-opacity-30">

@@ -11,15 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CsrfGuard = void 0;
 const common_1 = require("@nestjs/common");
-const csrf_csrf_1 = require("csrf-csrf");
+const csrf_config_1 = require("./csrf.config");
 const env_service_1 = require("../env/env.service");
 let CsrfGuard = class CsrfGuard {
     constructor(envService) {
         this.envService = envService;
-        this.validateRequest = (0, csrf_csrf_1.doubleCsrf)({
-            getSecret: () => this.envService.get('CSRF_SECRET'),
-            cookieName: '__Host-psifi.x-csrf-token'
-        }).validateRequest;
+        this.csrfUtilities = (0, csrf_config_1.createCsrfUtilities)(envService);
     }
     canActivate(context) {
         const request = context.switchToHttp().getRequest();
@@ -27,10 +24,11 @@ let CsrfGuard = class CsrfGuard {
         console.log('CSRF Token from Header:', request.headers['x-csrf-token']);
         console.log('CSRF Cookie:', request.cookies['__Host-psifi.x-csrf-token']);
         try {
-            this.validateRequest(request);
+            this.csrfUtilities.validateRequest(request);
             return true;
         }
         catch (error) {
+            console.error('CSRF Validation Failed:', error);
             return false;
         }
     }

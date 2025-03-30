@@ -35,9 +35,6 @@ __export(index_exports, {
   OrderSchema: () => OrderSchema,
   OrderStatusEnum: () => OrderStatusEnum,
   OrderUpdateSchema: () => OrderUpdateSchema,
-  OrganizationCreateSchema: () => OrganizationCreateSchema,
-  OrganizationSchema: () => OrganizationSchema,
-  OrganizationUpdateSchema: () => OrganizationUpdateSchema,
   RecipeCreateSchema: () => RecipeCreateSchema,
   RecipeFormDataSchema: () => RecipeFormDataSchema,
   RecipeIngredientCreateSchema: () => RecipeIngredientCreateSchema,
@@ -4255,9 +4252,9 @@ var usdaFoodItemSchema = z.object({
   marketCountry: z.string().optional(),
   microbes: z.array(z.unknown()).optional(),
   // Update if structure is known
-  modifiedDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  modifiedDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
   packageWeight: z.string().optional(),
-  publishedDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  publishedDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
   score: z.number().optional(),
   servingSize: z.number().optional(),
   servingSizeUnit: z.string().optional(),
@@ -4314,21 +4311,6 @@ var IngredientSchema = z.object({
   name: z.string(),
   category: z.string()
 });
-
-// src/organization/index.ts
-var OrganizationSchema = z.object({
-  id: z.number(),
-  name: z.string(),
-  imageUrl: z.string().optional().nullable(),
-  createdAt: z.date(),
-  updatedAt: z.date()
-});
-var OrganizationCreateSchema = OrganizationSchema.omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true
-});
-var OrganizationUpdateSchema = OrganizationCreateSchema.partial();
 
 // src/vendor/index.ts
 var VendorSchema2 = z.object({
@@ -4426,9 +4408,6 @@ var LogoutResponseSchema = z.discriminatedUnion("status", [
   OrderSchema,
   OrderStatusEnum,
   OrderUpdateSchema,
-  OrganizationCreateSchema,
-  OrganizationSchema,
-  OrganizationUpdateSchema,
   RecipeCreateSchema,
   RecipeFormDataSchema,
   RecipeIngredientCreateSchema,

@@ -1,32 +1,41 @@
 // src/csrf/csrf.controller.ts
-import { Controller, Get, Req, Res } from '@nestjs/common';
+import { Controller, Get, Res, Req } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { createCsrfUtilities } from './csrf.config';
 import { EnvService } from '../env/env.service';
+import { createCsrfUtilities } from './csrf.config';
+import * as crypto from 'crypto';
 
 @Controller('csrf')
 export class CsrfController {
-  private csrfUtilities: ReturnType<typeof createCsrfUtilities>;
+  private csrfUtils;
+  private cookieName: string;
 
-  constructor(envService: EnvService) {
-    this.csrfUtilities = createCsrfUtilities(envService);
+  constructor(private readonly envService: EnvService) {
+    // Determine cookie name based on environment
+    const isDev = envService.get('NODE_ENV') !== 'prod';
+    this.cookieName = isDev ? 'psifi.x-csrf-token' : '__Host-psifi.x-csrf-token';
+    this.csrfUtils = createCsrfUtilities(envService);
   }
 
   @Get()
   getCsrfToken(@Req() req: Request, @Res() res: Response) {
     try {
-      const csrfToken = this.csrfUtilities.generateToken(req, res);
-      console.log('Generated CSRF Token:', csrfToken);
-      console.log('Set-Cookie Header:', res.getHeaders()['set-cookie']);
+      // Generate a random token
+      const token = crypto.randomBytes(32).toString('hex');
 
-      if (csrfToken) {
-        res.json({
-          csrfToken,
-          status: 200,
-        });
-      }
+      // Set the cookie manually instead of using the library's generateToken
+      res.cookie(this.cookieName, token, {
+        httpOnly: false,
+        sameSite: 'lax',
+        path: '/',
+        secure: this.envService.get('NODE_ENV') === 'prod',
+      });
+
+      // Return the token to be used in the x-csrf-token header
+      return res.status(200).json({ csrfToken: token, status: 200 });
     } catch (error) {
-      res.status(400).json({ message: 'Failed to generate CSRF token' });
+      console.error('Error generating CSRF token:', error);
+      return res.status(500).json({ message: 'Failed to generate CSRF token', status: 500 });
     }
   }
 }

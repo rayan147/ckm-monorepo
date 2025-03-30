@@ -18,7 +18,7 @@ exports.envSchema = zod_1.z.object({
     SMS_POOL_ORIGINATION_NUMBER: zod_1.z.string(),
     CORS_ORIGIN: zod_1.z.enum([
         'http://localhost:5173',
-        'http://localhost:5174',
+        'http://localhost:3000',
         'http://localhost:5175',
         'http://localhost:5176',
         'https://ckm.rayanr.com',
@@ -32,5 +32,7 @@ exports.envSchema = zod_1.z.object({
     CSRF_SECRET: zod_1.z.string(),
     COOKIE_SECRET: zod_1.z.string(),
     USDA_API_KEY: zod_1.z.string(),
+    BASE_URL: zod_1.z.string().default('https://ckm.rayanr.com'),
+    BASE_URL_DEV: zod_1.z.string().default('http://localhost')
 });
 //# sourceMappingURL=env.js.map

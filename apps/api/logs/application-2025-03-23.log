@@ -1,0 +1,63 @@
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-03-23T16:01:48.386Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-03-23T16:01:48.463Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-03-23T16:01:48.542Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-03-23T16:01:48.643Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-03-23T16:01:48.720Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 24",
+  "service": "LoggingService",
+  "timestamp": "2025-03-23T16:22:18.609Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 24",
+  "service": "LoggingService",
+  "timestamp": "2025-03-23T16:22:18.613Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 24",
+  "service": "LoggingService",
+  "timestamp": "2025-03-23T16:22:22.578Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 24",
+  "service": "LoggingService",
+  "timestamp": "2025-03-23T16:22:22.578Z"
+}

@@ -11,17 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                t[p[i]] = s[p[i]];
-        }
-    return t;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
@@ -32,11 +21,14 @@ const i18n_service_1 = require("../i18n/i18n.service");
 const env_service_1 = require("../env/env.service");
 const csrf_config_1 = require("../csrf/csrf.config");
 const csrf_guard_1 = require("../csrf/csrf.guard");
+const auth_sessions_service_1 = require("./utils/auth.sessions.service");
+const public_decorator_1 = require("../decorators/public.decorator");
 let AuthController = class AuthController {
-    constructor(authService, i18nService, envService) {
+    constructor(authService, i18nService, envService, authSession) {
         this.authService = authService;
         this.i18nService = i18nService;
         this.envService = envService;
+        this.authSession = authSession;
         this.csrfUtilities = (0, csrf_config_1.createCsrfUtilities)(envService);
     }
     setCsrfToken(req, res) {
@@ -76,10 +68,11 @@ let AuthController = class AuthController {
             }
         });
     }
-    async verifyLoginCode() {
+    async verifyLoginCode(req, res) {
         return (0, nest_1.tsRestHandler)(contracts_1.contract.auth.verifyLoginCode, async ({ body }) => {
             try {
-                const result = await this.authService.verifyLoginCode(body.code);
+                const result = await this.authService.verifyLoginCode(body.verificationCode);
+                this.authSession.seSessionCookie(res, result.sessionToken);
                 return {
                     status: 200,
                     body: result,
@@ -97,10 +90,9 @@ let AuthController = class AuthController {
         return (0, nest_1.tsRestHandler)(contracts_1.contract.auth.register, async ({ body }) => {
             try {
                 const user = await this.authService.register(body);
-                const { passwordHash } = user, restUser = __rest(user, ["passwordHash"]);
                 return {
                     status: 201,
-                    body: restUser,
+                    body: user
                 };
             }
             catch (error) {
@@ -131,10 +123,18 @@ let AuthController = class AuthController {
             }
         });
     }
-    async logout() {
+    async logout(request, response) {
         return (0, nest_1.tsRestHandler)(contracts_1.contract.auth.logout, async ({ body }) => {
             try {
-                await this.authService.logout(body.userId, body.accessToken);
+                await this.authService.logout(body.userId);
+                const token = request.cookies['session_token'];
+                if (token) {
+                    const { user } = await this.authSession.validateSessionToken(token);
+                    if (user) {
+                        await this.authSession.invalidateSession(user.id);
+                    }
+                }
+                this.authSession.clearSessionCookie(response);
                 return {
                     status: 200,
                     body: {
@@ -188,6 +188,7 @@ let AuthController = class AuthController {
 };
 exports.AuthController = AuthController;
 __decorate([
+    (0, public_decorator_1.Public)(),
     (0, nest_1.TsRestHandler)(contracts_1.contract.auth.resendCode),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
@@ -202,12 +203,18 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "login", null);
 __decorate([
+    (0, public_decorator_1.Public)(),
+    (0, common_1.UseGuards)(csrf_guard_1.CsrfGuard),
     (0, nest_1.TsRestHandler)(contracts_1.contract.auth.verifyLoginCode),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Res)({ passthrough: true })),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "verifyLoginCode", null);
 __decorate([
+    (0, public_decorator_1.Public)(),
+    (0, common_1.UseGuards)(csrf_guard_1.CsrfGuard),
     (0, nest_1.TsRestHandler)(contracts_1.contract.auth.register),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
@@ -223,8 +230,10 @@ __decorate([
 ], AuthController.prototype, "changePassword", null);
 __decorate([
     (0, nest_1.TsRestHandler)(contracts_1.contract.auth.logout),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Res)({ passthrough: true })),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "logout", null);
 __decorate([
@@ -245,6 +254,7 @@ exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)(),
     __metadata("design:paramtypes", [auth_service_1.AuthService,
         i18n_service_1.I18nService,
-        env_service_1.EnvService])
+        env_service_1.EnvService,
+        auth_sessions_service_1.AuthSessionsService])
 ], AuthController);
 //# sourceMappingURL=auth.controller.js.map

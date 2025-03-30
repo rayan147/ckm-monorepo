@@ -1,19 +1,18 @@
 // auth.module.ts
 import { forwardRef, Module } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { UsersModule } from '../users/users.module';
-import { PrismaModule } from '../prisma/prisma.module';
 import { PassportModule } from '@nestjs/passport';
-import { JwtModule } from '@nestjs/jwt';
-import { AuthController } from './auth.controller';
-import { JwtStrategy } from './jwt.strategy';
+import { CsrfGuard } from 'src/csrf/csrf.guard';
+import { EnvModule } from 'src/env/env.module';
+import { AwsModule } from 'src/helpers/aws/aws.module';
 import { I18nModule } from 'src/i18n/i18n.module';
 import { RoleGuard } from '../guards/role.guard';
-import { EnvModule } from 'src/env/env.module';
-import { EnvService } from 'src/env/env.service';
+import { PrismaModule } from '../prisma/prisma.module';
+import { UsersModule } from '../users/users.module';
+import { AuthController } from './auth.controller';
+import { AuthMiddleware } from './auth.middleware.service';
+import { AuthService } from './auth.service';
 import { AuthSessionsService } from './utils/auth.sessions.service';
-import { AwsModule } from 'src/helpers/aws/aws.module';
-import { CsrfGuard } from 'src/csrf/csrf.guard';
+import { EmailTemplateService } from 'src/templates/email-template.service';
 
 @Module({
   imports: [
@@ -23,17 +22,9 @@ import { CsrfGuard } from 'src/csrf/csrf.guard';
     PrismaModule,
     PassportModule,
     EnvModule,
-    JwtModule.registerAsync(({
-      imports: [EnvModule],
-      inject: [EnvService],
-      useFactory: async (envService: EnvService) => ({
-        secret: envService.get('JWT_SECRET_KEY'),
-        signOptions: { expiresIn: '60s' }
-      })
-    }))
   ],
-  providers: [AuthService, JwtStrategy, RoleGuard, AuthSessionsService, CsrfGuard],
+  providers: [AuthService, RoleGuard, AuthSessionsService, CsrfGuard, AuthMiddleware, EmailTemplateService],
   controllers: [AuthController],
-  exports: [AuthService],
+  exports: [AuthService, AuthSessionsService],
 })
 export class AuthModule { }

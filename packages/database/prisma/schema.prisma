@@ -188,7 +188,7 @@ model MenuCategory {
 }
 
 model RecipeVersion {
-  id           Int        @id @default(autoincrement())
+  id            Int                 @id @default(autoincrement())
   recipeId      Int
   recipe        Recipe              @relation(fields: [recipeId], references: [id], onDelete: Cascade)
   versionNumber Int
@@ -727,12 +727,9 @@ model User {
   id                        Int                    @id @default(autoincrement())
   email                     String                 @unique
   sub                       Int?                   @unique
-  passwordHash              String
   firstName                 String
   lastName                  String
   profileImage              String?
-  verified                  Boolean                @default(false)
-  role                      UserRole
   organizationId            Int?
   organization              Organization?          @relation(fields: [organizationId], references: [id], onDelete: SetNull)
   restaurantId              Int?
@@ -757,22 +754,34 @@ model User {
   recipeVersionsApproved    RecipeVersion[]        @relation("RecipeApprover")
   InventoryTransactions     InventoryTransaction[]
   StockCounts               StockCount[]
+  auth                      Auth[]
 
   @@index([email])
   @@index([firstName, lastName])
   @@map("user")
 }
 
-model Session {
-  id        String   @id @default(uuid())
-  userId    Int
-  code      String   @unique
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  token     String   @unique
-  expiresAt DateTime
-  createdAt DateTime @default(now())
+model Auth {
+  id           String   @id @default(uuid())
+  userId       Int      @unique()
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  passwordHash String
+  role         UserRole @default(STAFF)
 
-  @@index([token, code])
+  @@map("auth")
+}
+
+model Session {
+  id               String   @id @default(uuid())
+  userId           Int
+  verificationCode String   @unique
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token            String   @unique
+  verified         Boolean  @default(false)
+  expiresAt        DateTime
+  createdAt        DateTime @default(now())
+
+  @@index([token, verificationCode])
   @@map("session")
 }
 
@@ -925,7 +934,7 @@ model RecipeIngredient {
 
   // Constraints
 
-  @@unique([recipeId, ingredientId, recipeVersionId], name: "unique_ingredient_per_version")
+  @@unique([recipeId, recipeVersionId])
   @@unique([recipeId, ingredientId])
   @@index([recipeVersionId])
   //  @@check(quantity > 0)

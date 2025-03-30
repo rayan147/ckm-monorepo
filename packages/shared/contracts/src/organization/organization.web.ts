@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { initContract } from '@ts-rest/core';
-import { OrganizationSchema, OrganizationCreateSchema, OrganizationUpdateSchema } from "@ckm/types"
+import { zodSchemas } from '@ckm/db';
 
 const c = initContract()
 
@@ -9,10 +9,10 @@ export const organizationContract = c.router({
     method: 'POST',
     path: '/organizations',
     responses: {
-      201: OrganizationSchema,
+      201: zodSchemas.OrganizationSchema,
       400: z.object({ message: z.string() }),
     },
-    body: OrganizationCreateSchema,
+    body: zodSchemas.OrganizationCreateInputSchema,
     summary: 'Create a new organization',
   },
 
@@ -20,7 +20,7 @@ export const organizationContract = c.router({
     method: 'GET',
     path: '/organizations',
     responses: {
-      200: z.array(OrganizationSchema),
+      200: z.array(zodSchemas.OrganizationSchema),
     },
     query: z.object({
       skip: z.string().optional(),
@@ -37,7 +37,7 @@ export const organizationContract = c.router({
       id: z.coerce.number()
     }),
     responses: {
-      200: OrganizationSchema,
+      200: zodSchemas.OrganizationSchema,
       404: z.object({ message: z.string() }),
     },
     summary: 'Get an organization by ID',
@@ -50,10 +50,10 @@ export const organizationContract = c.router({
       id: z.coerce.number()
     }),
     responses: {
-      200: OrganizationSchema,
+      200: zodSchemas.OrganizationSchema,
       404: z.object({ message: z.string() }),
     },
-    body: OrganizationUpdateSchema,
+    body: zodSchemas.OrganizationUpdateInputSchema,
     summary: 'Update an organization',
   },
 
@@ -64,7 +64,7 @@ export const organizationContract = c.router({
       id: z.coerce.number()
     }),
     responses: {
-      200: OrganizationSchema,
+      200: zodSchemas.OrganizationSchema,
       404: z.object({ message: z.string() }),
     },
     summary: 'Delete an organization',

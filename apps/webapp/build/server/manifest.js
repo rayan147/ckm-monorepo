@@ -10,28 +10,29 @@ return {
 	assets: new Set(["favicon.png"]),
 	mimeTypes: {".png":"image/png"},
 	_: {
-		client: {start:"_app/immutable/entry/start.qr_9ikkK.js",app:"_app/immutable/entry/app.CEQ2ilEd.js",imports:["_app/immutable/entry/start.qr_9ikkK.js","_app/immutable/chunks/2G3-cP0A.js","_app/immutable/chunks/D6GUojFs.js","_app/immutable/chunks/DIeogL5L.js","_app/immutable/chunks/BTNl6hjc.js","_app/immutable/entry/app.CEQ2ilEd.js","_app/immutable/chunks/CG0L0HUv.js","_app/immutable/chunks/D6GUojFs.js","_app/immutable/chunks/DIeogL5L.js","_app/immutable/chunks/SBBnSZDA.js","_app/immutable/chunks/BMtT0H90.js","_app/immutable/chunks/Bg9kRutz.js","_app/immutable/chunks/c2VXzntZ.js","_app/immutable/chunks/ByrHssHc.js","_app/immutable/chunks/CiPVbJNv.js","_app/immutable/chunks/D_3rvUew.js","_app/immutable/chunks/BTNl6hjc.js","_app/immutable/chunks/CzbG7iO9.js"],stylesheets:[],fonts:[],uses_env_dynamic_public:false},
+		client: {start:"_app/immutable/entry/start.DXVHSXhM.js",app:"_app/immutable/entry/app.B9sU-RsI.js",imports:["_app/immutable/entry/start.DXVHSXhM.js","_app/immutable/chunks/BPIobk8A.js","_app/immutable/chunks/CYH0RKHD.js","_app/immutable/chunks/DIeogL5L.js","_app/immutable/chunks/BfbtqWii.js","_app/immutable/entry/app.B9sU-RsI.js","_app/immutable/chunks/BN47qgBQ.js","_app/immutable/chunks/CYH0RKHD.js","_app/immutable/chunks/DIeogL5L.js","_app/immutable/chunks/DbLt3Tit.js","_app/immutable/chunks/CuIOfsjH.js","_app/immutable/chunks/Bg9kRutz.js","_app/immutable/chunks/DF-hwDfc.js","_app/immutable/chunks/BpkLHP8I.js","_app/immutable/chunks/DRzKVaDG.js","_app/immutable/chunks/DbyC7Uin.js","_app/immutable/chunks/BfbtqWii.js","_app/immutable/chunks/Du1wYa_y.js"],stylesheets:[],fonts:[],uses_env_dynamic_public:false},
 		nodes: [
-			__memo(() => import('./chunks/0-BxE_ikyQ.js')),
-			__memo(() => import('./chunks/1-DMI0DQC3.js')),
-			__memo(() => import('./chunks/2-B75zYHrf.js')),
-			__memo(() => import('./chunks/3-BHy6iQQ0.js')),
-			__memo(() => import('./chunks/4-CJvD-JyV.js')),
-			__memo(() => import('./chunks/5-Bz4562nM.js')),
-			__memo(() => import('./chunks/6-BaiOrAuE.js')),
-			__memo(() => import('./chunks/7-CmNNDcHL.js')),
-			__memo(() => import('./chunks/8-DuPxAMrZ.js')),
-			__memo(() => import('./chunks/9-CqfmPm7d.js')),
-			__memo(() => import('./chunks/10-DEZQNfxi.js')),
-			__memo(() => import('./chunks/11-CXOGZLu9.js')),
-			__memo(() => import('./chunks/12-B9G2JBRI.js')),
-			__memo(() => import('./chunks/13-i-orCizF.js')),
-			__memo(() => import('./chunks/14-BlLoGkRR.js')),
-			__memo(() => import('./chunks/15-CE6XcmOQ.js')),
-			__memo(() => import('./chunks/16-COZkMGdp.js')),
-			__memo(() => import('./chunks/17-O2NYvK0Q.js')),
-			__memo(() => import('./chunks/18-BpAmOIHr.js')),
-			__memo(() => import('./chunks/19-C4PoKtyd.js'))
+			__memo(() => import('./chunks/0-CEwPcrtY.js')),
+			__memo(() => import('./chunks/1-CiwqRNle.js')),
+			__memo(() => import('./chunks/2-DrO7vbjF.js')),
+			__memo(() => import('./chunks/3-BNop539L.js')),
+			__memo(() => import('./chunks/4-Drq74i8L.js')),
+			__memo(() => import('./chunks/5-DZ9xmVZM.js')),
+			__memo(() => import('./chunks/6-CgYqkl11.js')),
+			__memo(() => import('./chunks/7-DMUltzE7.js')),
+			__memo(() => import('./chunks/8-BEPTtPue.js')),
+			__memo(() => import('./chunks/9-C7gwt0iL.js')),
+			__memo(() => import('./chunks/10-FtghSuB-.js')),
+			__memo(() => import('./chunks/11-B4wjd9nJ.js')),
+			__memo(() => import('./chunks/12-i9rrdad9.js')),
+			__memo(() => import('./chunks/13-1H7rKCT7.js')),
+			__memo(() => import('./chunks/14-PFjpv2Bw.js')),
+			__memo(() => import('./chunks/15-CoVtU5Ei.js')),
+			__memo(() => import('./chunks/16-CozxzB5a.js')),
+			__memo(() => import('./chunks/17-CEt1vqq4.js')),
+			__memo(() => import('./chunks/18-DvJYhmE2.js')),
+			__memo(() => import('./chunks/19-C0HHBdhi.js')),
+			__memo(() => import('./chunks/20-CBBwfyr4.js'))
 		],
 		routes: [
 			{
@@ -45,7 +46,7 @@ return {
 				id: "/about",
 				pattern: /^\/about\/?$/,
 				params: [],
-				page: { layouts: [0,], errors: [1,], leaf: 7 },
+				page: { layouts: [0,], errors: [1,], leaf: 8 },
 				endpoint: null
 			},
 			{
@@ -59,112 +60,119 @@ return {
 				id: "/dashboard",
 				pattern: /^\/dashboard\/?$/,
 				params: [],
-				page: { layouts: [0,2,], errors: [1,,], leaf: 8 },
+				page: { layouts: [0,2,], errors: [1,,], leaf: 9 },
 				endpoint: null
 			},
 			{
 				id: "/dashboard/cookbooks",
 				pattern: /^\/dashboard\/cookbooks\/?$/,
 				params: [],
-				page: { layouts: [0,2,], errors: [1,,], leaf: 9 },
+				page: { layouts: [0,2,], errors: [1,,], leaf: 10 },
 				endpoint: null
 			},
 			{
 				id: "/dashboard/inventory",
 				pattern: /^\/dashboard\/inventory\/?$/,
 				params: [],
-				page: { layouts: [0,2,], errors: [1,,], leaf: 10 },
+				page: { layouts: [0,2,], errors: [1,,], leaf: 11 },
 				endpoint: null
 			},
 			{
 				id: "/dashboard/kitchen",
 				pattern: /^\/dashboard\/kitchen\/?$/,
 				params: [],
-				page: { layouts: [0,2,], errors: [1,,], leaf: 11 },
+				page: { layouts: [0,2,], errors: [1,,], leaf: 12 },
 				endpoint: null
 			},
 			{
 				id: "/dashboard/kitchen/recipe/[id]",
 				pattern: /^\/dashboard\/kitchen\/recipe\/([^/]+?)\/?$/,
 				params: [{"name":"id","optional":false,"rest":false,"chained":false}],
-				page: { layouts: [0,2,], errors: [1,,], leaf: 12 },
+				page: { layouts: [0,2,], errors: [1,,], leaf: 13 },
 				endpoint: null
 			},
 			{
 				id: "/dashboard/menus",
 				pattern: /^\/dashboard\/menus\/?$/,
 				params: [],
-				page: { layouts: [0,2,], errors: [1,,], leaf: 13 },
+				page: { layouts: [0,2,], errors: [1,,], leaf: 14 },
 				endpoint: null
 			},
 			{
 				id: "/dashboard/organization",
 				pattern: /^\/dashboard\/organization\/?$/,
 				params: [],
-				page: { layouts: [0,2,], errors: [1,,], leaf: 14 },
+				page: { layouts: [0,2,], errors: [1,,], leaf: 15 },
 				endpoint: null
 			},
 			{
 				id: "/dashboard/profile",
 				pattern: /^\/dashboard\/profile\/?$/,
 				params: [],
-				page: { layouts: [0,2,], errors: [1,,], leaf: 15 },
+				page: { layouts: [0,2,], errors: [1,,], leaf: 16 },
 				endpoint: null
 			},
 			{
 				id: "/dashboard/schedules",
 				pattern: /^\/dashboard\/schedules\/?$/,
 				params: [],
-				page: { layouts: [0,2,], errors: [1,,], leaf: 16 },
+				page: { layouts: [0,2,], errors: [1,,], leaf: 17 },
 				endpoint: null
 			},
 			{
 				id: "/dashboard/settings",
 				pattern: /^\/dashboard\/settings\/?$/,
 				params: [],
-				page: { layouts: [0,2,], errors: [1,,], leaf: 17 },
+				page: { layouts: [0,2,], errors: [1,,], leaf: 18 },
 				endpoint: null
 			},
 			{
 				id: "/dashboard/staff",
 				pattern: /^\/dashboard\/staff\/?$/,
 				params: [],
-				page: { layouts: [0,2,], errors: [1,,], leaf: 18 },
+				page: { layouts: [0,2,], errors: [1,,], leaf: 19 },
 				endpoint: null
 			},
 			{
 				id: "/docs/[...slug]",
 				pattern: /^\/docs(?:\/(.*))?\/?$/,
 				params: [{"name":"slug","optional":false,"rest":true,"chained":true}],
-				page: { layouts: [0,], errors: [1,], leaf: 19 },
+				page: { layouts: [0,], errors: [1,], leaf: 20 },
 				endpoint: null
 			},
 			{
 				id: "/(auth)/forgot-password",
 				pattern: /^\/forgot-password\/?$/,
 				params: [],
-				page: { layouts: [0,], errors: [1,], leaf: 4 },
+				page: { layouts: [0,], errors: [1,], leaf: 5 },
 				endpoint: null
 			},
 			{
 				id: "/(auth)/login",
 				pattern: /^\/login\/?$/,
 				params: [],
-				page: { layouts: [0,], errors: [1,], leaf: 5 },
+				page: { layouts: [0,], errors: [1,], leaf: 6 },
 				endpoint: null
 			},
 			{
 				id: "/(auth)/register",
 				pattern: /^\/register\/?$/,
 				params: [],
-				page: { layouts: [0,], errors: [1,], leaf: 6 },
+				page: { layouts: [0,], errors: [1,], leaf: 7 },
+				endpoint: null
+			},
+			{
+				id: "/(auth)/[authType=authType]",
+				pattern: /^\/([^/]+?)\/?$/,
+				params: [{"name":"authType","matcher":"authType","optional":false,"rest":false,"chained":false}],
+				page: { layouts: [0,], errors: [1,], leaf: 4 },
 				endpoint: null
 			}
 		],
 		prerendered_routes: new Set([]),
 		matchers: async () => {
-			
-			return {  };
+			const { match: authType } = await import ('./chunks/authType-BsO0irlg.js');
+			return { authType };
 		},
 		server_assets: {}
 	}

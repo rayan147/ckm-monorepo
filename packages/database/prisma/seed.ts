@@ -401,35 +401,25 @@ async function createRecipeIngredient(recipeId: number, ingredientId: number) {
   const unit = getRandomUnit()
   const quantity = faker.number.float({ min: 0.1, max: 10 });
 
-  // Update to use proper unique constraint
-  const existingIngredient = await prisma.recipeIngredient.findFirst({
+  return prisma.recipeIngredient.upsert({
     where: {
+      recipeId_ingredientId: {
+        recipeId,
+        ingredientId
+      }
+    },
+    update: {
+      quantity,
+      unit
+    },
+    create: {
       recipeId,
       ingredientId,
-      recipeVersionId: null // Since we're not using versioning in this simple case
-    },
-  });
+      quantity,
+      unit
+    }
+  })
 
-  if (existingIngredient) {
-    return prisma.recipeIngredient.update({
-      where: {
-        id: existingIngredient.id,
-      },
-      data: {
-        quantity,
-        unit,
-      },
-    });
-  } else {
-    return prisma.recipeIngredient.create({
-      data: {
-        recipeId,
-        ingredientId,
-        quantity,
-        unit,
-      },
-    });
-  }
 }
 
 // Helper function to generate realistic cooking instructions
@@ -529,7 +519,7 @@ async function createSession(userId: number) {
       userId,
       token: faker.string.uuid(),
       expiresAt: faker.date.future(),
-      code: faker.string.nanoid(),
+      verificationCode: faker.string.nanoid(),
     },
   });
 }

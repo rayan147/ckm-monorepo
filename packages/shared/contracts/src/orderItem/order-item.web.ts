@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { initContract } from '@ts-rest/core';
-import { OrderItemCreateSchema, OrderItemSchema, OrderItemUpdateSchema } from '../../../types/src'
+import { zodSchemas } from '@ckm/db';
 
 const c = initContract();
 
@@ -11,17 +11,17 @@ export const orderItemContract = c.router({
     method: 'POST',
     path: '/order-items',
     responses: {
-      201: OrderItemSchema,
+      201: zodSchemas.OrderItemSchema,
       400: z.object({ message: z.string() }),
     },
-    body: OrderItemCreateSchema,
+    body: zodSchemas.OrderItemCreateInputSchema,
     summary: 'Create a new order item',
   },
   getOrderItems: {
     method: 'GET',
     path: '/order-items',
     responses: {
-      200: z.array(OrderItemSchema),
+      200: z.array(zodSchemas.OrderItemSchema),
     },
     query: z.object({
       orderId: z.string().optional(),
@@ -34,10 +34,10 @@ export const orderItemContract = c.router({
     method: 'GET',
     path: '/order-items/:id',
     pathParams: z.object({
-        id: z.coerce.number()
+      id: z.coerce.number()
     }),
     responses: {
-      200: OrderItemSchema,
+      200: zodSchemas.OrderItemSchema,
       404: z.object({ message: z.string() }),
     },
     summary: 'Get an order item by ID',
@@ -46,23 +46,23 @@ export const orderItemContract = c.router({
     method: 'PUT',
     path: '/order-items/:id',
     pathParams: z.object({
-        id: z.coerce.number()
+      id: z.coerce.number()
     }),
     responses: {
-      200: OrderItemSchema,
+      200: zodSchemas.OrderItemSchema,
       404: z.object({ message: z.string() }),
     },
-    body: OrderItemUpdateSchema,
+    body: zodSchemas.OrderItemUpdateInputSchema,
     summary: 'Update an order item',
   },
   deleteOrderItem: {
     method: 'DELETE',
     path: '/order-items/:id',
     pathParams: z.object({
-        id: z.coerce.number()
+      id: z.coerce.number()
     }),
     responses: {
-      200: OrderItemSchema,
+      200: zodSchemas.OrderItemSchema,
       404: z.object({ message: z.string() }),
     },
     summary: 'Delete an order item',

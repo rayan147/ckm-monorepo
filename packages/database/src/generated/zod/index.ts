@@ -84,9 +84,11 @@ export const InventoryScalarFieldEnumSchema = z.enum(['id','restaurantId','name'
 
 export const RestaurantScalarFieldEnumSchema = z.enum(['id','name','imageUrl','address','city','zipCode','state','owner','organizationId','foodCost','createdAt','updatedAt','isDeleted','deleted']);
 
-export const UserScalarFieldEnumSchema = z.enum(['id','email','sub','passwordHash','firstName','lastName','profileImage','verified','role','organizationId','restaurantId','createdAt','updatedAt']);
+export const UserScalarFieldEnumSchema = z.enum(['id','email','sub','firstName','lastName','profileImage','organizationId','restaurantId','createdAt','updatedAt']);
 
-export const SessionScalarFieldEnumSchema = z.enum(['id','userId','code','token','expiresAt','createdAt']);
+export const AuthScalarFieldEnumSchema = z.enum(['id','userId','passwordHash','role']);
+
+export const SessionScalarFieldEnumSchema = z.enum(['id','userId','verificationCode','token','verified','expiresAt','createdAt']);
 
 export const CookBookScalarFieldEnumSchema = z.enum(['id','name','imageUrl','category','restaurantId']);
 
@@ -864,15 +866,12 @@ export type Restaurant = z.infer<typeof RestaurantSchema>
 /////////////////////////////////////////
 
 export const UserSchema = z.object({
-  role: UserRoleSchema,
   id: z.number().int(),
   email: z.string(),
   sub: z.number().int().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().nullable(),
-  verified: z.boolean(),
   organizationId: z.number().int().nullable(),
   restaurantId: z.number().int().nullable(),
   createdAt: z.coerce.date(),
@@ -882,14 +881,28 @@ export const UserSchema = z.object({
 export type User = z.infer<typeof UserSchema>
 
 /////////////////////////////////////////
+// AUTH SCHEMA
+/////////////////////////////////////////
+
+export const AuthSchema = z.object({
+  role: UserRoleSchema,
+  id: z.string().uuid(),
+  userId: z.number().int(),
+  passwordHash: z.string(),
+})
+
+export type Auth = z.infer<typeof AuthSchema>
+
+/////////////////////////////////////////
 // SESSION SCHEMA
 /////////////////////////////////////////
 
 export const SessionSchema = z.object({
   id: z.string().uuid(),
   userId: z.number().int(),
-  code: z.string(),
+  verificationCode: z.string(),
   token: z.string(),
+  verified: z.boolean(),
   expiresAt: z.coerce.date(),
   createdAt: z.coerce.date(),
 })
@@ -2453,6 +2466,7 @@ export const UserIncludeSchema: z.ZodType<Prisma.UserInclude> = z.object({
   recipeVersionsApproved: z.union([z.boolean(),z.lazy(() => RecipeVersionFindManyArgsSchema)]).optional(),
   InventoryTransactions: z.union([z.boolean(),z.lazy(() => InventoryTransactionFindManyArgsSchema)]).optional(),
   StockCounts: z.union([z.boolean(),z.lazy(() => StockCountFindManyArgsSchema)]).optional(),
+  auth: z.union([z.boolean(),z.lazy(() => AuthFindManyArgsSchema)]).optional(),
   _count: z.union([z.boolean(),z.lazy(() => UserCountOutputTypeArgsSchema)]).optional(),
 }).strict()
 
@@ -2484,18 +2498,16 @@ export const UserCountOutputTypeSelectSchema: z.ZodType<Prisma.UserCountOutputTy
   recipeVersionsApproved: z.boolean().optional(),
   InventoryTransactions: z.boolean().optional(),
   StockCounts: z.boolean().optional(),
+  auth: z.boolean().optional(),
 }).strict();
 
 export const UserSelectSchema: z.ZodType<Prisma.UserSelect> = z.object({
   id: z.boolean().optional(),
   email: z.boolean().optional(),
   sub: z.boolean().optional(),
-  passwordHash: z.boolean().optional(),
   firstName: z.boolean().optional(),
   lastName: z.boolean().optional(),
   profileImage: z.boolean().optional(),
-  verified: z.boolean().optional(),
-  role: z.boolean().optional(),
   organizationId: z.boolean().optional(),
   restaurantId: z.boolean().optional(),
   createdAt: z.boolean().optional(),
@@ -2520,7 +2532,28 @@ export const UserSelectSchema: z.ZodType<Prisma.UserSelect> = z.object({
   recipeVersionsApproved: z.union([z.boolean(),z.lazy(() => RecipeVersionFindManyArgsSchema)]).optional(),
   InventoryTransactions: z.union([z.boolean(),z.lazy(() => InventoryTransactionFindManyArgsSchema)]).optional(),
   StockCounts: z.union([z.boolean(),z.lazy(() => StockCountFindManyArgsSchema)]).optional(),
+  auth: z.union([z.boolean(),z.lazy(() => AuthFindManyArgsSchema)]).optional(),
   _count: z.union([z.boolean(),z.lazy(() => UserCountOutputTypeArgsSchema)]).optional(),
+}).strict()
+
+// AUTH
+//------------------------------------------------------
+
+export const AuthIncludeSchema: z.ZodType<Prisma.AuthInclude> = z.object({
+  user: z.union([z.boolean(),z.lazy(() => UserArgsSchema)]).optional(),
+}).strict()
+
+export const AuthArgsSchema: z.ZodType<Prisma.AuthDefaultArgs> = z.object({
+  select: z.lazy(() => AuthSelectSchema).optional(),
+  include: z.lazy(() => AuthIncludeSchema).optional(),
+}).strict();
+
+export const AuthSelectSchema: z.ZodType<Prisma.AuthSelect> = z.object({
+  id: z.boolean().optional(),
+  userId: z.boolean().optional(),
+  passwordHash: z.boolean().optional(),
+  role: z.boolean().optional(),
+  user: z.union([z.boolean(),z.lazy(() => UserArgsSchema)]).optional(),
 }).strict()
 
 // SESSION
@@ -2538,8 +2571,9 @@ export const SessionArgsSchema: z.ZodType<Prisma.SessionDefaultArgs> = z.object(
 export const SessionSelectSchema: z.ZodType<Prisma.SessionSelect> = z.object({
   id: z.boolean().optional(),
   userId: z.boolean().optional(),
-  code: z.boolean().optional(),
+  verificationCode: z.boolean().optional(),
   token: z.boolean().optional(),
+  verified: z.boolean().optional(),
   expiresAt: z.boolean().optional(),
   createdAt: z.boolean().optional(),
   user: z.union([z.boolean(),z.lazy(() => UserArgsSchema)]).optional(),
@@ -6460,12 +6494,9 @@ export const UserWhereInputSchema: z.ZodType<Prisma.UserWhereInput> = z.object({
   id: z.union([ z.lazy(() => IntFilterSchema),z.number() ]).optional(),
   email: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
   sub: z.union([ z.lazy(() => IntNullableFilterSchema),z.number() ]).optional().nullable(),
-  passwordHash: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
   firstName: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
   lastName: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
   profileImage: z.union([ z.lazy(() => StringNullableFilterSchema),z.string() ]).optional().nullable(),
-  verified: z.union([ z.lazy(() => BoolFilterSchema),z.boolean() ]).optional(),
-  role: z.union([ z.lazy(() => EnumUserRoleFilterSchema),z.lazy(() => UserRoleSchema) ]).optional(),
   organizationId: z.union([ z.lazy(() => IntNullableFilterSchema),z.number() ]).optional().nullable(),
   restaurantId: z.union([ z.lazy(() => IntNullableFilterSchema),z.number() ]).optional().nullable(),
   createdAt: z.union([ z.lazy(() => DateTimeFilterSchema),z.coerce.date() ]).optional(),
@@ -6489,19 +6520,17 @@ export const UserWhereInputSchema: z.ZodType<Prisma.UserWhereInput> = z.object({
   recipeVersionsCreated: z.lazy(() => RecipeVersionListRelationFilterSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionListRelationFilterSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionListRelationFilterSchema).optional(),
-  StockCounts: z.lazy(() => StockCountListRelationFilterSchema).optional()
+  StockCounts: z.lazy(() => StockCountListRelationFilterSchema).optional(),
+  auth: z.lazy(() => AuthListRelationFilterSchema).optional()
 }).strict();
 
 export const UserOrderByWithRelationInputSchema: z.ZodType<Prisma.UserOrderByWithRelationInput> = z.object({
   id: z.lazy(() => SortOrderSchema).optional(),
   email: z.lazy(() => SortOrderSchema).optional(),
   sub: z.union([ z.lazy(() => SortOrderSchema),z.lazy(() => SortOrderInputSchema) ]).optional(),
-  passwordHash: z.lazy(() => SortOrderSchema).optional(),
   firstName: z.lazy(() => SortOrderSchema).optional(),
   lastName: z.lazy(() => SortOrderSchema).optional(),
   profileImage: z.union([ z.lazy(() => SortOrderSchema),z.lazy(() => SortOrderInputSchema) ]).optional(),
-  verified: z.lazy(() => SortOrderSchema).optional(),
-  role: z.lazy(() => SortOrderSchema).optional(),
   organizationId: z.union([ z.lazy(() => SortOrderSchema),z.lazy(() => SortOrderInputSchema) ]).optional(),
   restaurantId: z.union([ z.lazy(() => SortOrderSchema),z.lazy(() => SortOrderInputSchema) ]).optional(),
   createdAt: z.lazy(() => SortOrderSchema).optional(),
@@ -6525,7 +6554,8 @@ export const UserOrderByWithRelationInputSchema: z.ZodType<Prisma.UserOrderByWit
   recipeVersionsCreated: z.lazy(() => RecipeVersionOrderByRelationAggregateInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionOrderByRelationAggregateInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionOrderByRelationAggregateInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountOrderByRelationAggregateInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountOrderByRelationAggregateInputSchema).optional(),
+  auth: z.lazy(() => AuthOrderByRelationAggregateInputSchema).optional()
 }).strict();
 
 export const UserWhereUniqueInputSchema: z.ZodType<Prisma.UserWhereUniqueInput> = z.union([
@@ -6563,12 +6593,9 @@ export const UserWhereUniqueInputSchema: z.ZodType<Prisma.UserWhereUniqueInput> 
   AND: z.union([ z.lazy(() => UserWhereInputSchema),z.lazy(() => UserWhereInputSchema).array() ]).optional(),
   OR: z.lazy(() => UserWhereInputSchema).array().optional(),
   NOT: z.union([ z.lazy(() => UserWhereInputSchema),z.lazy(() => UserWhereInputSchema).array() ]).optional(),
-  passwordHash: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
   firstName: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
   lastName: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
   profileImage: z.union([ z.lazy(() => StringNullableFilterSchema),z.string() ]).optional().nullable(),
-  verified: z.union([ z.lazy(() => BoolFilterSchema),z.boolean() ]).optional(),
-  role: z.union([ z.lazy(() => EnumUserRoleFilterSchema),z.lazy(() => UserRoleSchema) ]).optional(),
   organizationId: z.union([ z.lazy(() => IntNullableFilterSchema),z.number().int() ]).optional().nullable(),
   restaurantId: z.union([ z.lazy(() => IntNullableFilterSchema),z.number().int() ]).optional().nullable(),
   createdAt: z.union([ z.lazy(() => DateTimeFilterSchema),z.coerce.date() ]).optional(),
@@ -6592,19 +6619,17 @@ export const UserWhereUniqueInputSchema: z.ZodType<Prisma.UserWhereUniqueInput> 
   recipeVersionsCreated: z.lazy(() => RecipeVersionListRelationFilterSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionListRelationFilterSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionListRelationFilterSchema).optional(),
-  StockCounts: z.lazy(() => StockCountListRelationFilterSchema).optional()
+  StockCounts: z.lazy(() => StockCountListRelationFilterSchema).optional(),
+  auth: z.lazy(() => AuthListRelationFilterSchema).optional()
 }).strict());
 
 export const UserOrderByWithAggregationInputSchema: z.ZodType<Prisma.UserOrderByWithAggregationInput> = z.object({
   id: z.lazy(() => SortOrderSchema).optional(),
   email: z.lazy(() => SortOrderSchema).optional(),
   sub: z.union([ z.lazy(() => SortOrderSchema),z.lazy(() => SortOrderInputSchema) ]).optional(),
-  passwordHash: z.lazy(() => SortOrderSchema).optional(),
   firstName: z.lazy(() => SortOrderSchema).optional(),
   lastName: z.lazy(() => SortOrderSchema).optional(),
   profileImage: z.union([ z.lazy(() => SortOrderSchema),z.lazy(() => SortOrderInputSchema) ]).optional(),
-  verified: z.lazy(() => SortOrderSchema).optional(),
-  role: z.lazy(() => SortOrderSchema).optional(),
   organizationId: z.union([ z.lazy(() => SortOrderSchema),z.lazy(() => SortOrderInputSchema) ]).optional(),
   restaurantId: z.union([ z.lazy(() => SortOrderSchema),z.lazy(() => SortOrderInputSchema) ]).optional(),
   createdAt: z.lazy(() => SortOrderSchema).optional(),
@@ -6623,16 +6648,77 @@ export const UserScalarWhereWithAggregatesInputSchema: z.ZodType<Prisma.UserScal
   id: z.union([ z.lazy(() => IntWithAggregatesFilterSchema),z.number() ]).optional(),
   email: z.union([ z.lazy(() => StringWithAggregatesFilterSchema),z.string() ]).optional(),
   sub: z.union([ z.lazy(() => IntNullableWithAggregatesFilterSchema),z.number() ]).optional().nullable(),
-  passwordHash: z.union([ z.lazy(() => StringWithAggregatesFilterSchema),z.string() ]).optional(),
   firstName: z.union([ z.lazy(() => StringWithAggregatesFilterSchema),z.string() ]).optional(),
   lastName: z.union([ z.lazy(() => StringWithAggregatesFilterSchema),z.string() ]).optional(),
   profileImage: z.union([ z.lazy(() => StringNullableWithAggregatesFilterSchema),z.string() ]).optional().nullable(),
-  verified: z.union([ z.lazy(() => BoolWithAggregatesFilterSchema),z.boolean() ]).optional(),
-  role: z.union([ z.lazy(() => EnumUserRoleWithAggregatesFilterSchema),z.lazy(() => UserRoleSchema) ]).optional(),
   organizationId: z.union([ z.lazy(() => IntNullableWithAggregatesFilterSchema),z.number() ]).optional().nullable(),
   restaurantId: z.union([ z.lazy(() => IntNullableWithAggregatesFilterSchema),z.number() ]).optional().nullable(),
   createdAt: z.union([ z.lazy(() => DateTimeWithAggregatesFilterSchema),z.coerce.date() ]).optional(),
   updatedAt: z.union([ z.lazy(() => DateTimeWithAggregatesFilterSchema),z.coerce.date() ]).optional(),
+}).strict();
+
+export const AuthWhereInputSchema: z.ZodType<Prisma.AuthWhereInput> = z.object({
+  AND: z.union([ z.lazy(() => AuthWhereInputSchema),z.lazy(() => AuthWhereInputSchema).array() ]).optional(),
+  OR: z.lazy(() => AuthWhereInputSchema).array().optional(),
+  NOT: z.union([ z.lazy(() => AuthWhereInputSchema),z.lazy(() => AuthWhereInputSchema).array() ]).optional(),
+  id: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
+  userId: z.union([ z.lazy(() => IntFilterSchema),z.number() ]).optional(),
+  passwordHash: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
+  role: z.union([ z.lazy(() => EnumUserRoleFilterSchema),z.lazy(() => UserRoleSchema) ]).optional(),
+  user: z.union([ z.lazy(() => UserScalarRelationFilterSchema),z.lazy(() => UserWhereInputSchema) ]).optional(),
+}).strict();
+
+export const AuthOrderByWithRelationInputSchema: z.ZodType<Prisma.AuthOrderByWithRelationInput> = z.object({
+  id: z.lazy(() => SortOrderSchema).optional(),
+  userId: z.lazy(() => SortOrderSchema).optional(),
+  passwordHash: z.lazy(() => SortOrderSchema).optional(),
+  role: z.lazy(() => SortOrderSchema).optional(),
+  user: z.lazy(() => UserOrderByWithRelationInputSchema).optional()
+}).strict();
+
+export const AuthWhereUniqueInputSchema: z.ZodType<Prisma.AuthWhereUniqueInput> = z.union([
+  z.object({
+    id: z.string().uuid(),
+    userId: z.number().int()
+  }),
+  z.object({
+    id: z.string().uuid(),
+  }),
+  z.object({
+    userId: z.number().int(),
+  }),
+])
+.and(z.object({
+  id: z.string().uuid().optional(),
+  userId: z.number().int().optional(),
+  AND: z.union([ z.lazy(() => AuthWhereInputSchema),z.lazy(() => AuthWhereInputSchema).array() ]).optional(),
+  OR: z.lazy(() => AuthWhereInputSchema).array().optional(),
+  NOT: z.union([ z.lazy(() => AuthWhereInputSchema),z.lazy(() => AuthWhereInputSchema).array() ]).optional(),
+  passwordHash: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
+  role: z.union([ z.lazy(() => EnumUserRoleFilterSchema),z.lazy(() => UserRoleSchema) ]).optional(),
+  user: z.union([ z.lazy(() => UserScalarRelationFilterSchema),z.lazy(() => UserWhereInputSchema) ]).optional(),
+}).strict());
+
+export const AuthOrderByWithAggregationInputSchema: z.ZodType<Prisma.AuthOrderByWithAggregationInput> = z.object({
+  id: z.lazy(() => SortOrderSchema).optional(),
+  userId: z.lazy(() => SortOrderSchema).optional(),
+  passwordHash: z.lazy(() => SortOrderSchema).optional(),
+  role: z.lazy(() => SortOrderSchema).optional(),
+  _count: z.lazy(() => AuthCountOrderByAggregateInputSchema).optional(),
+  _avg: z.lazy(() => AuthAvgOrderByAggregateInputSchema).optional(),
+  _max: z.lazy(() => AuthMaxOrderByAggregateInputSchema).optional(),
+  _min: z.lazy(() => AuthMinOrderByAggregateInputSchema).optional(),
+  _sum: z.lazy(() => AuthSumOrderByAggregateInputSchema).optional()
+}).strict();
+
+export const AuthScalarWhereWithAggregatesInputSchema: z.ZodType<Prisma.AuthScalarWhereWithAggregatesInput> = z.object({
+  AND: z.union([ z.lazy(() => AuthScalarWhereWithAggregatesInputSchema),z.lazy(() => AuthScalarWhereWithAggregatesInputSchema).array() ]).optional(),
+  OR: z.lazy(() => AuthScalarWhereWithAggregatesInputSchema).array().optional(),
+  NOT: z.union([ z.lazy(() => AuthScalarWhereWithAggregatesInputSchema),z.lazy(() => AuthScalarWhereWithAggregatesInputSchema).array() ]).optional(),
+  id: z.union([ z.lazy(() => StringWithAggregatesFilterSchema),z.string() ]).optional(),
+  userId: z.union([ z.lazy(() => IntWithAggregatesFilterSchema),z.number() ]).optional(),
+  passwordHash: z.union([ z.lazy(() => StringWithAggregatesFilterSchema),z.string() ]).optional(),
+  role: z.union([ z.lazy(() => EnumUserRoleWithAggregatesFilterSchema),z.lazy(() => UserRoleSchema) ]).optional(),
 }).strict();
 
 export const SessionWhereInputSchema: z.ZodType<Prisma.SessionWhereInput> = z.object({
@@ -6641,8 +6727,9 @@ export const SessionWhereInputSchema: z.ZodType<Prisma.SessionWhereInput> = z.ob
   NOT: z.union([ z.lazy(() => SessionWhereInputSchema),z.lazy(() => SessionWhereInputSchema).array() ]).optional(),
   id: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
   userId: z.union([ z.lazy(() => IntFilterSchema),z.number() ]).optional(),
-  code: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
+  verificationCode: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
   token: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
+  verified: z.union([ z.lazy(() => BoolFilterSchema),z.boolean() ]).optional(),
   expiresAt: z.union([ z.lazy(() => DateTimeFilterSchema),z.coerce.date() ]).optional(),
   createdAt: z.union([ z.lazy(() => DateTimeFilterSchema),z.coerce.date() ]).optional(),
   user: z.union([ z.lazy(() => UserScalarRelationFilterSchema),z.lazy(() => UserWhereInputSchema) ]).optional(),
@@ -6651,8 +6738,9 @@ export const SessionWhereInputSchema: z.ZodType<Prisma.SessionWhereInput> = z.ob
 export const SessionOrderByWithRelationInputSchema: z.ZodType<Prisma.SessionOrderByWithRelationInput> = z.object({
   id: z.lazy(() => SortOrderSchema).optional(),
   userId: z.lazy(() => SortOrderSchema).optional(),
-  code: z.lazy(() => SortOrderSchema).optional(),
+  verificationCode: z.lazy(() => SortOrderSchema).optional(),
   token: z.lazy(() => SortOrderSchema).optional(),
+  verified: z.lazy(() => SortOrderSchema).optional(),
   expiresAt: z.lazy(() => SortOrderSchema).optional(),
   createdAt: z.lazy(() => SortOrderSchema).optional(),
   user: z.lazy(() => UserOrderByWithRelationInputSchema).optional()
@@ -6661,12 +6749,12 @@ export const SessionOrderByWithRelationInputSchema: z.ZodType<Prisma.SessionOrde
 export const SessionWhereUniqueInputSchema: z.ZodType<Prisma.SessionWhereUniqueInput> = z.union([
   z.object({
     id: z.string().uuid(),
-    code: z.string(),
+    verificationCode: z.string(),
     token: z.string()
   }),
   z.object({
     id: z.string().uuid(),
-    code: z.string(),
+    verificationCode: z.string(),
   }),
   z.object({
     id: z.string().uuid(),
@@ -6676,11 +6764,11 @@ export const SessionWhereUniqueInputSchema: z.ZodType<Prisma.SessionWhereUniqueI
     id: z.string().uuid(),
   }),
   z.object({
-    code: z.string(),
+    verificationCode: z.string(),
     token: z.string(),
   }),
   z.object({
-    code: z.string(),
+    verificationCode: z.string(),
   }),
   z.object({
     token: z.string(),
@@ -6688,12 +6776,13 @@ export const SessionWhereUniqueInputSchema: z.ZodType<Prisma.SessionWhereUniqueI
 ])
 .and(z.object({
   id: z.string().uuid().optional(),
-  code: z.string().optional(),
+  verificationCode: z.string().optional(),
   token: z.string().optional(),
   AND: z.union([ z.lazy(() => SessionWhereInputSchema),z.lazy(() => SessionWhereInputSchema).array() ]).optional(),
   OR: z.lazy(() => SessionWhereInputSchema).array().optional(),
   NOT: z.union([ z.lazy(() => SessionWhereInputSchema),z.lazy(() => SessionWhereInputSchema).array() ]).optional(),
   userId: z.union([ z.lazy(() => IntFilterSchema),z.number().int() ]).optional(),
+  verified: z.union([ z.lazy(() => BoolFilterSchema),z.boolean() ]).optional(),
   expiresAt: z.union([ z.lazy(() => DateTimeFilterSchema),z.coerce.date() ]).optional(),
   createdAt: z.union([ z.lazy(() => DateTimeFilterSchema),z.coerce.date() ]).optional(),
   user: z.union([ z.lazy(() => UserScalarRelationFilterSchema),z.lazy(() => UserWhereInputSchema) ]).optional(),
@@ -6702,8 +6791,9 @@ export const SessionWhereUniqueInputSchema: z.ZodType<Prisma.SessionWhereUniqueI
 export const SessionOrderByWithAggregationInputSchema: z.ZodType<Prisma.SessionOrderByWithAggregationInput> = z.object({
   id: z.lazy(() => SortOrderSchema).optional(),
   userId: z.lazy(() => SortOrderSchema).optional(),
-  code: z.lazy(() => SortOrderSchema).optional(),
+  verificationCode: z.lazy(() => SortOrderSchema).optional(),
   token: z.lazy(() => SortOrderSchema).optional(),
+  verified: z.lazy(() => SortOrderSchema).optional(),
   expiresAt: z.lazy(() => SortOrderSchema).optional(),
   createdAt: z.lazy(() => SortOrderSchema).optional(),
   _count: z.lazy(() => SessionCountOrderByAggregateInputSchema).optional(),
@@ -6719,8 +6809,9 @@ export const SessionScalarWhereWithAggregatesInputSchema: z.ZodType<Prisma.Sessi
   NOT: z.union([ z.lazy(() => SessionScalarWhereWithAggregatesInputSchema),z.lazy(() => SessionScalarWhereWithAggregatesInputSchema).array() ]).optional(),
   id: z.union([ z.lazy(() => StringWithAggregatesFilterSchema),z.string() ]).optional(),
   userId: z.union([ z.lazy(() => IntWithAggregatesFilterSchema),z.number() ]).optional(),
-  code: z.union([ z.lazy(() => StringWithAggregatesFilterSchema),z.string() ]).optional(),
+  verificationCode: z.union([ z.lazy(() => StringWithAggregatesFilterSchema),z.string() ]).optional(),
   token: z.union([ z.lazy(() => StringWithAggregatesFilterSchema),z.string() ]).optional(),
+  verified: z.union([ z.lazy(() => BoolWithAggregatesFilterSchema),z.boolean() ]).optional(),
   expiresAt: z.union([ z.lazy(() => DateTimeWithAggregatesFilterSchema),z.coerce.date() ]).optional(),
   createdAt: z.union([ z.lazy(() => DateTimeWithAggregatesFilterSchema),z.coerce.date() ]).optional(),
 }).strict();
@@ -7177,12 +7268,12 @@ export const RecipeIngredientOrderByWithRelationInputSchema: z.ZodType<Prisma.Re
 export const RecipeIngredientWhereUniqueInputSchema: z.ZodType<Prisma.RecipeIngredientWhereUniqueInput> = z.union([
   z.object({
     id: z.number().int(),
-    unique_ingredient_per_version: z.lazy(() => RecipeIngredientUnique_ingredient_per_versionCompoundUniqueInputSchema),
+    recipeId_recipeVersionId: z.lazy(() => RecipeIngredientRecipeIdRecipeVersionIdCompoundUniqueInputSchema),
     recipeId_ingredientId: z.lazy(() => RecipeIngredientRecipeIdIngredientIdCompoundUniqueInputSchema)
   }),
   z.object({
     id: z.number().int(),
-    unique_ingredient_per_version: z.lazy(() => RecipeIngredientUnique_ingredient_per_versionCompoundUniqueInputSchema),
+    recipeId_recipeVersionId: z.lazy(() => RecipeIngredientRecipeIdRecipeVersionIdCompoundUniqueInputSchema),
   }),
   z.object({
     id: z.number().int(),
@@ -7192,11 +7283,11 @@ export const RecipeIngredientWhereUniqueInputSchema: z.ZodType<Prisma.RecipeIngr
     id: z.number().int(),
   }),
   z.object({
-    unique_ingredient_per_version: z.lazy(() => RecipeIngredientUnique_ingredient_per_versionCompoundUniqueInputSchema),
+    recipeId_recipeVersionId: z.lazy(() => RecipeIngredientRecipeIdRecipeVersionIdCompoundUniqueInputSchema),
     recipeId_ingredientId: z.lazy(() => RecipeIngredientRecipeIdIngredientIdCompoundUniqueInputSchema),
   }),
   z.object({
-    unique_ingredient_per_version: z.lazy(() => RecipeIngredientUnique_ingredient_per_versionCompoundUniqueInputSchema),
+    recipeId_recipeVersionId: z.lazy(() => RecipeIngredientRecipeIdRecipeVersionIdCompoundUniqueInputSchema),
   }),
   z.object({
     recipeId_ingredientId: z.lazy(() => RecipeIngredientRecipeIdIngredientIdCompoundUniqueInputSchema),
@@ -7204,7 +7295,7 @@ export const RecipeIngredientWhereUniqueInputSchema: z.ZodType<Prisma.RecipeIngr
 ])
 .and(z.object({
   id: z.number().int().optional(),
-  unique_ingredient_per_version: z.lazy(() => RecipeIngredientUnique_ingredient_per_versionCompoundUniqueInputSchema).optional(),
+  recipeId_recipeVersionId: z.lazy(() => RecipeIngredientRecipeIdRecipeVersionIdCompoundUniqueInputSchema).optional(),
   recipeId_ingredientId: z.lazy(() => RecipeIngredientRecipeIdIngredientIdCompoundUniqueInputSchema).optional(),
   AND: z.union([ z.lazy(() => RecipeIngredientWhereInputSchema),z.lazy(() => RecipeIngredientWhereInputSchema).array() ]).optional(),
   OR: z.lazy(() => RecipeIngredientWhereInputSchema).array().optional(),
@@ -11748,12 +11839,9 @@ export const RestaurantUncheckedUpdateManyInputSchema: z.ZodType<Prisma.Restaura
 export const UserCreateInputSchema: z.ZodType<Prisma.UserCreateInput> = z.object({
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   organization: z.lazy(() => OrganizationCreateNestedOneWithoutUsersInputSchema).optional(),
@@ -11775,19 +11863,17 @@ export const UserCreateInputSchema: z.ZodType<Prisma.UserCreateInput> = z.object
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserUncheckedCreateInputSchema: z.ZodType<Prisma.UserUncheckedCreateInput> = z.object({
   id: z.number().int().optional(),
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   organizationId: z.number().int().optional().nullable(),
   restaurantId: z.number().int().optional().nullable(),
   createdAt: z.coerce.date().optional(),
@@ -11809,18 +11895,16 @@ export const UserUncheckedCreateInputSchema: z.ZodType<Prisma.UserUncheckedCreat
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserUpdateInputSchema: z.ZodType<Prisma.UserUpdateInput> = z.object({
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   organization: z.lazy(() => OrganizationUpdateOneWithoutUsersNestedInputSchema).optional(),
@@ -11842,19 +11926,17 @@ export const UserUpdateInputSchema: z.ZodType<Prisma.UserUpdateInput> = z.object
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const UserUncheckedUpdateInputSchema: z.ZodType<Prisma.UserUncheckedUpdateInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   organizationId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   restaurantId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -11876,19 +11958,17 @@ export const UserUncheckedUpdateInputSchema: z.ZodType<Prisma.UserUncheckedUpdat
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const UserCreateManyInputSchema: z.ZodType<Prisma.UserCreateManyInput> = z.object({
   id: z.number().int().optional(),
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   organizationId: z.number().int().optional().nullable(),
   restaurantId: z.number().int().optional().nullable(),
   createdAt: z.coerce.date().optional(),
@@ -11898,12 +11978,9 @@ export const UserCreateManyInputSchema: z.ZodType<Prisma.UserCreateManyInput> = 
 export const UserUpdateManyMutationInputSchema: z.ZodType<Prisma.UserUpdateManyMutationInput> = z.object({
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
 }).strict();
@@ -11912,22 +11989,68 @@ export const UserUncheckedUpdateManyInputSchema: z.ZodType<Prisma.UserUncheckedU
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   organizationId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   restaurantId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
 }).strict();
 
+export const AuthCreateInputSchema: z.ZodType<Prisma.AuthCreateInput> = z.object({
+  id: z.string().uuid().optional(),
+  passwordHash: z.string(),
+  role: z.lazy(() => UserRoleSchema).optional(),
+  user: z.lazy(() => UserCreateNestedOneWithoutAuthInputSchema)
+}).strict();
+
+export const AuthUncheckedCreateInputSchema: z.ZodType<Prisma.AuthUncheckedCreateInput> = z.object({
+  id: z.string().uuid().optional(),
+  userId: z.number().int(),
+  passwordHash: z.string(),
+  role: z.lazy(() => UserRoleSchema).optional()
+}).strict();
+
+export const AuthUpdateInputSchema: z.ZodType<Prisma.AuthUpdateInput> = z.object({
+  id: z.union([ z.string().uuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
+  user: z.lazy(() => UserUpdateOneRequiredWithoutAuthNestedInputSchema).optional()
+}).strict();
+
+export const AuthUncheckedUpdateInputSchema: z.ZodType<Prisma.AuthUncheckedUpdateInput> = z.object({
+  id: z.union([ z.string().uuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  userId: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
+  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
+}).strict();
+
+export const AuthCreateManyInputSchema: z.ZodType<Prisma.AuthCreateManyInput> = z.object({
+  id: z.string().uuid().optional(),
+  userId: z.number().int(),
+  passwordHash: z.string(),
+  role: z.lazy(() => UserRoleSchema).optional()
+}).strict();
+
+export const AuthUpdateManyMutationInputSchema: z.ZodType<Prisma.AuthUpdateManyMutationInput> = z.object({
+  id: z.union([ z.string().uuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
+}).strict();
+
+export const AuthUncheckedUpdateManyInputSchema: z.ZodType<Prisma.AuthUncheckedUpdateManyInput> = z.object({
+  id: z.union([ z.string().uuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  userId: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
+  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
+}).strict();
+
 export const SessionCreateInputSchema: z.ZodType<Prisma.SessionCreateInput> = z.object({
   id: z.string().uuid().optional(),
-  code: z.string(),
+  verificationCode: z.string(),
   token: z.string(),
+  verified: z.boolean().optional(),
   expiresAt: z.coerce.date(),
   createdAt: z.coerce.date().optional(),
   user: z.lazy(() => UserCreateNestedOneWithoutSessionsInputSchema)
@@ -11936,16 +12059,18 @@ export const SessionCreateInputSchema: z.ZodType<Prisma.SessionCreateInput> = z.
 export const SessionUncheckedCreateInputSchema: z.ZodType<Prisma.SessionUncheckedCreateInput> = z.object({
   id: z.string().uuid().optional(),
   userId: z.number().int(),
-  code: z.string(),
+  verificationCode: z.string(),
   token: z.string(),
+  verified: z.boolean().optional(),
   expiresAt: z.coerce.date(),
   createdAt: z.coerce.date().optional()
 }).strict();
 
 export const SessionUpdateInputSchema: z.ZodType<Prisma.SessionUpdateInput> = z.object({
   id: z.union([ z.string().uuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
-  code: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  verificationCode: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   token: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
   expiresAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   user: z.lazy(() => UserUpdateOneRequiredWithoutSessionsNestedInputSchema).optional()
@@ -11954,8 +12079,9 @@ export const SessionUpdateInputSchema: z.ZodType<Prisma.SessionUpdateInput> = z.
 export const SessionUncheckedUpdateInputSchema: z.ZodType<Prisma.SessionUncheckedUpdateInput> = z.object({
   id: z.union([ z.string().uuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   userId: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
-  code: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  verificationCode: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   token: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
   expiresAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
 }).strict();
@@ -11963,16 +12089,18 @@ export const SessionUncheckedUpdateInputSchema: z.ZodType<Prisma.SessionUnchecke
 export const SessionCreateManyInputSchema: z.ZodType<Prisma.SessionCreateManyInput> = z.object({
   id: z.string().uuid().optional(),
   userId: z.number().int(),
-  code: z.string(),
+  verificationCode: z.string(),
   token: z.string(),
+  verified: z.boolean().optional(),
   expiresAt: z.coerce.date(),
   createdAt: z.coerce.date().optional()
 }).strict();
 
 export const SessionUpdateManyMutationInputSchema: z.ZodType<Prisma.SessionUpdateManyMutationInput> = z.object({
   id: z.union([ z.string().uuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
-  code: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  verificationCode: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   token: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
   expiresAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
 }).strict();
@@ -11980,8 +12108,9 @@ export const SessionUpdateManyMutationInputSchema: z.ZodType<Prisma.SessionUpdat
 export const SessionUncheckedUpdateManyInputSchema: z.ZodType<Prisma.SessionUncheckedUpdateManyInput> = z.object({
   id: z.union([ z.string().uuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   userId: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
-  code: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  verificationCode: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   token: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
   expiresAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
 }).strict();
@@ -16579,13 +16708,6 @@ export const RestaurantSumOrderByAggregateInputSchema: z.ZodType<Prisma.Restaura
   foodCost: z.lazy(() => SortOrderSchema).optional()
 }).strict();
 
-export const EnumUserRoleFilterSchema: z.ZodType<Prisma.EnumUserRoleFilter> = z.object({
-  equals: z.lazy(() => UserRoleSchema).optional(),
-  in: z.lazy(() => UserRoleSchema).array().optional(),
-  notIn: z.lazy(() => UserRoleSchema).array().optional(),
-  not: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => NestedEnumUserRoleFilterSchema) ]).optional(),
-}).strict();
-
 export const RestaurantNullableScalarRelationFilterSchema: z.ZodType<Prisma.RestaurantNullableScalarRelationFilter> = z.object({
   is: z.lazy(() => RestaurantWhereInputSchema).optional().nullable(),
   isNot: z.lazy(() => RestaurantWhereInputSchema).optional().nullable()
@@ -16639,6 +16761,12 @@ export const RecipeVersionListRelationFilterSchema: z.ZodType<Prisma.RecipeVersi
   none: z.lazy(() => RecipeVersionWhereInputSchema).optional()
 }).strict();
 
+export const AuthListRelationFilterSchema: z.ZodType<Prisma.AuthListRelationFilter> = z.object({
+  every: z.lazy(() => AuthWhereInputSchema).optional(),
+  some: z.lazy(() => AuthWhereInputSchema).optional(),
+  none: z.lazy(() => AuthWhereInputSchema).optional()
+}).strict();
+
 export const ShiftOrderByRelationAggregateInputSchema: z.ZodType<Prisma.ShiftOrderByRelationAggregateInput> = z.object({
   _count: z.lazy(() => SortOrderSchema).optional()
 }).strict();
@@ -16671,16 +16799,17 @@ export const RecipeVersionOrderByRelationAggregateInputSchema: z.ZodType<Prisma.
   _count: z.lazy(() => SortOrderSchema).optional()
 }).strict();
 
+export const AuthOrderByRelationAggregateInputSchema: z.ZodType<Prisma.AuthOrderByRelationAggregateInput> = z.object({
+  _count: z.lazy(() => SortOrderSchema).optional()
+}).strict();
+
 export const UserCountOrderByAggregateInputSchema: z.ZodType<Prisma.UserCountOrderByAggregateInput> = z.object({
   id: z.lazy(() => SortOrderSchema).optional(),
   email: z.lazy(() => SortOrderSchema).optional(),
   sub: z.lazy(() => SortOrderSchema).optional(),
-  passwordHash: z.lazy(() => SortOrderSchema).optional(),
   firstName: z.lazy(() => SortOrderSchema).optional(),
   lastName: z.lazy(() => SortOrderSchema).optional(),
   profileImage: z.lazy(() => SortOrderSchema).optional(),
-  verified: z.lazy(() => SortOrderSchema).optional(),
-  role: z.lazy(() => SortOrderSchema).optional(),
   organizationId: z.lazy(() => SortOrderSchema).optional(),
   restaurantId: z.lazy(() => SortOrderSchema).optional(),
   createdAt: z.lazy(() => SortOrderSchema).optional(),
@@ -16698,12 +16827,9 @@ export const UserMaxOrderByAggregateInputSchema: z.ZodType<Prisma.UserMaxOrderBy
   id: z.lazy(() => SortOrderSchema).optional(),
   email: z.lazy(() => SortOrderSchema).optional(),
   sub: z.lazy(() => SortOrderSchema).optional(),
-  passwordHash: z.lazy(() => SortOrderSchema).optional(),
   firstName: z.lazy(() => SortOrderSchema).optional(),
   lastName: z.lazy(() => SortOrderSchema).optional(),
   profileImage: z.lazy(() => SortOrderSchema).optional(),
-  verified: z.lazy(() => SortOrderSchema).optional(),
-  role: z.lazy(() => SortOrderSchema).optional(),
   organizationId: z.lazy(() => SortOrderSchema).optional(),
   restaurantId: z.lazy(() => SortOrderSchema).optional(),
   createdAt: z.lazy(() => SortOrderSchema).optional(),
@@ -16714,12 +16840,9 @@ export const UserMinOrderByAggregateInputSchema: z.ZodType<Prisma.UserMinOrderBy
   id: z.lazy(() => SortOrderSchema).optional(),
   email: z.lazy(() => SortOrderSchema).optional(),
   sub: z.lazy(() => SortOrderSchema).optional(),
-  passwordHash: z.lazy(() => SortOrderSchema).optional(),
   firstName: z.lazy(() => SortOrderSchema).optional(),
   lastName: z.lazy(() => SortOrderSchema).optional(),
   profileImage: z.lazy(() => SortOrderSchema).optional(),
-  verified: z.lazy(() => SortOrderSchema).optional(),
-  role: z.lazy(() => SortOrderSchema).optional(),
   organizationId: z.lazy(() => SortOrderSchema).optional(),
   restaurantId: z.lazy(() => SortOrderSchema).optional(),
   createdAt: z.lazy(() => SortOrderSchema).optional(),
@@ -16731,6 +16854,42 @@ export const UserSumOrderByAggregateInputSchema: z.ZodType<Prisma.UserSumOrderBy
   sub: z.lazy(() => SortOrderSchema).optional(),
   organizationId: z.lazy(() => SortOrderSchema).optional(),
   restaurantId: z.lazy(() => SortOrderSchema).optional()
+}).strict();
+
+export const EnumUserRoleFilterSchema: z.ZodType<Prisma.EnumUserRoleFilter> = z.object({
+  equals: z.lazy(() => UserRoleSchema).optional(),
+  in: z.lazy(() => UserRoleSchema).array().optional(),
+  notIn: z.lazy(() => UserRoleSchema).array().optional(),
+  not: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => NestedEnumUserRoleFilterSchema) ]).optional(),
+}).strict();
+
+export const AuthCountOrderByAggregateInputSchema: z.ZodType<Prisma.AuthCountOrderByAggregateInput> = z.object({
+  id: z.lazy(() => SortOrderSchema).optional(),
+  userId: z.lazy(() => SortOrderSchema).optional(),
+  passwordHash: z.lazy(() => SortOrderSchema).optional(),
+  role: z.lazy(() => SortOrderSchema).optional()
+}).strict();
+
+export const AuthAvgOrderByAggregateInputSchema: z.ZodType<Prisma.AuthAvgOrderByAggregateInput> = z.object({
+  userId: z.lazy(() => SortOrderSchema).optional()
+}).strict();
+
+export const AuthMaxOrderByAggregateInputSchema: z.ZodType<Prisma.AuthMaxOrderByAggregateInput> = z.object({
+  id: z.lazy(() => SortOrderSchema).optional(),
+  userId: z.lazy(() => SortOrderSchema).optional(),
+  passwordHash: z.lazy(() => SortOrderSchema).optional(),
+  role: z.lazy(() => SortOrderSchema).optional()
+}).strict();
+
+export const AuthMinOrderByAggregateInputSchema: z.ZodType<Prisma.AuthMinOrderByAggregateInput> = z.object({
+  id: z.lazy(() => SortOrderSchema).optional(),
+  userId: z.lazy(() => SortOrderSchema).optional(),
+  passwordHash: z.lazy(() => SortOrderSchema).optional(),
+  role: z.lazy(() => SortOrderSchema).optional()
+}).strict();
+
+export const AuthSumOrderByAggregateInputSchema: z.ZodType<Prisma.AuthSumOrderByAggregateInput> = z.object({
+  userId: z.lazy(() => SortOrderSchema).optional()
 }).strict();
 
 export const EnumUserRoleWithAggregatesFilterSchema: z.ZodType<Prisma.EnumUserRoleWithAggregatesFilter> = z.object({
@@ -16746,8 +16905,9 @@ export const EnumUserRoleWithAggregatesFilterSchema: z.ZodType<Prisma.EnumUserRo
 export const SessionCountOrderByAggregateInputSchema: z.ZodType<Prisma.SessionCountOrderByAggregateInput> = z.object({
   id: z.lazy(() => SortOrderSchema).optional(),
   userId: z.lazy(() => SortOrderSchema).optional(),
-  code: z.lazy(() => SortOrderSchema).optional(),
+  verificationCode: z.lazy(() => SortOrderSchema).optional(),
   token: z.lazy(() => SortOrderSchema).optional(),
+  verified: z.lazy(() => SortOrderSchema).optional(),
   expiresAt: z.lazy(() => SortOrderSchema).optional(),
   createdAt: z.lazy(() => SortOrderSchema).optional()
 }).strict();
@@ -16759,8 +16919,9 @@ export const SessionAvgOrderByAggregateInputSchema: z.ZodType<Prisma.SessionAvgO
 export const SessionMaxOrderByAggregateInputSchema: z.ZodType<Prisma.SessionMaxOrderByAggregateInput> = z.object({
   id: z.lazy(() => SortOrderSchema).optional(),
   userId: z.lazy(() => SortOrderSchema).optional(),
-  code: z.lazy(() => SortOrderSchema).optional(),
+  verificationCode: z.lazy(() => SortOrderSchema).optional(),
   token: z.lazy(() => SortOrderSchema).optional(),
+  verified: z.lazy(() => SortOrderSchema).optional(),
   expiresAt: z.lazy(() => SortOrderSchema).optional(),
   createdAt: z.lazy(() => SortOrderSchema).optional()
 }).strict();
@@ -16768,8 +16929,9 @@ export const SessionMaxOrderByAggregateInputSchema: z.ZodType<Prisma.SessionMaxO
 export const SessionMinOrderByAggregateInputSchema: z.ZodType<Prisma.SessionMinOrderByAggregateInput> = z.object({
   id: z.lazy(() => SortOrderSchema).optional(),
   userId: z.lazy(() => SortOrderSchema).optional(),
-  code: z.lazy(() => SortOrderSchema).optional(),
+  verificationCode: z.lazy(() => SortOrderSchema).optional(),
   token: z.lazy(() => SortOrderSchema).optional(),
+  verified: z.lazy(() => SortOrderSchema).optional(),
   expiresAt: z.lazy(() => SortOrderSchema).optional(),
   createdAt: z.lazy(() => SortOrderSchema).optional()
 }).strict();
@@ -17201,9 +17363,8 @@ export const RecipeVersionNullableScalarRelationFilterSchema: z.ZodType<Prisma.R
   isNot: z.lazy(() => RecipeVersionWhereInputSchema).optional().nullable()
 }).strict();
 
-export const RecipeIngredientUnique_ingredient_per_versionCompoundUniqueInputSchema: z.ZodType<Prisma.RecipeIngredientUnique_ingredient_per_versionCompoundUniqueInput> = z.object({
+export const RecipeIngredientRecipeIdRecipeVersionIdCompoundUniqueInputSchema: z.ZodType<Prisma.RecipeIngredientRecipeIdRecipeVersionIdCompoundUniqueInput> = z.object({
   recipeId: z.number(),
-  ingredientId: z.number(),
   recipeVersionId: z.number()
 }).strict();
 
@@ -20740,6 +20901,13 @@ export const StockCountCreateNestedManyWithoutCreatedByInputSchema: z.ZodType<Pr
   connect: z.union([ z.lazy(() => StockCountWhereUniqueInputSchema),z.lazy(() => StockCountWhereUniqueInputSchema).array() ]).optional(),
 }).strict();
 
+export const AuthCreateNestedManyWithoutUserInputSchema: z.ZodType<Prisma.AuthCreateNestedManyWithoutUserInput> = z.object({
+  create: z.union([ z.lazy(() => AuthCreateWithoutUserInputSchema),z.lazy(() => AuthCreateWithoutUserInputSchema).array(),z.lazy(() => AuthUncheckedCreateWithoutUserInputSchema),z.lazy(() => AuthUncheckedCreateWithoutUserInputSchema).array() ]).optional(),
+  connectOrCreate: z.union([ z.lazy(() => AuthCreateOrConnectWithoutUserInputSchema),z.lazy(() => AuthCreateOrConnectWithoutUserInputSchema).array() ]).optional(),
+  createMany: z.lazy(() => AuthCreateManyUserInputEnvelopeSchema).optional(),
+  connect: z.union([ z.lazy(() => AuthWhereUniqueInputSchema),z.lazy(() => AuthWhereUniqueInputSchema).array() ]).optional(),
+}).strict();
+
 export const ShiftUncheckedCreateNestedManyWithoutUserInputSchema: z.ZodType<Prisma.ShiftUncheckedCreateNestedManyWithoutUserInput> = z.object({
   create: z.union([ z.lazy(() => ShiftCreateWithoutUserInputSchema),z.lazy(() => ShiftCreateWithoutUserInputSchema).array(),z.lazy(() => ShiftUncheckedCreateWithoutUserInputSchema),z.lazy(() => ShiftUncheckedCreateWithoutUserInputSchema).array() ]).optional(),
   connectOrCreate: z.union([ z.lazy(() => ShiftCreateOrConnectWithoutUserInputSchema),z.lazy(() => ShiftCreateOrConnectWithoutUserInputSchema).array() ]).optional(),
@@ -20866,8 +21034,11 @@ export const StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema: z.Z
   connect: z.union([ z.lazy(() => StockCountWhereUniqueInputSchema),z.lazy(() => StockCountWhereUniqueInputSchema).array() ]).optional(),
 }).strict();
 
-export const EnumUserRoleFieldUpdateOperationsInputSchema: z.ZodType<Prisma.EnumUserRoleFieldUpdateOperationsInput> = z.object({
-  set: z.lazy(() => UserRoleSchema).optional()
+export const AuthUncheckedCreateNestedManyWithoutUserInputSchema: z.ZodType<Prisma.AuthUncheckedCreateNestedManyWithoutUserInput> = z.object({
+  create: z.union([ z.lazy(() => AuthCreateWithoutUserInputSchema),z.lazy(() => AuthCreateWithoutUserInputSchema).array(),z.lazy(() => AuthUncheckedCreateWithoutUserInputSchema),z.lazy(() => AuthUncheckedCreateWithoutUserInputSchema).array() ]).optional(),
+  connectOrCreate: z.union([ z.lazy(() => AuthCreateOrConnectWithoutUserInputSchema),z.lazy(() => AuthCreateOrConnectWithoutUserInputSchema).array() ]).optional(),
+  createMany: z.lazy(() => AuthCreateManyUserInputEnvelopeSchema).optional(),
+  connect: z.union([ z.lazy(() => AuthWhereUniqueInputSchema),z.lazy(() => AuthWhereUniqueInputSchema).array() ]).optional(),
 }).strict();
 
 export const OrganizationUpdateOneWithoutUsersNestedInputSchema: z.ZodType<Prisma.OrganizationUpdateOneWithoutUsersNestedInput> = z.object({
@@ -21142,6 +21313,20 @@ export const StockCountUpdateManyWithoutCreatedByNestedInputSchema: z.ZodType<Pr
   deleteMany: z.union([ z.lazy(() => StockCountScalarWhereInputSchema),z.lazy(() => StockCountScalarWhereInputSchema).array() ]).optional(),
 }).strict();
 
+export const AuthUpdateManyWithoutUserNestedInputSchema: z.ZodType<Prisma.AuthUpdateManyWithoutUserNestedInput> = z.object({
+  create: z.union([ z.lazy(() => AuthCreateWithoutUserInputSchema),z.lazy(() => AuthCreateWithoutUserInputSchema).array(),z.lazy(() => AuthUncheckedCreateWithoutUserInputSchema),z.lazy(() => AuthUncheckedCreateWithoutUserInputSchema).array() ]).optional(),
+  connectOrCreate: z.union([ z.lazy(() => AuthCreateOrConnectWithoutUserInputSchema),z.lazy(() => AuthCreateOrConnectWithoutUserInputSchema).array() ]).optional(),
+  upsert: z.union([ z.lazy(() => AuthUpsertWithWhereUniqueWithoutUserInputSchema),z.lazy(() => AuthUpsertWithWhereUniqueWithoutUserInputSchema).array() ]).optional(),
+  createMany: z.lazy(() => AuthCreateManyUserInputEnvelopeSchema).optional(),
+  set: z.union([ z.lazy(() => AuthWhereUniqueInputSchema),z.lazy(() => AuthWhereUniqueInputSchema).array() ]).optional(),
+  disconnect: z.union([ z.lazy(() => AuthWhereUniqueInputSchema),z.lazy(() => AuthWhereUniqueInputSchema).array() ]).optional(),
+  delete: z.union([ z.lazy(() => AuthWhereUniqueInputSchema),z.lazy(() => AuthWhereUniqueInputSchema).array() ]).optional(),
+  connect: z.union([ z.lazy(() => AuthWhereUniqueInputSchema),z.lazy(() => AuthWhereUniqueInputSchema).array() ]).optional(),
+  update: z.union([ z.lazy(() => AuthUpdateWithWhereUniqueWithoutUserInputSchema),z.lazy(() => AuthUpdateWithWhereUniqueWithoutUserInputSchema).array() ]).optional(),
+  updateMany: z.union([ z.lazy(() => AuthUpdateManyWithWhereWithoutUserInputSchema),z.lazy(() => AuthUpdateManyWithWhereWithoutUserInputSchema).array() ]).optional(),
+  deleteMany: z.union([ z.lazy(() => AuthScalarWhereInputSchema),z.lazy(() => AuthScalarWhereInputSchema).array() ]).optional(),
+}).strict();
+
 export const ShiftUncheckedUpdateManyWithoutUserNestedInputSchema: z.ZodType<Prisma.ShiftUncheckedUpdateManyWithoutUserNestedInput> = z.object({
   create: z.union([ z.lazy(() => ShiftCreateWithoutUserInputSchema),z.lazy(() => ShiftCreateWithoutUserInputSchema).array(),z.lazy(() => ShiftUncheckedCreateWithoutUserInputSchema),z.lazy(() => ShiftUncheckedCreateWithoutUserInputSchema).array() ]).optional(),
   connectOrCreate: z.union([ z.lazy(() => ShiftCreateOrConnectWithoutUserInputSchema),z.lazy(() => ShiftCreateOrConnectWithoutUserInputSchema).array() ]).optional(),
@@ -21392,6 +21577,38 @@ export const StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema: z.Z
   update: z.union([ z.lazy(() => StockCountUpdateWithWhereUniqueWithoutCreatedByInputSchema),z.lazy(() => StockCountUpdateWithWhereUniqueWithoutCreatedByInputSchema).array() ]).optional(),
   updateMany: z.union([ z.lazy(() => StockCountUpdateManyWithWhereWithoutCreatedByInputSchema),z.lazy(() => StockCountUpdateManyWithWhereWithoutCreatedByInputSchema).array() ]).optional(),
   deleteMany: z.union([ z.lazy(() => StockCountScalarWhereInputSchema),z.lazy(() => StockCountScalarWhereInputSchema).array() ]).optional(),
+}).strict();
+
+export const AuthUncheckedUpdateManyWithoutUserNestedInputSchema: z.ZodType<Prisma.AuthUncheckedUpdateManyWithoutUserNestedInput> = z.object({
+  create: z.union([ z.lazy(() => AuthCreateWithoutUserInputSchema),z.lazy(() => AuthCreateWithoutUserInputSchema).array(),z.lazy(() => AuthUncheckedCreateWithoutUserInputSchema),z.lazy(() => AuthUncheckedCreateWithoutUserInputSchema).array() ]).optional(),
+  connectOrCreate: z.union([ z.lazy(() => AuthCreateOrConnectWithoutUserInputSchema),z.lazy(() => AuthCreateOrConnectWithoutUserInputSchema).array() ]).optional(),
+  upsert: z.union([ z.lazy(() => AuthUpsertWithWhereUniqueWithoutUserInputSchema),z.lazy(() => AuthUpsertWithWhereUniqueWithoutUserInputSchema).array() ]).optional(),
+  createMany: z.lazy(() => AuthCreateManyUserInputEnvelopeSchema).optional(),
+  set: z.union([ z.lazy(() => AuthWhereUniqueInputSchema),z.lazy(() => AuthWhereUniqueInputSchema).array() ]).optional(),
+  disconnect: z.union([ z.lazy(() => AuthWhereUniqueInputSchema),z.lazy(() => AuthWhereUniqueInputSchema).array() ]).optional(),
+  delete: z.union([ z.lazy(() => AuthWhereUniqueInputSchema),z.lazy(() => AuthWhereUniqueInputSchema).array() ]).optional(),
+  connect: z.union([ z.lazy(() => AuthWhereUniqueInputSchema),z.lazy(() => AuthWhereUniqueInputSchema).array() ]).optional(),
+  update: z.union([ z.lazy(() => AuthUpdateWithWhereUniqueWithoutUserInputSchema),z.lazy(() => AuthUpdateWithWhereUniqueWithoutUserInputSchema).array() ]).optional(),
+  updateMany: z.union([ z.lazy(() => AuthUpdateManyWithWhereWithoutUserInputSchema),z.lazy(() => AuthUpdateManyWithWhereWithoutUserInputSchema).array() ]).optional(),
+  deleteMany: z.union([ z.lazy(() => AuthScalarWhereInputSchema),z.lazy(() => AuthScalarWhereInputSchema).array() ]).optional(),
+}).strict();
+
+export const UserCreateNestedOneWithoutAuthInputSchema: z.ZodType<Prisma.UserCreateNestedOneWithoutAuthInput> = z.object({
+  create: z.union([ z.lazy(() => UserCreateWithoutAuthInputSchema),z.lazy(() => UserUncheckedCreateWithoutAuthInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutAuthInputSchema).optional(),
+  connect: z.lazy(() => UserWhereUniqueInputSchema).optional()
+}).strict();
+
+export const EnumUserRoleFieldUpdateOperationsInputSchema: z.ZodType<Prisma.EnumUserRoleFieldUpdateOperationsInput> = z.object({
+  set: z.lazy(() => UserRoleSchema).optional()
+}).strict();
+
+export const UserUpdateOneRequiredWithoutAuthNestedInputSchema: z.ZodType<Prisma.UserUpdateOneRequiredWithoutAuthNestedInput> = z.object({
+  create: z.union([ z.lazy(() => UserCreateWithoutAuthInputSchema),z.lazy(() => UserUncheckedCreateWithoutAuthInputSchema) ]).optional(),
+  connectOrCreate: z.lazy(() => UserCreateOrConnectWithoutAuthInputSchema).optional(),
+  upsert: z.lazy(() => UserUpsertWithoutAuthInputSchema).optional(),
+  connect: z.lazy(() => UserWhereUniqueInputSchema).optional(),
+  update: z.union([ z.lazy(() => UserUpdateToOneWithWhereWithoutAuthInputSchema),z.lazy(() => UserUpdateWithoutAuthInputSchema),z.lazy(() => UserUncheckedUpdateWithoutAuthInputSchema) ]).optional(),
 }).strict();
 
 export const UserCreateNestedOneWithoutSessionsInputSchema: z.ZodType<Prisma.UserCreateNestedOneWithoutSessionsInput> = z.object({
@@ -26547,12 +26764,9 @@ export const RecipeInstructionCreateManyRecipeVersionInputEnvelopeSchema: z.ZodT
 export const UserCreateWithoutRecipeVersionsCreatedInputSchema: z.ZodType<Prisma.UserCreateWithoutRecipeVersionsCreatedInput> = z.object({
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   organization: z.lazy(() => OrganizationCreateNestedOneWithoutUsersInputSchema).optional(),
@@ -26573,19 +26787,17 @@ export const UserCreateWithoutRecipeVersionsCreatedInputSchema: z.ZodType<Prisma
   customerFeedbackResponses: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserUncheckedCreateWithoutRecipeVersionsCreatedInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutRecipeVersionsCreatedInput> = z.object({
   id: z.number().int().optional(),
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   organizationId: z.number().int().optional().nullable(),
   restaurantId: z.number().int().optional().nullable(),
   createdAt: z.coerce.date().optional(),
@@ -26606,7 +26818,8 @@ export const UserUncheckedCreateWithoutRecipeVersionsCreatedInputSchema: z.ZodTy
   customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserCreateOrConnectWithoutRecipeVersionsCreatedInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutRecipeVersionsCreatedInput> = z.object({
@@ -26617,12 +26830,9 @@ export const UserCreateOrConnectWithoutRecipeVersionsCreatedInputSchema: z.ZodTy
 export const UserCreateWithoutRecipeVersionsApprovedInputSchema: z.ZodType<Prisma.UserCreateWithoutRecipeVersionsApprovedInput> = z.object({
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   organization: z.lazy(() => OrganizationCreateNestedOneWithoutUsersInputSchema).optional(),
@@ -26643,19 +26853,17 @@ export const UserCreateWithoutRecipeVersionsApprovedInputSchema: z.ZodType<Prism
   customerFeedbackResponses: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserUncheckedCreateWithoutRecipeVersionsApprovedInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutRecipeVersionsApprovedInput> = z.object({
   id: z.number().int().optional(),
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   organizationId: z.number().int().optional().nullable(),
   restaurantId: z.number().int().optional().nullable(),
   createdAt: z.coerce.date().optional(),
@@ -26676,7 +26884,8 @@ export const UserUncheckedCreateWithoutRecipeVersionsApprovedInputSchema: z.ZodT
   customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserCreateOrConnectWithoutRecipeVersionsApprovedInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutRecipeVersionsApprovedInput> = z.object({
@@ -26860,12 +27069,9 @@ export const UserUpdateToOneWithWhereWithoutRecipeVersionsCreatedInputSchema: z.
 export const UserUpdateWithoutRecipeVersionsCreatedInputSchema: z.ZodType<Prisma.UserUpdateWithoutRecipeVersionsCreatedInput> = z.object({
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   organization: z.lazy(() => OrganizationUpdateOneWithoutUsersNestedInputSchema).optional(),
@@ -26886,19 +27092,17 @@ export const UserUpdateWithoutRecipeVersionsCreatedInputSchema: z.ZodType<Prisma
   customerFeedbackResponses: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const UserUncheckedUpdateWithoutRecipeVersionsCreatedInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutRecipeVersionsCreatedInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   organizationId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   restaurantId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -26919,7 +27123,8 @@ export const UserUncheckedUpdateWithoutRecipeVersionsCreatedInputSchema: z.ZodTy
   customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const UserUpsertWithoutRecipeVersionsApprovedInputSchema: z.ZodType<Prisma.UserUpsertWithoutRecipeVersionsApprovedInput> = z.object({
@@ -26936,12 +27141,9 @@ export const UserUpdateToOneWithWhereWithoutRecipeVersionsApprovedInputSchema: z
 export const UserUpdateWithoutRecipeVersionsApprovedInputSchema: z.ZodType<Prisma.UserUpdateWithoutRecipeVersionsApprovedInput> = z.object({
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   organization: z.lazy(() => OrganizationUpdateOneWithoutUsersNestedInputSchema).optional(),
@@ -26962,19 +27164,17 @@ export const UserUpdateWithoutRecipeVersionsApprovedInputSchema: z.ZodType<Prism
   customerFeedbackResponses: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const UserUncheckedUpdateWithoutRecipeVersionsApprovedInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutRecipeVersionsApprovedInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   organizationId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   restaurantId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -26995,7 +27195,8 @@ export const UserUncheckedUpdateWithoutRecipeVersionsApprovedInputSchema: z.ZodT
   customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const RestaurantCreateWithoutEquipmentsInputSchema: z.ZodType<Prisma.RestaurantCreateWithoutEquipmentsInput> = z.object({
@@ -28060,12 +28261,9 @@ export const QualityChecklistCreateOrConnectWithoutCompletionsInputSchema: z.Zod
 export const UserCreateWithoutChecklistCompletesInputSchema: z.ZodType<Prisma.UserCreateWithoutChecklistCompletesInput> = z.object({
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   organization: z.lazy(() => OrganizationCreateNestedOneWithoutUsersInputSchema).optional(),
@@ -28086,19 +28284,17 @@ export const UserCreateWithoutChecklistCompletesInputSchema: z.ZodType<Prisma.Us
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserUncheckedCreateWithoutChecklistCompletesInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutChecklistCompletesInput> = z.object({
   id: z.number().int().optional(),
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   organizationId: z.number().int().optional().nullable(),
   restaurantId: z.number().int().optional().nullable(),
   createdAt: z.coerce.date().optional(),
@@ -28119,7 +28315,8 @@ export const UserUncheckedCreateWithoutChecklistCompletesInputSchema: z.ZodType<
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserCreateOrConnectWithoutChecklistCompletesInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutChecklistCompletesInput> = z.object({
@@ -28204,12 +28401,9 @@ export const UserUpdateToOneWithWhereWithoutChecklistCompletesInputSchema: z.Zod
 export const UserUpdateWithoutChecklistCompletesInputSchema: z.ZodType<Prisma.UserUpdateWithoutChecklistCompletesInput> = z.object({
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   organization: z.lazy(() => OrganizationUpdateOneWithoutUsersNestedInputSchema).optional(),
@@ -28230,19 +28424,17 @@ export const UserUpdateWithoutChecklistCompletesInputSchema: z.ZodType<Prisma.Us
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const UserUncheckedUpdateWithoutChecklistCompletesInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutChecklistCompletesInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   organizationId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   restaurantId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -28263,7 +28455,8 @@ export const UserUncheckedUpdateWithoutChecklistCompletesInputSchema: z.ZodType<
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const ChecklistItemCompleteUpsertWithWhereUniqueWithoutChecklistCompleteInputSchema: z.ZodType<Prisma.ChecklistItemCompleteUpsertWithWhereUniqueWithoutChecklistCompleteInput> = z.object({
@@ -28687,12 +28880,9 @@ export const MenuItemCreateOrConnectWithoutFeedbackInputSchema: z.ZodType<Prisma
 export const UserCreateWithoutCustomerFeedbackResponsesInputSchema: z.ZodType<Prisma.UserCreateWithoutCustomerFeedbackResponsesInput> = z.object({
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   organization: z.lazy(() => OrganizationCreateNestedOneWithoutUsersInputSchema).optional(),
@@ -28713,19 +28903,17 @@ export const UserCreateWithoutCustomerFeedbackResponsesInputSchema: z.ZodType<Pr
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserUncheckedCreateWithoutCustomerFeedbackResponsesInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutCustomerFeedbackResponsesInput> = z.object({
   id: z.number().int().optional(),
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   organizationId: z.number().int().optional().nullable(),
   restaurantId: z.number().int().optional().nullable(),
   createdAt: z.coerce.date().optional(),
@@ -28746,7 +28934,8 @@ export const UserUncheckedCreateWithoutCustomerFeedbackResponsesInputSchema: z.Z
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserCreateOrConnectWithoutCustomerFeedbackResponsesInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutCustomerFeedbackResponsesInput> = z.object({
@@ -28890,12 +29079,9 @@ export const UserUpdateToOneWithWhereWithoutCustomerFeedbackResponsesInputSchema
 export const UserUpdateWithoutCustomerFeedbackResponsesInputSchema: z.ZodType<Prisma.UserUpdateWithoutCustomerFeedbackResponsesInput> = z.object({
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   organization: z.lazy(() => OrganizationUpdateOneWithoutUsersNestedInputSchema).optional(),
@@ -28916,19 +29102,17 @@ export const UserUpdateWithoutCustomerFeedbackResponsesInputSchema: z.ZodType<Pr
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const UserUncheckedUpdateWithoutCustomerFeedbackResponsesInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutCustomerFeedbackResponsesInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   organizationId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   restaurantId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -28949,7 +29133,8 @@ export const UserUncheckedUpdateWithoutCustomerFeedbackResponsesInputSchema: z.Z
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const MenuItemCreateWithoutDietaryRestrictionsInputSchema: z.ZodType<Prisma.MenuItemCreateWithoutDietaryRestrictionsInput> = z.object({
@@ -29450,12 +29635,9 @@ export const MenuItemCreateOrConnectWithoutLeftoverItemsInputSchema: z.ZodType<P
 export const UserCreateWithoutLeftoverItemsInputSchema: z.ZodType<Prisma.UserCreateWithoutLeftoverItemsInput> = z.object({
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   organization: z.lazy(() => OrganizationCreateNestedOneWithoutUsersInputSchema).optional(),
@@ -29476,19 +29658,17 @@ export const UserCreateWithoutLeftoverItemsInputSchema: z.ZodType<Prisma.UserCre
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserUncheckedCreateWithoutLeftoverItemsInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutLeftoverItemsInput> = z.object({
   id: z.number().int().optional(),
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   organizationId: z.number().int().optional().nullable(),
   restaurantId: z.number().int().optional().nullable(),
   createdAt: z.coerce.date().optional(),
@@ -29509,7 +29689,8 @@ export const UserUncheckedCreateWithoutLeftoverItemsInputSchema: z.ZodType<Prism
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserCreateOrConnectWithoutLeftoverItemsInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutLeftoverItemsInput> = z.object({
@@ -29653,12 +29834,9 @@ export const UserUpdateToOneWithWhereWithoutLeftoverItemsInputSchema: z.ZodType<
 export const UserUpdateWithoutLeftoverItemsInputSchema: z.ZodType<Prisma.UserUpdateWithoutLeftoverItemsInput> = z.object({
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   organization: z.lazy(() => OrganizationUpdateOneWithoutUsersNestedInputSchema).optional(),
@@ -29679,19 +29857,17 @@ export const UserUpdateWithoutLeftoverItemsInputSchema: z.ZodType<Prisma.UserUpd
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const UserUncheckedUpdateWithoutLeftoverItemsInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutLeftoverItemsInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   organizationId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   restaurantId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -29712,7 +29888,8 @@ export const UserUncheckedUpdateWithoutLeftoverItemsInputSchema: z.ZodType<Prism
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const RestaurantCreateWithoutWasteRecordsInputSchema: z.ZodType<Prisma.RestaurantCreateWithoutWasteRecordsInput> = z.object({
@@ -29836,12 +30013,9 @@ export const IngredientCreateOrConnectWithoutWasteRecordsInputSchema: z.ZodType<
 export const UserCreateWithoutWasteRecordsInputSchema: z.ZodType<Prisma.UserCreateWithoutWasteRecordsInput> = z.object({
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   organization: z.lazy(() => OrganizationCreateNestedOneWithoutUsersInputSchema).optional(),
@@ -29862,19 +30036,17 @@ export const UserCreateWithoutWasteRecordsInputSchema: z.ZodType<Prisma.UserCrea
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserUncheckedCreateWithoutWasteRecordsInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutWasteRecordsInput> = z.object({
   id: z.number().int().optional(),
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   organizationId: z.number().int().optional().nullable(),
   restaurantId: z.number().int().optional().nullable(),
   createdAt: z.coerce.date().optional(),
@@ -29895,7 +30067,8 @@ export const UserUncheckedCreateWithoutWasteRecordsInputSchema: z.ZodType<Prisma
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserCreateOrConnectWithoutWasteRecordsInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutWasteRecordsInput> = z.object({
@@ -30047,12 +30220,9 @@ export const UserUpdateToOneWithWhereWithoutWasteRecordsInputSchema: z.ZodType<P
 export const UserUpdateWithoutWasteRecordsInputSchema: z.ZodType<Prisma.UserUpdateWithoutWasteRecordsInput> = z.object({
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   organization: z.lazy(() => OrganizationUpdateOneWithoutUsersNestedInputSchema).optional(),
@@ -30073,19 +30243,17 @@ export const UserUpdateWithoutWasteRecordsInputSchema: z.ZodType<Prisma.UserUpda
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const UserUncheckedUpdateWithoutWasteRecordsInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutWasteRecordsInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   organizationId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   restaurantId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -30106,7 +30274,8 @@ export const UserUncheckedUpdateWithoutWasteRecordsInputSchema: z.ZodType<Prisma
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const RestaurantCreateWithoutProductionPlansInputSchema: z.ZodType<Prisma.RestaurantCreateWithoutProductionPlansInput> = z.object({
@@ -30174,12 +30343,9 @@ export const RestaurantCreateOrConnectWithoutProductionPlansInputSchema: z.ZodTy
 export const UserCreateWithoutProductionPlansInputSchema: z.ZodType<Prisma.UserCreateWithoutProductionPlansInput> = z.object({
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   organization: z.lazy(() => OrganizationCreateNestedOneWithoutUsersInputSchema).optional(),
@@ -30200,19 +30366,17 @@ export const UserCreateWithoutProductionPlansInputSchema: z.ZodType<Prisma.UserC
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserUncheckedCreateWithoutProductionPlansInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutProductionPlansInput> = z.object({
   id: z.number().int().optional(),
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   organizationId: z.number().int().optional().nullable(),
   restaurantId: z.number().int().optional().nullable(),
   createdAt: z.coerce.date().optional(),
@@ -30233,7 +30397,8 @@ export const UserUncheckedCreateWithoutProductionPlansInputSchema: z.ZodType<Pri
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserCreateOrConnectWithoutProductionPlansInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutProductionPlansInput> = z.object({
@@ -30352,12 +30517,9 @@ export const UserUpdateToOneWithWhereWithoutProductionPlansInputSchema: z.ZodTyp
 export const UserUpdateWithoutProductionPlansInputSchema: z.ZodType<Prisma.UserUpdateWithoutProductionPlansInput> = z.object({
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   organization: z.lazy(() => OrganizationUpdateOneWithoutUsersNestedInputSchema).optional(),
@@ -30378,19 +30540,17 @@ export const UserUpdateWithoutProductionPlansInputSchema: z.ZodType<Prisma.UserU
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const UserUncheckedUpdateWithoutProductionPlansInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutProductionPlansInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   organizationId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   restaurantId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -30411,7 +30571,8 @@ export const UserUncheckedUpdateWithoutProductionPlansInputSchema: z.ZodType<Pri
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const ProductionPlanItemUpsertWithWhereUniqueWithoutProductionPlanInputSchema: z.ZodType<Prisma.ProductionPlanItemUpsertWithWhereUniqueWithoutProductionPlanInput> = z.object({
@@ -30557,12 +30718,9 @@ export const RecipeCreateOrConnectWithoutProductionPlanItemsInputSchema: z.ZodTy
 export const UserCreateWithoutProductionPlanItemsInputSchema: z.ZodType<Prisma.UserCreateWithoutProductionPlanItemsInput> = z.object({
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   organization: z.lazy(() => OrganizationCreateNestedOneWithoutUsersInputSchema).optional(),
@@ -30583,19 +30741,17 @@ export const UserCreateWithoutProductionPlanItemsInputSchema: z.ZodType<Prisma.U
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserUncheckedCreateWithoutProductionPlanItemsInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutProductionPlanItemsInput> = z.object({
   id: z.number().int().optional(),
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   organizationId: z.number().int().optional().nullable(),
   restaurantId: z.number().int().optional().nullable(),
   createdAt: z.coerce.date().optional(),
@@ -30616,7 +30772,8 @@ export const UserUncheckedCreateWithoutProductionPlanItemsInputSchema: z.ZodType
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserCreateOrConnectWithoutProductionPlanItemsInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutProductionPlanItemsInput> = z.object({
@@ -30760,12 +30917,9 @@ export const UserUpdateToOneWithWhereWithoutProductionPlanItemsInputSchema: z.Zo
 export const UserUpdateWithoutProductionPlanItemsInputSchema: z.ZodType<Prisma.UserUpdateWithoutProductionPlanItemsInput> = z.object({
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   organization: z.lazy(() => OrganizationUpdateOneWithoutUsersNestedInputSchema).optional(),
@@ -30786,19 +30940,17 @@ export const UserUpdateWithoutProductionPlanItemsInputSchema: z.ZodType<Prisma.U
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const UserUncheckedUpdateWithoutProductionPlanItemsInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutProductionPlanItemsInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   organizationId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   restaurantId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -30819,7 +30971,8 @@ export const UserUncheckedUpdateWithoutProductionPlanItemsInputSchema: z.ZodType
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const ShiftCreateWithoutTasksInputSchema: z.ZodType<Prisma.ShiftCreateWithoutTasksInput> = z.object({
@@ -30871,12 +31024,9 @@ export const ShiftUncheckedUpdateWithoutTasksInputSchema: z.ZodType<Prisma.Shift
 export const UserCreateWithoutAvailabilityInputSchema: z.ZodType<Prisma.UserCreateWithoutAvailabilityInput> = z.object({
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   organization: z.lazy(() => OrganizationCreateNestedOneWithoutUsersInputSchema).optional(),
@@ -30897,19 +31047,17 @@ export const UserCreateWithoutAvailabilityInputSchema: z.ZodType<Prisma.UserCrea
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserUncheckedCreateWithoutAvailabilityInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutAvailabilityInput> = z.object({
   id: z.number().int().optional(),
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   organizationId: z.number().int().optional().nullable(),
   restaurantId: z.number().int().optional().nullable(),
   createdAt: z.coerce.date().optional(),
@@ -30930,7 +31078,8 @@ export const UserUncheckedCreateWithoutAvailabilityInputSchema: z.ZodType<Prisma
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserCreateOrConnectWithoutAvailabilityInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutAvailabilityInput> = z.object({
@@ -30952,12 +31101,9 @@ export const UserUpdateToOneWithWhereWithoutAvailabilityInputSchema: z.ZodType<P
 export const UserUpdateWithoutAvailabilityInputSchema: z.ZodType<Prisma.UserUpdateWithoutAvailabilityInput> = z.object({
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   organization: z.lazy(() => OrganizationUpdateOneWithoutUsersNestedInputSchema).optional(),
@@ -30978,19 +31124,17 @@ export const UserUpdateWithoutAvailabilityInputSchema: z.ZodType<Prisma.UserUpda
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const UserUncheckedUpdateWithoutAvailabilityInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutAvailabilityInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   organizationId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   restaurantId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -31011,18 +31155,16 @@ export const UserUncheckedUpdateWithoutAvailabilityInputSchema: z.ZodType<Prisma
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const UserCreateWithoutSchedulingConstraintsInputSchema: z.ZodType<Prisma.UserCreateWithoutSchedulingConstraintsInput> = z.object({
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   organization: z.lazy(() => OrganizationCreateNestedOneWithoutUsersInputSchema).optional(),
@@ -31043,19 +31185,17 @@ export const UserCreateWithoutSchedulingConstraintsInputSchema: z.ZodType<Prisma
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserUncheckedCreateWithoutSchedulingConstraintsInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutSchedulingConstraintsInput> = z.object({
   id: z.number().int().optional(),
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   organizationId: z.number().int().optional().nullable(),
   restaurantId: z.number().int().optional().nullable(),
   createdAt: z.coerce.date().optional(),
@@ -31076,7 +31216,8 @@ export const UserUncheckedCreateWithoutSchedulingConstraintsInputSchema: z.ZodTy
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserCreateOrConnectWithoutSchedulingConstraintsInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutSchedulingConstraintsInput> = z.object({
@@ -31098,12 +31239,9 @@ export const UserUpdateToOneWithWhereWithoutSchedulingConstraintsInputSchema: z.
 export const UserUpdateWithoutSchedulingConstraintsInputSchema: z.ZodType<Prisma.UserUpdateWithoutSchedulingConstraintsInput> = z.object({
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   organization: z.lazy(() => OrganizationUpdateOneWithoutUsersNestedInputSchema).optional(),
@@ -31124,19 +31262,17 @@ export const UserUpdateWithoutSchedulingConstraintsInputSchema: z.ZodType<Prisma
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const UserUncheckedUpdateWithoutSchedulingConstraintsInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutSchedulingConstraintsInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   organizationId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   restaurantId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -31157,7 +31293,8 @@ export const UserUncheckedUpdateWithoutSchedulingConstraintsInputSchema: z.ZodTy
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const InventoryItemCreateWithoutWithdrawalsInputSchema: z.ZodType<Prisma.InventoryItemCreateWithoutWithdrawalsInput> = z.object({
@@ -31303,12 +31440,9 @@ export const RecipeCreateOrConnectWithoutWithdrawalsInputSchema: z.ZodType<Prism
 export const UserCreateWithoutInventoryWithdrawalsInputSchema: z.ZodType<Prisma.UserCreateWithoutInventoryWithdrawalsInput> = z.object({
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   organization: z.lazy(() => OrganizationCreateNestedOneWithoutUsersInputSchema).optional(),
@@ -31329,19 +31463,17 @@ export const UserCreateWithoutInventoryWithdrawalsInputSchema: z.ZodType<Prisma.
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserUncheckedCreateWithoutInventoryWithdrawalsInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutInventoryWithdrawalsInput> = z.object({
   id: z.number().int().optional(),
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   organizationId: z.number().int().optional().nullable(),
   restaurantId: z.number().int().optional().nullable(),
   createdAt: z.coerce.date().optional(),
@@ -31362,7 +31494,8 @@ export const UserUncheckedCreateWithoutInventoryWithdrawalsInputSchema: z.ZodTyp
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserCreateOrConnectWithoutInventoryWithdrawalsInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutInventoryWithdrawalsInput> = z.object({
@@ -31536,12 +31669,9 @@ export const UserUpdateToOneWithWhereWithoutInventoryWithdrawalsInputSchema: z.Z
 export const UserUpdateWithoutInventoryWithdrawalsInputSchema: z.ZodType<Prisma.UserUpdateWithoutInventoryWithdrawalsInput> = z.object({
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   organization: z.lazy(() => OrganizationUpdateOneWithoutUsersNestedInputSchema).optional(),
@@ -31562,19 +31692,17 @@ export const UserUpdateWithoutInventoryWithdrawalsInputSchema: z.ZodType<Prisma.
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const UserUncheckedUpdateWithoutInventoryWithdrawalsInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutInventoryWithdrawalsInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   organizationId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   restaurantId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -31595,7 +31723,8 @@ export const UserUncheckedUpdateWithoutInventoryWithdrawalsInputSchema: z.ZodTyp
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const IngredientAllergenCreateWithoutAllergenInputSchema: z.ZodType<Prisma.IngredientAllergenCreateWithoutAllergenInput> = z.object({
@@ -31970,12 +32099,9 @@ export const RestaurantCreateManyOrganizationInputEnvelopeSchema: z.ZodType<Pris
 export const UserCreateWithoutOrganizationInputSchema: z.ZodType<Prisma.UserCreateWithoutOrganizationInput> = z.object({
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutUsersInputSchema).optional(),
@@ -31996,19 +32122,17 @@ export const UserCreateWithoutOrganizationInputSchema: z.ZodType<Prisma.UserCrea
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserUncheckedCreateWithoutOrganizationInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutOrganizationInput> = z.object({
   id: z.number().int().optional(),
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   restaurantId: z.number().int().optional().nullable(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
@@ -32029,7 +32153,8 @@ export const UserUncheckedCreateWithoutOrganizationInputSchema: z.ZodType<Prisma
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserCreateOrConnectWithoutOrganizationInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutOrganizationInput> = z.object({
@@ -32101,12 +32226,9 @@ export const UserScalarWhereInputSchema: z.ZodType<Prisma.UserScalarWhereInput> 
   id: z.union([ z.lazy(() => IntFilterSchema),z.number() ]).optional(),
   email: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
   sub: z.union([ z.lazy(() => IntNullableFilterSchema),z.number() ]).optional().nullable(),
-  passwordHash: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
   firstName: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
   lastName: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
   profileImage: z.union([ z.lazy(() => StringNullableFilterSchema),z.string() ]).optional().nullable(),
-  verified: z.union([ z.lazy(() => BoolFilterSchema),z.boolean() ]).optional(),
-  role: z.union([ z.lazy(() => EnumUserRoleFilterSchema),z.lazy(() => UserRoleSchema) ]).optional(),
   organizationId: z.union([ z.lazy(() => IntNullableFilterSchema),z.number() ]).optional().nullable(),
   restaurantId: z.union([ z.lazy(() => IntNullableFilterSchema),z.number() ]).optional().nullable(),
   createdAt: z.union([ z.lazy(() => DateTimeFilterSchema),z.coerce.date() ]).optional(),
@@ -32501,12 +32623,9 @@ export const OrganizationCreateOrConnectWithoutRestaurantsInputSchema: z.ZodType
 export const UserCreateWithoutRestaurantInputSchema: z.ZodType<Prisma.UserCreateWithoutRestaurantInput> = z.object({
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   organization: z.lazy(() => OrganizationCreateNestedOneWithoutUsersInputSchema).optional(),
@@ -32527,19 +32646,17 @@ export const UserCreateWithoutRestaurantInputSchema: z.ZodType<Prisma.UserCreate
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserUncheckedCreateWithoutRestaurantInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutRestaurantInput> = z.object({
   id: z.number().int().optional(),
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   organizationId: z.number().int().optional().nullable(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
@@ -32560,7 +32677,8 @@ export const UserUncheckedCreateWithoutRestaurantInputSchema: z.ZodType<Prisma.U
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserCreateOrConnectWithoutRestaurantInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutRestaurantInput> = z.object({
@@ -33604,16 +33722,18 @@ export const InventoryItemCreateManyLastUpdatedByInputEnvelopeSchema: z.ZodType<
 
 export const SessionCreateWithoutUserInputSchema: z.ZodType<Prisma.SessionCreateWithoutUserInput> = z.object({
   id: z.string().uuid().optional(),
-  code: z.string(),
+  verificationCode: z.string(),
   token: z.string(),
+  verified: z.boolean().optional(),
   expiresAt: z.coerce.date(),
   createdAt: z.coerce.date().optional()
 }).strict();
 
 export const SessionUncheckedCreateWithoutUserInputSchema: z.ZodType<Prisma.SessionUncheckedCreateWithoutUserInput> = z.object({
   id: z.string().uuid().optional(),
-  code: z.string(),
+  verificationCode: z.string(),
   token: z.string(),
+  verified: z.boolean().optional(),
   expiresAt: z.coerce.date(),
   createdAt: z.coerce.date().optional()
 }).strict();
@@ -34078,6 +34198,28 @@ export const StockCountCreateManyCreatedByInputEnvelopeSchema: z.ZodType<Prisma.
   skipDuplicates: z.boolean().optional()
 }).strict();
 
+export const AuthCreateWithoutUserInputSchema: z.ZodType<Prisma.AuthCreateWithoutUserInput> = z.object({
+  id: z.string().uuid().optional(),
+  passwordHash: z.string(),
+  role: z.lazy(() => UserRoleSchema).optional()
+}).strict();
+
+export const AuthUncheckedCreateWithoutUserInputSchema: z.ZodType<Prisma.AuthUncheckedCreateWithoutUserInput> = z.object({
+  id: z.string().uuid().optional(),
+  passwordHash: z.string(),
+  role: z.lazy(() => UserRoleSchema).optional()
+}).strict();
+
+export const AuthCreateOrConnectWithoutUserInputSchema: z.ZodType<Prisma.AuthCreateOrConnectWithoutUserInput> = z.object({
+  where: z.lazy(() => AuthWhereUniqueInputSchema),
+  create: z.union([ z.lazy(() => AuthCreateWithoutUserInputSchema),z.lazy(() => AuthUncheckedCreateWithoutUserInputSchema) ]),
+}).strict();
+
+export const AuthCreateManyUserInputEnvelopeSchema: z.ZodType<Prisma.AuthCreateManyUserInputEnvelope> = z.object({
+  data: z.union([ z.lazy(() => AuthCreateManyUserInputSchema),z.lazy(() => AuthCreateManyUserInputSchema).array() ]),
+  skipDuplicates: z.boolean().optional()
+}).strict();
+
 export const OrganizationUpsertWithoutUsersInputSchema: z.ZodType<Prisma.OrganizationUpsertWithoutUsersInput> = z.object({
   update: z.union([ z.lazy(() => OrganizationUpdateWithoutUsersInputSchema),z.lazy(() => OrganizationUncheckedUpdateWithoutUsersInputSchema) ]),
   create: z.union([ z.lazy(() => OrganizationCreateWithoutUsersInputSchema),z.lazy(() => OrganizationUncheckedCreateWithoutUsersInputSchema) ]),
@@ -34267,8 +34409,9 @@ export const SessionScalarWhereInputSchema: z.ZodType<Prisma.SessionScalarWhereI
   NOT: z.union([ z.lazy(() => SessionScalarWhereInputSchema),z.lazy(() => SessionScalarWhereInputSchema).array() ]).optional(),
   id: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
   userId: z.union([ z.lazy(() => IntFilterSchema),z.number() ]).optional(),
-  code: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
+  verificationCode: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
   token: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
+  verified: z.union([ z.lazy(() => BoolFilterSchema),z.boolean() ]).optional(),
   expiresAt: z.union([ z.lazy(() => DateTimeFilterSchema),z.coerce.date() ]).optional(),
   createdAt: z.union([ z.lazy(() => DateTimeFilterSchema),z.coerce.date() ]).optional(),
 }).strict();
@@ -34569,15 +34712,176 @@ export const StockCountUpdateManyWithWhereWithoutCreatedByInputSchema: z.ZodType
   data: z.union([ z.lazy(() => StockCountUpdateManyMutationInputSchema),z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByInputSchema) ]),
 }).strict();
 
-export const UserCreateWithoutSessionsInputSchema: z.ZodType<Prisma.UserCreateWithoutSessionsInput> = z.object({
+export const AuthUpsertWithWhereUniqueWithoutUserInputSchema: z.ZodType<Prisma.AuthUpsertWithWhereUniqueWithoutUserInput> = z.object({
+  where: z.lazy(() => AuthWhereUniqueInputSchema),
+  update: z.union([ z.lazy(() => AuthUpdateWithoutUserInputSchema),z.lazy(() => AuthUncheckedUpdateWithoutUserInputSchema) ]),
+  create: z.union([ z.lazy(() => AuthCreateWithoutUserInputSchema),z.lazy(() => AuthUncheckedCreateWithoutUserInputSchema) ]),
+}).strict();
+
+export const AuthUpdateWithWhereUniqueWithoutUserInputSchema: z.ZodType<Prisma.AuthUpdateWithWhereUniqueWithoutUserInput> = z.object({
+  where: z.lazy(() => AuthWhereUniqueInputSchema),
+  data: z.union([ z.lazy(() => AuthUpdateWithoutUserInputSchema),z.lazy(() => AuthUncheckedUpdateWithoutUserInputSchema) ]),
+}).strict();
+
+export const AuthUpdateManyWithWhereWithoutUserInputSchema: z.ZodType<Prisma.AuthUpdateManyWithWhereWithoutUserInput> = z.object({
+  where: z.lazy(() => AuthScalarWhereInputSchema),
+  data: z.union([ z.lazy(() => AuthUpdateManyMutationInputSchema),z.lazy(() => AuthUncheckedUpdateManyWithoutUserInputSchema) ]),
+}).strict();
+
+export const AuthScalarWhereInputSchema: z.ZodType<Prisma.AuthScalarWhereInput> = z.object({
+  AND: z.union([ z.lazy(() => AuthScalarWhereInputSchema),z.lazy(() => AuthScalarWhereInputSchema).array() ]).optional(),
+  OR: z.lazy(() => AuthScalarWhereInputSchema).array().optional(),
+  NOT: z.union([ z.lazy(() => AuthScalarWhereInputSchema),z.lazy(() => AuthScalarWhereInputSchema).array() ]).optional(),
+  id: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
+  userId: z.union([ z.lazy(() => IntFilterSchema),z.number() ]).optional(),
+  passwordHash: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
+  role: z.union([ z.lazy(() => EnumUserRoleFilterSchema),z.lazy(() => UserRoleSchema) ]).optional(),
+}).strict();
+
+export const UserCreateWithoutAuthInputSchema: z.ZodType<Prisma.UserCreateWithoutAuthInput> = z.object({
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
+  createdAt: z.coerce.date().optional(),
+  updatedAt: z.coerce.date().optional(),
+  organization: z.lazy(() => OrganizationCreateNestedOneWithoutUsersInputSchema).optional(),
+  restaurant: z.lazy(() => RestaurantCreateNestedOneWithoutUsersInputSchema).optional(),
+  shifts: z.lazy(() => ShiftCreateNestedManyWithoutUserInputSchema).optional(),
+  prepItems: z.lazy(() => PrepItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  inventoryUpdates: z.lazy(() => InventoryItemCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
+  sessions: z.lazy(() => SessionCreateNestedManyWithoutUserInputSchema).optional(),
+  passwordResets: z.lazy(() => PasswordResetCreateNestedManyWithoutUserInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  availability: z.lazy(() => AvailabilityCreateNestedManyWithoutUserInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
+  InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+}).strict();
+
+export const UserUncheckedCreateWithoutAuthInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutAuthInput> = z.object({
+  id: z.number().int().optional(),
+  email: z.string(),
+  sub: z.number().int().optional().nullable(),
+  firstName: z.string(),
+  lastName: z.string(),
+  profileImage: z.string().optional().nullable(),
+  organizationId: z.number().int().optional().nullable(),
+  restaurantId: z.number().int().optional().nullable(),
+  createdAt: z.coerce.date().optional(),
+  updatedAt: z.coerce.date().optional(),
+  shifts: z.lazy(() => ShiftUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
+  prepItems: z.lazy(() => PrepItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  inventoryUpdates: z.lazy(() => InventoryItemUncheckedCreateNestedManyWithoutLastUpdatedByInputSchema).optional(),
+  sessions: z.lazy(() => SessionUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
+  passwordResets: z.lazy(() => PasswordResetUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedCreateNestedManyWithoutRecordedByInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedCreateNestedManyWithoutAssignedToInputSchema).optional(),
+  availability: z.lazy(() => AvailabilityUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedCreateNestedManyWithoutUserInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedCreateNestedManyWithoutCompletedByInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
+  recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+}).strict();
+
+export const UserCreateOrConnectWithoutAuthInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutAuthInput> = z.object({
+  where: z.lazy(() => UserWhereUniqueInputSchema),
+  create: z.union([ z.lazy(() => UserCreateWithoutAuthInputSchema),z.lazy(() => UserUncheckedCreateWithoutAuthInputSchema) ]),
+}).strict();
+
+export const UserUpsertWithoutAuthInputSchema: z.ZodType<Prisma.UserUpsertWithoutAuthInput> = z.object({
+  update: z.union([ z.lazy(() => UserUpdateWithoutAuthInputSchema),z.lazy(() => UserUncheckedUpdateWithoutAuthInputSchema) ]),
+  create: z.union([ z.lazy(() => UserCreateWithoutAuthInputSchema),z.lazy(() => UserUncheckedCreateWithoutAuthInputSchema) ]),
+  where: z.lazy(() => UserWhereInputSchema).optional()
+}).strict();
+
+export const UserUpdateToOneWithWhereWithoutAuthInputSchema: z.ZodType<Prisma.UserUpdateToOneWithWhereWithoutAuthInput> = z.object({
+  where: z.lazy(() => UserWhereInputSchema).optional(),
+  data: z.union([ z.lazy(() => UserUpdateWithoutAuthInputSchema),z.lazy(() => UserUncheckedUpdateWithoutAuthInputSchema) ]),
+}).strict();
+
+export const UserUpdateWithoutAuthInputSchema: z.ZodType<Prisma.UserUpdateWithoutAuthInput> = z.object({
+  email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
+  firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
+  createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
+  updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
+  organization: z.lazy(() => OrganizationUpdateOneWithoutUsersNestedInputSchema).optional(),
+  restaurant: z.lazy(() => RestaurantUpdateOneWithoutUsersNestedInputSchema).optional(),
+  shifts: z.lazy(() => ShiftUpdateManyWithoutUserNestedInputSchema).optional(),
+  prepItems: z.lazy(() => PrepItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  inventoryUpdates: z.lazy(() => InventoryItemUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
+  sessions: z.lazy(() => SessionUpdateManyWithoutUserNestedInputSchema).optional(),
+  passwordResets: z.lazy(() => PasswordResetUpdateManyWithoutUserNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  availability: z.lazy(() => AvailabilityUpdateManyWithoutUserNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
+  InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+}).strict();
+
+export const UserUncheckedUpdateWithoutAuthInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutAuthInput> = z.object({
+  id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
+  email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
+  firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
+  organizationId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
+  restaurantId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
+  createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
+  updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
+  shifts: z.lazy(() => ShiftUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
+  prepItems: z.lazy(() => PrepItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  inventoryUpdates: z.lazy(() => InventoryItemUncheckedUpdateManyWithoutLastUpdatedByNestedInputSchema).optional(),
+  sessions: z.lazy(() => SessionUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
+  passwordResets: z.lazy(() => PasswordResetUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
+  leftoverItems: z.lazy(() => LeftoverItemUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  wasteRecords: z.lazy(() => WasteRecordUncheckedUpdateManyWithoutRecordedByNestedInputSchema).optional(),
+  productionPlans: z.lazy(() => ProductionPlanUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemUncheckedUpdateManyWithoutAssignedToNestedInputSchema).optional(),
+  availability: z.lazy(() => AvailabilityUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintUncheckedUpdateManyWithoutUserNestedInputSchema).optional(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteUncheckedUpdateManyWithoutCompletedByNestedInputSchema).optional(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
+  recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+}).strict();
+
+export const UserCreateWithoutSessionsInputSchema: z.ZodType<Prisma.UserCreateWithoutSessionsInput> = z.object({
+  email: z.string(),
+  sub: z.number().int().optional().nullable(),
+  firstName: z.string(),
+  lastName: z.string(),
+  profileImage: z.string().optional().nullable(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   organization: z.lazy(() => OrganizationCreateNestedOneWithoutUsersInputSchema).optional(),
@@ -34598,19 +34902,17 @@ export const UserCreateWithoutSessionsInputSchema: z.ZodType<Prisma.UserCreateWi
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserUncheckedCreateWithoutSessionsInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutSessionsInput> = z.object({
   id: z.number().int().optional(),
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   organizationId: z.number().int().optional().nullable(),
   restaurantId: z.number().int().optional().nullable(),
   createdAt: z.coerce.date().optional(),
@@ -34631,7 +34933,8 @@ export const UserUncheckedCreateWithoutSessionsInputSchema: z.ZodType<Prisma.Use
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserCreateOrConnectWithoutSessionsInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutSessionsInput> = z.object({
@@ -34653,12 +34956,9 @@ export const UserUpdateToOneWithWhereWithoutSessionsInputSchema: z.ZodType<Prism
 export const UserUpdateWithoutSessionsInputSchema: z.ZodType<Prisma.UserUpdateWithoutSessionsInput> = z.object({
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   organization: z.lazy(() => OrganizationUpdateOneWithoutUsersNestedInputSchema).optional(),
@@ -34679,19 +34979,17 @@ export const UserUpdateWithoutSessionsInputSchema: z.ZodType<Prisma.UserUpdateWi
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const UserUncheckedUpdateWithoutSessionsInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutSessionsInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   organizationId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   restaurantId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -34712,7 +35010,8 @@ export const UserUncheckedUpdateWithoutSessionsInputSchema: z.ZodType<Prisma.Use
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const RecipeCreateWithoutCookBookInputSchema: z.ZodType<Prisma.RecipeCreateWithoutCookBookInput> = z.object({
@@ -37528,12 +37827,9 @@ export const IngredientCreateOrConnectWithoutInventoryItemsInputSchema: z.ZodTyp
 export const UserCreateWithoutInventoryUpdatesInputSchema: z.ZodType<Prisma.UserCreateWithoutInventoryUpdatesInput> = z.object({
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   organization: z.lazy(() => OrganizationCreateNestedOneWithoutUsersInputSchema).optional(),
@@ -37554,19 +37850,17 @@ export const UserCreateWithoutInventoryUpdatesInputSchema: z.ZodType<Prisma.User
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserUncheckedCreateWithoutInventoryUpdatesInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutInventoryUpdatesInput> = z.object({
   id: z.number().int().optional(),
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   organizationId: z.number().int().optional().nullable(),
   restaurantId: z.number().int().optional().nullable(),
   createdAt: z.coerce.date().optional(),
@@ -37587,7 +37881,8 @@ export const UserUncheckedCreateWithoutInventoryUpdatesInputSchema: z.ZodType<Pr
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserCreateOrConnectWithoutInventoryUpdatesInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutInventoryUpdatesInput> = z.object({
@@ -37802,12 +38097,9 @@ export const UserUpdateToOneWithWhereWithoutInventoryUpdatesInputSchema: z.ZodTy
 export const UserUpdateWithoutInventoryUpdatesInputSchema: z.ZodType<Prisma.UserUpdateWithoutInventoryUpdatesInput> = z.object({
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   organization: z.lazy(() => OrganizationUpdateOneWithoutUsersNestedInputSchema).optional(),
@@ -37828,19 +38120,17 @@ export const UserUpdateWithoutInventoryUpdatesInputSchema: z.ZodType<Prisma.User
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const UserUncheckedUpdateWithoutInventoryUpdatesInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutInventoryUpdatesInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   organizationId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   restaurantId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -37861,7 +38151,8 @@ export const UserUncheckedUpdateWithoutInventoryUpdatesInputSchema: z.ZodType<Pr
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const InventoryTransactionUpsertWithWhereUniqueWithoutItemInputSchema: z.ZodType<Prisma.InventoryTransactionUpsertWithWhereUniqueWithoutItemInput> = z.object({
@@ -38010,12 +38301,9 @@ export const InventoryItemCreateOrConnectWithoutTransactionsInputSchema: z.ZodTy
 export const UserCreateWithoutInventoryTransactionsInputSchema: z.ZodType<Prisma.UserCreateWithoutInventoryTransactionsInput> = z.object({
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   organization: z.lazy(() => OrganizationCreateNestedOneWithoutUsersInputSchema).optional(),
@@ -38036,19 +38324,17 @@ export const UserCreateWithoutInventoryTransactionsInputSchema: z.ZodType<Prisma
   customerFeedbackResponses: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserUncheckedCreateWithoutInventoryTransactionsInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutInventoryTransactionsInput> = z.object({
   id: z.number().int().optional(),
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   organizationId: z.number().int().optional().nullable(),
   restaurantId: z.number().int().optional().nullable(),
   createdAt: z.coerce.date().optional(),
@@ -38069,7 +38355,8 @@ export const UserUncheckedCreateWithoutInventoryTransactionsInputSchema: z.ZodTy
   customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserCreateOrConnectWithoutInventoryTransactionsInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutInventoryTransactionsInput> = z.object({
@@ -38185,12 +38472,9 @@ export const UserUpdateToOneWithWhereWithoutInventoryTransactionsInputSchema: z.
 export const UserUpdateWithoutInventoryTransactionsInputSchema: z.ZodType<Prisma.UserUpdateWithoutInventoryTransactionsInput> = z.object({
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   organization: z.lazy(() => OrganizationUpdateOneWithoutUsersNestedInputSchema).optional(),
@@ -38211,19 +38495,17 @@ export const UserUpdateWithoutInventoryTransactionsInputSchema: z.ZodType<Prisma
   customerFeedbackResponses: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const UserUncheckedUpdateWithoutInventoryTransactionsInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutInventoryTransactionsInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   organizationId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   restaurantId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -38244,7 +38526,8 @@ export const UserUncheckedUpdateWithoutInventoryTransactionsInputSchema: z.ZodTy
   customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const InventoryCreateWithoutStockCountsInputSchema: z.ZodType<Prisma.InventoryCreateWithoutStockCountsInput> = z.object({
@@ -38278,12 +38561,9 @@ export const InventoryCreateOrConnectWithoutStockCountsInputSchema: z.ZodType<Pr
 export const UserCreateWithoutStockCountsInputSchema: z.ZodType<Prisma.UserCreateWithoutStockCountsInput> = z.object({
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   organization: z.lazy(() => OrganizationCreateNestedOneWithoutUsersInputSchema).optional(),
@@ -38304,19 +38584,17 @@ export const UserCreateWithoutStockCountsInputSchema: z.ZodType<Prisma.UserCreat
   customerFeedbackResponses: z.lazy(() => CustomerFeedbackCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserUncheckedCreateWithoutStockCountsInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutStockCountsInput> = z.object({
   id: z.number().int().optional(),
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   organizationId: z.number().int().optional().nullable(),
   restaurantId: z.number().int().optional().nullable(),
   createdAt: z.coerce.date().optional(),
@@ -38337,7 +38615,8 @@ export const UserUncheckedCreateWithoutStockCountsInputSchema: z.ZodType<Prisma.
   customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedCreateNestedManyWithoutRespondedByInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
-  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserCreateOrConnectWithoutStockCountsInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutStockCountsInput> = z.object({
@@ -38420,12 +38699,9 @@ export const UserUpdateToOneWithWhereWithoutStockCountsInputSchema: z.ZodType<Pr
 export const UserUpdateWithoutStockCountsInputSchema: z.ZodType<Prisma.UserUpdateWithoutStockCountsInput> = z.object({
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   organization: z.lazy(() => OrganizationUpdateOneWithoutUsersNestedInputSchema).optional(),
@@ -38446,19 +38722,17 @@ export const UserUpdateWithoutStockCountsInputSchema: z.ZodType<Prisma.UserUpdat
   customerFeedbackResponses: z.lazy(() => CustomerFeedbackUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const UserUncheckedUpdateWithoutStockCountsInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutStockCountsInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   organizationId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   restaurantId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -38479,7 +38753,8 @@ export const UserUncheckedUpdateWithoutStockCountsInputSchema: z.ZodType<Prisma.
   customerFeedbackResponses: z.lazy(() => CustomerFeedbackUncheckedUpdateManyWithoutRespondedByNestedInputSchema).optional(),
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
-  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const StockCountItemUpsertWithWhereUniqueWithoutStockCountInputSchema: z.ZodType<Prisma.StockCountItemUpsertWithWhereUniqueWithoutStockCountInput> = z.object({
@@ -39412,12 +39687,9 @@ export const SupplierPriceHistoryUpdateManyWithWhereWithoutVendorInputSchema: z.
 export const UserCreateWithoutShiftsInputSchema: z.ZodType<Prisma.UserCreateWithoutShiftsInput> = z.object({
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   organization: z.lazy(() => OrganizationCreateNestedOneWithoutUsersInputSchema).optional(),
@@ -39438,19 +39710,17 @@ export const UserCreateWithoutShiftsInputSchema: z.ZodType<Prisma.UserCreateWith
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserUncheckedCreateWithoutShiftsInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutShiftsInput> = z.object({
   id: z.number().int().optional(),
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   organizationId: z.number().int().optional().nullable(),
   restaurantId: z.number().int().optional().nullable(),
   createdAt: z.coerce.date().optional(),
@@ -39471,7 +39741,8 @@ export const UserUncheckedCreateWithoutShiftsInputSchema: z.ZodType<Prisma.UserU
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserCreateOrConnectWithoutShiftsInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutShiftsInput> = z.object({
@@ -39524,12 +39795,9 @@ export const UserUpdateToOneWithWhereWithoutShiftsInputSchema: z.ZodType<Prisma.
 export const UserUpdateWithoutShiftsInputSchema: z.ZodType<Prisma.UserUpdateWithoutShiftsInput> = z.object({
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   organization: z.lazy(() => OrganizationUpdateOneWithoutUsersNestedInputSchema).optional(),
@@ -39550,19 +39818,17 @@ export const UserUpdateWithoutShiftsInputSchema: z.ZodType<Prisma.UserUpdateWith
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const UserUncheckedUpdateWithoutShiftsInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutShiftsInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   organizationId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   restaurantId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -39583,7 +39849,8 @@ export const UserUncheckedUpdateWithoutShiftsInputSchema: z.ZodType<Prisma.UserU
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const ShiftTaskUpsertWithWhereUniqueWithoutShiftInputSchema: z.ZodType<Prisma.ShiftTaskUpsertWithWhereUniqueWithoutShiftInput> = z.object({
@@ -39871,12 +40138,9 @@ export const RecipeCreateOrConnectWithoutPrepItemsInputSchema: z.ZodType<Prisma.
 export const UserCreateWithoutPrepItemsInputSchema: z.ZodType<Prisma.UserCreateWithoutPrepItemsInput> = z.object({
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   organization: z.lazy(() => OrganizationCreateNestedOneWithoutUsersInputSchema).optional(),
@@ -39897,19 +40161,17 @@ export const UserCreateWithoutPrepItemsInputSchema: z.ZodType<Prisma.UserCreateW
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserUncheckedCreateWithoutPrepItemsInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutPrepItemsInput> = z.object({
   id: z.number().int().optional(),
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   organizationId: z.number().int().optional().nullable(),
   restaurantId: z.number().int().optional().nullable(),
   createdAt: z.coerce.date().optional(),
@@ -39930,7 +40192,8 @@ export const UserUncheckedCreateWithoutPrepItemsInputSchema: z.ZodType<Prisma.Us
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserCreateOrConnectWithoutPrepItemsInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutPrepItemsInput> = z.object({
@@ -40072,12 +40335,9 @@ export const UserUpdateToOneWithWhereWithoutPrepItemsInputSchema: z.ZodType<Pris
 export const UserUpdateWithoutPrepItemsInputSchema: z.ZodType<Prisma.UserUpdateWithoutPrepItemsInput> = z.object({
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   organization: z.lazy(() => OrganizationUpdateOneWithoutUsersNestedInputSchema).optional(),
@@ -40098,19 +40358,17 @@ export const UserUpdateWithoutPrepItemsInputSchema: z.ZodType<Prisma.UserUpdateW
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const UserUncheckedUpdateWithoutPrepItemsInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutPrepItemsInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   organizationId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   restaurantId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -40131,18 +40389,16 @@ export const UserUncheckedUpdateWithoutPrepItemsInputSchema: z.ZodType<Prisma.Us
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const UserCreateWithoutPasswordResetsInputSchema: z.ZodType<Prisma.UserCreateWithoutPasswordResetsInput> = z.object({
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
   organization: z.lazy(() => OrganizationCreateNestedOneWithoutUsersInputSchema).optional(),
@@ -40163,19 +40419,17 @@ export const UserCreateWithoutPasswordResetsInputSchema: z.ZodType<Prisma.UserCr
   recipeVersionsCreated: z.lazy(() => RecipeVersionCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionCreateNestedManyWithoutApprovedByInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserUncheckedCreateWithoutPasswordResetsInputSchema: z.ZodType<Prisma.UserUncheckedCreateWithoutPasswordResetsInput> = z.object({
   id: z.number().int().optional(),
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   organizationId: z.number().int().optional().nullable(),
   restaurantId: z.number().int().optional().nullable(),
   createdAt: z.coerce.date().optional(),
@@ -40196,7 +40450,8 @@ export const UserUncheckedCreateWithoutPasswordResetsInputSchema: z.ZodType<Pris
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedCreateNestedManyWithoutApprovedByInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedCreateNestedManyWithoutCreatedByInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedCreateNestedManyWithoutUserInputSchema).optional()
 }).strict();
 
 export const UserCreateOrConnectWithoutPasswordResetsInputSchema: z.ZodType<Prisma.UserCreateOrConnectWithoutPasswordResetsInput> = z.object({
@@ -40218,12 +40473,9 @@ export const UserUpdateToOneWithWhereWithoutPasswordResetsInputSchema: z.ZodType
 export const UserUpdateWithoutPasswordResetsInputSchema: z.ZodType<Prisma.UserUpdateWithoutPasswordResetsInput> = z.object({
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   organization: z.lazy(() => OrganizationUpdateOneWithoutUsersNestedInputSchema).optional(),
@@ -40244,19 +40496,17 @@ export const UserUpdateWithoutPasswordResetsInputSchema: z.ZodType<Prisma.UserUp
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const UserUncheckedUpdateWithoutPasswordResetsInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutPasswordResetsInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   organizationId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   restaurantId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -40277,7 +40527,8 @@ export const UserUncheckedUpdateWithoutPasswordResetsInputSchema: z.ZodType<Pris
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const RestaurantCreateWithoutMenusInputSchema: z.ZodType<Prisma.RestaurantCreateWithoutMenusInput> = z.object({
@@ -42673,12 +42924,9 @@ export const UserCreateManyOrganizationInputSchema: z.ZodType<Prisma.UserCreateM
   id: z.number().int().optional(),
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   restaurantId: z.number().int().optional().nullable(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional()
@@ -42760,12 +43008,9 @@ export const RestaurantUncheckedUpdateManyWithoutOrganizationInputSchema: z.ZodT
 export const UserUpdateWithoutOrganizationInputSchema: z.ZodType<Prisma.UserUpdateWithoutOrganizationInput> = z.object({
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   restaurant: z.lazy(() => RestaurantUpdateOneWithoutUsersNestedInputSchema).optional(),
@@ -42786,19 +43031,17 @@ export const UserUpdateWithoutOrganizationInputSchema: z.ZodType<Prisma.UserUpda
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const UserUncheckedUpdateWithoutOrganizationInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutOrganizationInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   restaurantId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -42819,19 +43062,17 @@ export const UserUncheckedUpdateWithoutOrganizationInputSchema: z.ZodType<Prisma
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const UserUncheckedUpdateManyWithoutOrganizationInputSchema: z.ZodType<Prisma.UserUncheckedUpdateManyWithoutOrganizationInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   restaurantId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -43030,12 +43271,9 @@ export const UserCreateManyRestaurantInputSchema: z.ZodType<Prisma.UserCreateMan
   id: z.number().int().optional(),
   email: z.string(),
   sub: z.number().int().optional().nullable(),
-  passwordHash: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   profileImage: z.string().optional().nullable(),
-  verified: z.boolean().optional(),
-  role: z.lazy(() => UserRoleSchema),
   organizationId: z.number().int().optional().nullable(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional()
@@ -43168,12 +43406,9 @@ export const CustomerFeedbackCreateManyRestaurantInputSchema: z.ZodType<Prisma.C
 export const UserUpdateWithoutRestaurantInputSchema: z.ZodType<Prisma.UserUpdateWithoutRestaurantInput> = z.object({
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   organization: z.lazy(() => OrganizationUpdateOneWithoutUsersNestedInputSchema).optional(),
@@ -43194,19 +43429,17 @@ export const UserUpdateWithoutRestaurantInputSchema: z.ZodType<Prisma.UserUpdate
   recipeVersionsCreated: z.lazy(() => RecipeVersionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUpdateManyWithoutApprovedByNestedInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const UserUncheckedUpdateWithoutRestaurantInputSchema: z.ZodType<Prisma.UserUncheckedUpdateWithoutRestaurantInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   organizationId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -43227,19 +43460,17 @@ export const UserUncheckedUpdateWithoutRestaurantInputSchema: z.ZodType<Prisma.U
   recipeVersionsCreated: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
   recipeVersionsApproved: z.lazy(() => RecipeVersionUncheckedUpdateManyWithoutApprovedByNestedInputSchema).optional(),
   InventoryTransactions: z.lazy(() => InventoryTransactionUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
-  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional()
+  StockCounts: z.lazy(() => StockCountUncheckedUpdateManyWithoutCreatedByNestedInputSchema).optional(),
+  auth: z.lazy(() => AuthUncheckedUpdateManyWithoutUserNestedInputSchema).optional()
 }).strict();
 
 export const UserUncheckedUpdateManyWithoutRestaurantInputSchema: z.ZodType<Prisma.UserUncheckedUpdateManyWithoutRestaurantInput> = z.object({
   id: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   email: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   sub: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   firstName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   lastName: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   profileImage: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
-  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
-  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
   organizationId: z.union([ z.number().int(),z.lazy(() => NullableIntFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -43707,8 +43938,9 @@ export const InventoryItemCreateManyLastUpdatedByInputSchema: z.ZodType<Prisma.I
 
 export const SessionCreateManyUserInputSchema: z.ZodType<Prisma.SessionCreateManyUserInput> = z.object({
   id: z.string().uuid().optional(),
-  code: z.string(),
+  verificationCode: z.string(),
   token: z.string(),
+  verified: z.boolean().optional(),
   expiresAt: z.coerce.date(),
   createdAt: z.coerce.date().optional()
 }).strict();
@@ -43868,6 +44100,12 @@ export const StockCountCreateManyCreatedByInputSchema: z.ZodType<Prisma.StockCou
   notes: z.string().optional().nullable()
 }).strict();
 
+export const AuthCreateManyUserInputSchema: z.ZodType<Prisma.AuthCreateManyUserInput> = z.object({
+  id: z.string().uuid().optional(),
+  passwordHash: z.string(),
+  role: z.lazy(() => UserRoleSchema).optional()
+}).strict();
+
 export const ShiftUpdateWithoutUserInputSchema: z.ZodType<Prisma.ShiftUpdateWithoutUserInput> = z.object({
   startTime: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   endTime: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -43986,24 +44224,27 @@ export const InventoryItemUncheckedUpdateManyWithoutLastUpdatedByInputSchema: z.
 
 export const SessionUpdateWithoutUserInputSchema: z.ZodType<Prisma.SessionUpdateWithoutUserInput> = z.object({
   id: z.union([ z.string().uuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
-  code: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  verificationCode: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   token: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
   expiresAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
 }).strict();
 
 export const SessionUncheckedUpdateWithoutUserInputSchema: z.ZodType<Prisma.SessionUncheckedUpdateWithoutUserInput> = z.object({
   id: z.union([ z.string().uuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
-  code: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  verificationCode: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   token: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
   expiresAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
 }).strict();
 
 export const SessionUncheckedUpdateManyWithoutUserInputSchema: z.ZodType<Prisma.SessionUncheckedUpdateManyWithoutUserInput> = z.object({
   id: z.union([ z.string().uuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
-  code: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  verificationCode: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   token: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
   expiresAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
 }).strict();
@@ -44471,6 +44712,24 @@ export const StockCountUncheckedUpdateManyWithoutCreatedByInputSchema: z.ZodType
   startedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   completedAt: z.union([ z.coerce.date(),z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema) ]).optional().nullable(),
   notes: z.union([ z.string(),z.lazy(() => NullableStringFieldUpdateOperationsInputSchema) ]).optional().nullable(),
+}).strict();
+
+export const AuthUpdateWithoutUserInputSchema: z.ZodType<Prisma.AuthUpdateWithoutUserInput> = z.object({
+  id: z.union([ z.string().uuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
+}).strict();
+
+export const AuthUncheckedUpdateWithoutUserInputSchema: z.ZodType<Prisma.AuthUncheckedUpdateWithoutUserInput> = z.object({
+  id: z.union([ z.string().uuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
+}).strict();
+
+export const AuthUncheckedUpdateManyWithoutUserInputSchema: z.ZodType<Prisma.AuthUncheckedUpdateManyWithoutUserInput> = z.object({
+  id: z.union([ z.string().uuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  passwordHash: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
+  role: z.union([ z.lazy(() => UserRoleSchema),z.lazy(() => EnumUserRoleFieldUpdateOperationsInputSchema) ]).optional(),
 }).strict();
 
 export const RecipeCreateManyCookBookInputSchema: z.ZodType<Prisma.RecipeCreateManyCookBookInput> = z.object({
@@ -48988,6 +49247,68 @@ export const UserFindUniqueOrThrowArgsSchema: z.ZodType<Prisma.UserFindUniqueOrT
   where: UserWhereUniqueInputSchema,
 }).strict() ;
 
+export const AuthFindFirstArgsSchema: z.ZodType<Prisma.AuthFindFirstArgs> = z.object({
+  select: AuthSelectSchema.optional(),
+  include: AuthIncludeSchema.optional(),
+  where: AuthWhereInputSchema.optional(),
+  orderBy: z.union([ AuthOrderByWithRelationInputSchema.array(),AuthOrderByWithRelationInputSchema ]).optional(),
+  cursor: AuthWhereUniqueInputSchema.optional(),
+  take: z.number().optional(),
+  skip: z.number().optional(),
+  distinct: z.union([ AuthScalarFieldEnumSchema,AuthScalarFieldEnumSchema.array() ]).optional(),
+}).strict() ;
+
+export const AuthFindFirstOrThrowArgsSchema: z.ZodType<Prisma.AuthFindFirstOrThrowArgs> = z.object({
+  select: AuthSelectSchema.optional(),
+  include: AuthIncludeSchema.optional(),
+  where: AuthWhereInputSchema.optional(),
+  orderBy: z.union([ AuthOrderByWithRelationInputSchema.array(),AuthOrderByWithRelationInputSchema ]).optional(),
+  cursor: AuthWhereUniqueInputSchema.optional(),
+  take: z.number().optional(),
+  skip: z.number().optional(),
+  distinct: z.union([ AuthScalarFieldEnumSchema,AuthScalarFieldEnumSchema.array() ]).optional(),
+}).strict() ;
+
+export const AuthFindManyArgsSchema: z.ZodType<Prisma.AuthFindManyArgs> = z.object({
+  select: AuthSelectSchema.optional(),
+  include: AuthIncludeSchema.optional(),
+  where: AuthWhereInputSchema.optional(),
+  orderBy: z.union([ AuthOrderByWithRelationInputSchema.array(),AuthOrderByWithRelationInputSchema ]).optional(),
+  cursor: AuthWhereUniqueInputSchema.optional(),
+  take: z.number().optional(),
+  skip: z.number().optional(),
+  distinct: z.union([ AuthScalarFieldEnumSchema,AuthScalarFieldEnumSchema.array() ]).optional(),
+}).strict() ;
+
+export const AuthAggregateArgsSchema: z.ZodType<Prisma.AuthAggregateArgs> = z.object({
+  where: AuthWhereInputSchema.optional(),
+  orderBy: z.union([ AuthOrderByWithRelationInputSchema.array(),AuthOrderByWithRelationInputSchema ]).optional(),
+  cursor: AuthWhereUniqueInputSchema.optional(),
+  take: z.number().optional(),
+  skip: z.number().optional(),
+}).strict() ;
+
+export const AuthGroupByArgsSchema: z.ZodType<Prisma.AuthGroupByArgs> = z.object({
+  where: AuthWhereInputSchema.optional(),
+  orderBy: z.union([ AuthOrderByWithAggregationInputSchema.array(),AuthOrderByWithAggregationInputSchema ]).optional(),
+  by: AuthScalarFieldEnumSchema.array(),
+  having: AuthScalarWhereWithAggregatesInputSchema.optional(),
+  take: z.number().optional(),
+  skip: z.number().optional(),
+}).strict() ;
+
+export const AuthFindUniqueArgsSchema: z.ZodType<Prisma.AuthFindUniqueArgs> = z.object({
+  select: AuthSelectSchema.optional(),
+  include: AuthIncludeSchema.optional(),
+  where: AuthWhereUniqueInputSchema,
+}).strict() ;
+
+export const AuthFindUniqueOrThrowArgsSchema: z.ZodType<Prisma.AuthFindUniqueOrThrowArgs> = z.object({
+  select: AuthSelectSchema.optional(),
+  include: AuthIncludeSchema.optional(),
+  where: AuthWhereUniqueInputSchema,
+}).strict() ;
+
 export const SessionFindFirstArgsSchema: z.ZodType<Prisma.SessionFindFirstArgs> = z.object({
   select: SessionSelectSchema.optional(),
   include: SessionIncludeSchema.optional(),
@@ -52467,6 +52788,60 @@ export const UserUpdateManyAndReturnArgsSchema: z.ZodType<Prisma.UserUpdateManyA
 
 export const UserDeleteManyArgsSchema: z.ZodType<Prisma.UserDeleteManyArgs> = z.object({
   where: UserWhereInputSchema.optional(),
+  limit: z.number().optional(),
+}).strict() ;
+
+export const AuthCreateArgsSchema: z.ZodType<Prisma.AuthCreateArgs> = z.object({
+  select: AuthSelectSchema.optional(),
+  include: AuthIncludeSchema.optional(),
+  data: z.union([ AuthCreateInputSchema,AuthUncheckedCreateInputSchema ]),
+}).strict() ;
+
+export const AuthUpsertArgsSchema: z.ZodType<Prisma.AuthUpsertArgs> = z.object({
+  select: AuthSelectSchema.optional(),
+  include: AuthIncludeSchema.optional(),
+  where: AuthWhereUniqueInputSchema,
+  create: z.union([ AuthCreateInputSchema,AuthUncheckedCreateInputSchema ]),
+  update: z.union([ AuthUpdateInputSchema,AuthUncheckedUpdateInputSchema ]),
+}).strict() ;
+
+export const AuthCreateManyArgsSchema: z.ZodType<Prisma.AuthCreateManyArgs> = z.object({
+  data: z.union([ AuthCreateManyInputSchema,AuthCreateManyInputSchema.array() ]),
+  skipDuplicates: z.boolean().optional(),
+}).strict() ;
+
+export const AuthCreateManyAndReturnArgsSchema: z.ZodType<Prisma.AuthCreateManyAndReturnArgs> = z.object({
+  data: z.union([ AuthCreateManyInputSchema,AuthCreateManyInputSchema.array() ]),
+  skipDuplicates: z.boolean().optional(),
+}).strict() ;
+
+export const AuthDeleteArgsSchema: z.ZodType<Prisma.AuthDeleteArgs> = z.object({
+  select: AuthSelectSchema.optional(),
+  include: AuthIncludeSchema.optional(),
+  where: AuthWhereUniqueInputSchema,
+}).strict() ;
+
+export const AuthUpdateArgsSchema: z.ZodType<Prisma.AuthUpdateArgs> = z.object({
+  select: AuthSelectSchema.optional(),
+  include: AuthIncludeSchema.optional(),
+  data: z.union([ AuthUpdateInputSchema,AuthUncheckedUpdateInputSchema ]),
+  where: AuthWhereUniqueInputSchema,
+}).strict() ;
+
+export const AuthUpdateManyArgsSchema: z.ZodType<Prisma.AuthUpdateManyArgs> = z.object({
+  data: z.union([ AuthUpdateManyMutationInputSchema,AuthUncheckedUpdateManyInputSchema ]),
+  where: AuthWhereInputSchema.optional(),
+  limit: z.number().optional(),
+}).strict() ;
+
+export const AuthUpdateManyAndReturnArgsSchema: z.ZodType<Prisma.AuthUpdateManyAndReturnArgs> = z.object({
+  data: z.union([ AuthUpdateManyMutationInputSchema,AuthUncheckedUpdateManyInputSchema ]),
+  where: AuthWhereInputSchema.optional(),
+  limit: z.number().optional(),
+}).strict() ;
+
+export const AuthDeleteManyArgsSchema: z.ZodType<Prisma.AuthDeleteManyArgs> = z.object({
+  where: AuthWhereInputSchema.optional(),
   limit: z.number().optional(),
 }).strict() ;
 
