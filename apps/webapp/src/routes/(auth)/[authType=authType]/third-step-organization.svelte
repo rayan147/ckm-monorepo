@@ -8,6 +8,15 @@
   import { z } from 'zod';
 
   let { formData = $bindable() } = $props();
+  type Restaurant = {
+    name: string;
+    imageUrl: string;
+    address: string;
+    city: string;
+    zipCode: string;
+    state: string;
+    owner: string;
+  };
 
   // Restaurant template for new entries
   const emptyRestaurant = {
@@ -18,7 +27,7 @@
     zipCode: '',
     state: '',
     owner: ''
-  };
+  } satisfies Restaurant;
 
   // Current restaurant being edited
   let newRestaurant = $state({ ...emptyRestaurant });
@@ -91,11 +100,11 @@
 
   // Remove restaurant from the list
   function removeRestaurant(index: number) {
-    formData.restaurantsInput = formData.restaurantsInput.filter((_, i) => i !== index);
+    formData.restaurantsInput = formData.restaurantsInput.filter((_, i: number) => i !== index);
   }
 </script>
 
-<div class="space-y-6">
+<section class="space-y-6">
   <div class="space-y-2">
     <Label for="orgName">Organization Name</Label>
     <Input
@@ -107,7 +116,7 @@
       aria-invalid={orgErrors.name ? 'true' : undefined}
     />
     {#if orgErrors.name}
-      <p class="text-sm text-red-500">{orgErrors.name}</p>
+      <p class="text-sm text-red-500" role="alert">{orgErrors.name}</p>
     {/if}
   </div>
 
@@ -116,32 +125,34 @@
   <div>
     <h3 class="text-lg font-medium mb-4">Restaurants</h3>
 
-    {#if formData.restaurantsInput.length > 1}
-      {console.log({ formData })}
-      <div class="space-y-3 mb-6">
+    {#if formData.restaurantsInput.length > 0}
+      <ul class="space-y-3 mb-6" aria-label="Restaurant list">
         {#each formData.restaurantsInput as restaurant, index}
-          <Card class="relative">
-            <Button
-              variant="destructive"
-              size="icon"
-              class="absolute top-2 right-2 h-6 w-6"
-              onclick={() => removeRestaurant(index)}
-            >
-              ×
-            </Button>
-            <CardHeader class="pb-2">
-              <CardTitle class="text-sm">{restaurant.name}</CardTitle>
-            </CardHeader>
-            <CardContent class="text-xs text-gray-600">
-              <p>
-                {restaurant.address}, {restaurant.city}, {restaurant.state}
-                {restaurant.zipCode}
-              </p>
-              <p>Owner: {restaurant.owner}</p>
-            </CardContent>
-          </Card>
+          <li>
+            <Card class="relative">
+              <Button
+                variant="destructive"
+                size="icon"
+                class="absolute top-2 right-2 h-6 w-6"
+                onclick={() => removeRestaurant(index)}
+                aria-label={`Remove ${restaurant.name}`}
+              >
+                <span aria-hidden="true">×</span>
+              </Button>
+              <CardHeader class="pb-2">
+                <CardTitle class="text-sm">{restaurant.name}</CardTitle>
+              </CardHeader>
+              <CardContent class="text-xs text-gray-600">
+                <address>
+                  {restaurant.address}, {restaurant.city}, {restaurant.state}
+                  {restaurant.zipCode}
+                </address>
+                <p>Owner: {restaurant.owner}</p>
+              </CardContent>
+            </Card>
+          </li>
         {/each}
-      </div>
+      </ul>
     {/if}
 
     <Card>
@@ -149,7 +160,9 @@
         <CardTitle class="text-base">Add New Restaurant</CardTitle>
       </CardHeader>
       <CardContent>
-        <div class="grid gap-3">
+        <fieldset class="grid gap-3">
+          <legend class="sr-only">New Restaurant Details</legend>
+
           <div>
             <Label for="restaurantName">Restaurant Name</Label>
             <Input
@@ -159,7 +172,7 @@
               aria-invalid={restaurantErrors.name ? 'true' : undefined}
             />
             {#if restaurantErrors.name}
-              <p class="text-xs text-red-500">{restaurantErrors.name}</p>
+              <p class="text-xs text-red-500" role="alert">{restaurantErrors.name}</p>
             {/if}
           </div>
 
@@ -172,7 +185,7 @@
               aria-invalid={restaurantErrors.address ? 'true' : undefined}
             />
             {#if restaurantErrors.address}
-              <p class="text-xs text-red-500">{restaurantErrors.address}</p>
+              <p class="text-xs text-red-500" role="alert">{restaurantErrors.address}</p>
             {/if}
           </div>
 
@@ -186,7 +199,7 @@
                 aria-invalid={restaurantErrors.city ? 'true' : undefined}
               />
               {#if restaurantErrors.city}
-                <p class="text-xs text-red-500">{restaurantErrors.city}</p>
+                <p class="text-xs text-red-500" role="alert">{restaurantErrors.city}</p>
               {/if}
             </div>
 
@@ -199,7 +212,7 @@
                 aria-invalid={restaurantErrors.state ? 'true' : undefined}
               />
               {#if restaurantErrors.state}
-                <p class="text-xs text-red-500">{restaurantErrors.state}</p>
+                <p class="text-xs text-red-500" role="alert">{restaurantErrors.state}</p>
               {/if}
             </div>
           </div>
@@ -214,7 +227,7 @@
                 aria-invalid={restaurantErrors.zipCode ? 'true' : undefined}
               />
               {#if restaurantErrors.zipCode}
-                <p class="text-xs text-red-500">{restaurantErrors.zipCode}</p>
+                <p class="text-xs text-red-500" role="alert">{restaurantErrors.zipCode}</p>
               {/if}
             </div>
 
@@ -227,17 +240,17 @@
                 aria-invalid={restaurantErrors.owner ? 'true' : undefined}
               />
               {#if restaurantErrors.owner}
-                <p class="text-xs text-red-500">{restaurantErrors.owner}</p>
+                <p class="text-xs text-red-500" role="alert">{restaurantErrors.owner}</p>
               {/if}
             </div>
           </div>
 
           <Button type="button" variant="outline" class="mt-3" onclick={addRestaurant}>
             <Plus class="h-4 w-4 mr-2" />
-            Add Restaurant
+            <span>Add Restaurant</span>
           </Button>
-        </div>
+        </fieldset>
       </CardContent>
     </Card>
   </div>
-</div>
+</section>

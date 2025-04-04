@@ -57,33 +57,38 @@ exports.UserService = void 0;
 const db_1 = require("@ckm/db");
 const common_1 = require("@nestjs/common");
 const bcrypt = __importStar(require("bcryptjs"));
+const logging_service_1 = require("../logging/logging.service");
 const prisma_service_1 = require("../prisma/prisma.service");
 let UserService = class UserService {
-    constructor(prisma) {
+    constructor(prisma, logger) {
         this.prisma = prisma;
+        this.logger = logger;
     }
-    async getAuthgUserByEmail(email) {
-        const user = await this.prisma.user.findUnique({ where: { email }, include: { auth: true } });
-        if (!user) {
-            throw new common_1.NotFoundException('User not found');
+    async getAuthUserByEmail(email) {
+        try {
+            return await this.prisma.user.findUnique({ where: { email }, include: { auth: true } });
         }
-        return user;
+        catch (error) {
+            this.logger.handleError(error, 'Database error in getAuthUserByEmail');
+        }
     }
     async getUserByEmail(email) {
-        const user = await this.prisma.user.findUnique({ where: { email }, include: { auth: true } });
-        if (!user) {
-            throw new common_1.NotFoundException('User not found');
+        try {
+            return await this.prisma.user.findUnique({ where: { email } });
         }
-        return user;
+        catch (error) {
+            this.logger.handleError(error, 'Database error in getUserByEmail');
+        }
     }
     async getUser(id) {
-        const user = await this.prisma.user.findUnique({
-            where: { id }
-        });
-        if (!user) {
-            throw new common_1.NotFoundException('User not found');
+        try {
+            return await this.prisma.user.findUnique({
+                where: { id }
+            });
         }
-        return user;
+        catch (error) {
+            this.logger.handleError(error, 'Database error in getUser');
+        }
     }
     async getAuthUser(id) {
         const user = await this.prisma.user.findUnique({
@@ -107,19 +112,45 @@ let UserService = class UserService {
     async createUser(userData) {
         try {
             const hashedPassword = await bcrypt.hash(userData.password, 10);
-            const { password, role = db_1.UserRole.STAFF } = userData, userDataWithoutAuth = __rest(userData, ["password", "role"]);
-            const user = await this.prisma.user.create({
-                data: Object.assign(Object.assign({}, userDataWithoutAuth), { auth: {
-                        create: {
-                            passwordHash: hashedPassword,
-                            role: role
+            const { password, role = db_1.UserRole.STAFF, isOrganization, organizationInput, restaurantsInput } = userData, userDataWithoutAuth = __rest(userData, ["password", "role", "isOrganization", "organizationInput", "restaurantsInput"]);
+            return await this.prisma.$transaction(async (tx) => {
+                let organization = null;
+                if (isOrganization && organizationInput) {
+                    organization = await tx.organization.create({
+                        data: {
+                            name: organizationInput.name,
+                            imageUrl: organizationInput.imageUrl
                         }
-                    } }),
+                    });
+                    this.logger.log('Organization created: ' + organization.id);
+                }
+                const user = await tx.user.create({
+                    data: Object.assign(Object.assign(Object.assign({}, userDataWithoutAuth), { auth: {
+                            create: {
+                                passwordHash: hashedPassword,
+                                role: role
+                            }
+                        } }), (organization ? { organization: { connect: { id: organization.id } } } : {})),
+                    include: {
+                        organization: true
+                    }
+                });
+                this.logger.log('User created: ' + user.id);
+                if (restaurantsInput && restaurantsInput.length > 0) {
+                    for (const restaurantData of restaurantsInput) {
+                        const restaurant = await tx.restaurant.create({
+                            data: Object.assign(Object.assign(Object.assign({}, restaurantData), (organization ? { organization: { connect: { id: organization.id } } } : {})), { users: {
+                                    connect: { id: user.id }
+                                } })
+                        });
+                        this.logger.log('Restaurant created: ' + restaurant.id);
+                    }
+                }
+                return user;
             });
-            return user;
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException(error);
+            this.logger.handleError(error, 'Error creating user with organization and restaurants');
         }
     }
     async updateUser(userId, data) {
@@ -182,6 +213,6 @@ let UserService = class UserService {
 exports.UserService = UserService;
 exports.UserService = UserService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
+    __metadata("design:paramtypes", [prisma_service_1.PrismaService, logging_service_1.LoggingService])
 ], UserService);
 //# sourceMappingURL=users.service.js.map

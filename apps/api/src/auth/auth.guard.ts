@@ -6,30 +6,40 @@ import { AuthSessionsService } from './utils/auth.sessions.service';
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
-    private authSession: AuthSessionsService,
     private reflector: Reflector,
+    private authSession: AuthSessionsService
   ) { }
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const isPublic = this.reflector.get<boolean>('isPublic', context.getHandler());
+    // Check if route is marked as public
+    const isPublic = this.reflector.getAllAndOverride<boolean>('isPublic', [
+      context.getHandler(),
+      context.getClass(),
+    ]);
+
     if (isPublic) {
       return true;
     }
 
+    // Get request from context
     const request = context.switchToHttp().getRequest();
-    const token = request.cookies['session_token'];
+    console.log({ request })
 
+    const token = request.cookies['session_token']
     if (!token) {
       return false;
     }
 
+    // Validate token
     const { session, user } = await this.authSession.validateSessionToken(token);
-    if (session && user) {
-      request.user = user;
-      request.session = session;
-      return true;
+    if (!session || !user) {
+      return false;
     }
 
-    return false;
+    // Attach user and session to request
+    request.user = user;
+    request.session = session;
+
+    return true;
   }
 }

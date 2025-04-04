@@ -10,11 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
+const contracts_1 = require("@ckm/contracts");
 const common_1 = require("@nestjs/common");
 const nest_1 = require("@ts-rest/nest");
-const contracts_1 = require("@ckm/contracts");
 const users_service_1 = require("./users.service");
-const common_2 = require("@nestjs/common");
 let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
@@ -60,18 +59,18 @@ let UserController = class UserController {
         return (0, nest_1.tsRestHandler)(contracts_1.contract.users.getUser, async ({ params }) => {
             try {
                 const user = await this.userService.getUser(params.id);
+                if (!user) {
+                    return {
+                        status: 404,
+                        body: { message: 'User not found' },
+                    };
+                }
                 return {
                     status: 200,
                     body: user,
                 };
             }
             catch (error) {
-                if (error instanceof common_2.NotFoundException) {
-                    return {
-                        status: 404,
-                        body: { message: error.message },
-                    };
-                }
                 return {
                     status: 500,
                     body: { message: error.message },
@@ -89,7 +88,7 @@ let UserController = class UserController {
                 };
             }
             catch (error) {
-                if (error instanceof common_2.NotFoundException) {
+                if (error instanceof common_1.NotFoundException) {
                     return {
                         status: 404,
                         body: { message: error.message },
@@ -112,7 +111,7 @@ let UserController = class UserController {
                 };
             }
             catch (error) {
-                if (error instanceof common_2.NotFoundException) {
+                if (error instanceof common_1.NotFoundException) {
                     return {
                         status: 404,
                         body: { message: error.message },
@@ -158,7 +157,6 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "deleteUser", null);
 exports.UserController = UserController = __decorate([
-    (0, nest_1.TsRest)({ jsonQuery: true }),
     (0, common_1.Controller)(),
     __metadata("design:paramtypes", [users_service_1.UserService])
 ], UserController);

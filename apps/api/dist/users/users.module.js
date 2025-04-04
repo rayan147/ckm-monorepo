@@ -11,16 +11,15 @@ const common_1 = require("@nestjs/common");
 const users_controller_1 = require("./users.controller");
 const users_service_1 = require("./users.service");
 const auth_module_1 = require("../auth/auth.module");
-const jwt_1 = require("@nestjs/jwt");
 let UsersModule = class UsersModule {
 };
 exports.UsersModule = UsersModule;
 exports.UsersModule = UsersModule = __decorate([
     (0, common_1.Module)({
         controllers: [users_controller_1.UserController],
-        providers: [users_service_1.UserService, jwt_1.JwtService],
+        providers: [users_service_1.UserService],
         exports: [users_service_1.UserService],
-        imports: [auth_module_1.AuthModule],
+        imports: [(0, common_1.forwardRef)(() => auth_module_1.AuthModule)],
     })
 ], UsersModule);
 //# sourceMappingURL=users.module.js.map

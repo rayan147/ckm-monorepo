@@ -14,28 +14,35 @@ const common_1 = require("@nestjs/common");
 const logging_service_1 = require("../../logging/logging.service");
 const prisma_service_1 = require("../../prisma/prisma.service");
 const env_service_1 = require("../../env/env.service");
+const csrf_service_1 = require("../../csrf/csrf.service");
 let AuthSessionsService = class AuthSessionsService {
-    constructor(prisma, logger, envService) {
+    constructor(prisma, logger, envService, csrfService) {
         this.prisma = prisma;
         this.logger = logger;
         this.envService = envService;
+        this.csrfService = csrfService;
         this.THIRTY_DAYS = 30 * 24 * 60 * 60 * 1000;
         this.FIFTEEN_DAYS = 15 * 24 * 60 * 60 * 1000;
         this.ONE_HOUR = 60 * 60 * 1000;
     }
-    seSessionCookie(response, token, expiresIn = this.THIRTY_DAYS) {
+    setSessionCookie(response, token, request, expiresIn = this.THIRTY_DAYS) {
+        const isDev = this.envService.get('NODE_ENV') === "dev";
+        console.log('Setting cookie with token:', token, 'Dev mode:', isDev);
         response.cookie('session_token', token, {
             httpOnly: true,
-            secure: this.envService.get('NODE_ENV') === "prod",
+            secure: !isDev,
             sameSite: 'strict',
             maxAge: expiresIn,
             path: '/'
         });
+        console.log('Cookie headers after setting:', response.getHeaders());
+        return this.csrfService.setCsrfToken(request, response);
     }
     clearSessionCookie(response) {
+        const isDev = this.envService.get('NODE_ENV') === "dev";
         response.clearCookie('session_token', {
             httpOnly: true,
-            secure: this.envService.get('NODE_ENV') === "prod",
+            secure: !isDev,
             sameSite: 'strict',
             path: '/'
         });
@@ -67,23 +74,44 @@ let AuthSessionsService = class AuthSessionsService {
             if (session === null) {
                 return { session: null, user: null };
             }
+            if (Date.now() >= session.expiresAt.getTime()) {
+                await this.invalidateSession(session.user.id);
+                return { session: null, user: null };
+            }
             return {
                 session,
                 user: session.user
             };
         }
         catch (error) {
-            this.logger.handleError(error, 'getFullSession Erorr');
+            this.logger.handleError(error, 'Error in getFullSession');
         }
     }
     async createSession(token, userId, verified = false) {
         try {
             const { sha256 } = await import("@oslojs/crypto/sha2");
             const { encodeHexLowerCase } = await import("@oslojs/encoding");
+            const existingSessions = await this.prisma.session.findMany({
+                where: { userId },
+                orderBy: { createdAt: 'desc' },
+            });
+            const MAX_SESSIONS = 5;
+            if (existingSessions.length >= MAX_SESSIONS) {
+                const sessionsToDelete = existingSessions.slice(MAX_SESSIONS - 1);
+                if (sessionsToDelete.length > 0) {
+                    await this.prisma.session.deleteMany({
+                        where: {
+                            id: {
+                                in: sessionsToDelete.map(s => s.id)
+                            }
+                        }
+                    });
+                }
+            }
             const generatedVerifactionCode = await this.generatedVerifictionCode();
             const generatedSessionToken = await this.generateSessionToken();
             const id = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
-            const session = this.prisma.session.create({
+            const session = await this.prisma.session.create({
                 data: {
                     id,
                     verificationCode: generatedVerifactionCode,
@@ -96,7 +124,7 @@ let AuthSessionsService = class AuthSessionsService {
             return session;
         }
         catch (error) {
-            this.logger.handleError(error, `${error.message}`);
+            this.logger.handleError(error, `Error creating session: ${error.message}`);
         }
     }
     async extendedSession(sessionId) {
@@ -104,45 +132,48 @@ let AuthSessionsService = class AuthSessionsService {
             const session = await this.prisma.session.findUniqueOrThrow({
                 where: { id: sessionId }
             });
+            if (Date.now() >= session.expiresAt.getTime()) {
+                throw new common_1.UnauthorizedException('Cannot extend expired session');
+            }
             if (Date.now() >= session.expiresAt.getTime() - this.FIFTEEN_DAYS) {
                 const newExpiresAt = new Date(Date.now() + this.THIRTY_DAYS);
-                await this.prisma.session.update({
+                const updatedSession = await this.prisma.session.update({
                     where: { id: sessionId },
                     data: {
                         expiresAt: newExpiresAt
                     }
                 });
-                session.expiresAt = newExpiresAt;
+                return updatedSession;
             }
             return session;
         }
         catch (error) {
-            this.logger.handleError(error, 'Erorr extending the session');
+            this.logger.handleError(error, 'Error extending the session');
         }
     }
     async validateSessionToken(token) {
-        const { sha256 } = await import("@oslojs/crypto/sha2");
-        const { encodeHexLowerCase } = await import("@oslojs/encoding");
-        const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
         try {
+            const { sha256 } = await import("@oslojs/crypto/sha2");
+            const { encodeHexLowerCase } = await import("@oslojs/encoding");
+            const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
             const session = await this.prisma.session.findUnique({
                 where: { id: sessionId },
                 include: {
                     user: true
                 }
             });
-            if (!session) {
-                return { session: null, user: null };
-            }
-            if (Date.now() >= session.expiresAt.getTime()) {
-                await this.invalidateSession(session.user.id);
+            const sessionIsValid = !!session && Date.now() < session.expiresAt.getTime();
+            if (!sessionIsValid) {
+                if (session && Date.now() >= session.expiresAt.getTime()) {
+                    await this.invalidateSession(session.user.id);
+                }
                 return { session: null, user: null };
             }
             await this.extendedSession(session.id);
             return { session, user: session.user };
         }
         catch (error) {
-            this.logger.handleError(error, 'Error at validateSessionToken');
+            this.logger.handleError(error, 'Error validating session token');
         }
     }
     async invalidateSession(userId) {
@@ -154,11 +185,13 @@ let AuthSessionsService = class AuthSessionsService {
                 }
             });
             await Promise.all(user.sessions.map(async ({ id }) => {
-                this.prisma.session.delete({ where: { id } });
+                await this.prisma.session.delete({ where: { id } });
             }));
+            this.logger.log(`Successfully invalidated all sessions for user ${userId}`);
         }
         catch (error) {
-            this.logger.handleError(error, 'Error at invalidateSession');
+            this.logger.error('Error invalidating sessions', error);
+            throw error;
         }
     }
     async invalidateAllUserSessions(userId) {
@@ -166,6 +199,7 @@ let AuthSessionsService = class AuthSessionsService {
     }
     async verifySession(verificationCode) {
         try {
+            await new Promise(resolve => setTimeout(resolve, 100));
             const session = await this.prisma.session.findUnique({
                 where: { verificationCode },
                 include: { user: true }
@@ -173,21 +207,28 @@ let AuthSessionsService = class AuthSessionsService {
             if (!session) {
                 throw new common_1.UnauthorizedException('Invalid verification code');
             }
+            if (Date.now() >= session.expiresAt.getTime()) {
+                throw new common_1.UnauthorizedException('Verification code has expired');
+            }
             await this.prisma.session.update({
                 where: { id: session.id },
-                data: { verified: true, verificationCode: '' }
+                data: {
+                    verified: true,
+                    verificationCode: await this.generatedVerifictionCode()
+                }
             });
             const newToken = await this.generateSessionToken();
-            await this.createSession(newToken, session.userId, true);
             await this.invalidateSession(session.userId);
+            await this.createSession(newToken, session.userId, true);
             return { sessionToken: newToken, user: session.user };
         }
         catch (error) {
-            this.logger.handleError(error, 'Failed to verifySession');
+            this.logger.handleError(error, 'Failed to verify session');
         }
     }
-    async createPassowrdResetToken(userId) {
+    async createPasswordResetToken(userId) {
         try {
+            await this.invalidatePasswordResetTokens(userId);
             const resetToken = await this.generateSessionToken();
             await this.prisma.passwordReset.create({
                 data: {
@@ -202,13 +243,21 @@ let AuthSessionsService = class AuthSessionsService {
             this.logger.handleError(error, 'Error creating password reset token');
         }
     }
+    async createPassowrdResetToken(userId) {
+        return this.createPasswordResetToken(userId);
+    }
     async validatePasswordResetToken(token) {
         try {
+            await new Promise(resolve => setTimeout(resolve, 150));
             const reset = await this.prisma.passwordReset.findUnique({
                 where: { token },
                 include: { user: true },
             });
-            if (!reset || reset.expiresAt < new Date()) {
+            const isValid = !!reset && reset.expiresAt > new Date();
+            if (!isValid) {
+                if (reset && reset.expiresAt < new Date()) {
+                    await this.invalidatePasswordResetTokens(reset.userId);
+                }
                 return { isValid: false };
             }
             return { isValid: true, user: reset.user };
@@ -222,6 +271,7 @@ let AuthSessionsService = class AuthSessionsService {
             await this.prisma.passwordReset.deleteMany({
                 where: { userId },
             });
+            this.logger.log(`Invalidated all password reset tokens for user ${userId}`);
         }
         catch (error) {
             this.logger.handleError(error, 'Error invalidating password reset tokens');
@@ -233,6 +283,7 @@ exports.AuthSessionsService = AuthSessionsService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [prisma_service_1.PrismaService,
         logging_service_1.LoggingService,
-        env_service_1.EnvService])
+        env_service_1.EnvService,
+        csrf_service_1.CsrfService])
 ], AuthSessionsService);
 //# sourceMappingURL=auth.sessions.service.js.map

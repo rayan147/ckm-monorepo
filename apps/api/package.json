@@ -58,6 +58,7 @@
     "bcryptjs": "^3.0.2",
     "cookie-parser": "^1.4.7",
     "csrf-csrf": "^3.1.0",
+    "csrf-sync": "^4.1.0",
     "dotenv": "^16.4.7",
     "fp-ts": "^2.16.9",
     "helmet": "^8.0.0",

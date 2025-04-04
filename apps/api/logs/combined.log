@@ -39732,3 +39732,4757 @@
   "service": "LoggingService",
   "timestamp": "2025-03-30T23:50:04.589Z"
 }
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-03-31T18:30:03.584Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-03-31T18:30:03.655Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-03-31T18:30:03.722Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-03-31T18:30:03.802Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-03-31T18:30:03.888Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-03-31T18:30:06.321Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-03-31T18:30:06.391Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-03-31T18:30:06.463Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-03-31T18:30:06.522Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-03-31T18:30:06.604Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-03-31T18:30:14.725Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-03-31T18:30:14.799Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-03-31T18:30:14.883Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-03-31T18:30:14.939Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-03-31T18:30:15.000Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-03-31T18:30:32.832Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-03-31T18:30:32.896Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-03-31T18:30:32.969Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-03-31T18:30:33.038Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-03-31T18:30:33.107Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-03-31T18:31:23.997Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-03-31T18:31:24.074Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-03-31T18:31:24.142Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-03-31T18:31:24.214Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-03-31T18:31:24.292Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T13:22:23.565Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T13:22:23.648Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T13:22:23.763Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T13:22:23.852Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T13:22:23.939Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T14:13:12.676Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T14:13:12.683Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T14:42:55.897Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T14:42:56.019Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T14:42:56.107Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T14:42:56.189Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T14:42:56.313Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T14:46:07.083Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T14:46:07.211Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T14:46:07.285Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T14:46:07.358Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T14:46:07.442Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T14:48:29.027Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T14:48:29.117Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T14:48:29.233Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T14:48:29.315Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T14:48:29.380Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T14:48:34.649Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T14:48:34.732Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T14:48:34.814Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T14:48:34.878Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T14:48:34.944Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T15:26:53.636Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T15:26:53.703Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T15:26:53.778Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T15:26:53.850Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T15:26:53.925Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T15:27:02.831Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T15:27:02.892Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T15:27:02.950Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T15:27:03.008Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T15:27:03.084Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T15:32:42.638Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T15:32:50.954Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T15:32:51.013Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T15:32:42.592Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T15:32:42.666Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T15:33:55.967Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T15:33:56.025Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T15:33:56.089Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T15:33:56.161Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T15:33:56.217Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T15:36:05.738Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T15:36:05.812Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T15:36:05.899Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T15:36:05.982Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T15:36:06.063Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T15:41:04.081Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T15:41:04.143Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T15:41:04.205Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T15:41:04.263Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T15:41:04.354Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T15:42:00.283Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T15:42:00.340Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T15:42:00.406Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T15:42:00.464Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T15:42:00.531Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:13:21.050Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:13:21.185Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:13:21.271Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:13:21.368Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:13:21.481Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:13:28.308Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:13:28.379Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:13:28.456Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:13:28.529Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:13:28.626Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:22:38.881Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:22:38.978Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:22:39.061Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:22:39.117Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:22:39.175Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:24:29.973Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:24:30.089Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:24:30.187Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:24:30.262Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:24:30.356Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "User not found",
+  "level": "error",
+  "message": "Failed getUserByEmail: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:24:37.257Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:26:20.913Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:26:20.992Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:26:21.067Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:26:21.141Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:26:21.207Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:27:36.816Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:27:44.913Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:27:44.977Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:27:36.528Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:27:36.601Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:27:39.222Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:27:39.286Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:27:39.376Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:27:39.442Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:27:39.510Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "User not found",
+  "level": "error",
+  "message": "Failed getUserByEmail: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:27:51.576Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:31:12.232Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:31:12.298Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:31:12.373Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:31:12.434Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:31:20.531Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:31:16.686Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:31:16.782Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:31:16.858Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:31:16.935Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:31:17.008Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "User not found",
+  "level": "error",
+  "message": "Failed getUserByEmail: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:31:19.092Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:32:05.448Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:32:05.516Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:32:05.582Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:32:05.647Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:32:05.710Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:33:23.182Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:33:23.245Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:33:23.315Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:33:23.394Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:33:23.486Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:35:49.202Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:35:49.272Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:35:49.372Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:35:49.494Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:35:49.577Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:35:52.871Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:35:53.004Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:36:01.458Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:36:01.518Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:35:53.060Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:37:22.104Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:37:22.184Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:37:22.261Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:37:22.347Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:37:22.415Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T17:01:59.691Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T17:01:59.770Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T17:01:59.852Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T17:01:59.946Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T17:02:00.050Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T17:09:23.789Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T17:09:23.869Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T17:09:23.935Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T17:09:24.017Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T17:09:24.089Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T17:11:37.600Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T17:11:37.686Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T17:11:37.758Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T17:11:37.841Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T17:11:37.913Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T17:13:36.688Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T17:13:36.780Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T17:13:36.872Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T17:13:36.941Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T17:13:37.013Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T19:10:51.878Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T19:10:51.960Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T19:10:52.052Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T19:10:52.137Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T19:10:52.205Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T16:00:01.150Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T16:00:01.239Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T16:00:01.333Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T16:00:01.412Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T16:00:01.494Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:05:23.737Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:05:23.830Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:05:23.945Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:05:24.025Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:05:24.135Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:13:56.336Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:13:56.426Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:13:56.509Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:13:56.589Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:13:56.664Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:14:32.287Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:14:32.373Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:14:32.449Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:14:32.519Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:14:32.593Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:16:11.607Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:16:11.723Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:16:11.783Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:16:11.838Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:16:11.899Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:16:20.994Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:16:21.061Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:16:21.123Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:16:21.194Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:16:21.250Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:16:56.483Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:16:56.542Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:16:56.611Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:16:56.677Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:16:56.741Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:16:58.828Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:16:58.905Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:16:58.970Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:16:59.049Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:16:59.113Z"
+}
+{
+  "level": "info",
+  "message": "Organization created: 14",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:47:21.684Z"
+}
+{
+  "level": "info",
+  "message": "User created: 114",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:47:21.710Z"
+}
+{
+  "level": "info",
+  "message": "Restaurant created: 23",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:47:21.727Z"
+}
+{
+  "level": "info",
+  "message": "Restaurant created: 24",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:47:21.735Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `tx.organization.create()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/users/users.service.ts:104:48\n\n  101 // Create organization first if applicable\n  102 let organization = null;\n  103 if (isOrganization && organizationInput) {\n→ 104   organization = await tx.organization.create(\nUnique constraint failed on the fields: (`name`)",
+  "level": "error",
+  "message": "Error creating user with organization and restaurants: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:49:18.231Z"
+}
+{
+  "level": "info",
+  "message": "Organization created: 16",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:50:02.991Z"
+}
+{
+  "level": "info",
+  "message": "User created: 115",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:50:03.000Z"
+}
+{
+  "level": "info",
+  "message": "Restaurant created: 25",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:50:03.008Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T19:04:05.713Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T19:04:05.783Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T19:04:05.852Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T19:04:05.917Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T19:04:05.987Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.session.update()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/auth/utils/auth.sessions.service.ts:218:33\n\n  215   throw new UnauthorizedException('Invalid verification code');\n  216 }\n  217 \n→ 218 await this.prisma.session.update(\nUnique constraint failed on the fields: (`verificationCode`)",
+  "level": "error",
+  "message": "Failed to verifySession: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T19:09:13.166Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.session.update()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/auth/utils/auth.sessions.service.ts:218:33\n\n  215   throw new UnauthorizedException('Invalid verification code');\n  216 }\n  217 \n→ 218 await this.prisma.session.update(\nUnique constraint failed on the fields: (`verificationCode`)",
+  "level": "error",
+  "message": "Failed to verifySession: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T19:10:01.956Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T12:47:31.210Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T12:47:31.316Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T12:47:31.413Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T12:47:31.524Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T12:47:31.623Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.session.update()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/auth/utils/auth.sessions.service.ts:218:33\n\n  215   throw new UnauthorizedException('Invalid verification code');\n  216 }\n  217 \n→ 218 await this.prisma.session.update(\nUnique constraint failed on the fields: (`verificationCode`)",
+  "level": "error",
+  "message": "Failed to verifySession: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T12:49:40.233Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T12:51:20.589Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T12:51:20.653Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T12:51:20.719Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T12:51:20.786Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T12:51:20.859Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T13:00:07.257Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T13:00:07.328Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T13:00:07.393Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T13:00:07.459Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T13:00:07.534Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T13:02:44.243Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T13:02:44.333Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T13:02:44.402Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T13:02:44.470Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T13:02:44.547Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T13:05:11.826Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T13:05:11.895Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T13:05:11.993Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T13:05:12.060Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T13:05:12.138Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T13:06:40.394Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T13:06:40.488Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T13:06:40.552Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T13:06:51.304Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T13:06:40.556Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T13:22:42.260Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T13:22:42.340Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T13:22:42.422Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T13:22:42.478Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T13:22:42.545Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:09:43.920Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:09:44.012Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:09:44.118Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:09:44.208Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:09:44.292Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:10:49.411Z"
+}
+{
+  "level": "info",
+  "message": "Login initiated for user: rayan361@gmail.com (ID: 106)",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:10:49.653Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:11:22.649Z"
+}
+{
+  "level": "info",
+  "message": "Successful verification for user ID: 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:11:22.651Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:17:56.959Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:17:57.118Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:17:57.219Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:17:57.326Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:17:57.421Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:19:45.580Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:19:45.652Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:19:45.744Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:19:45.844Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:19:45.956Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:20:27.909Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:20:28.011Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:20:28.103Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:20:28.200Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:20:28.309Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:20:40.509Z"
+}
+{
+  "level": "info",
+  "message": "Login initiated for user: rayan361@gmail.com (ID: 106)",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:20:40.733Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:21:04.780Z"
+}
+{
+  "level": "info",
+  "message": "Successful verification for user ID: 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:21:04.782Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:25:19.427Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:25:19.509Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:25:19.596Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:25:19.675Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:25:19.754Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:25:26.289Z"
+}
+{
+  "level": "info",
+  "message": "Login initiated for user: rayan361@gmail.com (ID: 106)",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:25:26.538Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:25:44.698Z"
+}
+{
+  "level": "info",
+  "message": "Successful verification for user ID: 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:25:44.707Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:36:48.688Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:36:48.761Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:36:48.836Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:36:48.939Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:36:49.008Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:37:11.298Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:37:11.374Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:37:21.838Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:37:11.043Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:37:11.138Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:39:44.192Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:39:44.311Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:39:44.388Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:39:44.472Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:39:44.543Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:40:10.046Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:40:10.170Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:40:10.300Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:40:10.402Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:40:10.507Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:40:30.101Z"
+}
+{
+  "level": "info",
+  "message": "Login initiated for user: rayan361@gmail.com (ID: 106)",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:40:30.362Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:40:57.365Z"
+}
+{
+  "level": "info",
+  "message": "Successful verification for user ID: 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:40:57.377Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:45:46.690Z"
+}
+{
+  "level": "info",
+  "message": "Login initiated for user: rayan361@gmail.com (ID: 106)",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:45:46.901Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:46:01.072Z"
+}
+{
+  "level": "info",
+  "message": "Successful verification for user ID: 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:46:01.081Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Invalid verification code",
+  "level": "error",
+  "message": "Failed to verify session: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:46:09.830Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Failed to verify session",
+  "level": "error",
+  "message": "Verification code validation failed: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:46:09.831Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Invalid verification code",
+  "level": "error",
+  "message": "Failed to verify session: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:46:21.321Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Failed to verify session",
+  "level": "error",
+  "message": "Verification code validation failed: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:46:21.322Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Invalid verification code",
+  "level": "error",
+  "message": "Failed to verify session: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:46:23.640Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Failed to verify session",
+  "level": "error",
+  "message": "Verification code validation failed: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:46:23.640Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:48:58.196Z"
+}
+{
+  "level": "info",
+  "message": "Login initiated for user: rayan361@gmail.com (ID: 106)",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:48:58.396Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:49:20.775Z"
+}
+{
+  "level": "info",
+  "message": "Successful verification for user ID: 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:49:20.781Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:51:48.208Z"
+}
+{
+  "level": "info",
+  "message": "Login initiated for user: rayan361@gmail.com (ID: 106)",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:51:48.419Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:52:04.599Z"
+}
+{
+  "level": "info",
+  "message": "Successful verification for user ID: 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:52:04.605Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:52:43.732Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:52:43.733Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:22:10.435Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:22:10.526Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:22:10.652Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:22:10.757Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:22:10.843Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": {
+    "req": {
+      "_consuming": false,
+      "_dumped": false,
+      "_events": {},
+      "_parsedOriginalUrl": {
+        "_raw": "/api/v1/recipes?skip=10&take=10",
+        "auth": null,
+        "hash": null,
+        "host": null,
+        "hostname": null,
+        "href": "/api/v1/recipes?skip=10&take=10",
+        "path": "/api/v1/recipes?skip=10&take=10",
+        "pathname": "/api/v1/recipes",
+        "port": null,
+        "protocol": null,
+        "query": "skip=10&take=10",
+        "search": "?skip=10&take=10",
+        "slashes": null
+      },
+      "_parsedUrl": {
+        "_raw": "/api/v1/recipes?skip=10&take=10",
+        "auth": null,
+        "hash": null,
+        "host": null,
+        "hostname": null,
+        "href": "/api/v1/recipes?skip=10&take=10",
+        "path": "/api/v1/recipes?skip=10&take=10",
+        "pathname": "/api/v1/recipes",
+        "port": null,
+        "protocol": null,
+        "query": "skip=10&take=10",
+        "search": "?skip=10&take=10",
+        "slashes": null
+      },
+      "_readableState": {
+        "awaitDrainWriters": null,
+        "buffer": [],
+        "bufferIndex": 0,
+        "highWaterMark": 65536,
+        "length": 0,
+        "pipes": []
+      },
+      "aborted": false,
+      "baseUrl": "",
+      "client": {
+        "_closeAfterHandlingError": false,
+        "_events": {
+          "close": [
+            null,
+            null
+          ],
+          "end": [
+            null,
+            null
+          ]
+        },
+        "_eventsCount": 8,
+        "_hadError": false,
+        "_host": null,
+        "_httpMessage": {
+          "_closed": false,
+          "_contentLength": null,
+          "_defaultKeepAlive": true,
+          "_events": {},
+          "_eventsCount": 1,
+          "_expect_continue": false,
+          "_hasBody": true,
+          "_header": null,
+          "_headerSent": false,
+          "_keepAliveTimeout": 5000,
+          "_last": false,
+          "_maxRequestsPerSocket": 0,
+          "_removedConnection": false,
+          "_removedContLen": false,
+          "_removedTE": false,
+          "_sent100": false,
+          "_trailer": "",
+          "chunkedEncoding": false,
+          "destroyed": false,
+          "finished": false,
+          "locals": {},
+          "maxRequestsOnConnectionReached": false,
+          "outputData": [],
+          "outputSize": 0,
+          "req": "[Circular]",
+          "sendDate": true,
+          "shouldKeepAlive": true,
+          "statusCode": 200,
+          "strictContentLength": false,
+          "useChunkedEncodingByDefault": true,
+          "writable": true
+        },
+        "_parent": null,
+        "_paused": false,
+        "_pendingData": null,
+        "_pendingEncoding": "",
+        "_readableState": {
+          "awaitDrainWriters": null,
+          "buffer": [],
+          "bufferIndex": 0,
+          "highWaterMark": 65536,
+          "length": 0,
+          "pipes": []
+        },
+        "_server": {
+          "_connectionKey": "6::::3000",
+          "_connections": 1,
+          "_events": {},
+          "_eventsCount": 3,
+          "_handle": {
+            "reading": false
+          },
+          "_listeningId": 2,
+          "_unref": false,
+          "_usingWorkers": false,
+          "_workers": [],
+          "allowHalfOpen": true,
+          "connectionsCheckingInterval": 30000,
+          "headersTimeout": 60000,
+          "highWaterMark": 65536,
+          "httpAllowHalfOpen": false,
+          "keepAlive": false,
+          "keepAliveInitialDelay": 0,
+          "keepAliveTimeout": 5000,
+          "maxHeadersCount": null,
+          "maxRequestsPerSocket": 0,
+          "noDelay": true,
+          "pauseOnConnect": false,
+          "rejectNonStandardBodyWrites": false,
+          "requestTimeout": 300000,
+          "requireHostHeader": true,
+          "timeout": 0
+        },
+        "_sockname": null,
+        "_writableState": {
+          "bufferedIndex": 0,
+          "corked": 0,
+          "highWaterMark": 65536,
+          "length": 0,
+          "pendingcb": 0,
+          "writelen": 0
+        },
+        "allowHalfOpen": true,
+        "connecting": false,
+        "parser": {
+          "0": null,
+          "_consumed": true,
+          "_headers": [],
+          "_url": "",
+          "incoming": "[Circular]",
+          "joinDuplicateHeaders": null,
+          "maxHeaderPairs": 2000,
+          "outgoing": null,
+          "socket": "[Circular]"
+        },
+        "server": {
+          "_connectionKey": "6::::3000",
+          "_connections": 1,
+          "_events": {},
+          "_eventsCount": 3,
+          "_handle": {
+            "reading": false
+          },
+          "_listeningId": 2,
+          "_unref": false,
+          "_usingWorkers": false,
+          "_workers": [],
+          "allowHalfOpen": true,
+          "connectionsCheckingInterval": 30000,
+          "headersTimeout": 60000,
+          "highWaterMark": 65536,
+          "httpAllowHalfOpen": false,
+          "keepAlive": false,
+          "keepAliveInitialDelay": 0,
+          "keepAliveTimeout": 5000,
+          "maxHeadersCount": null,
+          "maxRequestsPerSocket": 0,
+          "noDelay": true,
+          "pauseOnConnect": false,
+          "rejectNonStandardBodyWrites": false,
+          "requestTimeout": 300000,
+          "requireHostHeader": true,
+          "timeout": 0
+        }
+      },
+      "complete": true,
+      "httpVersion": "1.1",
+      "httpVersionMajor": 1,
+      "httpVersionMinor": 1,
+      "joinDuplicateHeaders": null,
+      "method": "GET",
+      "originalUrl": "/api/v1/recipes?skip=10&take=10",
+      "params": {},
+      "rawHeaders": [
+        "Host",
+        "localhost:3000",
+        "User-Agent",
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:136.0) Gecko/20100101 Firefox/136.0",
+        "Accept",
+        "*/*",
+        "Accept-Language",
+        "en-US,en;q=0.5",
+        "Accept-Encoding",
+        "gzip, deflate, br, zstd",
+        "Referer",
+        "http://localhost:5175/",
+        "Origin",
+        "http://localhost:5175",
+        "Sec-GPC",
+        "1",
+        "Connection",
+        "keep-alive",
+        "Sec-Fetch-Dest",
+        "empty",
+        "Sec-Fetch-Mode",
+        "cors",
+        "Sec-Fetch-Site",
+        "same-site",
+        "Priority",
+        "u=4"
+      ],
+      "rawTrailers": [],
+      "res": {
+        "_closed": false,
+        "_contentLength": null,
+        "_defaultKeepAlive": true,
+        "_events": {},
+        "_eventsCount": 1,
+        "_expect_continue": false,
+        "_hasBody": true,
+        "_header": null,
+        "_headerSent": false,
+        "_keepAliveTimeout": 5000,
+        "_last": false,
+        "_maxRequestsPerSocket": 0,
+        "_removedConnection": false,
+        "_removedContLen": false,
+        "_removedTE": false,
+        "_sent100": false,
+        "_trailer": "",
+        "chunkedEncoding": false,
+        "destroyed": false,
+        "finished": false,
+        "locals": {},
+        "maxRequestsOnConnectionReached": false,
+        "outputData": [],
+        "outputSize": 0,
+        "req": "[Circular]",
+        "sendDate": true,
+        "shouldKeepAlive": true,
+        "statusCode": 200,
+        "strictContentLength": false,
+        "useChunkedEncodingByDefault": true,
+        "writable": true
+      },
+      "route": {
+        "methods": {
+          "get": true
+        },
+        "path": "/api/v1/recipes",
+        "stack": [
+          {
+            "keys": [],
+            "matchers": [
+              null
+            ],
+            "method": "get",
+            "name": "<anonymous>",
+            "slash": false
+          }
+        ]
+      },
+      "socket": {
+        "_closeAfterHandlingError": false,
+        "_events": {
+          "close": [
+            null,
+            null
+          ],
+          "end": [
+            null,
+            null
+          ]
+        },
+        "_eventsCount": 8,
+        "_hadError": false,
+        "_host": null,
+        "_httpMessage": {
+          "_closed": false,
+          "_contentLength": null,
+          "_defaultKeepAlive": true,
+          "_events": {},
+          "_eventsCount": 1,
+          "_expect_continue": false,
+          "_hasBody": true,
+          "_header": null,
+          "_headerSent": false,
+          "_keepAliveTimeout": 5000,
+          "_last": false,
+          "_maxRequestsPerSocket": 0,
+          "_removedConnection": false,
+          "_removedContLen": false,
+          "_removedTE": false,
+          "_sent100": false,
+          "_trailer": "",
+          "chunkedEncoding": false,
+          "destroyed": false,
+          "finished": false,
+          "locals": {},
+          "maxRequestsOnConnectionReached": false,
+          "outputData": [],
+          "outputSize": 0,
+          "req": "[Circular]",
+          "sendDate": true,
+          "shouldKeepAlive": true,
+          "statusCode": 200,
+          "strictContentLength": false,
+          "useChunkedEncodingByDefault": true,
+          "writable": true
+        },
+        "_parent": null,
+        "_paused": false,
+        "_pendingData": null,
+        "_pendingEncoding": "",
+        "_readableState": {
+          "awaitDrainWriters": null,
+          "buffer": [],
+          "bufferIndex": 0,
+          "highWaterMark": 65536,
+          "length": 0,
+          "pipes": []
+        },
+        "_server": {
+          "_connectionKey": "6::::3000",
+          "_connections": 1,
+          "_events": {},
+          "_eventsCount": 3,
+          "_handle": {
+            "reading": false
+          },
+          "_listeningId": 2,
+          "_unref": false,
+          "_usingWorkers": false,
+          "_workers": [],
+          "allowHalfOpen": true,
+          "connectionsCheckingInterval": 30000,
+          "headersTimeout": 60000,
+          "highWaterMark": 65536,
+          "httpAllowHalfOpen": false,
+          "keepAlive": false,
+          "keepAliveInitialDelay": 0,
+          "keepAliveTimeout": 5000,
+          "maxHeadersCount": null,
+          "maxRequestsPerSocket": 0,
+          "noDelay": true,
+          "pauseOnConnect": false,
+          "rejectNonStandardBodyWrites": false,
+          "requestTimeout": 300000,
+          "requireHostHeader": true,
+          "timeout": 0
+        },
+        "_sockname": null,
+        "_writableState": {
+          "bufferedIndex": 0,
+          "corked": 0,
+          "highWaterMark": 65536,
+          "length": 0,
+          "pendingcb": 0,
+          "writelen": 0
+        },
+        "allowHalfOpen": true,
+        "connecting": false,
+        "parser": {
+          "0": null,
+          "_consumed": true,
+          "_headers": [],
+          "_url": "",
+          "incoming": "[Circular]",
+          "joinDuplicateHeaders": null,
+          "maxHeaderPairs": 2000,
+          "outgoing": null,
+          "socket": "[Circular]"
+        },
+        "server": {
+          "_connectionKey": "6::::3000",
+          "_connections": 1,
+          "_events": {},
+          "_eventsCount": 3,
+          "_handle": {
+            "reading": false
+          },
+          "_listeningId": 2,
+          "_unref": false,
+          "_usingWorkers": false,
+          "_workers": [],
+          "allowHalfOpen": true,
+          "connectionsCheckingInterval": 30000,
+          "headersTimeout": 60000,
+          "highWaterMark": 65536,
+          "httpAllowHalfOpen": false,
+          "keepAlive": false,
+          "keepAliveInitialDelay": 0,
+          "keepAliveTimeout": 5000,
+          "maxHeadersCount": null,
+          "maxRequestsPerSocket": 0,
+          "noDelay": true,
+          "pauseOnConnect": false,
+          "rejectNonStandardBodyWrites": false,
+          "requestTimeout": 300000,
+          "requireHostHeader": true,
+          "timeout": 0
+        }
+      },
+      "statusCode": null,
+      "statusMessage": null,
+      "upgrade": false,
+      "url": "/api/v1/recipes?skip=10&take=10"
+    }
+  },
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:22:13.820Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":10,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:22:13.824Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:22:13.823Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:22:54.529Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:22:54.611Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:22:54.682Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:22:54.772Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:22:54.860Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:24:28.208Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:24:28.284Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:24:28.369Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:24:28.448Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:24:28.528Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:24:40.684Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":20,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:24:40.686Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:24:40.685Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:24:50.112Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":20,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:24:50.116Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:24:50.115Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:25:59.885Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:25:59.965Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:26:00.065Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:26:00.156Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:26:00.230Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:28:34.512Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":20,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:28:34.514Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:28:34.513Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:28:43.403Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":20,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:28:43.405Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:28:43.404Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:31:42.928Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:31:32.127Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:31:32.211Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:31:32.305Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:31:32.413Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:31:44.775Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:31:44.867Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:31:44.943Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:31:45.025Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:31:45.146Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:32:39.224Z"
+}
+{
+  "level": "info",
+  "message": "Login initiated for user: rayan361@gmail.com (ID: 106)",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:32:39.462Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:33:02.405Z"
+}
+{
+  "level": "info",
+  "message": "Successful verification for user ID: 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:33:02.411Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:34:15.105Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:34:15.106Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:34:15.106Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:37:01.481Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:37:01.563Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:37:01.627Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:37:01.700Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:37:01.760Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:40:14.087Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:40:14.173Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:40:14.239Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:40:14.309Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:40:14.376Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:40:16.452Z"
+}
+{
+  "level": "info",
+  "message": "Login initiated for user: rayan361@gmail.com (ID: 106)",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:40:16.663Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:40:36.964Z"
+}
+{
+  "level": "info",
+  "message": "Successful verification for user ID: 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T15:40:36.974Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T17:16:41.834Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T17:16:41.989Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T17:16:42.083Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T17:16:42.194Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T17:16:42.356Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T17:16:44.817Z"
+}
+{
+  "level": "info",
+  "message": "Login initiated for user: rayan361@gmail.com (ID: 106)",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T17:16:45.046Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T17:17:11.366Z"
+}
+{
+  "level": "info",
+  "message": "Successful verification for user ID: 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T17:17:11.379Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T17:18:23.232Z"
+}
+{
+  "level": "info",
+  "message": "Login initiated for user: rayan361@gmail.com (ID: 106)",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T17:18:23.448Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T17:19:06.698Z"
+}
+{
+  "level": "info",
+  "message": "Successful verification for user ID: 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T17:19:06.705Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T17:20:44.041Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T17:20:44.119Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T17:20:44.207Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T17:20:44.309Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T17:20:44.398Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T18:50:02.029Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "The security token included in the request is expired",
+  "level": "error",
+  "message": "Login process failed: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T18:50:02.241Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T18:50:18.070Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "The security token included in the request is expired",
+  "level": "error",
+  "message": "Login process failed: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T18:50:18.130Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T18:51:14.479Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T18:51:14.571Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T18:51:14.655Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T18:51:14.749Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T18:51:14.860Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T18:52:34.402Z"
+}
+{
+  "level": "info",
+  "message": "Login initiated for user: rayan361@gmail.com (ID: 106)",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T18:52:34.696Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T18:52:41.418Z"
+}
+{
+  "level": "info",
+  "message": "Successful verification for user ID: 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T18:52:41.425Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T20:03:38.814Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T20:03:38.901Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T20:03:38.968Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T20:03:39.055Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T20:03:39.155Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T20:11:50.203Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T20:11:50.281Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T20:11:50.347Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T20:11:50.437Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T20:11:50.532Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T20:11:55.733Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T20:11:55.817Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T20:11:55.886Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T20:11:55.958Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T20:11:56.035Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T20:12:42.736Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T20:12:42.801Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T20:12:42.867Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T20:12:42.934Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T20:12:43.015Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:24:37.642Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:24:37.731Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:24:37.797Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:24:37.872Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:24:37.947Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:25:51.385Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:25:51.447Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:25:51.523Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:25:51.598Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:25:51.666Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:31:50.420Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:31:50.510Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:31:50.575Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:31:50.650Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:31:50.719Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:32:06.075Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:32:06.147Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:32:06.246Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:32:06.316Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:32:06.412Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:32:10.381Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:32:10.443Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:32:10.513Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:32:10.578Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:32:10.665Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:33:43.827Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:33:43.912Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:33:43.976Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:33:44.043Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:33:44.116Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:34:13.844Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:34:13.926Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:34:14.012Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:34:16.413Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:34:16.512Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:34:16.621Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:34:16.737Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:34:16.841Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:50:50.625Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:50:50.706Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:50:50.783Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:50:50.871Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T12:50:50.972Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T14:00:08.603Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "The security token included in the request is expired",
+  "level": "error",
+  "message": "Login process failed: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T14:00:08.801Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T14:01:19.861Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T14:01:19.950Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T14:01:20.030Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T14:01:20.137Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T14:01:20.215Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T14:16:11.397Z"
+}
+{
+  "level": "info",
+  "message": "Login initiated for user: rayan361@gmail.com (ID: 106)",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T14:16:11.655Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T14:17:45.512Z"
+}
+{
+  "level": "info",
+  "message": "Login initiated for user: rayan361@gmail.com (ID: 106)",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T14:17:45.687Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T14:18:33.305Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T14:18:33.394Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T14:18:33.476Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T14:18:33.575Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T14:18:33.670Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T14:19:08.155Z"
+}
+{
+  "level": "info",
+  "message": "Login initiated for user: rayan361@gmail.com (ID: 106)",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T14:18:56.424Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T14:19:24.661Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T14:20:49.471Z"
+}
+{
+  "level": "info",
+  "message": "Login initiated for user: rayan361@gmail.com (ID: 106)",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T14:20:49.677Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T14:57:37.077Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T14:57:37.146Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T14:57:37.216Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T14:57:37.302Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T14:57:37.418Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T14:57:45.056Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T14:57:45.153Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T14:57:45.250Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T14:57:45.348Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T14:57:45.427Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T14:58:44.735Z"
+}
+{
+  "level": "info",
+  "message": "Login initiated for user: rayan361@gmail.com (ID: 106)",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T14:58:44.945Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T14:59:03.483Z"
+}
+{
+  "level": "info",
+  "message": "Successful verification for user ID: 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T14:59:03.489Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T15:47:51.794Z"
+}
+{
+  "level": "info",
+  "message": "Login initiated for user: rayan361@gmail.com (ID: 106)",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T15:47:52.019Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T15:48:24.303Z"
+}
+{
+  "level": "info",
+  "message": "Successful verification for user ID: 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T15:48:24.312Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T15:49:00.064Z"
+}
+{
+  "level": "info",
+  "message": "Login initiated for user: rayan361@gmail.com (ID: 106)",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T15:49:00.249Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T15:49:14.178Z"
+}
+{
+  "level": "info",
+  "message": "Successful verification for user ID: 106",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T15:49:14.186Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T15:53:55.885Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T15:53:55.999Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T15:53:56.084Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T15:53:56.166Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T15:53:56.266Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:11:09.091Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:11:09.189Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:11:09.283Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:11:09.381Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:11:09.501Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:11:48.783Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:11:48.864Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:11:48.944Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:11:49.039Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:11:49.115Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:13:58.600Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:13:58.701Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:13:58.787Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:13:58.955Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:13:59.091Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:14:38.350Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:14:38.458Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:14:38.566Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:14:38.650Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:14:38.730Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:15:01.169Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:15:01.262Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:15:01.385Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:15:01.467Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:15:01.552Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:18:29.312Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:18:29.405Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:18:29.493Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:18:29.565Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:18:29.642Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:22:51.736Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:22:51.805Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:22:51.875Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:22:51.971Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:22:52.057Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:24:11.542Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:24:11.653Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:24:11.726Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:24:11.801Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:24:11.887Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:25:17.503Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:25:17.583Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:25:17.649Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:25:17.744Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:25:17.818Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "{\n  \"session_token\": \"ypalsurb5idcxfh4twwiodsedcof5jwq4tr3eukvtahgykfqdo3a\"\n}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:25:26.363Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:25:26.366Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:25:26.365Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:26:15.179Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:26:15.280Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:26:15.375Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:26:15.444Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:26:15.528Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "{\n  \"session_token\": \"ypalsurb5idcxfh4twwiodsedcof5jwq4tr3eukvtahgykfqdo3a\"\n}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:26:20.691Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:26:20.693Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:26:20.692Z"
+}
+{
+  "context": "ShiftController",
+  "level": "info",
+  "message": "Received request to get shifts",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:26:33.186Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Fetching shifts with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:26:33.188Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Retrieved 105 shifts",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:26:33.199Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:26:42.404Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:26:42.492Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:26:42.576Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:26:42.683Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T16:26:42.768Z"
+}

@@ -1,12 +1,9 @@
-import { Controller } from '@nestjs/common';
-import { TsRest, TsRestHandler, tsRestHandler } from '@ts-rest/nest';
 import { contract } from '@ckm/contracts';
-import { UserService } from './users.service';
-import { NotFoundException } from '@nestjs/common'; // or wherever this is imported from
 import { User } from '@ckm/db';
-// import { Auth } from '../decorators/auth.decorator'; // If you need role-based guard
+import { Controller, NotFoundException } from '@nestjs/common';
+import { TsRestHandler, tsRestHandler } from '@ts-rest/nest';
+import { UserService } from './users.service';
 
-@TsRest({ jsonQuery: true })
 @Controller()
 export class UserController {
   constructor(private readonly userService: UserService) { }
@@ -58,18 +55,17 @@ export class UserController {
     return tsRestHandler(contract.users.getUser, async ({ params }) => {
       try {
         const user = await this.userService.getUser(params.id);
+        if (!user) {
+          return {
+            status: 404,
+            body: { message: 'User not found' },
+          };
+        }
         return {
-          status: 200 as const,
+          status: 200,
           body: user,
         };
       } catch (error) {
-        // For illustration, check if it's a NotFoundException
-        if (error instanceof NotFoundException) {
-          return {
-            status: 404 as const,
-            body: { message: error.message },
-          };
-        }
         return {
           status: 500 as const,
           body: { message: (error as Error).message },

@@ -66,8 +66,9 @@ let RecipeController = class RecipeController {
             return { status: 201, body: recipe };
         });
     }
-    async getRecipes() {
+    async getRecipes(req) {
         return (0, nest_1.tsRestHandler)(contracts_1.contract.recipe.getRecipes, async ({ query }) => {
+            this.logger.log(JSON.stringify(req.cookies, null, 2));
             this.logger.log('Received request to get recipes');
             const recipes = await this.recipeService.getRecipes({
                 skip: query.skip,
@@ -212,8 +213,9 @@ __decorate([
 ], RecipeController.prototype, "createRecipe", null);
 __decorate([
     (0, nest_1.TsRestHandler)(contracts_1.contract.recipe.getRecipes),
+    __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], RecipeController.prototype, "getRecipes", null);
 __decorate([

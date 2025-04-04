@@ -11,30 +11,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CsrfMiddleware = void 0;
 const common_1 = require("@nestjs/common");
-const env_service_1 = require("../env/env.service");
+const csrf_service_1 = require("./csrf.service");
 let CsrfMiddleware = class CsrfMiddleware {
-    constructor(envService) {
-        this.envService = envService;
-        this.excludedRoutes = [
-            '/csrf',
-            '/auth/login',
-            '/auth/register'
-        ];
-        this.excludedMethods = ['GET', 'HEAD', 'OPTIONS'];
-        const isDev = envService.get('NODE_ENV') !== 'prod';
-        this.cookieName = isDev ? 'psifi.x-csrf-token' : '__Host-psifi.x-csrf-token';
+    constructor(csfService) {
+        this.csfService = csfService;
     }
     use(req, res, next) {
-        if (this.excludedMethods.includes(req.method)) {
-            return next();
+        var _a;
+        if (!((_a = req.session) === null || _a === void 0 ? void 0 : _a.csrfToken)) {
+            const token = this.csfService.generateCsrfToken(req);
+            if (req.session) {
+                req.session.csrfToken = token;
+            }
+            res.setHeader('X-CSRF-Token', token);
         }
-        if (this.excludedRoutes.some(route => req.path.startsWith(route))) {
-            return next();
-        }
-        const cookieToken = req.cookies[this.cookieName];
-        const headerToken = req.headers['x-csrf-token'];
-        if (!cookieToken || !headerToken || cookieToken !== headerToken) {
-            return res.status(403).json({ message: 'Invalid CSRF token' });
+        else {
+            res.setHeader('X-CSRF-Token', req.session.csrfToken);
         }
         next();
     }
@@ -42,6 +34,6 @@ let CsrfMiddleware = class CsrfMiddleware {
 exports.CsrfMiddleware = CsrfMiddleware;
 exports.CsrfMiddleware = CsrfMiddleware = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [env_service_1.EnvService])
+    __metadata("design:paramtypes", [csrf_service_1.CsrfService])
 ], CsrfMiddleware);
 //# sourceMappingURL=csrf.middleware.js.map

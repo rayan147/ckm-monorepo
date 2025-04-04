@@ -9,10 +9,11 @@ import { RoleGuard } from '../guards/role.guard';
 import { PrismaModule } from '../prisma/prisma.module';
 import { UsersModule } from '../users/users.module';
 import { AuthController } from './auth.controller';
-import { AuthMiddleware } from './auth.middleware.service';
 import { AuthService } from './auth.service';
 import { AuthSessionsService } from './utils/auth.sessions.service';
 import { EmailTemplateService } from 'src/templates/email-template.service';
+import { SessionInitMiddleware } from './auth.session.middleware.service';
+import { CsrfModule } from 'src/csrf/csrf.module';
 
 @Module({
   imports: [
@@ -22,8 +23,9 @@ import { EmailTemplateService } from 'src/templates/email-template.service';
     PrismaModule,
     PassportModule,
     EnvModule,
+    CsrfModule
   ],
-  providers: [AuthService, RoleGuard, AuthSessionsService, CsrfGuard, AuthMiddleware, EmailTemplateService],
+  providers: [AuthService, RoleGuard, AuthSessionsService, CsrfGuard, SessionInitMiddleware, EmailTemplateService],
   controllers: [AuthController],
   exports: [AuthService, AuthSessionsService],
 })

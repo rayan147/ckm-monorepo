@@ -11,31 +11,37 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CsrfGuard = void 0;
 const common_1 = require("@nestjs/common");
-const csrf_config_1 = require("./csrf.config");
-const env_service_1 = require("../env/env.service");
+const core_1 = require("@nestjs/core");
 let CsrfGuard = class CsrfGuard {
-    constructor(envService) {
-        this.envService = envService;
-        this.csrfUtilities = (0, csrf_config_1.createCsrfUtilities)(envService);
+    constructor(relector) {
+        this.relector = relector;
     }
     canActivate(context) {
-        const request = context.switchToHttp().getRequest();
-        console.log('CSRF Guard Executed');
-        console.log('CSRF Token from Header:', request.headers['x-csrf-token']);
-        console.log('CSRF Cookie:', request.cookies['__Host-psifi.x-csrf-token']);
+        const req = context.switchToHttp().getRequest();
+        if (['GET', 'HEAD', 'OPTIONS'].includes(req.method)) {
+            return true;
+        }
         try {
-            this.csrfUtilities.validateRequest(request);
+            const hasValidToken = this.validateCsrfToken(req);
+            if (!hasValidToken) {
+                throw new common_1.UnauthorizedException('Invalid CSRF token');
+            }
             return true;
         }
         catch (error) {
-            console.error('CSRF Validation Failed:', error);
-            return false;
+            throw new common_1.UnauthorizedException('Invalid CSRF token');
         }
+    }
+    validateCsrfToken(req) {
+        var _a, _b;
+        const token = req.headers['x-csrf-token'] || ((_a = req.body) === null || _a === void 0 ? void 0 : _a.csrfToken);
+        const storedToken = (_b = req.session) === null || _b === void 0 ? void 0 : _b.csrfToken;
+        return !!token && !!storedToken && token === storedToken;
     }
 };
 exports.CsrfGuard = CsrfGuard;
 exports.CsrfGuard = CsrfGuard = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [env_service_1.EnvService])
+    __metadata("design:paramtypes", [core_1.Reflector])
 ], CsrfGuard);
 //# sourceMappingURL=csrf.guard.js.map

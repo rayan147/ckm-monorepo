@@ -4,10 +4,9 @@
   import { Button } from '$lib/components/ui/button';
   import { Input } from '$lib/components/ui/input';
   import { Label } from '$lib/components/ui/label';
-  import { Card } from '$lib/components/ui/card';
   import { Alert, AlertDescription } from '$lib/components/ui/alert';
   import { z } from 'zod';
-
+  import * as InputOTP from '$lib/components/ui/input-otp';
   let { form } = $props();
 
   // Login steps
@@ -66,7 +65,7 @@
   // Form submission handlers
   const handleLoginSubmit: SubmitFunction = () => {
     if (!validateEmail() || !validatePassword()) {
-      return { cancel: true };
+      return;
     }
 
     submitting = true;
@@ -78,11 +77,11 @@
       if (result.type === 'redirect') {
         // Will be handled by SvelteKit
       } else if (result.type === 'success') {
-        if (result.data.step === 2) {
+        if (result.data?.step === 2) {
           currentStep = 2;
         }
       } else if (result.type === 'failure') {
-        error = result.data.message || 'Login failed. Please try again.';
+        error = result.data?.message || 'Login failed. Please try again.';
       }
 
       await update();
@@ -91,7 +90,7 @@
 
   const handleVerifySubmit: SubmitFunction = () => {
     if (!validateCode()) {
-      return { cancel: true };
+      return;
     }
 
     submitting = true;
@@ -100,14 +99,12 @@
     return async ({ result, update }) => {
       submitting = false;
 
-      if (result.type === 'redirect') {
-        // Will be handled by SvelteKit
-      } else if (result.type === 'success') {
-        if (result.data.location) {
+      if (result.type === 'success') {
+        if (result.data?.location) {
           window.location.href = result.data.location;
         }
       } else if (result.type === 'failure') {
-        error = result.data.message || 'Verification failed. Please try again.';
+        error = result.data?.message || 'Verification failed. Please try again.';
       }
 
       await update();
@@ -124,12 +121,17 @@
       if (result.type === 'success') {
         error = '';
       } else if (result.type === 'failure') {
-        error = result.data.message || 'Failed to resend code. Please try again.';
+        error = result.data?.message || 'Failed to resend code. Please try again.';
       }
 
       await update();
     };
   };
+
+  function handleOTPComplete(value: string) {
+    verificationCode = value;
+    validateCode();
+  }
 </script>
 
 {#if currentStep === 1}
@@ -182,39 +184,61 @@
     {/if}
 
     <Button type="submit" class="w-full" disabled={submitting}>
-      {submitting ? 'Logging in...' : 'Log in'}
+      {#if submitting}
+        <span>Logging in...</span>
+      {:else}
+        <span>Log in</span>
+      {/if}
     </Button>
 
     <p class="text-sm text-center text-gray-500">
       Don't have an account?
-      <a href="/register" class="font-medium text-indigo-600 hover:text-indigo-500"> Register </a>
+
+      <a
+        href="/register"
+        data-sveltekit-reload
+        class="font-medium text-indigo-600 hover:text-indigo-500">Register</a
+      >
     </p>
   </form>
 {:else if currentStep === 2}
   <div class="space-y-6">
-    <div class="text-center space-y-2 mb-6">
+    <header class="text-center space-y-2 mb-6">
       <h3 class="text-lg font-medium">Verification Code</h3>
       <p class="text-sm text-gray-500">
         We've sent a verification code to your email. Please enter it below to continue.
       </p>
-    </div>
+    </header>
 
     <form method="POST" action="?/verify" use:enhance={handleVerifySubmit} class="space-y-4">
       <div class="space-y-2">
         <Label for="code">6-Digit Code</Label>
-        <Input
-          id="code"
-          name="code"
-          type="text"
-          inputmode="numeric"
-          pattern="[0-9]{6}"
-          bind:value={verificationCode}
-          onblur={validateCode}
-          placeholder="Enter 6-digit code"
-          maxlength="6"
-          required
-          aria-invalid={errors.verificationCode ? 'true' : undefined}
-        />
+
+        <!-- Hidden input to actually submit the form value -->
+        <input type="hidden" name="code" value={verificationCode} />
+
+        <!-- OTP Input Component -->
+        <InputOTP.Root
+          maxlength={6}
+          value={verificationCode}
+          onComplete={handleOTPComplete}
+          onValueChange={(value) => (verificationCode = value)}
+        >
+          {#snippet children({ cells })}
+            <InputOTP.Group>
+              {#each cells.slice(0, 3) as cell (cell)}
+                <InputOTP.Slot {cell} />
+              {/each}
+            </InputOTP.Group>
+            <InputOTP.Separator />
+            <InputOTP.Group>
+              {#each cells.slice(3, 6) as cell (cell)}
+                <InputOTP.Slot {cell} />
+              {/each}
+            </InputOTP.Group>
+          {/snippet}
+        </InputOTP.Root>
+
         {#if errors.verificationCode}
           <p class="text-sm text-red-500">{errors.verificationCode}</p>
         {/if}
@@ -227,7 +251,11 @@
       {/if}
 
       <Button type="submit" class="w-full" disabled={submitting}>
-        {submitting ? 'Verifying...' : 'Verify Code'}
+        {#if submitting}
+          <span>Verifying...</span>
+        {:else}
+          <span>Verify Code</span>
+        {/if}
       </Button>
     </form>
 
@@ -239,7 +267,11 @@
           disabled={resendingCode}
           class="text-sm text-indigo-600 hover:text-indigo-500"
         >
-          {resendingCode ? 'Sending...' : "Didn't receive a code? Resend"}
+          {#if resendingCode}
+            <span>Sending...</span>
+          {:else}
+            <span>Didn't receive a code? Resend</span>
+          {/if}
         </Button>
       </form>
     </div>

@@ -5,7 +5,6 @@ import { contract } from '@ckm/contracts';
 import { AuthService } from './auth.service';
 import { I18nService } from '../i18n/i18n.service';
 import { EnvService } from 'src/env/env.service';
-import { createCsrfUtilities } from 'src/csrf/csrf.config';
 import { Request, Response } from 'express';
 import { CsrfGuard } from 'src/csrf/csrf.guard';
 import { AuthSessionsService } from './utils/auth.sessions.service';
@@ -13,19 +12,14 @@ import { Public } from 'src/decorators/public.decorator';
 
 @Controller()
 export class AuthController {
-  private csrfUtilities: ReturnType<typeof createCsrfUtilities>;
   constructor(
     private authService: AuthService,
     private i18nService: I18nService,
     private envService: EnvService,
     private authSession: AuthSessionsService
   ) {
-    this.csrfUtilities = createCsrfUtilities(envService)
   }
 
-  private setCsrfToken(req: Request, res: Response) {
-    return this.csrfUtilities.generateToken(req, res, true);
-  }
 
   @Public()
   @TsRestHandler(contract.auth.resendCode)
@@ -45,14 +39,13 @@ export class AuthController {
       }
     });
   }
-
-  @UseGuards(CsrfGuard)
+  @Public()
+  // @UseGuards(CsrfGuard)
   @TsRestHandler(contract.auth.login)
-  async login(@Headers('x-csrf-token') csrfToken: string) {
+  async login() {
     return tsRestHandler(contract.auth.login, async ({ body }) => {
       try {
         const result = await this.authService.login(body.email, body.password);
-        // Generate and set CSRF token after successful login
         return {
           status: 200 as const,
           body: {
@@ -69,17 +62,24 @@ export class AuthController {
   }
 
   @Public()
-  @UseGuards(CsrfGuard)
+  // Enable the CSRF guard when you're ready
+  // @UseGuards(CsrfGuard)
   @TsRestHandler(contract.auth.verifyLoginCode)
   async verifyLoginCode(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
     return tsRestHandler(contract.auth.verifyLoginCode, async ({ body }) => {
       try {
         const result = await this.authService.verifyLoginCode(body.verificationCode);
-        this.authSession.seSessionCookie(res, result.sessionToken)
 
+        // Pass the request object to the setSessionCookie method
+        this.authSession.setSessionCookie(res, result.sessionToken, req);
+
+        // Include the CSRF token in the response body
         return {
           status: 200 as const,
-          body: result,
+          body: {
+            ...result,
+            csrfToken: req?.session?.csrfToken, // Include the CSRF token in the response
+          },
         };
       } catch (error) {
         return {
@@ -91,7 +91,7 @@ export class AuthController {
   }
 
   @Public()
-  @UseGuards(CsrfGuard)
+  // @UseGuards(CsrfGuard)
   @TsRestHandler(contract.auth.register)
   async register() {
     return tsRestHandler(contract.auth.register, async ({ body }) => {
@@ -119,8 +119,6 @@ export class AuthController {
           body.oldPassword,
           body.newPassword,
         );
-        // Rotate CSRF token after password change
-        this.setCsrfToken(req, res);
         return {
           status: 200 as const,
           body: {
@@ -193,8 +191,6 @@ export class AuthController {
           body.newPassword,
         );
 
-        // Rotate CSRF token after password change
-        this.setCsrfToken(req, res);
         return {
           status: 200 as const,
           body: result,

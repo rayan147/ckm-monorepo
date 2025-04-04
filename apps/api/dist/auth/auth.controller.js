@@ -19,8 +19,6 @@ const contracts_1 = require("@ckm/contracts");
 const auth_service_1 = require("./auth.service");
 const i18n_service_1 = require("../i18n/i18n.service");
 const env_service_1 = require("../env/env.service");
-const csrf_config_1 = require("../csrf/csrf.config");
-const csrf_guard_1 = require("../csrf/csrf.guard");
 const auth_sessions_service_1 = require("./utils/auth.sessions.service");
 const public_decorator_1 = require("../decorators/public.decorator");
 let AuthController = class AuthController {
@@ -29,10 +27,6 @@ let AuthController = class AuthController {
         this.i18nService = i18nService;
         this.envService = envService;
         this.authSession = authSession;
-        this.csrfUtilities = (0, csrf_config_1.createCsrfUtilities)(envService);
-    }
-    setCsrfToken(req, res) {
-        return this.csrfUtilities.generateToken(req, res, true);
     }
     async resendCode() {
         return (0, nest_1.tsRestHandler)(contracts_1.contract.auth.resendCode, async ({ body }) => {
@@ -51,7 +45,7 @@ let AuthController = class AuthController {
             }
         });
     }
-    async login(csrfToken) {
+    async login() {
         return (0, nest_1.tsRestHandler)(contracts_1.contract.auth.login, async ({ body }) => {
             try {
                 const result = await this.authService.login(body.email, body.password);
@@ -70,12 +64,13 @@ let AuthController = class AuthController {
     }
     async verifyLoginCode(req, res) {
         return (0, nest_1.tsRestHandler)(contracts_1.contract.auth.verifyLoginCode, async ({ body }) => {
+            var _a;
             try {
                 const result = await this.authService.verifyLoginCode(body.verificationCode);
-                this.authSession.seSessionCookie(res, result.sessionToken);
+                this.authSession.setSessionCookie(res, result.sessionToken, req);
                 return {
                     status: 200,
-                    body: result,
+                    body: Object.assign(Object.assign({}, result), { csrfToken: (_a = req === null || req === void 0 ? void 0 : req.session) === null || _a === void 0 ? void 0 : _a.csrfToken }),
                 };
             }
             catch (error) {
@@ -107,7 +102,6 @@ let AuthController = class AuthController {
         return (0, nest_1.tsRestHandler)(contracts_1.contract.auth.changePassword, async ({ body, params }) => {
             try {
                 await this.authService.changePassword(params.userId, body.oldPassword, body.newPassword);
-                this.setCsrfToken(req, res);
                 return {
                     status: 200,
                     body: {
@@ -171,7 +165,6 @@ let AuthController = class AuthController {
         return (0, nest_1.tsRestHandler)(contracts_1.contract.auth.resetPassword, async ({ body }) => {
             try {
                 const result = await this.authService.resetPassword(body.resetToken, body.newPassword);
-                this.setCsrfToken(req, res);
                 return {
                     status: 200,
                     body: result,
@@ -195,16 +188,14 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "resendCode", null);
 __decorate([
-    (0, common_1.UseGuards)(csrf_guard_1.CsrfGuard),
+    (0, public_decorator_1.Public)(),
     (0, nest_1.TsRestHandler)(contracts_1.contract.auth.login),
-    __param(0, (0, common_1.Headers)('x-csrf-token')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "login", null);
 __decorate([
     (0, public_decorator_1.Public)(),
-    (0, common_1.UseGuards)(csrf_guard_1.CsrfGuard),
     (0, nest_1.TsRestHandler)(contracts_1.contract.auth.verifyLoginCode),
     __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Res)({ passthrough: true })),
@@ -214,7 +205,6 @@ __decorate([
 ], AuthController.prototype, "verifyLoginCode", null);
 __decorate([
     (0, public_decorator_1.Public)(),
-    (0, common_1.UseGuards)(csrf_guard_1.CsrfGuard),
     (0, nest_1.TsRestHandler)(contracts_1.contract.auth.register),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),

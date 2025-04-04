@@ -6,38 +6,35 @@ type VerifyLoginCodeResponse = {
   user: Omit<User, 'passwordHash'>;
 };
 
-export const login = async (email: string, password: string, csrfToken: string): Promise<string | null> => {
-  console.log('CSRF Token:', csrfToken);
+export const login = async (email: string, password: string): Promise<boolean | null> => {
   const { status, body } = await api.auth.login({
     body: {
       email,
       password
     },
-    extraHeaders: {
-      "x-csrf-token": csrfToken
-    }
+
   });
 
   if (status === 200) {
-    return body.code;
+    return body.success
   }
   return null;
 };
 
-export const verifyLoginCode = async (code: string): Promise<VerifyLoginCodeResponse | null> => {
+export const verifyLoginCode = async (verificationCode: string) => {
   const { status, body } = await api.auth.verifyLoginCode({
     body: {
-      code
+      verificationCode
     }
   });
 
   if (status === 200) {
-    return body;
+    return body
   }
   return null;
 };
 
-export const resendCode = async (email: string): Promise<{ code: string } | null> => {
+export const resendCode = async (email: string) => {
   const { status, body } = await api.auth.resendCode({
     body: {
       email

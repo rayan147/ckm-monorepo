@@ -5,6 +5,7 @@ import { EnvService } from './env/env.service';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { LanguageInterceptor } from './i18n/language.interceptor';
 import { I18nService } from './i18n/i18n.service';
+import cookieParser from 'cookie-parser';
 import express from 'express';
 
 
@@ -25,6 +26,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   app.use(helmet());
+  app.use(cookieParser())
 
   const configService = app.get(EnvService);
   const port = configService.get('PORT');

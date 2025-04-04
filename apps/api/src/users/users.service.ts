@@ -2,42 +2,42 @@ import { Auth, Prisma, User, UserRole } from '@ckm/db';
 import {
   Injectable,
   InternalServerErrorException,
-  NotFoundException,
+  NotFoundException
 } from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
+import { LoggingService } from 'src/logging/logging.service';
 import { PrismaService } from '../prisma/prisma.service';
+
 
 @Injectable()
 export class UserService {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService, private readonly logger: LoggingService) { }
 
 
-  async getAuthgUserByEmail(email: string): Promise<User & { auth: Auth[] }> {
-    const user = await this.prisma.user.findUnique({ where: { email }, include: { auth: true } });
-    if (!user) {
-      throw new NotFoundException('User not found');
+  async getAuthUserByEmail(email: string) {
+    try {
+      return await this.prisma.user.findUnique({ where: { email }, include: { auth: true } });
+    } catch (error) {
+      this.logger.handleError(error, 'Database error in getAuthUserByEmail');
     }
-    return user;
   }
-
-
   async getUserByEmail(email: string) {
-    const user = await this.prisma.user.findUnique({ where: { email }, include: { auth: true } });
-    if (!user) {
-      throw new NotFoundException('User not found');
+    try {
+      return await this.prisma.user.findUnique({ where: { email } });
+    } catch (error) {
+      this.logger.handleError(error, 'Database error in getUserByEmail');
     }
-    return user;
   }
 
 
-  async getUser(id: number): Promise<User> {
-    const user = await this.prisma.user.findUnique({
-      where: { id }
-    });
-    if (!user) {
-      throw new NotFoundException('User not found');
+  async getUser(id: number): Promise<User | null> {
+    try {
+      return await this.prisma.user.findUnique({
+        where: { id }
+      });
+    } catch (error) {
+      this.logger.handleError(error, 'Database error in getUser')
     }
-    return user;
   }
 
 
@@ -69,29 +69,86 @@ export class UserService {
 
 
   async createUser(
-    userData: Omit<Prisma.UserCreateInput, 'auth'> & { password: string, role?: UserRole }
+    userData: Prisma.UserCreateInput & {
+      password: string,
+      role?: UserRole,
+      isOrganization?: boolean,
+      organizationInput?: { name: string, imageUrl?: string },
+      restaurantsInput?: Array<{
+        name: string,
+        imageUrl?: string,
+        address: string,
+        city: string,
+        zipCode: string,
+        state: string,
+        owner: string
+      }>
+    }
   ): Promise<User> {
     try {
-
       const hashedPassword = await bcrypt.hash(userData.password, 10);
-      const { password, role = UserRole.STAFF, ...userDataWithoutAuth } = userData;
+      const {
+        password,
+        role = UserRole.STAFF,
+        isOrganization,
+        organizationInput,
+        restaurantsInput,
+        ...userDataWithoutAuth
+      } = userData;
 
-      const user = await this.prisma.user.create({
-        data: {
-          ...userDataWithoutAuth,
-          auth: {
-            create: {
-              passwordHash: hashedPassword,
-              role: role
+      // Use Prisma transaction to ensure all related operations succeed or fail together
+      return await this.prisma.$transaction(async (tx) => {
+        // Create organization first if applicable
+        let organization = null;
+        if (isOrganization && organizationInput) {
+          organization = await tx.organization.create({
+            data: {
+              name: organizationInput.name,
+              imageUrl: organizationInput.imageUrl
             }
+          });
+          this.logger.log('Organization created: ' + organization.id);
+        }
+
+        // Create user with auth and connect to organization if applicable
+        const user = await tx.user.create({
+          data: {
+            ...userDataWithoutAuth,
+            auth: {
+              create: {
+                passwordHash: hashedPassword,
+                role: role
+              }
+            },
+            ...(organization ? { organization: { connect: { id: organization.id } } } : {})
+          },
+          include: {
+            organization: true
           }
-        },
+        });
+        this.logger.log('User created: ' + user.id);
 
+        // Create restaurants and connect to organization and user if applicable
+        if (restaurantsInput && restaurantsInput.length > 0) {
+          for (const restaurantData of restaurantsInput) {
+            const restaurant = await tx.restaurant.create({
+              data: {
+                ...restaurantData,
+                ...(organization ? { organization: { connect: { id: organization.id } } } : {}),
+                users: {
+                  connect: { id: user.id }
+                }
+              }
+            });
+            this.logger.log('Restaurant created: ' + restaurant.id);
+          }
+        }
+
+        // Return the user object
+        return user;
       });
-
-      return user;
     } catch (error) {
-      throw new InternalServerErrorException(error);
+      this.logger.handleError(error, 'Error creating user with organization and restaurants');
     }
   }
 
@@ -120,7 +177,7 @@ export class UserService {
   }
 
 
-  async updateUserRole(userId: number, newRole: UserRole): Promise<User> {
+  async updateUserRole(userId: number, newRole: UserRole): Promise<User | null> {
     try {
       const user = await this.getAuthUser(userId);
 

@@ -7,7 +7,7 @@ export function getSessionCookie(event: RequestEvent): string | undefined {
 }
 
 export function setSessionTokenCookie(cookies: Cookies, token: string, expiresAt: Date): void {
-  cookies.set('session', token, {
+  cookies.set('session_token', token, {
     httpOnly: true,
     sameSite: 'lax',
     expires: expiresAt,
@@ -16,7 +16,7 @@ export function setSessionTokenCookie(cookies: Cookies, token: string, expiresAt
 }
 
 export function deleteSessionTokenCookie(cookies: Cookies): void {
-  cookies.set('session', 'token', {
+  cookies.set('session_token', 'token', {
     httpOnly: true,
     sameSite: 'lax',
     maxAge: 0,

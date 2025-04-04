@@ -1,5 +1,5 @@
 // controllers/recipe.controller.ts
-import { Controller, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Controller, Req, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { MulterOptions } from '@nestjs/platform-express/multer/interfaces/multer-options.interface';
 import { TsRest, TsRestHandler, tsRestHandler } from '@ts-rest/nest';
@@ -9,6 +9,7 @@ import { LoggingService } from '../logging/logging.service';
 import { S3Service } from '../helpers/aws/s3.aws.service'
 import { Express } from 'express';
 import { EnvService } from '../env/env.service'
+import { Request } from 'express'
 
 
 const multerConfig: MulterOptions = {
@@ -75,8 +76,9 @@ export class RecipeController {
   }
 
   @TsRestHandler(contract.recipe.getRecipes)
-  async getRecipes() {
+  async getRecipes(@Req() req: Request) {
     return tsRestHandler(contract.recipe.getRecipes, async ({ query }) => {
+      this.logger.log(JSON.stringify(req.cookies, null, 2))
       this.logger.log('Received request to get recipes');
       const recipes = await this.recipeService.getRecipes({
         skip: query.skip,

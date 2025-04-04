@@ -10,6 +10,7 @@ const env_service_1 = require("./env/env.service");
 const swagger_1 = require("@nestjs/swagger");
 const language_interceptor_1 = require("./i18n/language.interceptor");
 const i18n_service_1 = require("./i18n/i18n.service");
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const express_1 = __importDefault(require("express"));
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule, {
@@ -25,6 +26,7 @@ async function bootstrap() {
     const document = swagger_1.SwaggerModule.createDocument(app, config);
     swagger_1.SwaggerModule.setup('api', app, document);
     app.use((0, helmet_1.default)());
+    app.use((0, cookie_parser_1.default)());
     const configService = app.get(env_service_1.EnvService);
     const port = configService.get('PORT');
     const corsOrigin = configService.get('CORS_ORIGIN');

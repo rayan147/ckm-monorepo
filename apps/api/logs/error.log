@@ -574,3 +574,131 @@
   "service": "LoggingService",
   "timestamp": "2025-03-21T15:59:26.960Z"
 }
+{
+  "context": "ApplicationError",
+  "error": "User not found",
+  "level": "error",
+  "message": "Failed getUserByEmail: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:24:37.257Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "User not found",
+  "level": "error",
+  "message": "Failed getUserByEmail: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:27:51.576Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "User not found",
+  "level": "error",
+  "message": "Failed getUserByEmail: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-01T16:31:19.092Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `tx.organization.create()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/users/users.service.ts:104:48\n\n  101 // Create organization first if applicable\n  102 let organization = null;\n  103 if (isOrganization && organizationInput) {\n→ 104   organization = await tx.organization.create(\nUnique constraint failed on the fields: (`name`)",
+  "level": "error",
+  "message": "Error creating user with organization and restaurants: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T18:49:18.231Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.session.update()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/auth/utils/auth.sessions.service.ts:218:33\n\n  215   throw new UnauthorizedException('Invalid verification code');\n  216 }\n  217 \n→ 218 await this.prisma.session.update(\nUnique constraint failed on the fields: (`verificationCode`)",
+  "level": "error",
+  "message": "Failed to verifySession: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T19:09:13.166Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.session.update()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/auth/utils/auth.sessions.service.ts:218:33\n\n  215   throw new UnauthorizedException('Invalid verification code');\n  216 }\n  217 \n→ 218 await this.prisma.session.update(\nUnique constraint failed on the fields: (`verificationCode`)",
+  "level": "error",
+  "message": "Failed to verifySession: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-02T19:10:01.956Z"
+}
+{
+  "context": "PrismaError",
+  "error": "\nInvalid `this.prisma.session.update()` invocation in\n/home/rayan147/ckm-turborepo/apps/api/src/auth/utils/auth.sessions.service.ts:218:33\n\n  215   throw new UnauthorizedException('Invalid verification code');\n  216 }\n  217 \n→ 218 await this.prisma.session.update(\nUnique constraint failed on the fields: (`verificationCode`)",
+  "level": "error",
+  "message": "Failed to verifySession: Prisma Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T12:49:40.233Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Invalid verification code",
+  "level": "error",
+  "message": "Failed to verify session: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:46:09.830Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Failed to verify session",
+  "level": "error",
+  "message": "Verification code validation failed: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:46:09.831Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Invalid verification code",
+  "level": "error",
+  "message": "Failed to verify session: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:46:21.321Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Failed to verify session",
+  "level": "error",
+  "message": "Verification code validation failed: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:46:21.322Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Invalid verification code",
+  "level": "error",
+  "message": "Failed to verify session: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:46:23.640Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Failed to verify session",
+  "level": "error",
+  "message": "Verification code validation failed: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T14:46:23.640Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "The security token included in the request is expired",
+  "level": "error",
+  "message": "Login process failed: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T18:50:02.241Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "The security token included in the request is expired",
+  "level": "error",
+  "message": "Login process failed: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-03T18:50:18.130Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "The security token included in the request is expired",
+  "level": "error",
+  "message": "Login process failed: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T14:00:08.801Z"
+}

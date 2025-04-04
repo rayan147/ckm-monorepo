@@ -10,29 +10,27 @@ return {
 	assets: new Set(["favicon.png"]),
 	mimeTypes: {".png":"image/png"},
 	_: {
-		client: {start:"_app/immutable/entry/start.DXVHSXhM.js",app:"_app/immutable/entry/app.B9sU-RsI.js",imports:["_app/immutable/entry/start.DXVHSXhM.js","_app/immutable/chunks/BPIobk8A.js","_app/immutable/chunks/CYH0RKHD.js","_app/immutable/chunks/DIeogL5L.js","_app/immutable/chunks/BfbtqWii.js","_app/immutable/entry/app.B9sU-RsI.js","_app/immutable/chunks/BN47qgBQ.js","_app/immutable/chunks/CYH0RKHD.js","_app/immutable/chunks/DIeogL5L.js","_app/immutable/chunks/DbLt3Tit.js","_app/immutable/chunks/CuIOfsjH.js","_app/immutable/chunks/Bg9kRutz.js","_app/immutable/chunks/DF-hwDfc.js","_app/immutable/chunks/BpkLHP8I.js","_app/immutable/chunks/DRzKVaDG.js","_app/immutable/chunks/DbyC7Uin.js","_app/immutable/chunks/BfbtqWii.js","_app/immutable/chunks/Du1wYa_y.js"],stylesheets:[],fonts:[],uses_env_dynamic_public:false},
+		client: {start:"_app/immutable/entry/start.B1YjB9lO.js",app:"_app/immutable/entry/app.iliXxMNh.js",imports:["_app/immutable/entry/start.B1YjB9lO.js","_app/immutable/chunks/Dqd0Qusy.js","_app/immutable/chunks/B69j3p8y.js","_app/immutable/chunks/DIeogL5L.js","_app/immutable/chunks/uW3OwGCL.js","_app/immutable/entry/app.iliXxMNh.js","_app/immutable/chunks/BVx8lD0h.js","_app/immutable/chunks/B69j3p8y.js","_app/immutable/chunks/DIeogL5L.js","_app/immutable/chunks/D-HdG9Gd.js","_app/immutable/chunks/2fTbWK7B.js","_app/immutable/chunks/Bg9kRutz.js","_app/immutable/chunks/MdynZ_wb.js","_app/immutable/chunks/C-8Sf0Dc.js","_app/immutable/chunks/Cz8Zxg3J.js","_app/immutable/chunks/vvBaM8P0.js","_app/immutable/chunks/uW3OwGCL.js","_app/immutable/chunks/C7SRLtrH.js"],stylesheets:[],fonts:[],uses_env_dynamic_public:false},
 		nodes: [
-			__memo(() => import('./chunks/0-CEwPcrtY.js')),
-			__memo(() => import('./chunks/1-CiwqRNle.js')),
-			__memo(() => import('./chunks/2-DrO7vbjF.js')),
-			__memo(() => import('./chunks/3-BNop539L.js')),
-			__memo(() => import('./chunks/4-Drq74i8L.js')),
-			__memo(() => import('./chunks/5-DZ9xmVZM.js')),
-			__memo(() => import('./chunks/6-CgYqkl11.js')),
-			__memo(() => import('./chunks/7-DMUltzE7.js')),
-			__memo(() => import('./chunks/8-BEPTtPue.js')),
-			__memo(() => import('./chunks/9-C7gwt0iL.js')),
-			__memo(() => import('./chunks/10-FtghSuB-.js')),
-			__memo(() => import('./chunks/11-B4wjd9nJ.js')),
-			__memo(() => import('./chunks/12-i9rrdad9.js')),
-			__memo(() => import('./chunks/13-1H7rKCT7.js')),
-			__memo(() => import('./chunks/14-PFjpv2Bw.js')),
-			__memo(() => import('./chunks/15-CoVtU5Ei.js')),
-			__memo(() => import('./chunks/16-CozxzB5a.js')),
-			__memo(() => import('./chunks/17-CEt1vqq4.js')),
-			__memo(() => import('./chunks/18-DvJYhmE2.js')),
-			__memo(() => import('./chunks/19-C0HHBdhi.js')),
-			__memo(() => import('./chunks/20-CBBwfyr4.js'))
+			__memo(() => import('./chunks/0-Ng-4Vbbx.js')),
+			__memo(() => import('./chunks/1-BQHTAZ9d.js')),
+			__memo(() => import('./chunks/2-BFxdcnXA.js')),
+			__memo(() => import('./chunks/3-BpV6qNR5.js')),
+			__memo(() => import('./chunks/4-GJljepYA.js')),
+			__memo(() => import('./chunks/5-DEPYcZbQ.js')),
+			__memo(() => import('./chunks/6-BreB4C3W.js')),
+			__memo(() => import('./chunks/7-CREA_fsk.js')),
+			__memo(() => import('./chunks/8-DQzmN2aa.js')),
+			__memo(() => import('./chunks/9-B_yhpMeL.js')),
+			__memo(() => import('./chunks/10-DeX2Kew3.js')),
+			__memo(() => import('./chunks/11-BCZRNUFh.js')),
+			__memo(() => import('./chunks/12-CWlHKxSM.js')),
+			__memo(() => import('./chunks/13-DmIHeqB-.js')),
+			__memo(() => import('./chunks/14-BFM_2IFB.js')),
+			__memo(() => import('./chunks/15-dUyKiPvk.js')),
+			__memo(() => import('./chunks/16-D4EvsxtH.js')),
+			__memo(() => import('./chunks/17-BeMIz3vB.js')),
+			__memo(() => import('./chunks/18-BAB9EmhB.js'))
 		],
 		routes: [
 			{
@@ -46,7 +44,7 @@ return {
 				id: "/about",
 				pattern: /^\/about\/?$/,
 				params: [],
-				page: { layouts: [0,], errors: [1,], leaf: 8 },
+				page: { layouts: [0,], errors: [1,], leaf: 6 },
 				endpoint: null
 			},
 			{
@@ -54,90 +52,90 @@ return {
 				pattern: /^\/api\/auth\/logout\/?$/,
 				params: [],
 				page: null,
-				endpoint: __memo(() => import('./chunks/_server.ts-BRTHZLWU.js'))
+				endpoint: __memo(() => import('./chunks/_server.ts-CX4B78R3.js'))
 			},
 			{
 				id: "/dashboard",
 				pattern: /^\/dashboard\/?$/,
 				params: [],
-				page: { layouts: [0,2,], errors: [1,,], leaf: 9 },
+				page: { layouts: [0,2,], errors: [1,,], leaf: 7 },
 				endpoint: null
 			},
 			{
 				id: "/dashboard/cookbooks",
 				pattern: /^\/dashboard\/cookbooks\/?$/,
 				params: [],
-				page: { layouts: [0,2,], errors: [1,,], leaf: 10 },
+				page: { layouts: [0,2,], errors: [1,,], leaf: 8 },
 				endpoint: null
 			},
 			{
 				id: "/dashboard/inventory",
 				pattern: /^\/dashboard\/inventory\/?$/,
 				params: [],
-				page: { layouts: [0,2,], errors: [1,,], leaf: 11 },
+				page: { layouts: [0,2,], errors: [1,,], leaf: 9 },
 				endpoint: null
 			},
 			{
 				id: "/dashboard/kitchen",
 				pattern: /^\/dashboard\/kitchen\/?$/,
 				params: [],
-				page: { layouts: [0,2,], errors: [1,,], leaf: 12 },
+				page: { layouts: [0,2,], errors: [1,,], leaf: 10 },
 				endpoint: null
 			},
 			{
 				id: "/dashboard/kitchen/recipe/[id]",
 				pattern: /^\/dashboard\/kitchen\/recipe\/([^/]+?)\/?$/,
 				params: [{"name":"id","optional":false,"rest":false,"chained":false}],
-				page: { layouts: [0,2,], errors: [1,,], leaf: 13 },
+				page: { layouts: [0,2,], errors: [1,,], leaf: 11 },
 				endpoint: null
 			},
 			{
 				id: "/dashboard/menus",
 				pattern: /^\/dashboard\/menus\/?$/,
 				params: [],
-				page: { layouts: [0,2,], errors: [1,,], leaf: 14 },
+				page: { layouts: [0,2,], errors: [1,,], leaf: 12 },
 				endpoint: null
 			},
 			{
 				id: "/dashboard/organization",
 				pattern: /^\/dashboard\/organization\/?$/,
 				params: [],
-				page: { layouts: [0,2,], errors: [1,,], leaf: 15 },
+				page: { layouts: [0,2,], errors: [1,,], leaf: 13 },
 				endpoint: null
 			},
 			{
 				id: "/dashboard/profile",
 				pattern: /^\/dashboard\/profile\/?$/,
 				params: [],
-				page: { layouts: [0,2,], errors: [1,,], leaf: 16 },
+				page: { layouts: [0,2,], errors: [1,,], leaf: 14 },
 				endpoint: null
 			},
 			{
 				id: "/dashboard/schedules",
 				pattern: /^\/dashboard\/schedules\/?$/,
 				params: [],
-				page: { layouts: [0,2,], errors: [1,,], leaf: 17 },
+				page: { layouts: [0,2,], errors: [1,,], leaf: 15 },
 				endpoint: null
 			},
 			{
 				id: "/dashboard/settings",
 				pattern: /^\/dashboard\/settings\/?$/,
 				params: [],
-				page: { layouts: [0,2,], errors: [1,,], leaf: 18 },
+				page: { layouts: [0,2,], errors: [1,,], leaf: 16 },
 				endpoint: null
 			},
 			{
 				id: "/dashboard/staff",
 				pattern: /^\/dashboard\/staff\/?$/,
 				params: [],
-				page: { layouts: [0,2,], errors: [1,,], leaf: 19 },
+				page: { layouts: [0,2,], errors: [1,,], leaf: 17 },
 				endpoint: null
 			},
 			{
 				id: "/docs/[...slug]",
 				pattern: /^\/docs(?:\/(.*))?\/?$/,
 				params: [{"name":"slug","optional":false,"rest":true,"chained":true}],
-				page: { layouts: [0,], errors: [1,], leaf: 20 },
+				page: { layouts: [0,], errors: [1,], leaf: 18 },
 				endpoint: null
 			},
 			{
@@ -145,20 +143,6 @@ return {
 				pattern: /^\/forgot-password\/?$/,
 				params: [],
 				page: { layouts: [0,], errors: [1,], leaf: 5 },
-				endpoint: null
-			},
-			{
-				id: "/(auth)/login",
-				pattern: /^\/login\/?$/,
-				params: [],
-				page: { layouts: [0,], errors: [1,], leaf: 6 },
-				endpoint: null
-			},
-			{
-				id: "/(auth)/register",
-				pattern: /^\/register\/?$/,
-				params: [],
-				page: { layouts: [0,], errors: [1,], leaf: 7 },
 				endpoint: null
 			},
 			{
