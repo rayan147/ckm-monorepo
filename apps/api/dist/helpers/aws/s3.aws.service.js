@@ -39,7 +39,7 @@ let S3Service = class S3Service {
             Bucket: bucketName,
             Key: key,
             Body: body,
-            ACL: 'public-read'
+            ACL: 'public-read',
         });
         await this.s3Client.send(command);
         return `https://${bucketName}.s3.amazonaws.com/${key}`;
@@ -62,6 +62,7 @@ let S3Service = class S3Service {
 exports.S3Service = S3Service;
 exports.S3Service = S3Service = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [env_service_1.EnvService, aws_credentials_service_1.AwsCredentialsService])
+    __metadata("design:paramtypes", [env_service_1.EnvService,
+        aws_credentials_service_1.AwsCredentialsService])
 ], S3Service);
 //# sourceMappingURL=s3.aws.service.js.map

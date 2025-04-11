@@ -9,6 +9,7 @@
     "build": "nest build  && cp -r src/early-access/templates dist/early-access/templates",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
+    "format:check": "prettier --check \"src/**/*.ts\" \"test/**/*.ts\"",
     "dev": "DATABASE_URL=postgresql://ckm:ckm@localhost:5433/ckm?schema=public nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",

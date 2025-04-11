@@ -1,8 +1,4 @@
-import {
-  BadRequestException,
-  Injectable,
-  InternalServerErrorException,
-} from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Organization, Prisma } from '@ckm/db';
 
@@ -10,19 +6,14 @@ import { Organization, Prisma } from '@ckm/db';
 export class OrganizationService {
   constructor(private prisma: PrismaService) {}
 
-  async createOrganization(
-    data: Prisma.OrganizationCreateInput,
-  ): Promise<Organization> {
+  async createOrganization(data: Prisma.OrganizationCreateInput): Promise<Organization> {
     try {
       return this.prisma.organization.create({
         data,
       });
     } catch (error) {
       if (error instanceof BadRequestException) {
-        throw new BadRequestException(
-          'Could not create the organization',
-          error,
-        );
+        throw new BadRequestException('Could not create the organization', error);
       }
       throw new InternalServerErrorException();
     }
@@ -42,10 +33,7 @@ export class OrganizationService {
       });
     } catch (error) {
       if (error instanceof BadRequestException) {
-        throw new BadRequestException(
-          'Could not create the organization',
-          error,
-        );
+        throw new BadRequestException('Could not create the organization', error);
       }
       throw new InternalServerErrorException();
     }
@@ -75,10 +63,7 @@ export class OrganizationService {
       });
     } catch (error) {
       if (error instanceof BadRequestException) {
-        throw new BadRequestException(
-          'Could not update the organization',
-          error,
-        );
+        throw new BadRequestException('Could not update the organization', error);
       }
       throw new InternalServerErrorException();
     }
@@ -91,10 +76,7 @@ export class OrganizationService {
       });
     } catch (error) {
       if (error instanceof BadRequestException) {
-        throw new BadRequestException(
-          'Could not update the organization',
-          error,
-        );
+        throw new BadRequestException('Could not update the organization', error);
       }
       throw new InternalServerErrorException();
     }

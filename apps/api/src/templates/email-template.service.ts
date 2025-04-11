@@ -9,9 +9,6 @@ export class EmailTemplateService {
   }
 
   getVerificationCodeTemplate(verificationCode: string): string {
-    return verificationCodeTemplate.replace(
-      /{{verificationCode}}/g,
-      verificationCode,
-    );
+    return verificationCodeTemplate.replace(/{{verificationCode}}/g, verificationCode);
   }
 }

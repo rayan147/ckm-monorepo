@@ -51,134 +51,395 @@ export class UsdaApiService {
   private readonly allergenKeywords = {
     gluten: [
       // Basic gluten sources
-      'wheat', 'barley', 'rye', 'spelt', 'kamut', 'triticale', 'farro', 'durum', 'semolina',
-      'gluten', 'flour', 'bread', 'pasta', 'noodle', 'couscous', 'bulgur', 'seitan',
+      'wheat',
+      'barley',
+      'rye',
+      'spelt',
+      'kamut',
+      'triticale',
+      'farro',
+      'durum',
+      'semolina',
+      'gluten',
+      'flour',
+      'bread',
+      'pasta',
+      'noodle',
+      'couscous',
+      'bulgur',
+      'seitan',
 
       // Common gluten-containing foods
-      'muesli', 'granola', 'cereal', 'cracker', 'biscuit', 'cookie', 'cake', 'pastry', 'pie',
-      'pizza', 'pretzel', 'croissant', 'bagel', 'muffin', 'pancake', 'waffle', 'bun',
-      'breadcrumb', 'crouton', 'tortilla', 'flatbread', 'doughnut', 'brioche', 'pita',
+      'muesli',
+      'granola',
+      'cereal',
+      'cracker',
+      'biscuit',
+      'cookie',
+      'cake',
+      'pastry',
+      'pie',
+      'pizza',
+      'pretzel',
+      'croissant',
+      'bagel',
+      'muffin',
+      'pancake',
+      'waffle',
+      'bun',
+      'breadcrumb',
+      'crouton',
+      'tortilla',
+      'flatbread',
+      'doughnut',
+      'brioche',
+      'pita',
 
       // Ingredients often containing gluten
-      'malt', 'brewer', 'beer', 'ale', 'lager', 'stout', 'batter', 'breading',
-      'gravy', 'custard', 'pudding', 'stuffing', 'panko', 'breadstick',
+      'malt',
+      'brewer',
+      'beer',
+      'ale',
+      'lager',
+      'stout',
+      'batter',
+      'breading',
+      'gravy',
+      'custard',
+      'pudding',
+      'stuffing',
+      'panko',
+      'breadstick',
 
       // Cereal grains that often contain gluten
-      'bran', 'germ', 'wheat germ', 'oat', 'oats', 'oatmeal',
+      'bran',
+      'germ',
+      'wheat germ',
+      'oat',
+      'oats',
+      'oatmeal',
 
       // Industrial food additives
-      'hydrolyzed wheat protein', 'modified food starch', 'maltodextrin'
+      'hydrolyzed wheat protein',
+      'modified food starch',
+      'maltodextrin',
     ],
 
     dairy: [
       // Basic dairy sources
-      'milk', 'cream', 'butter', 'cheese', 'yogurt', 'whey', 'lactose', 'casein', 'caseinate',
-      'dairy', 'buttermilk', 'ghee', 'pudding',
+      'milk',
+      'cream',
+      'butter',
+      'cheese',
+      'yogurt',
+      'whey',
+      'lactose',
+      'casein',
+      'caseinate',
+      'dairy',
+      'buttermilk',
+      'ghee',
+      'pudding',
 
       // Cheese varieties
-      'cheddar', 'mozzarella', 'parmesan', 'feta', 'gouda', 'brie', 'ricotta', 'cottage cheese',
-      'mascarpone', 'cream cheese', 'blue cheese', 'gorgonzola', 'swiss', 'provolone',
+      'cheddar',
+      'mozzarella',
+      'parmesan',
+      'feta',
+      'gouda',
+      'brie',
+      'ricotta',
+      'cottage cheese',
+      'mascarpone',
+      'cream cheese',
+      'blue cheese',
+      'gorgonzola',
+      'swiss',
+      'provolone',
 
       // Milk products
-      'ice cream', 'gelato', 'custard', 'milkshake', 'kefir', 'quark', 'skyr',
-      'half and half', 'sour cream', 'curds', 'lassi', 'condensed milk',
-      'evaporated milk', 'powdered milk', 'dulce de leche'
+      'ice cream',
+      'gelato',
+      'custard',
+      'milkshake',
+      'kefir',
+      'quark',
+      'skyr',
+      'half and half',
+      'sour cream',
+      'curds',
+      'lassi',
+      'condensed milk',
+      'evaporated milk',
+      'powdered milk',
+      'dulce de leche',
     ],
 
     nuts: [
       // Common nuts
-      'nut', 'almond', 'cashew', 'pecan', 'walnut', 'hazelnut', 'pistachio', 'macadamia',
-      'pine nut', 'brazil nut', 'chestnut', 'beechnut', 'hickory nut', 'peanut',
+      'nut',
+      'almond',
+      'cashew',
+      'pecan',
+      'walnut',
+      'hazelnut',
+      'pistachio',
+      'macadamia',
+      'pine nut',
+      'brazil nut',
+      'chestnut',
+      'beechnut',
+      'hickory nut',
+      'peanut',
 
       // Nut products & derivatives
-      'nutella', 'nougat', 'praline', 'marzipan', 'frangipane',
-      'almond paste', 'almond milk', 'almond flour', 'almond butter',
-      'cashew milk', 'cashew butter', 'walnut oil', 'pecan pie',
+      'nutella',
+      'nougat',
+      'praline',
+      'marzipan',
+      'frangipane',
+      'almond paste',
+      'almond milk',
+      'almond flour',
+      'almond butter',
+      'cashew milk',
+      'cashew butter',
+      'walnut oil',
+      'pecan pie',
 
       // Other common terms
-      'mixed nuts', 'trail mix', 'nut butter', 'nut milk',
+      'mixed nuts',
+      'trail mix',
+      'nut butter',
+      'nut milk',
 
       // Coconut products (often classified as tree nuts for allergy purposes)
-      'coconut', 'coconut milk', 'coconut water', 'coconut cream', 'coconut oil', 'coconut flour'
+      'coconut',
+      'coconut milk',
+      'coconut water',
+      'coconut cream',
+      'coconut oil',
+      'coconut flour',
     ],
 
     eggs: [
       // Basic egg terms
-      'egg', 'eggs', 'yolk', 'white', 'albumin', 'meringue', 'mayonnaise',
+      'egg',
+      'eggs',
+      'yolk',
+      'white',
+      'albumin',
+      'meringue',
+      'mayonnaise',
 
       // Foods commonly containing eggs
-      'omelet', 'frittata', 'quiche', 'custard', 'pudding', 'flan',
-      'ice cream', 'gelato', 'aioli', 'hollandaise', 'béarnaise',
-      'eggnog', 'merengue', 'souffle', 'mousse',
+      'omelet',
+      'frittata',
+      'quiche',
+      'custard',
+      'pudding',
+      'flan',
+      'ice cream',
+      'gelato',
+      'aioli',
+      'hollandaise',
+      'béarnaise',
+      'eggnog',
+      'merengue',
+      'souffle',
+      'mousse',
 
       // Baked goods with eggs
-      'cake', 'cookie', 'muffin', 'pancake', 'waffle', 'crepe', 'french toast',
-      'brioche', 'challah', 'pastry',
+      'cake',
+      'cookie',
+      'muffin',
+      'pancake',
+      'waffle',
+      'crepe',
+      'french toast',
+      'brioche',
+      'challah',
+      'pastry',
 
       // Hidden egg ingredients
-      'lecithin', 'lysozyme', 'globulin', 'ovoglobulin', 'ovomucin', 'ovovitellin',
-      'vitellin', 'livetin', 'ovalbumin'
+      'lecithin',
+      'lysozyme',
+      'globulin',
+      'ovoglobulin',
+      'ovomucin',
+      'ovovitellin',
+      'vitellin',
+      'livetin',
+      'ovalbumin',
     ],
 
     soy: [
       // Basic soy products
-      'soy', 'soya', 'tofu', 'edamame', 'miso', 'tempeh', 'natto', 'soy milk',
-      'soy sauce', 'tamari', 'soy flour', 'soybean', 'soy protein', 'textured vegetable protein',
-      'tvp', 'tsp', 'soy lecithin',
+      'soy',
+      'soya',
+      'tofu',
+      'edamame',
+      'miso',
+      'tempeh',
+      'natto',
+      'soy milk',
+      'soy sauce',
+      'tamari',
+      'soy flour',
+      'soybean',
+      'soy protein',
+      'textured vegetable protein',
+      'tvp',
+      'tsp',
+      'soy lecithin',
 
       // Fermented soy products
-      'doenjang', 'doubanjiang', 'gochujang', 'cheonggukjang',
+      'doenjang',
+      'doubanjiang',
+      'gochujang',
+      'cheonggukjang',
 
       // Asian foods often containing soy
-      'teriyaki', 'shoyu', 'hoisin', 'oyster sauce', 'seitan', 'mock meat',
-      'vegetarian meat', 'plant-based meat',
+      'teriyaki',
+      'shoyu',
+      'hoisin',
+      'oyster sauce',
+      'seitan',
+      'mock meat',
+      'vegetarian meat',
+      'plant-based meat',
 
       // Hidden soy ingredients
-      'hydrolyzed vegetable protein', 'vegetable broth', 'vegetable starch',
-      'vegetable protein', 'lecithin', 'emulsifier'
+      'hydrolyzed vegetable protein',
+      'vegetable broth',
+      'vegetable starch',
+      'vegetable protein',
+      'lecithin',
+      'emulsifier',
     ],
 
     fish: [
       // Common fish
-      'fish', 'salmon', 'tuna', 'trout', 'cod', 'halibut', 'haddock', 'mackerel', 'herring',
-      'sardine', 'anchovy', 'tilapia', 'bass', 'snapper', 'flounder', 'sole', 'perch',
-      'mahi mahi', 'swordfish', 'catfish', 'whitefish',
+      'fish',
+      'salmon',
+      'tuna',
+      'trout',
+      'cod',
+      'halibut',
+      'haddock',
+      'mackerel',
+      'herring',
+      'sardine',
+      'anchovy',
+      'tilapia',
+      'bass',
+      'snapper',
+      'flounder',
+      'sole',
+      'perch',
+      'mahi mahi',
+      'swordfish',
+      'catfish',
+      'whitefish',
 
       // Fish products
-      'caviar', 'roe', 'fish sauce', 'fish paste', 'surimi', 'furikake', 'bonito',
-      'katsuobushi', 'dashi', 'caesar dressing', 'worcestershire sauce',
+      'caviar',
+      'roe',
+      'fish sauce',
+      'fish paste',
+      'surimi',
+      'furikake',
+      'bonito',
+      'katsuobushi',
+      'dashi',
+      'caesar dressing',
+      'worcestershire sauce',
 
       // Canned fish
-      'canned tuna', 'canned salmon', 'canned sardines', 'canned anchovies'
+      'canned tuna',
+      'canned salmon',
+      'canned sardines',
+      'canned anchovies',
     ],
 
     shellfish: [
       // Crustaceans
-      'shellfish', 'shrimp', 'prawn', 'crab', 'lobster', 'crayfish', 'crawfish',
-      'langoustine', 'krill',
+      'shellfish',
+      'shrimp',
+      'prawn',
+      'crab',
+      'lobster',
+      'crayfish',
+      'crawfish',
+      'langoustine',
+      'krill',
 
       // Mollusks
-      'clam', 'mussel', 'oyster', 'scallop', 'squid', 'calamari', 'octopus',
-      'abalone', 'snail', 'escargot', 'periwinkle', 'conch', 'whelk',
+      'clam',
+      'mussel',
+      'oyster',
+      'scallop',
+      'squid',
+      'calamari',
+      'octopus',
+      'abalone',
+      'snail',
+      'escargot',
+      'periwinkle',
+      'conch',
+      'whelk',
 
       // Shellfish products
-      'seafood', 'bisque', 'chowder', 'bouillabaisse', 'paella', 'cioppino',
-      'frutti di mare', 'crab cake', 'shrimp paste', 'fish sauce', 'nam pla', 'patis',
-      'crab stick', 'surimi'
+      'seafood',
+      'bisque',
+      'chowder',
+      'bouillabaisse',
+      'paella',
+      'cioppino',
+      'frutti di mare',
+      'crab cake',
+      'shrimp paste',
+      'fish sauce',
+      'nam pla',
+      'patis',
+      'crab stick',
+      'surimi',
     ],
 
     sesame: [
       // Basic sesame products
-      'sesame', 'tahini', 'sesame oil', 'sesame seed', 'sesame paste', 'sesame flour',
-      'sesame butter', 'goma', 'benne seed',
+      'sesame',
+      'tahini',
+      'sesame oil',
+      'sesame seed',
+      'sesame paste',
+      'sesame flour',
+      'sesame butter',
+      'goma',
+      'benne seed',
 
       // Foods commonly containing sesame
-      'hummus', 'baba ghanoush', 'halva', 'falafel', 'za\'atar', 'seeded bread',
-      'everything bagel', 'sesame bagel', 'tahini sauce', 'sesame dressing',
-      'sesame snaps', 'sesame candy', 'halvah', 'gomashio', 'furikake',
-      'sesame chicken', 'sesame noodles', 'burger bun', 'hamburger bun'
-    ]
-  } as const
+      'hummus',
+      'baba ghanoush',
+      'halva',
+      'falafel',
+      "za'atar",
+      'seeded bread',
+      'everything bagel',
+      'sesame bagel',
+      'tahini sauce',
+      'sesame dressing',
+      'sesame snaps',
+      'sesame candy',
+      'halvah',
+      'gomashio',
+      'furikake',
+      'sesame chicken',
+      'sesame noodles',
+      'burger bun',
+      'hamburger bun',
+    ],
+  } as const;
 
   constructor(
     private readonly httpService: HttpService,
@@ -198,7 +459,7 @@ export class UsdaApiService {
       containsSoy: false,
       containsFish: false,
       containsShellfish: false,
-      containsSesame: false
+      containsSesame: false,
     };
 
     if (!foodData) return allergens;
@@ -206,26 +467,34 @@ export class UsdaApiService {
     // Get food description and ingredients list if available
     const description = foodData.description || '';
     const ingredients = foodData.ingredients || '';
-    console.log(`description is ${description} and ingredients is ${ingredients}`)
+    console.log(`description is ${description} and ingredients is ${ingredients}`);
     const combinedText = (description + ' ' + ingredients).toLowerCase();
 
     // Check each allergen category
     allergens.containsGluten = this.allergenKeywords.gluten.some(keyword =>
-      combinedText.includes(keyword));
+      combinedText.includes(keyword),
+    );
     allergens.containsDairy = this.allergenKeywords.dairy.some(keyword =>
-      combinedText.includes(keyword));
+      combinedText.includes(keyword),
+    );
     allergens.containsNuts = this.allergenKeywords.nuts.some(keyword =>
-      combinedText.includes(keyword));
+      combinedText.includes(keyword),
+    );
     allergens.containsEggs = this.allergenKeywords.eggs.some(keyword =>
-      combinedText.includes(keyword));
+      combinedText.includes(keyword),
+    );
     allergens.containsSoy = this.allergenKeywords.soy.some(keyword =>
-      combinedText.includes(keyword));
+      combinedText.includes(keyword),
+    );
     allergens.containsFish = this.allergenKeywords.fish.some(keyword =>
-      combinedText.includes(keyword));
+      combinedText.includes(keyword),
+    );
     allergens.containsShellfish = this.allergenKeywords.shellfish.some(keyword =>
-      combinedText.includes(keyword));
+      combinedText.includes(keyword),
+    );
     allergens.containsSesame = this.allergenKeywords.sesame.some(keyword =>
-      combinedText.includes(keyword));
+      combinedText.includes(keyword),
+    );
 
     return allergens;
   }
@@ -242,7 +511,7 @@ export class UsdaApiService {
         pageSize,
         // Don't specify dataType to get results from all categories
         // Or explicitly include all categories:
-        dataType: 'Foundation,SR Legacy,Survey (FNDDS),Branded,Experimental'
+        dataType: 'Foundation,SR Legacy,Survey (FNDDS),Branded,Experimental',
       };
 
       const { data } = await firstValueFrom(
@@ -255,7 +524,7 @@ export class UsdaApiService {
       );
 
       console.log(`USDA search for "${query}" returned ${data?.foods?.length || 0} results`);
-      console.log(`the data is: ${JSON.stringify(data, null, 2)}`)
+      console.log(`the data is: ${JSON.stringify(data, null, 2)}`);
       return data;
     } catch (error) {
       console.error('Error in searchFoods:', error);
@@ -267,17 +536,19 @@ export class UsdaApiService {
     try {
       const url = `${this.baseUrl}/food/${fdcId}`;
       const { data } = await firstValueFrom(
-        this.httpService.get(url, {
-          params: {
-            api_key: this.apiKey,
-            format: 'full',
-          },
-        }).pipe(
-          catchError((error: AxiosError) => {
-            console.error('Error fetching food details:', error.response?.data || error.message);
-            throw new Error(`Failed to get food details: ${error.message}`);
-          }),
-        ),
+        this.httpService
+          .get(url, {
+            params: {
+              api_key: this.apiKey,
+              format: 'full',
+            },
+          })
+          .pipe(
+            catchError((error: AxiosError) => {
+              console.error('Error fetching food details:', error.response?.data || error.message);
+              throw new Error(`Failed to get food details: ${error.message}`);
+            }),
+          ),
       );
       return data;
     } catch (error) {
@@ -319,18 +590,18 @@ export class UsdaApiService {
       carbohydrates: 0,
       fiber: 0,
       sugar: 0,
-      sodium: 0
+      sodium: 0,
     };
 
     // Map of nutrient names to our standardized names
     const nutrientNameMap: NutrientNameMap = {
-      'Energy': 'calories',
-      'Protein': 'protein',
+      Energy: 'calories',
+      Protein: 'protein',
       'Total lipid (fat)': 'fat',
       'Carbohydrate, by difference': 'carbohydrates',
       'Fiber, total dietary': 'fiber',
       'Sugars, total including NLEA': 'sugar',
-      'Sodium, Na': 'sodium'
+      'Sodium, Na': 'sodium',
     };
 
     // Also check by nutrient IDs as a fallback
@@ -341,7 +612,7 @@ export class UsdaApiService {
       1005: 'carbohydrates',
       1079: 'fiber',
       2000: 'sugar',
-      1093: 'sodium'
+      1093: 'sodium',
     };
 
     // Process each nutrient
@@ -349,12 +620,21 @@ export class UsdaApiService {
       let nutrientName: keyof NutritionData | undefined;
 
       // Check using the name
-      if (nutrient.nutrient && nutrient.nutrient.name && nutrient.nutrient.name in nutrientNameMap) {
+      if (
+        nutrient.nutrient &&
+        nutrient.nutrient.name &&
+        nutrient.nutrient.name in nutrientNameMap
+      ) {
         nutrientName = nutrientNameMap[nutrient.nutrient.name];
       }
 
       // If not found by name, try by ID
-      if (!nutrientName && nutrient.nutrient && nutrient.nutrient.id && nutrient.nutrient.id in nutrientIdMap) {
+      if (
+        !nutrientName &&
+        nutrient.nutrient &&
+        nutrient.nutrient.id &&
+        nutrient.nutrient.id in nutrientIdMap
+      ) {
         nutrientName = nutrientIdMap[nutrient.nutrient.id];
       }
 

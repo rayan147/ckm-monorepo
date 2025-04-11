@@ -83,7 +83,7 @@ let AwsCredentialsService = class AwsCredentialsService {
         }
         const currentTime = Date.now();
         const expirationTime = this.tempCredentials.expiration.getTime();
-        return (expirationTime - currentTime) <= this.CREDENTIALS_REFRESH_THRESHOLD;
+        return expirationTime - currentTime <= this.CREDENTIALS_REFRESH_THRESHOLD;
     }
 };
 exports.AwsCredentialsService = AwsCredentialsService;

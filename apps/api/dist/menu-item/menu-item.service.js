@@ -128,7 +128,7 @@ let MenuItemService = class MenuItemService {
     }
     async calculateItemsPrice(menuItemIds) {
         try {
-            const itemsPrice = await Promise.all(menuItemIds.map((id) => this.calculateMenuItemPrice(id)));
+            const itemsPrice = await Promise.all(menuItemIds.map(id => this.calculateMenuItemPrice(id)));
             return itemsPrice.reduce((acc, price) => acc + price, 0);
         }
         catch (error) {
@@ -154,7 +154,7 @@ let MenuItemService = class MenuItemService {
     }
     async calculateItemsFoodCostPercentage(menuItemIds) {
         try {
-            const itemsFoodCostPercentage = await Promise.all(menuItemIds.map((id) => this.calculateMenuItemFoodCostPercentage(id)));
+            const itemsFoodCostPercentage = await Promise.all(menuItemIds.map(id => this.calculateMenuItemFoodCostPercentage(id)));
             return itemsFoodCostPercentage.reduce((acc, price) => acc + price, 0);
         }
         catch (error) {

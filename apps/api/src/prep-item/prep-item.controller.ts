@@ -48,35 +48,22 @@ export class PrepItemController {
 
   @TsRestHandler(contract.prepItem.updatePrepItem)
   async updatePrepItem() {
-    return tsRestHandler(
-      contract.prepItem.updatePrepItem,
-      async ({ params, body }) => {
-        this.logger.log(
-          `Received request to update prep item with ID ${params.id}`,
-        );
-        const prepItem = await this.prepItemService.updatePrepItem(
-          params.id,
-          body,
-        );
-        return { status: 200, body: prepItem };
-      },
-    );
+    return tsRestHandler(contract.prepItem.updatePrepItem, async ({ params, body }) => {
+      this.logger.log(`Received request to update prep item with ID ${params.id}`);
+      const prepItem = await this.prepItemService.updatePrepItem(params.id, body);
+      return { status: 200, body: prepItem };
+    });
   }
 
   @TsRestHandler(contract.prepItem.deletePrepItem)
   async deletePrepItem() {
-    return tsRestHandler(
-      contract.prepItem.deletePrepItem,
-      async ({ params }) => {
-        this.logger.log(
-          `Received request to delete prep item with ID ${params.id}`,
-        );
-        const prepItem = await this.prepItemService.deletePrepItem(params.id);
-        return {
-          status: 200,
-          body: { message: 'PrepItem deleted successfully' },
-        };
-      },
-    );
+    return tsRestHandler(contract.prepItem.deletePrepItem, async ({ params }) => {
+      this.logger.log(`Received request to delete prep item with ID ${params.id}`);
+      const prepItem = await this.prepItemService.deletePrepItem(params.id);
+      return {
+        status: 200,
+        body: { message: 'PrepItem deleted successfully' },
+      };
+    });
   }
 }

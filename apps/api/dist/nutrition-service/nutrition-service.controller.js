@@ -32,7 +32,9 @@ let NutritionController = class NutritionController {
                 console.error('Error getting recipe nutrition:', error);
                 return {
                     status: 400,
-                    body: { message: error instanceof Error ? error.message : 'Failed to get nutrition data' }
+                    body: {
+                        message: error instanceof Error ? error.message : 'Failed to get nutrition data',
+                    },
                 };
             }
         });
@@ -48,7 +50,9 @@ let NutritionController = class NutritionController {
                 console.error('Error calculating recipe nutrition:', error);
                 return {
                     status: 400,
-                    body: { message: error instanceof Error ? error.message : 'Failed to calculate nutrition data' }
+                    body: {
+                        message: error instanceof Error ? error.message : 'Failed to calculate nutrition data',
+                    },
                 };
             }
         });
@@ -68,7 +72,9 @@ let NutritionController = class NutritionController {
                 console.error('Error searching USDA ingredients:', error);
                 return {
                     status: 400,
-                    body: { message: error instanceof Error ? error.message : 'Failed to search USDA database' }
+                    body: {
+                        message: error instanceof Error ? error.message : 'Failed to search USDA database',
+                    },
                 };
             }
         });
@@ -79,12 +85,12 @@ let NutritionController = class NutritionController {
                 if (!body.usdaFoodId) {
                     return {
                         status: 400,
-                        body: { success: false, message: 'USDA Food ID is required' }
+                        body: { success: false, message: 'USDA Food ID is required' },
                     };
                 }
                 const ingredient = await this.prisma.ingredient.findUnique({
                     where: { id: params.id },
-                    select: { name: true }
+                    select: { name: true },
                 });
                 console.log(`Importing USDA nutrition for "${(ingredient === null || ingredient === void 0 ? void 0 : ingredient.name) || 'unknown'}" (ID: ${params.id}) from USDA ID: ${body.usdaFoodId}`);
                 await this.prisma.ingredient.update({
@@ -100,8 +106,8 @@ let NutritionController = class NutritionController {
                     body: {
                         success: true,
                         message: 'Nutrition data imported successfully',
-                        ingredient: updatedIngredient
-                    }
+                        ingredient: updatedIngredient,
+                    },
                 };
             }
             catch (error) {
@@ -110,8 +116,8 @@ let NutritionController = class NutritionController {
                     status: 400,
                     body: {
                         success: false,
-                        message: error instanceof Error ? error.message : 'Failed to import nutrition data'
-                    }
+                        message: error instanceof Error ? error.message : 'Failed to import nutrition data',
+                    },
                 };
             }
         });
@@ -121,7 +127,7 @@ let NutritionController = class NutritionController {
             try {
                 const ingredient = await this.prisma.ingredient.findUnique({
                     where: { id: params.id },
-                    select: { name: true }
+                    select: { name: true },
                 });
                 console.log(`Manually updating nutrition for "${(ingredient === null || ingredient === void 0 ? void 0 : ingredient.name) || 'unknown'}" (ID: ${params.id})`);
                 const macroSum = body.protein + body.carbohydrates + body.fat;
@@ -130,8 +136,8 @@ let NutritionController = class NutritionController {
                         status: 400,
                         body: {
                             success: false,
-                            message: `Total of protein (${body.protein}g), carbs (${body.carbohydrates}g), and fat (${body.fat}g) exceeds 100g for a 100g portion`
-                        }
+                            message: `Total of protein (${body.protein}g), carbs (${body.carbohydrates}g), and fat (${body.fat}g) exceeds 100g for a 100g portion`,
+                        },
                     };
                 }
                 const updatedIngredient = await this.nutritionService.updateManualNutrition(params.id, body);
@@ -140,8 +146,8 @@ let NutritionController = class NutritionController {
                     body: {
                         success: true,
                         message: 'Nutrition data manually updated successfully',
-                        ingredient: updatedIngredient
-                    }
+                        ingredient: updatedIngredient,
+                    },
                 };
             }
             catch (error) {
@@ -150,8 +156,8 @@ let NutritionController = class NutritionController {
                     status: 400,
                     body: {
                         success: false,
-                        message: error instanceof Error ? error.message : 'Failed to update nutrition data manually'
-                    }
+                        message: error instanceof Error ? error.message : 'Failed to update nutrition data manually',
+                    },
                 };
             }
         });

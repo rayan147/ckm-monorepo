@@ -9,4 +9,4 @@ import { AuthModule } from 'src/auth/auth.module';
   exports: [UserService],
   imports: [forwardRef(() => AuthModule)],
 })
-export class UsersModule { }
+export class UsersModule {}

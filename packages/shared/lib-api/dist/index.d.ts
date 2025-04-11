@@ -56,10 +56,10 @@ declare const api: {
             headers: Headers;
         }>;
         getOrganization: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -85,10 +85,10 @@ declare const api: {
             headers: Headers;
         }>;
         updateOrganization: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -115,10 +115,10 @@ declare const api: {
             headers: Headers;
         }>;
         deleteOrganization: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -146,7 +146,10 @@ declare const api: {
     };
     users: {
         createUser: (args: {
-            body: _ckm_db.Prisma.UserCreateWithoutRestaurantInput;
+            body: _ckm_db.Prisma.UserCreateInput & {
+                password: string;
+                role?: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR" | undefined;
+            };
             cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
@@ -161,12 +164,9 @@ declare const api: {
                 email: string;
                 organizationId: number | null;
                 sub: number | null;
-                passwordHash: string;
                 firstName: string;
                 lastName: string;
                 profileImage: string | null;
-                verified: boolean;
-                role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
             };
             headers: Headers;
         } | {
@@ -200,12 +200,9 @@ declare const api: {
                 email: string;
                 organizationId: number | null;
                 sub: number | null;
-                passwordHash: string;
                 firstName: string;
                 lastName: string;
                 profileImage: string | null;
-                verified: boolean;
-                role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
             }[];
             headers: Headers;
         } | {
@@ -220,10 +217,10 @@ declare const api: {
             headers: Headers;
         }>;
         getUser: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -237,12 +234,9 @@ declare const api: {
                 email: string;
                 organizationId: number | null;
                 sub: number | null;
-                passwordHash: string;
                 firstName: string;
                 lastName: string;
                 profileImage: string | null;
-                verified: boolean;
-                role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
             };
             headers: Headers;
         } | {
@@ -252,15 +246,67 @@ declare const api: {
             };
             headers: Headers;
         } | {
-            status: 201 | 400 | 500 | 401 | 100 | 101 | 102 | 202 | 203 | 204 | 205 | 206 | 207 | 300 | 301 | 302 | 303 | 304 | 305 | 307 | 308 | 402 | 403 | 405 | 406 | 407 | 408 | 409 | 410 | 411 | 412 | 413 | 414 | 415 | 416 | 417 | 418 | 419 | 420 | 421 | 422 | 423 | 424 | 428 | 429 | 431 | 451 | 501 | 502 | 503 | 504 | 505 | 507 | 511;
+            status: 500;
+            body: {
+                message: string;
+            };
+            headers: Headers;
+        } | {
+            status: 201 | 400 | 401 | 100 | 101 | 102 | 202 | 203 | 204 | 205 | 206 | 207 | 300 | 301 | 302 | 303 | 304 | 305 | 307 | 308 | 402 | 403 | 405 | 406 | 407 | 408 | 409 | 410 | 411 | 412 | 413 | 414 | 415 | 416 | 417 | 418 | 419 | 420 | 421 | 422 | 423 | 424 | 428 | 429 | 431 | 451 | 501 | 502 | 503 | 504 | 505 | 507 | 511;
+            body: unknown;
+            headers: Headers;
+        }>;
+        getAuthUser: (args: {
+            cache?: RequestCache | undefined;
+            params: {
+                id: number;
+            };
+            fetchOptions?: _ts_rest_core.FetchOptions | undefined;
+            extraHeaders?: Record<string, string | undefined> | undefined;
+            overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
+        }) => Promise<{
+            status: 200;
+            body: {
+                sub: number | null;
+                id: number;
+                email: string;
+                firstName: string;
+                lastName: string;
+                profileImage: string | null;
+                organizationId: number | null;
+                restaurantId: number | null;
+                createdAt: Date;
+                updatedAt: Date;
+                auth: {
+                    id: string;
+                    userId: number;
+                    passwordHash: string;
+                    role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
+                }[];
+            };
+            headers: Headers;
+        } | {
+            status: 404;
+            body: {
+                message: string;
+            };
+            headers: Headers;
+        } | {
+            status: 500;
+            body: {
+                message: string;
+            };
+            headers: Headers;
+        } | {
+            status: 201 | 400 | 401 | 100 | 101 | 102 | 202 | 203 | 204 | 205 | 206 | 207 | 300 | 301 | 302 | 303 | 304 | 305 | 307 | 308 | 402 | 403 | 405 | 406 | 407 | 408 | 409 | 410 | 411 | 412 | 413 | 414 | 415 | 416 | 417 | 418 | 419 | 420 | 421 | 422 | 423 | 424 | 428 | 429 | 431 | 451 | 501 | 502 | 503 | 504 | 505 | 507 | 511;
             body: unknown;
             headers: Headers;
         }>;
         updateUser: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -275,12 +321,9 @@ declare const api: {
                 email: string;
                 organizationId: number | null;
                 sub: number | null;
-                passwordHash: string;
                 firstName: string;
                 lastName: string;
                 profileImage: string | null;
-                verified: boolean;
-                role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
             };
             headers: Headers;
         } | {
@@ -295,10 +338,10 @@ declare const api: {
             headers: Headers;
         }>;
         deleteUser: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -312,12 +355,9 @@ declare const api: {
                 email: string;
                 organizationId: number | null;
                 sub: number | null;
-                passwordHash: string;
                 firstName: string;
                 lastName: string;
                 profileImage: string | null;
-                verified: boolean;
-                role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
             };
             headers: Headers;
         } | {
@@ -334,7 +374,7 @@ declare const api: {
     };
     orders: {
         createOrder: (args: {
-            body: _ckm_db.Prisma.OrderUncheckedCreateInput;
+            body: _ckm_db.Prisma.OrderCreateInput;
             cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
@@ -391,10 +431,10 @@ declare const api: {
             headers: Headers;
         }>;
         getOrder: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -421,14 +461,14 @@ declare const api: {
             headers: Headers;
         }>;
         updateOrder: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
-            body?: _ckm_db.Prisma.OrderUncheckedUpdateInput | undefined;
+            body?: _ckm_db.Prisma.OrderUpdateInput | undefined;
         }) => Promise<{
             status: 200;
             body: {
@@ -452,10 +492,10 @@ declare const api: {
             headers: Headers;
         }>;
         deleteOrder: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -484,13 +524,7 @@ declare const api: {
     };
     orderItem: {
         createOrderItem: (args: {
-            body: {
-                orderId: number;
-                ingredientId: number;
-                quantity: number;
-                unit: string;
-                price: number;
-            };
+            body: _ckm_db.Prisma.OrderItemCreateInput;
             cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
@@ -499,11 +533,11 @@ declare const api: {
             status: 201;
             body: {
                 id: number;
-                orderId: number;
-                ingredientId: number;
-                quantity: number;
                 unit: string;
                 price: number;
+                ingredientId: number;
+                quantity: number;
+                orderId: number;
             };
             headers: Headers;
         } | {
@@ -531,11 +565,11 @@ declare const api: {
             status: 200;
             body: {
                 id: number;
-                orderId: number;
-                ingredientId: number;
-                quantity: number;
                 unit: string;
                 price: number;
+                ingredientId: number;
+                quantity: number;
+                orderId: number;
             }[];
             headers: Headers;
         } | {
@@ -544,10 +578,10 @@ declare const api: {
             headers: Headers;
         }>;
         getOrderItem: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -555,11 +589,11 @@ declare const api: {
             status: 200;
             body: {
                 id: number;
-                orderId: number;
-                ingredientId: number;
-                quantity: number;
                 unit: string;
                 price: number;
+                ingredientId: number;
+                quantity: number;
+                orderId: number;
             };
             headers: Headers;
         } | {
@@ -574,28 +608,23 @@ declare const api: {
             headers: Headers;
         }>;
         updateOrderItem: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
-            body?: {
-                ingredientId?: number | undefined;
-                quantity?: number | undefined;
-                unit?: string | undefined;
-                price?: number | undefined;
-            } | undefined;
+            body?: _ckm_db.Prisma.OrderItemUpdateInput | undefined;
         }) => Promise<{
             status: 200;
             body: {
                 id: number;
-                orderId: number;
-                ingredientId: number;
-                quantity: number;
                 unit: string;
                 price: number;
+                ingredientId: number;
+                quantity: number;
+                orderId: number;
             };
             headers: Headers;
         } | {
@@ -610,10 +639,10 @@ declare const api: {
             headers: Headers;
         }>;
         deleteOrderItem: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -621,11 +650,11 @@ declare const api: {
             status: 200;
             body: {
                 id: number;
-                orderId: number;
-                ingredientId: number;
-                quantity: number;
                 unit: string;
                 price: number;
+                ingredientId: number;
+                quantity: number;
+                orderId: number;
             };
             headers: Headers;
         } | {
@@ -712,10 +741,10 @@ declare const api: {
             headers: Headers;
         }>;
         getRestaurant: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -750,10 +779,10 @@ declare const api: {
             headers: Headers;
         }>;
         updateRestaurant: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -789,10 +818,10 @@ declare const api: {
             headers: Headers;
         }>;
         deleteRestaurant: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -896,10 +925,10 @@ declare const api: {
             headers: Headers;
         }>;
         getShift: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -925,10 +954,10 @@ declare const api: {
             headers: Headers;
         }>;
         updateShift: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -955,10 +984,10 @@ declare const api: {
             headers: Headers;
         }>;
         deleteShift: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -986,7 +1015,7 @@ declare const api: {
     };
     recipe: {
         createRecipe: (args: {
-            body: _ckm_db.Prisma.RecipeCreateInput;
+            body: any;
             cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
@@ -1089,10 +1118,10 @@ declare const api: {
             headers: Headers;
         }>;
         getRecipe: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -1130,20 +1159,14 @@ declare const api: {
             headers: Headers;
         }>;
         updateRecipe: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            body: {
-                data: _ckm_db.Prisma.RecipeUpdateInput;
-                deleteIds?: {
-                    ingredientIds: number[];
-                    instructionIds: number[];
-                };
-            };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
+            body?: _ckm_db.Prisma.RecipeUpdateInput | undefined;
         }) => Promise<{
             status: 400;
             body: {
@@ -1184,10 +1207,10 @@ declare const api: {
             headers: Headers;
         }>;
         deleteRecipe: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -1225,11 +1248,11 @@ declare const api: {
             headers: Headers;
         }>;
         addIngredientToRecipe: (args: {
+            body: _ckm_db.Prisma.RecipeIngredientUncheckedCreateInput;
+            cache?: RequestCache | undefined;
             params: {
                 recipeId: number;
             };
-            body: _ckm_db.Prisma.RecipeIngredientUncheckedCreateInput;
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -1270,11 +1293,11 @@ declare const api: {
             headers: Headers;
         }>;
         removeIngredientFromRecipe: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
                 recipeId: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -1309,11 +1332,11 @@ declare const api: {
             headers: Headers;
         }>;
         updateIngredientInRecipe: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
                 recipeId: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -1355,10 +1378,10 @@ declare const api: {
             headers: Headers;
         }>;
         getRecipeIngredients: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 recipeId: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -1393,11 +1416,11 @@ declare const api: {
             headers: Headers;
         }>;
         getRecipeIngredient: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
                 recipeId: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -1432,11 +1455,11 @@ declare const api: {
             headers: Headers;
         }>;
         addInstructionToRecipe: (args: {
+            body: _ckm_db.Prisma.RecipeInstructionCreateInput;
+            cache?: RequestCache | undefined;
             params: {
                 recipeId: number;
             };
-            body: _ckm_db.Prisma.RecipeInstructionCreateInput;
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -1475,11 +1498,11 @@ declare const api: {
             headers: Headers;
         }>;
         removeInstructionFromRecipe: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
                 recipeId: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -1512,11 +1535,11 @@ declare const api: {
             headers: Headers;
         }>;
         updateInstructionInRecipe: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
                 recipeId: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -1556,11 +1579,11 @@ declare const api: {
             headers: Headers;
         }>;
         getRecipeInstruction: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
                 recipeId: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -1593,10 +1616,10 @@ declare const api: {
             headers: Headers;
         }>;
         getRecipeInstructions: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 recipeId: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -1629,9 +1652,6 @@ declare const api: {
             headers: Headers;
         }>;
         calculateFoodCost: (args: {
-            params: {
-                recipeId: number;
-            };
             body: {
                 ingredientPrices: {
                     ingredientId: number;
@@ -1639,6 +1659,9 @@ declare const api: {
                 }[];
             };
             cache?: RequestCache | undefined;
+            params: {
+                recipeId: number;
+            };
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -1660,10 +1683,10 @@ declare const api: {
             headers: Headers;
         }>;
         getFoodCostHistory: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 recipeId: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -1690,10 +1713,10 @@ declare const api: {
             headers: Headers;
         }>;
         calculateRecipePrice: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 recipeId: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -1718,10 +1741,10 @@ declare const api: {
             headers: Headers;
         }>;
         getRecipePrice: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 recipeId: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -1748,12 +1771,7 @@ declare const api: {
     };
     vendor: {
         createVendor: (args: {
-            body: {
-                name: string;
-                contact: string;
-                email: string;
-                phone: string;
-            };
+            body: _ckm_db.Prisma.VendorCreateInput;
             cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
@@ -1762,29 +1780,12 @@ declare const api: {
             status: 201;
             body: {
                 id: number;
-                orders: {
-                    status?: "PENDING" | "APPROVED" | "ORDERED" | "RECEIVED" | "CANCELLED" | undefined;
-                    restaurantId?: number | undefined;
-                    vendorId?: number | undefined;
-                    vendor?: {
-                        id: number;
-                        name: string;
-                    } | undefined;
-                    items?: {
-                        id: number;
-                        orderId: number;
-                        ingredientId: number;
-                        quantity: number;
-                        unit: string;
-                        price: number;
-                    }[] | undefined;
-                }[];
-                name: string;
-                contact: string;
-                email: string;
-                phone: string;
                 createdAt: Date;
                 updatedAt: Date;
+                name: string;
+                email: string;
+                contact: string;
+                phone: string;
             };
             headers: Headers;
         } | {
@@ -1812,29 +1813,12 @@ declare const api: {
             status: 200;
             body: {
                 id: number;
-                orders: {
-                    status?: "PENDING" | "APPROVED" | "ORDERED" | "RECEIVED" | "CANCELLED" | undefined;
-                    restaurantId?: number | undefined;
-                    vendorId?: number | undefined;
-                    vendor?: {
-                        id: number;
-                        name: string;
-                    } | undefined;
-                    items?: {
-                        id: number;
-                        orderId: number;
-                        ingredientId: number;
-                        quantity: number;
-                        unit: string;
-                        price: number;
-                    }[] | undefined;
-                }[];
-                name: string;
-                contact: string;
-                email: string;
-                phone: string;
                 createdAt: Date;
                 updatedAt: Date;
+                name: string;
+                email: string;
+                contact: string;
+                phone: string;
             }[];
             headers: Headers;
         } | {
@@ -1843,10 +1827,10 @@ declare const api: {
             headers: Headers;
         }>;
         getVendor: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -1854,29 +1838,12 @@ declare const api: {
             status: 200;
             body: {
                 id: number;
-                orders: {
-                    status?: "PENDING" | "APPROVED" | "ORDERED" | "RECEIVED" | "CANCELLED" | undefined;
-                    restaurantId?: number | undefined;
-                    vendorId?: number | undefined;
-                    vendor?: {
-                        id: number;
-                        name: string;
-                    } | undefined;
-                    items?: {
-                        id: number;
-                        orderId: number;
-                        ingredientId: number;
-                        quantity: number;
-                        unit: string;
-                        price: number;
-                    }[] | undefined;
-                }[];
-                name: string;
-                contact: string;
-                email: string;
-                phone: string;
                 createdAt: Date;
                 updatedAt: Date;
+                name: string;
+                email: string;
+                contact: string;
+                phone: string;
             };
             headers: Headers;
         } | {
@@ -1891,46 +1858,24 @@ declare const api: {
             headers: Headers;
         }>;
         updateVendor: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
-            body?: {
-                name?: string | undefined;
-                contact?: string | undefined;
-                email?: string | undefined;
-                phone?: string | undefined;
-            } | undefined;
+            body?: _ckm_db.Prisma.VendorUpdateInput | undefined;
         }) => Promise<{
             status: 200;
             body: {
                 id: number;
-                orders: {
-                    status?: "PENDING" | "APPROVED" | "ORDERED" | "RECEIVED" | "CANCELLED" | undefined;
-                    restaurantId?: number | undefined;
-                    vendorId?: number | undefined;
-                    vendor?: {
-                        id: number;
-                        name: string;
-                    } | undefined;
-                    items?: {
-                        id: number;
-                        orderId: number;
-                        ingredientId: number;
-                        quantity: number;
-                        unit: string;
-                        price: number;
-                    }[] | undefined;
-                }[];
-                name: string;
-                contact: string;
-                email: string;
-                phone: string;
                 createdAt: Date;
                 updatedAt: Date;
+                name: string;
+                email: string;
+                contact: string;
+                phone: string;
             };
             headers: Headers;
         } | {
@@ -1945,10 +1890,10 @@ declare const api: {
             headers: Headers;
         }>;
         deleteVendor: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -1956,29 +1901,12 @@ declare const api: {
             status: 200;
             body: {
                 id: number;
-                orders: {
-                    status?: "PENDING" | "APPROVED" | "ORDERED" | "RECEIVED" | "CANCELLED" | undefined;
-                    restaurantId?: number | undefined;
-                    vendorId?: number | undefined;
-                    vendor?: {
-                        id: number;
-                        name: string;
-                    } | undefined;
-                    items?: {
-                        id: number;
-                        orderId: number;
-                        ingredientId: number;
-                        quantity: number;
-                        unit: string;
-                        price: number;
-                    }[] | undefined;
-                }[];
-                name: string;
-                contact: string;
-                email: string;
-                phone: string;
                 createdAt: Date;
                 updatedAt: Date;
+                name: string;
+                email: string;
+                contact: string;
+                phone: string;
             };
             headers: Headers;
         } | {
@@ -2048,10 +1976,10 @@ declare const api: {
             headers: Headers;
         }>;
         getPrepBoard: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -2077,10 +2005,10 @@ declare const api: {
             headers: Headers;
         }>;
         updatePrepBoard: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -2107,10 +2035,10 @@ declare const api: {
             headers: Headers;
         }>;
         deletePrepBoard: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -2144,7 +2072,7 @@ declare const api: {
         }) => Promise<{
             status: 200;
             body: {
-                code: string;
+                message: string;
             };
             headers: Headers;
         } | {
@@ -2160,8 +2088,8 @@ declare const api: {
         }>;
         login: (args: {
             body: {
-                email: string;
                 password: string;
+                email: string;
             };
             cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
@@ -2170,8 +2098,7 @@ declare const api: {
         }) => Promise<{
             status: 200;
             body: {
-                code: string;
-                csrfToken?: string | undefined;
+                success: boolean;
             };
             headers: Headers;
         } | {
@@ -2187,7 +2114,7 @@ declare const api: {
         }>;
         verifyLoginCode: (args: {
             body: {
-                code: string;
+                verificationCode: string;
             };
             cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
@@ -2196,20 +2123,24 @@ declare const api: {
         }) => Promise<{
             status: 200;
             body: {
-                accessToken: string;
+                sessionToken: string;
                 user: {
                     sub: number | null;
                     id: number;
-                    restaurantId: number | null;
-                    organizationId: number | null;
                     email: string;
-                    createdAt: Date;
-                    updatedAt: Date;
-                    role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
                     firstName: string;
                     lastName: string;
                     profileImage: string | null;
-                    verified: boolean;
+                    organizationId: number | null;
+                    restaurantId: number | null;
+                    createdAt: Date;
+                    updatedAt: Date;
+                    auth: ({
+                        id: string;
+                        userId: number;
+                        passwordHash: string;
+                        role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
+                    } | undefined)[];
                 };
             };
             headers: Headers;
@@ -2225,7 +2156,28 @@ declare const api: {
             headers: Headers;
         }>;
         register: (args: {
-            body: _ckm_db.Prisma.UserUncheckedCreateInput;
+            body: {
+                password: string;
+                email: string;
+                firstName: string;
+                lastName: string;
+                role?: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR" | undefined;
+                profileImage?: string | undefined;
+                isOrganization?: boolean | undefined;
+                organizationInput?: {
+                    name: string;
+                    imageUrl?: string | undefined;
+                } | undefined;
+                restaurantsInput?: {
+                    name: string;
+                    address: string;
+                    city: string;
+                    zipCode: string;
+                    state: string;
+                    owner: string;
+                    imageUrl?: string | undefined;
+                }[] | undefined;
+            };
             cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
@@ -2233,18 +2185,16 @@ declare const api: {
         }) => Promise<{
             status: 201;
             body: {
-                sub: number | null;
                 id: number;
-                restaurantId: number | null;
-                organizationId: number | null;
-                email: string;
                 createdAt: Date;
                 updatedAt: Date;
-                role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
+                restaurantId: number | null;
+                email: string;
+                organizationId: number | null;
+                sub: number | null;
                 firstName: string;
                 lastName: string;
                 profileImage: string | null;
-                verified: boolean;
             };
             headers: Headers;
         } | {
@@ -2259,14 +2209,14 @@ declare const api: {
             headers: Headers;
         }>;
         changePassword: (args: {
-            params: {
-                userId: number;
-            };
             body: {
                 oldPassword: string;
                 newPassword: string;
             };
             cache?: RequestCache | undefined;
+            params: {
+                userId: number;
+            };
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -2290,7 +2240,6 @@ declare const api: {
         logout: (args: {
             body: {
                 userId: number;
-                accessToken: string;
             };
             cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
@@ -2364,6 +2313,53 @@ declare const api: {
             body: unknown;
             headers: Headers;
         }>;
+        validateSessionToken: (args: {
+            body: {
+                sessionToken: string;
+            };
+            cache?: RequestCache | undefined;
+            fetchOptions?: _ts_rest_core.FetchOptions | undefined;
+            extraHeaders?: Record<string, string | undefined> | undefined;
+            overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
+        }) => Promise<{
+            status: 400;
+            body: {
+                success: boolean;
+            };
+            headers: Headers;
+        } | {
+            status: 200;
+            body: {
+                user: {
+                    id: number;
+                    createdAt: Date;
+                    updatedAt: Date;
+                    restaurantId: number | null;
+                    email: string;
+                    organizationId: number | null;
+                    sub: number | null;
+                    firstName: string;
+                    lastName: string;
+                    profileImage: string | null;
+                };
+                session: {
+                    id: string;
+                    createdAt: Date;
+                    userId: number;
+                    verificationCode: string;
+                    verified: boolean;
+                    expiresAt: Date;
+                };
+            } | {
+                user: null;
+                session: null;
+            };
+            headers: Headers;
+        } | {
+            status: 201 | 404 | 500 | 401 | 100 | 101 | 102 | 202 | 203 | 204 | 205 | 206 | 207 | 300 | 301 | 302 | 303 | 304 | 305 | 307 | 308 | 402 | 403 | 405 | 406 | 407 | 408 | 409 | 410 | 411 | 412 | 413 | 414 | 415 | 416 | 417 | 418 | 419 | 420 | 421 | 422 | 423 | 424 | 428 | 429 | 431 | 451 | 501 | 502 | 503 | 504 | 505 | 507 | 511;
+            body: unknown;
+            headers: Headers;
+        }>;
     };
     earlyAccess: {
         storeEmail: (args: {
@@ -2392,10 +2388,10 @@ declare const api: {
             headers: Headers;
         }>;
         deleteEmail: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -2449,10 +2445,10 @@ declare const api: {
             headers: Headers;
         }>;
         getEmail: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -2535,10 +2531,10 @@ declare const api: {
             headers: Headers;
         }>;
         getMenu: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -2564,10 +2560,10 @@ declare const api: {
             headers: Headers;
         }>;
         updateMenu: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -2596,10 +2592,10 @@ declare const api: {
             headers: Headers;
         }>;
         deleteMenu: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -2689,10 +2685,10 @@ declare const api: {
             headers: Headers;
         }>;
         getMenuItem: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -2725,10 +2721,10 @@ declare const api: {
             headers: Headers;
         }>;
         updateMenuItem: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -2762,10 +2758,10 @@ declare const api: {
             headers: Headers;
         }>;
         deleteMenuItem: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -2824,10 +2820,10 @@ declare const api: {
             headers: Headers;
         }>;
         getMenuItemByRecipeId: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 recipeId: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -2860,10 +2856,10 @@ declare const api: {
             headers: Headers;
         }>;
         calculateMenuItemPrice: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 menuItemId: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -2883,10 +2879,10 @@ declare const api: {
             headers: Headers;
         }>;
         calculateMenuItemFoodCostPercentage: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 menuItemId: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -2906,10 +2902,10 @@ declare const api: {
             headers: Headers;
         }>;
         calculateItemsFoodCostPercentage: (args: {
+            cache?: RequestCache | undefined;
             query: {
                 menuItemIds: number[];
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -2931,12 +2927,12 @@ declare const api: {
     };
     analytics: {
         getFoodCostHistory: (args: {
+            cache?: RequestCache | undefined;
             query: {
                 recipeId: string;
                 startDate: string;
                 endDate: string;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -2957,12 +2953,12 @@ declare const api: {
             headers: Headers;
         }>;
         getPrepHistory: (args: {
+            cache?: RequestCache | undefined;
             query: {
                 recipeId: string;
                 startDate: string;
                 endDate: string;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -2983,10 +2979,10 @@ declare const api: {
             headers: Headers;
         }>;
         getMenuAnalytics: (args: {
+            cache?: RequestCache | undefined;
             query: {
                 menuId: string;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -3030,12 +3026,12 @@ declare const api: {
             headers: Headers;
         }>;
         getRecipeAnalytics: (args: {
+            cache?: RequestCache | undefined;
             query: {
                 recipeId: string;
                 startDate: string;
                 endDate: string;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -3057,12 +3053,12 @@ declare const api: {
             headers: Headers;
         }>;
         getRestaurantAnalytics: (args: {
+            cache?: RequestCache | undefined;
             query: {
                 restaurantId: string;
                 startDate: string;
                 endDate: string;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -3165,10 +3161,10 @@ declare const api: {
             headers: Headers;
         }>;
         getCookBook: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -3194,10 +3190,10 @@ declare const api: {
             headers: Headers;
         }>;
         updateCookBook: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -3229,10 +3225,10 @@ declare const api: {
             headers: Headers;
         }>;
         deleteCookBook: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -3335,10 +3331,10 @@ declare const api: {
             headers: Headers;
         }>;
         getIngredient: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -3375,10 +3371,10 @@ declare const api: {
             headers: Headers;
         }>;
         updateIngredient: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -3420,10 +3416,10 @@ declare const api: {
             headers: Headers;
         }>;
         deleteIngredient: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -3502,10 +3498,10 @@ declare const api: {
             headers: Headers;
         }>;
         getPrepItem: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -3532,10 +3528,10 @@ declare const api: {
             headers: Headers;
         }>;
         updatePrepItem: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -3563,10 +3559,10 @@ declare const api: {
             headers: Headers;
         }>;
         deletePrepItem: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -3590,10 +3586,10 @@ declare const api: {
     };
     nutrition: {
         getRecipeNutrition: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -3633,10 +3629,10 @@ declare const api: {
             headers: Headers;
         }>;
         calculateRecipeNutrition: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -3676,11 +3672,11 @@ declare const api: {
             headers: Headers;
         }>;
         ingredientNutrition: (args: {
+            cache?: RequestCache | undefined;
             query: {
                 query: string;
                 pageSize: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -3723,10 +3719,10 @@ declare const api: {
             headers: Headers;
         }>;
         importUSDANutrition: (args: {
+            cache?: RequestCache | undefined;
             params: {
                 id: number;
             };
-            cache?: RequestCache | undefined;
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
@@ -3754,9 +3750,6 @@ declare const api: {
             headers: Headers;
         }>;
         updateManualNutrition: (args: {
-            params: {
-                id: number;
-            };
             body: {
                 calories: number;
                 protein: number;
@@ -3767,6 +3760,9 @@ declare const api: {
                 sodium: number;
             };
             cache?: RequestCache | undefined;
+            params: {
+                id: number;
+            };
             fetchOptions?: _ts_rest_core.FetchOptions | undefined;
             extraHeaders?: Record<string, string | undefined> | undefined;
             overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;

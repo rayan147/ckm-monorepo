@@ -44,4 +44,3 @@ export const verificationCodeTemplate = `
 </body>
 </html>
     `;
-

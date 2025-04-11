@@ -46,9 +46,7 @@ let PinpointService = class PinpointService {
                         SimpleEmail: {
                             Subject: { Charset: 'UTF-8', Data: subject },
                             HtmlPart: { Charset: 'UTF-8', Data: htmlBody },
-                            TextPart: textBody
-                                ? { Charset: 'UTF-8', Data: textBody }
-                                : undefined,
+                            TextPart: textBody ? { Charset: 'UTF-8', Data: textBody } : undefined,
                         },
                     },
                 },
@@ -126,6 +124,7 @@ let PinpointService = class PinpointService {
 exports.PinpointService = PinpointService;
 exports.PinpointService = PinpointService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [env_service_1.EnvService, aws_credentials_service_1.AwsCredentialsService])
+    __metadata("design:paramtypes", [env_service_1.EnvService,
+        aws_credentials_service_1.AwsCredentialsService])
 ], PinpointService);
 //# sourceMappingURL=pinpoint.service.js.map

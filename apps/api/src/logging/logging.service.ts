@@ -76,26 +76,14 @@ export class LoggingService {
         this.warn(`${message}: ${error.message}`, 'PrismaError');
         throw new NotFoundException('Resource not found');
       }
-      this.error(
-        `${message}: Prisma Error`,
-        error.message as any,
-        'PrismaError',
-      );
+      this.error(`${message}: Prisma Error`, error.message as any, 'PrismaError');
       throw new BadRequestException(message);
     }
     if (error instanceof Error) {
-      this.error(
-        `${message}: Application Error`,
-        error.message as any,
-        'ApplicationError',
-      );
+      this.error(`${message}: Application Error`, error.message as any, 'ApplicationError');
       throw new InternalServerErrorException(message);
     }
-    this.error(
-      `${message}: Unknown Error`,
-      new Error(String(error)),
-      'UnknownError',
-    );
+    this.error(`${message}: Unknown Error`, new Error(String(error)), 'UnknownError');
     throw new InternalServerErrorException(message);
   }
 }

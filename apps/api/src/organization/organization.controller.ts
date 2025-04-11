@@ -12,8 +12,7 @@ export class OrganizationController {
   @TsRestHandler(contract.orgs.createOrganization)
   async createOrganization() {
     return tsRestHandler(contract.orgs.createOrganization, async ({ body }) => {
-      const organization =
-        await this.organizationService.createOrganization(body);
+      const organization = await this.organizationService.createOrganization(body);
       return { status: 201, body: organization };
     });
   }
@@ -33,9 +32,7 @@ export class OrganizationController {
   @TsRestHandler(contract.orgs.getOrganization)
   async getOrganization() {
     return tsRestHandler(contract.orgs.getOrganization, async ({ params }) => {
-      const organization = await this.organizationService.getOrganization(
-        params.id,
-      );
+      const organization = await this.organizationService.getOrganization(params.id);
       if (!organization) {
         return { status: 404, body: { message: 'Organization not found' } };
       }
@@ -45,28 +42,17 @@ export class OrganizationController {
 
   @TsRestHandler(contract.orgs.updateOrganization)
   async updateOrganization() {
-    return tsRestHandler(
-      contract.orgs.updateOrganization,
-      async ({ params, body }) => {
-        const organization = await this.organizationService.updateOrganization(
-          params.id,
-          body,
-        );
-        return { status: 200, body: organization };
-      },
-    );
+    return tsRestHandler(contract.orgs.updateOrganization, async ({ params, body }) => {
+      const organization = await this.organizationService.updateOrganization(params.id, body);
+      return { status: 200, body: organization };
+    });
   }
 
   @TsRestHandler(contract.orgs.deleteOrganization)
   async deleteOrganization() {
-    return tsRestHandler(
-      contract.orgs.deleteOrganization,
-      async ({ params }) => {
-        const organization = await this.organizationService.deleteOrganization(
-          params.id,
-        );
-        return { status: 200, body: organization };
-      },
-    );
+    return tsRestHandler(contract.orgs.deleteOrganization, async ({ params }) => {
+      const organization = await this.organizationService.deleteOrganization(params.id);
+      return { status: 200, body: organization };
+    });
   }
 }

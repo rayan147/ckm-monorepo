@@ -8,4 +8,4 @@ import { AwsModule } from 'src/helpers/aws/aws.module';
   providers: [EarlyAccessService],
   imports: [AwsModule],
 })
-export class EarlyAccessModule { }
+export class EarlyAccessModule {}

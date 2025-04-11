@@ -1,0 +1,35 @@
+/* Custom CSS variables for shadcn-svelte sidebar */
+:root {
+  --sidebar-background: linear-gradient(to bottom, #1e40af, #3730a3); /* blue-800 to indigo-900 */
+  --sidebar-foreground: #f3f4f6; /* gray-100 */
+  --sidebar-width: 16rem; /* Adjust as needed */
+  --sidebar-width-collapsed: 4rem; /* Width when sidebar is collapsed */
+  
+  /* Custom colors for sidebar elements */
+  --sidebar-border: transparent;
+  --sidebar-highlight: rgba(255, 255, 255, 0.1); /* white with low opacity */
+  --sidebar-trigger-background: #1e40af; /* blue-800 */
+  --sidebar-trigger-foreground: #f3f4f6; /* gray-100 */
+  
+  /* Icon colors */
+  --sidebar-icon-active: #93c5fd; /* blue-300 */
+  --sidebar-icon-inactive: #9ca3af; /* gray-400 */
+}
+
+/* Override shadcn-svelte sidebar styles */
+.sidebar-root {
+  background: var(--sidebar-background) !important;
+  color: var(--sidebar-foreground) !important;
+  border: none !important;
+}
+
+.sidebar-trigger {
+  background-color: var(--sidebar-trigger-background) !important;
+  color: var(--sidebar-trigger-foreground) !important;
+}
+
+/* Style for active navigation items */
+.sidebar-nav-active {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+}

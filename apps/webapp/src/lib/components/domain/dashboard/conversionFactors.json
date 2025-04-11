@@ -1,0 +1,190 @@
+{
+  "volume": {
+    "gallon": {
+      "quart": 4,
+      "pint": 8,
+      "cup": 16,
+      "fluidOunce": 128,
+      "tablespoon": 256,
+      "teaspoon": 768,
+      "milliliter": 3785.41,
+      "liter": 3.78541,
+      "cubicMeter": 0.00378541,
+      "cubicFoot": 0.133681,
+      "cubicInch": 231
+    },
+    "quart": {
+      "pint": 2,
+      "cup": 4,
+      "fluidOunce": 32,
+      "tablespoon": 64,
+      "teaspoon": 192,
+      "milliliter": 946.353,
+      "liter": 0.946353,
+      "cubicMeter": 0.000946353,
+      "cubicFoot": 0.0334201,
+      "cubicInch": 57.75
+    },
+    "pint": {
+      "cup": 2,
+      "fluidOunce": 16,
+      "tablespoon": 32,
+      "teaspoon": 96,
+      "milliliter": 473.176,
+      "liter": 0.473176,
+      "cubicMeter": 0.000473176,
+      "cubicFoot": 0.0167101,
+      "cubicInch": 28.875
+    },
+    "cup": {
+      "fluidOunce": 8,
+      "tablespoon": 16,
+      "teaspoon": 48,
+      "milliliter": 236.588,
+      "liter": 0.236588,
+      "cubicMeter": 0.000236588,
+      "cubicFoot": 0.00835503,
+      "cubicInch": 14.4375
+    },
+    "fluidOunce": {
+      "tablespoon": 2,
+      "teaspoon": 6,
+      "milliliter": 29.5735,
+      "liter": 0.0295735,
+      "cubicMeter": 0.0000295735,
+      "cubicFoot": 0.00104438,
+      "cubicInch": 1.80469
+    },
+    "tablespoon": {
+      "teaspoon": 3,
+      "milliliter": 14.7868,
+      "liter": 0.0147868,
+      "cubicMeter": 0.0000147868,
+      "cubicFoot": 0.000522189,
+      "cubicInch": 0.902344
+    },
+    "teaspoon": {
+      "milliliter": 4.92892,
+      "liter": 0.00492892,
+      "cubicMeter": 0.00000492892,
+      "cubicFoot": 0.000174063,
+      "cubicInch": 0.300781
+    },
+    "milliliter": {
+      "liter": 0.001,
+      "cubicMeter": 0.000001,
+      "cubicFoot": 0.0000353147,
+      "cubicInch": 0.0610237
+    },
+    "liter": {
+      "cubicMeter": 0.001,
+      "cubicFoot": 0.0353147,
+      "cubicInch": 61.0237
+    },
+    "cubicMeter": {
+      "cubicFoot": 35.3147,
+      "cubicInch": 61023.7
+    },
+    "cubicFoot": {
+      "cubicInch": 1728
+    }
+  },
+  "weight": {
+    "ton": {
+      "kilogram": 907.185,
+      "gram": 907185,
+      "milligram": 907185000,
+      "metricTon": 0.907185,
+      "pound": 2000,
+      "ounce": 32000,
+      "stone": 142.857
+    },
+    "kilogram": {
+      "gram": 1000,
+      "milligram": 1000000,
+      "metricTon": 0.001,
+      "pound": 2.20462,
+      "ounce": 35.274,
+      "stone": 0.157473
+    },
+    "gram": {
+      "milligram": 1000,
+      "metricTon": 0.000001,
+      "pound": 0.00220462,
+      "ounce": 0.035274,
+      "stone": 0.000157473
+    },
+    "milligram": {
+      "metricTon": 1e-9,
+      "pound": 2.20462e-6,
+      "ounce": 3.5274e-5,
+      "stone": 1.57473e-7
+    },
+    "metricTon": {
+      "pound": 2204.62,
+      "ounce": 35274,
+      "stone": 157.473
+    },
+    "pound": {
+      "ounce": 16,
+      "stone": 0.0714286
+    },
+    "ounce": {
+      "stone": 0.00446429
+    }
+  },
+  "length": {
+    "kilometer": {
+      "meter": 1000,
+      "centimeter": 100000,
+      "millimeter": 1000000,
+      "mile": 0.621371,
+      "yard": 1093.61,
+      "foot": 3280.84,
+      "inch": 39370.1,
+      "nauticalMile": 0.539957
+    },
+    "meter": {
+      "centimeter": 100,
+      "millimeter": 1000,
+      "mile": 0.000621371,
+      "yard": 1.09361,
+      "foot": 3.28084,
+      "inch": 39.3701,
+      "nauticalMile": 0.000539957
+    },
+    "centimeter": {
+      "millimeter": 10,
+      "mile": 6.21371e-6,
+      "yard": 0.0109361,
+      "foot": 0.0328084,
+      "inch": 0.393701,
+      "nauticalMile": 5.39957e-6
+    },
+    "millimeter": {
+      "mile": 6.21371e-7,
+      "yard": 0.00109361,
+      "foot": 0.00328084,
+      "inch": 0.0393701,
+      "nauticalMile": 5.39957e-7
+    },
+    "mile": {
+      "yard": 1760,
+      "foot": 5280,
+      "inch": 63360,
+      "nauticalMile": 0.868976
+    },
+    "yard": {
+      "foot": 3,
+      "inch": 36,
+      "nauticalMile": 0.000493737
+    },
+    "foot": {
+      "inch": 12,
+      "nauticalMile": 0.000164579
+    },
+    "inch": {
+      "nauticalMile": 1.37149e-5
+    }
+  }
+}

@@ -39,16 +39,11 @@ export class ShiftController {
 
   @TsRestHandler(contract.shifts.updateShift)
   async updateShift() {
-    return tsRestHandler(
-      contract.shifts.updateShift,
-      async ({ params, body }) => {
-        this.logger.log(
-          `Received request to update shift with ID ${params.id}`,
-        );
-        const shift = await this.shiftService.updateShift(params.id, body);
-        return { status: 200, body: shift };
-      },
-    );
+    return tsRestHandler(contract.shifts.updateShift, async ({ params, body }) => {
+      this.logger.log(`Received request to update shift with ID ${params.id}`);
+      const shift = await this.shiftService.updateShift(params.id, body);
+      return { status: 200, body: shift };
+    });
   }
 
   @TsRestHandler(contract.shifts.deleteShift)

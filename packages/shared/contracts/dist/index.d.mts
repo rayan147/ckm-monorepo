@@ -371,6 +371,104 @@ declare const contract: {
                 }, {
                     message: string;
                 }>;
+                500: zod.ZodObject<{
+                    message: zod.ZodString;
+                }, "strip", zod.ZodTypeAny, {
+                    message: string;
+                }, {
+                    message: string;
+                }>;
+            };
+        };
+        getAuthUser: {
+            pathParams: zod.ZodObject<{
+                id: zod.ZodNumber;
+            }, "strip", zod.ZodTypeAny, {
+                id: number;
+            }, {
+                id: number;
+            }>;
+            summary: "Get a user by ID";
+            method: "GET";
+            path: "/api/v1/users/:id";
+            responses: {
+                200: zod.ZodObject<zod.objectUtil.extendShape<{
+                    id: zod.ZodNumber;
+                    email: zod.ZodString;
+                    sub: zod.ZodNullable<zod.ZodNumber>;
+                    firstName: zod.ZodString;
+                    lastName: zod.ZodString;
+                    profileImage: zod.ZodNullable<zod.ZodString>;
+                    organizationId: zod.ZodNullable<zod.ZodNumber>;
+                    restaurantId: zod.ZodNullable<zod.ZodNumber>;
+                    createdAt: zod.ZodDate;
+                    updatedAt: zod.ZodDate;
+                }, {
+                    auth: zod.ZodArray<zod.ZodObject<{
+                        role: zod.ZodEnum<["ADMIN", "MANAGER", "CHEF", "STAFF", "VENDOR"]>;
+                        id: zod.ZodString;
+                        userId: zod.ZodNumber;
+                        passwordHash: zod.ZodString;
+                    }, "strip", zod.ZodTypeAny, {
+                        id: string;
+                        userId: number;
+                        passwordHash: string;
+                        role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
+                    }, {
+                        id: string;
+                        userId: number;
+                        passwordHash: string;
+                        role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
+                    }>, "many">;
+                }>, "strip", zod.ZodTypeAny, {
+                    sub: number | null;
+                    id: number;
+                    email: string;
+                    firstName: string;
+                    lastName: string;
+                    profileImage: string | null;
+                    organizationId: number | null;
+                    restaurantId: number | null;
+                    createdAt: Date;
+                    updatedAt: Date;
+                    auth: {
+                        id: string;
+                        userId: number;
+                        passwordHash: string;
+                        role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
+                    }[];
+                }, {
+                    sub: number | null;
+                    id: number;
+                    email: string;
+                    firstName: string;
+                    lastName: string;
+                    profileImage: string | null;
+                    organizationId: number | null;
+                    restaurantId: number | null;
+                    createdAt: Date;
+                    updatedAt: Date;
+                    auth: {
+                        id: string;
+                        userId: number;
+                        passwordHash: string;
+                        role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
+                    }[];
+                }>;
+                404: zod.ZodObject<{
+                    message: zod.ZodString;
+                }, "strip", zod.ZodTypeAny, {
+                    message: string;
+                }, {
+                    message: string;
+                }>;
+                500: zod.ZodObject<{
+                    message: zod.ZodString;
+                }, "strip", zod.ZodTypeAny, {
+                    message: string;
+                }, {
+                    message: string;
+                }>;
             };
         };
         updateUser: {
@@ -1470,7 +1568,7 @@ declare const contract: {
         createRecipe: {
             summary: "Create a new recipe";
             method: "POST";
-            body: zod.ZodType<_ckm_db.Prisma.RecipeCreateInput, zod.ZodTypeDef, _ckm_db.Prisma.RecipeCreateInput>;
+            body: zod.ZodAny;
             path: "/api/v1/recipes";
             responses: {
                 201: zod.ZodObject<{
@@ -1769,31 +1867,7 @@ declare const contract: {
             }>;
             summary: "Update a recipe";
             method: "PUT";
-            body: zod.ZodType<{
-                data: zod.TypeOf<zod.ZodType<_ckm_db.Prisma.RecipeUpdateInput, zod.ZodTypeDef, _ckm_db.Prisma.RecipeUpdateInput>>;
-                deleteIds?: zod.TypeOf<zod.ZodObject<{
-                    ingredientIds: zod.ZodArray<zod.ZodNumber, "many">;
-                    instructionIds: zod.ZodArray<zod.ZodNumber, "many">;
-                }, "strip", zod.ZodTypeAny, {
-                    ingredientIds: number[];
-                    instructionIds: number[];
-                }, {
-                    ingredientIds: number[];
-                    instructionIds: number[];
-                }>>;
-            }, zod.ZodTypeDef, {
-                data: zod.TypeOf<zod.ZodType<_ckm_db.Prisma.RecipeUpdateInput, zod.ZodTypeDef, _ckm_db.Prisma.RecipeUpdateInput>>;
-                deleteIds?: zod.TypeOf<zod.ZodObject<{
-                    ingredientIds: zod.ZodArray<zod.ZodNumber, "many">;
-                    instructionIds: zod.ZodArray<zod.ZodNumber, "many">;
-                }, "strip", zod.ZodTypeAny, {
-                    ingredientIds: number[];
-                    instructionIds: number[];
-                }, {
-                    ingredientIds: number[];
-                    instructionIds: number[];
-                }>>;
-            }>;
+            body: zod.ZodType<_ckm_db.Prisma.RecipeUpdateInput, zod.ZodTypeDef, _ckm_db.Prisma.RecipeUpdateInput>;
             path: "/api/v1/recipes/:id";
             responses: {
                 200: zod.ZodObject<{
@@ -3284,7 +3358,7 @@ declare const contract: {
             responses: {
                 200: zod.ZodObject<{
                     sessionToken: zod.ZodString;
-                    user: zod.ZodObject<{
+                    user: zod.ZodObject<zod.objectUtil.extendShape<{
                         id: zod.ZodNumber;
                         email: zod.ZodString;
                         sub: zod.ZodNullable<zod.ZodNumber>;
@@ -3295,56 +3369,97 @@ declare const contract: {
                         restaurantId: zod.ZodNullable<zod.ZodNumber>;
                         createdAt: zod.ZodDate;
                         updatedAt: zod.ZodDate;
-                    }, "strip", zod.ZodTypeAny, {
-                        id: number;
-                        createdAt: Date;
-                        updatedAt: Date;
-                        restaurantId: number | null;
-                        email: string;
-                        organizationId: number | null;
-                        sub: number | null;
-                        firstName: string;
-                        lastName: string;
-                        profileImage: string | null;
                     }, {
-                        id: number;
-                        createdAt: Date;
-                        updatedAt: Date;
-                        restaurantId: number | null;
-                        email: string;
-                        organizationId: number | null;
+                        auth: zod.ZodArray<zod.ZodOptional<zod.ZodObject<{
+                            role: zod.ZodEnum<["ADMIN", "MANAGER", "CHEF", "STAFF", "VENDOR"]>;
+                            id: zod.ZodString;
+                            userId: zod.ZodNumber;
+                            passwordHash: zod.ZodString;
+                        }, "strip", zod.ZodTypeAny, {
+                            id: string;
+                            userId: number;
+                            passwordHash: string;
+                            role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
+                        }, {
+                            id: string;
+                            userId: number;
+                            passwordHash: string;
+                            role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
+                        }>>, "many">;
+                    }>, "strip", zod.ZodTypeAny, {
                         sub: number | null;
+                        id: number;
+                        email: string;
                         firstName: string;
                         lastName: string;
                         profileImage: string | null;
+                        organizationId: number | null;
+                        restaurantId: number | null;
+                        createdAt: Date;
+                        updatedAt: Date;
+                        auth: ({
+                            id: string;
+                            userId: number;
+                            passwordHash: string;
+                            role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
+                        } | undefined)[];
+                    }, {
+                        sub: number | null;
+                        id: number;
+                        email: string;
+                        firstName: string;
+                        lastName: string;
+                        profileImage: string | null;
+                        organizationId: number | null;
+                        restaurantId: number | null;
+                        createdAt: Date;
+                        updatedAt: Date;
+                        auth: ({
+                            id: string;
+                            userId: number;
+                            passwordHash: string;
+                            role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
+                        } | undefined)[];
                     }>;
                 }, "strip", zod.ZodTypeAny, {
                     sessionToken: string;
                     user: {
-                        id: number;
-                        createdAt: Date;
-                        updatedAt: Date;
-                        restaurantId: number | null;
-                        email: string;
-                        organizationId: number | null;
                         sub: number | null;
+                        id: number;
+                        email: string;
                         firstName: string;
                         lastName: string;
                         profileImage: string | null;
+                        organizationId: number | null;
+                        restaurantId: number | null;
+                        createdAt: Date;
+                        updatedAt: Date;
+                        auth: ({
+                            id: string;
+                            userId: number;
+                            passwordHash: string;
+                            role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
+                        } | undefined)[];
                     };
                 }, {
                     sessionToken: string;
                     user: {
-                        id: number;
-                        createdAt: Date;
-                        updatedAt: Date;
-                        restaurantId: number | null;
-                        email: string;
-                        organizationId: number | null;
                         sub: number | null;
+                        id: number;
+                        email: string;
                         firstName: string;
                         lastName: string;
                         profileImage: string | null;
+                        organizationId: number | null;
+                        restaurantId: number | null;
+                        createdAt: Date;
+                        updatedAt: Date;
+                        auth: ({
+                            id: string;
+                            userId: number;
+                            passwordHash: string;
+                            role: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR";
+                        } | undefined)[];
                     };
                 }>;
                 401: zod.ZodObject<{
@@ -3357,18 +3472,94 @@ declare const contract: {
             };
         };
         register: {
-            summary: "User registration";
+            summary: "User registration with optional organization and restaurants";
             method: "POST";
-            body: zod.ZodIntersection<zod.ZodType<_ckm_db.Prisma.UserCreateInput, zod.ZodTypeDef, _ckm_db.Prisma.UserCreateInput>, zod.ZodObject<{
+            body: zod.ZodObject<{
+                email: zod.ZodString;
+                firstName: zod.ZodString;
+                lastName: zod.ZodString;
+                profileImage: zod.ZodOptional<zod.ZodString>;
                 password: zod.ZodString;
                 role: zod.ZodOptional<zod.ZodEnum<["ADMIN", "MANAGER", "CHEF", "STAFF", "VENDOR"]>>;
+                isOrganization: zod.ZodOptional<zod.ZodBoolean>;
+                organizationInput: zod.ZodOptional<zod.ZodObject<{
+                    name: zod.ZodString;
+                    imageUrl: zod.ZodOptional<zod.ZodString>;
+                }, "strip", zod.ZodTypeAny, {
+                    name: string;
+                    imageUrl?: string | undefined;
+                }, {
+                    name: string;
+                    imageUrl?: string | undefined;
+                }>>;
+                restaurantsInput: zod.ZodOptional<zod.ZodArray<zod.ZodObject<{
+                    name: zod.ZodString;
+                    imageUrl: zod.ZodOptional<zod.ZodString>;
+                    address: zod.ZodString;
+                    city: zod.ZodString;
+                    zipCode: zod.ZodString;
+                    state: zod.ZodString;
+                    owner: zod.ZodString;
+                }, "strip", zod.ZodTypeAny, {
+                    name: string;
+                    address: string;
+                    city: string;
+                    zipCode: string;
+                    state: string;
+                    owner: string;
+                    imageUrl?: string | undefined;
+                }, {
+                    name: string;
+                    address: string;
+                    city: string;
+                    zipCode: string;
+                    state: string;
+                    owner: string;
+                    imageUrl?: string | undefined;
+                }>, "many">>;
             }, "strip", zod.ZodTypeAny, {
                 password: string;
+                email: string;
+                firstName: string;
+                lastName: string;
                 role?: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR" | undefined;
+                profileImage?: string | undefined;
+                isOrganization?: boolean | undefined;
+                organizationInput?: {
+                    name: string;
+                    imageUrl?: string | undefined;
+                } | undefined;
+                restaurantsInput?: {
+                    name: string;
+                    address: string;
+                    city: string;
+                    zipCode: string;
+                    state: string;
+                    owner: string;
+                    imageUrl?: string | undefined;
+                }[] | undefined;
             }, {
                 password: string;
+                email: string;
+                firstName: string;
+                lastName: string;
                 role?: "ADMIN" | "MANAGER" | "CHEF" | "STAFF" | "VENDOR" | undefined;
-            }>>;
+                profileImage?: string | undefined;
+                isOrganization?: boolean | undefined;
+                organizationInput?: {
+                    name: string;
+                    imageUrl?: string | undefined;
+                } | undefined;
+                restaurantsInput?: {
+                    name: string;
+                    address: string;
+                    city: string;
+                    zipCode: string;
+                    state: string;
+                    owner: string;
+                    imageUrl?: string | undefined;
+                }[] | undefined;
+            }>;
             path: "/api/v1/auth/register";
             responses: {
                 201: zod.ZodObject<{
@@ -3536,6 +3727,138 @@ declare const contract: {
                     message: string;
                 }, {
                     message: string;
+                }>;
+            };
+        };
+        validateSessionToken: {
+            summary: "validate the session token";
+            method: "POST";
+            body: zod.ZodObject<{
+                sessionToken: zod.ZodString;
+            }, "strip", zod.ZodTypeAny, {
+                sessionToken: string;
+            }, {
+                sessionToken: string;
+            }>;
+            path: "/api/v1/auth/validate-session-token";
+            responses: {
+                200: zod.ZodUnion<[zod.ZodObject<{
+                    session: zod.ZodObject<zod.objectUtil.extendShape<{
+                        id: zod.ZodString;
+                        userId: zod.ZodNumber;
+                        verificationCode: zod.ZodString;
+                        verified: zod.ZodBoolean;
+                        expiresAt: zod.ZodDate;
+                        createdAt: zod.ZodDate;
+                    }, {
+                        id: zod.ZodString;
+                    }>, "strip", zod.ZodTypeAny, {
+                        id: string;
+                        createdAt: Date;
+                        userId: number;
+                        verificationCode: string;
+                        verified: boolean;
+                        expiresAt: Date;
+                    }, {
+                        id: string;
+                        createdAt: Date;
+                        userId: number;
+                        verificationCode: string;
+                        verified: boolean;
+                        expiresAt: Date;
+                    }>;
+                    user: zod.ZodObject<{
+                        id: zod.ZodNumber;
+                        email: zod.ZodString;
+                        sub: zod.ZodNullable<zod.ZodNumber>;
+                        firstName: zod.ZodString;
+                        lastName: zod.ZodString;
+                        profileImage: zod.ZodNullable<zod.ZodString>;
+                        organizationId: zod.ZodNullable<zod.ZodNumber>;
+                        restaurantId: zod.ZodNullable<zod.ZodNumber>;
+                        createdAt: zod.ZodDate;
+                        updatedAt: zod.ZodDate;
+                    }, "strip", zod.ZodTypeAny, {
+                        id: number;
+                        createdAt: Date;
+                        updatedAt: Date;
+                        restaurantId: number | null;
+                        email: string;
+                        organizationId: number | null;
+                        sub: number | null;
+                        firstName: string;
+                        lastName: string;
+                        profileImage: string | null;
+                    }, {
+                        id: number;
+                        createdAt: Date;
+                        updatedAt: Date;
+                        restaurantId: number | null;
+                        email: string;
+                        organizationId: number | null;
+                        sub: number | null;
+                        firstName: string;
+                        lastName: string;
+                        profileImage: string | null;
+                    }>;
+                }, "strip", zod.ZodTypeAny, {
+                    user: {
+                        id: number;
+                        createdAt: Date;
+                        updatedAt: Date;
+                        restaurantId: number | null;
+                        email: string;
+                        organizationId: number | null;
+                        sub: number | null;
+                        firstName: string;
+                        lastName: string;
+                        profileImage: string | null;
+                    };
+                    session: {
+                        id: string;
+                        createdAt: Date;
+                        userId: number;
+                        verificationCode: string;
+                        verified: boolean;
+                        expiresAt: Date;
+                    };
+                }, {
+                    user: {
+                        id: number;
+                        createdAt: Date;
+                        updatedAt: Date;
+                        restaurantId: number | null;
+                        email: string;
+                        organizationId: number | null;
+                        sub: number | null;
+                        firstName: string;
+                        lastName: string;
+                        profileImage: string | null;
+                    };
+                    session: {
+                        id: string;
+                        createdAt: Date;
+                        userId: number;
+                        verificationCode: string;
+                        verified: boolean;
+                        expiresAt: Date;
+                    };
+                }>, zod.ZodObject<{
+                    session: zod.ZodNull;
+                    user: zod.ZodNull;
+                }, "strip", zod.ZodTypeAny, {
+                    user: null;
+                    session: null;
+                }, {
+                    user: null;
+                    session: null;
+                }>]>;
+                400: zod.ZodObject<{
+                    success: zod.ZodBoolean;
+                }, "strip", zod.ZodTypeAny, {
+                    success: boolean;
+                }, {
+                    success: boolean;
                 }>;
             };
         };

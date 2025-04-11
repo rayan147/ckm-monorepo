@@ -63,14 +63,14 @@ import { VendorController } from './vendor/vendor.controller';
 import { VendorModule } from './vendor/vendor.module';
 import { VendorService } from './vendor/vendor.service';
 import { CsrfMiddleware } from './csrf/csrf.middleware';
-
-
+import { TsRestModule } from '@ts-rest/nest';
+import { CsrfGuard } from './csrf/csrf.guard';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      validate: (env) => envSchema.parse(env),
+      validate: env => envSchema.parse(env),
     }),
     ThrottlerModule.forRoot([
       {
@@ -81,14 +81,19 @@ import { CsrfMiddleware } from './csrf/csrf.middleware';
       {
         name: 'medium',
         ttl: 10000,
-        limit: 20
+        limit: 20,
       },
       {
         name: 'long',
         ttl: 60000,
-        limit: 100
-      }
+        limit: 100,
+      },
     ]),
+    TsRestModule.register({
+      isGlobal: true,
+      jsonQuery: true,
+      validateResponses: true,
+    }),
     UsersModule,
     PrismaModule,
     VendorModule,
@@ -117,7 +122,7 @@ import { CsrfMiddleware } from './csrf/csrf.middleware';
     AiassistantModule,
     CsrfModule,
     NutritionModule,
-    HttpModule
+    HttpModule,
   ],
   controllers: [
     AppController,
@@ -152,9 +157,9 @@ import { CsrfMiddleware } from './csrf/csrf.middleware';
     UsdaApiService,
     {
       provide: APP_GUARD,
-      useClass: AuthGuard
+      useClass: AuthGuard,
     },
-    //   {
+    // {
     //   provide: APP_GUARD,
     //   useClass: CsrfGuard,
     // },
@@ -162,8 +167,6 @@ import { CsrfMiddleware } from './csrf/csrf.middleware';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(SessionInitMiddleware, CsrfMiddleware)
-      .forRoutes('*');
+    consumer.apply(SessionInitMiddleware, CsrfMiddleware).forRoutes('*');
   }
 }

@@ -14,15 +14,17 @@ export const envSchema = z.object({
   PINPOINT_FROM_EMAIL: z.string().email(),
   PINPOINT_SMS_SENDER_ID: z.string(),
   SMS_POOL_ORIGINATION_NUMBER: z.string(),
-  CORS_ORIGIN: z.enum([
-    'http://localhost:5173',
-    'http://localhost:3000',
-    'http://localhost:5175',
-    'http://localhost:5176',
-    'https://ckm.rayanr.com',
-    'http://10.0.0.8',
-    '*',
-  ]).default('http://localhost:5175'),
+  CORS_ORIGIN: z
+    .enum([
+      'http://localhost:5173',
+      'http://localhost:3000',
+      'http://localhost:5175',
+      'http://localhost:5176',
+      'https://ckm.rayanr.com',
+      'http://10.0.0.8',
+      '*',
+    ])
+    .default('http://localhost:5175'),
   KMS_CUSTOMER_KEY: z.string(),
   OPENAI_API_KEY: z.string(),
   RECIPE_IMAGES_BUCKET: z.string(),
@@ -31,7 +33,7 @@ export const envSchema = z.object({
   COOKIE_SECRET: z.string(),
   USDA_API_KEY: z.string(),
   BASE_URL: z.string().default('https://ckm.rayanr.com'),
-  BASE_URL_DEV: z.string().default('http://localhost')
+  BASE_URL_DEV: z.string().default('http://localhost'),
 });
 
 export type Env = z.infer<typeof envSchema>;

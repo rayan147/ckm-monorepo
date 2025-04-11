@@ -1,0 +1,1125 @@
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T14:56:43.601Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T14:56:43.720Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T14:56:43.834Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T14:56:43.932Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T14:56:44.016Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "{\n  \"session_token\": \"ce5njtiksshsh5vts6wonuoqdi3sb3zr3szl3zbclnbinyw5gq6q\",\n  \"user_id\": \"475\"\n}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T14:58:55.129Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T14:58:55.130Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T14:58:55.130Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 355",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T14:59:05.369Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 355",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T14:59:05.371Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "{\n  \"session_token\": \"ce5njtiksshsh5vts6wonuoqdi3sb3zr3szl3zbclnbinyw5gq6q\",\n  \"user_id\": \"475\"\n}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T15:03:15.009Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T15:03:15.011Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T15:03:15.010Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 357",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T15:04:57.372Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 357",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T15:04:57.373Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "{\n  \"session_token\": \"ce5njtiksshsh5vts6wonuoqdi3sb3zr3szl3zbclnbinyw5gq6q\",\n  \"user_id\": \"475\"\n}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T15:06:48.560Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T15:06:48.562Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T15:06:48.561Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 356",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T15:06:51.337Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 356",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T15:06:51.339Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "{\n  \"session_token\": \"ce5njtiksshsh5vts6wonuoqdi3sb3zr3szl3zbclnbinyw5gq6q\",\n  \"user_id\": \"475\"\n}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T15:06:52.867Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T15:06:52.868Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T15:06:52.868Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T15:31:17.118Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T15:31:17.188Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T15:31:17.259Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T15:31:17.343Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T15:31:17.423Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T16:12:09.421Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T16:12:09.497Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T16:12:09.585Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T16:12:09.684Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T16:12:09.756Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "{\n  \"session_token\": \"ce5njtiksshsh5vts6wonuoqdi3sb3zr3szl3zbclnbinyw5gq6q\",\n  \"user_id\": \"475\"\n}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T16:37:03.496Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T16:37:03.498Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T16:37:03.498Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "{\n  \"session_token\": \"ce5njtiksshsh5vts6wonuoqdi3sb3zr3szl3zbclnbinyw5gq6q\",\n  \"user_id\": \"475\"\n}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T16:40:46.968Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T16:40:46.970Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T16:40:46.970Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "{\n  \"session_token\": \"ce5njtiksshsh5vts6wonuoqdi3sb3zr3szl3zbclnbinyw5gq6q\",\n  \"user_id\": \"475\"\n}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T16:41:02.251Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T16:41:02.251Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T16:41:02.251Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "{\n  \"session_token\": \"ce5njtiksshsh5vts6wonuoqdi3sb3zr3szl3zbclnbinyw5gq6q\",\n  \"user_id\": \"475\"\n}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T16:41:28.572Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T16:41:28.574Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T16:41:28.573Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "{\n  \"session_token\": \"ce5njtiksshsh5vts6wonuoqdi3sb3zr3szl3zbclnbinyw5gq6q\",\n  \"user_id\": \"475\"\n}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T16:52:13.030Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T16:52:13.031Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T16:52:13.030Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "{\n  \"session_token\": \"ce5njtiksshsh5vts6wonuoqdi3sb3zr3szl3zbclnbinyw5gq6q\",\n  \"user_id\": \"475\"\n}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T16:52:16.345Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T16:52:16.346Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T16:52:16.345Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "{\n  \"session_token\": \"ce5njtiksshsh5vts6wonuoqdi3sb3zr3szl3zbclnbinyw5gq6q\",\n  \"user_id\": \"475\"\n}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T16:55:47.261Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T16:55:47.262Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T16:55:47.261Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "{\n  \"session_token\": \"ce5njtiksshsh5vts6wonuoqdi3sb3zr3szl3zbclnbinyw5gq6q\",\n  \"user_id\": \"475\"\n}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T16:56:17.367Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T16:56:17.368Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T16:56:17.368Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 355",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T16:57:03.373Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 355",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T16:57:03.374Z"
+}
+{
+  "context": "ShiftController",
+  "level": "info",
+  "message": "Received request to get shifts",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T16:57:14.470Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Fetching shifts with params: {}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T16:57:14.471Z"
+}
+{
+  "context": "ShiftService",
+  "level": "info",
+  "message": "Retrieved 225 shifts",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T16:57:14.483Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "{\n  \"session_token\": \"ce5njtiksshsh5vts6wonuoqdi3sb3zr3szl3zbclnbinyw5gq6q\",\n  \"user_id\": \"475\"\n}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T17:03:41.959Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T17:03:41.960Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T17:03:41.960Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T20:29:03.115Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T20:29:03.210Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T20:29:03.291Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T20:29:03.393Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T20:29:03.477Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T20:29:10.218Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T20:29:10.314Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T20:29:10.436Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T20:29:10.519Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T20:29:10.599Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T20:36:25.800Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T20:36:25.902Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T20:36:26.026Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T20:36:26.133Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T20:36:26.238Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T20:42:02.092Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T20:42:02.162Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T20:42:02.237Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T20:42:02.313Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T20:42:02.419Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 475",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T20:46:11.763Z"
+}
+{
+  "level": "info",
+  "message": "Login initiated for user: rayan361@gmail.com (ID: 475)",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T20:46:12.056Z"
+}
+{
+  "level": "info",
+  "message": "Successful verification for user ID: 475",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T20:47:07.038Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T20:51:31.117Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T20:51:31.219Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T20:51:31.297Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T20:51:31.386Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T20:51:31.487Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T20:52:15.925Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T20:52:16.045Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T20:52:16.126Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T20:52:16.214Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T20:52:16.295Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 475",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T20:52:27.500Z"
+}
+{
+  "level": "info",
+  "message": "Login initiated for user: rayan361@gmail.com (ID: 475)",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T20:52:27.728Z"
+}
+{
+  "level": "info",
+  "message": "Successful verification for user ID: 475",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T20:52:45.616Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:03:00.636Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:03:00.728Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:03:00.801Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:03:17.524Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:03:00.491Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 475",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:03:14.454Z"
+}
+{
+  "level": "info",
+  "message": "Login initiated for user: rayan361@gmail.com (ID: 475)",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:03:14.690Z"
+}
+{
+  "level": "info",
+  "message": "Successful verification for user ID: 475",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:03:31.317Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:04:35.717Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:04:35.783Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:04:35.860Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:04:35.939Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:04:52.668Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "{\n  \"user_id\": \"475\",\n  \"session_token\": \"4zobppy64zchbso2njau3gzwccipyrmqwfg6tb6xat3ebuan4qbq\"\n}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:11:46.169Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:11:46.172Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:11:46.171Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 355",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:12:10.603Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 355",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:12:10.604Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "{\n  \"user_id\": \"475\",\n  \"session_token\": \"4zobppy64zchbso2njau3gzwccipyrmqwfg6tb6xat3ebuan4qbq\"\n}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:12:44.931Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:12:44.932Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:12:44.932Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "{\n  \"user_id\": \"475\",\n  \"session_token\": \"4zobppy64zchbso2njau3gzwccipyrmqwfg6tb6xat3ebuan4qbq\"\n}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:12:44.999Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:12:45.000Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:12:45.000Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 356",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:12:46.583Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 356",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:12:46.584Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "{\n  \"user_id\": \"475\",\n  \"session_token\": \"4zobppy64zchbso2njau3gzwccipyrmqwfg6tb6xat3ebuan4qbq\"\n}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:13:29.119Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:13:29.119Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:13:29.119Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 356",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:16:33.305Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 356",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:16:33.306Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "{\n  \"user_id\": \"475\",\n  \"session_token\": \"4zobppy64zchbso2njau3gzwccipyrmqwfg6tb6xat3ebuan4qbq\"\n}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:16:37.542Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:16:37.542Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:16:37.542Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "{\n  \"user_id\": \"475\",\n  \"session_token\": \"4zobppy64zchbso2njau3gzwccipyrmqwfg6tb6xat3ebuan4qbq\"\n}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:16:41.397Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:16:41.398Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:16:41.398Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "{\n  \"user_id\": \"475\",\n  \"session_token\": \"4zobppy64zchbso2njau3gzwccipyrmqwfg6tb6xat3ebuan4qbq\"\n}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:16:54.635Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:16:54.636Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:16:54.636Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:22:51.423Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:22:51.512Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:22:51.610Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:22:51.693Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:22:51.790Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "{\n  \"user_id\": \"475\",\n  \"session_token\": \"4zobppy64zchbso2njau3gzwccipyrmqwfg6tb6xat3ebuan4qbq\"\n}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:24:39.444Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:24:39.446Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:24:39.445Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "{\n  \"user_id\": \"475\",\n  \"session_token\": \"4zobppy64zchbso2njau3gzwccipyrmqwfg6tb6xat3ebuan4qbq\"\n}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:26:20.782Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:26:20.783Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:26:20.783Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:31:56.468Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:31:56.553Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:31:56.645Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:31:56.727Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:31:56.805Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:33:46.136Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:33:46.241Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:33:46.321Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:33:46.406Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-08T21:33:46.499Z"
+}

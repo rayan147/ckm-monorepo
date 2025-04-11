@@ -11,15 +11,16 @@ import { AwsCredentialsService } from './aws-credentials.service';
 export class PinpointService {
   private pinpointClient!: PinpointClient;
 
-  constructor(private envService: EnvService, private awsCredentialsService: AwsCredentialsService) {
-  }
+  constructor(
+    private envService: EnvService,
+    private awsCredentialsService: AwsCredentialsService,
+  ) {}
 
   async onModuleInit() {
-    await this.initalizePinpointClient()
+    await this.initalizePinpointClient();
   }
 
   private async initalizePinpointClient() {
-
     const credentials = await this.awsCredentialsService.getCredentials();
 
     this.pinpointClient = new PinpointClient({
@@ -32,12 +33,7 @@ export class PinpointService {
     });
   }
 
-  async sendEmail(
-    to: string,
-    subject: string,
-    htmlBody: string,
-    textBody?: string,
-  ) {
+  async sendEmail(to: string, subject: string, htmlBody: string, textBody?: string) {
     const params: SendMessagesCommandInput = {
       ApplicationId: this.envService.get('PINPOINT_PROJECT_ID'),
       MessageRequest: {
@@ -50,9 +46,7 @@ export class PinpointService {
             SimpleEmail: {
               Subject: { Charset: 'UTF-8', Data: subject },
               HtmlPart: { Charset: 'UTF-8', Data: htmlBody },
-              TextPart: textBody
-                ? { Charset: 'UTF-8', Data: textBody }
-                : undefined,
+              TextPart: textBody ? { Charset: 'UTF-8', Data: textBody } : undefined,
             },
           },
         },
@@ -109,9 +103,7 @@ export class PinpointService {
           SMSMessage: {
             Body: message,
             MessageType: 'TRANSACTIONAL',
-            OriginationNumber: this.envService.get(
-              'SMS_POOL_ORIGINATION_NUMBER',
-            ),
+            OriginationNumber: this.envService.get('SMS_POOL_ORIGINATION_NUMBER'),
             SenderId: this.envService.get('PINPOINT_SMS_SENDER_ID'),
           },
         },

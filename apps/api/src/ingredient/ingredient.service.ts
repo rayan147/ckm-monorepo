@@ -12,9 +12,7 @@ export class IngredientService {
     this.logger.setContext('IngredientService');
   }
 
-  async createIngredient(
-    data: Prisma.IngredientCreateInput,
-  ): Promise<Ingredient> {
+  async createIngredient(data: Prisma.IngredientCreateInput): Promise<Ingredient> {
     try {
       return await this.prisma.ingredient.create({ data });
     } catch (error) {
@@ -51,27 +49,18 @@ export class IngredientService {
       }
       return ingredient;
     } catch (error) {
-      this.logger.handleError(
-        error,
-        `Failed to fetch ingredient with ID ${id}`,
-      );
+      this.logger.handleError(error, `Failed to fetch ingredient with ID ${id}`);
     }
   }
 
-  async updateIngredient(
-    id: number,
-    data: Prisma.IngredientUpdateInput,
-  ): Promise<Ingredient> {
+  async updateIngredient(id: number, data: Prisma.IngredientUpdateInput): Promise<Ingredient> {
     try {
       return await this.prisma.ingredient.update({
         where: { id },
         data,
       });
     } catch (error) {
-      this.logger.handleError(
-        error,
-        `Failed to update ingredient with ID ${id}`,
-      );
+      this.logger.handleError(error, `Failed to update ingredient with ID ${id}`);
     }
   }
 
@@ -81,10 +70,7 @@ export class IngredientService {
         where: { id },
       });
     } catch (error) {
-      this.logger.handleError(
-        error,
-        `Failed to delete ingredient with ID ${id}`,
-      );
+      this.logger.handleError(error, `Failed to delete ingredient with ID ${id}`);
     }
   }
 }

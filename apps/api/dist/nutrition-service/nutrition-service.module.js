@@ -21,7 +21,7 @@ exports.NutritionModule = NutritionModule = __decorate([
         imports: [axios_1.HttpModule, env_module_1.EnvModule],
         providers: [nutrition_service_service_1.NutritionService, usda_api_service_1.UsdaApiService],
         controllers: [nutrition_service_controller_1.NutritionController],
-        exports: [nutrition_service_service_1.NutritionService]
+        exports: [nutrition_service_service_1.NutritionService],
     })
 ], NutritionModule);
 //# sourceMappingURL=nutrition-service.module.js.map

@@ -4200,7 +4200,23 @@ var userContract = c.router({
     }),
     responses: {
       200: import_db.zodSchemas.UserSchema,
-      404: z.object({ message: z.string() })
+      404: z.object({ message: z.string() }),
+      500: z.object({ message: z.string() })
+    },
+    summary: "Get a user by ID"
+  },
+  getAuthUser: {
+    method: "GET",
+    path: "/users/:id",
+    pathParams: z.object({
+      id: z.coerce.number()
+    }),
+    responses: {
+      200: import_db.zodSchemas.UserSchema.extend({
+        auth: z.array(import_db.zodSchemas.AuthSchema)
+      }),
+      404: z.object({ message: z.string() }),
+      500: z.object({ message: z.string() })
     },
     summary: "Get a user by ID"
   },
@@ -4572,15 +4588,6 @@ var shiftContract = c6.router({
 // src/recipe/recipe.web.ts
 var import_db7 = require("@ckm/db");
 var c7 = initContract();
-var DeleteIdsSchema = z.object({
-  ingredientIds: z.array(z.number()),
-  instructionIds: z.array(z.number())
-});
-var RecipeUpdateRequestSchema = z.object({
-  data: import_db7.zodSchemas.RecipeUpdateInputSchema,
-  deleteIds: DeleteIdsSchema.optional()
-  // Make it optional if deletions are not always present
-});
 var recipeContract = c7.router({
   // Existing Endpoints
   createRecipe: {
@@ -4590,7 +4597,7 @@ var recipeContract = c7.router({
       201: import_db7.zodSchemas.RecipeSchema,
       400: z.object({ message: z.string() })
     },
-    body: import_db7.zodSchemas.RecipeCreateInputSchema,
+    body: z.any(),
     summary: "Create a new recipe"
   },
   uploadFileS3: {
@@ -4649,7 +4656,7 @@ var recipeContract = c7.router({
       400: z.object({ message: z.string() }),
       404: z.object({ message: z.string() })
     },
-    body: RecipeUpdateRequestSchema,
+    body: import_db7.zodSchemas.RecipeUpdateInputSchema,
     summary: "Update a recipe"
   },
   deleteRecipe: {
@@ -4992,6 +4999,22 @@ var prepBoardContract = c9.router({
 // src/auth/auth.web.ts
 var import_db10 = require("@ckm/db");
 var c10 = initContract();
+var SessionValidationSchema = import_db10.zodSchemas.SessionSchema.extend({
+  id: z.string()
+  // Override the id field to accept any string
+});
+var SessionValidationSuccess = z.object({
+  session: SessionValidationSchema,
+  user: import_db10.zodSchemas.UserSchema
+});
+var SessionValidationFailure = z.object({
+  session: z.null(),
+  user: z.null()
+});
+var SessionValidationResultSchema = z.union([
+  SessionValidationSuccess,
+  SessionValidationFailure
+]);
 var authContract = c10.router({
   resendCode: {
     method: "POST",
@@ -5028,7 +5051,9 @@ var authContract = c10.router({
     responses: {
       200: z.object({
         sessionToken: z.string(),
-        user: import_db10.zodSchemas.UserSchema
+        user: import_db10.zodSchemas.UserSchema.extend({
+          auth: z.array(import_db10.zodSchemas.AuthSchema.optional())
+        })
       }),
       401: z.object({ message: z.string() })
     },
@@ -5037,6 +5062,7 @@ var authContract = c10.router({
     }),
     summary: "Verify login code"
   },
+  // In your contract definition
   register: {
     method: "POST",
     path: "/auth/register",
@@ -5044,14 +5070,29 @@ var authContract = c10.router({
       201: import_db10.zodSchemas.UserSchema,
       400: z.object({ message: z.string() })
     },
-    body: z.intersection(
-      import_db10.zodSchemas.UserCreateInputSchema,
-      z.object({
-        password: z.string(),
-        role: import_db10.zodSchemas.UserRoleSchema.optional()
-      })
-    ),
-    summary: "User registration"
+    body: z.object({
+      email: z.string().email(),
+      firstName: z.string(),
+      lastName: z.string(),
+      profileImage: z.string().optional(),
+      password: z.string(),
+      role: import_db10.zodSchemas.UserRoleSchema.optional(),
+      isOrganization: z.boolean().optional(),
+      organizationInput: z.object({
+        name: z.string(),
+        imageUrl: z.string().optional()
+      }).optional(),
+      restaurantsInput: z.array(z.object({
+        name: z.string(),
+        imageUrl: z.string().optional(),
+        address: z.string(),
+        city: z.string(),
+        zipCode: z.string(),
+        state: z.string(),
+        owner: z.string()
+      })).optional()
+    }),
+    summary: "User registration with optional organization and restaurants"
   },
   changePassword: {
     method: "POST",
@@ -5105,6 +5146,20 @@ var authContract = c10.router({
       newPassword: z.string()
     }),
     summary: "Reset password"
+  },
+  validateSessionToken: {
+    method: "POST",
+    path: "/auth/validate-session-token",
+    responses: {
+      200: SessionValidationResultSchema,
+      400: z.object({
+        success: z.boolean()
+      })
+    },
+    body: z.object({
+      sessionToken: z.string()
+    }),
+    summary: "validate the session token"
   }
 });
 

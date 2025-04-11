@@ -47,35 +47,22 @@ export class CookBookController {
 
   @TsRestHandler(contract.cookbook.updateCookBook)
   async updateCookBook() {
-    return tsRestHandler(
-      contract.cookbook.updateCookBook,
-      async ({ params, body }) => {
-        this.logger.log(
-          `Received request to update cookbook with ID ${params.id}`,
-        );
-        const cookbook = await this.cookbookService.updateCookBook(
-          params.id,
-          body,
-        );
-        return { status: 200, body: cookbook };
-      },
-    );
+    return tsRestHandler(contract.cookbook.updateCookBook, async ({ params, body }) => {
+      this.logger.log(`Received request to update cookbook with ID ${params.id}`);
+      const cookbook = await this.cookbookService.updateCookBook(params.id, body);
+      return { status: 200, body: cookbook };
+    });
   }
 
   @TsRestHandler(contract.cookbook.deleteCookBook)
   async deleteCookBook() {
-    return tsRestHandler(
-      contract.cookbook.deleteCookBook,
-      async ({ params }) => {
-        this.logger.log(
-          `Received request to delete cookbook with ID ${params.id}`,
-        );
-        const cookbook = await this.cookbookService.deleteCookBook(params.id);
-        return {
-          status: 200,
-          body: { message: 'Cookbook deleted successfully' },
-        };
-      },
-    );
+    return tsRestHandler(contract.cookbook.deleteCookBook, async ({ params }) => {
+      this.logger.log(`Received request to delete cookbook with ID ${params.id}`);
+      const cookbook = await this.cookbookService.deleteCookBook(params.id);
+      return {
+        status: 200,
+        body: { message: 'Cookbook deleted successfully' },
+      };
+    });
   }
 }

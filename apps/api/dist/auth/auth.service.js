@@ -75,7 +75,12 @@ let AuthService = class AuthService {
         this.emailTemplateService = emailTemplateService;
     }
     sortRolesByPriorityOrder(user) {
-        const priorityOrder = [db_1.UserRole.ADMIN, db_1.UserRole.MANAGER, db_1.UserRole.CHEF, db_1.UserRole.STAFF];
+        const priorityOrder = [
+            db_1.UserRole.ADMIN,
+            db_1.UserRole.MANAGER,
+            db_1.UserRole.CHEF,
+            db_1.UserRole.STAFF,
+        ];
         const sortedAuth = [...user.auth].sort((a, b) => {
             return priorityOrder.indexOf(a.role) - priorityOrder.indexOf(b.role);
         });
@@ -126,7 +131,8 @@ let AuthService = class AuthService {
             const verificationCode = await this.authSession.generatedVerifictionCode();
             const token = await this.authSession.generateSessionToken();
             const htmlBody = this.emailTemplateService.getVerificationCodeTemplate(verificationCode);
-            await this.authSession.createSession(token, user.id, false);
+            const TEN_MINUTES = new Date(Date.now() + 10 * 60 * 1000);
+            await this.authSession.createSession(token, user.id, false, TEN_MINUTES);
             await this.pinpointService.sendEmail(user.email, 'Verification Code Request', htmlBody);
             this.logger.log(`Login initiated for user: ${user.email} (ID: ${user.id})`);
             return {
@@ -159,8 +165,9 @@ let AuthService = class AuthService {
         await this.authSession.invalidateSession(user.id);
         const token = await this.authSession.generateSessionToken();
         const verificationCode = await this.authSession.generatedVerifictionCode();
+        const TEN_MINUTES = new Date(Date.now() + 10 * 60 * 1000);
         const htmlBody = this.emailTemplateService.getVerificationCodeTemplate(verificationCode);
-        await this.authSession.createSession(token, user.id, false);
+        await this.authSession.createSession(token, user.id, false, TEN_MINUTES);
         await this.pinpointService.sendEmail(user.email, 'Verification Code Request', htmlBody);
         return {
             message: 'Code has been sent',
@@ -193,7 +200,7 @@ let AuthService = class AuthService {
             }
             await this.prisma.auth.update({
                 where: { id: highestPriorityAuth.id },
-                data: { passwordHash: hashedNewPassword }
+                data: { passwordHash: hashedNewPassword },
             });
         }
         catch (error) {
@@ -201,14 +208,22 @@ let AuthService = class AuthService {
         }
     }
     async logout(userId) {
-        await this.authSession.invalidateSession(userId);
+        console.log('AuthService: Logout called for userId:', userId);
+        try {
+            await this.authSession.invalidateSession(userId);
+            console.log('AuthService: Successfully invalidated sessions');
+        }
+        catch (error) {
+            console.error('AuthService: Error in logout method:', error);
+            throw error;
+        }
     }
     async hasRole(userId, requiredRole) {
         const user = await this.userService.getAuthUser(userId);
         if (!user) {
             throw new common_1.NotFoundException('User not found');
         }
-        return user.auth.some((auth) => auth.role === requiredRole);
+        return user.auth.some(auth => auth.role === requiredRole);
     }
     async changeUserRole(adminUserId, targetUserId, newRole) {
         const isAdmin = await this.hasRole(adminUserId, db_1.UserRole.ADMIN);
@@ -229,13 +244,15 @@ let AuthService = class AuthService {
             if (!user) {
                 await new Promise(resolve => setTimeout(resolve, 200));
                 this.logger.log(`Password reset requested for non-existent email: ${email}`);
-                return { message: 'If your email exists in our system, you will receive password reset instructions.' };
+                return {
+                    message: 'If your email exists in our system, you will receive password reset instructions.',
+                };
             }
             const resetToken = await this.authSession.createPasswordResetToken(user.id);
             const env = this.envService.get('NODE_ENV');
-            const base_url = env === "prod" ? this.envService.get('BASE_URL') : this.envService.get('BASE_URL_DEV');
+            const base_url = env === 'prod' ? this.envService.get('BASE_URL') : this.envService.get('BASE_URL_DEV');
             const port = this.envService.get('PORT');
-            const protocol = env === "prod" ? "https" : "http";
+            const protocol = env === 'prod' ? 'https' : 'http';
             const host = base_url.replace(/^https?:\/\//, '');
             const resetLink = `${protocol}://${host}${port ? ':' + port : ''}/reset-password?token=${resetToken}`;
             const htmlBody = this.emailTemplateService.getPasswordResetTemplate(resetLink);
@@ -245,7 +262,9 @@ let AuthService = class AuthService {
             if (elapsedTime < 500) {
                 await new Promise(resolve => setTimeout(resolve, 500 - elapsedTime));
             }
-            return { message: 'If your email exists in our system, you will receive password reset instructions.' };
+            return {
+                message: 'If your email exists in our system, you will receive password reset instructions.',
+            };
         }
         catch (error) {
             this.logger.handleError(error, 'Password reset request failed');
@@ -272,7 +291,7 @@ let AuthService = class AuthService {
                 const hashedPassword = await bcrypt.hash(newPassword, 10);
                 await tx.auth.update({
                     where: { id: authToUpdate.id },
-                    data: { passwordHash: hashedPassword }
+                    data: { passwordHash: hashedPassword },
                 });
                 await this.authSession.invalidatePasswordResetTokens(user.id);
                 await this.authSession.invalidateSession(user.id);

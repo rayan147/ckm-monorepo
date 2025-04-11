@@ -13,8 +13,10 @@ import { AwsCredentialsService } from './aws-credentials.service';
 export class KmsService {
   private kmsClient!: KMSClient;
 
-  constructor(private envService: EnvService, private awsCredentialsService: AwsCredentialsService) {
-  }
+  constructor(
+    private envService: EnvService,
+    private awsCredentialsService: AwsCredentialsService,
+  ) {}
 
   async onModuleInit() {
     await this.initializeKmsClient();

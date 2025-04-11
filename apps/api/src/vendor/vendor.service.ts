@@ -33,9 +33,7 @@ export class VendorService {
     this.logger.log(`Fetching vendors with params: ${JSON.stringify(params)}`);
     try {
       return await this.prisma.vendor.findMany({
-        where: name
-          ? { name: { contains: name, mode: 'insensitive' } }
-          : undefined,
+        where: name ? { name: { contains: name, mode: 'insensitive' } } : undefined,
         skip,
         take,
         include: {
@@ -55,10 +53,7 @@ export class VendorService {
         include: { orders: true },
       });
       if (!vendor) {
-        this.logger.handleError(
-          new Error('Vendor not found'),
-          `Vendor with ID ${id} not found`,
-        );
+        this.logger.handleError(new Error('Vendor not found'), `Vendor with ID ${id} not found`);
       }
       return vendor;
     } catch (error) {
@@ -66,7 +61,10 @@ export class VendorService {
     }
   }
 
-  async updateVendor(id: number, data: Prisma.VendorUpdateInput): Promise<Vendor & { orders: Order[] }> {
+  async updateVendor(
+    id: number,
+    data: Prisma.VendorUpdateInput,
+  ): Promise<Vendor & { orders: Order[] }> {
     this.logger.log(`Updating vendor with ID ${id}`);
     try {
       return await this.prisma.vendor.update({
@@ -77,14 +75,8 @@ export class VendorService {
         },
       });
     } catch (error) {
-      if (
-        error instanceof Prisma.PrismaClientKnownRequestError &&
-        error.code === 'P2025'
-      ) {
-        this.logger.handleError(
-          error,
-          `Vendor with ID ${id} not found for update`,
-        );
+      if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
+        this.logger.handleError(error, `Vendor with ID ${id} not found for update`);
       }
       this.logger.handleError(error, `Failed to update vendor with ID ${id}`);
     }
@@ -98,14 +90,8 @@ export class VendorService {
         include: { orders: true },
       });
     } catch (error) {
-      if (
-        error instanceof Prisma.PrismaClientKnownRequestError &&
-        error.code === 'P2025'
-      ) {
-        this.logger.handleError(
-          error,
-          `Vendor with ID ${id} not found for deletion`,
-        );
+      if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
+        this.logger.handleError(error, `Vendor with ID ${id} not found for deletion`);
       }
       this.logger.handleError(error, `Failed to delete vendor with ID ${id}`);
     }
@@ -116,23 +102,16 @@ export class VendorService {
     vendorId: number,
     newPrice: number,
   ): Promise<Ingredient> {
-    this.logger.log(
-      `Updating price for ingredient ${ingredientId} from vendor ${vendorId}`,
-    );
+    this.logger.log(`Updating price for ingredient ${ingredientId} from vendor ${vendorId}`);
     try {
       const ingredient = await this.prisma.ingredient.update({
         where: { id: ingredientId },
         data: { price: newPrice },
       });
-      this.logger.log(
-        `Price updated successfully for ingredient ${ingredientId}`,
-      );
+      this.logger.log(`Price updated successfully for ingredient ${ingredientId}`);
       return ingredient;
     } catch (error) {
-      this.logger.handleError(
-        error,
-        `Failed to update price for ingredient ${ingredientId}`,
-      );
+      this.logger.handleError(error, `Failed to update price for ingredient ${ingredientId}`);
     }
   }
   async getVendorIngredients(vendorId: number): Promise<Ingredient[]> {
@@ -152,10 +131,7 @@ export class VendorService {
 
       return vendor.ingredients;
     } catch (error) {
-      this.logger.handleError(
-        error,
-        `Failed to fetch ingredients for vendor ${vendorId}`,
-      );
+      this.logger.handleError(error, `Failed to fetch ingredients for vendor ${vendorId}`);
     }
   }
 } // end of VendorService

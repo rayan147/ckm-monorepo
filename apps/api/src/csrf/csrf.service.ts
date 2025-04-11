@@ -11,16 +11,12 @@ export class CsrfService {
   private readonly revokeToken;
 
   constructor(private readonly envService: EnvService) {
-    const {
-      csrfSynchronisedProtection,
-      generateToken,
-      revokeToken,
-    } = csrfSync({
+    const { csrfSynchronisedProtection, generateToken, revokeToken } = csrfSync({
       ignoredMethods: ['GET', 'HEAD', 'OPTIONS'],
-      getTokenFromState: (req) => {
+      getTokenFromState: req => {
         return req.session?.csrfToken;
       },
-      getTokenFromRequest: (req) => {
+      getTokenFromRequest: req => {
         // Check headers first, then body for form submissions
         return req.headers['x-csrf-token'] || req.body?.csrfToken;
       },

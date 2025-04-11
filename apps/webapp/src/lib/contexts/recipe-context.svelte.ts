@@ -4,50 +4,49 @@ import { zodSchemas } from '@ckm/db';
 import { z } from 'zod';
 
 const RecipeIngredientWithRelationSchema = zodSchemas.RecipeIngredientSchema.extend({
-  ingredient: zodSchemas.IngredientSchema,
-})
+  ingredient: zodSchemas.IngredientSchema
+});
 
 const RecipeCriticalPointSchema = zodSchemas.RecipeCriticalPointSchema.omit({
   id: true,
   createdAt: true,
   updatedAt: true
-})
+});
 
 const RecipeEquipmentSchema = zodSchemas.RecipeEquipmentSchema.omit({
-  id: true,
-})
+  id: true
+});
 
 const RecipeTags = zodSchemas.RecipeTagSchema.omit({
   id: true,
   createdAt: true,
   updatedAt: true
-})
+});
 
 const DietaryRestrictionSchema = zodSchemas.DietaryRestrictionSchema.omit({
   id: true,
   createdAt: true,
   updatedAt: true
-})
+});
 
 const CookBookSchema = zodSchemas.CookBookSchema.omit({
-  id: true,
-
-})
+  id: true
+});
 
 const NutritionalInfoSchema = zodSchemas.RecipeNutritionSchema.omit({
-  id: true,
-})
+  id: true
+});
 const StorageSchema = zodSchemas.RecipeStorageSchema.omit({
   id: true,
   createdAt: true,
-  updatedAt: true,
-})
+  updatedAt: true
+});
 
 const LaborCostsSchema = zodSchemas.RecipeLaborCostSchema.omit({
   id: true,
   createdAt: true,
-  updatedAt: true,
-})
+  updatedAt: true
+});
 
 const RecipeWithNutritionAndInstructionsAndIngredientsSchema = zodSchemas.RecipeSchema.extend({
   nutritionalInfo: NutritionalInfoSchema.nullable(),
@@ -60,15 +59,14 @@ const RecipeWithNutritionAndInstructionsAndIngredientsSchema = zodSchemas.Recipe
   criticalPoints: z.array(RecipeCriticalPointSchema),
   storage: StorageSchema,
   laborCosts: z.array(LaborCostsSchema)
-
-})
+});
 
 export type Prettify<T> = {
-  [K in keyof T]: T[K] & {}
-}
+  [K in keyof T]: T[K] & {};
+};
 
-type Recipe = z.infer<typeof RecipeWithNutritionAndInstructionsAndIngredientsSchema>
-export type RecipeIncludes = Prettify<Recipe>
+type Recipe = z.infer<typeof RecipeWithNutritionAndInstructionsAndIngredientsSchema>;
+export type RecipeIncludes = Prettify<Recipe>;
 
 export class RecipeState {
   recipe = $state<RecipeIncludes>({
@@ -111,30 +109,35 @@ export class RecipeState {
       containsSoy: false,
       containsFish: false,
       containsShellfish: false,
-      containsSesame: false,
+      containsSesame: false
     },
-    tags: [{
-      name: '',
-      description: ''
-    }],
-    dietaryRestrictions: [{
-      name: '',
-      description: '',
-      icon: '',
-    }],
+    tags: [
+      {
+        name: '',
+        description: ''
+      }
+    ],
+    dietaryRestrictions: [
+      {
+        name: '',
+        description: '',
+        icon: ''
+      }
+    ],
     cookBook: {
       restaurantId: 0,
       name: '',
       category: '',
       imageUrl: ''
     },
-    equipments: [{
-      notes: '',
-      recipeId: 0,
-      equipmentId: 1,
-      recipeInstructionId: 1,
-
-    }],
+    equipments: [
+      {
+        notes: '',
+        recipeId: 0,
+        equipmentId: 1,
+        recipeInstructionId: 1
+      }
+    ],
     criticalPoints: [
       {
         recipeId: 0,
@@ -142,7 +145,7 @@ export class RecipeState {
         description: '',
         unit: '',
         action: '',
-        threshold: 5,
+        threshold: 5
       }
     ],
     storage: {
@@ -151,7 +154,7 @@ export class RecipeState {
       method: '',
       shelfLife: 7,
       containerType: '',
-      specialNotes: '',
+      specialNotes: ''
     },
     laborCosts: [
       {
@@ -162,19 +165,19 @@ export class RecipeState {
         totalLaborCost: 0
       }
     ]
-  })
+  });
   currentStep: number = $state(1);
   completedSteps: number[] = $state([]);
   activeTab: string = 'overview';
   showTimer: boolean = $state(false);
   timerMinutes: number = $state(0);
-  timerSeconds: number = $state(0)
+  timerSeconds: number = $state(0);
   timerRunning: boolean = $state(false);
   timerInterval: ReturnType<typeof setTimeout> | undefined = undefined;
   showImageModal: boolean = $state(false);
   currentImage: string = $state('');
-  currentImageAlt: string = $state('')
-  showCompletionModal: boolean = $state(false)
+  currentImageAlt: string = $state('');
+  showCompletionModal: boolean = $state(false);
 
   constructor(recipe: RecipeIncludes) {
     this.recipe = recipe;
@@ -191,7 +194,10 @@ export class RecipeState {
       // Explicitly assign the new array to trigger reactivity
       this.completedSteps = newCompletedSteps;
 
-      console.log(`Step ${stepNumber} marked complete. Current completed steps:`, this.completedSteps);
+      console.log(
+        `Step ${stepNumber} marked complete. Current completed steps:`,
+        this.completedSteps
+      );
     }
   }
 
@@ -202,17 +208,18 @@ export class RecipeState {
 
   // FIXED: Simplified navigation without auto-completion
   goToStep(stepNumber: number): void {
-    if (stepNumber >= 1 &&
+    if (
+      stepNumber >= 1 &&
       this.recipe.instructions &&
-      stepNumber <= this.recipe.instructions.length) {
+      stepNumber <= this.recipe.instructions.length
+    ) {
       this.currentStep = stepNumber;
       console.log(`Navigated to step ${stepNumber}`);
     }
   }
 
   nextStep(): void {
-    if (this.recipe.instructions &&
-      this.currentStep < this.recipe.instructions.length) {
+    if (this.recipe.instructions && this.currentStep < this.recipe.instructions.length) {
       this.currentStep = this.currentStep + 1;
       console.log(`Moved to next step: ${this.currentStep}`);
     }
@@ -231,8 +238,7 @@ export class RecipeState {
     this.markStepComplete(this.currentStep);
 
     // Then move to the next step if possible
-    if (this.recipe.instructions &&
-      this.currentStep < this.recipe.instructions.length) {
+    if (this.recipe.instructions && this.currentStep < this.recipe.instructions.length) {
       this.nextStep();
     } else {
       // If this is the last step, show completion modal
@@ -323,7 +329,6 @@ export class RecipeState {
     return this.formatTime(total);
   }
 
-
   // Calculate nutrition-related methods
   calculatePercentage(value: number, max: number): number {
     return Math.min(Math.round((value / max) * 100), 100);
@@ -333,10 +338,10 @@ export class RecipeState {
   hasNutritionData(): boolean {
     return Boolean(
       this.recipe.nutritionalInfo &&
-      (this.recipe.nutritionalInfo.calories > 0 ||
-        this.recipe.nutritionalInfo.protein > 0 ||
-        this.recipe.nutritionalInfo.carbohydrates > 0 ||
-        this.recipe.nutritionalInfo.fat > 0)
+        (this.recipe.nutritionalInfo.calories > 0 ||
+          this.recipe.nutritionalInfo.protein > 0 ||
+          this.recipe.nutritionalInfo.carbohydrates > 0 ||
+          this.recipe.nutritionalInfo.fat > 0)
     );
   }
 

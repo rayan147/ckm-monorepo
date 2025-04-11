@@ -702,3 +702,179 @@
   "service": "LoggingService",
   "timestamp": "2025-04-04T14:00:08.801Z"
 }
+{
+  "context": "ApplicationError",
+  "error": "Invalid verification code",
+  "level": "error",
+  "message": "Failed to verify session: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T20:32:55.773Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Failed to verify session",
+  "level": "error",
+  "message": "Verification code validation failed: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-04T20:32:55.774Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "The security token included in the request is expired",
+  "level": "error",
+  "message": "Login process failed: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-05T19:04:31.681Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "The security token included in the request is expired",
+  "level": "error",
+  "message": "Login process failed: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-05T20:09:53.614Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "The security token included in the request is expired",
+  "level": "error",
+  "message": "Login process failed: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-05T20:09:56.048Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "The security token included in the request is expired",
+  "level": "error",
+  "message": "Login process failed: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-05T20:10:06.180Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "The security token included in the request is expired",
+  "level": "error",
+  "message": "Login process failed: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-05T20:10:24.318Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "The security token included in the request is expired",
+  "level": "error",
+  "message": "Login process failed: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-05T20:10:32.764Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "The security token included in the request is expired",
+  "level": "error",
+  "message": "Login process failed: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-05T20:10:47.222Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "The security token included in the request is expired",
+  "level": "error",
+  "message": "Login process failed: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-05T20:11:14.436Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "The security token included in the request is expired",
+  "level": "error",
+  "message": "Login process failed: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-05T20:12:05.805Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "The security token included in the request is expired",
+  "level": "error",
+  "message": "Login process failed: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-06T19:28:49.022Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "The security token included in the request is expired",
+  "level": "error",
+  "message": "Login process failed: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-07T16:43:01.986Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "The security token included in the request is expired",
+  "level": "error",
+  "message": "Login process failed: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-07T16:43:08.816Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "The security token included in the request is expired",
+  "level": "error",
+  "message": "Login process failed: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-09T15:18:24.965Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "The security token included in the request is expired",
+  "level": "error",
+  "message": "Login process failed: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-09T15:18:29.874Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "The security token included in the request is expired",
+  "level": "error",
+  "message": "Login process failed: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-09T18:50:43.998Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "The security token included in the request is expired",
+  "level": "error",
+  "message": "Login process failed: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-09T18:50:45.629Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Invalid verification code",
+  "level": "error",
+  "message": "Failed to verify session: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-09T18:51:45.448Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Failed to verify session",
+  "level": "error",
+  "message": "Verification code validation failed: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-09T18:51:45.449Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Invalid verification code",
+  "level": "error",
+  "message": "Failed to verify session: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-09T18:52:22.111Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "Failed to verify session",
+  "level": "error",
+  "message": "Verification code validation failed: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-09T18:52:22.112Z"
+}

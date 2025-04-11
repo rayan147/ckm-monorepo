@@ -14,7 +14,7 @@ exports.PrismaService = void 0;
 const common_1 = require("@nestjs/common");
 const db_1 = require("@ckm/db");
 const logging_service_1 = require("../logging/logging.service");
-const prismaClientExtension = db_1.Prisma.defineExtension((client) => {
+const prismaClientExtension = db_1.Prisma.defineExtension(client => {
     return client.$extends({
         query: {
             async $allOperations({ operation, args, query }) {

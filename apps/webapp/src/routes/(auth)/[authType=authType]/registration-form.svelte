@@ -10,8 +10,6 @@
     CardHeader
   } from '$lib/components/ui/card';
   import { Progress } from '$lib/components/ui/progress';
-  // Import the validator directly instead of using the z variable
-  import { object, string } from 'zod';
   import Step1 from './first-step.svelte';
   import Step2 from './second-step.svelte';
   import Step3Organization from './third-step-organization.svelte';
@@ -53,12 +51,10 @@
     ]
   });
 
-  // Error and loading states
   let error = $state('');
   let submitting = $state(false);
   let formSubmitted = $state(false);
 
-  // Step navigation
   function nextStep() {
     if (currentStep < steps.length - 1) {
       currentStep++;
@@ -107,7 +103,7 @@
         formSubmitted = true;
         // Redirect after a short delay
         setTimeout(() => {
-          window.location.href = '/auth/login?registered=true';
+          window.location.href = '/login?registered=true';
         }, 2000);
       }
     };

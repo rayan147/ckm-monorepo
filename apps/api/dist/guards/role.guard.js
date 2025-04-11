@@ -35,8 +35,8 @@ let RoleGuard = class RoleGuard {
             const dbUser = await this.prisma.user.findUnique({
                 where: { id: user.id },
                 include: {
-                    auth: true
-                }
+                    auth: true,
+                },
             });
             if (!dbUser) {
                 return false;

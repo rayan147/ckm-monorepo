@@ -1,14 +1,10 @@
-import {
-  BadRequestException,
-  Injectable,
-  InternalServerErrorException,
-} from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Order, Prisma, zodSchemas } from '@ckm/db';
 
 @Injectable()
 export class OrderService {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   async createOrder(data: Prisma.OrderCreateInput): Promise<zodSchemas.Order> {
     try {
@@ -18,14 +14,9 @@ export class OrderService {
       return order;
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
-        throw new BadRequestException(
-          'Could not create the order',
-          error.message,
-        );
+        throw new BadRequestException('Could not create the order', error.message);
       }
-      throw new InternalServerErrorException(
-        'An error occurred while creating the order',
-      );
+      throw new InternalServerErrorException('An error occurred while creating the order');
     }
   }
 
@@ -56,9 +47,7 @@ export class OrderService {
       });
       return orders;
     } catch (error) {
-      throw new InternalServerErrorException(
-        'An error occurred while fetching orders',
-      );
+      throw new InternalServerErrorException('An error occurred while fetching orders');
     }
   }
 
@@ -73,9 +62,7 @@ export class OrderService {
         },
       });
     } catch (error) {
-      throw new InternalServerErrorException(
-        'An error occurred while fetching the order',
-      );
+      throw new InternalServerErrorException('An error occurred while fetching the order');
     }
   }
 
@@ -98,14 +85,9 @@ export class OrderService {
         if (error.code === 'P2025') {
           throw new BadRequestException('Order not found');
         }
-        throw new BadRequestException(
-          'Could not update the order',
-          error.message,
-        );
+        throw new BadRequestException('Could not update the order', error.message);
       }
-      throw new InternalServerErrorException(
-        'An error occurred while updating the order',
-      );
+      throw new InternalServerErrorException('An error occurred while updating the order');
     }
   }
 
@@ -124,14 +106,9 @@ export class OrderService {
         if (error.code === 'P2025') {
           throw new BadRequestException('Order not found');
         }
-        throw new BadRequestException(
-          'Could not delete the order',
-          error.message,
-        );
+        throw new BadRequestException('Could not delete the order', error.message);
       }
-      throw new InternalServerErrorException(
-        'An error occurred while deleting the order',
-      );
+      throw new InternalServerErrorException('An error occurred while deleting the order');
     }
   }
 }

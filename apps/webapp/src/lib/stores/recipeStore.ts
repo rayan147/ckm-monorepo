@@ -18,7 +18,6 @@ interface RecipeInput {
   searchTerm?: string;
 }
 
-
 function createRecipeStore() {
   const { subscribe, set, update } = writable<RecipeState>({
     recipes: [],
@@ -29,11 +28,11 @@ function createRecipeStore() {
     itemsPerPage: 10
   });
 
-  let currentQuery: RecipeInput = {}
+  let currentQuery: RecipeInput = {};
   return {
     subscribe,
     fetchRecipes: async (query: RecipeInput) => {
-      currentQuery = query
+      currentQuery = query;
       update((state) => ({ ...state, loading: true, error: null }));
       try {
         const response = await api.recipe.getRecipes({ query });
@@ -70,7 +69,8 @@ function createRecipeStore() {
           console.error(error);
         } finally {
           const response = await api.recipe.getRecipes(currentQuery);
-          if (response.status !== 200) throw new Error(`Failed to fetch recipes: ${response.status}`);
+          if (response.status !== 200)
+            throw new Error(`Failed to fetch recipes: ${response.status}`);
 
           const { recipes, totalCount } = response.body;
 
@@ -81,30 +81,22 @@ function createRecipeStore() {
             totalCount,
             currentPage: Math.floor((currentQuery.skip ?? 0) / state.itemsPerPage) + 1
           }));
-
-
         }
       }
-
     },
     createRecipe: async (data: unknown) => {
       update((state) => ({ ...state, loading: true, error: null }));
       try {
-
         const response = await api.recipe.createRecipe({ body: data });
-        if (response.status !== 200) throw new Error(`Failed to create recipes: ${response.status}`);
-
-
-
+        if (response.status !== 200)
+          throw new Error(`Failed to create recipes: ${response.status}`);
       } catch (error) {
         update((state) => ({ ...state, error: error.message, loading: false }));
         console.error(error);
-
       } finally {
-
-        console.log(`currentQuery is ${currentQuery}`)
+        console.log(`currentQuery is ${currentQuery}`);
       }
     }
-  }
+  };
 }
 export const recipeStore = createRecipeStore();

@@ -31,5 +31,3 @@ export const passwordResetTemplate = `
 </body>
 </html>
     `;
-
-

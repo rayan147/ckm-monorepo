@@ -118,5 +118,5 @@ export const conversions: Conversion[] = [
 
   // International units (Imperial measurements)
   { fromUnit: 'imperialPint', toUnit: 'milliliter', factor: 568.261 },
-  { fromUnit: 'imperialGallon', toUnit: 'liter', factor: 4.54609 },
+  { fromUnit: 'imperialGallon', toUnit: 'liter', factor: 4.54609 }
 ];

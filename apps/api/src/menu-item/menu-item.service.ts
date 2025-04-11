@@ -20,11 +20,9 @@ export class MenuItemService {
       const menuItem = await this.getMenuItem(menuItemId);
       const foodCost = (
         await Promise.all(
-          menuItem.recipes.map(async (recipe) => {
+          menuItem.recipes.map(async recipe => {
             const portion = recipe.servings;
-            const recipeFoodCost = await this.recipeService.FindCostByRecipeId(
-              recipe.id,
-            );
+            const recipeFoodCost = await this.recipeService.FindCostByRecipeId(recipe.id);
             return portion * recipeFoodCost;
           }),
         )
@@ -82,10 +80,7 @@ export class MenuItemService {
     }
   }
 
-  async updateMenuItem(
-    id: number,
-    data: Prisma.MenuItemUpdateInput,
-  ): Promise<MenuItem> {
+  async updateMenuItem(id: number, data: Prisma.MenuItemUpdateInput): Promise<MenuItem> {
     try {
       return await this.prisma.menuItem.update({
         where: { id },
@@ -93,10 +88,7 @@ export class MenuItemService {
         include: { recipes: true },
       });
     } catch (error) {
-      this.logger.handleError(
-        error,
-        `Failed to update menu item with ID ${id}`,
-      );
+      this.logger.handleError(error, `Failed to update menu item with ID ${id}`);
     }
   }
 
@@ -107,10 +99,7 @@ export class MenuItemService {
         include: { recipes: true },
       });
     } catch (error) {
-      this.logger.handleError(
-        error,
-        `Failed to delete menu item with ID ${id}`,
-      );
+      this.logger.handleError(error, `Failed to delete menu item with ID ${id}`);
     }
   }
 
@@ -127,10 +116,7 @@ export class MenuItemService {
 
       return menuIem;
     } catch (error) {
-      this.logger.handleError(
-        error,
-        `Failed to fetch menu item by recipe ID ${recipeId}`,
-      );
+      this.logger.handleError(error, `Failed to fetch menu item by recipe ID ${recipeId}`);
     }
   }
 
@@ -142,27 +128,20 @@ export class MenuItemService {
       }, 0);
       return price;
     } catch (error) {
-      this.logger.handleError(
-        error,
-        `Failed to calculate menu item price for ID ${menuItemId}`,
-      );
+      this.logger.handleError(error, `Failed to calculate menu item price for ID ${menuItemId}`);
     }
   }
 
   async calculateItemsPrice(menuItemIds: number[]): Promise<number> {
     try {
-      const itemsPrice = await Promise.all(
-        menuItemIds.map((id) => this.calculateMenuItemPrice(id)),
-      );
+      const itemsPrice = await Promise.all(menuItemIds.map(id => this.calculateMenuItemPrice(id)));
       return itemsPrice.reduce((acc, price) => acc + price, 0);
     } catch (error) {
       this.logger.handleError(error, 'Failed to calculate items price');
     }
   }
 
-  async calculateMenuItemFoodCostPercentage(
-    menuItemId: number,
-  ): Promise<number> {
+  async calculateMenuItemFoodCostPercentage(menuItemId: number): Promise<number> {
     try {
       const menuItem = await this.getMenuItem(menuItemId);
       const foodCost = menuItem.recipes.reduce((acc, recipe) => {
@@ -180,26 +159,18 @@ export class MenuItemService {
     }
   }
 
-  async calculateItemsFoodCostPercentage(
-    menuItemIds: number[],
-  ): Promise<number> {
+  async calculateItemsFoodCostPercentage(menuItemIds: number[]): Promise<number> {
     try {
       const itemsFoodCostPercentage = await Promise.all(
-        menuItemIds.map((id) => this.calculateMenuItemFoodCostPercentage(id)),
+        menuItemIds.map(id => this.calculateMenuItemFoodCostPercentage(id)),
       );
       return itemsFoodCostPercentage.reduce((acc, price) => acc + price, 0);
     } catch (error) {
-      this.logger.handleError(
-        error,
-        'Failed to calculate items food cost percentage',
-      );
+      this.logger.handleError(error, 'Failed to calculate items food cost percentage');
     }
   }
 
-  async addRecipeToMenuItem(
-    menuItemId: number,
-    recipeId: number,
-  ): Promise<MenuItem> {
+  async addRecipeToMenuItem(menuItemId: number, recipeId: number): Promise<MenuItem> {
     try {
       const menuItem = await this.getMenuItem(menuItemId);
       const recipe = await this.prisma.recipe.findUnique({
@@ -214,10 +185,7 @@ export class MenuItemService {
       });
       return menuItem;
     } catch (error) {
-      this.logger.handleError(
-        error,
-        `Failed to add recipe ${recipeId} to menu item ${menuItemId}`,
-      );
+      this.logger.handleError(error, `Failed to add recipe ${recipeId} to menu item ${menuItemId}`);
     }
   }
 } //

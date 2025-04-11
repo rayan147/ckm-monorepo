@@ -1,24 +1,10 @@
 import { zodSchemas } from '@ckm/db';
-// contracts/recipe.contract.ts
 
 import { z } from 'zod';
 import { initContract } from '@ts-rest/core';
 
+
 const c = initContract();
-const DeleteIdsSchema = z.object({
-  ingredientIds: z.array(z.number()),
-  instructionIds: z.array(z.number()),
-});
-
-const RecipeUpdateRequestSchema: z.ZodType<{
-  data: z.infer<typeof zodSchemas.RecipeUpdateInputSchema>;
-  deleteIds?: z.infer<typeof DeleteIdsSchema>;
-}> = z.object({
-  data: zodSchemas.RecipeUpdateInputSchema,
-  deleteIds: DeleteIdsSchema.optional(), // Make it optional if deletions are not always present
-});
-
-export type RecipeUpdateRequest = z.infer<typeof RecipeUpdateRequestSchema>;
 
 export const recipeContract = c.router({
   // Existing Endpoints
@@ -29,7 +15,7 @@ export const recipeContract = c.router({
       201: zodSchemas.RecipeSchema,
       400: z.object({ message: z.string() }),
     },
-    body: zodSchemas.RecipeCreateInputSchema,
+    body: z.any(),
     summary: 'Create a new recipe',
   },
 
@@ -79,6 +65,7 @@ export const recipeContract = c.router({
     },
     summary: 'Get a recipe by ID',
   },
+
   updateRecipe: {
     method: 'PUT',
     path: '/recipes/:id',
@@ -90,7 +77,7 @@ export const recipeContract = c.router({
       400: z.object({ message: z.string() }),
       404: z.object({ message: z.string() }),
     },
-    body: RecipeUpdateRequestSchema,
+    body: zodSchemas.RecipeUpdateInputSchema,
 
     summary: 'Update a recipe',
   },

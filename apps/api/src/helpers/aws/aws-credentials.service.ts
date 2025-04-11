@@ -1,4 +1,3 @@
-
 import { Injectable, InternalServerErrorException, OnModuleInit } from '@nestjs/common';
 import { STSClient, AssumeRoleCommand } from '@aws-sdk/client-sts';
 import { EnvService } from 'src/env/env.service';
@@ -9,7 +8,6 @@ export interface AwsCredentials {
   sessionToken?: string;
   expiration?: Date;
 }
-
 
 @Injectable()
 export class AwsCredentialsService implements OnModuleInit {
@@ -59,7 +57,6 @@ export class AwsCredentialsService implements OnModuleInit {
       setTimeout(() => {
         this.refreshCredentials();
       }, refreshTime);
-
     } catch (error) {
       console.error('Failed to refresh AWS credentials:', error);
       throw new InternalServerErrorException();
@@ -97,6 +94,6 @@ export class AwsCredentialsService implements OnModuleInit {
     const currentTime = Date.now();
     const expirationTime = this.tempCredentials.expiration.getTime();
 
-    return (expirationTime - currentTime) <= this.CREDENTIALS_REFRESH_THRESHOLD;
+    return expirationTime - currentTime <= this.CREDENTIALS_REFRESH_THRESHOLD;
   }
 }

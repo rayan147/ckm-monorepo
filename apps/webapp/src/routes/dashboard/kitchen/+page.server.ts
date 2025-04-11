@@ -1,5 +1,5 @@
-import { api } from "@ckm/lib-api";
-import { error, type Actions } from "@sveltejs/kit";
+import { api } from '@ckm/lib-api';
+import { error, type Actions } from '@sveltejs/kit';
 
 export const actions: Actions = {
   deleteRecipe: async ({ request }) => {

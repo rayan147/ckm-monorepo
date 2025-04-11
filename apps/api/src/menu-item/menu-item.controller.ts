@@ -47,86 +47,55 @@ export class MenuItemController {
 
   @TsRestHandler(contract.menuItem.updateMenuItem)
   async updateMenuItem() {
-    return tsRestHandler(
-      contract.menuItem.updateMenuItem,
-      async ({ params, body }) => {
-        this.logger.log(
-          `Received request to update menu item with ID ${params.id}`,
-        );
-        const menuItem = await this.menuItemService.updateMenuItem(
-          params.id,
-          body,
-        );
-        return { status: 200, body: menuItem };
-      },
-    );
+    return tsRestHandler(contract.menuItem.updateMenuItem, async ({ params, body }) => {
+      this.logger.log(`Received request to update menu item with ID ${params.id}`);
+      const menuItem = await this.menuItemService.updateMenuItem(params.id, body);
+      return { status: 200, body: menuItem };
+    });
   }
 
   @TsRestHandler(contract.menuItem.deleteMenuItem)
   async deleteMenuItem() {
-    return tsRestHandler(
-      contract.menuItem.deleteMenuItem,
-      async ({ params }) => {
-        this.logger.log(
-          `Received request to delete menu item with ID ${params.id}`,
-        );
-        const menuItem = await this.menuItemService.deleteMenuItem(params.id);
-        return {
-          status: 200,
-          body: { message: 'Menu item deleted successfully' },
-        };
-      },
-    );
+    return tsRestHandler(contract.menuItem.deleteMenuItem, async ({ params }) => {
+      this.logger.log(`Received request to delete menu item with ID ${params.id}`);
+      const menuItem = await this.menuItemService.deleteMenuItem(params.id);
+      return {
+        status: 200,
+        body: { message: 'Menu item deleted successfully' },
+      };
+    });
   }
 
   @TsRestHandler(contract.menuItem.addRecipeToMenuItem)
   async addRecipeToMenuItem() {
-    return tsRestHandler(
-      contract.menuItem.addRecipeToMenuItem,
-      async ({ body }) => {
-        this.logger.log(
-          `Received request to add recipe ${body.recipeId} to menu item ${body.menuItemId}`,
-        );
-        const recipe = await this.menuItemService.addRecipeToMenuItem(
-          body.menuItemId,
-          body.recipeId,
-        );
-        return { status: 201, body: recipe };
-      },
-    );
+    return tsRestHandler(contract.menuItem.addRecipeToMenuItem, async ({ body }) => {
+      this.logger.log(
+        `Received request to add recipe ${body.recipeId} to menu item ${body.menuItemId}`,
+      );
+      const recipe = await this.menuItemService.addRecipeToMenuItem(body.menuItemId, body.recipeId);
+      return { status: 201, body: recipe };
+    });
   }
 
   // getMenuItemByRecipeId
   @TsRestHandler(contract.menuItem.getMenuItemByRecipeId)
   async getMenuItemByRecipeId() {
-    return tsRestHandler(
-      contract.menuItem.getMenuItemByRecipeId,
-      async ({ params }) => {
-        this.logger.log(
-          `Received request to get menu item by recipe ID ${params.recipeId}`,
-        );
-        const menuItem = await this.menuItemService.getMenuItemByRecipeId(
-          params.recipeId,
-        );
-        return { status: 200, body: menuItem };
-      },
-    );
+    return tsRestHandler(contract.menuItem.getMenuItemByRecipeId, async ({ params }) => {
+      this.logger.log(`Received request to get menu item by recipe ID ${params.recipeId}`);
+      const menuItem = await this.menuItemService.getMenuItemByRecipeId(params.recipeId);
+      return { status: 200, body: menuItem };
+    });
   }
   //calculateMenuItemPrice
   @TsRestHandler(contract.menuItem.calculateMenuItemPrice)
   async calculateMenuItemPrice() {
-    return tsRestHandler(
-      contract.menuItem.calculateMenuItemPrice,
-      async ({ params }) => {
-        this.logger.log(
-          `Received request to calculate menu item price for menu item ${params.menuItemId}`,
-        );
-        const price = await this.menuItemService.calculateMenuItemPrice(
-          params.menuItemId,
-        );
-        return { status: 200, body: price };
-      },
-    );
+    return tsRestHandler(contract.menuItem.calculateMenuItemPrice, async ({ params }) => {
+      this.logger.log(
+        `Received request to calculate menu item price for menu item ${params.menuItemId}`,
+      );
+      const price = await this.menuItemService.calculateMenuItemPrice(params.menuItemId);
+      return { status: 200, body: price };
+    });
   }
   // calculateMenuItemFoodCostPercentage
   @TsRestHandler(contract.menuItem.calculateMenuItemFoodCostPercentage)
@@ -137,10 +106,9 @@ export class MenuItemController {
         this.logger.log(
           `Received request to calculate menu item food cost percentage for menu item ${params.menuItemId}`,
         );
-        const foodCostPercentage =
-          await this.menuItemService.calculateMenuItemFoodCostPercentage(
-            params.menuItemId,
-          );
+        const foodCostPercentage = await this.menuItemService.calculateMenuItemFoodCostPercentage(
+          params.menuItemId,
+        );
         return { status: 200, body: foodCostPercentage };
       },
     );
@@ -148,18 +116,12 @@ export class MenuItemController {
   // calculateItemsFoodCostPercentage
   @TsRestHandler(contract.menuItem.calculateItemsFoodCostPercentage)
   async calculateItemsFoodCostPercentage() {
-    return tsRestHandler(
-      contract.menuItem.calculateItemsFoodCostPercentage,
-      async ({ query }) => {
-        this.logger.log(
-          `Received request to calculate items food cost percentage`,
-        );
-        const foodCostPercentage =
-          await this.menuItemService.calculateItemsFoodCostPercentage(
-            query.menuItemIds,
-          );
-        return { status: 200, body: foodCostPercentage };
-      },
-    );
+    return tsRestHandler(contract.menuItem.calculateItemsFoodCostPercentage, async ({ query }) => {
+      this.logger.log(`Received request to calculate items food cost percentage`);
+      const foodCostPercentage = await this.menuItemService.calculateItemsFoodCostPercentage(
+        query.menuItemIds,
+      );
+      return { status: 200, body: foodCostPercentage };
+    });
   }
 } // end of Controller

@@ -29,9 +29,7 @@ let RestaurantController = class RestaurantController {
             const restaurants = await this.restaurantService.getRestaurants({
                 skip: query.skip ? parseInt(query.skip) : undefined,
                 take: query.take ? parseInt(query.take) : undefined,
-                organizationId: query.organizationId
-                    ? parseInt(query.organizationId)
-                    : undefined,
+                organizationId: query.organizationId ? parseInt(query.organizationId) : undefined,
             });
             return { status: common_1.HttpStatus.OK, body: restaurants };
         });

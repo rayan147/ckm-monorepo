@@ -5,7 +5,7 @@ import { CsrfService } from './csrf.service';
 
 @Injectable()
 export class CsrfMiddleware implements NestMiddleware {
-  constructor(private readonly csfService: CsrfService) { }
+  constructor(private readonly csfService: CsrfService) {}
 
   use(req: Request, res: Response, next: NextFunction) {
     if (!req.session?.csrfToken) {
@@ -15,11 +15,11 @@ export class CsrfMiddleware implements NestMiddleware {
         req.session.csrfToken = token;
       }
 
-      res.setHeader('X-CSRF-Token', token)
+      res.setHeader('X-CSRF-Token', token);
     } else {
-      res.setHeader('X-CSRF-Token', req.session.csrfToken)
+      res.setHeader('X-CSRF-Token', req.session.csrfToken);
     }
 
-    next()
+    next();
   }
 }

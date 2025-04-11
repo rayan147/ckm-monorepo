@@ -54,17 +54,11 @@ export class PrepBoardService {
       }
       return prepBoard;
     } catch (error) {
-      this.logger.handleError(
-        error,
-        `Failed to fetch prep board with ID ${id}`,
-      );
+      this.logger.handleError(error, `Failed to fetch prep board with ID ${id}`);
     }
   }
 
-  async updatePrepBoard(
-    id: number,
-    data: Prisma.PrepBoardUpdateInput,
-  ): Promise<PrepBoard> {
+  async updatePrepBoard(id: number, data: Prisma.PrepBoardUpdateInput): Promise<PrepBoard> {
     try {
       return await this.prisma.prepBoard.update({
         where: { id },
@@ -72,10 +66,7 @@ export class PrepBoardService {
         include: { recipes: true, prepItems: true },
       });
     } catch (error) {
-      this.logger.handleError(
-        error,
-        `Failed to update prep board with ID ${id}`,
-      );
+      this.logger.handleError(error, `Failed to update prep board with ID ${id}`);
     }
   }
 
@@ -86,10 +77,7 @@ export class PrepBoardService {
         include: { recipes: true, prepItems: true },
       });
     } catch (error) {
-      this.logger.handleError(
-        error,
-        `Failed to delete prep board with ID ${id}`,
-      );
+      this.logger.handleError(error, `Failed to delete prep board with ID ${id}`);
     }
   }
 }

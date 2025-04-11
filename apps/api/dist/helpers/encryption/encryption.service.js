@@ -27,10 +27,7 @@ let EncryptionService = class EncryptionService {
             const password = this.envService.get('ENCRYPTION_PASSWORD');
             const key = (await (0, util_1.promisify)(crypto_1.scrypt)(password, 'salt', 32));
             const cipher = (0, crypto_1.createCipheriv)('aes-256-ctr', key, iv);
-            const encryptedText = Buffer.concat([
-                cipher.update(text),
-                cipher.final(),
-            ]);
+            const encryptedText = Buffer.concat([cipher.update(text), cipher.final()]);
             return `${iv.toString('hex')}:${encryptedText.toString('hex')}`;
         }
         catch (error) {

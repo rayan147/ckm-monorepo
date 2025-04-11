@@ -61,8 +61,7 @@ let OrderItemService = class OrderItemService {
             });
         }
         catch (error) {
-            if (error instanceof db_1.Prisma.PrismaClientKnownRequestError &&
-                error.code === 'P2025') {
+            if (error instanceof db_1.Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
                 throw new common_1.NotFoundException('Order item not found');
             }
             throw new common_1.BadRequestException('Failed to update order item');
@@ -73,8 +72,7 @@ let OrderItemService = class OrderItemService {
             return await this.prisma.orderItem.delete({ where: { id } });
         }
         catch (error) {
-            if (error instanceof db_1.Prisma.PrismaClientKnownRequestError &&
-                error.code === 'P2025') {
+            if (error instanceof db_1.Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
                 throw new common_1.NotFoundException('Order item not found');
             }
             throw new common_1.BadRequestException('Failed to delete order item');

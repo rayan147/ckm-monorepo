@@ -46,6 +46,7 @@ let SessionAuthGuard = class SessionAuthGuard {
 exports.SessionAuthGuard = SessionAuthGuard;
 exports.SessionAuthGuard = SessionAuthGuard = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [auth_sessions_service_1.AuthSessionsService, logging_service_1.LoggingService])
+    __metadata("design:paramtypes", [auth_sessions_service_1.AuthSessionsService,
+        logging_service_1.LoggingService])
 ], SessionAuthGuard);
 //# sourceMappingURL=auth.session.guard.js.map

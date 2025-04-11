@@ -2,12 +2,12 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import type { ActionData } from './$types';
-  import HeroSection from '$lib/components/HeroSection.svelte';
-  import FeatureGrid from '$lib/components/FeatureGrid.svelte';
-  import FeatureSection from '$lib/components/FeatureSection.svelte';
-  import CTASection from '$lib/components/CTASection.svelte';
-  import Footer from '$lib/components/Footer.svelte';
-  import Navbar from '$lib/components/Navbar/Navbar.svelte';
+  import Navbar from '$lib/components/domain/nav/navbar.svelte';
+  import HeroSection from '$lib/components/domain/landing-page/hero-section.svelte';
+  import FeatureSection from '$lib/components/domain/landing-page/feature-section.svelte';
+  import FeatureGrid from '$lib/components/domain/landing-page/feature-grid.svelte';
+  import CTASection from '$lib/components/domain/landing-page/cta-section.svelte';
+  import Footer from '$lib/components/domain/landing-page/footer.svelte';
 
   interface Props {
     form: ActionData;

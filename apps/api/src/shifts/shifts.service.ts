@@ -58,10 +58,7 @@ export class ShiftService {
     try {
       const shift = await this.prisma.shift.findUnique({ where: { id } });
       if (!shift) {
-        this.logger.handleError(
-          new Error('Shift not found'),
-          `Shift with ID ${id} not found`,
-        );
+        this.logger.handleError(new Error('Shift not found'), `Shift with ID ${id} not found`);
       }
       return shift;
     } catch (error) {

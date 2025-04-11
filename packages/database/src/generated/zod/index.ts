@@ -88,7 +88,7 @@ export const UserScalarFieldEnumSchema = z.enum(['id','email','sub','firstName',
 
 export const AuthScalarFieldEnumSchema = z.enum(['id','userId','passwordHash','role']);
 
-export const SessionScalarFieldEnumSchema = z.enum(['id','userId','verificationCode','token','verified','expiresAt','createdAt']);
+export const SessionScalarFieldEnumSchema = z.enum(['id','userId','verificationCode','verified','expiresAt','createdAt']);
 
 export const CookBookScalarFieldEnumSchema = z.enum(['id','name','imageUrl','category','restaurantId']);
 
@@ -262,6 +262,19 @@ export const RecipeNutritionSchema = z.object({
 
 export type RecipeNutrition = z.infer<typeof RecipeNutritionSchema>
 
+// RECIPE NUTRITION RELATION SCHEMA
+//------------------------------------------------------
+
+export type RecipeNutritionRelations = {
+  recipe: RecipeWithRelations;
+};
+
+export type RecipeNutritionWithRelations = z.infer<typeof RecipeNutritionSchema> & RecipeNutritionRelations
+
+export const RecipeNutritionWithRelationsSchema: z.ZodType<RecipeNutritionWithRelations> = RecipeNutritionSchema.merge(z.object({
+  recipe: z.lazy(() => RecipeWithRelationsSchema),
+}))
+
 /////////////////////////////////////////
 // RECIPE CRITICAL POINT SCHEMA
 /////////////////////////////////////////
@@ -279,6 +292,19 @@ export const RecipeCriticalPointSchema = z.object({
 })
 
 export type RecipeCriticalPoint = z.infer<typeof RecipeCriticalPointSchema>
+
+// RECIPE CRITICAL POINT RELATION SCHEMA
+//------------------------------------------------------
+
+export type RecipeCriticalPointRelations = {
+  recipe: RecipeWithRelations;
+};
+
+export type RecipeCriticalPointWithRelations = z.infer<typeof RecipeCriticalPointSchema> & RecipeCriticalPointRelations
+
+export const RecipeCriticalPointWithRelationsSchema: z.ZodType<RecipeCriticalPointWithRelations> = RecipeCriticalPointSchema.merge(z.object({
+  recipe: z.lazy(() => RecipeWithRelationsSchema),
+}))
 
 /////////////////////////////////////////
 // RECIPE STORAGE SCHEMA
@@ -298,6 +324,19 @@ export const RecipeStorageSchema = z.object({
 
 export type RecipeStorage = z.infer<typeof RecipeStorageSchema>
 
+// RECIPE STORAGE RELATION SCHEMA
+//------------------------------------------------------
+
+export type RecipeStorageRelations = {
+  recipe: RecipeWithRelations;
+};
+
+export type RecipeStorageWithRelations = z.infer<typeof RecipeStorageSchema> & RecipeStorageRelations
+
+export const RecipeStorageWithRelationsSchema: z.ZodType<RecipeStorageWithRelations> = RecipeStorageSchema.merge(z.object({
+  recipe: z.lazy(() => RecipeWithRelationsSchema),
+}))
+
 /////////////////////////////////////////
 // RECIPE PHOTO SCHEMA
 /////////////////////////////////////////
@@ -314,6 +353,19 @@ export const RecipePhotoSchema = z.object({
 })
 
 export type RecipePhoto = z.infer<typeof RecipePhotoSchema>
+
+// RECIPE PHOTO RELATION SCHEMA
+//------------------------------------------------------
+
+export type RecipePhotoRelations = {
+  recipe: RecipeWithRelations;
+};
+
+export type RecipePhotoWithRelations = z.infer<typeof RecipePhotoSchema> & RecipePhotoRelations
+
+export const RecipePhotoWithRelationsSchema: z.ZodType<RecipePhotoWithRelations> = RecipePhotoSchema.merge(z.object({
+  recipe: z.lazy(() => RecipeWithRelationsSchema),
+}))
 
 /////////////////////////////////////////
 // RECIPE TEMPERATURE SCHEMA
@@ -334,6 +386,19 @@ export const RecipeTemperatureSchema = z.object({
 
 export type RecipeTemperature = z.infer<typeof RecipeTemperatureSchema>
 
+// RECIPE TEMPERATURE RELATION SCHEMA
+//------------------------------------------------------
+
+export type RecipeTemperatureRelations = {
+  recipe: RecipeWithRelations;
+};
+
+export type RecipeTemperatureWithRelations = z.infer<typeof RecipeTemperatureSchema> & RecipeTemperatureRelations
+
+export const RecipeTemperatureWithRelationsSchema: z.ZodType<RecipeTemperatureWithRelations> = RecipeTemperatureSchema.merge(z.object({
+  recipe: z.lazy(() => RecipeWithRelationsSchema),
+}))
+
 /////////////////////////////////////////
 // RECIPE YIELD SCHEMA
 /////////////////////////////////////////
@@ -352,6 +417,19 @@ export const RecipeYieldSchema = z.object({
 
 export type RecipeYield = z.infer<typeof RecipeYieldSchema>
 
+// RECIPE YIELD RELATION SCHEMA
+//------------------------------------------------------
+
+export type RecipeYieldRelations = {
+  recipe: RecipeWithRelations;
+};
+
+export type RecipeYieldWithRelations = z.infer<typeof RecipeYieldSchema> & RecipeYieldRelations
+
+export const RecipeYieldWithRelationsSchema: z.ZodType<RecipeYieldWithRelations> = RecipeYieldSchema.merge(z.object({
+  recipe: z.lazy(() => RecipeWithRelationsSchema),
+}))
+
 /////////////////////////////////////////
 // RECIPE LABOR COST SCHEMA
 /////////////////////////////////////////
@@ -368,6 +446,19 @@ export const RecipeLaborCostSchema = z.object({
 })
 
 export type RecipeLaborCost = z.infer<typeof RecipeLaborCostSchema>
+
+// RECIPE LABOR COST RELATION SCHEMA
+//------------------------------------------------------
+
+export type RecipeLaborCostRelations = {
+  recipe: RecipeWithRelations;
+};
+
+export type RecipeLaborCostWithRelations = z.infer<typeof RecipeLaborCostSchema> & RecipeLaborCostRelations
+
+export const RecipeLaborCostWithRelationsSchema: z.ZodType<RecipeLaborCostWithRelations> = RecipeLaborCostSchema.merge(z.object({
+  recipe: z.lazy(() => RecipeWithRelationsSchema),
+}))
 
 /////////////////////////////////////////
 // SALES TRANSACTIONS SCHEMA
@@ -387,6 +478,21 @@ export const SalesTransactionsSchema = z.object({
 
 export type SalesTransactions = z.infer<typeof SalesTransactionsSchema>
 
+// SALES TRANSACTIONS RELATION SCHEMA
+//------------------------------------------------------
+
+export type SalesTransactionsRelations = {
+  restaurant: RestaurantWithRelations;
+  menuItem: MenuItemWithRelations;
+};
+
+export type SalesTransactionsWithRelations = z.infer<typeof SalesTransactionsSchema> & SalesTransactionsRelations
+
+export const SalesTransactionsWithRelationsSchema: z.ZodType<SalesTransactionsWithRelations> = SalesTransactionsSchema.merge(z.object({
+  restaurant: z.lazy(() => RestaurantWithRelationsSchema),
+  menuItem: z.lazy(() => MenuItemWithRelationsSchema),
+}))
+
 /////////////////////////////////////////
 // MENU CATEGORY SCHEMA
 /////////////////////////////////////////
@@ -403,6 +509,21 @@ export const MenuCategorySchema = z.object({
 })
 
 export type MenuCategory = z.infer<typeof MenuCategorySchema>
+
+// MENU CATEGORY RELATION SCHEMA
+//------------------------------------------------------
+
+export type MenuCategoryRelations = {
+  menu: MenuWithRelations;
+  menuItems: MenuItemWithRelations[];
+};
+
+export type MenuCategoryWithRelations = z.infer<typeof MenuCategorySchema> & MenuCategoryRelations
+
+export const MenuCategoryWithRelationsSchema: z.ZodType<MenuCategoryWithRelations> = MenuCategorySchema.merge(z.object({
+  menu: z.lazy(() => MenuWithRelationsSchema),
+  menuItems: z.lazy(() => MenuItemWithRelationsSchema).array(),
+}))
 
 /////////////////////////////////////////
 // RECIPE VERSION SCHEMA
@@ -423,6 +544,27 @@ export const RecipeVersionSchema = z.object({
 })
 
 export type RecipeVersion = z.infer<typeof RecipeVersionSchema>
+
+// RECIPE VERSION RELATION SCHEMA
+//------------------------------------------------------
+
+export type RecipeVersionRelations = {
+  recipe: RecipeWithRelations;
+  ingredients: RecipeIngredientWithRelations[];
+  instructions: RecipeInstructionWithRelations[];
+  createdBy: UserWithRelations;
+  approvedBy?: UserWithRelations | null;
+};
+
+export type RecipeVersionWithRelations = z.infer<typeof RecipeVersionSchema> & RecipeVersionRelations
+
+export const RecipeVersionWithRelationsSchema: z.ZodType<RecipeVersionWithRelations> = RecipeVersionSchema.merge(z.object({
+  recipe: z.lazy(() => RecipeWithRelationsSchema),
+  ingredients: z.lazy(() => RecipeIngredientWithRelationsSchema).array(),
+  instructions: z.lazy(() => RecipeInstructionWithRelationsSchema).array(),
+  createdBy: z.lazy(() => UserWithRelationsSchema),
+  approvedBy: z.lazy(() => UserWithRelationsSchema).nullable(),
+}))
 
 /////////////////////////////////////////
 // EQUIPMENT SCHEMA
@@ -446,6 +588,23 @@ export const EquipmentSchema = z.object({
 
 export type Equipment = z.infer<typeof EquipmentSchema>
 
+// EQUIPMENT RELATION SCHEMA
+//------------------------------------------------------
+
+export type EquipmentRelations = {
+  restaurant: RestaurantWithRelations;
+  recipes: RecipeEquipmentWithRelations[];
+  maintenanceLogs: MaintenanceLogWithRelations[];
+};
+
+export type EquipmentWithRelations = z.infer<typeof EquipmentSchema> & EquipmentRelations
+
+export const EquipmentWithRelationsSchema: z.ZodType<EquipmentWithRelations> = EquipmentSchema.merge(z.object({
+  restaurant: z.lazy(() => RestaurantWithRelationsSchema),
+  recipes: z.lazy(() => RecipeEquipmentWithRelationsSchema).array(),
+  maintenanceLogs: z.lazy(() => MaintenanceLogWithRelationsSchema).array(),
+}))
+
 /////////////////////////////////////////
 // RECIPE EQUIPMENT SCHEMA
 /////////////////////////////////////////
@@ -459,6 +618,23 @@ export const RecipeEquipmentSchema = z.object({
 })
 
 export type RecipeEquipment = z.infer<typeof RecipeEquipmentSchema>
+
+// RECIPE EQUIPMENT RELATION SCHEMA
+//------------------------------------------------------
+
+export type RecipeEquipmentRelations = {
+  recipe: RecipeWithRelations;
+  equipment: EquipmentWithRelations;
+  RecipeInstruction?: RecipeInstructionWithRelations | null;
+};
+
+export type RecipeEquipmentWithRelations = z.infer<typeof RecipeEquipmentSchema> & RecipeEquipmentRelations
+
+export const RecipeEquipmentWithRelationsSchema: z.ZodType<RecipeEquipmentWithRelations> = RecipeEquipmentSchema.merge(z.object({
+  recipe: z.lazy(() => RecipeWithRelationsSchema),
+  equipment: z.lazy(() => EquipmentWithRelationsSchema),
+  RecipeInstruction: z.lazy(() => RecipeInstructionWithRelationsSchema).nullable(),
+}))
 
 /////////////////////////////////////////
 // MAINTENANCE LOG SCHEMA
@@ -479,6 +655,19 @@ export const MaintenanceLogSchema = z.object({
 
 export type MaintenanceLog = z.infer<typeof MaintenanceLogSchema>
 
+// MAINTENANCE LOG RELATION SCHEMA
+//------------------------------------------------------
+
+export type MaintenanceLogRelations = {
+  equipment: EquipmentWithRelations;
+};
+
+export type MaintenanceLogWithRelations = z.infer<typeof MaintenanceLogSchema> & MaintenanceLogRelations
+
+export const MaintenanceLogWithRelationsSchema: z.ZodType<MaintenanceLogWithRelations> = MaintenanceLogSchema.merge(z.object({
+  equipment: z.lazy(() => EquipmentWithRelationsSchema),
+}))
+
 /////////////////////////////////////////
 // QUALITY CHECKLIST SCHEMA
 /////////////////////////////////////////
@@ -495,6 +684,23 @@ export const QualityChecklistSchema = z.object({
 })
 
 export type QualityChecklist = z.infer<typeof QualityChecklistSchema>
+
+// QUALITY CHECKLIST RELATION SCHEMA
+//------------------------------------------------------
+
+export type QualityChecklistRelations = {
+  restaurant: RestaurantWithRelations;
+  items: ChecklistItemWithRelations[];
+  completions: ChecklistCompleteWithRelations[];
+};
+
+export type QualityChecklistWithRelations = z.infer<typeof QualityChecklistSchema> & QualityChecklistRelations
+
+export const QualityChecklistWithRelationsSchema: z.ZodType<QualityChecklistWithRelations> = QualityChecklistSchema.merge(z.object({
+  restaurant: z.lazy(() => RestaurantWithRelationsSchema),
+  items: z.lazy(() => ChecklistItemWithRelationsSchema).array(),
+  completions: z.lazy(() => ChecklistCompleteWithRelationsSchema).array(),
+}))
 
 /////////////////////////////////////////
 // CHECKLIST ITEM SCHEMA
@@ -513,6 +719,21 @@ export const ChecklistItemSchema = z.object({
 
 export type ChecklistItem = z.infer<typeof ChecklistItemSchema>
 
+// CHECKLIST ITEM RELATION SCHEMA
+//------------------------------------------------------
+
+export type ChecklistItemRelations = {
+  checklist: QualityChecklistWithRelations;
+  completions: ChecklistItemCompleteWithRelations[];
+};
+
+export type ChecklistItemWithRelations = z.infer<typeof ChecklistItemSchema> & ChecklistItemRelations
+
+export const ChecklistItemWithRelationsSchema: z.ZodType<ChecklistItemWithRelations> = ChecklistItemSchema.merge(z.object({
+  checklist: z.lazy(() => QualityChecklistWithRelationsSchema),
+  completions: z.lazy(() => ChecklistItemCompleteWithRelationsSchema).array(),
+}))
+
 /////////////////////////////////////////
 // CHECKLIST COMPLETE SCHEMA
 /////////////////////////////////////////
@@ -528,6 +749,23 @@ export const ChecklistCompleteSchema = z.object({
 })
 
 export type ChecklistComplete = z.infer<typeof ChecklistCompleteSchema>
+
+// CHECKLIST COMPLETE RELATION SCHEMA
+//------------------------------------------------------
+
+export type ChecklistCompleteRelations = {
+  checklist: QualityChecklistWithRelations;
+  completedBy: UserWithRelations;
+  items: ChecklistItemCompleteWithRelations[];
+};
+
+export type ChecklistCompleteWithRelations = z.infer<typeof ChecklistCompleteSchema> & ChecklistCompleteRelations
+
+export const ChecklistCompleteWithRelationsSchema: z.ZodType<ChecklistCompleteWithRelations> = ChecklistCompleteSchema.merge(z.object({
+  checklist: z.lazy(() => QualityChecklistWithRelationsSchema),
+  completedBy: z.lazy(() => UserWithRelationsSchema),
+  items: z.lazy(() => ChecklistItemCompleteWithRelationsSchema).array(),
+}))
 
 /////////////////////////////////////////
 // CHECKLIST ITEM COMPLETE SCHEMA
@@ -545,6 +783,21 @@ export const ChecklistItemCompleteSchema = z.object({
 })
 
 export type ChecklistItemComplete = z.infer<typeof ChecklistItemCompleteSchema>
+
+// CHECKLIST ITEM COMPLETE RELATION SCHEMA
+//------------------------------------------------------
+
+export type ChecklistItemCompleteRelations = {
+  checklistComplete: ChecklistCompleteWithRelations;
+  checklistItem: ChecklistItemWithRelations;
+};
+
+export type ChecklistItemCompleteWithRelations = z.infer<typeof ChecklistItemCompleteSchema> & ChecklistItemCompleteRelations
+
+export const ChecklistItemCompleteWithRelationsSchema: z.ZodType<ChecklistItemCompleteWithRelations> = ChecklistItemCompleteSchema.merge(z.object({
+  checklistComplete: z.lazy(() => ChecklistCompleteWithRelationsSchema),
+  checklistItem: z.lazy(() => ChecklistItemWithRelationsSchema),
+}))
 
 /////////////////////////////////////////
 // SUPPLIER PRICE HISTORY SCHEMA
@@ -564,6 +817,21 @@ export const SupplierPriceHistorySchema = z.object({
 })
 
 export type SupplierPriceHistory = z.infer<typeof SupplierPriceHistorySchema>
+
+// SUPPLIER PRICE HISTORY RELATION SCHEMA
+//------------------------------------------------------
+
+export type SupplierPriceHistoryRelations = {
+  vendor: VendorWithRelations;
+  ingredient: IngredientWithRelations;
+};
+
+export type SupplierPriceHistoryWithRelations = z.infer<typeof SupplierPriceHistorySchema> & SupplierPriceHistoryRelations
+
+export const SupplierPriceHistoryWithRelationsSchema: z.ZodType<SupplierPriceHistoryWithRelations> = SupplierPriceHistorySchema.merge(z.object({
+  vendor: z.lazy(() => VendorWithRelationsSchema),
+  ingredient: z.lazy(() => IngredientWithRelationsSchema),
+}))
 
 /////////////////////////////////////////
 // CUSTOMER FEEDBACK SCHEMA
@@ -587,6 +855,23 @@ export const CustomerFeedbackSchema = z.object({
 
 export type CustomerFeedback = z.infer<typeof CustomerFeedbackSchema>
 
+// CUSTOMER FEEDBACK RELATION SCHEMA
+//------------------------------------------------------
+
+export type CustomerFeedbackRelations = {
+  restaurant: RestaurantWithRelations;
+  menuItem?: MenuItemWithRelations | null;
+  respondedBy?: UserWithRelations | null;
+};
+
+export type CustomerFeedbackWithRelations = z.infer<typeof CustomerFeedbackSchema> & CustomerFeedbackRelations
+
+export const CustomerFeedbackWithRelationsSchema: z.ZodType<CustomerFeedbackWithRelations> = CustomerFeedbackSchema.merge(z.object({
+  restaurant: z.lazy(() => RestaurantWithRelationsSchema),
+  menuItem: z.lazy(() => MenuItemWithRelationsSchema).nullable(),
+  respondedBy: z.lazy(() => UserWithRelationsSchema).nullable(),
+}))
+
 /////////////////////////////////////////
 // DIETARY RESTRICTION SCHEMA
 /////////////////////////////////////////
@@ -602,6 +887,23 @@ export const DietaryRestrictionSchema = z.object({
 
 export type DietaryRestriction = z.infer<typeof DietaryRestrictionSchema>
 
+// DIETARY RESTRICTION RELATION SCHEMA
+//------------------------------------------------------
+
+export type DietaryRestrictionRelations = {
+  menuItems: MenuItemWithRelations[];
+  recipes: RecipeWithRelations[];
+  ingredients: IngredientWithRelations[];
+};
+
+export type DietaryRestrictionWithRelations = z.infer<typeof DietaryRestrictionSchema> & DietaryRestrictionRelations
+
+export const DietaryRestrictionWithRelationsSchema: z.ZodType<DietaryRestrictionWithRelations> = DietaryRestrictionSchema.merge(z.object({
+  menuItems: z.lazy(() => MenuItemWithRelationsSchema).array(),
+  recipes: z.lazy(() => RecipeWithRelationsSchema).array(),
+  ingredients: z.lazy(() => IngredientWithRelationsSchema).array(),
+}))
+
 /////////////////////////////////////////
 // RECIPE TAG SCHEMA
 /////////////////////////////////////////
@@ -615,6 +917,19 @@ export const RecipeTagSchema = z.object({
 })
 
 export type RecipeTag = z.infer<typeof RecipeTagSchema>
+
+// RECIPE TAG RELATION SCHEMA
+//------------------------------------------------------
+
+export type RecipeTagRelations = {
+  recipes: RecipeWithRelations[];
+};
+
+export type RecipeTagWithRelations = z.infer<typeof RecipeTagSchema> & RecipeTagRelations
+
+export const RecipeTagWithRelationsSchema: z.ZodType<RecipeTagWithRelations> = RecipeTagSchema.merge(z.object({
+  recipes: z.lazy(() => RecipeWithRelationsSchema).array(),
+}))
 
 /////////////////////////////////////////
 // LEFTOVER ITEM SCHEMA
@@ -633,6 +948,23 @@ export const LeftoverItemSchema = z.object({
 })
 
 export type LeftoverItem = z.infer<typeof LeftoverItemSchema>
+
+// LEFTOVER ITEM RELATION SCHEMA
+//------------------------------------------------------
+
+export type LeftoverItemRelations = {
+  restaurant: RestaurantWithRelations;
+  menuItem: MenuItemWithRelations;
+  recordedBy: UserWithRelations;
+};
+
+export type LeftoverItemWithRelations = z.infer<typeof LeftoverItemSchema> & LeftoverItemRelations
+
+export const LeftoverItemWithRelationsSchema: z.ZodType<LeftoverItemWithRelations> = LeftoverItemSchema.merge(z.object({
+  restaurant: z.lazy(() => RestaurantWithRelationsSchema),
+  menuItem: z.lazy(() => MenuItemWithRelationsSchema),
+  recordedBy: z.lazy(() => UserWithRelationsSchema),
+}))
 
 /////////////////////////////////////////
 // WASTE RECORD SCHEMA
@@ -653,6 +985,23 @@ export const WasteRecordSchema = z.object({
 
 export type WasteRecord = z.infer<typeof WasteRecordSchema>
 
+// WASTE RECORD RELATION SCHEMA
+//------------------------------------------------------
+
+export type WasteRecordRelations = {
+  restaurant: RestaurantWithRelations;
+  ingrediente: IngredientWithRelations;
+  recordedBy: UserWithRelations;
+};
+
+export type WasteRecordWithRelations = z.infer<typeof WasteRecordSchema> & WasteRecordRelations
+
+export const WasteRecordWithRelationsSchema: z.ZodType<WasteRecordWithRelations> = WasteRecordSchema.merge(z.object({
+  restaurant: z.lazy(() => RestaurantWithRelationsSchema),
+  ingrediente: z.lazy(() => IngredientWithRelationsSchema),
+  recordedBy: z.lazy(() => UserWithRelationsSchema),
+}))
+
 /////////////////////////////////////////
 // PRODUCTION PLAN SCHEMA
 /////////////////////////////////////////
@@ -668,6 +1017,23 @@ export const ProductionPlanSchema = z.object({
 })
 
 export type ProductionPlan = z.infer<typeof ProductionPlanSchema>
+
+// PRODUCTION PLAN RELATION SCHEMA
+//------------------------------------------------------
+
+export type ProductionPlanRelations = {
+  restaurant: RestaurantWithRelations;
+  createdBy: UserWithRelations;
+  items: ProductionPlanItemWithRelations[];
+};
+
+export type ProductionPlanWithRelations = z.infer<typeof ProductionPlanSchema> & ProductionPlanRelations
+
+export const ProductionPlanWithRelationsSchema: z.ZodType<ProductionPlanWithRelations> = ProductionPlanSchema.merge(z.object({
+  restaurant: z.lazy(() => RestaurantWithRelationsSchema),
+  createdBy: z.lazy(() => UserWithRelationsSchema),
+  items: z.lazy(() => ProductionPlanItemWithRelationsSchema).array(),
+}))
 
 /////////////////////////////////////////
 // PRODUCTION PLAN ITEM SCHEMA
@@ -685,6 +1051,23 @@ export const ProductionPlanItemSchema = z.object({
 })
 
 export type ProductionPlanItem = z.infer<typeof ProductionPlanItemSchema>
+
+// PRODUCTION PLAN ITEM RELATION SCHEMA
+//------------------------------------------------------
+
+export type ProductionPlanItemRelations = {
+  productionPlan: ProductionPlanWithRelations;
+  recipe: RecipeWithRelations;
+  assignedTo?: UserWithRelations | null;
+};
+
+export type ProductionPlanItemWithRelations = z.infer<typeof ProductionPlanItemSchema> & ProductionPlanItemRelations
+
+export const ProductionPlanItemWithRelationsSchema: z.ZodType<ProductionPlanItemWithRelations> = ProductionPlanItemSchema.merge(z.object({
+  productionPlan: z.lazy(() => ProductionPlanWithRelationsSchema),
+  recipe: z.lazy(() => RecipeWithRelationsSchema),
+  assignedTo: z.lazy(() => UserWithRelationsSchema).nullable(),
+}))
 
 /////////////////////////////////////////
 // SHIFT TASK SCHEMA
@@ -704,6 +1087,19 @@ export const ShiftTaskSchema = z.object({
 
 export type ShiftTask = z.infer<typeof ShiftTaskSchema>
 
+// SHIFT TASK RELATION SCHEMA
+//------------------------------------------------------
+
+export type ShiftTaskRelations = {
+  shift: ShiftWithRelations;
+};
+
+export type ShiftTaskWithRelations = z.infer<typeof ShiftTaskSchema> & ShiftTaskRelations
+
+export const ShiftTaskWithRelationsSchema: z.ZodType<ShiftTaskWithRelations> = ShiftTaskSchema.merge(z.object({
+  shift: z.lazy(() => ShiftWithRelationsSchema),
+}))
+
 /////////////////////////////////////////
 // AVAILABILITY SCHEMA
 /////////////////////////////////////////
@@ -719,6 +1115,19 @@ export const AvailabilitySchema = z.object({
 })
 
 export type Availability = z.infer<typeof AvailabilitySchema>
+
+// AVAILABILITY RELATION SCHEMA
+//------------------------------------------------------
+
+export type AvailabilityRelations = {
+  user: UserWithRelations;
+};
+
+export type AvailabilityWithRelations = z.infer<typeof AvailabilitySchema> & AvailabilityRelations
+
+export const AvailabilityWithRelationsSchema: z.ZodType<AvailabilityWithRelations> = AvailabilitySchema.merge(z.object({
+  user: z.lazy(() => UserWithRelationsSchema),
+}))
 
 /////////////////////////////////////////
 // SCHEDULING CONSTRAINT SCHEMA
@@ -738,6 +1147,19 @@ export const SchedulingConstraintSchema = z.object({
 
 export type SchedulingConstraint = z.infer<typeof SchedulingConstraintSchema>
 
+// SCHEDULING CONSTRAINT RELATION SCHEMA
+//------------------------------------------------------
+
+export type SchedulingConstraintRelations = {
+  user: UserWithRelations;
+};
+
+export type SchedulingConstraintWithRelations = z.infer<typeof SchedulingConstraintSchema> & SchedulingConstraintRelations
+
+export const SchedulingConstraintWithRelationsSchema: z.ZodType<SchedulingConstraintWithRelations> = SchedulingConstraintSchema.merge(z.object({
+  user: z.lazy(() => UserWithRelationsSchema),
+}))
+
 /////////////////////////////////////////
 // INVENTORY WITHDRAWAL SCHEMA
 /////////////////////////////////////////
@@ -756,6 +1178,23 @@ export const InventoryWithdrawalSchema = z.object({
 
 export type InventoryWithdrawal = z.infer<typeof InventoryWithdrawalSchema>
 
+// INVENTORY WITHDRAWAL RELATION SCHEMA
+//------------------------------------------------------
+
+export type InventoryWithdrawalRelations = {
+  inventoryItem: InventoryItemWithRelations;
+  recipe?: RecipeWithRelations | null;
+  createdBy: UserWithRelations;
+};
+
+export type InventoryWithdrawalWithRelations = z.infer<typeof InventoryWithdrawalSchema> & InventoryWithdrawalRelations
+
+export const InventoryWithdrawalWithRelationsSchema: z.ZodType<InventoryWithdrawalWithRelations> = InventoryWithdrawalSchema.merge(z.object({
+  inventoryItem: z.lazy(() => InventoryItemWithRelationsSchema),
+  recipe: z.lazy(() => RecipeWithRelationsSchema).nullable(),
+  createdBy: z.lazy(() => UserWithRelationsSchema),
+}))
+
 /////////////////////////////////////////
 // ALLERGEN SCHEMA
 /////////////////////////////////////////
@@ -768,6 +1207,19 @@ export const AllergenSchema = z.object({
 
 export type Allergen = z.infer<typeof AllergenSchema>
 
+// ALLERGEN RELATION SCHEMA
+//------------------------------------------------------
+
+export type AllergenRelations = {
+  ingredients: IngredientAllergenWithRelations[];
+};
+
+export type AllergenWithRelations = z.infer<typeof AllergenSchema> & AllergenRelations
+
+export const AllergenWithRelationsSchema: z.ZodType<AllergenWithRelations> = AllergenSchema.merge(z.object({
+  ingredients: z.lazy(() => IngredientAllergenWithRelationsSchema).array(),
+}))
+
 /////////////////////////////////////////
 // INGREDIENT ALLERGEN SCHEMA
 /////////////////////////////////////////
@@ -779,6 +1231,21 @@ export const IngredientAllergenSchema = z.object({
 })
 
 export type IngredientAllergen = z.infer<typeof IngredientAllergenSchema>
+
+// INGREDIENT ALLERGEN RELATION SCHEMA
+//------------------------------------------------------
+
+export type IngredientAllergenRelations = {
+  ingredient: IngredientWithRelations;
+  allergen: AllergenWithRelations;
+};
+
+export type IngredientAllergenWithRelations = z.infer<typeof IngredientAllergenSchema> & IngredientAllergenRelations
+
+export const IngredientAllergenWithRelationsSchema: z.ZodType<IngredientAllergenWithRelations> = IngredientAllergenSchema.merge(z.object({
+  ingredient: z.lazy(() => IngredientWithRelationsSchema),
+  allergen: z.lazy(() => AllergenWithRelationsSchema),
+}))
 
 /////////////////////////////////////////
 // NUTRITIONAL RECOMMENDATION SCHEMA
@@ -793,6 +1260,19 @@ export const NutritionalRecommendationSchema = z.object({
 })
 
 export type NutritionalRecommendation = z.infer<typeof NutritionalRecommendationSchema>
+
+// NUTRITIONAL RECOMMENDATION RELATION SCHEMA
+//------------------------------------------------------
+
+export type NutritionalRecommendationRelations = {
+  menuItem: MenuItemWithRelations;
+};
+
+export type NutritionalRecommendationWithRelations = z.infer<typeof NutritionalRecommendationSchema> & NutritionalRecommendationRelations
+
+export const NutritionalRecommendationWithRelationsSchema: z.ZodType<NutritionalRecommendationWithRelations> = NutritionalRecommendationSchema.merge(z.object({
+  menuItem: z.lazy(() => MenuItemWithRelationsSchema),
+}))
 
 /////////////////////////////////////////
 // EARLY ACCESS SCHEMA
@@ -822,6 +1302,21 @@ export const OrganizationSchema = z.object({
 
 export type Organization = z.infer<typeof OrganizationSchema>
 
+// ORGANIZATION RELATION SCHEMA
+//------------------------------------------------------
+
+export type OrganizationRelations = {
+  restaurants: RestaurantWithRelations[];
+  users: UserWithRelations[];
+};
+
+export type OrganizationWithRelations = z.infer<typeof OrganizationSchema> & OrganizationRelations
+
+export const OrganizationWithRelationsSchema: z.ZodType<OrganizationWithRelations> = OrganizationSchema.merge(z.object({
+  restaurants: z.lazy(() => RestaurantWithRelationsSchema).array(),
+  users: z.lazy(() => UserWithRelationsSchema).array(),
+}))
+
 /////////////////////////////////////////
 // INVENTORY SCHEMA
 /////////////////////////////////////////
@@ -837,6 +1332,25 @@ export const InventorySchema = z.object({
 })
 
 export type Inventory = z.infer<typeof InventorySchema>
+
+// INVENTORY RELATION SCHEMA
+//------------------------------------------------------
+
+export type InventoryRelations = {
+  restaurant: RestaurantWithRelations;
+  items: InventoryItemWithRelations[];
+  transactions: InventoryTransactionWithRelations[];
+  stockCounts: StockCountWithRelations[];
+};
+
+export type InventoryWithRelations = z.infer<typeof InventorySchema> & InventoryRelations
+
+export const InventoryWithRelationsSchema: z.ZodType<InventoryWithRelations> = InventorySchema.merge(z.object({
+  restaurant: z.lazy(() => RestaurantWithRelationsSchema),
+  items: z.lazy(() => InventoryItemWithRelationsSchema).array(),
+  transactions: z.lazy(() => InventoryTransactionWithRelationsSchema).array(),
+  stockCounts: z.lazy(() => StockCountWithRelationsSchema).array(),
+}))
 
 /////////////////////////////////////////
 // RESTAURANT SCHEMA
@@ -861,6 +1375,45 @@ export const RestaurantSchema = z.object({
 
 export type Restaurant = z.infer<typeof RestaurantSchema>
 
+// RESTAURANT RELATION SCHEMA
+//------------------------------------------------------
+
+export type RestaurantRelations = {
+  organization?: OrganizationWithRelations | null;
+  users: UserWithRelations[];
+  cookbooks: CookBookWithRelations[];
+  inventory?: InventoryWithRelations | null;
+  orders: OrderWithRelations[];
+  recipes: RecipeWithRelations[];
+  menus: MenuWithRelations[];
+  salesTransactions: SalesTransactionsWithRelations[];
+  leftoverItems: LeftoverItemWithRelations[];
+  wasteRecords: WasteRecordWithRelations[];
+  productionPlans: ProductionPlanWithRelations[];
+  equipments: EquipmentWithRelations[];
+  qualityChecklists: QualityChecklistWithRelations[];
+  customerFeedbacks: CustomerFeedbackWithRelations[];
+};
+
+export type RestaurantWithRelations = z.infer<typeof RestaurantSchema> & RestaurantRelations
+
+export const RestaurantWithRelationsSchema: z.ZodType<RestaurantWithRelations> = RestaurantSchema.merge(z.object({
+  organization: z.lazy(() => OrganizationWithRelationsSchema).nullable(),
+  users: z.lazy(() => UserWithRelationsSchema).array(),
+  cookbooks: z.lazy(() => CookBookWithRelationsSchema).array(),
+  inventory: z.lazy(() => InventoryWithRelationsSchema).nullable(),
+  orders: z.lazy(() => OrderWithRelationsSchema).array(),
+  recipes: z.lazy(() => RecipeWithRelationsSchema).array(),
+  menus: z.lazy(() => MenuWithRelationsSchema).array(),
+  salesTransactions: z.lazy(() => SalesTransactionsWithRelationsSchema).array(),
+  leftoverItems: z.lazy(() => LeftoverItemWithRelationsSchema).array(),
+  wasteRecords: z.lazy(() => WasteRecordWithRelationsSchema).array(),
+  productionPlans: z.lazy(() => ProductionPlanWithRelationsSchema).array(),
+  equipments: z.lazy(() => EquipmentWithRelationsSchema).array(),
+  qualityChecklists: z.lazy(() => QualityChecklistWithRelationsSchema).array(),
+  customerFeedbacks: z.lazy(() => CustomerFeedbackWithRelationsSchema).array(),
+}))
+
 /////////////////////////////////////////
 // USER SCHEMA
 /////////////////////////////////////////
@@ -880,6 +1433,59 @@ export const UserSchema = z.object({
 
 export type User = z.infer<typeof UserSchema>
 
+// USER RELATION SCHEMA
+//------------------------------------------------------
+
+export type UserRelations = {
+  organization?: OrganizationWithRelations | null;
+  restaurant?: RestaurantWithRelations | null;
+  shifts: ShiftWithRelations[];
+  prepItems: PrepItemWithRelations[];
+  inventoryUpdates: InventoryItemWithRelations[];
+  sessions: SessionWithRelations[];
+  passwordResets: PasswordResetWithRelations[];
+  leftoverItems: LeftoverItemWithRelations[];
+  wasteRecords: WasteRecordWithRelations[];
+  productionPlans: ProductionPlanWithRelations[];
+  productionPlanItems: ProductionPlanItemWithRelations[];
+  availability: AvailabilityWithRelations[];
+  schedulingConstraints: SchedulingConstraintWithRelations[];
+  inventoryWithdrawals: InventoryWithdrawalWithRelations[];
+  checklistCompletes: ChecklistCompleteWithRelations[];
+  customerFeedbackResponses: CustomerFeedbackWithRelations[];
+  recipeVersionsCreated: RecipeVersionWithRelations[];
+  recipeVersionsApproved: RecipeVersionWithRelations[];
+  InventoryTransactions: InventoryTransactionWithRelations[];
+  StockCounts: StockCountWithRelations[];
+  auth: AuthWithRelations[];
+};
+
+export type UserWithRelations = z.infer<typeof UserSchema> & UserRelations
+
+export const UserWithRelationsSchema: z.ZodType<UserWithRelations> = UserSchema.merge(z.object({
+  organization: z.lazy(() => OrganizationWithRelationsSchema).nullable(),
+  restaurant: z.lazy(() => RestaurantWithRelationsSchema).nullable(),
+  shifts: z.lazy(() => ShiftWithRelationsSchema).array(),
+  prepItems: z.lazy(() => PrepItemWithRelationsSchema).array(),
+  inventoryUpdates: z.lazy(() => InventoryItemWithRelationsSchema).array(),
+  sessions: z.lazy(() => SessionWithRelationsSchema).array(),
+  passwordResets: z.lazy(() => PasswordResetWithRelationsSchema).array(),
+  leftoverItems: z.lazy(() => LeftoverItemWithRelationsSchema).array(),
+  wasteRecords: z.lazy(() => WasteRecordWithRelationsSchema).array(),
+  productionPlans: z.lazy(() => ProductionPlanWithRelationsSchema).array(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemWithRelationsSchema).array(),
+  availability: z.lazy(() => AvailabilityWithRelationsSchema).array(),
+  schedulingConstraints: z.lazy(() => SchedulingConstraintWithRelationsSchema).array(),
+  inventoryWithdrawals: z.lazy(() => InventoryWithdrawalWithRelationsSchema).array(),
+  checklistCompletes: z.lazy(() => ChecklistCompleteWithRelationsSchema).array(),
+  customerFeedbackResponses: z.lazy(() => CustomerFeedbackWithRelationsSchema).array(),
+  recipeVersionsCreated: z.lazy(() => RecipeVersionWithRelationsSchema).array(),
+  recipeVersionsApproved: z.lazy(() => RecipeVersionWithRelationsSchema).array(),
+  InventoryTransactions: z.lazy(() => InventoryTransactionWithRelationsSchema).array(),
+  StockCounts: z.lazy(() => StockCountWithRelationsSchema).array(),
+  auth: z.lazy(() => AuthWithRelationsSchema).array(),
+}))
+
 /////////////////////////////////////////
 // AUTH SCHEMA
 /////////////////////////////////////////
@@ -893,6 +1499,19 @@ export const AuthSchema = z.object({
 
 export type Auth = z.infer<typeof AuthSchema>
 
+// AUTH RELATION SCHEMA
+//------------------------------------------------------
+
+export type AuthRelations = {
+  user: UserWithRelations;
+};
+
+export type AuthWithRelations = z.infer<typeof AuthSchema> & AuthRelations
+
+export const AuthWithRelationsSchema: z.ZodType<AuthWithRelations> = AuthSchema.merge(z.object({
+  user: z.lazy(() => UserWithRelationsSchema),
+}))
+
 /////////////////////////////////////////
 // SESSION SCHEMA
 /////////////////////////////////////////
@@ -901,13 +1520,25 @@ export const SessionSchema = z.object({
   id: z.string().uuid(),
   userId: z.number().int(),
   verificationCode: z.string(),
-  token: z.string(),
   verified: z.boolean(),
   expiresAt: z.coerce.date(),
   createdAt: z.coerce.date(),
 })
 
 export type Session = z.infer<typeof SessionSchema>
+
+// SESSION RELATION SCHEMA
+//------------------------------------------------------
+
+export type SessionRelations = {
+  user: UserWithRelations;
+};
+
+export type SessionWithRelations = z.infer<typeof SessionSchema> & SessionRelations
+
+export const SessionWithRelationsSchema: z.ZodType<SessionWithRelations> = SessionSchema.merge(z.object({
+  user: z.lazy(() => UserWithRelationsSchema),
+}))
 
 /////////////////////////////////////////
 // COOK BOOK SCHEMA
@@ -922,6 +1553,21 @@ export const CookBookSchema = z.object({
 })
 
 export type CookBook = z.infer<typeof CookBookSchema>
+
+// COOK BOOK RELATION SCHEMA
+//------------------------------------------------------
+
+export type CookBookRelations = {
+  recipes: RecipeWithRelations[];
+  restaurant?: RestaurantWithRelations | null;
+};
+
+export type CookBookWithRelations = z.infer<typeof CookBookSchema> & CookBookRelations
+
+export const CookBookWithRelationsSchema: z.ZodType<CookBookWithRelations> = CookBookSchema.merge(z.object({
+  recipes: z.lazy(() => RecipeWithRelationsSchema).array(),
+  restaurant: z.lazy(() => RestaurantWithRelationsSchema).nullable(),
+}))
 
 /////////////////////////////////////////
 // RECIPE SCHEMA
@@ -949,6 +1595,65 @@ export const RecipeSchema = z.object({
 
 export type Recipe = z.infer<typeof RecipeSchema>
 
+// RECIPE RELATION SCHEMA
+//------------------------------------------------------
+
+export type RecipeRelations = {
+  restaurant: RestaurantWithRelations;
+  cookBook: CookBookWithRelations;
+  ingredients: RecipeIngredientWithRelations[];
+  instructions: RecipeInstructionWithRelations[];
+  menuItems: MenuItemWithRelations[];
+  foodCostHistory: FoodCostHistoryWithRelations[];
+  prepHistory: PrepHistoryWithRelations[];
+  prepBoards: PrepBoardWithRelations[];
+  prepItems: PrepItemWithRelations[];
+  menuItemRecipes: MenuItemRecipeWithRelations[];
+  productionPlanItems: ProductionPlanItemWithRelations[];
+  withdrawals: InventoryWithdrawalWithRelations[];
+  tags: RecipeTagWithRelations[];
+  versions: RecipeVersionWithRelations[];
+  equipments: RecipeEquipmentWithRelations[];
+  dietaryRestrictions: DietaryRestrictionWithRelations[];
+  temperatures: RecipeTemperatureWithRelations[];
+  yields: RecipeYieldWithRelations[];
+  laborCosts: RecipeLaborCostWithRelations[];
+  nutritionalInfo?: RecipeNutritionWithRelations | null;
+  criticalPoints: RecipeCriticalPointWithRelations[];
+  storage?: RecipeStorageWithRelations | null;
+  photos: RecipePhotoWithRelations[];
+  recipeStats?: RecipeStatsWithRelations | null;
+};
+
+export type RecipeWithRelations = z.infer<typeof RecipeSchema> & RecipeRelations
+
+export const RecipeWithRelationsSchema: z.ZodType<RecipeWithRelations> = RecipeSchema.merge(z.object({
+  restaurant: z.lazy(() => RestaurantWithRelationsSchema),
+  cookBook: z.lazy(() => CookBookWithRelationsSchema),
+  ingredients: z.lazy(() => RecipeIngredientWithRelationsSchema).array(),
+  instructions: z.lazy(() => RecipeInstructionWithRelationsSchema).array(),
+  menuItems: z.lazy(() => MenuItemWithRelationsSchema).array(),
+  foodCostHistory: z.lazy(() => FoodCostHistoryWithRelationsSchema).array(),
+  prepHistory: z.lazy(() => PrepHistoryWithRelationsSchema).array(),
+  prepBoards: z.lazy(() => PrepBoardWithRelationsSchema).array(),
+  prepItems: z.lazy(() => PrepItemWithRelationsSchema).array(),
+  menuItemRecipes: z.lazy(() => MenuItemRecipeWithRelationsSchema).array(),
+  productionPlanItems: z.lazy(() => ProductionPlanItemWithRelationsSchema).array(),
+  withdrawals: z.lazy(() => InventoryWithdrawalWithRelationsSchema).array(),
+  tags: z.lazy(() => RecipeTagWithRelationsSchema).array(),
+  versions: z.lazy(() => RecipeVersionWithRelationsSchema).array(),
+  equipments: z.lazy(() => RecipeEquipmentWithRelationsSchema).array(),
+  dietaryRestrictions: z.lazy(() => DietaryRestrictionWithRelationsSchema).array(),
+  temperatures: z.lazy(() => RecipeTemperatureWithRelationsSchema).array(),
+  yields: z.lazy(() => RecipeYieldWithRelationsSchema).array(),
+  laborCosts: z.lazy(() => RecipeLaborCostWithRelationsSchema).array(),
+  nutritionalInfo: z.lazy(() => RecipeNutritionWithRelationsSchema).nullable(),
+  criticalPoints: z.lazy(() => RecipeCriticalPointWithRelationsSchema).array(),
+  storage: z.lazy(() => RecipeStorageWithRelationsSchema).nullable(),
+  photos: z.lazy(() => RecipePhotoWithRelationsSchema).array(),
+  recipeStats: z.lazy(() => RecipeStatsWithRelationsSchema).nullable(),
+}))
+
 /////////////////////////////////////////
 // INGREDIENT SCHEMA
 /////////////////////////////////////////
@@ -974,6 +1679,33 @@ export const IngredientSchema = z.object({
 
 export type Ingredient = z.infer<typeof IngredientSchema>
 
+// INGREDIENT RELATION SCHEMA
+//------------------------------------------------------
+
+export type IngredientRelations = {
+  recipeIngredients: RecipeIngredientWithRelations[];
+  inventoryItems: InventoryItemWithRelations[];
+  orderItems: OrderItemWithRelations[];
+  vendors: VendorWithRelations[];
+  WasteRecords: WasteRecordWithRelations[];
+  IngredientAllergens: IngredientAllergenWithRelations[];
+  priceHistory: SupplierPriceHistoryWithRelations[];
+  DietaryRestrictions: DietaryRestrictionWithRelations[];
+};
+
+export type IngredientWithRelations = z.infer<typeof IngredientSchema> & IngredientRelations
+
+export const IngredientWithRelationsSchema: z.ZodType<IngredientWithRelations> = IngredientSchema.merge(z.object({
+  recipeIngredients: z.lazy(() => RecipeIngredientWithRelationsSchema).array(),
+  inventoryItems: z.lazy(() => InventoryItemWithRelationsSchema).array(),
+  orderItems: z.lazy(() => OrderItemWithRelationsSchema).array(),
+  vendors: z.lazy(() => VendorWithRelationsSchema).array(),
+  WasteRecords: z.lazy(() => WasteRecordWithRelationsSchema).array(),
+  IngredientAllergens: z.lazy(() => IngredientAllergenWithRelationsSchema).array(),
+  priceHistory: z.lazy(() => SupplierPriceHistoryWithRelationsSchema).array(),
+  DietaryRestrictions: z.lazy(() => DietaryRestrictionWithRelationsSchema).array(),
+}))
+
 /////////////////////////////////////////
 // RECIPE INGREDIENT SCHEMA
 /////////////////////////////////////////
@@ -997,6 +1729,23 @@ export const RecipeIngredientSchema = z.object({
 
 export type RecipeIngredient = z.infer<typeof RecipeIngredientSchema>
 
+// RECIPE INGREDIENT RELATION SCHEMA
+//------------------------------------------------------
+
+export type RecipeIngredientRelations = {
+  recipe: RecipeWithRelations;
+  ingredient: IngredientWithRelations;
+  recipeVersion?: RecipeVersionWithRelations | null;
+};
+
+export type RecipeIngredientWithRelations = z.infer<typeof RecipeIngredientSchema> & RecipeIngredientRelations
+
+export const RecipeIngredientWithRelationsSchema: z.ZodType<RecipeIngredientWithRelations> = RecipeIngredientSchema.merge(z.object({
+  recipe: z.lazy(() => RecipeWithRelationsSchema),
+  ingredient: z.lazy(() => IngredientWithRelationsSchema),
+  recipeVersion: z.lazy(() => RecipeVersionWithRelationsSchema).nullable(),
+}))
+
 /////////////////////////////////////////
 // RECIPE INSTRUCTION SCHEMA
 /////////////////////////////////////////
@@ -1017,6 +1766,23 @@ export const RecipeInstructionSchema = z.object({
 })
 
 export type RecipeInstruction = z.infer<typeof RecipeInstructionSchema>
+
+// RECIPE INSTRUCTION RELATION SCHEMA
+//------------------------------------------------------
+
+export type RecipeInstructionRelations = {
+  recipe: RecipeWithRelations;
+  RecipeVersion?: RecipeVersionWithRelations | null;
+  equipment: RecipeEquipmentWithRelations[];
+};
+
+export type RecipeInstructionWithRelations = z.infer<typeof RecipeInstructionSchema> & RecipeInstructionRelations
+
+export const RecipeInstructionWithRelationsSchema: z.ZodType<RecipeInstructionWithRelations> = RecipeInstructionSchema.merge(z.object({
+  recipe: z.lazy(() => RecipeWithRelationsSchema),
+  RecipeVersion: z.lazy(() => RecipeVersionWithRelationsSchema).nullable(),
+  equipment: z.lazy(() => RecipeEquipmentWithRelationsSchema).array(),
+}))
 
 /////////////////////////////////////////
 // INVENTORY ITEM SCHEMA
@@ -1047,6 +1813,29 @@ export const InventoryItemSchema = z.object({
 
 export type InventoryItem = z.infer<typeof InventoryItemSchema>
 
+// INVENTORY ITEM RELATION SCHEMA
+//------------------------------------------------------
+
+export type InventoryItemRelations = {
+  inventory: InventoryWithRelations;
+  ingredient: IngredientWithRelations;
+  lastUpdatedBy?: UserWithRelations | null;
+  transactions: InventoryTransactionWithRelations[];
+  withdrawals: InventoryWithdrawalWithRelations[];
+  stockCounts: StockCountItemWithRelations[];
+};
+
+export type InventoryItemWithRelations = z.infer<typeof InventoryItemSchema> & InventoryItemRelations
+
+export const InventoryItemWithRelationsSchema: z.ZodType<InventoryItemWithRelations> = InventoryItemSchema.merge(z.object({
+  inventory: z.lazy(() => InventoryWithRelationsSchema),
+  ingredient: z.lazy(() => IngredientWithRelationsSchema),
+  lastUpdatedBy: z.lazy(() => UserWithRelationsSchema).nullable(),
+  transactions: z.lazy(() => InventoryTransactionWithRelationsSchema).array(),
+  withdrawals: z.lazy(() => InventoryWithdrawalWithRelationsSchema).array(),
+  stockCounts: z.lazy(() => StockCountItemWithRelationsSchema).array(),
+}))
+
 /////////////////////////////////////////
 // INVENTORY TRANSACTION SCHEMA
 /////////////////////////////////////////
@@ -1069,6 +1858,23 @@ export const InventoryTransactionSchema = z.object({
 
 export type InventoryTransaction = z.infer<typeof InventoryTransactionSchema>
 
+// INVENTORY TRANSACTION RELATION SCHEMA
+//------------------------------------------------------
+
+export type InventoryTransactionRelations = {
+  inventory: InventoryWithRelations;
+  item: InventoryItemWithRelations;
+  createdBy: UserWithRelations;
+};
+
+export type InventoryTransactionWithRelations = z.infer<typeof InventoryTransactionSchema> & InventoryTransactionRelations
+
+export const InventoryTransactionWithRelationsSchema: z.ZodType<InventoryTransactionWithRelations> = InventoryTransactionSchema.merge(z.object({
+  inventory: z.lazy(() => InventoryWithRelationsSchema),
+  item: z.lazy(() => InventoryItemWithRelationsSchema),
+  createdBy: z.lazy(() => UserWithRelationsSchema),
+}))
+
 /////////////////////////////////////////
 // STOCK COUNT SCHEMA
 /////////////////////////////////////////
@@ -1084,6 +1890,23 @@ export const StockCountSchema = z.object({
 })
 
 export type StockCount = z.infer<typeof StockCountSchema>
+
+// STOCK COUNT RELATION SCHEMA
+//------------------------------------------------------
+
+export type StockCountRelations = {
+  inventory: InventoryWithRelations;
+  createdBy: UserWithRelations;
+  items: StockCountItemWithRelations[];
+};
+
+export type StockCountWithRelations = z.infer<typeof StockCountSchema> & StockCountRelations
+
+export const StockCountWithRelationsSchema: z.ZodType<StockCountWithRelations> = StockCountSchema.merge(z.object({
+  inventory: z.lazy(() => InventoryWithRelationsSchema),
+  createdBy: z.lazy(() => UserWithRelationsSchema),
+  items: z.lazy(() => StockCountItemWithRelationsSchema).array(),
+}))
 
 /////////////////////////////////////////
 // STOCK COUNT ITEM SCHEMA
@@ -1101,6 +1924,21 @@ export const StockCountItemSchema = z.object({
 
 export type StockCountItem = z.infer<typeof StockCountItemSchema>
 
+// STOCK COUNT ITEM RELATION SCHEMA
+//------------------------------------------------------
+
+export type StockCountItemRelations = {
+  stockCount: StockCountWithRelations;
+  item: InventoryItemWithRelations;
+};
+
+export type StockCountItemWithRelations = z.infer<typeof StockCountItemSchema> & StockCountItemRelations
+
+export const StockCountItemWithRelationsSchema: z.ZodType<StockCountItemWithRelations> = StockCountItemSchema.merge(z.object({
+  stockCount: z.lazy(() => StockCountWithRelationsSchema),
+  item: z.lazy(() => InventoryItemWithRelationsSchema),
+}))
+
 /////////////////////////////////////////
 // RECIPE STATS SCHEMA
 /////////////////////////////////////////
@@ -1117,6 +1955,19 @@ export const RecipeStatsSchema = z.object({
 
 export type RecipeStats = z.infer<typeof RecipeStatsSchema>
 
+// RECIPE STATS RELATION SCHEMA
+//------------------------------------------------------
+
+export type RecipeStatsRelations = {
+  recipe: RecipeWithRelations;
+};
+
+export type RecipeStatsWithRelations = z.infer<typeof RecipeStatsSchema> & RecipeStatsRelations
+
+export const RecipeStatsWithRelationsSchema: z.ZodType<RecipeStatsWithRelations> = RecipeStatsSchema.merge(z.object({
+  recipe: z.lazy(() => RecipeWithRelationsSchema),
+}))
+
 /////////////////////////////////////////
 // ORDER SCHEMA
 /////////////////////////////////////////
@@ -1132,6 +1983,23 @@ export const OrderSchema = z.object({
 
 export type Order = z.infer<typeof OrderSchema>
 
+// ORDER RELATION SCHEMA
+//------------------------------------------------------
+
+export type OrderRelations = {
+  restaurant: RestaurantWithRelations;
+  vendor: VendorWithRelations;
+  items: OrderItemWithRelations[];
+};
+
+export type OrderWithRelations = z.infer<typeof OrderSchema> & OrderRelations
+
+export const OrderWithRelationsSchema: z.ZodType<OrderWithRelations> = OrderSchema.merge(z.object({
+  restaurant: z.lazy(() => RestaurantWithRelationsSchema),
+  vendor: z.lazy(() => VendorWithRelationsSchema),
+  items: z.lazy(() => OrderItemWithRelationsSchema).array(),
+}))
+
 /////////////////////////////////////////
 // ORDER ITEM SCHEMA
 /////////////////////////////////////////
@@ -1146,6 +2014,21 @@ export const OrderItemSchema = z.object({
 })
 
 export type OrderItem = z.infer<typeof OrderItemSchema>
+
+// ORDER ITEM RELATION SCHEMA
+//------------------------------------------------------
+
+export type OrderItemRelations = {
+  order: OrderWithRelations;
+  ingredient: IngredientWithRelations;
+};
+
+export type OrderItemWithRelations = z.infer<typeof OrderItemSchema> & OrderItemRelations
+
+export const OrderItemWithRelationsSchema: z.ZodType<OrderItemWithRelations> = OrderItemSchema.merge(z.object({
+  order: z.lazy(() => OrderWithRelationsSchema),
+  ingredient: z.lazy(() => IngredientWithRelationsSchema),
+}))
 
 /////////////////////////////////////////
 // VENDOR SCHEMA
@@ -1163,6 +2046,23 @@ export const VendorSchema = z.object({
 
 export type Vendor = z.infer<typeof VendorSchema>
 
+// VENDOR RELATION SCHEMA
+//------------------------------------------------------
+
+export type VendorRelations = {
+  orders: OrderWithRelations[];
+  ingredients: IngredientWithRelations[];
+  supplierPriceHistory: SupplierPriceHistoryWithRelations[];
+};
+
+export type VendorWithRelations = z.infer<typeof VendorSchema> & VendorRelations
+
+export const VendorWithRelationsSchema: z.ZodType<VendorWithRelations> = VendorSchema.merge(z.object({
+  orders: z.lazy(() => OrderWithRelationsSchema).array(),
+  ingredients: z.lazy(() => IngredientWithRelationsSchema).array(),
+  supplierPriceHistory: z.lazy(() => SupplierPriceHistoryWithRelationsSchema).array(),
+}))
+
 /////////////////////////////////////////
 // SHIFT SCHEMA
 /////////////////////////////////////////
@@ -1177,6 +2077,21 @@ export const ShiftSchema = z.object({
 
 export type Shift = z.infer<typeof ShiftSchema>
 
+// SHIFT RELATION SCHEMA
+//------------------------------------------------------
+
+export type ShiftRelations = {
+  user: UserWithRelations;
+  tasks: ShiftTaskWithRelations[];
+};
+
+export type ShiftWithRelations = z.infer<typeof ShiftSchema> & ShiftRelations
+
+export const ShiftWithRelationsSchema: z.ZodType<ShiftWithRelations> = ShiftSchema.merge(z.object({
+  user: z.lazy(() => UserWithRelationsSchema),
+  tasks: z.lazy(() => ShiftTaskWithRelationsSchema).array(),
+}))
+
 /////////////////////////////////////////
 // PREP BOARD SCHEMA
 /////////////////////////////////////////
@@ -1190,6 +2105,21 @@ export const PrepBoardSchema = z.object({
 })
 
 export type PrepBoard = z.infer<typeof PrepBoardSchema>
+
+// PREP BOARD RELATION SCHEMA
+//------------------------------------------------------
+
+export type PrepBoardRelations = {
+  recipes: RecipeWithRelations[];
+  prepItems: PrepItemWithRelations[];
+};
+
+export type PrepBoardWithRelations = z.infer<typeof PrepBoardSchema> & PrepBoardRelations
+
+export const PrepBoardWithRelationsSchema: z.ZodType<PrepBoardWithRelations> = PrepBoardSchema.merge(z.object({
+  recipes: z.lazy(() => RecipeWithRelationsSchema).array(),
+  prepItems: z.lazy(() => PrepItemWithRelationsSchema).array(),
+}))
 
 /////////////////////////////////////////
 // PREP ITEM SCHEMA
@@ -1206,6 +2136,23 @@ export const PrepItemSchema = z.object({
 
 export type PrepItem = z.infer<typeof PrepItemSchema>
 
+// PREP ITEM RELATION SCHEMA
+//------------------------------------------------------
+
+export type PrepItemRelations = {
+  prepBoard: PrepBoardWithRelations;
+  recipe: RecipeWithRelations;
+  assignedTo: UserWithRelations;
+};
+
+export type PrepItemWithRelations = z.infer<typeof PrepItemSchema> & PrepItemRelations
+
+export const PrepItemWithRelationsSchema: z.ZodType<PrepItemWithRelations> = PrepItemSchema.merge(z.object({
+  prepBoard: z.lazy(() => PrepBoardWithRelationsSchema),
+  recipe: z.lazy(() => RecipeWithRelationsSchema),
+  assignedTo: z.lazy(() => UserWithRelationsSchema),
+}))
+
 /////////////////////////////////////////
 // PASSWORD RESET SCHEMA
 /////////////////////////////////////////
@@ -1221,6 +2168,19 @@ export const PasswordResetSchema = z.object({
 
 export type PasswordReset = z.infer<typeof PasswordResetSchema>
 
+// PASSWORD RESET RELATION SCHEMA
+//------------------------------------------------------
+
+export type PasswordResetRelations = {
+  user: UserWithRelations;
+};
+
+export type PasswordResetWithRelations = z.infer<typeof PasswordResetSchema> & PasswordResetRelations
+
+export const PasswordResetWithRelationsSchema: z.ZodType<PasswordResetWithRelations> = PasswordResetSchema.merge(z.object({
+  user: z.lazy(() => UserWithRelationsSchema),
+}))
+
 /////////////////////////////////////////
 // MENU SCHEMA
 /////////////////////////////////////////
@@ -1235,6 +2195,23 @@ export const MenuSchema = z.object({
 
 export type Menu = z.infer<typeof MenuSchema>
 
+// MENU RELATION SCHEMA
+//------------------------------------------------------
+
+export type MenuRelations = {
+  restaurant: RestaurantWithRelations;
+  menuItems: MenuItemWithRelations[];
+  MenuCategory: MenuCategoryWithRelations[];
+};
+
+export type MenuWithRelations = z.infer<typeof MenuSchema> & MenuRelations
+
+export const MenuWithRelationsSchema: z.ZodType<MenuWithRelations> = MenuSchema.merge(z.object({
+  restaurant: z.lazy(() => RestaurantWithRelationsSchema),
+  menuItems: z.lazy(() => MenuItemWithRelationsSchema).array(),
+  MenuCategory: z.lazy(() => MenuCategoryWithRelationsSchema).array(),
+}))
+
 /////////////////////////////////////////
 // MENU ITEM RECIPE SCHEMA
 /////////////////////////////////////////
@@ -1247,6 +2224,21 @@ export const MenuItemRecipeSchema = z.object({
 })
 
 export type MenuItemRecipe = z.infer<typeof MenuItemRecipeSchema>
+
+// MENU ITEM RECIPE RELATION SCHEMA
+//------------------------------------------------------
+
+export type MenuItemRecipeRelations = {
+  menuItem: MenuItemWithRelations;
+  recipe: RecipeWithRelations;
+};
+
+export type MenuItemRecipeWithRelations = z.infer<typeof MenuItemRecipeSchema> & MenuItemRecipeRelations
+
+export const MenuItemRecipeWithRelationsSchema: z.ZodType<MenuItemRecipeWithRelations> = MenuItemRecipeSchema.merge(z.object({
+  menuItem: z.lazy(() => MenuItemWithRelationsSchema),
+  recipe: z.lazy(() => RecipeWithRelationsSchema),
+}))
 
 /////////////////////////////////////////
 // MENU ITEM SCHEMA
@@ -1268,6 +2260,37 @@ export const MenuItemSchema = z.object({
 })
 
 export type MenuItem = z.infer<typeof MenuItemSchema>
+
+// MENU ITEM RELATION SCHEMA
+//------------------------------------------------------
+
+export type MenuItemRelations = {
+  menu: MenuWithRelations;
+  category?: MenuCategoryWithRelations | null;
+  recipes: RecipeWithRelations[];
+  menuItemRecipes: MenuItemRecipeWithRelations[];
+  nutritionalInfo?: NutritionalInfoWithRelations | null;
+  recommendations: NutritionalRecommendationWithRelations[];
+  salesTransactions: SalesTransactionsWithRelations[];
+  leftoverItems: LeftoverItemWithRelations[];
+  feedback: CustomerFeedbackWithRelations[];
+  dietaryRestrictions: DietaryRestrictionWithRelations[];
+};
+
+export type MenuItemWithRelations = z.infer<typeof MenuItemSchema> & MenuItemRelations
+
+export const MenuItemWithRelationsSchema: z.ZodType<MenuItemWithRelations> = MenuItemSchema.merge(z.object({
+  menu: z.lazy(() => MenuWithRelationsSchema),
+  category: z.lazy(() => MenuCategoryWithRelationsSchema).nullable(),
+  recipes: z.lazy(() => RecipeWithRelationsSchema).array(),
+  menuItemRecipes: z.lazy(() => MenuItemRecipeWithRelationsSchema).array(),
+  nutritionalInfo: z.lazy(() => NutritionalInfoWithRelationsSchema).nullable(),
+  recommendations: z.lazy(() => NutritionalRecommendationWithRelationsSchema).array(),
+  salesTransactions: z.lazy(() => SalesTransactionsWithRelationsSchema).array(),
+  leftoverItems: z.lazy(() => LeftoverItemWithRelationsSchema).array(),
+  feedback: z.lazy(() => CustomerFeedbackWithRelationsSchema).array(),
+  dietaryRestrictions: z.lazy(() => DietaryRestrictionWithRelationsSchema).array(),
+}))
 
 /////////////////////////////////////////
 // NUTRITIONAL INFO SCHEMA
@@ -1292,6 +2315,19 @@ export const NutritionalInfoSchema = z.object({
 
 export type NutritionalInfo = z.infer<typeof NutritionalInfoSchema>
 
+// NUTRITIONAL INFO RELATION SCHEMA
+//------------------------------------------------------
+
+export type NutritionalInfoRelations = {
+  menuItem?: MenuItemWithRelations | null;
+};
+
+export type NutritionalInfoWithRelations = z.infer<typeof NutritionalInfoSchema> & NutritionalInfoRelations
+
+export const NutritionalInfoWithRelationsSchema: z.ZodType<NutritionalInfoWithRelations> = NutritionalInfoSchema.merge(z.object({
+  menuItem: z.lazy(() => MenuItemWithRelationsSchema).nullable(),
+}))
+
 /////////////////////////////////////////
 // FOOD COST HISTORY SCHEMA
 /////////////////////////////////////////
@@ -1307,6 +2343,19 @@ export const FoodCostHistorySchema = z.object({
 
 export type FoodCostHistory = z.infer<typeof FoodCostHistorySchema>
 
+// FOOD COST HISTORY RELATION SCHEMA
+//------------------------------------------------------
+
+export type FoodCostHistoryRelations = {
+  recipe: RecipeWithRelations;
+};
+
+export type FoodCostHistoryWithRelations = z.infer<typeof FoodCostHistorySchema> & FoodCostHistoryRelations
+
+export const FoodCostHistoryWithRelationsSchema: z.ZodType<FoodCostHistoryWithRelations> = FoodCostHistorySchema.merge(z.object({
+  recipe: z.lazy(() => RecipeWithRelationsSchema),
+}))
+
 /////////////////////////////////////////
 // PREP HISTORY SCHEMA
 /////////////////////////////////////////
@@ -1321,6 +2370,19 @@ export const PrepHistorySchema = z.object({
 })
 
 export type PrepHistory = z.infer<typeof PrepHistorySchema>
+
+// PREP HISTORY RELATION SCHEMA
+//------------------------------------------------------
+
+export type PrepHistoryRelations = {
+  recipe: RecipeWithRelations;
+};
+
+export type PrepHistoryWithRelations = z.infer<typeof PrepHistorySchema> & PrepHistoryRelations
+
+export const PrepHistoryWithRelationsSchema: z.ZodType<PrepHistoryWithRelations> = PrepHistorySchema.merge(z.object({
+  recipe: z.lazy(() => RecipeWithRelationsSchema),
+}))
 
 /////////////////////////////////////////
 // SELECT & INCLUDE
@@ -2572,7 +3634,6 @@ export const SessionSelectSchema: z.ZodType<Prisma.SessionSelect> = z.object({
   id: z.boolean().optional(),
   userId: z.boolean().optional(),
   verificationCode: z.boolean().optional(),
-  token: z.boolean().optional(),
   verified: z.boolean().optional(),
   expiresAt: z.boolean().optional(),
   createdAt: z.boolean().optional(),
@@ -6013,21 +7074,11 @@ export const IngredientAllergenOrderByWithRelationInputSchema: z.ZodType<Prisma.
   allergen: z.lazy(() => AllergenOrderByWithRelationInputSchema).optional()
 }).strict();
 
-export const IngredientAllergenWhereUniqueInputSchema: z.ZodType<Prisma.IngredientAllergenWhereUniqueInput> = z.union([
-  z.object({
-    id: z.number().int(),
-    ingredientId_allergenId: z.lazy(() => IngredientAllergenIngredientIdAllergenIdCompoundUniqueInputSchema)
-  }),
-  z.object({
-    id: z.number().int(),
-  }),
-  z.object({
-    ingredientId_allergenId: z.lazy(() => IngredientAllergenIngredientIdAllergenIdCompoundUniqueInputSchema),
-  }),
-])
+export const IngredientAllergenWhereUniqueInputSchema: z.ZodType<Prisma.IngredientAllergenWhereUniqueInput> = z.object({
+  id: z.number().int()
+})
 .and(z.object({
   id: z.number().int().optional(),
-  ingredientId_allergenId: z.lazy(() => IngredientAllergenIngredientIdAllergenIdCompoundUniqueInputSchema).optional(),
   AND: z.union([ z.lazy(() => IngredientAllergenWhereInputSchema),z.lazy(() => IngredientAllergenWhereInputSchema).array() ]).optional(),
   OR: z.lazy(() => IngredientAllergenWhereInputSchema).array().optional(),
   NOT: z.union([ z.lazy(() => IngredientAllergenWhereInputSchema),z.lazy(() => IngredientAllergenWhereInputSchema).array() ]).optional(),
@@ -6206,24 +7257,15 @@ export const OrganizationOrderByWithRelationInputSchema: z.ZodType<Prisma.Organi
   users: z.lazy(() => UserOrderByRelationAggregateInputSchema).optional()
 }).strict();
 
-export const OrganizationWhereUniqueInputSchema: z.ZodType<Prisma.OrganizationWhereUniqueInput> = z.union([
-  z.object({
-    id: z.number().int(),
-    name: z.string()
-  }),
-  z.object({
-    id: z.number().int(),
-  }),
-  z.object({
-    name: z.string(),
-  }),
-])
+export const OrganizationWhereUniqueInputSchema: z.ZodType<Prisma.OrganizationWhereUniqueInput> = z.object({
+  id: z.number().int()
+})
 .and(z.object({
   id: z.number().int().optional(),
-  name: z.string().optional(),
   AND: z.union([ z.lazy(() => OrganizationWhereInputSchema),z.lazy(() => OrganizationWhereInputSchema).array() ]).optional(),
   OR: z.lazy(() => OrganizationWhereInputSchema).array().optional(),
   NOT: z.union([ z.lazy(() => OrganizationWhereInputSchema),z.lazy(() => OrganizationWhereInputSchema).array() ]).optional(),
+  name: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
   imageUrl: z.union([ z.lazy(() => StringNullableFilterSchema),z.string() ]).optional().nullable(),
   createdAt: z.union([ z.lazy(() => DateTimeFilterSchema),z.coerce.date() ]).optional(),
   updatedAt: z.union([ z.lazy(() => DateTimeFilterSchema),z.coerce.date() ]).optional(),
@@ -6728,7 +7770,6 @@ export const SessionWhereInputSchema: z.ZodType<Prisma.SessionWhereInput> = z.ob
   id: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
   userId: z.union([ z.lazy(() => IntFilterSchema),z.number() ]).optional(),
   verificationCode: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
-  token: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
   verified: z.union([ z.lazy(() => BoolFilterSchema),z.boolean() ]).optional(),
   expiresAt: z.union([ z.lazy(() => DateTimeFilterSchema),z.coerce.date() ]).optional(),
   createdAt: z.union([ z.lazy(() => DateTimeFilterSchema),z.coerce.date() ]).optional(),
@@ -6739,7 +7780,6 @@ export const SessionOrderByWithRelationInputSchema: z.ZodType<Prisma.SessionOrde
   id: z.lazy(() => SortOrderSchema).optional(),
   userId: z.lazy(() => SortOrderSchema).optional(),
   verificationCode: z.lazy(() => SortOrderSchema).optional(),
-  token: z.lazy(() => SortOrderSchema).optional(),
   verified: z.lazy(() => SortOrderSchema).optional(),
   expiresAt: z.lazy(() => SortOrderSchema).optional(),
   createdAt: z.lazy(() => SortOrderSchema).optional(),
@@ -6749,35 +7789,18 @@ export const SessionOrderByWithRelationInputSchema: z.ZodType<Prisma.SessionOrde
 export const SessionWhereUniqueInputSchema: z.ZodType<Prisma.SessionWhereUniqueInput> = z.union([
   z.object({
     id: z.string().uuid(),
-    verificationCode: z.string(),
-    token: z.string()
-  }),
-  z.object({
-    id: z.string().uuid(),
-    verificationCode: z.string(),
-  }),
-  z.object({
-    id: z.string().uuid(),
-    token: z.string(),
+    verificationCode: z.string()
   }),
   z.object({
     id: z.string().uuid(),
   }),
   z.object({
     verificationCode: z.string(),
-    token: z.string(),
-  }),
-  z.object({
-    verificationCode: z.string(),
-  }),
-  z.object({
-    token: z.string(),
   }),
 ])
 .and(z.object({
   id: z.string().uuid().optional(),
   verificationCode: z.string().optional(),
-  token: z.string().optional(),
   AND: z.union([ z.lazy(() => SessionWhereInputSchema),z.lazy(() => SessionWhereInputSchema).array() ]).optional(),
   OR: z.lazy(() => SessionWhereInputSchema).array().optional(),
   NOT: z.union([ z.lazy(() => SessionWhereInputSchema),z.lazy(() => SessionWhereInputSchema).array() ]).optional(),
@@ -6792,7 +7815,6 @@ export const SessionOrderByWithAggregationInputSchema: z.ZodType<Prisma.SessionO
   id: z.lazy(() => SortOrderSchema).optional(),
   userId: z.lazy(() => SortOrderSchema).optional(),
   verificationCode: z.lazy(() => SortOrderSchema).optional(),
-  token: z.lazy(() => SortOrderSchema).optional(),
   verified: z.lazy(() => SortOrderSchema).optional(),
   expiresAt: z.lazy(() => SortOrderSchema).optional(),
   createdAt: z.lazy(() => SortOrderSchema).optional(),
@@ -6810,7 +7832,6 @@ export const SessionScalarWhereWithAggregatesInputSchema: z.ZodType<Prisma.Sessi
   id: z.union([ z.lazy(() => StringWithAggregatesFilterSchema),z.string() ]).optional(),
   userId: z.union([ z.lazy(() => IntWithAggregatesFilterSchema),z.number() ]).optional(),
   verificationCode: z.union([ z.lazy(() => StringWithAggregatesFilterSchema),z.string() ]).optional(),
-  token: z.union([ z.lazy(() => StringWithAggregatesFilterSchema),z.string() ]).optional(),
   verified: z.union([ z.lazy(() => BoolWithAggregatesFilterSchema),z.boolean() ]).optional(),
   expiresAt: z.union([ z.lazy(() => DateTimeWithAggregatesFilterSchema),z.coerce.date() ]).optional(),
   createdAt: z.union([ z.lazy(() => DateTimeWithAggregatesFilterSchema),z.coerce.date() ]).optional(),
@@ -6970,24 +7991,15 @@ export const RecipeOrderByWithRelationInputSchema: z.ZodType<Prisma.RecipeOrderB
   recipeStats: z.lazy(() => RecipeStatsOrderByWithRelationInputSchema).optional()
 }).strict();
 
-export const RecipeWhereUniqueInputSchema: z.ZodType<Prisma.RecipeWhereUniqueInput> = z.union([
-  z.object({
-    id: z.number().int(),
-    name: z.string()
-  }),
-  z.object({
-    id: z.number().int(),
-  }),
-  z.object({
-    name: z.string(),
-  }),
-])
+export const RecipeWhereUniqueInputSchema: z.ZodType<Prisma.RecipeWhereUniqueInput> = z.object({
+  id: z.number().int()
+})
 .and(z.object({
   id: z.number().int().optional(),
-  name: z.string().optional(),
   AND: z.union([ z.lazy(() => RecipeWhereInputSchema),z.lazy(() => RecipeWhereInputSchema).array() ]).optional(),
   OR: z.lazy(() => RecipeWhereInputSchema).array().optional(),
   NOT: z.union([ z.lazy(() => RecipeWhereInputSchema),z.lazy(() => RecipeWhereInputSchema).array() ]).optional(),
+  name: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
   imageUrls: z.lazy(() => StringNullableListFilterSchema).optional(),
   description: z.union([ z.lazy(() => StringNullableFilterSchema),z.string() ]).optional().nullable(),
   servings: z.union([ z.lazy(() => IntFilterSchema),z.number().int() ]).optional(),
@@ -12049,7 +13061,6 @@ export const AuthUncheckedUpdateManyInputSchema: z.ZodType<Prisma.AuthUncheckedU
 export const SessionCreateInputSchema: z.ZodType<Prisma.SessionCreateInput> = z.object({
   id: z.string().uuid().optional(),
   verificationCode: z.string(),
-  token: z.string(),
   verified: z.boolean().optional(),
   expiresAt: z.coerce.date(),
   createdAt: z.coerce.date().optional(),
@@ -12060,7 +13071,6 @@ export const SessionUncheckedCreateInputSchema: z.ZodType<Prisma.SessionUnchecke
   id: z.string().uuid().optional(),
   userId: z.number().int(),
   verificationCode: z.string(),
-  token: z.string(),
   verified: z.boolean().optional(),
   expiresAt: z.coerce.date(),
   createdAt: z.coerce.date().optional()
@@ -12069,7 +13079,6 @@ export const SessionUncheckedCreateInputSchema: z.ZodType<Prisma.SessionUnchecke
 export const SessionUpdateInputSchema: z.ZodType<Prisma.SessionUpdateInput> = z.object({
   id: z.union([ z.string().uuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   verificationCode: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
-  token: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
   expiresAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -12080,7 +13089,6 @@ export const SessionUncheckedUpdateInputSchema: z.ZodType<Prisma.SessionUnchecke
   id: z.union([ z.string().uuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   userId: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   verificationCode: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
-  token: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
   expiresAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -12090,7 +13098,6 @@ export const SessionCreateManyInputSchema: z.ZodType<Prisma.SessionCreateManyInp
   id: z.string().uuid().optional(),
   userId: z.number().int(),
   verificationCode: z.string(),
-  token: z.string(),
   verified: z.boolean().optional(),
   expiresAt: z.coerce.date(),
   createdAt: z.coerce.date().optional()
@@ -12099,7 +13106,6 @@ export const SessionCreateManyInputSchema: z.ZodType<Prisma.SessionCreateManyInp
 export const SessionUpdateManyMutationInputSchema: z.ZodType<Prisma.SessionUpdateManyMutationInput> = z.object({
   id: z.union([ z.string().uuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   verificationCode: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
-  token: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
   expiresAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -12109,7 +13115,6 @@ export const SessionUncheckedUpdateManyInputSchema: z.ZodType<Prisma.SessionUnch
   id: z.union([ z.string().uuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   userId: z.union([ z.number().int(),z.lazy(() => IntFieldUpdateOperationsInputSchema) ]).optional(),
   verificationCode: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
-  token: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
   expiresAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -16295,11 +17300,6 @@ export const AllergenScalarRelationFilterSchema: z.ZodType<Prisma.AllergenScalar
   isNot: z.lazy(() => AllergenWhereInputSchema).optional()
 }).strict();
 
-export const IngredientAllergenIngredientIdAllergenIdCompoundUniqueInputSchema: z.ZodType<Prisma.IngredientAllergenIngredientIdAllergenIdCompoundUniqueInput> = z.object({
-  ingredientId: z.number(),
-  allergenId: z.number()
-}).strict();
-
 export const IngredientAllergenCountOrderByAggregateInputSchema: z.ZodType<Prisma.IngredientAllergenCountOrderByAggregateInput> = z.object({
   id: z.lazy(() => SortOrderSchema).optional(),
   ingredientId: z.lazy(() => SortOrderSchema).optional(),
@@ -16906,7 +17906,6 @@ export const SessionCountOrderByAggregateInputSchema: z.ZodType<Prisma.SessionCo
   id: z.lazy(() => SortOrderSchema).optional(),
   userId: z.lazy(() => SortOrderSchema).optional(),
   verificationCode: z.lazy(() => SortOrderSchema).optional(),
-  token: z.lazy(() => SortOrderSchema).optional(),
   verified: z.lazy(() => SortOrderSchema).optional(),
   expiresAt: z.lazy(() => SortOrderSchema).optional(),
   createdAt: z.lazy(() => SortOrderSchema).optional()
@@ -16920,7 +17919,6 @@ export const SessionMaxOrderByAggregateInputSchema: z.ZodType<Prisma.SessionMaxO
   id: z.lazy(() => SortOrderSchema).optional(),
   userId: z.lazy(() => SortOrderSchema).optional(),
   verificationCode: z.lazy(() => SortOrderSchema).optional(),
-  token: z.lazy(() => SortOrderSchema).optional(),
   verified: z.lazy(() => SortOrderSchema).optional(),
   expiresAt: z.lazy(() => SortOrderSchema).optional(),
   createdAt: z.lazy(() => SortOrderSchema).optional()
@@ -16930,7 +17928,6 @@ export const SessionMinOrderByAggregateInputSchema: z.ZodType<Prisma.SessionMinO
   id: z.lazy(() => SortOrderSchema).optional(),
   userId: z.lazy(() => SortOrderSchema).optional(),
   verificationCode: z.lazy(() => SortOrderSchema).optional(),
-  token: z.lazy(() => SortOrderSchema).optional(),
   verified: z.lazy(() => SortOrderSchema).optional(),
   expiresAt: z.lazy(() => SortOrderSchema).optional(),
   createdAt: z.lazy(() => SortOrderSchema).optional()
@@ -33723,7 +34720,6 @@ export const InventoryItemCreateManyLastUpdatedByInputEnvelopeSchema: z.ZodType<
 export const SessionCreateWithoutUserInputSchema: z.ZodType<Prisma.SessionCreateWithoutUserInput> = z.object({
   id: z.string().uuid().optional(),
   verificationCode: z.string(),
-  token: z.string(),
   verified: z.boolean().optional(),
   expiresAt: z.coerce.date(),
   createdAt: z.coerce.date().optional()
@@ -33732,7 +34728,6 @@ export const SessionCreateWithoutUserInputSchema: z.ZodType<Prisma.SessionCreate
 export const SessionUncheckedCreateWithoutUserInputSchema: z.ZodType<Prisma.SessionUncheckedCreateWithoutUserInput> = z.object({
   id: z.string().uuid().optional(),
   verificationCode: z.string(),
-  token: z.string(),
   verified: z.boolean().optional(),
   expiresAt: z.coerce.date(),
   createdAt: z.coerce.date().optional()
@@ -34410,7 +35405,6 @@ export const SessionScalarWhereInputSchema: z.ZodType<Prisma.SessionScalarWhereI
   id: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
   userId: z.union([ z.lazy(() => IntFilterSchema),z.number() ]).optional(),
   verificationCode: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
-  token: z.union([ z.lazy(() => StringFilterSchema),z.string() ]).optional(),
   verified: z.union([ z.lazy(() => BoolFilterSchema),z.boolean() ]).optional(),
   expiresAt: z.union([ z.lazy(() => DateTimeFilterSchema),z.coerce.date() ]).optional(),
   createdAt: z.union([ z.lazy(() => DateTimeFilterSchema),z.coerce.date() ]).optional(),
@@ -43939,7 +44933,6 @@ export const InventoryItemCreateManyLastUpdatedByInputSchema: z.ZodType<Prisma.I
 export const SessionCreateManyUserInputSchema: z.ZodType<Prisma.SessionCreateManyUserInput> = z.object({
   id: z.string().uuid().optional(),
   verificationCode: z.string(),
-  token: z.string(),
   verified: z.boolean().optional(),
   expiresAt: z.coerce.date(),
   createdAt: z.coerce.date().optional()
@@ -44225,7 +45218,6 @@ export const InventoryItemUncheckedUpdateManyWithoutLastUpdatedByInputSchema: z.
 export const SessionUpdateWithoutUserInputSchema: z.ZodType<Prisma.SessionUpdateWithoutUserInput> = z.object({
   id: z.union([ z.string().uuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   verificationCode: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
-  token: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
   expiresAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -44234,7 +45226,6 @@ export const SessionUpdateWithoutUserInputSchema: z.ZodType<Prisma.SessionUpdate
 export const SessionUncheckedUpdateWithoutUserInputSchema: z.ZodType<Prisma.SessionUncheckedUpdateWithoutUserInput> = z.object({
   id: z.union([ z.string().uuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   verificationCode: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
-  token: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
   expiresAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
@@ -44243,7 +45234,6 @@ export const SessionUncheckedUpdateWithoutUserInputSchema: z.ZodType<Prisma.Sess
 export const SessionUncheckedUpdateManyWithoutUserInputSchema: z.ZodType<Prisma.SessionUncheckedUpdateManyWithoutUserInput> = z.object({
   id: z.union([ z.string().uuid(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   verificationCode: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
-  token: z.union([ z.string(),z.lazy(() => StringFieldUpdateOperationsInputSchema) ]).optional(),
   verified: z.union([ z.boolean(),z.lazy(() => BoolFieldUpdateOperationsInputSchema) ]).optional(),
   expiresAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),

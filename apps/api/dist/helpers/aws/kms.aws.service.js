@@ -64,6 +64,7 @@ let KmsService = class KmsService {
 exports.KmsService = KmsService;
 exports.KmsService = KmsService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [env_service_1.EnvService, aws_credentials_service_1.AwsCredentialsService])
+    __metadata("design:paramtypes", [env_service_1.EnvService,
+        aws_credentials_service_1.AwsCredentialsService])
 ], KmsService);
 //# sourceMappingURL=kms.aws.service.js.map

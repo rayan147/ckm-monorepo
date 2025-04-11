@@ -20,14 +20,17 @@ type ConversionFactors = {
   weight: CategoryConversion;
 };
 
-type NutritionProps = Pick<RecipeNutrition, 'calories' | 'protein' | 'carbohydrates' | 'fat' | 'fiber' | 'sugar' | 'sodium'>;
+type NutritionProps = Pick<
+  RecipeNutrition,
+  'calories' | 'protein' | 'carbohydrates' | 'fat' | 'fiber' | 'sugar' | 'sodium'
+>;
 
 @Injectable()
 export class NutritionService {
   constructor(
     private prisma: PrismaService,
     private usdaApiService: UsdaApiService,
-  ) { }
+  ) {}
 
   async calculateRecipeNutrition(recipeId: number): Promise<any> {
     // 1. Get recipe and all ingredients with quantities
@@ -48,13 +51,9 @@ export class NutritionService {
     }
 
     // Get total recipe yield (for per-serving calculations)
-    const recipeYield = recipe.yields.length > 0
-      ? recipe.yields[0].expectedYield
-      : recipe.servings;
+    const recipeYield = recipe.yields.length > 0 ? recipe.yields[0].expectedYield : recipe.servings;
 
-    const servingUnit = recipe.yields.length > 0
-      ? recipe.yields[0].unit
-      : 'servings';
+    const servingUnit = recipe.yields.length > 0 ? recipe.yields[0].unit : 'servings';
 
     // 2. Initialize nutritional totals
     const nutritionTotals = {
@@ -65,7 +64,7 @@ export class NutritionService {
       fiber: 0,
       sugar: 0,
       sodium: 0,
-    } satisfies Partial<RecipeNutrition>
+    } satisfies Partial<RecipeNutrition>;
     // Initialize allergen tracking
     const allergens = {
       containsGluten: false,
@@ -75,7 +74,7 @@ export class NutritionService {
       containsSoy: false,
       containsFish: false,
       containsShellfish: false,
-      containsSesame: false
+      containsSesame: false,
     };
     console.log('Recipe ingredients:', recipe.ingredients.length);
     // 3. Calculate nutrition for each ingredient
@@ -87,9 +86,8 @@ export class NutritionService {
         quantity,
         unit,
         hasNutrition: Boolean(ingredient.calories),
-        usdaId: ingredient.usdaFoodId
+        usdaId: ingredient.usdaFoodId,
       });
-
 
       // Check for allergens in this ingredient
       if (ingredient.usdaFoodId) {
@@ -104,11 +102,11 @@ export class NutritionService {
           allergens.containsEggs = allergens.containsEggs || ingredientAllergens.containsEggs;
           allergens.containsSoy = allergens.containsSoy || ingredientAllergens.containsSoy;
           allergens.containsFish = allergens.containsFish || ingredientAllergens.containsFish;
-          allergens.containsShellfish = allergens.containsShellfish || ingredientAllergens.containsShellfish;
+          allergens.containsShellfish =
+            allergens.containsShellfish || ingredientAllergens.containsShellfish;
           allergens.containsSesame = allergens.containsSesame || ingredientAllergens.containsSesame;
         }
       }
-
 
       // If ingredient doesn't have nutritional data, try to fetch it
       if (!ingredient.calories) {
@@ -127,17 +125,17 @@ export class NutritionService {
       const quantityInBaseUnit = await this.convertToBaseUnit(quantity, unit, ingredient.id);
       console.log('Converted quantity:', quantityInBaseUnit);
       // Add to recipe totals
-      nutritionTotals.calories += (ingredient.calories || 0) * quantityInBaseUnit / 100;
-      nutritionTotals.protein += (ingredient.protein || 0) * quantityInBaseUnit / 100;
-      nutritionTotals.carbohydrates += (ingredient.carbohydrates || 0) * quantityInBaseUnit / 100;
-      nutritionTotals.fat += (ingredient.fat || 0) * quantityInBaseUnit / 100;
-      nutritionTotals.fiber += (ingredient.fiber || 0) * quantityInBaseUnit / 100;
-      nutritionTotals.sugar += (ingredient.sugar || 0) * quantityInBaseUnit / 100;
-      nutritionTotals.sodium += (ingredient.sodium || 0) * quantityInBaseUnit / 100;
+      nutritionTotals.calories += ((ingredient.calories || 0) * quantityInBaseUnit) / 100;
+      nutritionTotals.protein += ((ingredient.protein || 0) * quantityInBaseUnit) / 100;
+      nutritionTotals.carbohydrates += ((ingredient.carbohydrates || 0) * quantityInBaseUnit) / 100;
+      nutritionTotals.fat += ((ingredient.fat || 0) * quantityInBaseUnit) / 100;
+      nutritionTotals.fiber += ((ingredient.fiber || 0) * quantityInBaseUnit) / 100;
+      nutritionTotals.sugar += ((ingredient.sugar || 0) * quantityInBaseUnit) / 100;
+      nutritionTotals.sodium += ((ingredient.sodium || 0) * quantityInBaseUnit) / 100;
       // After calculation
       console.log('Contribution to totals:', {
-        calories: (ingredient.calories || 0) * quantityInBaseUnit / 100,
-        protein: (ingredient.protein || 0) * quantityInBaseUnit / 100,
+        calories: ((ingredient.calories || 0) * quantityInBaseUnit) / 100,
+        protein: ((ingredient.protein || 0) * quantityInBaseUnit) / 100,
         // etc.
       });
     }
@@ -146,28 +144,29 @@ export class NutritionService {
     // 4. Calculate per-serving values
     const perServingValues: NutritionProps = Object.keys(nutritionTotals).reduce((result, key) => {
       const nutritionKey = key as keyof NutritionProps;
-      result[nutritionKey] = recipeYield > 0
-        ? nutritionTotals[nutritionKey] / recipeYield
-        : nutritionTotals[nutritionKey];
+      result[nutritionKey] =
+        recipeYield > 0
+          ? nutritionTotals[nutritionKey] / recipeYield
+          : nutritionTotals[nutritionKey];
       return result;
     }, {} as NutritionProps);
 
     const perServingNutrition: Omit<RecipeNutrition, 'id' | 'recipeId'> = {
-      servingSize: recipeYield > 0 ? (1 / recipeYield) : 1,
+      servingSize: recipeYield > 0 ? 1 / recipeYield : 1,
       servingUnit,
       ...perServingValues,
-      ...allergens
+      ...allergens,
     };
 
     // 5. Save nutrition information to database
-    const recipeNutrition = await this.prisma.recipeNutrition.upsert({
+    const recipeNutrition = (await this.prisma.recipeNutrition.upsert({
       where: { recipeId },
       update: perServingNutrition,
       create: {
         recipeId,
         ...perServingNutrition,
       },
-    }) satisfies RecipeNutrition
+    })) satisfies RecipeNutrition;
 
     return recipeNutrition;
   }
@@ -196,7 +195,11 @@ export class NutritionService {
 
       // Use the new searchFoodsWithFallback method instead of searchFoods
       const searchResults = await this.usdaApiService.searchFoodsWithFallback(searchName);
-      console.log(`USDA search with fallback for "${ingredient.name}":`, searchResults?.foods?.length || 0, 'results');
+      console.log(
+        `USDA search with fallback for "${ingredient.name}":`,
+        searchResults?.foods?.length || 0,
+        'results',
+      );
 
       if (searchResults.foods && searchResults.foods.length > 0) {
         // Get the top match
@@ -227,11 +230,13 @@ export class NutritionService {
       };
 
       // Detect  allergens
-      const allergens = this.usdaApiService.detectAllergens(ingredientData)
+      const allergens = this.usdaApiService.detectAllergens(ingredientData);
 
       // Use the new extraction method if available and if any values are missing
-      if (this.usdaApiService.extractNutritionData &&
-        Object.values(extractedData).some(val => val === null)) {
+      if (
+        this.usdaApiService.extractNutritionData &&
+        Object.values(extractedData).some(val => val === null)
+      ) {
         try {
           // Use the new standardized extraction method which handles more formats
           const standardizedData = this.usdaApiService.extractNutritionData(ingredientData);
@@ -246,7 +251,10 @@ export class NutritionService {
             });
           }
         } catch (error) {
-          console.warn('Error using standardized extraction, falling back to basic extraction', error);
+          console.warn(
+            'Error using standardized extraction, falling back to basic extraction',
+            error,
+          );
         }
       }
 
@@ -269,7 +277,7 @@ export class NutritionService {
     if (!nutritionData || !nutritionData.foodNutrients) return null;
 
     const nutrient = nutritionData.foodNutrients.find(
-      (n: any) => n.nutrient && n.nutrient.name === nutrientName
+      (n: any) => n.nutrient && n.nutrient.name === nutrientName,
     );
 
     return nutrient ? nutrient.amount : null;
@@ -296,7 +304,7 @@ export class NutritionService {
       containsFish?: boolean;
       containsShellfish?: boolean;
       containsSesame?: boolean;
-    }
+    },
   ): Promise<any> {
     // Extract nutritional data
     const nutritionData = {
@@ -310,17 +318,25 @@ export class NutritionService {
     };
 
     // Validate nutritional data ranges
-    if (nutritionData.calories < 0 || nutritionData.protein < 0 ||
-      nutritionData.carbohydrates < 0 || nutritionData.fat < 0 ||
-      nutritionData.fiber < 0 || nutritionData.sugar < 0 ||
-      nutritionData.sodium < 0) {
+    if (
+      nutritionData.calories < 0 ||
+      nutritionData.protein < 0 ||
+      nutritionData.carbohydrates < 0 ||
+      nutritionData.fat < 0 ||
+      nutritionData.fiber < 0 ||
+      nutritionData.sugar < 0 ||
+      nutritionData.sodium < 0
+    ) {
       throw new Error('Nutrition values cannot be negative');
     }
 
     // Check if protein + carbs + fat exceeds 100g per 100g (with small tolerance)
     const macroSum = nutritionData.protein + nutritionData.carbohydrates + nutritionData.fat;
-    if (macroSum > 105) { // Allow 5% tolerance
-      throw new Error(`Total of protein, carbs, and fat (${macroSum}g) exceeds 100g for a 100g portion`);
+    if (macroSum > 105) {
+      // Allow 5% tolerance
+      throw new Error(
+        `Total of protein, carbs, and fat (${macroSum}g) exceeds 100g for a 100g portion`,
+      );
     }
 
     try {
@@ -329,13 +345,13 @@ export class NutritionService {
         where: {
           ingredients: {
             some: {
-              ingredientId
-            }
-          }
+              ingredientId,
+            },
+          },
         },
         select: {
-          id: true
-        }
+          id: true,
+        },
       });
 
       // Update ingredient with nutritional data
@@ -368,13 +384,13 @@ export class NutritionService {
           where: {
             ingredients: {
               some: {
-                ingredientId
-              }
-            }
+                ingredientId,
+              },
+            },
           },
           include: {
-            nutritionalInfo: true
-          }
+            nutritionalInfo: true,
+          },
         });
 
         // Update the nutrition info for each recipe
@@ -394,7 +410,7 @@ export class NutritionService {
             if (Object.keys(updateData).length > 0) {
               await this.prisma.recipeNutrition.update({
                 where: { recipeId: recipe.id },
-                data: updateData
+                data: updateData,
               });
             }
           }
@@ -411,7 +427,7 @@ export class NutritionService {
   private async convertToBaseUnit(
     quantity: number,
     unit: string,
-    ingredientId: number
+    ingredientId: number,
   ): Promise<number> {
     // Normalize the unit name
     const normalizedUnit = unit.toLowerCase().trim();
@@ -439,7 +455,9 @@ export class NutritionService {
       convertedValue = this.convertWithinCategory(quantity, normalizedUnit, baseUnit, category);
       console.log(`Converted ${quantity} ${normalizedUnit} to ${convertedValue} ${baseUnit}`);
     } catch (error) {
-      console.warn(`Conversion error: ${(error as { message: string }).message}, using direct conversion fallback`);
+      console.warn(
+        `Conversion error: ${(error as { message: string }).message}, using direct conversion fallback`,
+      );
       convertedValue = this.directConversionFallback(quantity, normalizedUnit);
     }
 
@@ -478,7 +496,7 @@ export class NutritionService {
     value: number,
     fromUnit: string,
     toUnit: string,
-    category: 'weight' | 'volume'
+    category: 'weight' | 'volume',
   ): number {
     if (fromUnit === toUnit) return value;
 
@@ -527,25 +545,25 @@ export class NutritionService {
   private directConversionFallback(quantity: number, unit: string): number {
     // Direct conversion factors as a fallback
     const directConversions: Record<string, number> = {
-      'kg': 1000,
-      'kilogram': 1000,
-      'g': 1,
-      'gram': 1,
-      'mg': 0.001,
-      'milligram': 0.001,
-      'lb': 453.592,
-      'pound': 453.592,
-      'oz': 28.3495,
-      'ounce': 28.3495,
-      'l': 1000,
-      'liter': 1000,
-      'ml': 1,
-      'milliliter': 1,
-      'cup': 240,
-      'tbsp': 15,
-      'tablespoon': 15,
-      'tsp': 5,
-      'teaspoon': 5,
+      kg: 1000,
+      kilogram: 1000,
+      g: 1,
+      gram: 1,
+      mg: 0.001,
+      milligram: 0.001,
+      lb: 453.592,
+      pound: 453.592,
+      oz: 28.3495,
+      ounce: 28.3495,
+      l: 1000,
+      liter: 1000,
+      ml: 1,
+      milliliter: 1,
+      cup: 240,
+      tbsp: 15,
+      tablespoon: 15,
+      tsp: 5,
+      teaspoon: 5,
       // Add more direct conversions as needed
     };
 

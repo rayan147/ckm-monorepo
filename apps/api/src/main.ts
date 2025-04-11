@@ -8,7 +8,6 @@ import { I18nService } from './i18n/i18n.service';
 import cookieParser from 'cookie-parser';
 import express from 'express';
 
-
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: ['error', 'warn', 'log', 'debug', 'verbose'],
@@ -26,7 +25,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   app.use(helmet());
-  app.use(cookieParser())
+  app.use(cookieParser());
 
   const configService = app.get(EnvService);
   const port = configService.get('PORT');
@@ -38,12 +37,11 @@ async function bootstrap() {
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     credentials: true,
     allowedHeaders: ['Content-Type', 'Accept', 'Authorization', 'x-csrf-token'],
-    exposedHeaders: ['set-cookie']
+    exposedHeaders: ['set-cookie'],
   });
 
-
-  app.use(express.urlencoded({ extended: true, limit: "1kb" }));
-  app.use(express.json({ limit: "1kb" }));
+  app.use(express.urlencoded({ extended: true, limit: '1kb' }));
+  app.use(express.json({ limit: '1kb' }));
 
   await app.listen(port);
 }

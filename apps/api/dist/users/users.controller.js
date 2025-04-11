@@ -8,6 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const contracts_1 = require("@ckm/contracts");
@@ -71,6 +74,32 @@ let UserController = class UserController {
                 };
             }
             catch (error) {
+                return {
+                    status: 500,
+                    body: { message: error.message },
+                };
+            }
+        });
+    }
+    async getAuthUser(req) {
+        return (0, nest_1.tsRestHandler)(contracts_1.contract.users.getAuthUser, async ({ params }) => {
+            try {
+                console.log('getAuthUser session token:', req.cookies['session_token']);
+                console.log('getAuthUser request params:', params);
+                const user = await this.userService.getAuthUser(params.id);
+                if (!user) {
+                    return {
+                        status: 404,
+                        body: { message: 'User not found' },
+                    };
+                }
+                return {
+                    status: 200,
+                    body: user,
+                };
+            }
+            catch (error) {
+                console.error('Error in getAuthUser:', error);
                 return {
                     status: 500,
                     body: { message: error.message },
@@ -144,6 +173,13 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getUser", null);
+__decorate([
+    (0, nest_1.TsRestHandler)(contracts_1.contract.users.getAuthUser),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "getAuthUser", null);
 __decorate([
     (0, nest_1.TsRestHandler)(contracts_1.contract.users.updateUser),
     __metadata("design:type", Function),

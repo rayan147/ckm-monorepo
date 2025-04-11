@@ -5,14 +5,15 @@ generator client {
 }
 
 generator zod {
-  provider               = "zod-prisma-types"
-  output                 = "../src/generated/zod" // Goes to zod-schemas
-  createInputTypes       = true
-  createModelTypes       = true
-  addInputTypeValidation = true
-  addIncludeType         = true
-  addSelectType          = true
-  modelPrefix            = "Zod"
+  provider                  = "zod-prisma-types"
+  output                    = "../src/generated/zod" // Goes to zod-schemas
+  createInputTypes          = true
+  createModelTypes          = true
+  addInputTypeValidation    = true
+  addIncludeType            = true
+  addSelectType             = true
+  createRelationValuesTypes = true
+  modelPrefix               = "Zod"
 }
 
 datasource db {
@@ -630,7 +631,8 @@ model IngredientAllergen {
   allergenId   Int
   allergen     Allergen   @relation(fields: [allergenId], references: [id], onDelete: Cascade)
 
-  @@unique([ingredientId, allergenId])
+  // TODO* REVERSE THIS BACK
+  //@@unique([ingredientId, allergenId])
   @@map("ingredientAllergen")
 }
 
@@ -659,7 +661,7 @@ model EarlyAccess {
 
 model Organization {
   id          Int          @id @default(autoincrement())
-  name        String       @unique
+  name        String //@unique
   imageUrl    String?
   restaurants Restaurant[]
   users       User[]
@@ -776,12 +778,11 @@ model Session {
   userId           Int
   verificationCode String   @unique
   user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  token            String   @unique
   verified         Boolean  @default(false)
   expiresAt        DateTime
   createdAt        DateTime @default(now())
 
-  @@index([token, verificationCode])
+  @@index([id, verificationCode])
   @@map("session")
 }
 
@@ -801,7 +802,7 @@ model CookBook {
 // Improve Recipe model relationships and indexing
 model Recipe {
   id           Int        @id @default(autoincrement())
-  name         String     @unique
+  name         String //@unique
   imageUrls    String[] // Changed from imageUrl for clarity
   description  String?
   servings     Int

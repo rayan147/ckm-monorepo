@@ -1,21 +1,20 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import {
-  SecretsManagerClient,
-  GetSecretValueCommand,
-} from '@aws-sdk/client-secrets-manager';
+import { SecretsManagerClient, GetSecretValueCommand } from '@aws-sdk/client-secrets-manager';
 import { Env } from './env';
 
 @Injectable()
 export class EnvService implements OnModuleInit {
   private secretsManagerValues: Partial<Env> = {};
 
-  constructor(private configService: ConfigService<Env, true>) { }
+  constructor(private configService: ConfigService<Env, true>) {}
 
   async onModuleInit() {
     if (this.configService.get('NODE_ENV') === 'production') {
       // await this.loadFromSecretsManager();
-      console.log(`Need to implement to get the secret from secretsManagerValues and loaded in .env`)
+      console.log(
+        `Need to implement to get the secret from secretsManagerValues and loaded in .env`,
+      );
     }
   }
 
@@ -34,9 +33,7 @@ export class EnvService implements OnModuleInit {
       const response = await client.send(command);
 
       if (response.SecretString) {
-        this.secretsManagerValues = JSON.parse(
-          response.SecretString,
-        ) as Partial<Env>;
+        this.secretsManagerValues = JSON.parse(response.SecretString) as Partial<Env>;
       } else {
         throw new Error('Secret string is empty');
       }

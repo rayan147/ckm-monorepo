@@ -23,10 +23,17 @@ import { CsrfModule } from 'src/csrf/csrf.module';
     PrismaModule,
     PassportModule,
     EnvModule,
-    CsrfModule
+    CsrfModule,
   ],
-  providers: [AuthService, RoleGuard, AuthSessionsService, CsrfGuard, SessionInitMiddleware, EmailTemplateService],
+  providers: [
+    AuthService,
+    RoleGuard,
+    AuthSessionsService,
+    CsrfGuard,
+    SessionInitMiddleware,
+    EmailTemplateService,
+  ],
   controllers: [AuthController],
   exports: [AuthService, AuthSessionsService],
 })
-export class AuthModule { }
+export class AuthModule {}

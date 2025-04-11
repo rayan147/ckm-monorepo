@@ -9,4 +9,4 @@ import { CsrfService } from './csrf.service';
   providers: [CsrfService, CsrfGuard],
   exports: [CsrfService, CsrfGuard],
 })
-export class CsrfModule { }
+export class CsrfModule {}

@@ -34,9 +34,16 @@ exports.AuthModule = AuthModule = __decorate([
             prisma_module_1.PrismaModule,
             passport_1.PassportModule,
             env_module_1.EnvModule,
-            csrf_module_1.CsrfModule
+            csrf_module_1.CsrfModule,
         ],
-        providers: [auth_service_1.AuthService, role_guard_1.RoleGuard, auth_sessions_service_1.AuthSessionsService, csrf_guard_1.CsrfGuard, auth_session_middleware_service_1.SessionInitMiddleware, email_template_service_1.EmailTemplateService],
+        providers: [
+            auth_service_1.AuthService,
+            role_guard_1.RoleGuard,
+            auth_sessions_service_1.AuthSessionsService,
+            csrf_guard_1.CsrfGuard,
+            auth_session_middleware_service_1.SessionInitMiddleware,
+            email_template_service_1.EmailTemplateService,
+        ],
         controllers: [auth_controller_1.AuthController],
         exports: [auth_service_1.AuthService, auth_sessions_service_1.AuthSessionsService],
     })

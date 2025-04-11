@@ -45,13 +45,10 @@ export class OrderController {
 
   @TsRestHandler(contract.orders.updateOrder)
   async updateOrder() {
-    return tsRestHandler(
-      contract.orders.updateOrder,
-      async ({ params, body }) => {
-        const order = await this.orderService.updateOrder(params.id, body);
-        return { status: 200, body: order };
-      },
-    );
+    return tsRestHandler(contract.orders.updateOrder, async ({ params, body }) => {
+      const order = await this.orderService.updateOrder(params.id, body);
+      return { status: 200, body: order };
+    });
   }
 
   @TsRestHandler(contract.orders.deleteOrder)

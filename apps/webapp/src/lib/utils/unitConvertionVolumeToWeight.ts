@@ -1,7 +1,6 @@
 // File: convertUnitsHelper.ts
 
-import { conversions, type Conversion } from "./ingredientsConversion";
-
+import { conversions, type Conversion } from './ingredientsConversion';
 
 type ConversionGraph = Map<string, Map<string, number>>;
 
@@ -52,7 +51,7 @@ function findConversionFactor(
 
   // Priority queue for Dijkstra's algorithm
   const queue: Array<{ unit: string; factor: number; cost: number }> = [
-    { unit: startUnit, factor: 1, cost: 0 },
+    { unit: startUnit, factor: 1, cost: 0 }
   ];
   const visited = new Map<string, number>();
 
@@ -83,7 +82,7 @@ function findConversionFactor(
         queue.push({
           unit: neighborUnit,
           factor: factor * neighborFactor,
-          cost: cost + edgeCost,
+          cost: cost + edgeCost
         });
       }
     }
@@ -95,9 +94,18 @@ function findConversionFactor(
 // Functions to determine unit categories
 export function isVolumeUnit(unit: string): boolean {
   const volumeUnits = new Set([
-    'gallon', 'quart', 'pint', 'cup', 'fluidOunce',
-    'tablespoon', 'teaspoon', 'milliliter', 'liter',
-    'cubicMeter', 'cubicFoot', 'cubicInch',
+    'gallon',
+    'quart',
+    'pint',
+    'cup',
+    'fluidOunce',
+    'tablespoon',
+    'teaspoon',
+    'milliliter',
+    'liter',
+    'cubicMeter',
+    'cubicFoot',
+    'cubicInch'
     // Include ingredient-specific volume units if necessary
   ]);
   return volumeUnits.has(unit);
@@ -105,8 +113,14 @@ export function isVolumeUnit(unit: string): boolean {
 
 export function isWeightUnit(unit: string): boolean {
   const weightUnits = new Set([
-    'ton', 'kilogram', 'gram', 'milligram',
-    'metricTon', 'pound', 'ounce', 'stone',
+    'ton',
+    'kilogram',
+    'gram',
+    'milligram',
+    'metricTon',
+    'pound',
+    'ounce',
+    'stone'
     // Include ingredient-specific weight units if necessary
   ]);
   return weightUnits.has(unit);
@@ -123,12 +137,7 @@ export default function convertUnitsHelper(
   // Build the graph including custom conversions
   const graph = buildConversion(conversions, customConversions);
 
-  const factor = findConversionFactor(
-    graph,
-    fromUnit,
-    toUnit,
-    customConversions
-  );
+  const factor = findConversionFactor(graph, fromUnit, toUnit, customConversions);
 
   if (factor !== null) {
     return value * factor;
@@ -148,13 +157,7 @@ export default function convertUnitsHelper(
         customConversions
       );
       const weightInGrams = volumeInMl * density;
-      return convertUnitsHelper(
-        weightInGrams,
-        'gram',
-        toUnit,
-        undefined,
-        customConversions
-      );
+      return convertUnitsHelper(weightInGrams, 'gram', toUnit, undefined, customConversions);
     } else if (!fromIsVolume && toIsVolume) {
       // Weight to volume conversion
       const weightInGrams = convertUnitsHelper(
@@ -165,13 +168,7 @@ export default function convertUnitsHelper(
         customConversions
       );
       const volumeInMl = weightInGrams / density;
-      return convertUnitsHelper(
-        volumeInMl,
-        'milliliter',
-        toUnit,
-        undefined,
-        customConversions
-      );
+      return convertUnitsHelper(volumeInMl, 'milliliter', toUnit, undefined, customConversions);
     }
   }
 
@@ -181,21 +178,17 @@ export default function convertUnitsHelper(
 // Example usage with corrected custom conversion
 try {
   // Custom conversion based on known equivalence
-  const customConversions: Conversion[] = [
-    { fromUnit: 'cupFlour', toUnit: 'ounce', factor: 4.6 },
-  ];
+  const customConversions: Conversion[] = [{ fromUnit: 'cupFlour', toUnit: 'ounce', factor: 4.6 }];
 
   const pounds = convertUnitsHelper(
-    0.75,          // value
-    'cupFlour',    // fromUnit
-    'pound',       // toUnit
-    undefined,     // density (not needed here)
-    customConversions  // customConversions
+    0.75, // value
+    'cupFlour', // fromUnit
+    'pound', // toUnit
+    undefined, // density (not needed here)
+    customConversions // customConversions
   );
 
-  console.log(
-    `0.75 cup of flour is approximately ${pounds.toFixed(6)} pounds`
-  );
+  console.log(`0.75 cup of flour is approximately ${pounds.toFixed(6)} pounds`);
 } catch (error) {
   console.error('Conversion error:', (error as Error).message);
 }

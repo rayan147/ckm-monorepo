@@ -38,14 +38,11 @@ export class EarlyAccessController {
 
   @TsRestHandler(contract.earlyAccess.deleteEmail)
   async deleteEmails() {
-    return tsRestHandler(
-      contract.earlyAccess.deleteEmail,
-      async ({ params }) => {
-        this.logger.log('Received request to delete an email');
-        const emails = await this.earlyAccessService.deleteEmail(params.id);
-        return { status: 201, body: emails };
-      },
-    );
+    return tsRestHandler(contract.earlyAccess.deleteEmail, async ({ params }) => {
+      this.logger.log('Received request to delete an email');
+      const emails = await this.earlyAccessService.deleteEmail(params.id);
+      return { status: 201, body: emails };
+    });
   }
 
   @TsRestHandler(contract.earlyAccess.getEmail)

@@ -1,7 +1,7 @@
-import { api } from "@ckm/lib-api";
-import type { PageLoad } from "./$types";
+import { api } from '@ckm/lib-api';
+import type { PageLoad } from './$types';
 import { error } from '@sveltejs/kit';
-import type { USDAMatches } from "@ckm/types";
+import type { USDAMatches } from '@ckm/types';
 
 export const load: PageLoad = async ({ url, params }) => {
   try {
@@ -14,27 +14,31 @@ export const load: PageLoad = async ({ url, params }) => {
     const { status, body } = await api.recipe.getRecipe({
       params: { id: recipeId }
     });
-
+    console.log({ body });
 
     if (status !== 200) {
-      return error(404, { message: 'Recipe not found' });
+      error(404, { message: 'Recipe not found' });
     }
 
     const ingredientToMatch = url.searchParams.get('matchIngredient');
-    let usdaMatches = [] as unknown
+    let usdaMatches = [] as unknown;
 
     if (ingredientToMatch) {
       const searchResult = await api.nutrition.ingredientNutrition({
-
-
         query: {
           query: ingredientToMatch,
           pageSize: 10
         }
-      })
+      });
       if (searchResult.status === 200 && searchResult.body?.foods) {
-        usdaMatches = searchResult.body.foods
+        usdaMatches = searchResult.body.foods;
       }
+    }
+
+    // Debug logs to verify all relations are received from API
+    //
+    if (status === 200) {
+      console.log({ body });
     }
 
     return {
@@ -54,7 +58,7 @@ export const load: PageLoad = async ({ url, params }) => {
     if (err instanceof Error) {
       return error(500, err.message);
     }
+    console.error(err);
     return error(500, 'An unknown error occurred');
   }
 };
-

@@ -83,7 +83,7 @@ let UserService = class UserService {
     async getUser(id) {
         try {
             return await this.prisma.user.findUnique({
-                where: { id }
+                where: { id },
             });
         }
         catch (error) {
@@ -92,9 +92,10 @@ let UserService = class UserService {
     }
     async getAuthUser(id) {
         const user = await this.prisma.user.findUnique({
-            where: { id }, include: {
-                auth: true
-            }
+            where: { id },
+            include: {
+                auth: true,
+            },
         });
         if (!user) {
             throw new common_1.NotFoundException('User not found');
@@ -119,8 +120,8 @@ let UserService = class UserService {
                     organization = await tx.organization.create({
                         data: {
                             name: organizationInput.name,
-                            imageUrl: organizationInput.imageUrl
-                        }
+                            imageUrl: organizationInput.imageUrl,
+                        },
                     });
                     this.logger.log('Organization created: ' + organization.id);
                 }
@@ -128,20 +129,20 @@ let UserService = class UserService {
                     data: Object.assign(Object.assign(Object.assign({}, userDataWithoutAuth), { auth: {
                             create: {
                                 passwordHash: hashedPassword,
-                                role: role
-                            }
+                                role: role,
+                            },
                         } }), (organization ? { organization: { connect: { id: organization.id } } } : {})),
                     include: {
-                        organization: true
-                    }
+                        organization: true,
+                    },
                 });
                 this.logger.log('User created: ' + user.id);
                 if (restaurantsInput && restaurantsInput.length > 0) {
                     for (const restaurantData of restaurantsInput) {
                         const restaurant = await tx.restaurant.create({
                             data: Object.assign(Object.assign(Object.assign({}, restaurantData), (organization ? { organization: { connect: { id: organization.id } } } : {})), { users: {
-                                    connect: { id: user.id }
-                                } })
+                                    connect: { id: user.id },
+                                } }),
                         });
                         this.logger.log('Restaurant created: ' + restaurant.id);
                     }
@@ -182,7 +183,7 @@ let UserService = class UserService {
             const authToUpdate = sortedAuth[0];
             await this.prisma.auth.update({
                 where: { id: authToUpdate.id },
-                data: { role: newRole }
+                data: { role: newRole },
             });
             return this.getUser(userId);
         }
@@ -196,13 +197,13 @@ let UserService = class UserService {
                 where: {
                     auth: {
                         some: {
-                            role: role
-                        }
-                    }
+                            role: role,
+                        },
+                    },
                 },
                 include: {
-                    auth: true
-                }
+                    auth: true,
+                },
             });
         }
         catch (error) {
@@ -213,6 +214,7 @@ let UserService = class UserService {
 exports.UserService = UserService;
 exports.UserService = UserService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [prisma_service_1.PrismaService, logging_service_1.LoggingService])
+    __metadata("design:paramtypes", [prisma_service_1.PrismaService,
+        logging_service_1.LoggingService])
 ], UserService);
 //# sourceMappingURL=users.service.js.map

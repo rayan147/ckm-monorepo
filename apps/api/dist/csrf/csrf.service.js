@@ -16,13 +16,13 @@ const env_service_1 = require("../env/env.service");
 let CsrfService = class CsrfService {
     constructor(envService) {
         this.envService = envService;
-        const { csrfSynchronisedProtection, generateToken, revokeToken, } = (0, csrf_sync_1.csrfSync)({
+        const { csrfSynchronisedProtection, generateToken, revokeToken } = (0, csrf_sync_1.csrfSync)({
             ignoredMethods: ['GET', 'HEAD', 'OPTIONS'],
-            getTokenFromState: (req) => {
+            getTokenFromState: req => {
                 var _a;
                 return (_a = req.session) === null || _a === void 0 ? void 0 : _a.csrfToken;
             },
-            getTokenFromRequest: (req) => {
+            getTokenFromRequest: req => {
                 var _a;
                 return req.headers['x-csrf-token'] || ((_a = req.body) === null || _a === void 0 ? void 0 : _a.csrfToken);
             },

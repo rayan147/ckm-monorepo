@@ -4,6 +4,25 @@ import { z } from 'zod';
 
 const c = initContract();
 
+const SessionValidationSchema = zodSchemas.SessionSchema.extend({
+  id: z.string() // Override the id field to accept any string
+})
+const SessionValidationSuccess = z.object({
+  session: SessionValidationSchema,
+  user: zodSchemas.UserSchema
+});
+
+const SessionValidationFailure = z.object({
+  session: z.null(),
+  user: z.null()
+});
+
+// Create the union
+const SessionValidationResultSchema = z.union([
+  SessionValidationSuccess,
+  SessionValidationFailure
+]);
+
 export const authContract = c.router({
   resendCode: {
     method: 'POST',
@@ -40,7 +59,9 @@ export const authContract = c.router({
     responses: {
       200: z.object({
         sessionToken: z.string(),
-        user: zodSchemas.UserSchema,
+        user: zodSchemas.UserSchema.extend({
+          auth: z.array(zodSchemas.AuthSchema.optional())
+        }),
       }),
       401: z.object({ message: z.string() }),
     },
@@ -49,6 +70,7 @@ export const authContract = c.router({
     }),
     summary: 'Verify login code',
   },
+  // In your contract definition
   register: {
     method: 'POST',
     path: '/auth/register',
@@ -56,13 +78,29 @@ export const authContract = c.router({
       201: zodSchemas.UserSchema,
       400: z.object({ message: z.string() }),
     },
-    body: z.intersection(zodSchemas.UserCreateInputSchema,
-      z.object({
-        password: z.string(),
-        role: zodSchemas.UserRoleSchema.optional()
-      })
-    ),
-    summary: 'User registration',
+    body: z.object({
+      email: z.string().email(),
+      firstName: z.string(),
+      lastName: z.string(),
+      profileImage: z.string().optional(),
+      password: z.string(),
+      role: zodSchemas.UserRoleSchema.optional(),
+      isOrganization: z.boolean().optional(),
+      organizationInput: z.object({
+        name: z.string(),
+        imageUrl: z.string().optional()
+      }).optional(),
+      restaurantsInput: z.array(z.object({
+        name: z.string(),
+        imageUrl: z.string().optional(),
+        address: z.string(),
+        city: z.string(),
+        zipCode: z.string(),
+        state: z.string(),
+        owner: z.string()
+      })).optional()
+    }),
+    summary: 'User registration with optional organization and restaurants',
   },
 
   changePassword: {
@@ -118,4 +156,21 @@ export const authContract = c.router({
     }),
     summary: 'Reset password',
   },
+
+  validateSessionToken: {
+    method: 'POST',
+    path: '/auth/validate-session-token',
+    responses: {
+      200: SessionValidationResultSchema,
+      400: z.object({
+        success: z.boolean()
+      }),
+
+    },
+    body: z.object({
+      sessionToken: z.string()
+    }),
+    summary: 'validate the session token'
+  },
+
 });

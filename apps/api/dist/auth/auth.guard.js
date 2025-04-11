@@ -27,7 +27,6 @@ let AuthGuard = class AuthGuard {
             return true;
         }
         const request = context.switchToHttp().getRequest();
-        console.log({ request });
         const token = request.cookies['session_token'];
         if (!token) {
             return false;

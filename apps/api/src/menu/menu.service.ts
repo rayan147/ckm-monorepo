@@ -20,11 +20,7 @@ export class MenuService {
     }
   }
 
-  async getMenus(params: {
-    skip?: number;
-    take?: number;
-    restaurantId?: number;
-  }): Promise<Menu[]> {
+  async getMenus(params: { skip?: number; take?: number; restaurantId?: number }): Promise<Menu[]> {
     const { skip, take, restaurantId } = params;
     try {
       return await this.prisma.menu.findMany({

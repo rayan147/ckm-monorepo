@@ -55,8 +55,7 @@ export class AnalyticsService {
       );
 
       const averageFoodCost =
-        menuItems.reduce((sum, item) => sum + item.foodCost, 0) /
-        menuItems.length;
+        menuItems.reduce((sum, item) => sum + item.foodCost, 0) / menuItems.length;
 
       return { lowestCostItem, highestCostItem, averageFoodCost };
     } catch (error) {
@@ -66,29 +65,16 @@ export class AnalyticsService {
 
   async getRecipeAnalytics(recipeId: number, startDate: Date, endDate: Date) {
     try {
-      const prepHistory = await this.getPrepHistory(
-        recipeId,
-        startDate,
-        endDate,
-      );
-      const foodCostHistory = await this.getFoodCostHistory(
-        recipeId,
-        startDate,
-        endDate,
-      );
+      const prepHistory = await this.getPrepHistory(recipeId, startDate, endDate);
+      const foodCostHistory = await this.getFoodCostHistory(recipeId, startDate, endDate);
 
-      const totalPrepCount = prepHistory.reduce(
-        (sum, item) => sum + item.quantity,
-        0,
-      );
+      const totalPrepCount = prepHistory.reduce((sum, item) => sum + item.quantity, 0);
       const averagePrepsPerWeek =
-        totalPrepCount /
-        ((endDate.getTime() - startDate.getTime()) / (7 * 24 * 60 * 60 * 1000));
+        totalPrepCount / ((endDate.getTime() - startDate.getTime()) / (7 * 24 * 60 * 60 * 1000));
       const averageFoodCost =
-        foodCostHistory.reduce((sum, item) => sum + item.cost, 0) /
-        foodCostHistory.length;
+        foodCostHistory.reduce((sum, item) => sum + item.cost, 0) / foodCostHistory.length;
 
-      const foodCostTrend = foodCostHistory.map((item) => ({
+      const foodCostTrend = foodCostHistory.map(item => ({
         date: item.date.toISOString(),
         cost: item.cost,
       }));
@@ -104,11 +90,7 @@ export class AnalyticsService {
     }
   }
 
-  async getRestaurantAnalytics(
-    restaurantId: number,
-    startDate: Date,
-    endDate: Date,
-  ) {
+  async getRestaurantAnalytics(restaurantId: number, startDate: Date, endDate: Date) {
     try {
       const totalRecipes = await this.prisma.recipe.count({
         where: { restaurantId },
@@ -123,22 +105,17 @@ export class AnalyticsService {
       });
 
       const mostPreparedRecipes = recipes
-        .map((recipe) => ({
+        .map(recipe => ({
           recipe,
-          prepCount: recipe.prepHistory.reduce(
-            (sum, item) => sum + item.quantity,
-            0,
-          ),
+          prepCount: recipe.prepHistory.reduce((sum, item) => sum + item.quantity, 0),
         }))
         .sort((a, b) => b.prepCount - a.prepCount)
         .slice(0, 5);
 
       const averageFoodCost =
         recipes.reduce((sum, recipe) => {
-          const recipeCosts = recipe.foodCostHistory.map((h) => h.cost);
-          return (
-            sum + recipeCosts.reduce((a, b) => a + b, 0) / recipeCosts.length
-          );
+          const recipeCosts = recipe.foodCostHistory.map(h => h.cost);
+          return sum + recipeCosts.reduce((a, b) => a + b, 0) / recipeCosts.length;
         }, 0) / recipes.length;
 
       const foodCostTrend = await this.prisma.foodCostHistory.groupBy({
@@ -155,7 +132,7 @@ export class AnalyticsService {
         totalMenuItems,
         averageFoodCost,
         mostPreparedRecipes,
-        foodCostTrend: foodCostTrend.map((item) => ({
+        foodCostTrend: foodCostTrend.map(item => ({
           date: item.date.toISOString(),
           cost: item._avg.cost,
         })),

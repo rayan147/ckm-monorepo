@@ -38,12 +38,8 @@ let NutritionService = class NutritionService {
         if (!recipe) {
             throw new Error(`Recipe with ID ${recipeId} not found`);
         }
-        const recipeYield = recipe.yields.length > 0
-            ? recipe.yields[0].expectedYield
-            : recipe.servings;
-        const servingUnit = recipe.yields.length > 0
-            ? recipe.yields[0].unit
-            : 'servings';
+        const recipeYield = recipe.yields.length > 0 ? recipe.yields[0].expectedYield : recipe.servings;
+        const servingUnit = recipe.yields.length > 0 ? recipe.yields[0].unit : 'servings';
         const nutritionTotals = {
             calories: 0,
             protein: 0,
@@ -61,7 +57,7 @@ let NutritionService = class NutritionService {
             containsSoy: false,
             containsFish: false,
             containsShellfish: false,
-            containsSesame: false
+            containsSesame: false,
         };
         console.log('Recipe ingredients:', recipe.ingredients.length);
         for (const recipeIngredient of recipe.ingredients) {
@@ -72,7 +68,7 @@ let NutritionService = class NutritionService {
                 quantity,
                 unit,
                 hasNutrition: Boolean(ingredient.calories),
-                usdaId: ingredient.usdaFoodId
+                usdaId: ingredient.usdaFoodId,
             });
             if (ingredient.usdaFoodId) {
                 const ingredientData = await this.usdaApiService.getFoodNutrition(ingredient.usdaFoodId);
@@ -84,7 +80,8 @@ let NutritionService = class NutritionService {
                     allergens.containsEggs = allergens.containsEggs || ingredientAllergens.containsEggs;
                     allergens.containsSoy = allergens.containsSoy || ingredientAllergens.containsSoy;
                     allergens.containsFish = allergens.containsFish || ingredientAllergens.containsFish;
-                    allergens.containsShellfish = allergens.containsShellfish || ingredientAllergens.containsShellfish;
+                    allergens.containsShellfish =
+                        allergens.containsShellfish || ingredientAllergens.containsShellfish;
                     allergens.containsSesame = allergens.containsSesame || ingredientAllergens.containsSesame;
                 }
             }
@@ -99,32 +96,33 @@ let NutritionService = class NutritionService {
             }
             const quantityInBaseUnit = await this.convertToBaseUnit(quantity, unit, ingredient.id);
             console.log('Converted quantity:', quantityInBaseUnit);
-            nutritionTotals.calories += (ingredient.calories || 0) * quantityInBaseUnit / 100;
-            nutritionTotals.protein += (ingredient.protein || 0) * quantityInBaseUnit / 100;
-            nutritionTotals.carbohydrates += (ingredient.carbohydrates || 0) * quantityInBaseUnit / 100;
-            nutritionTotals.fat += (ingredient.fat || 0) * quantityInBaseUnit / 100;
-            nutritionTotals.fiber += (ingredient.fiber || 0) * quantityInBaseUnit / 100;
-            nutritionTotals.sugar += (ingredient.sugar || 0) * quantityInBaseUnit / 100;
-            nutritionTotals.sodium += (ingredient.sodium || 0) * quantityInBaseUnit / 100;
+            nutritionTotals.calories += ((ingredient.calories || 0) * quantityInBaseUnit) / 100;
+            nutritionTotals.protein += ((ingredient.protein || 0) * quantityInBaseUnit) / 100;
+            nutritionTotals.carbohydrates += ((ingredient.carbohydrates || 0) * quantityInBaseUnit) / 100;
+            nutritionTotals.fat += ((ingredient.fat || 0) * quantityInBaseUnit) / 100;
+            nutritionTotals.fiber += ((ingredient.fiber || 0) * quantityInBaseUnit) / 100;
+            nutritionTotals.sugar += ((ingredient.sugar || 0) * quantityInBaseUnit) / 100;
+            nutritionTotals.sodium += ((ingredient.sodium || 0) * quantityInBaseUnit) / 100;
             console.log('Contribution to totals:', {
-                calories: (ingredient.calories || 0) * quantityInBaseUnit / 100,
-                protein: (ingredient.protein || 0) * quantityInBaseUnit / 100,
+                calories: ((ingredient.calories || 0) * quantityInBaseUnit) / 100,
+                protein: ((ingredient.protein || 0) * quantityInBaseUnit) / 100,
             });
         }
         console.log('Final nutrition totals:', nutritionTotals);
         const perServingValues = Object.keys(nutritionTotals).reduce((result, key) => {
             const nutritionKey = key;
-            result[nutritionKey] = recipeYield > 0
-                ? nutritionTotals[nutritionKey] / recipeYield
-                : nutritionTotals[nutritionKey];
+            result[nutritionKey] =
+                recipeYield > 0
+                    ? nutritionTotals[nutritionKey] / recipeYield
+                    : nutritionTotals[nutritionKey];
             return result;
         }, {});
-        const perServingNutrition = Object.assign(Object.assign({ servingSize: recipeYield > 0 ? (1 / recipeYield) : 1, servingUnit }, perServingValues), allergens);
-        const recipeNutrition = await this.prisma.recipeNutrition.upsert({
+        const perServingNutrition = Object.assign(Object.assign({ servingSize: recipeYield > 0 ? 1 / recipeYield : 1, servingUnit }, perServingValues), allergens);
+        const recipeNutrition = (await this.prisma.recipeNutrition.upsert({
             where: { recipeId },
             update: perServingNutrition,
             create: Object.assign({ recipeId }, perServingNutrition),
-        });
+        }));
         return recipeNutrition;
     }
     async updateIngredientNutrition(ingredientId) {
@@ -213,9 +211,12 @@ let NutritionService = class NutritionService {
             sugar: data.sugar,
             sodium: data.sodium,
         };
-        if (nutritionData.calories < 0 || nutritionData.protein < 0 ||
-            nutritionData.carbohydrates < 0 || nutritionData.fat < 0 ||
-            nutritionData.fiber < 0 || nutritionData.sugar < 0 ||
+        if (nutritionData.calories < 0 ||
+            nutritionData.protein < 0 ||
+            nutritionData.carbohydrates < 0 ||
+            nutritionData.fat < 0 ||
+            nutritionData.fiber < 0 ||
+            nutritionData.sugar < 0 ||
             nutritionData.sodium < 0) {
             throw new Error('Nutrition values cannot be negative');
         }
@@ -228,13 +229,13 @@ let NutritionService = class NutritionService {
                 where: {
                     ingredients: {
                         some: {
-                            ingredientId
-                        }
-                    }
+                            ingredientId,
+                        },
+                    },
                 },
                 select: {
-                    id: true
-                }
+                    id: true,
+                },
             });
             const updatedIngredient = await this.prisma.ingredient.update({
                 where: { id: ingredientId },
@@ -255,13 +256,13 @@ let NutritionService = class NutritionService {
                     where: {
                         ingredients: {
                             some: {
-                                ingredientId
-                            }
-                        }
+                                ingredientId,
+                            },
+                        },
                     },
                     include: {
-                        nutritionalInfo: true
-                    }
+                        nutritionalInfo: true,
+                    },
                 });
                 for (const recipe of recipes) {
                     if (recipe.nutritionalInfo) {
@@ -274,7 +275,7 @@ let NutritionService = class NutritionService {
                         if (Object.keys(updateData).length > 0) {
                             await this.prisma.recipeNutrition.update({
                                 where: { recipeId: recipe.id },
-                                data: updateData
+                                data: updateData,
                             });
                         }
                     }
@@ -361,25 +362,25 @@ let NutritionService = class NutritionService {
     }
     directConversionFallback(quantity, unit) {
         const directConversions = {
-            'kg': 1000,
-            'kilogram': 1000,
-            'g': 1,
-            'gram': 1,
-            'mg': 0.001,
-            'milligram': 0.001,
-            'lb': 453.592,
-            'pound': 453.592,
-            'oz': 28.3495,
-            'ounce': 28.3495,
-            'l': 1000,
-            'liter': 1000,
-            'ml': 1,
-            'milliliter': 1,
-            'cup': 240,
-            'tbsp': 15,
-            'tablespoon': 15,
-            'tsp': 5,
-            'teaspoon': 5,
+            kg: 1000,
+            kilogram: 1000,
+            g: 1,
+            gram: 1,
+            mg: 0.001,
+            milligram: 0.001,
+            lb: 453.592,
+            pound: 453.592,
+            oz: 28.3495,
+            ounce: 28.3495,
+            l: 1000,
+            liter: 1000,
+            ml: 1,
+            milliliter: 1,
+            cup: 240,
+            tbsp: 15,
+            tablespoon: 15,
+            tsp: 5,
+            teaspoon: 5,
         };
         const factor = directConversions[unit] || 1;
         console.log(`Applied direct conversion factor for ${unit}: ${factor}`);

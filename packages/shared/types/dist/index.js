@@ -20,14 +20,9 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // src/index.ts
 var index_exports = {};
 __export(index_exports, {
-  AuthError: () => AuthError,
-  ChangePasswordResponseSchema: () => ChangePasswordResponseSchema,
   IngredientSchema: () => IngredientSchema,
   InventoryItemSchema: () => InventoryItemSchema,
   InventorySchema: () => InventorySchema,
-  LoginResponseSchema: () => LoginResponseSchema,
-  LogoutResponseSchema: () => LogoutResponseSchema,
-  MessageSchema: () => MessageSchema,
   OrderCreateSchema: () => OrderCreateSchema,
   OrderItemCreateSchema: () => OrderItemCreateSchema,
   OrderItemSchema: () => OrderItemSchema,
@@ -41,7 +36,6 @@ __export(index_exports, {
   RecipeInstructionCreateSchema: () => RecipeInstructionCreateSchema,
   RecipeInstructionSchema: () => RecipeInstructionSchema,
   RecipeUpdateSchema: () => RecipeUpdateSchema,
-  RegisterResponseSchema: () => RegisterResponseSchema,
   ShiftCreateInput: () => ShiftCreateInput,
   UserCreateSchema: () => UserCreateSchema,
   UserRoleEnum: () => UserRoleEnum,
@@ -4332,75 +4326,11 @@ var VendorCreateSchema = VendorSchema2.omit({
   //   ingredients: true
 });
 var VendorUpdateSchema = VendorCreateSchema.partial();
-
-// src/auth/index.ts
-var import_db2 = require("@ckm/db");
-var HttpStatus = {
-  INTERNAL_SERVER_ERROR: 500,
-  OK: 200,
-  BAD_REQUEST: 400,
-  CREATED: 201
-};
-var MessageSchema = z.object({
-  message: z.string()
-});
-var AuthError = z.object({
-  status: z.literal(HttpStatus.INTERNAL_SERVER_ERROR),
-  body: MessageSchema
-});
-var LoginResponseSchema = z.discriminatedUnion("status", [
-  z.object({
-    status: z.literal(HttpStatus.OK),
-    body: z.object({
-      access_token: z.string(),
-      session_token: z.string()
-    })
-  }),
-  z.object({
-    status: z.literal(HttpStatus.INTERNAL_SERVER_ERROR),
-    body: MessageSchema
-  })
-]);
-var RegisterResponseSchema = z.discriminatedUnion("status", [
-  z.object({
-    status: z.literal(HttpStatus.CREATED),
-    body: import_db2.zodSchemas.UserSchema.omit({ passwordHash: true })
-  }),
-  z.object({
-    status: z.literal(HttpStatus.BAD_REQUEST),
-    body: MessageSchema
-  })
-]);
-var ChangePasswordResponseSchema = z.discriminatedUnion("status", [
-  z.object({
-    status: z.literal(HttpStatus.OK),
-    body: MessageSchema
-  }),
-  z.object({
-    status: z.literal(HttpStatus.BAD_REQUEST),
-    body: MessageSchema
-  })
-]);
-var LogoutResponseSchema = z.discriminatedUnion("status", [
-  z.object({
-    status: z.literal(HttpStatus.OK),
-    body: MessageSchema
-  }),
-  z.object({
-    status: z.literal(HttpStatus.BAD_REQUEST),
-    body: MessageSchema
-  })
-]);
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  AuthError,
-  ChangePasswordResponseSchema,
   IngredientSchema,
   InventoryItemSchema,
   InventorySchema,
-  LoginResponseSchema,
-  LogoutResponseSchema,
-  MessageSchema,
   OrderCreateSchema,
   OrderItemCreateSchema,
   OrderItemSchema,
@@ -4414,7 +4344,6 @@ var LogoutResponseSchema = z.discriminatedUnion("status", [
   RecipeInstructionCreateSchema,
   RecipeInstructionSchema,
   RecipeUpdateSchema,
-  RegisterResponseSchema,
   ShiftCreateInput,
   UserCreateSchema,
   UserRoleEnum,

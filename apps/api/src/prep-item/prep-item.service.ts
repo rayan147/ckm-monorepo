@@ -58,10 +58,7 @@ export class PrepItemService {
     }
   }
 
-  async updatePrepItem(
-    id: number,
-    data: Prisma.PrepItemUpdateInput,
-  ): Promise<PrepItem> {
+  async updatePrepItem(id: number, data: Prisma.PrepItemUpdateInput): Promise<PrepItem> {
     try {
       return await this.prisma.prepItem.update({
         where: { id },
@@ -69,10 +66,7 @@ export class PrepItemService {
         include: { prepBoard: true, recipe: true, assignedTo: true },
       });
     } catch (error) {
-      this.logger.handleError(
-        error,
-        `Failed to update prep item with ID ${id}`,
-      );
+      this.logger.handleError(error, `Failed to update prep item with ID ${id}`);
     }
   }
 
@@ -83,10 +77,7 @@ export class PrepItemService {
         include: { prepBoard: true, recipe: true, assignedTo: true },
       });
     } catch (error) {
-      this.logger.handleError(
-        error,
-        `Failed to delete prep item with ID ${id}`,
-      );
+      this.logger.handleError(error, `Failed to delete prep item with ID ${id}`);
     }
   }
 }

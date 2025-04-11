@@ -16,7 +16,7 @@ export class RestaurantService {
     private readonly prisma: PrismaService,
     private readonly organizationService: OrganizationService,
     private readonly logger: LoggingService,
-  ) { }
+  ) {}
 
   async createRestaurant(data: Prisma.RestaurantCreateInput): Promise<Restaurant> {
     try {
@@ -52,9 +52,7 @@ export class RestaurantService {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
-          throw new BadRequestException(
-            'A restaurant with this name already exists',
-          );
+          throw new BadRequestException('A restaurant with this name already exists');
         }
       }
       this.logger.error(error);
@@ -106,10 +104,7 @@ export class RestaurantService {
     }
   }
 
-  async updateRestaurant(
-    id: number,
-    data: Prisma.RestaurantUpdateInput,
-  ): Promise<Restaurant> {
+  async updateRestaurant(id: number, data: Prisma.RestaurantUpdateInput): Promise<Restaurant> {
     try {
       return await this.prisma.restaurant.update({
         where: { id },

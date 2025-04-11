@@ -1,11 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import {
-  BinaryLike,
-  createCipheriv,
-  createDecipheriv,
-  randomBytes,
-  scrypt,
-} from 'crypto';
+import { BinaryLike, createCipheriv, createDecipheriv, randomBytes, scrypt } from 'crypto';
 import { promisify } from 'util';
 import { EnvService } from '../../env/env.service';
 import { LoggingService } from '../../logging/logging.service';
@@ -29,10 +23,7 @@ export class EncryptionService {
       const key = (await promisify(scrypt)(password, 'salt', 32)) as Buffer;
       const cipher = createCipheriv('aes-256-ctr', key, iv);
 
-      const encryptedText = Buffer.concat([
-        cipher.update(text),
-        cipher.final(),
-      ]);
+      const encryptedText = Buffer.concat([cipher.update(text), cipher.final()]);
 
       return `${iv.toString('hex')}:${encryptedText.toString('hex')}`;
     } catch (error) {

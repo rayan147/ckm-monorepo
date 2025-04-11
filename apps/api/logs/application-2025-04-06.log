@@ -1,0 +1,162 @@
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 475",
+  "service": "LoggingService",
+  "timestamp": "2025-04-06T19:28:48.813Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "The security token included in the request is expired",
+  "level": "error",
+  "message": "Login process failed: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-06T19:28:49.022Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-06T19:29:48.388Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-06T19:29:48.479Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-06T19:29:48.568Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-06T19:29:48.669Z"
+}
+{
+  "context": "PrismaService",
+  "level": "info",
+  "message": "Prisma connected successfully",
+  "service": "LoggingService",
+  "timestamp": "2025-04-06T19:29:48.758Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 475",
+  "service": "LoggingService",
+  "timestamp": "2025-04-06T20:02:46.204Z"
+}
+{
+  "level": "info",
+  "message": "Login initiated for user: rayan361@gmail.com (ID: 475)",
+  "service": "LoggingService",
+  "timestamp": "2025-04-06T20:02:46.447Z"
+}
+{
+  "level": "info",
+  "message": "Successful verification for user ID: 475",
+  "service": "LoggingService",
+  "timestamp": "2025-04-06T20:03:18.905Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "{\n  \"session_token\": \"ylz6dqj6fmfew5kqmrnyhonkc6alype4v5t73uw7f56ofcvpyvna\",\n  \"user_id\": \"475\"\n}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-06T20:03:26.801Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-06T20:03:26.803Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-04-06T20:03:26.802Z"
+}
+{
+  "level": "info",
+  "message": "Successfully invalidated all sessions for user 475",
+  "service": "LoggingService",
+  "timestamp": "2025-04-06T20:10:23.128Z"
+}
+{
+  "level": "info",
+  "message": "Login initiated for user: rayan361@gmail.com (ID: 475)",
+  "service": "LoggingService",
+  "timestamp": "2025-04-06T20:10:23.346Z"
+}
+{
+  "level": "info",
+  "message": "Successful verification for user ID: 475",
+  "service": "LoggingService",
+  "timestamp": "2025-04-06T20:10:39.608Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "{\n  \"session_token\": \"dty5slggtmseoqytetnrwwszf5miqdyr6bizm27o5uucoowfo2tq\",\n  \"user_id\": \"475\"\n}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-06T20:22:51.145Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-06T20:22:51.146Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-04-06T20:22:51.146Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "{\n  \"session_token\": \"dty5slggtmseoqytetnrwwszf5miqdyr6bizm27o5uucoowfo2tq\",\n  \"user_id\": \"475\"\n}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-06T20:25:07.372Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-06T20:25:07.373Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-04-06T20:25:07.373Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipe with ID 357",
+  "service": "LoggingService",
+  "timestamp": "2025-04-06T20:25:11.226Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipe with ID 357",
+  "service": "LoggingService",
+  "timestamp": "2025-04-06T20:25:11.228Z"
+}

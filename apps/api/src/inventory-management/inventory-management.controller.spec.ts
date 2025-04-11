@@ -9,9 +9,7 @@ describe('InventoryManagementController', () => {
       controllers: [InventoryManagementController],
     }).compile();
 
-    controller = module.get<InventoryManagementController>(
-      InventoryManagementController,
-    );
+    controller = module.get<InventoryManagementController>(InventoryManagementController);
   });
 
   it('should be defined', () => {

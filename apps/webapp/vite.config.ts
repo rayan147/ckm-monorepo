@@ -7,23 +7,10 @@ export default defineConfig({
     include: ['src/**/*.{test,spec}.{js,ts}']
   },
   optimizeDeps: {
-    include: [
-      '@ckm/db',
-      '@ckm/contract',
-      '@ckm/lib-api',
-      '@ckm/types',
-    ]
+    include: ['@ckm/db', '@ckm/contract', '@ckm/lib-api', '@ckm/types']
   },
   ssr: {
-    noExternal: [
-      '@ckm/db',
-      '@ckm/contract',
-      '@ckm/lib-api',
-      '@ckm/types',
-      '@prisma/client',
-    ],
-    external: ['@prisma/client'],
-
-  },
+    noExternal: ['@ckm/db', '@ckm/contract', '@ckm/lib-api', '@ckm/types', '@prisma/client'],
+    external: ['@prisma/client']
+  }
 });
-

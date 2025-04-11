@@ -35,10 +35,10 @@ async function bootstrap() {
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
         credentials: true,
         allowedHeaders: ['Content-Type', 'Accept', 'Authorization', 'x-csrf-token'],
-        exposedHeaders: ['set-cookie']
+        exposedHeaders: ['set-cookie'],
     });
-    app.use(express_1.default.urlencoded({ extended: true, limit: "1kb" }));
-    app.use(express_1.default.json({ limit: "1kb" }));
+    app.use(express_1.default.urlencoded({ extended: true, limit: '1kb' }));
+    app.use(express_1.default.json({ limit: '1kb' }));
     await app.listen(port);
 }
 bootstrap();

@@ -72,11 +72,10 @@ const vendor_controller_1 = require("./vendor/vendor.controller");
 const vendor_module_1 = require("./vendor/vendor.module");
 const vendor_service_1 = require("./vendor/vendor.service");
 const csrf_middleware_1 = require("./csrf/csrf.middleware");
+const nest_1 = require("@ts-rest/nest");
 let AppModule = class AppModule {
     configure(consumer) {
-        consumer
-            .apply(auth_session_middleware_service_1.SessionInitMiddleware, csrf_middleware_1.CsrfMiddleware)
-            .forRoutes('*');
+        consumer.apply(auth_session_middleware_service_1.SessionInitMiddleware, csrf_middleware_1.CsrfMiddleware).forRoutes('*');
     }
 };
 exports.AppModule = AppModule;
@@ -85,7 +84,7 @@ exports.AppModule = AppModule = __decorate([
         imports: [
             config_1.ConfigModule.forRoot({
                 isGlobal: true,
-                validate: (env) => env_1.envSchema.parse(env),
+                validate: env => env_1.envSchema.parse(env),
             }),
             throttler_1.ThrottlerModule.forRoot([
                 {
@@ -96,14 +95,19 @@ exports.AppModule = AppModule = __decorate([
                 {
                     name: 'medium',
                     ttl: 10000,
-                    limit: 20
+                    limit: 20,
                 },
                 {
                     name: 'long',
                     ttl: 60000,
-                    limit: 100
-                }
+                    limit: 100,
+                },
             ]),
+            nest_1.TsRestModule.register({
+                isGlobal: true,
+                jsonQuery: true,
+                validateResponses: true,
+            }),
             users_module_1.UsersModule,
             prisma_module_1.PrismaModule,
             vendor_module_1.VendorModule,
@@ -132,7 +136,7 @@ exports.AppModule = AppModule = __decorate([
             aiassistant_module_1.AiassistantModule,
             csrf_module_1.CsrfModule,
             nutrition_service_module_1.NutritionModule,
-            axios_1.HttpModule
+            axios_1.HttpModule,
         ],
         controllers: [
             app_controller_1.AppController,
@@ -167,7 +171,7 @@ exports.AppModule = AppModule = __decorate([
             usda_api_service_1.UsdaApiService,
             {
                 provide: core_1.APP_GUARD,
-                useClass: auth_guard_1.AuthGuard
+                useClass: auth_guard_1.AuthGuard,
             },
         ],
     })

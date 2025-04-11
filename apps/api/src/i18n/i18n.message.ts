@@ -11,8 +11,7 @@ export const messages = {
       },
       REGISTER: {
         SUCCESS: 'Registration successful',
-        FAILURE:
-          'Registration failed. Please check your information and try again.',
+        FAILURE: 'Registration failed. Please check your information and try again.',
         EMAIL_TAKEN: 'This email is already registered.',
       },
       CHANGE_PASSWORD: {
@@ -30,8 +29,7 @@ export const messages = {
     AUTH: {
       LOGIN: {
         SUCCESS: 'Inicio de sesión exitoso',
-        FAILURE:
-          'Error al iniciar sesión. Por favor, verifica tus credenciales.',
+        FAILURE: 'Error al iniciar sesión. Por favor, verifica tus credenciales.',
       },
       LOGOUT: {
         SUCCESS: 'Sesión cerrada exitosamente',
@@ -39,8 +37,7 @@ export const messages = {
       },
       REGISTER: {
         SUCCESS: 'Registro exitoso',
-        FAILURE:
-          'Error en el registro. Por favor, verifica tu información e intenta de nuevo.',
+        FAILURE: 'Error en el registro. Por favor, verifica tu información e intenta de nuevo.',
         EMAIL_TAKEN: 'Este correo electrónico ya está registrado.',
       },
       CHANGE_PASSWORD: {

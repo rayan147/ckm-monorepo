@@ -21,9 +21,7 @@ export class OpenAiserviceService {
     });
   }
 
-  async generateResponse(
-    prompt: string,
-  ): Promise<OpenAI.Chat.ChatCompletion | undefined> {
+  async generateResponse(prompt: string): Promise<OpenAI.Chat.ChatCompletion | undefined> {
     try {
       const params: OpenAI.Chat.ChatCompletionCreateParams = {
         messages: [{ role: 'user', content: prompt }],

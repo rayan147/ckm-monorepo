@@ -5,7 +5,7 @@ import { Request } from 'express';
 
 @Injectable()
 export class CsrfGuard implements CanActivate {
-  constructor(private relector: Reflector) { }
+  constructor(private relector: Reflector) {}
 
   canActivate(context: ExecutionContext): boolean {
     // const isPublic = this.relector.getAllAndOverride<boolean>('isPublic', [

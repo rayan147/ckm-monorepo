@@ -9,9 +9,7 @@ describe('InventoryManagementService', () => {
       providers: [InventoryManagementService],
     }).compile();
 
-    service = module.get<InventoryManagementService>(
-      InventoryManagementService,
-    );
+    service = module.get<InventoryManagementService>(InventoryManagementService);
   });
 
   it('should be defined', () => {

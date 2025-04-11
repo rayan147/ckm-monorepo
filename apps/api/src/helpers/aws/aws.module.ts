@@ -10,4 +10,4 @@ import { AwsCredentialsService } from './aws-credentials.service';
   providers: [S3Service, KmsService, EnvService, PinpointService, AwsCredentialsService],
   exports: [S3Service, KmsService, PinpointService, AwsCredentialsService],
 })
-export class AwsModule { }
+export class AwsModule {}

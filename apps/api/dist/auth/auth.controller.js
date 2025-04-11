@@ -18,14 +18,12 @@ const nest_1 = require("@ts-rest/nest");
 const contracts_1 = require("@ckm/contracts");
 const auth_service_1 = require("./auth.service");
 const i18n_service_1 = require("../i18n/i18n.service");
-const env_service_1 = require("../env/env.service");
 const auth_sessions_service_1 = require("./utils/auth.sessions.service");
 const public_decorator_1 = require("../decorators/public.decorator");
 let AuthController = class AuthController {
-    constructor(authService, i18nService, envService, authSession) {
+    constructor(authService, i18nService, authSession) {
         this.authService = authService;
         this.i18nService = i18nService;
-        this.envService = envService;
         this.authSession = authSession;
     }
     async resendCode() {
@@ -87,7 +85,7 @@ let AuthController = class AuthController {
                 const user = await this.authService.register(body);
                 return {
                     status: 201,
-                    body: user
+                    body: user,
                 };
             }
             catch (error) {
@@ -120,15 +118,22 @@ let AuthController = class AuthController {
     async logout(request, response) {
         return (0, nest_1.tsRestHandler)(contracts_1.contract.auth.logout, async ({ body }) => {
             try {
+                console.log('API: Logout called with userId:', body.userId);
                 await this.authService.logout(body.userId);
                 const token = request.cookies['session_token'];
+                console.log('API: Session token from cookie exists:', !!token);
                 if (token) {
-                    const { user } = await this.authSession.validateSessionToken(token);
-                    if (user) {
-                        await this.authSession.invalidateSession(user.id);
+                    console.log('API: Validating session token');
+                    const sessionResult = await this.authSession.validateSessionToken(token);
+                    console.log('API: Session validation result - session exists:', !!sessionResult.session);
+                    console.log('API: Session validation result - user exists:', !!sessionResult.user);
+                    if (sessionResult.user) {
+                        console.log('API: Invalidating session for user:', sessionResult.user.id);
+                        await this.authSession.invalidateSession(sessionResult.user.id);
                     }
                 }
                 this.authSession.clearSessionCookie(response);
+                console.log('API: Session cookie cleared');
                 return {
                     status: 200,
                     body: {
@@ -137,6 +142,7 @@ let AuthController = class AuthController {
                 };
             }
             catch (error) {
+                console.error('API: Logout error:', error);
                 return {
                     status: 400,
                     body: { message: error.message },
@@ -174,6 +180,23 @@ let AuthController = class AuthController {
                 return {
                     status: 400,
                     body: { message: error.message },
+                };
+            }
+        });
+    }
+    async validateSessionToken() {
+        return (0, nest_1.tsRestHandler)(contracts_1.contract.auth.validateSessionToken, async ({ body }) => {
+            try {
+                const result = await this.authSession.validateSessionToken(body.sessionToken);
+                return {
+                    status: 200,
+                    body: result,
+                };
+            }
+            catch (error) {
+                return {
+                    status: 400,
+                    body: { success: false },
                 };
             }
         });
@@ -240,11 +263,16 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "resetPassword", null);
+__decorate([
+    (0, nest_1.TsRestHandler)(contracts_1.contract.auth.validateSessionToken),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "validateSessionToken", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)(),
     __metadata("design:paramtypes", [auth_service_1.AuthService,
         i18n_service_1.I18nService,
-        env_service_1.EnvService,
         auth_sessions_service_1.AuthSessionsService])
 ], AuthController);
 //# sourceMappingURL=auth.controller.js.map

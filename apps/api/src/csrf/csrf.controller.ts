@@ -4,11 +4,9 @@ import { Request, Response } from 'express';
 import { Public } from 'src/decorators/public.decorator';
 import { CsrfService } from './csrf.service';
 
-
 @Controller('csrf')
 export class CsrfController {
-  constructor(private readonly csrfService: CsrfService) {
-  }
+  constructor(private readonly csrfService: CsrfService) {}
 
   @Get('csrf-token')
   @Public()
@@ -19,7 +17,6 @@ export class CsrfController {
     // Set it in the session
     if (req.session?.csrfToken) {
       req.session.csrfToken = token;
-
     }
 
     // Return it in the response

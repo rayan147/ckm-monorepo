@@ -1,21 +1,23 @@
-import { User } from "@ckm/db";
-import { Injectable, CanActivate, ExecutionContext, UnauthorizedException } from "@nestjs/common";
-import { AuthSessionsService } from "src/auth/utils/auth.sessions.service";
-import { Request } from 'express'
-import { LoggingService } from "src/logging/logging.service";
+import { User } from '@ckm/db';
+import { Injectable, CanActivate, ExecutionContext, UnauthorizedException } from '@nestjs/common';
+import { AuthSessionsService } from 'src/auth/utils/auth.sessions.service';
+import { Request } from 'express';
+import { LoggingService } from 'src/logging/logging.service';
 
 @Injectable()
 export class SessionAuthGuard implements CanActivate {
-  constructor(private sessionService: AuthSessionsService, private readonly logger: LoggingService) { }
+  constructor(
+    private sessionService: AuthSessionsService,
+    private readonly logger: LoggingService,
+  ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest<Request & { user?: User }>();
-    const sessionToken = request.cookies['session_token']
+    const sessionToken = request.cookies['session_token'];
 
     if (!sessionToken) {
       this.logger.debug('Auth failed: No session token provided');
       throw new UnauthorizedException('No session token provided');
-
     }
 
     try {
@@ -33,10 +35,8 @@ export class SessionAuthGuard implements CanActivate {
 
       request.user = user;
       return true;
-
     } catch (error) {
-      this.logger.handleError(error, 'Session authentication failed')
+      this.logger.handleError(error, 'Session authentication failed');
     }
-
   }
 }

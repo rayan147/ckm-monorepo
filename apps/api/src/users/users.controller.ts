@@ -1,12 +1,13 @@
 import { contract } from '@ckm/contracts';
 import { User } from '@ckm/db';
-import { Controller, NotFoundException } from '@nestjs/common';
+import { Controller, NotFoundException, Req } from '@nestjs/common';
 import { TsRestHandler, tsRestHandler } from '@ts-rest/nest';
 import { UserService } from './users.service';
+import { Request } from 'express';
 
 @Controller()
 export class UserController {
-  constructor(private readonly userService: UserService) { }
+  constructor(private readonly userService: UserService) {}
 
   @TsRestHandler(contract.users.createUser)
   async createUser() {
@@ -32,7 +33,7 @@ export class UserController {
     return tsRestHandler(contract.users.getUsers, async ({ query }) => {
       const skip = query.skip ? parseInt(query.skip, 10) : undefined;
       const take = query.take ? parseInt(query.take, 10) : undefined;
-      const orderBy = query.orderBy as keyof User | undefined
+      const orderBy = query.orderBy as keyof User | undefined;
 
       try {
         const users = await this.userService.getUsers({ skip, take, orderBy });
@@ -66,6 +67,35 @@ export class UserController {
           body: user,
         };
       } catch (error) {
+        return {
+          status: 500 as const,
+          body: { message: (error as Error).message },
+        };
+      }
+    });
+  }
+
+  @TsRestHandler(contract.users.getAuthUser)
+  async getAuthUser(@Req() req: Request) {
+    return tsRestHandler(contract.users.getAuthUser, async ({ params }) => {
+      try {
+        // Debug session token in this request
+        console.log('getAuthUser session token:', req.cookies['session_token']);
+        console.log('getAuthUser request params:', params);
+
+        const user = await this.userService.getAuthUser(params.id);
+        if (!user) {
+          return {
+            status: 404,
+            body: { message: 'User not found' },
+          };
+        }
+        return {
+          status: 200,
+          body: user,
+        };
+      } catch (error) {
+        console.error('Error in getAuthUser:', error);
         return {
           status: 500 as const,
           body: { message: (error as Error).message },
@@ -122,4 +152,3 @@ export class UserController {
     });
   }
 }
-

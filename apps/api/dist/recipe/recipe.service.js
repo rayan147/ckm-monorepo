@@ -83,69 +83,6 @@ let RecipeService = class RecipeService {
             throw error;
         }
     }
-    async updateRecipe(id, input) {
-        try {
-            this.logger.log(`Updating recipe: ${JSON.stringify(input)}`);
-            const { data, deleteIds } = input;
-            const updatedRecipe = await this.prisma.$transaction(async (prisma) => {
-                var _a, _b, _c, _d;
-                if (deleteIds) {
-                    if (deleteIds.ingredientIds && deleteIds.ingredientIds.length > 0) {
-                        await prisma.recipeIngredient.deleteMany({
-                            where: { id: { in: deleteIds.ingredientIds } },
-                        });
-                    }
-                    if (deleteIds.instructionIds && deleteIds.instructionIds.length > 0) {
-                        await prisma.recipeInstruction.deleteMany({
-                            where: { id: { in: deleteIds.instructionIds } },
-                        });
-                    }
-                }
-                const recipe = await prisma.recipe.update({
-                    where: { id },
-                    data: {
-                        name: data.name,
-                        imageUrls: data.imageUrls,
-                        description: data.description,
-                        servings: data.servings,
-                        cookTime: data.cookTime,
-                        prepTime: data.prepTime,
-                        frequency: data.frequency,
-                        foodCost: data.foodCost,
-                        restaurant: data.restaurant,
-                        cookBook: data.cookBook,
-                        ingredients: {
-                            update: (_a = data.ingredients) === null || _a === void 0 ? void 0 : _a.update,
-                            create: (_b = data.ingredients) === null || _b === void 0 ? void 0 : _b.create,
-                        },
-                        instructions: {
-                            update: (_c = data.instructions) === null || _c === void 0 ? void 0 : _c.update,
-                            create: (_d = data.instructions) === null || _d === void 0 ? void 0 : _d.create,
-                        },
-                    },
-                    include: {
-                        ingredients: {
-                            include: {
-                                ingredient: true,
-                            },
-                        },
-                        instructions: true,
-                        restaurant: true,
-                        cookBook: true,
-                    },
-                });
-                return recipe;
-            });
-            this.logger.log(`Recipe updated successfully: ${JSON.stringify(updatedRecipe)}`);
-            return updatedRecipe;
-        }
-        catch (error) {
-            if (error instanceof db_1.Prisma.PrismaClientKnownRequestError) {
-                this.logger.handleError(error, `Failed to update recipe with ID ${id}`);
-            }
-            throw error;
-        }
-    }
     async getRecipes(params) {
         const { skip, take, restaurantId, searchTerm } = params;
         this.logger.log(`Fetching recipes with params: ${JSON.stringify(params)}`);
@@ -173,7 +110,7 @@ let RecipeService = class RecipeService {
                         dietaryRestrictions: true,
                         criticalPoints: true,
                         yields: true,
-                        recipeStats: true
+                        recipeStats: true,
                     },
                 }),
             ]);
@@ -209,8 +146,11 @@ let RecipeService = class RecipeService {
                     temperatures: true,
                     storage: true,
                     prepItems: true,
+                    versions: true,
+                    recipeStats: true,
                 },
             });
+            this.logger.log(`Fetching recipe ${JSON.stringify(recipe, null, 2)}`);
             if (!recipe || recipe.isDeleted) {
                 throw new common_1.NotFoundException(`Recipe with ID ${id} not found`);
             }
@@ -271,8 +211,7 @@ let RecipeService = class RecipeService {
             const existingRecipeIngredient = await this.prisma.recipeIngredient.findUnique({
                 where: { id },
             });
-            if (!existingRecipeIngredient ||
-                existingRecipeIngredient.recipeId !== recipeId) {
+            if (!existingRecipeIngredient || existingRecipeIngredient.recipeId !== recipeId) {
                 throw new common_1.NotFoundException(`Ingredient with ID ${id} not found in recipe ${recipeId}`);
             }
             const updatedRecipeIngredient = await this.prisma.recipeIngredient.update({

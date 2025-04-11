@@ -1,53 +1,44 @@
-import { initClient, ApiFetcherArgs } from '@ts-rest/core';
+import { initClient, tsRestFetchApi, ApiFetcherArgs } from '@ts-rest/core';
 import { contract } from '@ckm/contracts';
 
+let csrfToken: string | null = null;
+
+const csrfFetcher = async (args: ApiFetcherArgs) => {
+  if (csrfToken) {
+    args.headers = {
+      ...args.headers,
+      'X-CSRF-Token': csrfToken
+    };
+  }
+
+  args.fetchOptions = {
+    ...args.fetchOptions,
+    credentials: 'include'
+  };
+
+  const response = await tsRestFetchApi(args);
+
+  const newToken = response.headers.get('x-csrf-token');
+  if (newToken) {
+    csrfToken = newToken;
+  }
+
+  return response;
+};
+
+// Use environment-aware baseUrl
+const getBaseUrl = () => {
+  if (typeof window !== 'undefined') {
+    const origin = window.location.origin;
+    return origin.includes('localhost') ? 'http://localhost:3000' : origin;
+  }
+
+  return 'http://localhost:3000';
+};
+
+// Define the API type explicitly to avoid TypeScript's reference issues
 export const api = initClient(contract, {
-  baseUrl: 'http://localhost:3000',
+  baseUrl: getBaseUrl(),
   baseHeaders: {},
+  api: csrfFetcher
 });
-// Create a function that takes the fetch instance
-// export const createApi = (customFetch?: typeof fetch) => {
-//   return initClient(contract, {
-//     baseUrl: 'http://localhost:3000',
-//     baseHeaders: {},
-//     api: async (args: ApiFetcherArgs) => {
-//       const { path, method, headers, body } = args;
-//       const url = `http://localhost:3000/${path}`;
-
-// Use the provided fetch or fall back to the fetch in the current scope
-// const fetchImpl = customFetch || fetch;
-
-//       try {
-//         const response = await fetchImpl(url, {
-//           method,
-//           headers: new Headers(headers),
-//           body: body ? JSON.stringify(body) : undefined,
-//           credentials: 'include', // To handle cookies properly
-//         });
-//
-//         // Create a proper Headers object
-//         const responseHeaders = new Headers();
-//         response.headers.forEach((value, key) => {
-//           responseHeaders.append(key, value);
-//         });
-//
-//         let responseBody;
-//         const contentType = response.headers.get('content-type');
-//         if (contentType && contentType.includes('application/json')) {
-//           responseBody = await response.json();
-//         } else {
-//           responseBody = await response.text();
-//         }
-//
-//         return {
-//           status: response.status,
-//           body: responseBody,
-//           headers: responseHeaders,
-//         };
-//       } catch (error) {
-//         console.error('API request failed:', error);
-//         throw error;
-//       }
-//     },
-//   });
-// };

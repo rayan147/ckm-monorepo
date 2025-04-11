@@ -12,9 +12,7 @@ export class CookBookService {
     this.logger.setContext('CookBookService');
   }
 
-  async createCookBook(
-    data: Prisma.CookBookUncheckedCreateInput,
-  ): Promise<CookBook> {
+  async createCookBook(data: Prisma.CookBookUncheckedCreateInput): Promise<CookBook> {
     try {
       return await this.prisma.cookBook.create({ data });
     } catch (error) {
@@ -55,10 +53,7 @@ export class CookBookService {
     }
   }
 
-  async updateCookBook(
-    id: number,
-    data: Prisma.CookBookUpdateInput,
-  ): Promise<CookBook> {
+  async updateCookBook(id: number, data: Prisma.CookBookUpdateInput): Promise<CookBook> {
     try {
       return await this.prisma.cookBook.update({
         where: { id },

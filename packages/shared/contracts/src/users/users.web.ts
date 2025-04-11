@@ -44,7 +44,24 @@ export const userContract = c.router({
     }),
     responses: {
       200: zodSchemas.UserSchema,
-      404: z.object({ message: z.string() })
+      404: z.object({ message: z.string() }),
+      500: z.object({ message: z.string() })
+    },
+    summary: 'Get a user by ID',
+  },
+
+  getAuthUser: {
+    method: 'GET',
+    path: '/users/:id',
+    pathParams: z.object({
+      id: z.coerce.number()
+    }),
+    responses: {
+      200: zodSchemas.UserSchema.extend({
+        auth: z.array(zodSchemas.AuthSchema)
+      }),
+      404: z.object({ message: z.string() }),
+      500: z.object({ message: z.string() })
     },
     summary: 'Get a user by ID',
   },

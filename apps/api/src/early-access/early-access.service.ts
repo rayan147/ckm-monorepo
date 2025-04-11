@@ -1,7 +1,7 @@
 import { zodSchemas } from '@ckm/db';
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { PinpointService } from '../helpers/aws/pinpoint.service'
-import { EarlyAccess, } from '@ckm/db';
+import { PinpointService } from '../helpers/aws/pinpoint.service';
+import { EarlyAccess } from '@ckm/db';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { LoggingService } from 'src/logging/logging.service';
 import fs from 'fs';
@@ -87,10 +87,7 @@ export class EarlyAccessService {
 
       if (!storeEmail) throw new BadRequestException();
 
-      const htmlBody = this.earlyAccessTemplate.replace(
-        /{{email}}/g,
-        storeEmail.email,
-      );
+      const htmlBody = this.earlyAccessTemplate.replace(/{{email}}/g, storeEmail.email);
 
       const sendEmail = await this.pinPointService.sendEmail(
         email,

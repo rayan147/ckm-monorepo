@@ -21,19 +21,12 @@ export class InventoryManagementService {
       this.logger.log(`Inventory created successfully with ID ${inventory.id}`);
       return inventory;
     } catch (error) {
-      this.logger.handleError(
-        error,
-        `Failed to create inventory for restaurant ${restaurantId}`,
-      );
+      this.logger.handleError(error, `Failed to create inventory for restaurant ${restaurantId}`);
     }
   }
 
-  async addInventoryItem(
-    data: Omit<InventoryItem, 'id' | 'lastUpdated'>,
-  ): Promise<InventoryItem> {
-    this.logger.log(
-      `Adding inventory item for ingredient ${data.ingredientId}`,
-    );
+  async addInventoryItem(data: Omit<InventoryItem, 'id' | 'lastUpdated'>): Promise<InventoryItem> {
+    this.logger.log(`Adding inventory item for ingredient ${data.ingredientId}`);
     try {
       const item = await this.prisma.inventoryItem.create({ data });
       this.logger.log(`Inventory item added successfully with ID ${item.id}`);
@@ -60,16 +53,11 @@ export class InventoryManagementService {
       this.logger.log(`Quantity updated successfully for inventory item ${id}`);
       return item;
     } catch (error) {
-      this.logger.handleError(
-        error,
-        `Failed to update quantity for inventory item ${id}`,
-      );
+      this.logger.handleError(error, `Failed to update quantity for inventory item ${id}`);
     }
   }
 
-  async getInventoryForRestaurant(
-    restaurantId: number,
-  ): Promise<InventoryItem[]> {
+  async getInventoryForRestaurant(restaurantId: number): Promise<InventoryItem[]> {
     this.logger.log(`Fetching inventory for restaurant ${restaurantId}`);
     try {
       const inventory = await this.prisma.inventory.findUnique({
@@ -84,10 +72,7 @@ export class InventoryManagementService {
 
       return inventory.items;
     } catch (error) {
-      this.logger.handleError(
-        error,
-        `Failed to fetch inventory for restaurant ${restaurantId}`,
-      );
+      this.logger.handleError(error, `Failed to fetch inventory for restaurant ${restaurantId}`);
     }
   }
 }

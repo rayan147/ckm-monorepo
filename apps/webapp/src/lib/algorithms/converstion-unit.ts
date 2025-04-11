@@ -1,4 +1,4 @@
-import { conversions, type Conversion } from "./utils/ingredientsConversion";
+import { conversions, type Conversion } from '$lib/utils/ingredientsConversion';
 
 type ConversionGraph = Map<string, Map<string, number>>;
 // Build the conversion graph
@@ -28,9 +28,7 @@ function findConversionFactor(
   if (startUnit === endUnit) return 1;
 
   const visited = new Set<string>();
-  const queue: Array<{ unit: string; factor: number }> = [
-    { unit: startUnit, factor: 1 },
-  ];
+  const queue: Array<{ unit: string; factor: number }> = [{ unit: startUnit, factor: 1 }];
 
   while (queue.length > 0) {
     const { unit, factor } = queue.shift()!;
@@ -44,7 +42,7 @@ function findConversionFactor(
         if (!visited.has(neighborUnit)) {
           queue.push({
             unit: neighborUnit,
-            factor: factor * neighborFactor,
+            factor: factor * neighborFactor
           });
         }
       }
@@ -55,19 +53,34 @@ function findConversionFactor(
 }
 
 // Functions to determine unit categories
-function isVolumeUnit(unit: string): boolean {
+export function isVolumeUnit(unit: string): boolean {
   const volumeUnits = new Set([
-    'gallon', 'quart', 'pint', 'cup', 'fluidOunce',
-    'tablespoon', 'teaspoon', 'milliliter', 'liter',
-    'cubicMeter', 'cubicFoot', 'cubicInch',
+    'gallon',
+    'quart',
+    'pint',
+    'cup',
+    'fluidOunce',
+    'tablespoon',
+    'teaspoon',
+    'milliliter',
+    'liter',
+    'cubicMeter',
+    'cubicFoot',
+    'cubicInch'
   ]);
   return volumeUnits.has(unit);
 }
 
-function isWeightUnit(unit: string): boolean {
+export function isWeightUnit(unit: string): boolean {
   const weightUnits = new Set([
-    'ton', 'kilogram', 'gram', 'milligram',
-    'metricTon', 'pound', 'ounce', 'stone',
+    'ton',
+    'kilogram',
+    'gram',
+    'milligram',
+    'metricTon',
+    'pound',
+    'ounce',
+    'stone'
   ]);
   return weightUnits.has(unit);
 }
@@ -113,4 +126,3 @@ try {
 } catch (error) {
   console.error('Conversion error:', (error as Error).message);
 }
-

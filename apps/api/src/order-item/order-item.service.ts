@@ -1,14 +1,10 @@
-import {
-  Injectable,
-  BadRequestException,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { OrderItem, Prisma } from '@ckm/db';
 
 @Injectable()
 export class OrderItemService {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   async createOrderItem(data: Prisma.OrderItemCreateInput): Promise<OrderItem> {
     try {
@@ -55,10 +51,7 @@ export class OrderItemService {
         data,
       });
     } catch (error) {
-      if (
-        error instanceof Prisma.PrismaClientKnownRequestError &&
-        error.code === 'P2025'
-      ) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
         throw new NotFoundException('Order item not found');
       }
       throw new BadRequestException('Failed to update order item');
@@ -69,10 +62,7 @@ export class OrderItemService {
     try {
       return await this.prisma.orderItem.delete({ where: { id } });
     } catch (error) {
-      if (
-        error instanceof Prisma.PrismaClientKnownRequestError &&
-        error.code === 'P2025'
-      ) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
         throw new NotFoundException('Order item not found');
       }
       throw new BadRequestException('Failed to delete order item');

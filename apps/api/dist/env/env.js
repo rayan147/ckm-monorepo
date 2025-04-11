@@ -16,7 +16,8 @@ exports.envSchema = zod_1.z.object({
     PINPOINT_FROM_EMAIL: zod_1.z.string().email(),
     PINPOINT_SMS_SENDER_ID: zod_1.z.string(),
     SMS_POOL_ORIGINATION_NUMBER: zod_1.z.string(),
-    CORS_ORIGIN: zod_1.z.enum([
+    CORS_ORIGIN: zod_1.z
+        .enum([
         'http://localhost:5173',
         'http://localhost:3000',
         'http://localhost:5175',
@@ -24,7 +25,8 @@ exports.envSchema = zod_1.z.object({
         'https://ckm.rayanr.com',
         'http://10.0.0.8',
         '*',
-    ]).default('http://localhost:5175'),
+    ])
+        .default('http://localhost:5175'),
     KMS_CUSTOMER_KEY: zod_1.z.string(),
     OPENAI_API_KEY: zod_1.z.string(),
     RECIPE_IMAGES_BUCKET: zod_1.z.string(),
@@ -33,6 +35,6 @@ exports.envSchema = zod_1.z.object({
     COOKIE_SECRET: zod_1.z.string(),
     USDA_API_KEY: zod_1.z.string(),
     BASE_URL: zod_1.z.string().default('https://ckm.rayanr.com'),
-    BASE_URL_DEV: zod_1.z.string().default('http://localhost')
+    BASE_URL_DEV: zod_1.z.string().default('http://localhost'),
 });
 //# sourceMappingURL=env.js.map

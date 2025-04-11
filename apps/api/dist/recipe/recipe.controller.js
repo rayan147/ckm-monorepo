@@ -33,7 +33,7 @@ const multerConfig = {
         else {
             cb(new Error('Invalid file type'), false);
         }
-    }
+    },
 };
 let RecipeController = class RecipeController {
     constructor(recipeService, logger, s3Service, envService) {
@@ -82,34 +82,39 @@ let RecipeController = class RecipeController {
     async getRecipe() {
         return (0, nest_1.tsRestHandler)(contracts_1.contract.recipe.getRecipe, async ({ params }) => {
             this.logger.log(`Received request to get recipe with ID ${params.id}`);
-            const recipe = await this.recipeService.getRecipe(params.id);
-            return { status: 200, body: recipe };
-        });
-    }
-    async updateRecipe() {
-        return (0, nest_1.tsRestHandler)(contracts_1.contract.recipe.updateRecipe, async ({ params, body }) => {
-            this.logger.log(`Received request to update recipe with ID ${params.id}`);
-            const recipe = await this.recipeService.updateRecipe(params.id, body);
-            return { status: 200, body: recipe };
+            try {
+                const recipe = await this.recipeService.getRecipe(params.id);
+                this.logger.log(`Returning recipe with ingredients: ${recipe}`);
+                const preparedRecipe = JSON.parse(JSON.stringify(recipe));
+                this.logger.log(`Returning recipe preparedRecipe: ${preparedRecipe}`);
+                return { status: 200, body: recipe };
+            }
+            catch (error) {
+                this.logger.error(`Error fetching recipe with ID ${params.id}:`, error);
+                return {
+                    status: 404,
+                    body: { message: `Recipe with ID ${params.id} not found` },
+                };
+            }
         });
     }
     async deleteRecipe() {
         return (0, nest_1.tsRestHandler)(contracts_1.contract.recipe.deleteRecipe, async ({ params }) => {
-            this.logger.log(`Received request to delete recipe with ID ${params.id}`);
+            this.logger.log(`Received request to delete recipe with ID ${params.id} `);
             const recipe = await this.recipeService.deleteRecipe(params.id);
             return { status: 200, body: recipe };
         });
     }
     async removeIngredientFromRecipe() {
         return (0, nest_1.tsRestHandler)(contracts_1.contract.recipe.removeIngredientFromRecipe, async ({ params }) => {
-            this.logger.log(`Received request to remove ingredient with ID ${params.id} from recipe ${params.recipeId}`);
+            this.logger.log(`Received request to remove ingredient with ID ${params.id} from recipe ${params.recipeId} `);
             const recipeIngredient = await this.recipeService.removeIngredientFromRecipe(params.recipeId, params.id);
             return { status: 200, body: recipeIngredient };
         });
     }
     async updateIngredientInRecipe() {
         return (0, nest_1.tsRestHandler)(contracts_1.contract.recipe.updateIngredientInRecipe, async ({ params, body }) => {
-            this.logger.log(`Received request to update ingredient with ID ${params.id} in recipe ${params.recipeId}`);
+            this.logger.log(`Received request to update ingredient with ID ${params.id} in recipe ${params.recipeId} `);
             const recipeIngredient = await this.recipeService.updateIngredientInRecipe(params.recipeId, params.id, body);
             return { status: 200, body: recipeIngredient };
         });
@@ -130,21 +135,21 @@ let RecipeController = class RecipeController {
     }
     async addInstructionToRecipe() {
         return (0, nest_1.tsRestHandler)(contracts_1.contract.recipe.addInstructionToRecipe, async ({ params, body }) => {
-            this.logger.log(`Received request to add instruction to recipe ${params.recipeId}`);
+            this.logger.log(`Received request to add instruction to recipe ${params.recipeId} `);
             const instruction = await this.recipeService.addInstructionToRecipe(params.recipeId, body);
             return { status: 200, body: instruction };
         });
     }
     async removeInstructionFromRecipe() {
         return (0, nest_1.tsRestHandler)(contracts_1.contract.recipe.removeInstructionFromRecipe, async ({ params }) => {
-            this.logger.log(`Received request to remove instruction ${params.id} from recipe ${params.recipeId}`);
+            this.logger.log(`Received request to remove instruction ${params.id} from recipe ${params.recipeId} `);
             const instruction = await this.recipeService.removeInstructionFromRecipe(params.recipeId, params.id);
             return { status: 200, body: instruction };
         });
     }
     async updateInstructionInRecipe() {
         return (0, nest_1.tsRestHandler)(contracts_1.contract.recipe.updateInstructionInRecipe, async ({ params, body }) => {
-            this.logger.log(`Received request to update instruction ${params.id} in recipe ${params.recipeId}`);
+            this.logger.log(`Received request to update instruction ${params.id} in recipe ${params.recipeId} `);
             const instruction = await this.recipeService.updateInstructionInRecipe(params.recipeId, params.id, body);
             return { status: 200, body: instruction };
         });
@@ -181,7 +186,7 @@ let RecipeController = class RecipeController {
         return (0, nest_1.tsRestHandler)(contracts_1.contract.recipe.calculateRecipePrice, async ({ params, body }) => {
             var _a;
             const profitMargin = (_a = body.profitMargin) !== null && _a !== void 0 ? _a : 0.3;
-            this.logger.log(`Received request to calculate price for recipe ${params.recipeId} with profit margin ${profitMargin * 100}%`);
+            this.logger.log(`Received request to calculate price for recipe ${params.recipeId} with profit margin ${profitMargin * 100}% `);
             const price = await this.recipeService.calculateRecipePrice(params.recipeId, profitMargin);
             return { status: 200, body: { price } };
         });
@@ -190,7 +195,7 @@ let RecipeController = class RecipeController {
         return (0, nest_1.tsRestHandler)(contracts_1.contract.recipe.getRecipePrice, async ({ params, query }) => {
             var _a;
             const profitMargin = (_a = query.profitMargin) !== null && _a !== void 0 ? _a : 0.3;
-            this.logger.log(`Received request to get price for recipe ${params.recipeId} with profit margin ${profitMargin * 100}%`);
+            this.logger.log(`Received request to get price for recipe ${params.recipeId} with profit margin ${profitMargin * 100}% `);
             const price = await this.recipeService.calculateRecipePrice(params.recipeId, profitMargin);
             return { status: 200, body: { price } };
         });
@@ -219,17 +224,13 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], RecipeController.prototype, "getRecipes", null);
 __decorate([
-    (0, nest_1.TsRestHandler)(contracts_1.contract.recipe.getRecipe),
+    (0, nest_1.TsRestHandler)(contracts_1.contract.recipe.getRecipe, {
+        validateResponses: false,
+    }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], RecipeController.prototype, "getRecipe", null);
-__decorate([
-    (0, nest_1.TsRestHandler)(contracts_1.contract.recipe.updateRecipe),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
-], RecipeController.prototype, "updateRecipe", null);
 __decorate([
     (0, nest_1.TsRestHandler)(contracts_1.contract.recipe.deleteRecipe),
     __metadata("design:type", Function),

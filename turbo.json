@@ -8,9 +8,9 @@
       "cache": false
     },
     "build": {
+      "cache": false,
       "dependsOn": [
-        "^build",
-        "^db:generate"
+        "^build"
       ],
       "inputs": [
         "$TURBO_DEFAULT",
@@ -27,6 +27,7 @@
     "lint": {},
     "dev": {
       "dependsOn": [
+        "^build",
         "^db:generate"
       ],
       "cache": false,

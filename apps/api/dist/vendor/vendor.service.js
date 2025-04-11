@@ -37,9 +37,7 @@ let VendorService = class VendorService {
         this.logger.log(`Fetching vendors with params: ${JSON.stringify(params)}`);
         try {
             return await this.prisma.vendor.findMany({
-                where: name
-                    ? { name: { contains: name, mode: 'insensitive' } }
-                    : undefined,
+                where: name ? { name: { contains: name, mode: 'insensitive' } } : undefined,
                 skip,
                 take,
                 include: {
@@ -79,8 +77,7 @@ let VendorService = class VendorService {
             });
         }
         catch (error) {
-            if (error instanceof db_1.Prisma.PrismaClientKnownRequestError &&
-                error.code === 'P2025') {
+            if (error instanceof db_1.Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
                 this.logger.handleError(error, `Vendor with ID ${id} not found for update`);
             }
             this.logger.handleError(error, `Failed to update vendor with ID ${id}`);
@@ -95,8 +92,7 @@ let VendorService = class VendorService {
             });
         }
         catch (error) {
-            if (error instanceof db_1.Prisma.PrismaClientKnownRequestError &&
-                error.code === 'P2025') {
+            if (error instanceof db_1.Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
                 this.logger.handleError(error, `Vendor with ID ${id} not found for deletion`);
             }
             this.logger.handleError(error, `Failed to delete vendor with ID ${id}`);

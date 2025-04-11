@@ -3,7 +3,7 @@ import { browser } from '$app/environment';
 export class LocalStorage<T> {
   #key: string;
   #defaultValue: T;
-  #state = $state<T>()
+  #state = $state<T>();
 
   constructor(key: string, defaultValue: T) {
     this.#key = key;
@@ -19,16 +19,16 @@ export class LocalStorage<T> {
         }
       } catch (e) {
         // Use default on parse error
-        console.warn(`Failed to parse storage event for ${this.#key}`, e);
+        console.error(`Failed to save value to localStorage for key "${this.#key}":`, e);
       }
     }
 
     // Create reactive state
-    this.#state = initialValue
+    this.#state = initialValue;
   }
 
   get value(): T {
-    return this.#state !== undefined ? this.#state : this.#defaultValue
+    return this.#state !== undefined ? this.#state : this.#defaultValue;
   }
 
   set value(newValue: T) {

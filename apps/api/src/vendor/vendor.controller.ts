@@ -41,16 +41,13 @@ export class VendorController {
 
   @TsRestHandler(contract.vendor.updateVendor)
   async updateVendor() {
-    return tsRestHandler(
-      contract.vendor.updateVendor,
-      async ({ params, body }) => {
-        const vendor = await this.vendorService.updateVendor(params.id, body);
-        if (!vendor) {
-          return { status: 404, body: { message: 'Vendor not found' } };
-        }
-        return { status: 200, body: vendor };
-      },
-    );
+    return tsRestHandler(contract.vendor.updateVendor, async ({ params, body }) => {
+      const vendor = await this.vendorService.updateVendor(params.id, body);
+      if (!vendor) {
+        return { status: 404, body: { message: 'Vendor not found' } };
+      }
+      return { status: 200, body: vendor };
+    });
   }
 
   @TsRestHandler(contract.vendor.deleteVendor)

@@ -7,7 +7,7 @@ import { orderContract } from './order';
 import { orderItemContract } from './orderItem';
 import { restaurantContract } from './restaurant';
 import { shiftContract } from './shifts';
-import { recipeContract } from './recipe';
+import { recipeContract } from './recipe/recipe.web';
 import { vendorContract } from './vendor/vendor.web';
 import { prepBoardContract } from "./prep-board";
 import { authContract } from './auth';
@@ -21,7 +21,6 @@ import { prepItemContract } from './prep-item';
 import { nutritionContract } from './nutrition'
 
 const c = initContract();
-
 export const contract = c.router({
   orgs: organizationContract,
   users: userContract,

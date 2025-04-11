@@ -9,7 +9,6 @@ import { EnvModule } from 'src/env/env.module';
 import { IngredientModule } from '../ingredient/ingredient.module';
 import { MulterModule } from '@nestjs/platform-express';
 
-
 @Module({
   imports: [
     MulterModule.register(),
@@ -23,4 +22,4 @@ import { MulterModule } from '@nestjs/platform-express';
   controllers: [RecipeController],
   exports: [RecipeService],
 })
-export class RecipeModule { }
+export class RecipeModule {}
