@@ -2,7 +2,7 @@
   import '../../app.css';
   import '$lib/styles/sidebar-theme.css';
   import * as Sidebar from '$lib/components/ui/sidebar/index.js';
-  import AppSidebar from '$lib/components/domain/nav/sidebar.svelte';
+  import AppSidebar from '$lib/components/layout/nav/sidebar.svelte';
   import { Toaster } from '$lib/components/ui/sonner';
   import { ThemeProvider } from '@sejohnson/svelte-themes';
 

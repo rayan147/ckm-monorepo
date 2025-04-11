@@ -600,3 +600,66 @@
   "service": "LoggingService",
   "timestamp": "2025-04-11T15:55:03.401Z"
 }
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "{\n  \"session_token\": \"zxw3yewz7eeanowbhkoo6yfhybt6whc2uuwbr7igxbedche7pvaa\",\n  \"user_id\": \"584\",\n  \"sidebar:state\": \"true\"\n}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-11T15:56:03.297Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-11T15:56:03.297Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-04-11T15:56:03.297Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "{\n  \"session_token\": \"zxw3yewz7eeanowbhkoo6yfhybt6whc2uuwbr7igxbedche7pvaa\",\n  \"user_id\": \"584\",\n  \"sidebar:state\": \"true\"\n}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-11T15:56:05.470Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-11T15:56:05.471Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-04-11T15:56:05.471Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "{\n  \"session_token\": \"zxw3yewz7eeanowbhkoo6yfhybt6whc2uuwbr7igxbedche7pvaa\",\n  \"user_id\": \"584\",\n  \"sidebar:state\": \"true\"\n}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-11T17:10:22.858Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-11T17:10:22.860Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-04-11T17:10:22.860Z"
+}
