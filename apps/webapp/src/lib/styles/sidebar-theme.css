@@ -4,13 +4,13 @@
   --sidebar-foreground: #f3f4f6; /* gray-100 */
   --sidebar-width: 16rem; /* Adjust as needed */
   --sidebar-width-collapsed: 4rem; /* Width when sidebar is collapsed */
-  
+
   /* Custom colors for sidebar elements */
   --sidebar-border: transparent;
   --sidebar-highlight: rgba(255, 255, 255, 0.1); /* white with low opacity */
   --sidebar-trigger-background: #1e40af; /* blue-800 */
   --sidebar-trigger-foreground: #f3f4f6; /* gray-100 */
-  
+
   /* Icon colors */
   --sidebar-icon-active: #93c5fd; /* blue-300 */
   --sidebar-icon-inactive: #9ca3af; /* gray-400 */
