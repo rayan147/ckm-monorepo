@@ -467,7 +467,6 @@ export class UsdaApiService {
     // Get food description and ingredients list if available
     const description = foodData.description || '';
     const ingredients = foodData.ingredients || '';
-    console.log(`description is ${description} and ingredients is ${ingredients}`);
     const combinedText = (description + ' ' + ingredients).toLowerCase();
 
     // Check each allergen category
@@ -523,8 +522,6 @@ export class UsdaApiService {
         ),
       );
 
-      console.log(`USDA search for "${query}" returned ${data?.foods?.length || 0} results`);
-      console.log(`the data is: ${JSON.stringify(data, null, 2)}`);
       return data;
     } catch (error) {
       console.error('Error in searchFoods:', error);

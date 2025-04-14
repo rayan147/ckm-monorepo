@@ -1,7 +1,17 @@
 // src/routes/+page.server.js
 import { api } from '@ckm/lib-api';
+import type { Actions } from './$types.js';
 
-/** @type {import('./$types').Actions} */
+export function load({ locals }) {
+  if (locals.user) {
+    return {
+      user: locals.user
+    }
+  }
+}
+
+
+
 export const actions = {
   default: async ({ request }) => {
     try {
@@ -35,4 +45,4 @@ export const actions = {
       };
     }
   }
-};
+} satisfies Actions

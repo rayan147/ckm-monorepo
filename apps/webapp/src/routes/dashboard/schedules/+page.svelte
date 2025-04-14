@@ -654,7 +654,7 @@
                   <span
                     class="text-sm font-semibold {isSameDay(day.date, new Date())
                       ? 'text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full'
-                      : day.currentMonth
+                      : day.isCurrentMonth
                         ? 'text-gray-700'
                         : 'text-gray-400'}"
                   >

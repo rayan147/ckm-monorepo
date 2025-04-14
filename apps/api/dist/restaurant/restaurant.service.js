@@ -87,6 +87,13 @@ let RestaurantService = class RestaurantService {
         try {
             const restaurant = await this.prisma.restaurant.findUnique({
                 where: { id, isDeleted: false },
+                include: {
+                    menus: {
+                        include: {
+                            menuItems: true
+                        }
+                    }
+                }
             });
             if (!restaurant)
                 throw new common_1.NotFoundException('Restaurant not found');

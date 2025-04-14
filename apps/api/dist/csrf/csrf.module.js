@@ -15,6 +15,7 @@ let CsrfModule = class CsrfModule {
 };
 exports.CsrfModule = CsrfModule;
 exports.CsrfModule = CsrfModule = __decorate([
+    (0, common_1.Global)(),
     (0, common_1.Module)({
         imports: [env_module_1.EnvModule],
         providers: [csrf_service_1.CsrfService, csrf_guard_1.CsrfGuard],

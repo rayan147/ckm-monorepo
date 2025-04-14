@@ -14,6 +14,8 @@ const common_1 = require("@nestjs/common");
 const nest_1 = require("@ts-rest/nest");
 const contracts_1 = require("@ckm/contracts");
 const organization_service_1 = require("./organization.service");
+const db_1 = require("@ckm/db");
+const auth_decorator_1 = require("../decorators/auth.decorator");
 let OrganizationController = class OrganizationController {
     constructor(organizationService) {
         this.organizationService = organizationService;
@@ -58,30 +60,35 @@ let OrganizationController = class OrganizationController {
 };
 exports.OrganizationController = OrganizationController;
 __decorate([
+    (0, auth_decorator_1.Auth)(db_1.UserRole.ADMIN),
     (0, nest_1.TsRestHandler)(contracts_1.contract.orgs.createOrganization),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], OrganizationController.prototype, "createOrganization", null);
 __decorate([
+    (0, auth_decorator_1.Auth)(db_1.UserRole.ADMIN),
     (0, nest_1.TsRestHandler)(contracts_1.contract.orgs.getOrganizations),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], OrganizationController.prototype, "getOrganizations", null);
 __decorate([
+    (0, auth_decorator_1.Auth)(db_1.UserRole.ADMIN, db_1.UserRole.MANAGER),
     (0, nest_1.TsRestHandler)(contracts_1.contract.orgs.getOrganization),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], OrganizationController.prototype, "getOrganization", null);
 __decorate([
+    (0, auth_decorator_1.Auth)(db_1.UserRole.ADMIN),
     (0, nest_1.TsRestHandler)(contracts_1.contract.orgs.updateOrganization),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], OrganizationController.prototype, "updateOrganization", null);
 __decorate([
+    (0, auth_decorator_1.Auth)(db_1.UserRole.ADMIN),
     (0, nest_1.TsRestHandler)(contracts_1.contract.orgs.deleteOrganization),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),

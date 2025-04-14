@@ -1,16 +1,16 @@
-import { api } from '@ckm/lib-api';
+import { createApiClient, api } from '@ckm/lib-api';
 import type { PageLoad } from './$types';
 import { error } from '@sveltejs/kit';
-import type { USDAMatches } from '@ckm/types';
 
-export const load: PageLoad = async ({ url, params }) => {
+export const load: PageLoad = async ({ url, params, fetch }) => {
   try {
     const recipeId = parseInt(params.id);
 
     if (isNaN(recipeId)) {
       return error(400, { message: 'Invalid recipe ID' });
     }
-
+    //
+    // const api = createApiClient(fetch)
     const { status, body } = await api.recipe.getRecipe({
       params: { id: recipeId }
     });

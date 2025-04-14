@@ -38,7 +38,10 @@ export class MenuService {
     try {
       const menu = await this.prisma.menu.findUnique({
         where: { id },
-        include: { menuItems: true },
+        include: {
+          menuItems: true,
+
+        },
       });
       if (!menu) {
         throw new Error('Menu not found');

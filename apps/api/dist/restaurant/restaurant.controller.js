@@ -14,6 +14,8 @@ const common_1 = require("@nestjs/common");
 const nest_1 = require("@ts-rest/nest");
 const contracts_1 = require("@ckm/contracts");
 const restaurant_service_1 = require("./restaurant.service");
+const db_1 = require("@ckm/db");
+const auth_decorator_1 = require("../decorators/auth.decorator");
 let RestaurantController = class RestaurantController {
     constructor(restaurantService) {
         this.restaurantService = restaurantService;
@@ -37,6 +39,7 @@ let RestaurantController = class RestaurantController {
     async getRestaurant() {
         return (0, nest_1.tsRestHandler)(contracts_1.contract.restaurant.getRestaurant, async ({ params }) => {
             const restaurant = await this.restaurantService.getRestaurant(params.id);
+            console.log(JSON.stringify(restaurant, null, 2));
             return { status: common_1.HttpStatus.OK, body: restaurant };
         });
     }
@@ -55,37 +58,43 @@ let RestaurantController = class RestaurantController {
 };
 exports.RestaurantController = RestaurantController;
 __decorate([
+    (0, auth_decorator_1.Auth)(db_1.UserRole.ADMIN),
     (0, nest_1.TsRestHandler)(contracts_1.contract.restaurant.createRestaurant),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], RestaurantController.prototype, "createRestaurant", null);
 __decorate([
+    (0, auth_decorator_1.Auth)(db_1.UserRole.ADMIN, db_1.UserRole.MANAGER),
     (0, nest_1.TsRestHandler)(contracts_1.contract.restaurant.getRestaurants),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], RestaurantController.prototype, "getRestaurants", null);
 __decorate([
-    (0, nest_1.TsRestHandler)(contracts_1.contract.restaurant.getRestaurant),
+    (0, auth_decorator_1.Auth)(db_1.UserRole.ADMIN, db_1.UserRole.MANAGER),
+    (0, nest_1.TsRestHandler)(contracts_1.contract.restaurant.getRestaurant, {
+        validateResponses: false
+    }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], RestaurantController.prototype, "getRestaurant", null);
 __decorate([
+    (0, auth_decorator_1.Auth)(db_1.UserRole.ADMIN, db_1.UserRole.MANAGER),
     (0, nest_1.TsRestHandler)(contracts_1.contract.restaurant.updateRestaurant),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], RestaurantController.prototype, "updateRestaurant", null);
 __decorate([
+    (0, auth_decorator_1.Auth)(db_1.UserRole.ADMIN),
     (0, nest_1.TsRestHandler)(contracts_1.contract.restaurant.deleteRestaurant),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], RestaurantController.prototype, "deleteRestaurant", null);
 exports.RestaurantController = RestaurantController = __decorate([
-    (0, nest_1.TsRest)({ jsonQuery: true }),
     (0, common_1.Controller)(),
     __metadata("design:paramtypes", [restaurant_service_1.RestaurantService])
 ], RestaurantController);

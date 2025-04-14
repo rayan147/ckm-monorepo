@@ -8,6 +8,7 @@ import { AwsModule } from 'src/helpers/aws/aws.module';
 import { EnvModule } from 'src/env/env.module';
 import { IngredientModule } from '../ingredient/ingredient.module';
 import { MulterModule } from '@nestjs/platform-express';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { MulterModule } from '@nestjs/platform-express';
     AwsModule,
     EnvModule,
     IngredientModule,
+    AuthModule,
   ],
   providers: [RecipeService, PrismaService],
   controllers: [RecipeController],

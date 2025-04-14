@@ -1,9 +1,10 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Res } from '@nestjs/common';
 import { TsRestHandler, tsRestHandler } from '@ts-rest/nest';
 import { UsdaApiService } from 'src/usda-api/usda-api.service';
 import { NutritionService } from './nutrition-service.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { contract } from '@ckm/contracts';
+import { Request } from 'express'
 
 @Controller()
 export class NutritionController {
@@ -11,7 +12,7 @@ export class NutritionController {
     private readonly nutritionService: NutritionService,
     private readonly usdaApiService: UsdaApiService,
     private readonly prisma: PrismaService,
-  ) {}
+  ) { }
 
   @TsRestHandler(contract.nutrition.getRecipeNutrition)
   async getRecipeNutrition() {
@@ -32,11 +33,11 @@ export class NutritionController {
   }
 
   @TsRestHandler(contract.nutrition.calculateRecipeNutrition)
-  async calculateRecipeNutrition() {
+  async calculateRecipeNutrition(@Res() request: Request) {
     return tsRestHandler(contract.nutrition.calculateRecipeNutrition, async ({ params }) => {
       try {
         const nutrition = await this.nutritionService.calculateRecipeNutrition(params.id);
-        console.log({ nutrition });
+        console.log({ request });
         return { status: 200, body: nutrition };
       } catch (error: unknown) {
         console.error('Error calculating recipe nutrition:', error);

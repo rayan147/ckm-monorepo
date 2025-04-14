@@ -2,13 +2,15 @@ import { Controller } from '@nestjs/common';
 import { TsRest, TsRestHandler, tsRestHandler } from '@ts-rest/nest';
 import { contract } from '@ckm/contracts';
 import { OrganizationService } from './organization.service';
-import { Organization } from '@ckm/db';
+import { Organization, UserRole } from '@ckm/db';
+import { Auth } from '../decorators/auth.decorator';
 
 @TsRest({ jsonQuery: true })
 @Controller()
 export class OrganizationController {
   constructor(private readonly organizationService: OrganizationService) {}
 
+  @Auth(UserRole.ADMIN)
   @TsRestHandler(contract.orgs.createOrganization)
   async createOrganization() {
     return tsRestHandler(contract.orgs.createOrganization, async ({ body }) => {
@@ -17,6 +19,7 @@ export class OrganizationController {
     });
   }
 
+  @Auth(UserRole.ADMIN)
   @TsRestHandler(contract.orgs.getOrganizations)
   async getOrganizations() {
     return tsRestHandler(contract.orgs.getOrganizations, async ({ query }) => {
@@ -29,6 +32,7 @@ export class OrganizationController {
     });
   }
 
+  @Auth(UserRole.ADMIN, UserRole.MANAGER)
   @TsRestHandler(contract.orgs.getOrganization)
   async getOrganization() {
     return tsRestHandler(contract.orgs.getOrganization, async ({ params }) => {
@@ -40,6 +44,7 @@ export class OrganizationController {
     });
   }
 
+  @Auth(UserRole.ADMIN)
   @TsRestHandler(contract.orgs.updateOrganization)
   async updateOrganization() {
     return tsRestHandler(contract.orgs.updateOrganization, async ({ params, body }) => {
@@ -48,6 +53,7 @@ export class OrganizationController {
     });
   }
 
+  @Auth(UserRole.ADMIN)
   @TsRestHandler(contract.orgs.deleteOrganization)
   async deleteOrganization() {
     return tsRestHandler(contract.orgs.deleteOrganization, async ({ params }) => {

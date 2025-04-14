@@ -13,6 +13,7 @@ let EnvModule = class EnvModule {
 };
 exports.EnvModule = EnvModule;
 exports.EnvModule = EnvModule = __decorate([
+    (0, common_1.Global)(),
     (0, common_1.Module)({
         providers: [env_service_1.EnvService],
         exports: [env_service_1.EnvService],

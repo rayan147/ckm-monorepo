@@ -14,6 +14,8 @@ const common_1 = require("@nestjs/common");
 const nest_1 = require("@ts-rest/nest");
 const contracts_1 = require("@ckm/contracts");
 const menu_service_1 = require("./menu.service");
+const db_1 = require("@ckm/db");
+const auth_decorator_1 = require("../decorators/auth.decorator");
 const logging_service_1 = require("../logging/logging.service");
 let MenuController = class MenuController {
     constructor(menuService, logger) {
@@ -63,30 +65,35 @@ let MenuController = class MenuController {
 };
 exports.MenuController = MenuController;
 __decorate([
+    (0, auth_decorator_1.Auth)(db_1.UserRole.ADMIN, db_1.UserRole.MANAGER),
     (0, nest_1.TsRestHandler)(contracts_1.contract.menu.createMenu),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], MenuController.prototype, "createMenu", null);
 __decorate([
+    (0, auth_decorator_1.Auth)(db_1.UserRole.ADMIN, db_1.UserRole.MANAGER, db_1.UserRole.CHEF, db_1.UserRole.STAFF),
     (0, nest_1.TsRestHandler)(contracts_1.contract.menu.getMenus),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], MenuController.prototype, "getMenus", null);
 __decorate([
+    (0, auth_decorator_1.Auth)(db_1.UserRole.ADMIN, db_1.UserRole.MANAGER, db_1.UserRole.CHEF, db_1.UserRole.STAFF),
     (0, nest_1.TsRestHandler)(contracts_1.contract.menu.getMenu),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], MenuController.prototype, "getMenu", null);
 __decorate([
+    (0, auth_decorator_1.Auth)(db_1.UserRole.ADMIN, db_1.UserRole.MANAGER),
     (0, nest_1.TsRestHandler)(contracts_1.contract.menu.updateMenu),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], MenuController.prototype, "updateMenu", null);
 __decorate([
+    (0, auth_decorator_1.Auth)(db_1.UserRole.ADMIN, db_1.UserRole.MANAGER),
     (0, nest_1.TsRestHandler)(contracts_1.contract.menu.deleteMenu),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),

@@ -878,3 +878,19 @@
   "service": "LoggingService",
   "timestamp": "2025-04-09T18:52:22.112Z"
 }
+{
+  "context": "ApplicationError",
+  "error": "The security token included in the request is expired",
+  "level": "error",
+  "message": "Login process failed: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-11T18:16:05.174Z"
+}
+{
+  "context": "ApplicationError",
+  "error": "The security token included in the request is expired",
+  "level": "error",
+  "message": "Login process failed: Application Error",
+  "service": "LoggingService",
+  "timestamp": "2025-04-11T18:18:26.347Z"
+}

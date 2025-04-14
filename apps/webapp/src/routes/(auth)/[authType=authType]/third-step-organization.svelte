@@ -18,6 +18,11 @@
     owner: string;
   };
 
+  // Ensure restaurants array is initialized
+  if (!formData.restaurantsInput || !Array.isArray(formData.restaurantsInput)) {
+    formData.restaurantsInput = [];
+  }
+  let organizationName = $state(formData.organizationInput ? formData.organizationInput.name : '');
   // Restaurant template for new entries
   const emptyRestaurant = {
     name: '',
@@ -59,6 +64,11 @@
 
   // Validate organization name
   function validateOrgName() {
+    // Initialize organization input if it doesn't exist
+    if (!formData.organizationInput) {
+      formData.organizationInput = { name: '' };
+    }
+
     const result = organizationSchema.shape.name.safeParse(formData.organizationInput.name);
     orgErrors.name = result.success ? '' : result.error.format()._errors[0];
   }
@@ -100,7 +110,9 @@
 
   // Remove restaurant from the list
   function removeRestaurant(index: number) {
-    formData.restaurantsInput = formData.restaurantsInput.filter((_, i: number) => i !== index);
+    formData.restaurantsInput = formData.restaurantsInput.filter(
+      (_: any, i: number) => i !== index
+    );
   }
 </script>
 
@@ -111,7 +123,7 @@
       id="orgName"
       type="text"
       placeholder="Organization Name"
-      bind:value={formData.organizationInput.name}
+      bind:value={organizationName}
       onblur={validateOrgName}
       aria-invalid={orgErrors.name ? 'true' : undefined}
     />
@@ -125,7 +137,7 @@
   <div>
     <h3 class="text-lg font-medium mb-4">Restaurants</h3>
 
-    {#if formData.restaurantsInput.length > 0}
+    {#if formData.restaurantsInput && formData.restaurantsInput.length > 0}
       <ul class="space-y-3 mb-6" aria-label="Restaurant list">
         {#each formData.restaurantsInput as restaurant, index}
           <li>
@@ -134,7 +146,7 @@
                 variant="destructive"
                 size="icon"
                 class="absolute top-2 right-2 h-6 w-6"
-                onclick={() => removeRestaurant(index)}
+                on:click={() => removeRestaurant(index)}
                 aria-label={`Remove ${restaurant.name}`}
               >
                 <span aria-hidden="true">×</span>

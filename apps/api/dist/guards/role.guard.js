@@ -13,13 +13,14 @@ exports.RoleGuard = void 0;
 const common_1 = require("@nestjs/common");
 const core_1 = require("@nestjs/core");
 const prisma_service_1 = require("../prisma/prisma.service");
+const roles_decorator_1 = require("../decorators/roles.decorator");
 let RoleGuard = class RoleGuard {
     constructor(reflector, prisma) {
         this.reflector = reflector;
         this.prisma = prisma;
     }
     async canActivate(context) {
-        const requiredRoles = this.reflector.getAllAndOverride('roles', [
+        const requiredRoles = this.reflector.getAllAndOverride(roles_decorator_1.ROLES_KEY, [
             context.getHandler(),
             context.getClass(),
         ]);

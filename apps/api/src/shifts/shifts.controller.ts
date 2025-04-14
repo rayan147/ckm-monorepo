@@ -1,19 +1,21 @@
-import { Controller } from '@nestjs/common';
-import { TsRest, TsRestHandler, tsRestHandler } from '@ts-rest/nest';
 import { contract } from '@ckm/contracts';
-import { ShiftService } from './shifts.service';
+import { UserRole } from '@ckm/db';
+import { Controller } from '@nestjs/common';
+import { TsRestHandler, tsRestHandler } from '@ts-rest/nest';
+import { Auth } from '../decorators/auth.decorator';
 import { LoggingService } from '../logging/logging.service';
+import { ShiftService } from './shifts.service';
 
-@TsRest({ jsonQuery: true })
 @Controller()
 export class ShiftController {
   constructor(
     private readonly shiftService: ShiftService,
     private readonly logger: LoggingService,
   ) {
-    this.logger.setContext('ShiftController');
+    this.logger.setContext(ShiftController.name);
   }
 
+  @Auth(UserRole.ADMIN, UserRole.MANAGER, UserRole.CHEF, UserRole.STAFF)
   @TsRestHandler(contract.shifts.getShifts)
   async getShifts() {
     return tsRestHandler(contract.shifts.getShifts, async ({ query }) => {
@@ -28,6 +30,7 @@ export class ShiftController {
     });
   }
 
+  @Auth(UserRole.ADMIN, UserRole.MANAGER, UserRole.CHEF, UserRole.STAFF)
   @TsRestHandler(contract.shifts.getShift)
   async getShift() {
     return tsRestHandler(contract.shifts.getShift, async ({ params }) => {
@@ -37,6 +40,7 @@ export class ShiftController {
     });
   }
 
+  @Auth(UserRole.ADMIN, UserRole.MANAGER)
   @TsRestHandler(contract.shifts.updateShift)
   async updateShift() {
     return tsRestHandler(contract.shifts.updateShift, async ({ params, body }) => {
@@ -46,6 +50,7 @@ export class ShiftController {
     });
   }
 
+  @Auth(UserRole.ADMIN, UserRole.MANAGER)
   @TsRestHandler(contract.shifts.deleteShift)
   async deleteShift() {
     return tsRestHandler(contract.shifts.deleteShift, async ({ params }) => {
@@ -55,6 +60,7 @@ export class ShiftController {
     });
   }
 
+  @Auth(UserRole.ADMIN, UserRole.MANAGER)
   @TsRestHandler(contract.shifts.createShift)
   async createShift() {
     return tsRestHandler(contract.shifts.createShift, async ({ body }) => {

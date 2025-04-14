@@ -17,6 +17,7 @@ const aws_module_1 = require("../helpers/aws/aws.module");
 const env_module_1 = require("../env/env.module");
 const ingredient_module_1 = require("../ingredient/ingredient.module");
 const platform_express_1 = require("@nestjs/platform-express");
+const auth_module_1 = require("../auth/auth.module");
 let RecipeModule = class RecipeModule {
 };
 exports.RecipeModule = RecipeModule;
@@ -29,6 +30,7 @@ exports.RecipeModule = RecipeModule = __decorate([
             aws_module_1.AwsModule,
             env_module_1.EnvModule,
             ingredient_module_1.IngredientModule,
+            auth_module_1.AuthModule,
         ],
         providers: [recipe_service_1.RecipeService, prisma_service_1.PrismaService],
         controllers: [recipe_controller_1.RecipeController],

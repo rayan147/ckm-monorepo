@@ -73,6 +73,7 @@ const vendor_module_1 = require("./vendor/vendor.module");
 const vendor_service_1 = require("./vendor/vendor.service");
 const csrf_middleware_1 = require("./csrf/csrf.middleware");
 const nest_1 = require("@ts-rest/nest");
+const role_guard_1 = require("./guards/role.guard");
 let AppModule = class AppModule {
     configure(consumer) {
         consumer.apply(auth_session_middleware_service_1.SessionInitMiddleware, csrf_middleware_1.CsrfMiddleware).forRoutes('*');
@@ -173,6 +174,10 @@ exports.AppModule = AppModule = __decorate([
                 provide: core_1.APP_GUARD,
                 useClass: auth_guard_1.AuthGuard,
             },
+            {
+                provide: core_1.APP_GUARD,
+                useClass: role_guard_1.RoleGuard
+            }
         ],
     })
 ], AppModule);

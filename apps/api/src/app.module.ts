@@ -65,6 +65,7 @@ import { VendorService } from './vendor/vendor.service';
 import { CsrfMiddleware } from './csrf/csrf.middleware';
 import { TsRestModule } from '@ts-rest/nest';
 import { CsrfGuard } from './csrf/csrf.guard';
+import { RoleGuard } from './guards/role.guard';
 
 @Module({
   imports: [
@@ -159,6 +160,10 @@ import { CsrfGuard } from './csrf/csrf.guard';
       provide: APP_GUARD,
       useClass: AuthGuard,
     },
+    {
+      provide: APP_GUARD,
+      useClass: RoleGuard
+    }
     // {
     //   provide: APP_GUARD,
     //   useClass: CsrfGuard,

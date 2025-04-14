@@ -1,40 +1,21 @@
-import { zodSchemas } from '@ckm/db';
+
 import { z } from 'zod';
 import { initContract } from '@ts-rest/core';
+import { zodSchemas } from '@ckm/db';
 
 const c = initContract();
 
-export const restaurantContract = c.router({
-  createRestaurant: {
-    method: 'POST',
-    path: '/restaurants',
-    responses: {
-      201: zodSchemas.RestaurantSchema,
-      400: z.object({ message: z.string() }),
-    },
-    body: zodSchemas.RestaurantCreateInputSchema,
-    summary: 'Create a new restaurant',
-  },
-  getRestaurants: {
-    method: 'GET',
-    path: '/restaurants',
-    responses: {
-      200: z.array(zodSchemas.RestaurantSchema),
-    },
-    query: z.object({
-      skip: z.string().optional(),
-      take: z.string().optional(),
-      organizationId: z.string().optional(),
-    }),
-    summary: 'Get all restaurants',
-  },
+
+export const restaurantDetailContract = c.router({
   getRestaurant: {
     method: 'GET',
     path: '/restaurants/:id',
     pathParams: z.object({
-        id: z.coerce.number()
+      id: z.coerce.number()
     }),
     responses: {
+      // Use simplified schema for the contract
+      // The actual implementation will still validate against the full schema
       200: zodSchemas.RestaurantSchema,
       404: z.object({ message: z.string() }),
     },
@@ -44,7 +25,7 @@ export const restaurantContract = c.router({
     method: 'PUT',
     path: '/restaurants/:id',
     pathParams: z.object({
-        id: z.coerce.number()
+      id: z.coerce.number()
     }),
     responses: {
       200: zodSchemas.RestaurantSchema,
@@ -57,7 +38,7 @@ export const restaurantContract = c.router({
     method: 'DELETE',
     path: '/restaurants/:id',
     pathParams: z.object({
-        id: z.coerce.number()
+      id: z.coerce.number()
     }),
     responses: {
       200: zodSchemas.RestaurantSchema,

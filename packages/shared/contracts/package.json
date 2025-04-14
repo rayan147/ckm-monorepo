@@ -15,7 +15,7 @@
   "devDependencies": {
     "@ts-rest/core": "^3.52.0",
     "tsup": "^8.4.0",
-    "typescript": "^5.7.3",
+    "typescript": "^5.8.3",
     "zod": "^3.24.2"
   },
   "dependencies": {

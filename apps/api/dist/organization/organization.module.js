@@ -10,13 +10,18 @@ exports.OrganizationModule = void 0;
 const common_1 = require("@nestjs/common");
 const organization_controller_1 = require("./organization.controller");
 const organization_service_1 = require("./organization.service");
+const env_module_1 = require("../env/env.module");
+const auth_sessions_service_1 = require("../auth/utils/auth.sessions.service");
+const csrf_module_1 = require("../csrf/csrf.module");
+const auth_module_1 = require("../auth/auth.module");
 let OrganizationModule = class OrganizationModule {
 };
 exports.OrganizationModule = OrganizationModule;
 exports.OrganizationModule = OrganizationModule = __decorate([
     (0, common_1.Module)({
+        imports: [env_module_1.EnvModule, csrf_module_1.CsrfModule, auth_module_1.AuthModule],
         controllers: [organization_controller_1.OrganizationController],
-        providers: [organization_service_1.OrganizationService],
+        providers: [organization_service_1.OrganizationService, auth_sessions_service_1.AuthSessionsService],
         exports: [organization_service_1.OrganizationService],
     })
 ], OrganizationModule);

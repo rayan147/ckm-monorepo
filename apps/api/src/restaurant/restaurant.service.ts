@@ -4,7 +4,7 @@ import {
   NotFoundException,
   InternalServerErrorException,
 } from '@nestjs/common';
-import type { Restaurant } from '@ckm/db';
+import type { Menu, Restaurant } from '@ckm/db';
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma } from '@ckm/db';
 import { OrganizationService } from 'src/organization/organization.service';
@@ -16,7 +16,7 @@ export class RestaurantService {
     private readonly prisma: PrismaService,
     private readonly organizationService: OrganizationService,
     private readonly logger: LoggingService,
-  ) {}
+  ) { }
 
   async createRestaurant(data: Prisma.RestaurantCreateInput): Promise<Restaurant> {
     try {
@@ -91,10 +91,17 @@ export class RestaurantService {
     }
   }
 
-  async getRestaurant(id: number): Promise<Restaurant> {
+  async getRestaurant(id: number): Promise<Restaurant & { menus: Menu[] }> {
     try {
       const restaurant = await this.prisma.restaurant.findUnique({
         where: { id, isDeleted: false },
+        include: {
+          menus: {
+            include: {
+              menuItems: true
+            }
+          }
+        }
       });
       if (!restaurant) throw new NotFoundException('Restaurant not found');
       return restaurant;

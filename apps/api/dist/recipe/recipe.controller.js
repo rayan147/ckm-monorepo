@@ -21,6 +21,8 @@ const recipe_service_1 = require("./recipe.service");
 const logging_service_1 = require("../logging/logging.service");
 const s3_aws_service_1 = require("../helpers/aws/s3.aws.service");
 const env_service_1 = require("../env/env.service");
+const auth_decorator_1 = require("../decorators/auth.decorator");
+const db_1 = require("@ckm/db");
 const multerConfig = {
     limits: {
         fileSize: 5 * 1024 * 1024,
@@ -203,6 +205,7 @@ let RecipeController = class RecipeController {
 };
 exports.RecipeController = RecipeController;
 __decorate([
+    (0, auth_decorator_1.Auth)(db_1.UserRole.ADMIN, db_1.UserRole.MANAGER, db_1.UserRole.CHEF),
     (0, nest_1.TsRestHandler)(contracts_1.contract.recipe.uploadFileS3),
     (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file', multerConfig)),
     __param(0, (0, common_1.UploadedFile)()),
@@ -211,12 +214,14 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], RecipeController.prototype, "uploadFileS3", null);
 __decorate([
+    (0, auth_decorator_1.Auth)(db_1.UserRole.ADMIN, db_1.UserRole.MANAGER, db_1.UserRole.CHEF),
     (0, nest_1.TsRestHandler)(contracts_1.contract.recipe.createRecipe),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], RecipeController.prototype, "createRecipe", null);
 __decorate([
+    (0, auth_decorator_1.Auth)(db_1.UserRole.ADMIN, db_1.UserRole.MANAGER, db_1.UserRole.CHEF, db_1.UserRole.STAFF),
     (0, nest_1.TsRestHandler)(contracts_1.contract.recipe.getRecipes),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
@@ -224,6 +229,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], RecipeController.prototype, "getRecipes", null);
 __decorate([
+    (0, auth_decorator_1.Auth)(db_1.UserRole.ADMIN, db_1.UserRole.MANAGER, db_1.UserRole.CHEF, db_1.UserRole.STAFF),
     (0, nest_1.TsRestHandler)(contracts_1.contract.recipe.getRecipe, {
         validateResponses: false,
     }),
@@ -232,84 +238,98 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], RecipeController.prototype, "getRecipe", null);
 __decorate([
+    (0, auth_decorator_1.Auth)(db_1.UserRole.ADMIN, db_1.UserRole.MANAGER),
     (0, nest_1.TsRestHandler)(contracts_1.contract.recipe.deleteRecipe),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], RecipeController.prototype, "deleteRecipe", null);
 __decorate([
+    (0, auth_decorator_1.Auth)(db_1.UserRole.ADMIN, db_1.UserRole.MANAGER, db_1.UserRole.CHEF),
     (0, nest_1.TsRestHandler)(contracts_1.contract.recipe.removeIngredientFromRecipe),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], RecipeController.prototype, "removeIngredientFromRecipe", null);
 __decorate([
+    (0, auth_decorator_1.Auth)(db_1.UserRole.ADMIN, db_1.UserRole.MANAGER, db_1.UserRole.CHEF),
     (0, nest_1.TsRestHandler)(contracts_1.contract.recipe.updateIngredientInRecipe),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], RecipeController.prototype, "updateIngredientInRecipe", null);
 __decorate([
+    (0, auth_decorator_1.Auth)(db_1.UserRole.ADMIN, db_1.UserRole.MANAGER, db_1.UserRole.CHEF, db_1.UserRole.STAFF),
     (0, nest_1.TsRestHandler)(contracts_1.contract.recipe.getRecipeIngredients),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], RecipeController.prototype, "getRecipeIngredients", null);
 __decorate([
+    (0, auth_decorator_1.Auth)(db_1.UserRole.ADMIN, db_1.UserRole.MANAGER, db_1.UserRole.CHEF, db_1.UserRole.STAFF),
     (0, nest_1.TsRestHandler)(contracts_1.contract.recipe.getRecipeIngredient),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], RecipeController.prototype, "getRecipeIngredient", null);
 __decorate([
+    (0, auth_decorator_1.Auth)(db_1.UserRole.ADMIN, db_1.UserRole.MANAGER, db_1.UserRole.CHEF),
     (0, nest_1.TsRestHandler)(contracts_1.contract.recipe.addInstructionToRecipe),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], RecipeController.prototype, "addInstructionToRecipe", null);
 __decorate([
+    (0, auth_decorator_1.Auth)(db_1.UserRole.ADMIN, db_1.UserRole.MANAGER, db_1.UserRole.CHEF),
     (0, nest_1.TsRestHandler)(contracts_1.contract.recipe.removeInstructionFromRecipe),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], RecipeController.prototype, "removeInstructionFromRecipe", null);
 __decorate([
+    (0, auth_decorator_1.Auth)(db_1.UserRole.ADMIN, db_1.UserRole.MANAGER, db_1.UserRole.CHEF),
     (0, nest_1.TsRestHandler)(contracts_1.contract.recipe.updateInstructionInRecipe),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], RecipeController.prototype, "updateInstructionInRecipe", null);
 __decorate([
+    (0, auth_decorator_1.Auth)(db_1.UserRole.ADMIN, db_1.UserRole.MANAGER, db_1.UserRole.CHEF, db_1.UserRole.STAFF),
     (0, nest_1.TsRestHandler)(contracts_1.contract.recipe.getRecipeInstruction),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], RecipeController.prototype, "getRecipeInstruction", null);
 __decorate([
+    (0, auth_decorator_1.Auth)(db_1.UserRole.ADMIN, db_1.UserRole.MANAGER, db_1.UserRole.CHEF, db_1.UserRole.STAFF),
     (0, nest_1.TsRestHandler)(contracts_1.contract.recipe.getRecipeInstructions),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], RecipeController.prototype, "getRecipeInstructions", null);
 __decorate([
+    (0, auth_decorator_1.Auth)(db_1.UserRole.ADMIN, db_1.UserRole.MANAGER, db_1.UserRole.CHEF),
     (0, nest_1.TsRestHandler)(contracts_1.contract.recipe.calculateFoodCost),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], RecipeController.prototype, "calculateFoodCost", null);
 __decorate([
+    (0, auth_decorator_1.Auth)(db_1.UserRole.ADMIN, db_1.UserRole.MANAGER, db_1.UserRole.CHEF),
     (0, nest_1.TsRestHandler)(contracts_1.contract.recipe.getFoodCostHistory),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], RecipeController.prototype, "getFoodCostHistory", null);
 __decorate([
+    (0, auth_decorator_1.Auth)(db_1.UserRole.ADMIN, db_1.UserRole.MANAGER, db_1.UserRole.CHEF),
     (0, nest_1.TsRestHandler)(contracts_1.contract.recipe.calculateRecipePrice),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], RecipeController.prototype, "calculateRecipePrice", null);
 __decorate([
+    (0, auth_decorator_1.Auth)(db_1.UserRole.ADMIN, db_1.UserRole.MANAGER, db_1.UserRole.CHEF, db_1.UserRole.STAFF),
     (0, nest_1.TsRestHandler)(contracts_1.contract.recipe.getRecipePrice),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),

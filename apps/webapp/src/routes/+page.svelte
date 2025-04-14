@@ -8,7 +8,7 @@
   import FAQSection from '$lib/components/domain/landing-page/faq-section.svelte';
   import Navbar from '$lib/components/layout/nav/navbar.svelte';
 
-  let { form } = $props();
+  let { data, form } = $props();
 
   const kitchenFeatures = [
     {
@@ -127,7 +127,7 @@
 </script>
 
 <div class="min-h-screen bg-white">
-  <Navbar />
+  <Navbar {data} />
   <HeroSection />
 
   <FeatureGrid features={kitchenFeatures} />

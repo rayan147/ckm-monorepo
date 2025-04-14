@@ -10,6 +10,8 @@ import { S3Service } from '../helpers/aws/s3.aws.service';
 import { Express } from 'express';
 import { EnvService } from '../env/env.service';
 import { Request } from 'express';
+import { Auth } from '../decorators/auth.decorator';
+import { UserRole } from '@ckm/db';
 
 const multerConfig: MulterOptions = {
   limits: {
@@ -38,6 +40,7 @@ export class RecipeController {
     this.logger.setContext('RecipeController');
   }
 
+  @Auth(UserRole.ADMIN, UserRole.MANAGER, UserRole.CHEF)
   @TsRestHandler(contract.recipe.uploadFileS3)
   @UseInterceptors(FileInterceptor('file', multerConfig))
   async uploadFileS3(@UploadedFile() file: Express.Multer.File) {
@@ -59,6 +62,7 @@ export class RecipeController {
     }
   }
 
+  @Auth(UserRole.ADMIN, UserRole.MANAGER, UserRole.CHEF)
   @TsRestHandler(contract.recipe.createRecipe)
   async createRecipe() {
     return tsRestHandler(contract.recipe.createRecipe, async ({ body }) => {
@@ -68,6 +72,7 @@ export class RecipeController {
     });
   }
 
+  @Auth(UserRole.ADMIN, UserRole.MANAGER, UserRole.CHEF, UserRole.STAFF)
   @TsRestHandler(contract.recipe.getRecipes)
   async getRecipes(@Req() req: Request) {
     return tsRestHandler(contract.recipe.getRecipes, async ({ query }) => {
@@ -84,6 +89,7 @@ export class RecipeController {
   }
   // TODO* create/find the right type to return
   // in the getRecipe contract
+  @Auth(UserRole.ADMIN, UserRole.MANAGER, UserRole.CHEF, UserRole.STAFF)
   @TsRestHandler(contract.recipe.getRecipe, {
     validateResponses: false,
   })
@@ -120,6 +126,7 @@ export class RecipeController {
   //   });
   // }
 
+  @Auth(UserRole.ADMIN, UserRole.MANAGER)
   @TsRestHandler(contract.recipe.deleteRecipe)
   async deleteRecipe() {
     return tsRestHandler(contract.recipe.deleteRecipe, async ({ params }) => {
@@ -146,6 +153,7 @@ export class RecipeController {
   //   );
   // }
 
+  @Auth(UserRole.ADMIN, UserRole.MANAGER, UserRole.CHEF)
   @TsRestHandler(contract.recipe.removeIngredientFromRecipe)
   async removeIngredientFromRecipe() {
     return tsRestHandler(contract.recipe.removeIngredientFromRecipe, async ({ params }) => {
@@ -160,6 +168,7 @@ export class RecipeController {
     });
   }
 
+  @Auth(UserRole.ADMIN, UserRole.MANAGER, UserRole.CHEF)
   @TsRestHandler(contract.recipe.updateIngredientInRecipe)
   async updateIngredientInRecipe() {
     return tsRestHandler(contract.recipe.updateIngredientInRecipe, async ({ params, body }) => {
@@ -175,6 +184,7 @@ export class RecipeController {
     });
   }
 
+  @Auth(UserRole.ADMIN, UserRole.MANAGER, UserRole.CHEF, UserRole.STAFF)
   @TsRestHandler(contract.recipe.getRecipeIngredients)
   async getRecipeIngredients() {
     return tsRestHandler(contract.recipe.getRecipeIngredients, async ({ params }) => {
@@ -184,6 +194,7 @@ export class RecipeController {
     });
   }
 
+  @Auth(UserRole.ADMIN, UserRole.MANAGER, UserRole.CHEF, UserRole.STAFF)
   @TsRestHandler(contract.recipe.getRecipeIngredient)
   async getRecipeIngredient() {
     return tsRestHandler(contract.recipe.getRecipeIngredient, async ({ params }) => {
@@ -196,6 +207,7 @@ export class RecipeController {
   }
 
   // Instruction Management
+  @Auth(UserRole.ADMIN, UserRole.MANAGER, UserRole.CHEF)
   @TsRestHandler(contract.recipe.addInstructionToRecipe)
   async addInstructionToRecipe() {
     return tsRestHandler(contract.recipe.addInstructionToRecipe, async ({ params, body }) => {
@@ -205,6 +217,7 @@ export class RecipeController {
     });
   }
 
+  @Auth(UserRole.ADMIN, UserRole.MANAGER, UserRole.CHEF)
   @TsRestHandler(contract.recipe.removeInstructionFromRecipe)
   async removeInstructionFromRecipe() {
     return tsRestHandler(contract.recipe.removeInstructionFromRecipe, async ({ params }) => {
@@ -219,6 +232,7 @@ export class RecipeController {
     });
   }
 
+  @Auth(UserRole.ADMIN, UserRole.MANAGER, UserRole.CHEF)
   @TsRestHandler(contract.recipe.updateInstructionInRecipe)
   async updateInstructionInRecipe() {
     return tsRestHandler(contract.recipe.updateInstructionInRecipe, async ({ params, body }) => {
@@ -234,6 +248,7 @@ export class RecipeController {
     });
   }
 
+  @Auth(UserRole.ADMIN, UserRole.MANAGER, UserRole.CHEF, UserRole.STAFF)
   @TsRestHandler(contract.recipe.getRecipeInstruction)
   async getRecipeInstruction() {
     return tsRestHandler(contract.recipe.getRecipeInstruction, async ({ params }) => {
@@ -245,6 +260,7 @@ export class RecipeController {
     });
   }
 
+  @Auth(UserRole.ADMIN, UserRole.MANAGER, UserRole.CHEF, UserRole.STAFF)
   @TsRestHandler(contract.recipe.getRecipeInstructions)
   async getRecipeInstructions() {
     return tsRestHandler(contract.recipe.getRecipeInstructions, async ({ params }) => {
@@ -255,6 +271,7 @@ export class RecipeController {
   }
 
   // Food Cost and Pricing
+  @Auth(UserRole.ADMIN, UserRole.MANAGER, UserRole.CHEF)
   @TsRestHandler(contract.recipe.calculateFoodCost)
   async calculateFoodCost() {
     return tsRestHandler(contract.recipe.calculateFoodCost, async ({ params }) => {
@@ -264,6 +281,7 @@ export class RecipeController {
     });
   }
 
+  @Auth(UserRole.ADMIN, UserRole.MANAGER, UserRole.CHEF)
   @TsRestHandler(contract.recipe.getFoodCostHistory)
   async getFoodCostHistory() {
     return tsRestHandler(contract.recipe.getFoodCostHistory, async ({ params }) => {
@@ -273,6 +291,7 @@ export class RecipeController {
     });
   }
 
+  @Auth(UserRole.ADMIN, UserRole.MANAGER, UserRole.CHEF)
   @TsRestHandler(contract.recipe.calculateRecipePrice)
   async calculateRecipePrice() {
     return tsRestHandler(contract.recipe.calculateRecipePrice, async ({ params, body }) => {
@@ -285,6 +304,7 @@ export class RecipeController {
     });
   }
 
+  @Auth(UserRole.ADMIN, UserRole.MANAGER, UserRole.CHEF, UserRole.STAFF)
   @TsRestHandler(contract.recipe.getRecipePrice)
   async getRecipePrice() {
     return tsRestHandler(contract.recipe.getRecipePrice, async ({ params, query }) => {

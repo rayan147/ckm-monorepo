@@ -4456,7 +4456,7 @@ var restaurantContract = c5.router({
       id: z.coerce.number()
     }),
     responses: {
-      200: zodSchemas5.RestaurantSchema,
+      200: zodSchemas5.RestaurantWithRelationsSchema,
       404: z.object({ message: z.string() })
     },
     summary: "Get a restaurant by ID"

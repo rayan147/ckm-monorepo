@@ -1015,133 +1015,6 @@ declare const contract: {
         };
     };
     restaurant: {
-        createRestaurant: {
-            summary: "Create a new restaurant";
-            method: "POST";
-            body: zod.ZodType<_ckm_db.Prisma.RestaurantCreateInput, zod.ZodTypeDef, _ckm_db.Prisma.RestaurantCreateInput>;
-            path: "/api/v1/restaurants";
-            responses: {
-                201: zod.ZodObject<{
-                    id: zod.ZodNumber;
-                    name: zod.ZodString;
-                    imageUrl: zod.ZodNullable<zod.ZodString>;
-                    address: zod.ZodString;
-                    city: zod.ZodString;
-                    zipCode: zod.ZodString;
-                    state: zod.ZodString;
-                    owner: zod.ZodString;
-                    organizationId: zod.ZodNullable<zod.ZodNumber>;
-                    foodCost: zod.ZodNullable<zod.ZodNumber>;
-                    createdAt: zod.ZodDate;
-                    updatedAt: zod.ZodDate;
-                    isDeleted: zod.ZodBoolean;
-                    deleted: zod.ZodNullable<zod.ZodDate>;
-                }, "strip", zod.ZodTypeAny, {
-                    id: number;
-                    createdAt: Date;
-                    updatedAt: Date;
-                    name: string;
-                    imageUrl: string | null;
-                    address: string;
-                    city: string;
-                    zipCode: string;
-                    state: string;
-                    owner: string;
-                    organizationId: number | null;
-                    foodCost: number | null;
-                    isDeleted: boolean;
-                    deleted: Date | null;
-                }, {
-                    id: number;
-                    createdAt: Date;
-                    updatedAt: Date;
-                    name: string;
-                    imageUrl: string | null;
-                    address: string;
-                    city: string;
-                    zipCode: string;
-                    state: string;
-                    owner: string;
-                    organizationId: number | null;
-                    foodCost: number | null;
-                    isDeleted: boolean;
-                    deleted: Date | null;
-                }>;
-                400: zod.ZodObject<{
-                    message: zod.ZodString;
-                }, "strip", zod.ZodTypeAny, {
-                    message: string;
-                }, {
-                    message: string;
-                }>;
-            };
-        };
-        getRestaurants: {
-            query: zod.ZodObject<{
-                skip: zod.ZodOptional<zod.ZodString>;
-                take: zod.ZodOptional<zod.ZodString>;
-                organizationId: zod.ZodOptional<zod.ZodString>;
-            }, "strip", zod.ZodTypeAny, {
-                skip?: string | undefined;
-                take?: string | undefined;
-                organizationId?: string | undefined;
-            }, {
-                skip?: string | undefined;
-                take?: string | undefined;
-                organizationId?: string | undefined;
-            }>;
-            summary: "Get all restaurants";
-            method: "GET";
-            path: "/api/v1/restaurants";
-            responses: {
-                200: zod.ZodArray<zod.ZodObject<{
-                    id: zod.ZodNumber;
-                    name: zod.ZodString;
-                    imageUrl: zod.ZodNullable<zod.ZodString>;
-                    address: zod.ZodString;
-                    city: zod.ZodString;
-                    zipCode: zod.ZodString;
-                    state: zod.ZodString;
-                    owner: zod.ZodString;
-                    organizationId: zod.ZodNullable<zod.ZodNumber>;
-                    foodCost: zod.ZodNullable<zod.ZodNumber>;
-                    createdAt: zod.ZodDate;
-                    updatedAt: zod.ZodDate;
-                    isDeleted: zod.ZodBoolean;
-                    deleted: zod.ZodNullable<zod.ZodDate>;
-                }, "strip", zod.ZodTypeAny, {
-                    id: number;
-                    createdAt: Date;
-                    updatedAt: Date;
-                    name: string;
-                    imageUrl: string | null;
-                    address: string;
-                    city: string;
-                    zipCode: string;
-                    state: string;
-                    owner: string;
-                    organizationId: number | null;
-                    foodCost: number | null;
-                    isDeleted: boolean;
-                    deleted: Date | null;
-                }, {
-                    id: number;
-                    createdAt: Date;
-                    updatedAt: Date;
-                    name: string;
-                    imageUrl: string | null;
-                    address: string;
-                    city: string;
-                    zipCode: string;
-                    state: string;
-                    owner: string;
-                    organizationId: number | null;
-                    foodCost: number | null;
-                    isDeleted: boolean;
-                    deleted: Date | null;
-                }>, "many">;
-            };
-        };
         getRestaurant: {
             pathParams: zod.ZodObject<{
                 id: zod.ZodNumber;
@@ -1342,6 +1215,133 @@ declare const contract: {
                 }, {
                     message: string;
                 }>;
+            };
+        };
+        createRestaurant: {
+            summary: "Create a new restaurant";
+            method: "POST";
+            body: zod.ZodType<_ckm_db.Prisma.RestaurantCreateInput, zod.ZodTypeDef, _ckm_db.Prisma.RestaurantCreateInput>;
+            path: "/api/v1/restaurants";
+            responses: {
+                201: zod.ZodObject<{
+                    id: zod.ZodNumber;
+                    name: zod.ZodString;
+                    imageUrl: zod.ZodNullable<zod.ZodString>;
+                    address: zod.ZodString;
+                    city: zod.ZodString;
+                    zipCode: zod.ZodString;
+                    state: zod.ZodString;
+                    owner: zod.ZodString;
+                    organizationId: zod.ZodNullable<zod.ZodNumber>;
+                    foodCost: zod.ZodNullable<zod.ZodNumber>;
+                    createdAt: zod.ZodDate;
+                    updatedAt: zod.ZodDate;
+                    isDeleted: zod.ZodBoolean;
+                    deleted: zod.ZodNullable<zod.ZodDate>;
+                }, "strip", zod.ZodTypeAny, {
+                    id: number;
+                    createdAt: Date;
+                    updatedAt: Date;
+                    name: string;
+                    imageUrl: string | null;
+                    address: string;
+                    city: string;
+                    zipCode: string;
+                    state: string;
+                    owner: string;
+                    organizationId: number | null;
+                    foodCost: number | null;
+                    isDeleted: boolean;
+                    deleted: Date | null;
+                }, {
+                    id: number;
+                    createdAt: Date;
+                    updatedAt: Date;
+                    name: string;
+                    imageUrl: string | null;
+                    address: string;
+                    city: string;
+                    zipCode: string;
+                    state: string;
+                    owner: string;
+                    organizationId: number | null;
+                    foodCost: number | null;
+                    isDeleted: boolean;
+                    deleted: Date | null;
+                }>;
+                400: zod.ZodObject<{
+                    message: zod.ZodString;
+                }, "strip", zod.ZodTypeAny, {
+                    message: string;
+                }, {
+                    message: string;
+                }>;
+            };
+        };
+        getRestaurants: {
+            query: zod.ZodObject<{
+                skip: zod.ZodOptional<zod.ZodString>;
+                take: zod.ZodOptional<zod.ZodString>;
+                organizationId: zod.ZodOptional<zod.ZodString>;
+            }, "strip", zod.ZodTypeAny, {
+                skip?: string | undefined;
+                take?: string | undefined;
+                organizationId?: string | undefined;
+            }, {
+                skip?: string | undefined;
+                take?: string | undefined;
+                organizationId?: string | undefined;
+            }>;
+            summary: "Get all restaurants";
+            method: "GET";
+            path: "/api/v1/restaurants";
+            responses: {
+                200: zod.ZodArray<zod.ZodObject<{
+                    id: zod.ZodNumber;
+                    name: zod.ZodString;
+                    imageUrl: zod.ZodNullable<zod.ZodString>;
+                    address: zod.ZodString;
+                    city: zod.ZodString;
+                    zipCode: zod.ZodString;
+                    state: zod.ZodString;
+                    owner: zod.ZodString;
+                    organizationId: zod.ZodNullable<zod.ZodNumber>;
+                    foodCost: zod.ZodNullable<zod.ZodNumber>;
+                    createdAt: zod.ZodDate;
+                    updatedAt: zod.ZodDate;
+                    isDeleted: zod.ZodBoolean;
+                    deleted: zod.ZodNullable<zod.ZodDate>;
+                }, "strip", zod.ZodTypeAny, {
+                    id: number;
+                    createdAt: Date;
+                    updatedAt: Date;
+                    name: string;
+                    imageUrl: string | null;
+                    address: string;
+                    city: string;
+                    zipCode: string;
+                    state: string;
+                    owner: string;
+                    organizationId: number | null;
+                    foodCost: number | null;
+                    isDeleted: boolean;
+                    deleted: Date | null;
+                }, {
+                    id: number;
+                    createdAt: Date;
+                    updatedAt: Date;
+                    name: string;
+                    imageUrl: string | null;
+                    address: string;
+                    city: string;
+                    zipCode: string;
+                    state: string;
+                    owner: string;
+                    organizationId: number | null;
+                    foodCost: number | null;
+                    isDeleted: boolean;
+                    deleted: Date | null;
+                }>, "many">;
             };
         };
     };

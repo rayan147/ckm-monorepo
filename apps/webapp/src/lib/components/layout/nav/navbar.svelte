@@ -8,15 +8,26 @@
     DropdownMenuTrigger
   } from '$lib/components/ui/dropdown-menu';
   import { ChevronDown } from 'lucide-svelte';
+  import { getAuthConext } from '$lib/contexts/auth-context.svelte';
+  import { logout } from '$lib/auth';
 
-  const auth = {
-    user: {
-      firstName: 'Rayan'
-    },
-    logout: async () => {
-      console.log(`logging out`);
+  let isLoggingOut = $state(false);
+  const authState = getAuthConext();
+
+  let { data } = $props();
+  console.log({ data });
+
+  async function handleLogout() {
+    try {
+      isLoggingOut = true;
+
+      await logout();
+      authState.clearAuth();
+    } catch (error) {
+      console.error('Logout failed:', error);
+      isLoggingOut = false;
     }
-  };
+  }
 </script>
 
 <nav class="bg-white border-b border-gray-200">
@@ -81,12 +92,14 @@
           Request Demo
         </a>
 
-        {#if auth}
+        {#if data.user}
           <div class="hidden md:flex items-center">
             <span class="px-3 py-2 text-sm font-medium text-gray-700">
-              Welcome, {auth.user?.firstName}
+              Welcome, {data.user?.firstName}
             </span>
-            <Button variant="ghost" size="sm" onclick={() => auth.logout()}>Logout</Button>
+            <Button variant="ghost" size="sm" onclick={handleLogout}
+              >{isLoggingOut ? 'Logging out' : 'Logout'}</Button
+            >
           </div>
         {:else}
           <a

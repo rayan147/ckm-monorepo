@@ -1,14 +1,17 @@
 import { contract } from '@ckm/contracts';
-import { User } from '@ckm/db';
+import { User, UserRole } from '@ckm/db';
 import { Controller, NotFoundException, Req } from '@nestjs/common';
 import { TsRestHandler, tsRestHandler } from '@ts-rest/nest';
 import { UserService } from './users.service';
 import { Request } from 'express';
+import { Auth } from '../decorators/auth.decorator';
+import { Public } from '../decorators/public.decorator';
 
 @Controller()
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @Public()
   @TsRestHandler(contract.users.createUser)
   async createUser() {
     return tsRestHandler(contract.users.createUser, async ({ body }) => {
@@ -27,7 +30,7 @@ export class UserController {
     });
   }
 
-  // @Auth(UserRole.ADMIN) // Uncomment if needed
+  @Auth(UserRole.ADMIN, UserRole.MANAGER)
   @TsRestHandler(contract.users.getUsers)
   async getUsers() {
     return tsRestHandler(contract.users.getUsers, async ({ query }) => {
@@ -51,6 +54,7 @@ export class UserController {
     });
   }
 
+  @Auth(UserRole.ADMIN, UserRole.MANAGER)
   @TsRestHandler(contract.users.getUser)
   async getUser() {
     return tsRestHandler(contract.users.getUser, async ({ params }) => {
@@ -75,6 +79,7 @@ export class UserController {
     });
   }
 
+  @Auth()
   @TsRestHandler(contract.users.getAuthUser)
   async getAuthUser(@Req() req: Request) {
     return tsRestHandler(contract.users.getAuthUser, async ({ params }) => {
@@ -104,6 +109,7 @@ export class UserController {
     });
   }
 
+  @Auth(UserRole.ADMIN)
   @TsRestHandler(contract.users.updateUser)
   async updateUser() {
     return tsRestHandler(contract.users.updateUser, async ({ params, body }) => {
@@ -128,6 +134,7 @@ export class UserController {
     });
   }
 
+  @Auth(UserRole.ADMIN)
   @TsRestHandler(contract.users.deleteUser)
   async deleteUser() {
     return tsRestHandler(contract.users.deleteUser, async ({ params }) => {

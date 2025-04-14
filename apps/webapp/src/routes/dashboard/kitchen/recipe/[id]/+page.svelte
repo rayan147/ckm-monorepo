@@ -46,7 +46,9 @@
   import TimerDialog from '$lib/components/domain/recipes/timer-dialog.svelte';
   import ImageModal from '$lib/components/domain/recipes/image-modal.svelte';
   import CompletionModal from '$lib/components/domain/recipes/completion-modal.svelte';
-  import type { RecipeVersion } from '@ckm/db';
+  import { zodSchemas } from '@ckm/db';
+
+  import RecipeHeader from '$lib/components/domain/recipes/recipe-header.svelte';
 
   // Initialize props
   let { form, data }: PageProps = $props();
@@ -145,7 +147,7 @@
   }
 
   // Handle recipe version selection
-  function selectVersion(version: RecipeVersion) {
+  function selectVersion(version: zodSchemas.RecipeVersion) {
     activeVersion = version;
     showVersionHistory = false;
   }
@@ -203,20 +205,9 @@
       </div>
     {:else}
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-2">
-        <h1 class="text-3xl md:text-4xl font-bold text-gray-800">{recipe.name}</h1>
+        <h1 class="text-2xl md:text-3xl font-bold text-gray-800">{recipe.name}</h1>
         <div class="flex items-center gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onclick={() => (showVersionHistory = !showVersionHistory)}
-          >
-            <History class="h-4 w-4 mr-1" />
-            <span>Versions</span>
-          </Button>
-          <Button variant="outline" size="sm" onclick={shareRecipe}>
-            <Share2 class="h-4 w-4 mr-1" />
-            <span>Share</span>
-          </Button>
+          <RecipeHeader bind:showVersionHistory />
         </div>
       </div>
 
@@ -475,7 +466,7 @@
               </TabsContent>
 
               <TabsContent value="ingredients" class="mt-0">
-                <RecipeIngredients />
+                <!-- <RecipeIngredients /> -->
               </TabsContent>
 
               <TabsContent value="instructions" class="mt-0">

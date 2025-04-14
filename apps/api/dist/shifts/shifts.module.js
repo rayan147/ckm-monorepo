@@ -12,13 +12,17 @@ const shifts_service_1 = require("./shifts.service");
 const shifts_controller_1 = require("./shifts.controller");
 const prisma_service_1 = require("../prisma/prisma.service");
 const logging_module_1 = require("../logging/logging.module");
+const auth_sessions_service_1 = require("../auth/utils/auth.sessions.service");
+const env_module_1 = require("../env/env.module");
+const csrf_module_1 = require("../csrf/csrf.module");
+const auth_module_1 = require("../auth/auth.module");
 let ShiftModule = class ShiftModule {
 };
 exports.ShiftModule = ShiftModule;
 exports.ShiftModule = ShiftModule = __decorate([
     (0, common_1.Module)({
-        imports: [logging_module_1.LoggingModule],
-        providers: [shifts_service_1.ShiftService, prisma_service_1.PrismaService],
+        imports: [logging_module_1.LoggingModule, env_module_1.EnvModule, csrf_module_1.CsrfModule, auth_module_1.AuthModule],
+        providers: [shifts_service_1.ShiftService, prisma_service_1.PrismaService, auth_sessions_service_1.AuthSessionsService],
         controllers: [shifts_controller_1.ShiftController],
         exports: [shifts_service_1.ShiftService],
     })

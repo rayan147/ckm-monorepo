@@ -14,9 +14,12 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const contracts_1 = require("@ckm/contracts");
+const db_1 = require("@ckm/db");
 const common_1 = require("@nestjs/common");
 const nest_1 = require("@ts-rest/nest");
 const users_service_1 = require("./users.service");
+const auth_decorator_1 = require("../decorators/auth.decorator");
+const public_decorator_1 = require("../decorators/public.decorator");
 let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
@@ -156,24 +159,28 @@ let UserController = class UserController {
 };
 exports.UserController = UserController;
 __decorate([
+    (0, public_decorator_1.Public)(),
     (0, nest_1.TsRestHandler)(contracts_1.contract.users.createUser),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "createUser", null);
 __decorate([
+    (0, auth_decorator_1.Auth)(db_1.UserRole.ADMIN, db_1.UserRole.MANAGER),
     (0, nest_1.TsRestHandler)(contracts_1.contract.users.getUsers),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getUsers", null);
 __decorate([
+    (0, auth_decorator_1.Auth)(db_1.UserRole.ADMIN, db_1.UserRole.MANAGER),
     (0, nest_1.TsRestHandler)(contracts_1.contract.users.getUser),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getUser", null);
 __decorate([
+    (0, auth_decorator_1.Auth)(),
     (0, nest_1.TsRestHandler)(contracts_1.contract.users.getAuthUser),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
@@ -181,12 +188,14 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getAuthUser", null);
 __decorate([
+    (0, auth_decorator_1.Auth)(db_1.UserRole.ADMIN),
     (0, nest_1.TsRestHandler)(contracts_1.contract.users.updateUser),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "updateUser", null);
 __decorate([
+    (0, auth_decorator_1.Auth)(db_1.UserRole.ADMIN),
     (0, nest_1.TsRestHandler)(contracts_1.contract.users.deleteUser),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),

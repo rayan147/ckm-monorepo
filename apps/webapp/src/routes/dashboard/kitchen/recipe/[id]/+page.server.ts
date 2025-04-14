@@ -1,10 +1,10 @@
 // src/routes/dashboard/kitchen/recipe/[id]/+page.server.ts
-import { api } from '@ckm/lib-api';
+import { createApiClient } from '@ckm/lib-api';
 import type { Actions } from './$types';
 import { fail } from '@sveltejs/kit';
 
 export const actions: Actions = {
-  calculateNutrition: async ({ params }) => {
+  calculateNutrition: async ({ params, fetch }) => {
     try {
       const recipeId = parseInt(params.id);
 
@@ -12,6 +12,7 @@ export const actions: Actions = {
         return fail(400, { success: false, message: 'Invalid recipe ID' });
       }
 
+      const api = createApiClient(fetch)
       const { status, body } = await api.nutrition.calculateRecipeNutrition({
         params: { id: recipeId }
       });

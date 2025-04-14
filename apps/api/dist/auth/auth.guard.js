@@ -27,6 +27,10 @@ let AuthGuard = class AuthGuard {
             return true;
         }
         const request = context.switchToHttp().getRequest();
+        console.log('Request URL:', request.url);
+        console.log('Request Method:', request.method);
+        console.log('Request Headers:', request.headers);
+        console.log('Request Cookies:', request.cookies);
         const token = request.cookies['session_token'];
         if (!token) {
             return false;

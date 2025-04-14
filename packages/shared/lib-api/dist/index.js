@@ -20,29 +20,36 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // src/index.ts
 var index_exports = {};
 __export(index_exports, {
-  api: () => api
+  api: () => api,
+  createApiClient: () => createApiClient,
+  tsRestCustomFetchApi: () => tsRestCustomFetchApi
 });
 module.exports = __toCommonJS(index_exports);
 var import_core = require("@ts-rest/core");
 var import_contracts = require("@ckm/contracts");
 var csrfToken = null;
 var csrfFetcher = async (args) => {
-  if (csrfToken) {
-    args.headers = {
-      ...args.headers,
-      "X-CSRF-Token": csrfToken
+  try {
+    if (csrfToken) {
+      args.headers = {
+        ...args.headers,
+        "X-CSRF-Token": csrfToken
+      };
+    }
+    args.fetchOptions = {
+      ...args.fetchOptions,
+      credentials: "include"
     };
+    const response = await (0, import_core.tsRestFetchApi)(args);
+    const newToken = response.headers.get("x-csrf-token");
+    if (newToken) {
+      csrfToken = newToken;
+    }
+    return response;
+  } catch (error) {
+    console.error("API request failed:", error);
+    throw error;
   }
-  args.fetchOptions = {
-    ...args.fetchOptions,
-    credentials: "include"
-  };
-  const response = await (0, import_core.tsRestFetchApi)(args);
-  const newToken = response.headers.get("x-csrf-token");
-  if (newToken) {
-    csrfToken = newToken;
-  }
-  return response;
 };
 var getBaseUrl = () => {
   if (typeof window !== "undefined") {
@@ -56,7 +63,51 @@ var api = (0, import_core.initClient)(import_contracts.contract, {
   baseHeaders: {},
   api: csrfFetcher
 });
+var createApiClient = (customFetch) => (0, import_core.initClient)(import_contracts.contract, {
+  baseUrl: getBaseUrl(),
+  baseHeaders: {},
+  api: (args) => tsRestCustomFetchApi(args, customFetch)
+});
+async function tsRestCustomFetchApi({ route, path, method, headers, body, validateResponse, fetchOptions }, customFetch) {
+  var _a;
+  const fetchFn = customFetch != null ? customFetch : globalThis.fetch;
+  const result = await fetchFn(path, {
+    ...fetchOptions,
+    method,
+    headers,
+    body
+  });
+  const contentType = (_a = result.headers.get("content-type")) != null ? _a : "";
+  if (contentType.includes("application/json")) {
+    const response = {
+      status: result.status,
+      body: await result.json(),
+      headers: result.headers
+    };
+    const responseSchema = route.responses[response.status];
+    if ((validateResponse != null ? validateResponse : route.validateResponseOnClient) && (0, import_core.isZodType)(responseSchema)) {
+      return {
+        ...response,
+        body: responseSchema.parse(response.body)
+      };
+    }
+    return response;
+  } else if (contentType.includes("text/")) {
+    return {
+      status: result.status,
+      body: await result.text(),
+      headers: result.headers
+    };
+  }
+  return {
+    status: result.status,
+    body: await result.blob(),
+    headers: result.headers
+  };
+}
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  api
+  api,
+  createApiClient,
+  tsRestCustomFetchApi
 });

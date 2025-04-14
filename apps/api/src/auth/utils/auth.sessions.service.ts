@@ -1,5 +1,5 @@
 import { Auth, Session, User } from '@ckm/db';
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Global, Injectable, UnauthorizedException } from '@nestjs/common';
 import { LoggingService } from 'src/logging/logging.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Response, Request } from 'express';
@@ -27,6 +27,7 @@ interface RandomReader {
   read(bytes: Uint8Array): void;
 }
 
+@Global()
 @Injectable()
 export class AuthSessionsService {
   private readonly THIRTY_DAYS: number = 30 * 24 * 60 * 60 * 1000;
@@ -38,7 +39,7 @@ export class AuthSessionsService {
     private readonly logger: LoggingService,
     private readonly envService: EnvService,
     private readonly csrfService: CsrfService,
-  ) {}
+  ) { }
 
   setSessionCookie(
     response: Response,

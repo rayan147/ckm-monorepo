@@ -376,7 +376,6 @@ let UsdaApiService = class UsdaApiService {
             return allergens;
         const description = foodData.description || '';
         const ingredients = foodData.ingredients || '';
-        console.log(`description is ${description} and ingredients is ${ingredients}`);
         const combinedText = (description + ' ' + ingredients).toLowerCase();
         allergens.containsGluten = this.allergenKeywords.gluten.some(keyword => combinedText.includes(keyword));
         allergens.containsDairy = this.allergenKeywords.dairy.some(keyword => combinedText.includes(keyword));
@@ -389,7 +388,6 @@ let UsdaApiService = class UsdaApiService {
         return allergens;
     }
     async searchFoods(query, pageSize = 25) {
-        var _a;
         try {
             const url = `${this.baseUrl}/foods/search`;
             const params = {
@@ -403,8 +401,6 @@ let UsdaApiService = class UsdaApiService {
                 console.error('Error searching USDA foods:', ((_a = error.response) === null || _a === void 0 ? void 0 : _a.data) || error.message);
                 throw new Error(`Failed to search foods: ${error.message}`);
             })));
-            console.log(`USDA search for "${query}" returned ${((_a = data === null || data === void 0 ? void 0 : data.foods) === null || _a === void 0 ? void 0 : _a.length) || 0} results`);
-            console.log(`the data is: ${JSON.stringify(data, null, 2)}`);
             return data;
         }
         catch (error) {

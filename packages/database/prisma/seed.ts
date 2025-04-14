@@ -1334,11 +1334,45 @@ async function createShift(userId: number) {
   });
 }
 
-// Menu factory
+// Menu factory with realistic restaurant menu names
 async function createMenu(restaurantId: number) {
+  // Find restaurant to match cuisine type
+  const restaurant = await prisma.restaurant.findUnique({
+    where: { id: restaurantId }
+  });
+  
+  // Define realistic menu names by restaurant type
+  const menuTypes = {
+    "Italian": ["Lunch Menu", "Dinner Menu", "Pizza Menu", "Pasta Menu", "Wine List", "Dessert Menu", "Antipasti"],
+    "Asian": ["Lunch Special", "Dinner Menu", "Sushi Menu", "Noodle Menu", "Bento Box", "Party Platters", "Chef's Specials"],
+    "Mexican": ["Lunch Menu", "Dinner Menu", "Taco Menu", "Combo Plates", "Margarita List", "Kids Menu", "Family Platters"],
+    "American": ["Breakfast Menu", "Lunch Menu", "Dinner Menu", "Burger Menu", "Cocktail List", "Kids Menu", "Daily Specials"],
+    "Mediterranean": ["Lunch Menu", "Dinner Menu", "Meze Menu", "Seafood Menu", "Wine List", "Vegetarian Options", "Chef's Specials"],
+    "Indian": ["Lunch Menu", "Dinner Menu", "Thali Menu", "Curry Selection", "Tandoori Specials", "Vegetarian Menu", "Desserts"],
+    "French": ["Breakfast Menu", "Lunch Menu", "Dinner Menu", "Prix Fixe", "Wine List", "Cheese Selection", "Dessert Menu"]
+  };
+  
+  // Default menu names if cuisine can't be determined
+  const defaultMenus = ["Breakfast", "Lunch", "Dinner", "Specials", "Drinks", "Desserts", "Kids Menu"];
+  
+  // Try to determine cuisine type from restaurant name
+  let cuisineType = "American"; // Default
+  if (restaurant) {
+    const restaurantName = restaurant.name.toLowerCase();
+    for (const [cuisine, _] of Object.entries(menuTypes)) {
+      if (restaurantName.includes(cuisine.toLowerCase())) {
+        cuisineType = cuisine;
+        break;
+      }
+    }
+  }
+  
+  // Select menu options based on cuisine
+  const menuOptions = menuTypes[cuisineType] || defaultMenus;
+  
   return prisma.menu.create({
     data: {
-      name: faker.commerce.department(),
+      name: faker.helpers.arrayElement(menuOptions),
       restaurantId,
     },
   });
@@ -2269,31 +2303,93 @@ async function main() {
     )
   );
 
-  // Create menus
-  const menus = await Promise.all(
-    restaurants.map(restaurant => createMenu(restaurant.id))
-  );
+  // Create multiple menus per restaurant (3-5 menus per restaurant)
+  console.log("Creating restaurant menus...");
+  const menus = [];
+  for (const restaurant of restaurants) {
+    // Create 3-5 menus per restaurant
+    const menuCount = faker.number.int({ min: 3, max: 5 });
+    const restaurantMenus = await Promise.all(
+      Array.from({ length: menuCount }, () => createMenu(restaurant.id))
+    );
+    menus.push(...restaurantMenus);
+  }
+  console.log(`Created ${menus.length} menus for ${restaurants.length} restaurants`);
 
-  // Create menu items
+  // Create menu items with recipes based on cuisine type
+  console.log("Creating menu items and linking to recipes...");
   for (const menu of menus) {
     if (menu) {
+      // Get restaurant to determine cuisine
+      const restaurant = await prisma.restaurant.findUnique({
+        where: { id: menu.restaurantId }
+      });
+      
+      // Find recipes with matching cookbook cuisine if possible
+      let matchingRecipes = recipes;
+      if (restaurant) {
+        // Try to infer cuisine from restaurant name
+        const restaurantName = restaurant.name.toLowerCase();
+        const cuisineTypes = ["Italian", "Asian", "Mexican", "American", "Mediterranean", "Indian", "French"];
+        
+        for (const cuisine of cuisineTypes) {
+          if (restaurantName.includes(cuisine.toLowerCase())) {
+            // Find cookbooks with matching cuisine
+            const matchingCookbooks = await prisma.cookBook.findMany({
+              where: { 
+                category: { 
+                  contains: cuisine,
+                  mode: 'insensitive'
+                } 
+              }
+            });
+            
+            if (matchingCookbooks.length > 0) {
+              // Find recipes from these cookbooks
+              const cookbookIds = matchingCookbooks.map(cb => cb.id);
+              matchingRecipes = await prisma.recipe.findMany({
+                where: { cookBookId: { in: cookbookIds } }
+              });
+              
+              // If we found matching recipes, use them; otherwise fall back to all recipes
+              if (matchingRecipes.length === 0) {
+                matchingRecipes = recipes;
+              }
+              break;
+            }
+          }
+        }
+      }
+      
+      // Create 5-10 menu items per menu
+      const menuItemCount = faker.number.int({ min: 5, max: 10 });
+      const menuItems = await Promise.all(
+        Array.from({ length: menuItemCount }, () => {
+          // Select a random recipe from matching recipes
+          const recipe = faker.helpers.arrayElement(matchingRecipes);
+          return createMenuItem(menu.id, recipe.id);
+        })
+      );
+      
+      // Create direct links between menu items and recipes
       await Promise.all(
-        recipes.slice(0, 5).map(recipe =>
-          createMenuItem(menu.id, recipe.id)
-        )
+        menuItems.map(menuItem => {
+          // Link to 1-3 recipes for each menu item
+          const recipeCount = faker.number.int({ min: 1, max: 3 });
+          return Promise.all(
+            Array.from({ length: recipeCount }, () => {
+              const recipe = faker.helpers.arrayElement(matchingRecipes);
+              return createMenuItemRecipe(menuItem.id, recipe.id);
+            })
+          );
+        })
       );
     } else {
-      console.error('Failed to create menu item');
+      console.error('Failed to create menu items: menu is null');
     }
   }
 
-  // Create menuItemRecipes
-  const menuItems = await prisma.menuItem.findMany();
-  await Promise.all(
-    menuItems.map(menuItem =>
-      createMenuItemRecipe(menuItem.id, recipes[Math.floor(Math.random() * recipes.length)].id)
-    )
-  );
+  // Menu item recipes already created above in the menu creation loop
 
   // Create RecipeNutrition
   await Promise.all(
@@ -2331,9 +2427,10 @@ async function main() {
   );
 
   // Create SalesTransactions
+  const allMenuItems = await prisma.menuItem.findMany();
   await Promise.all(
     restaurants.flatMap(restaurant =>
-      menuItems.slice(0, 5).map(menuItem =>
+      allMenuItems.slice(0, 5).map(menuItem =>
         createSalesTransaction(restaurant.id, menuItem.id)
       )
     )
@@ -2434,7 +2531,7 @@ async function main() {
 
   // Create NutritionalRecommendation
   await Promise.all(
-    menuItems.slice(0, 10).map(menuItem =>
+    allMenuItems.slice(0, 10).map(menuItem =>
       createNutritionalRecommendation(menuItem.id)
     )
   );
@@ -2442,7 +2539,7 @@ async function main() {
   // Create LeftoverItem
   await Promise.all(
     restaurants.flatMap(restaurant =>
-      menuItems.slice(0, 5).map(menuItem =>
+      allMenuItems.slice(0, 5).map(menuItem =>
         createLeftoverItem(restaurant.id, menuItem.id, users[Math.floor(Math.random() * users.length)].id)
       )
     )
@@ -2506,7 +2603,7 @@ async function main() {
 
   // Create NutritionalInfo
   await Promise.all(
-    menuItems.slice(0, 10).map(menuItem =>
+    allMenuItems.slice(0, 10).map(menuItem =>
       createNutritionalInfo(menuItem.id)
     )
   );

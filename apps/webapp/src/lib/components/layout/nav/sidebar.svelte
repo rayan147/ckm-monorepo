@@ -137,15 +137,17 @@
                 Notifications
               </div>
               <div class="py-1">
-                {#each notifications as notification}
-                  <DropdownMenu.Item
-                    class="px-4 py-3 focus:bg-gray-100 focus:text-gray-900 cursor-default"
-                  >
-                    <div class="text-sm text-gray-700">
-                      {notification.message}
-                    </div>
-                  </DropdownMenu.Item>
-                {/each}
+                {#if notifications.length > 0}
+                  {#each notifications as notification}
+                    <DropdownMenu.Item
+                      class="px-4 py-3 focus:bg-gray-100 focus:text-gray-900 cursor-default"
+                    >
+                      <div class="text-sm text-gray-700">
+                        {notification.message}
+                      </div>
+                    </DropdownMenu.Item>
+                  {/each}
+                {/if}
               </div>
             </DropdownMenu.Content>
           </DropdownMenu.Root>
