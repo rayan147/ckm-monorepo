@@ -12,7 +12,8 @@
     Building2,
     Search,
     ChevronDown,
-    Bell
+    Bell,
+    FileChartLineIcon
   } from 'lucide-svelte';
 
   import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
@@ -21,7 +22,6 @@
   import { getAuthConext } from '$lib/contexts/auth-context.svelte';
   import { logout } from '$lib/auth';
 
-  let showNotifications = $state(false);
   let isLoggingOut = $state(false);
   const authState = getAuthConext();
 
@@ -38,7 +38,8 @@
     { href: '/dashboard/inventory', label: 'Inventory', icon: ShoppingCart },
     { href: '/dashboard/staff', label: 'Staff', icon: Users },
     { href: '/dashboard/schedules', label: 'Schedules', icon: Calendar },
-    { href: '/dashboard/organization', label: 'Organization', icon: Building2 }
+    { href: '/dashboard/organization', label: 'Organization', icon: Building2 },
+    { href: '/dashboard/analytics', label: 'Analytics', icon: FileChartLineIcon }
   ];
 
   let searchQuery = $state('');

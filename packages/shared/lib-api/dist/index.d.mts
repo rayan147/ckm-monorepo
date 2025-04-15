@@ -671,76 +671,6 @@ declare const api: {
         }>;
     };
     restaurant: {
-        createRestaurant: (args: {
-            body: _ckm_db.Prisma.RestaurantCreateInput;
-            cache?: RequestCache | undefined;
-            fetchOptions?: _ts_rest_core.FetchOptions | undefined;
-            extraHeaders?: Record<string, string | undefined> | undefined;
-            overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
-        }) => Promise<{
-            status: 201;
-            body: {
-                id: number;
-                createdAt: Date;
-                updatedAt: Date;
-                name: string;
-                imageUrl: string | null;
-                address: string;
-                city: string;
-                zipCode: string;
-                state: string;
-                owner: string;
-                organizationId: number | null;
-                foodCost: number | null;
-                isDeleted: boolean;
-                deleted: Date | null;
-            };
-            headers: Headers;
-        } | {
-            status: 400;
-            body: {
-                message: string;
-            };
-            headers: Headers;
-        } | {
-            status: 200 | 404 | 500 | 401 | 100 | 101 | 102 | 202 | 203 | 204 | 205 | 206 | 207 | 300 | 301 | 302 | 303 | 304 | 305 | 307 | 308 | 402 | 403 | 405 | 406 | 407 | 408 | 409 | 410 | 411 | 412 | 413 | 414 | 415 | 416 | 417 | 418 | 419 | 420 | 421 | 422 | 423 | 424 | 428 | 429 | 431 | 451 | 501 | 502 | 503 | 504 | 505 | 507 | 511;
-            body: unknown;
-            headers: Headers;
-        }>;
-        getRestaurants: (args?: {
-            cache?: RequestCache | undefined;
-            fetchOptions?: _ts_rest_core.FetchOptions | undefined;
-            extraHeaders?: Record<string, string | undefined> | undefined;
-            overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
-            query?: {
-                skip?: string | undefined;
-                take?: string | undefined;
-                organizationId?: string | undefined;
-            } | undefined;
-        } | undefined) => Promise<{
-            status: 200;
-            body: {
-                id: number;
-                createdAt: Date;
-                updatedAt: Date;
-                name: string;
-                imageUrl: string | null;
-                address: string;
-                city: string;
-                zipCode: string;
-                state: string;
-                owner: string;
-                organizationId: number | null;
-                foodCost: number | null;
-                isDeleted: boolean;
-                deleted: Date | null;
-            }[];
-            headers: Headers;
-        } | {
-            status: 201 | 400 | 404 | 500 | 401 | 100 | 101 | 102 | 202 | 203 | 204 | 205 | 206 | 207 | 300 | 301 | 302 | 303 | 304 | 305 | 307 | 308 | 402 | 403 | 405 | 406 | 407 | 408 | 409 | 410 | 411 | 412 | 413 | 414 | 415 | 416 | 417 | 418 | 419 | 420 | 421 | 422 | 423 | 424 | 428 | 429 | 431 | 451 | 501 | 502 | 503 | 504 | 505 | 507 | 511;
-            body: unknown;
-            headers: Headers;
-        }>;
         getRestaurant: (args: {
             cache?: RequestCache | undefined;
             params: {
@@ -853,6 +783,76 @@ declare const api: {
             headers: Headers;
         } | {
             status: 201 | 400 | 500 | 401 | 100 | 101 | 102 | 202 | 203 | 204 | 205 | 206 | 207 | 300 | 301 | 302 | 303 | 304 | 305 | 307 | 308 | 402 | 403 | 405 | 406 | 407 | 408 | 409 | 410 | 411 | 412 | 413 | 414 | 415 | 416 | 417 | 418 | 419 | 420 | 421 | 422 | 423 | 424 | 428 | 429 | 431 | 451 | 501 | 502 | 503 | 504 | 505 | 507 | 511;
+            body: unknown;
+            headers: Headers;
+        }>;
+        createRestaurant: (args: {
+            body: _ckm_db.Prisma.RestaurantCreateInput;
+            cache?: RequestCache | undefined;
+            fetchOptions?: _ts_rest_core.FetchOptions | undefined;
+            extraHeaders?: Record<string, string | undefined> | undefined;
+            overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
+        }) => Promise<{
+            status: 201;
+            body: {
+                id: number;
+                createdAt: Date;
+                updatedAt: Date;
+                name: string;
+                imageUrl: string | null;
+                address: string;
+                city: string;
+                zipCode: string;
+                state: string;
+                owner: string;
+                organizationId: number | null;
+                foodCost: number | null;
+                isDeleted: boolean;
+                deleted: Date | null;
+            };
+            headers: Headers;
+        } | {
+            status: 400;
+            body: {
+                message: string;
+            };
+            headers: Headers;
+        } | {
+            status: 200 | 404 | 500 | 401 | 100 | 101 | 102 | 202 | 203 | 204 | 205 | 206 | 207 | 300 | 301 | 302 | 303 | 304 | 305 | 307 | 308 | 402 | 403 | 405 | 406 | 407 | 408 | 409 | 410 | 411 | 412 | 413 | 414 | 415 | 416 | 417 | 418 | 419 | 420 | 421 | 422 | 423 | 424 | 428 | 429 | 431 | 451 | 501 | 502 | 503 | 504 | 505 | 507 | 511;
+            body: unknown;
+            headers: Headers;
+        }>;
+        getRestaurants: (args?: {
+            cache?: RequestCache | undefined;
+            fetchOptions?: _ts_rest_core.FetchOptions | undefined;
+            extraHeaders?: Record<string, string | undefined> | undefined;
+            overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
+            query?: {
+                skip?: string | undefined;
+                take?: string | undefined;
+                organizationId?: string | undefined;
+            } | undefined;
+        } | undefined) => Promise<{
+            status: 200;
+            body: {
+                id: number;
+                createdAt: Date;
+                updatedAt: Date;
+                name: string;
+                imageUrl: string | null;
+                address: string;
+                city: string;
+                zipCode: string;
+                state: string;
+                owner: string;
+                organizationId: number | null;
+                foodCost: number | null;
+                isDeleted: boolean;
+                deleted: Date | null;
+            }[];
+            headers: Headers;
+        } | {
+            status: 201 | 400 | 404 | 500 | 401 | 100 | 101 | 102 | 202 | 203 | 204 | 205 | 206 | 207 | 300 | 301 | 302 | 303 | 304 | 305 | 307 | 308 | 402 | 403 | 405 | 406 | 407 | 408 | 409 | 410 | 411 | 412 | 413 | 414 | 415 | 416 | 417 | 418 | 419 | 420 | 421 | 422 | 423 | 424 | 428 | 429 | 431 | 451 | 501 | 502 | 503 | 504 | 505 | 507 | 511;
             body: unknown;
             headers: Headers;
         }>;
@@ -4458,76 +4458,6 @@ declare const createApiClient: (customFetch: typeof fetch) => {
         }>;
     };
     restaurant: {
-        createRestaurant: (args: {
-            body: _ckm_db.Prisma.RestaurantCreateInput;
-            cache?: RequestCache | undefined;
-            fetchOptions?: _ts_rest_core.FetchOptions | undefined;
-            extraHeaders?: Record<string, string | undefined> | undefined;
-            overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
-        }) => Promise<{
-            status: 201;
-            body: {
-                id: number;
-                createdAt: Date;
-                updatedAt: Date;
-                name: string;
-                imageUrl: string | null;
-                address: string;
-                city: string;
-                zipCode: string;
-                state: string;
-                owner: string;
-                organizationId: number | null;
-                foodCost: number | null;
-                isDeleted: boolean;
-                deleted: Date | null;
-            };
-            headers: Headers;
-        } | {
-            status: 400;
-            body: {
-                message: string;
-            };
-            headers: Headers;
-        } | {
-            status: 200 | 404 | 500 | 401 | 100 | 101 | 102 | 202 | 203 | 204 | 205 | 206 | 207 | 300 | 301 | 302 | 303 | 304 | 305 | 307 | 308 | 402 | 403 | 405 | 406 | 407 | 408 | 409 | 410 | 411 | 412 | 413 | 414 | 415 | 416 | 417 | 418 | 419 | 420 | 421 | 422 | 423 | 424 | 428 | 429 | 431 | 451 | 501 | 502 | 503 | 504 | 505 | 507 | 511;
-            body: unknown;
-            headers: Headers;
-        }>;
-        getRestaurants: (args?: {
-            cache?: RequestCache | undefined;
-            fetchOptions?: _ts_rest_core.FetchOptions | undefined;
-            extraHeaders?: Record<string, string | undefined> | undefined;
-            overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
-            query?: {
-                skip?: string | undefined;
-                take?: string | undefined;
-                organizationId?: string | undefined;
-            } | undefined;
-        } | undefined) => Promise<{
-            status: 200;
-            body: {
-                id: number;
-                createdAt: Date;
-                updatedAt: Date;
-                name: string;
-                imageUrl: string | null;
-                address: string;
-                city: string;
-                zipCode: string;
-                state: string;
-                owner: string;
-                organizationId: number | null;
-                foodCost: number | null;
-                isDeleted: boolean;
-                deleted: Date | null;
-            }[];
-            headers: Headers;
-        } | {
-            status: 201 | 400 | 404 | 500 | 401 | 100 | 101 | 102 | 202 | 203 | 204 | 205 | 206 | 207 | 300 | 301 | 302 | 303 | 304 | 305 | 307 | 308 | 402 | 403 | 405 | 406 | 407 | 408 | 409 | 410 | 411 | 412 | 413 | 414 | 415 | 416 | 417 | 418 | 419 | 420 | 421 | 422 | 423 | 424 | 428 | 429 | 431 | 451 | 501 | 502 | 503 | 504 | 505 | 507 | 511;
-            body: unknown;
-            headers: Headers;
-        }>;
         getRestaurant: (args: {
             cache?: RequestCache | undefined;
             params: {
@@ -4640,6 +4570,76 @@ declare const createApiClient: (customFetch: typeof fetch) => {
             headers: Headers;
         } | {
             status: 201 | 400 | 500 | 401 | 100 | 101 | 102 | 202 | 203 | 204 | 205 | 206 | 207 | 300 | 301 | 302 | 303 | 304 | 305 | 307 | 308 | 402 | 403 | 405 | 406 | 407 | 408 | 409 | 410 | 411 | 412 | 413 | 414 | 415 | 416 | 417 | 418 | 419 | 420 | 421 | 422 | 423 | 424 | 428 | 429 | 431 | 451 | 501 | 502 | 503 | 504 | 505 | 507 | 511;
+            body: unknown;
+            headers: Headers;
+        }>;
+        createRestaurant: (args: {
+            body: _ckm_db.Prisma.RestaurantCreateInput;
+            cache?: RequestCache | undefined;
+            fetchOptions?: _ts_rest_core.FetchOptions | undefined;
+            extraHeaders?: Record<string, string | undefined> | undefined;
+            overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
+        }) => Promise<{
+            status: 201;
+            body: {
+                id: number;
+                createdAt: Date;
+                updatedAt: Date;
+                name: string;
+                imageUrl: string | null;
+                address: string;
+                city: string;
+                zipCode: string;
+                state: string;
+                owner: string;
+                organizationId: number | null;
+                foodCost: number | null;
+                isDeleted: boolean;
+                deleted: Date | null;
+            };
+            headers: Headers;
+        } | {
+            status: 400;
+            body: {
+                message: string;
+            };
+            headers: Headers;
+        } | {
+            status: 200 | 404 | 500 | 401 | 100 | 101 | 102 | 202 | 203 | 204 | 205 | 206 | 207 | 300 | 301 | 302 | 303 | 304 | 305 | 307 | 308 | 402 | 403 | 405 | 406 | 407 | 408 | 409 | 410 | 411 | 412 | 413 | 414 | 415 | 416 | 417 | 418 | 419 | 420 | 421 | 422 | 423 | 424 | 428 | 429 | 431 | 451 | 501 | 502 | 503 | 504 | 505 | 507 | 511;
+            body: unknown;
+            headers: Headers;
+        }>;
+        getRestaurants: (args?: {
+            cache?: RequestCache | undefined;
+            fetchOptions?: _ts_rest_core.FetchOptions | undefined;
+            extraHeaders?: Record<string, string | undefined> | undefined;
+            overrideClientOptions?: Partial<_ts_rest_core.OverrideableClientArgs> | undefined;
+            query?: {
+                skip?: string | undefined;
+                take?: string | undefined;
+                organizationId?: string | undefined;
+            } | undefined;
+        } | undefined) => Promise<{
+            status: 200;
+            body: {
+                id: number;
+                createdAt: Date;
+                updatedAt: Date;
+                name: string;
+                imageUrl: string | null;
+                address: string;
+                city: string;
+                zipCode: string;
+                state: string;
+                owner: string;
+                organizationId: number | null;
+                foodCost: number | null;
+                isDeleted: boolean;
+                deleted: Date | null;
+            }[];
+            headers: Headers;
+        } | {
+            status: 201 | 400 | 404 | 500 | 401 | 100 | 101 | 102 | 202 | 203 | 204 | 205 | 206 | 207 | 300 | 301 | 302 | 303 | 304 | 305 | 307 | 308 | 402 | 403 | 405 | 406 | 407 | 408 | 409 | 410 | 411 | 412 | 413 | 414 | 415 | 416 | 417 | 418 | 419 | 420 | 421 | 422 | 423 | 424 | 428 | 429 | 431 | 451 | 501 | 502 | 503 | 504 | 505 | 507 | 511;
             body: unknown;
             headers: Headers;
         }>;

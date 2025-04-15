@@ -1394,10 +1394,17 @@ async function createMenuItem(menuId: number, recipeId: number) {
   });
 }
 
-// MenuItemRecipe factory
+// MenuItemRecipe factory with upsert to avoid unique constraint errors
 async function createMenuItemRecipe(menuItemId: number, recipeId: number) {
-  return prisma.menuItemRecipe.create({
-    data: {
+  return prisma.menuItemRecipe.upsert({
+    where: {
+      menuItemId_recipeId: {
+        menuItemId,
+        recipeId
+      }
+    },
+    update: {}, // No updates needed if it exists
+    create: {
       menuItemId,
       recipeId,
     },
@@ -2373,14 +2380,32 @@ async function main() {
       
       // Create direct links between menu items and recipes
       await Promise.all(
-        menuItems.map(menuItem => {
+        menuItems.map(async menuItem => {
           // Link to 1-3 recipes for each menu item
           const recipeCount = faker.number.int({ min: 1, max: 3 });
+          
+          // Ensure we don't create duplicates by randomly selecting unique recipes
+          const selectedRecipeIds = new Set();
+          const availableRecipeIds = matchingRecipes.map(r => r.id);
+          
+          // Ensure we don't try to select more recipes than available
+          const actualCount = Math.min(recipeCount, availableRecipeIds.length);
+          
+          while (selectedRecipeIds.size < actualCount && availableRecipeIds.length > 0) {
+            // Select a random recipe ID
+            const randomIndex = faker.number.int({ min: 0, max: availableRecipeIds.length - 1 });
+            const recipeId = availableRecipeIds[randomIndex];
+            
+            // Add to selected set and remove from available array
+            selectedRecipeIds.add(recipeId);
+            availableRecipeIds.splice(randomIndex, 1);
+          }
+          
+          // Create menu item recipe links for the selected unique recipes
           return Promise.all(
-            Array.from({ length: recipeCount }, () => {
-              const recipe = faker.helpers.arrayElement(matchingRecipes);
-              return createMenuItemRecipe(menuItem.id, recipe.id);
-            })
+            [...selectedRecipeIds].map(recipeId => 
+              createMenuItemRecipe(menuItem.id, recipeId)
+            )
           );
         })
       );
@@ -2505,7 +2530,7 @@ async function main() {
   // Create CustomerFeedback
   await Promise.all(
     restaurants.flatMap(restaurant =>
-      menuItems.slice(0, 5).map(menuItem =>
+      allMenuItems.slice(0, 5).map(menuItem =>
         createCustomerFeedback(restaurant.id, menuItem.id)
       )
     )

@@ -90,7 +90,10 @@
         <Card.Header class="pb-2">
           <div class="flex flex-col items-center">
             <Avatar.Root class="h-24 w-24 mb-4">
-              <Avatar.Image src={user.profileImage} alt="{user.firstName} {user.lastName}" />
+              <Avatar.Image
+                src={user.profileImage ?? 'https://avatar.iran.liara.run/public/28'}
+                alt="{user.firstName} {user.lastName}"
+              />
               <Avatar.Fallback class="text-2xl"
                 >{user.firstName.charAt(0)}{user.lastName.charAt(0)}</Avatar.Fallback
               >

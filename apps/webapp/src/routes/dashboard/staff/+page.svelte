@@ -427,7 +427,7 @@
                     <div class="flex items-center gap-3">
                       <Avatar.Root class="h-10 w-10">
                         <Avatar.Image
-                          src={staff.profileImage}
+                          src={staff.profileImage ?? 'https://avatar.iran.liara.run/public/28'}
                           alt={`${staff.firstName} ${staff.lastName}`}
                         />
                         <Avatar.Fallback class="text-sm"

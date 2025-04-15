@@ -4448,10 +4448,10 @@ var orderItemContract = c4.router({
   }
 });
 
-// src/restaurant/restaurant.web.ts
+// src/restaurant/restaurant.base.web.ts
 var import_db5 = require("@ckm/db");
 var c5 = initContract();
-var restaurantContract = c5.router({
+var restaurantBaseContract = c5.router({
   createRestaurant: {
     method: "POST",
     path: "/restaurants",
@@ -4474,7 +4474,13 @@ var restaurantContract = c5.router({
       organizationId: z.string().optional()
     }),
     summary: "Get all restaurants"
-  },
+  }
+});
+
+// src/restaurant/restaurant.web.ts
+var import_db6 = require("@ckm/db");
+var c6 = initContract();
+var restaurantDetailContract = c6.router({
   getRestaurant: {
     method: "GET",
     path: "/restaurants/:id",
@@ -4482,7 +4488,9 @@ var restaurantContract = c5.router({
       id: z.coerce.number()
     }),
     responses: {
-      200: import_db5.zodSchemas.RestaurantWithRelationsSchema,
+      // Use simplified schema for the contract
+      // The actual implementation will still validate against the full schema
+      200: import_db6.zodSchemas.RestaurantSchema,
       404: z.object({ message: z.string() })
     },
     summary: "Get a restaurant by ID"
@@ -4494,10 +4502,10 @@ var restaurantContract = c5.router({
       id: z.coerce.number()
     }),
     responses: {
-      200: import_db5.zodSchemas.RestaurantSchema,
+      200: import_db6.zodSchemas.RestaurantSchema,
       404: z.object({ message: z.string() })
     },
-    body: import_db5.zodSchemas.RestaurantUpdateInputSchema,
+    body: import_db6.zodSchemas.RestaurantUpdateInputSchema,
     summary: "Update a restaurant"
   },
   deleteRestaurant: {
@@ -4507,32 +4515,39 @@ var restaurantContract = c5.router({
       id: z.coerce.number()
     }),
     responses: {
-      200: import_db5.zodSchemas.RestaurantSchema,
+      200: import_db6.zodSchemas.RestaurantSchema,
       404: z.object({ message: z.string() })
     },
     summary: "Delete a restaurant"
   }
 });
 
+// src/restaurant/index.ts
+var c7 = initContract();
+var restaurantContract = c7.router({
+  ...restaurantBaseContract,
+  ...restaurantDetailContract
+});
+
 // src/shifts/shifts.web.ts
-var import_db6 = require("@ckm/db");
-var c6 = initContract();
-var shiftContract = c6.router({
+var import_db7 = require("@ckm/db");
+var c8 = initContract();
+var shiftContract = c8.router({
   createShift: {
     method: "POST",
     path: "/shifts",
     responses: {
-      201: import_db6.zodSchemas.ShiftSchema,
+      201: import_db7.zodSchemas.ShiftSchema,
       400: z.object({ message: z.string() })
     },
-    body: import_db6.zodSchemas.ShiftUncheckedCreateInputSchema,
+    body: import_db7.zodSchemas.ShiftUncheckedCreateInputSchema,
     summary: "Create a new shift"
   },
   getShifts: {
     method: "GET",
     path: "/shifts",
     responses: {
-      200: z.array(import_db6.zodSchemas.ShiftSchema),
+      200: z.array(import_db7.zodSchemas.ShiftSchema),
       400: z.object({ message: z.string() }),
       500: z.object({ message: z.string() })
     },
@@ -4553,7 +4568,7 @@ var shiftContract = c6.router({
       id: z.coerce.number()
     }),
     responses: {
-      200: import_db6.zodSchemas.ShiftSchema,
+      200: import_db7.zodSchemas.ShiftSchema,
       404: z.object({ message: z.string() })
     },
     summary: "Get a shift by ID"
@@ -4565,10 +4580,10 @@ var shiftContract = c6.router({
       id: z.coerce.number()
     }),
     responses: {
-      200: import_db6.zodSchemas.ShiftSchema,
+      200: import_db7.zodSchemas.ShiftSchema,
       404: z.object({ message: z.string() })
     },
-    body: import_db6.zodSchemas.ShiftUncheckedUpdateInputSchema,
+    body: import_db7.zodSchemas.ShiftUncheckedUpdateInputSchema,
     summary: "Update a shift"
   },
   deleteShift: {
@@ -4578,7 +4593,7 @@ var shiftContract = c6.router({
       id: z.coerce.number()
     }),
     responses: {
-      200: import_db6.zodSchemas.ShiftSchema,
+      200: import_db7.zodSchemas.ShiftSchema,
       404: z.object({ message: z.string() })
     },
     summary: "Delete a shift"
@@ -4586,15 +4601,15 @@ var shiftContract = c6.router({
 });
 
 // src/recipe/recipe.web.ts
-var import_db7 = require("@ckm/db");
-var c7 = initContract();
-var recipeContract = c7.router({
+var import_db8 = require("@ckm/db");
+var c9 = initContract();
+var recipeContract = c9.router({
   // Existing Endpoints
   createRecipe: {
     method: "POST",
     path: "/recipes",
     responses: {
-      201: import_db7.zodSchemas.RecipeSchema,
+      201: import_db8.zodSchemas.RecipeSchema,
       400: z.object({ message: z.string() })
     },
     body: z.any(),
@@ -4623,7 +4638,7 @@ var recipeContract = c7.router({
     method: "GET",
     path: "/recipes",
     responses: {
-      200: z.object({ recipes: z.array(import_db7.zodSchemas.RecipeSchema), totalCount: z.number() })
+      200: z.object({ recipes: z.array(import_db8.zodSchemas.RecipeSchema), totalCount: z.number() })
     },
     query: z.object({
       skip: z.coerce.number().optional(),
@@ -4640,7 +4655,7 @@ var recipeContract = c7.router({
       id: z.coerce.number()
     }),
     responses: {
-      200: import_db7.zodSchemas.RecipeSchema,
+      200: import_db8.zodSchemas.RecipeSchema,
       404: z.object({ message: z.string() })
     },
     summary: "Get a recipe by ID"
@@ -4652,11 +4667,11 @@ var recipeContract = c7.router({
       id: z.coerce.number()
     }),
     responses: {
-      200: import_db7.zodSchemas.RecipeSchema,
+      200: import_db8.zodSchemas.RecipeSchema,
       400: z.object({ message: z.string() }),
       404: z.object({ message: z.string() })
     },
-    body: import_db7.zodSchemas.RecipeUpdateInputSchema,
+    body: import_db8.zodSchemas.RecipeUpdateInputSchema,
     summary: "Update a recipe"
   },
   deleteRecipe: {
@@ -4666,7 +4681,7 @@ var recipeContract = c7.router({
       id: z.coerce.number()
     }),
     responses: {
-      200: import_db7.zodSchemas.RecipeSchema,
+      200: import_db8.zodSchemas.RecipeSchema,
       404: z.object({ message: z.string() })
     },
     summary: "Delete a recipe"
@@ -4679,11 +4694,11 @@ var recipeContract = c7.router({
       recipeId: z.coerce.number()
     }),
     responses: {
-      200: import_db7.zodSchemas.RecipeIngredientSchema,
+      200: import_db8.zodSchemas.RecipeIngredientSchema,
       400: z.object({ message: z.string() }),
       404: z.object({ message: z.string() })
     },
-    body: import_db7.zodSchemas.RecipeIngredientUncheckedCreateInputSchema,
+    body: import_db8.zodSchemas.RecipeIngredientUncheckedCreateInputSchema,
     summary: "Add an ingredient to a recipe"
   },
   removeIngredientFromRecipe: {
@@ -4694,7 +4709,7 @@ var recipeContract = c7.router({
       id: z.coerce.number()
     }),
     responses: {
-      200: import_db7.zodSchemas.RecipeIngredientSchema,
+      200: import_db8.zodSchemas.RecipeIngredientSchema,
       404: z.object({ message: z.string() })
     },
     summary: "Remove an ingredient from a recipe"
@@ -4707,11 +4722,11 @@ var recipeContract = c7.router({
       id: z.coerce.number()
     }),
     responses: {
-      200: import_db7.zodSchemas.RecipeIngredientSchema,
+      200: import_db8.zodSchemas.RecipeIngredientSchema,
       400: z.object({ message: z.string() }),
       404: z.object({ message: z.string() })
     },
-    body: import_db7.zodSchemas.RecipeIngredientUncheckedUpdateInputSchema,
+    body: import_db8.zodSchemas.RecipeIngredientUncheckedUpdateInputSchema,
     summary: "Update an ingredient in a recipe"
   },
   getRecipeIngredients: {
@@ -4721,7 +4736,7 @@ var recipeContract = c7.router({
       recipeId: z.coerce.number()
     }),
     responses: {
-      200: z.array(import_db7.zodSchemas.RecipeIngredientSchema),
+      200: z.array(import_db8.zodSchemas.RecipeIngredientSchema),
       404: z.object({ message: z.string() })
     },
     summary: "Get all ingredients for a recipe"
@@ -4734,7 +4749,7 @@ var recipeContract = c7.router({
       id: z.coerce.number()
     }),
     responses: {
-      200: import_db7.zodSchemas.RecipeIngredientSchema,
+      200: import_db8.zodSchemas.RecipeIngredientSchema,
       404: z.object({ message: z.string() })
     },
     summary: "Get a specific ingredient from a recipe"
@@ -4747,11 +4762,11 @@ var recipeContract = c7.router({
       recipeId: z.coerce.number()
     }),
     responses: {
-      200: import_db7.zodSchemas.RecipeInstructionSchema,
+      200: import_db8.zodSchemas.RecipeInstructionSchema,
       400: z.object({ message: z.string() }),
       404: z.object({ message: z.string() })
     },
-    body: import_db7.zodSchemas.RecipeInstructionCreateInputSchema,
+    body: import_db8.zodSchemas.RecipeInstructionCreateInputSchema,
     summary: "Add an instruction to a recipe"
   },
   removeInstructionFromRecipe: {
@@ -4762,7 +4777,7 @@ var recipeContract = c7.router({
       id: z.coerce.number()
     }),
     responses: {
-      200: import_db7.zodSchemas.RecipeInstructionSchema,
+      200: import_db8.zodSchemas.RecipeInstructionSchema,
       404: z.object({ message: z.string() })
     },
     summary: "Remove an instruction from a recipe"
@@ -4775,11 +4790,11 @@ var recipeContract = c7.router({
       id: z.coerce.number()
     }),
     responses: {
-      200: import_db7.zodSchemas.RecipeInstructionSchema,
+      200: import_db8.zodSchemas.RecipeInstructionSchema,
       400: z.object({ message: z.string() }),
       404: z.object({ message: z.string() })
     },
-    body: import_db7.zodSchemas.RecipeInstructionUpdateInputSchema,
+    body: import_db8.zodSchemas.RecipeInstructionUpdateInputSchema,
     summary: "Update an instruction in a recipe"
   },
   getRecipeInstruction: {
@@ -4790,7 +4805,7 @@ var recipeContract = c7.router({
       id: z.coerce.number()
     }),
     responses: {
-      200: import_db7.zodSchemas.RecipeInstructionSchema,
+      200: import_db8.zodSchemas.RecipeInstructionSchema,
       404: z.object({ message: z.string() })
     },
     summary: "Get a specific instruction from a recipe"
@@ -4802,7 +4817,7 @@ var recipeContract = c7.router({
       recipeId: z.coerce.number()
     }),
     responses: {
-      200: z.array(import_db7.zodSchemas.RecipeInstructionSchema),
+      200: z.array(import_db8.zodSchemas.RecipeInstructionSchema),
       404: z.object({ message: z.string() })
     },
     summary: "Get all instructions for a recipe"
@@ -4830,7 +4845,7 @@ var recipeContract = c7.router({
       recipeId: z.coerce.number()
     }),
     responses: {
-      200: z.array(import_db7.zodSchemas.FoodCostHistorySchema),
+      200: z.array(import_db8.zodSchemas.FoodCostHistorySchema),
       404: z.object({ message: z.string() })
     },
     summary: "Get the food cost history for a recipe"
@@ -4870,24 +4885,24 @@ var recipeContract = c7.router({
 });
 
 // src/vendor/vendor.web.ts
-var import_db8 = require("@ckm/db");
-var c8 = initContract();
-var vendorContract = c8.router({
+var import_db9 = require("@ckm/db");
+var c10 = initContract();
+var vendorContract = c10.router({
   createVendor: {
     method: "POST",
     path: "/vendors",
     responses: {
-      201: import_db8.zodSchemas.VendorSchema,
+      201: import_db9.zodSchemas.VendorSchema,
       400: z.object({ message: z.string() })
     },
-    body: import_db8.zodSchemas.VendorCreateInputSchema,
+    body: import_db9.zodSchemas.VendorCreateInputSchema,
     summary: "Create a new vendor"
   },
   getVendors: {
     method: "GET",
     path: "/vendors",
     responses: {
-      200: z.array(import_db8.zodSchemas.VendorSchema)
+      200: z.array(import_db9.zodSchemas.VendorSchema)
     },
     query: z.object({
       skip: z.string().optional(),
@@ -4903,7 +4918,7 @@ var vendorContract = c8.router({
       id: z.coerce.number()
     }),
     responses: {
-      200: import_db8.zodSchemas.VendorSchema,
+      200: import_db9.zodSchemas.VendorSchema,
       404: z.object({ message: z.string() })
     },
     summary: "Get a vendor by ID"
@@ -4915,10 +4930,10 @@ var vendorContract = c8.router({
       id: z.coerce.number()
     }),
     responses: {
-      200: import_db8.zodSchemas.VendorSchema,
+      200: import_db9.zodSchemas.VendorSchema,
       404: z.object({ message: z.string() })
     },
-    body: import_db8.zodSchemas.VendorUpdateInputSchema,
+    body: import_db9.zodSchemas.VendorUpdateInputSchema,
     summary: "Update a vendor"
   },
   deleteVendor: {
@@ -4928,7 +4943,7 @@ var vendorContract = c8.router({
       id: z.coerce.number()
     }),
     responses: {
-      200: import_db8.zodSchemas.VendorSchema,
+      200: import_db9.zodSchemas.VendorSchema,
       404: z.object({ message: z.string() })
     },
     summary: "Delete a vendor"
@@ -4936,24 +4951,24 @@ var vendorContract = c8.router({
 });
 
 // src/prep-board/prep-board.web.ts
-var import_db9 = require("@ckm/db");
-var c9 = initContract();
-var prepBoardContract = c9.router({
+var import_db10 = require("@ckm/db");
+var c11 = initContract();
+var prepBoardContract = c11.router({
   createPrepBoard: {
     method: "POST",
     path: "/prepBoards",
     responses: {
-      201: import_db9.zodSchemas.PrepBoardSchema,
+      201: import_db10.zodSchemas.PrepBoardSchema,
       400: z.object({ message: z.string() })
     },
-    body: import_db9.zodSchemas.PrepBoardCreateInputSchema,
+    body: import_db10.zodSchemas.PrepBoardCreateInputSchema,
     summary: "Create a new prep board"
   },
   getPrepBoards: {
     method: "GET",
     path: "/prepBoards",
     responses: {
-      200: z.array(import_db9.zodSchemas.PrepBoardSchema)
+      200: z.array(import_db10.zodSchemas.PrepBoardSchema)
     },
     query: z.object({
       skip: z.coerce.number().optional(),
@@ -4968,7 +4983,7 @@ var prepBoardContract = c9.router({
     path: "/prepBoards/:id",
     pathParams: z.object({ id: z.coerce.number() }),
     responses: {
-      200: import_db9.zodSchemas.PrepBoardSchema,
+      200: import_db10.zodSchemas.PrepBoardSchema,
       404: z.object({ message: z.string() })
     },
     summary: "Get a prep board by ID"
@@ -4978,10 +4993,10 @@ var prepBoardContract = c9.router({
     path: "/prepBoards/:id",
     pathParams: z.object({ id: z.coerce.number() }),
     responses: {
-      200: import_db9.zodSchemas.PrepBoardSchema,
+      200: import_db10.zodSchemas.PrepBoardSchema,
       404: z.object({ message: z.string() })
     },
-    body: import_db9.zodSchemas.PrepBoardUpdateInputSchema,
+    body: import_db10.zodSchemas.PrepBoardUpdateInputSchema,
     summary: "Update a prep board"
   },
   deletePrepBoard: {
@@ -4997,15 +5012,15 @@ var prepBoardContract = c9.router({
 });
 
 // src/auth/auth.web.ts
-var import_db10 = require("@ckm/db");
-var c10 = initContract();
-var SessionValidationSchema = import_db10.zodSchemas.SessionSchema.extend({
+var import_db11 = require("@ckm/db");
+var c12 = initContract();
+var SessionValidationSchema = import_db11.zodSchemas.SessionSchema.extend({
   id: z.string()
   // Override the id field to accept any string
 });
 var SessionValidationSuccess = z.object({
   session: SessionValidationSchema,
-  user: import_db10.zodSchemas.UserSchema
+  user: import_db11.zodSchemas.UserSchema
 });
 var SessionValidationFailure = z.object({
   session: z.null(),
@@ -5015,7 +5030,7 @@ var SessionValidationResultSchema = z.union([
   SessionValidationSuccess,
   SessionValidationFailure
 ]);
-var authContract = c10.router({
+var authContract = c12.router({
   resendCode: {
     method: "POST",
     path: "/auth/resend-code",
@@ -5051,8 +5066,8 @@ var authContract = c10.router({
     responses: {
       200: z.object({
         sessionToken: z.string(),
-        user: import_db10.zodSchemas.UserSchema.extend({
-          auth: z.array(import_db10.zodSchemas.AuthSchema.optional())
+        user: import_db11.zodSchemas.UserSchema.extend({
+          auth: z.array(import_db11.zodSchemas.AuthSchema.optional())
         })
       }),
       401: z.object({ message: z.string() })
@@ -5067,7 +5082,7 @@ var authContract = c10.router({
     method: "POST",
     path: "/auth/register",
     responses: {
-      201: import_db10.zodSchemas.UserSchema,
+      201: import_db11.zodSchemas.UserSchema,
       400: z.object({ message: z.string() })
     },
     body: z.object({
@@ -5076,7 +5091,7 @@ var authContract = c10.router({
       lastName: z.string(),
       profileImage: z.string().optional(),
       password: z.string(),
-      role: import_db10.zodSchemas.UserRoleSchema.optional(),
+      role: import_db11.zodSchemas.UserRoleSchema.optional(),
       isOrganization: z.boolean().optional(),
       organizationInput: z.object({
         name: z.string(),
@@ -5164,9 +5179,9 @@ var authContract = c10.router({
 });
 
 // src/early-access/early.access.web.ts
-var import_db11 = require("@ckm/db");
-var c11 = initContract();
-var earlyAccessContract = c11.router({
+var import_db12 = require("@ckm/db");
+var c13 = initContract();
+var earlyAccessContract = c13.router({
   storeEmail: {
     method: "POST",
     path: "/early-access",
@@ -5199,7 +5214,7 @@ var earlyAccessContract = c11.router({
     method: "GET",
     path: "/early-access",
     responses: {
-      201: z.array(import_db11.zodSchemas.EarlyAccessSchema),
+      201: z.array(import_db12.zodSchemas.EarlyAccessSchema),
       400: z.object({ message: z.string() })
     },
     query: z.object({
@@ -5217,7 +5232,7 @@ var earlyAccessContract = c11.router({
       id: z.coerce.number()
     }),
     responses: {
-      200: import_db11.zodSchemas.EarlyAccessSchema,
+      200: import_db12.zodSchemas.EarlyAccessSchema,
       404: z.object({ message: z.string() })
     },
     summary: "Get an order by ID"
@@ -5225,14 +5240,14 @@ var earlyAccessContract = c11.router({
 });
 
 // src/menu/menu.web.ts
-var import_db12 = require("@ckm/db");
-var c12 = initContract();
-var menuContract = c12.router({
+var import_db13 = require("@ckm/db");
+var c14 = initContract();
+var menuContract = c14.router({
   createMenu: {
     method: "POST",
     path: "/menus",
     responses: {
-      201: import_db12.zodSchemas.MenuSchema,
+      201: import_db13.zodSchemas.MenuSchema,
       400: z.object({ message: z.string() })
     },
     body: z.object({
@@ -5245,7 +5260,7 @@ var menuContract = c12.router({
     method: "GET",
     path: "/menus",
     responses: {
-      200: z.array(import_db12.zodSchemas.MenuSchema)
+      200: z.array(import_db13.zodSchemas.MenuSchema)
     },
     query: z.object({
       restaurantId: z.coerce.number().optional(),
@@ -5259,7 +5274,7 @@ var menuContract = c12.router({
     path: "/menus/:id",
     pathParams: z.object({ id: z.coerce.number() }),
     responses: {
-      200: import_db12.zodSchemas.MenuSchema,
+      200: import_db13.zodSchemas.MenuSchema,
       404: z.object({ message: z.string() })
     },
     summary: "Get a menu by ID"
@@ -5269,7 +5284,7 @@ var menuContract = c12.router({
     path: "/menus/:id",
     pathParams: z.object({ id: z.coerce.number() }),
     responses: {
-      200: import_db12.zodSchemas.MenuSchema,
+      200: import_db13.zodSchemas.MenuSchema,
       404: z.object({ message: z.string() })
     },
     body: z.object({
@@ -5290,24 +5305,24 @@ var menuContract = c12.router({
 });
 
 // src/menu-item/menu.item.web.ts
-var import_db13 = require("@ckm/db");
-var c13 = initContract();
-var menuItemContract = c13.router({
+var import_db14 = require("@ckm/db");
+var c15 = initContract();
+var menuItemContract = c15.router({
   createMenuItem: {
     method: "POST",
     path: "/menu-items",
     responses: {
-      201: import_db13.zodSchemas.MenuItemSchema,
+      201: import_db14.zodSchemas.MenuItemSchema,
       400: z.object({ message: z.string() })
     },
-    body: import_db13.zodSchemas.MenuItemCreateInputSchema,
+    body: import_db14.zodSchemas.MenuItemCreateInputSchema,
     summary: "Create a new menu item"
   },
   getMenuItems: {
     method: "GET",
     path: "/menu-items",
     responses: {
-      200: z.array(import_db13.zodSchemas.MenuItemSchema)
+      200: z.array(import_db14.zodSchemas.MenuItemSchema)
     },
     query: z.object({
       menuId: z.coerce.number().optional(),
@@ -5323,7 +5338,7 @@ var menuItemContract = c13.router({
       id: z.coerce.number()
     }),
     responses: {
-      200: import_db13.zodSchemas.MenuItemSchema,
+      200: import_db14.zodSchemas.MenuItemSchema,
       404: z.object({ message: z.string() })
     },
     summary: "Get a menu item by ID"
@@ -5335,10 +5350,10 @@ var menuItemContract = c13.router({
       id: z.coerce.number()
     }),
     responses: {
-      200: import_db13.zodSchemas.MenuItemSchema,
+      200: import_db14.zodSchemas.MenuItemSchema,
       404: z.object({ message: z.string() })
     },
-    body: import_db13.zodSchemas.MenuItemUpdateInputSchema,
+    body: import_db14.zodSchemas.MenuItemUpdateInputSchema,
     summary: "Update a menu item"
   },
   deleteMenuItem: {
@@ -5357,7 +5372,7 @@ var menuItemContract = c13.router({
     method: "POST",
     path: "/menu-items/recipes",
     responses: {
-      200: import_db13.zodSchemas.MenuItemSchema,
+      200: import_db14.zodSchemas.MenuItemSchema,
       404: z.object({ message: z.string() })
     },
     body: z.object({
@@ -5374,7 +5389,7 @@ var menuItemContract = c13.router({
       recipeId: z.coerce.number()
     }),
     responses: {
-      200: import_db13.zodSchemas.MenuItemSchema,
+      200: import_db14.zodSchemas.MenuItemSchema,
       404: z.object({ message: z.string() })
     },
     summary: "Get a menu item by recipe ID"
@@ -5421,14 +5436,14 @@ var menuItemContract = c13.router({
 });
 
 // src/analytic/analytic.web.ts
-var import_db14 = require("@ckm/db");
-var c14 = initContract();
-var analyticsContract = c14.router({
+var import_db15 = require("@ckm/db");
+var c16 = initContract();
+var analyticsContract = c16.router({
   getFoodCostHistory: {
     method: "GET",
     path: "/analytics/food-cost-history",
     responses: {
-      200: z.array(import_db14.zodSchemas.FoodCostHistorySchema)
+      200: z.array(import_db15.zodSchemas.FoodCostHistorySchema)
     },
     query: z.object({
       recipeId: z.string(),
@@ -5441,7 +5456,7 @@ var analyticsContract = c14.router({
     method: "GET",
     path: "/analytics/prep-history",
     responses: {
-      200: z.array(import_db14.zodSchemas.PrepHistorySchema)
+      200: z.array(import_db15.zodSchemas.PrepHistorySchema)
     },
     query: z.object({
       recipeId: z.string(),
@@ -5455,8 +5470,8 @@ var analyticsContract = c14.router({
     path: "/analytics/menu",
     responses: {
       200: z.object({
-        lowestCostItem: import_db14.zodSchemas.MenuItemSchema,
-        highestCostItem: import_db14.zodSchemas.MenuItemSchema,
+        lowestCostItem: import_db15.zodSchemas.MenuItemSchema,
+        highestCostItem: import_db15.zodSchemas.MenuItemSchema,
         averageFoodCost: z.number()
       })
     },
@@ -5495,7 +5510,7 @@ var analyticsContract = c14.router({
         totalMenuItems: z.number(),
         averageFoodCost: z.number(),
         mostPreparedRecipes: z.array(z.object({
-          recipe: import_db14.zodSchemas.RecipeSchema,
+          recipe: import_db15.zodSchemas.RecipeSchema,
           prepCount: z.number()
         })),
         foodCostTrend: z.array(z.object({
@@ -5514,14 +5529,14 @@ var analyticsContract = c14.router({
 });
 
 // src/cook-book/cook.book.web.ts
-var import_db15 = require("@ckm/db");
-var c15 = initContract();
-var cookbookContract = c15.router({
+var import_db16 = require("@ckm/db");
+var c17 = initContract();
+var cookbookContract = c17.router({
   createCookBook: {
     method: "POST",
     path: "/cookbooks",
     responses: {
-      201: import_db15.zodSchemas.CookBookSchema,
+      201: import_db16.zodSchemas.CookBookSchema,
       400: z.object({ message: z.string() })
     },
     body: z.object({
@@ -5536,7 +5551,7 @@ var cookbookContract = c15.router({
     method: "GET",
     path: "/cookbooks",
     responses: {
-      200: z.array(import_db15.zodSchemas.CookBookSchema)
+      200: z.array(import_db16.zodSchemas.CookBookSchema)
     },
     query: z.object({
       restaurantId: z.coerce.number().optional(),
@@ -5550,7 +5565,7 @@ var cookbookContract = c15.router({
     path: "/cookbooks/:id",
     pathParams: z.object({ id: z.coerce.number() }),
     responses: {
-      200: import_db15.zodSchemas.CookBookSchema,
+      200: import_db16.zodSchemas.CookBookSchema,
       404: z.object({ message: z.string() })
     },
     summary: "Get a cookbook by ID"
@@ -5560,7 +5575,7 @@ var cookbookContract = c15.router({
     path: "/cookbooks/:id",
     pathParams: z.object({ id: z.coerce.number() }),
     responses: {
-      200: import_db15.zodSchemas.CookBookSchema,
+      200: import_db16.zodSchemas.CookBookSchema,
       404: z.object({ message: z.string() })
     },
     body: z.object({
@@ -5584,14 +5599,14 @@ var cookbookContract = c15.router({
 });
 
 // src/ingredient/ingredient.web.ts
-var import_db16 = require("@ckm/db");
-var c16 = initContract();
-var ingredientContract = c16.router({
+var import_db17 = require("@ckm/db");
+var c18 = initContract();
+var ingredientContract = c18.router({
   createIngredient: {
     method: "POST",
     path: "/ingredients",
     responses: {
-      201: import_db16.zodSchemas.IngredientSchema,
+      201: import_db17.zodSchemas.IngredientSchema,
       400: z.object({ message: z.string() })
     },
     body: z.object({
@@ -5605,7 +5620,7 @@ var ingredientContract = c16.router({
     method: "GET",
     path: "/ingredients",
     responses: {
-      200: z.array(import_db16.zodSchemas.IngredientSchema)
+      200: z.array(import_db17.zodSchemas.IngredientSchema)
     },
     query: z.object({
       skip: z.coerce.number().optional(),
@@ -5620,7 +5635,7 @@ var ingredientContract = c16.router({
     path: "/ingredients/:id",
     pathParams: z.object({ id: z.coerce.number() }),
     responses: {
-      200: import_db16.zodSchemas.IngredientSchema,
+      200: import_db17.zodSchemas.IngredientSchema,
       404: z.object({ message: z.string() })
     },
     summary: "Get an ingredient by ID"
@@ -5630,7 +5645,7 @@ var ingredientContract = c16.router({
     path: "/ingredients/:id",
     pathParams: z.object({ id: z.coerce.number() }),
     responses: {
-      200: import_db16.zodSchemas.IngredientSchema,
+      200: import_db17.zodSchemas.IngredientSchema,
       404: z.object({ message: z.string() })
     },
     body: z.object({
@@ -5653,24 +5668,24 @@ var ingredientContract = c16.router({
 });
 
 // src/prep-item/prep.item.web.ts
-var import_db17 = require("@ckm/db");
-var c17 = initContract();
-var prepItemContract = c17.router({
+var import_db18 = require("@ckm/db");
+var c19 = initContract();
+var prepItemContract = c19.router({
   createPrepItem: {
     method: "POST",
     path: "/prepItems",
     responses: {
-      201: import_db17.zodSchemas.PrepItemSchema,
+      201: import_db18.zodSchemas.PrepItemSchema,
       400: z.object({ message: z.string() })
     },
-    body: import_db17.zodSchemas.PrepItemCreateInputSchema,
+    body: import_db18.zodSchemas.PrepItemCreateInputSchema,
     summary: "Create a new prep item"
   },
   getPrepItems: {
     method: "GET",
     path: "/prepItems",
     responses: {
-      200: z.array(import_db17.zodSchemas.PrepItemSchema)
+      200: z.array(import_db18.zodSchemas.PrepItemSchema)
     },
     query: z.object({
       skip: z.coerce.number().optional(),
@@ -5685,7 +5700,7 @@ var prepItemContract = c17.router({
     path: "/prepItems/:id",
     pathParams: z.object({ id: z.coerce.number() }),
     responses: {
-      200: import_db17.zodSchemas.PrepItemSchema,
+      200: import_db18.zodSchemas.PrepItemSchema,
       404: z.object({ message: z.string() })
     },
     summary: "Get a prep item by ID"
@@ -5695,10 +5710,10 @@ var prepItemContract = c17.router({
     path: "/prepItems/:id",
     pathParams: z.object({ id: z.coerce.number() }),
     responses: {
-      200: import_db17.zodSchemas.PrepItemSchema,
+      200: import_db18.zodSchemas.PrepItemSchema,
       404: z.object({ message: z.string() })
     },
-    body: import_db17.zodSchemas.PrepItemUpdateInputSchema,
+    body: import_db18.zodSchemas.PrepItemUpdateInputSchema,
     summary: "Update a prep item"
   },
   deletePrepItem: {
@@ -5714,7 +5729,7 @@ var prepItemContract = c17.router({
 });
 
 // src/nutrition/nutrition.web.ts
-var import_db18 = require("@ckm/db");
+var import_db19 = require("@ckm/db");
 var UsdaFoodSchema = z.object({
   fdcId: z.union([z.string(), z.number()]),
   description: z.string(),
@@ -5751,14 +5766,14 @@ var ManualNutritionInputSchema = z.object({
   sugar: z.number().min(0).max(100),
   sodium: z.number().min(0).max(1e4)
 });
-var c18 = initContract();
-var nutritionContract = c18.router({
+var c20 = initContract();
+var nutritionContract = c20.router({
   getRecipeNutrition: {
     method: "GET",
     path: "/recipes/:id/nutrition",
     pathParams: z.object({ id: coerce.number() }),
     responses: {
-      200: import_db18.zodSchemas.RecipeNutritionSchema,
+      200: import_db19.zodSchemas.RecipeNutritionSchema,
       400: z.object({ message: z.string() })
     },
     summary: "Get the calculated nutrition for the recipe"
@@ -5768,7 +5783,7 @@ var nutritionContract = c18.router({
     path: "/recipes/:id/nutrition/calculate",
     pathParams: z.object({ id: coerce.number() }),
     responses: {
-      200: import_db18.zodSchemas.RecipeNutritionSchema,
+      200: import_db19.zodSchemas.RecipeNutritionSchema,
       400: z.object({ message: z.string() })
     },
     summary: "Force recalculation of recipe nutrition"
@@ -5824,8 +5839,8 @@ var nutritionContract = c18.router({
 });
 
 // src/index.ts
-var c19 = initContract();
-var contract = c19.router({
+var c21 = initContract();
+var contract = c21.router({
   orgs: organizationContract,
   users: userContract,
   orders: orderContract,
