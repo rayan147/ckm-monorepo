@@ -47,19 +47,19 @@
       name: 'Emily Johnson',
       position: 'Head Chef',
       metrics: '96% efficiency, 4.9/5 customer rating',
-      avatar: '/avatars/emily.jpg'
+      avatar: 'https://avatar.iran.liara.run/public/58'
     },
     {
       name: 'Jason Martinez',
       position: 'Senior Server',
       metrics: '94% efficiency, 4.8/5 customer rating',
-      avatar: '/avatars/jason.jpg'
+      avatar: 'https://avatar.iran.liara.run/public/37'
     },
     {
       name: 'Olivia Chen',
       position: 'Bar Manager',
       metrics: '95% efficiency, 4.8/5 customer rating',
-      avatar: '/avatars/olivia.jpg'
+      avatar: 'https://avatar.iran.liara.run/public/94'
     }
   ]);
 

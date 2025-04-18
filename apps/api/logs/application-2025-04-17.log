@@ -1,0 +1,21 @@
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "{\n  \"session_token\": \"bxq2gu575hhsdsm6vnhkoj45jfteitumizexxslpzdeavmbu22qa\",\n  \"user_id\": \"745\",\n  \"sidebar:state\": \"false\"\n}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-17T16:24:01.204Z"
+}
+{
+  "context": "RecipeController",
+  "level": "info",
+  "message": "Received request to get recipes",
+  "service": "LoggingService",
+  "timestamp": "2025-04-17T16:24:01.225Z"
+}
+{
+  "context": "RecipeService",
+  "level": "info",
+  "message": "Fetching recipes with params: {\"skip\":0,\"take\":10}",
+  "service": "LoggingService",
+  "timestamp": "2025-04-17T16:24:01.226Z"
+}

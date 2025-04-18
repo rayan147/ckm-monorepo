@@ -592,6 +592,7 @@
               calculating = true;
               return async ({ result, update }) => {
                 // Reset state
+                console.log({ result });
                 calculating = false;
                 ingredientsNeedingMatching = getIngredientsNeedingMatching();
                 if (ingredientsNeedingMatching.length > 0) {

@@ -151,31 +151,6 @@
     activeVersion = version;
     showVersionHistory = false;
   }
-
-  // Share recipe function
-  function shareRecipe() {
-    if (navigator.share) {
-      navigator
-        .share({
-          title: recipe.name,
-          text: recipe.description || `Check out this ${recipe.name} recipe!`,
-          url: window.location.href
-        })
-        .catch((error) => console.log('Error sharing', error));
-    } else {
-      // Fallback - copy to clipboard
-      navigator.clipboard
-        .writeText(window.location.href)
-        .then(() => {
-          // Show toast notification
-          // Assuming you have a toast component
-          console.log('Link copied to clipboard');
-        })
-        .catch((err) => {
-          console.error('Could not copy text: ', err);
-        });
-    }
-  }
 </script>
 
 <main class="container mx-auto px-4 py-6 max-w-7xl">
@@ -410,7 +385,7 @@
         </div>
 
         <!-- Allergen information card -->
-        <RecipeAllergens />
+        <!-- <RecipeAllergens /> -->
       </div>
     </div>
 
