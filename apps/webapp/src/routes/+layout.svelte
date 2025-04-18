@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte';
-  import '../app.css';
+  // import '../app.css';
   import { QueryClientProvider } from '@tanstack/svelte-query';
   import { getAuthConext } from '$lib/contexts/auth-context.svelte';
 

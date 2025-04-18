@@ -205,7 +205,16 @@
     Upload,
     Save,
     Bookmark,
-    Flame
+    Flame,
+    ListCheck,
+    FolderKanban,
+    LogOut,
+    Thermometer,
+    Droplets,
+    ClipboardCheck,
+    Biohazard,
+    Droplet,
+    Contact
   } from 'lucide-svelte';
 
   // ==== STATE MANAGEMENT ====
@@ -581,34 +590,132 @@
     </div>
   </header>
 
-  <!-- Kitchen Dashboard Navigation Tabs -->
+  <script lang="ts">
+    import {
+      BookOpen,
+      Calendar,
+      Clock,
+      ShoppingCart,
+      ListCheck,
+      FolderKanban,
+      Flame,
+      Star,
+      ChevronDown,
+      Users,
+      Settings,
+      LogOut,
+      PlusCircle,
+      Bookmark,
+      Utensils,
+      BarChart,
+      HelpCircle
+    } from 'lucide-svelte';
+    import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
+    import { buttonVariants } from '$lib/components/ui/button/index.js';
+  </script>
+
+  <!-- Kitchen Dashboard Navigation Tabs with Dropdown -->
   <Tabs.Root value={activeTab} class="mb-6" onValueChange={(value) => (activeTab = value)}>
-    <Tabs.List class="bg-card rounded-lg p-1 shadow-sm border">
-      <Tabs.Trigger value="all" class="flex items-center gap-2">
-        <Grid class="h-4 w-4" />
-        <span>All Recipes</span>
+    <Tabs.List class="bg-card rounded-lg p-1 shadow-sm border flex items-center">
+      <Tabs.Trigger value="prepBroad" class="flex items-center gap-2">
+        <ListCheck class="h-4 w-4" />
+        <span>Prep Board</span>
         <Badge variant="secondary">{data?.totalCount || 0}</Badge>
       </Tabs.Trigger>
-      <Tabs.Trigger value="favorites" class="flex items-center gap-2">
-        <Heart class="h-4 w-4" />
-        <span>Favorites</span>
+
+      <Tabs.Trigger value="proudctionPlan" class="flex items-center gap-2">
+        <FolderKanban class="h-4 w-4" />
+        <span>Production Plans</span>
       </Tabs.Trigger>
-      <Tabs.Trigger value="recent" class="flex items-center gap-2">
-        <Clock class="h-4 w-4" />
-        <span>Recently Viewed</span>
-      </Tabs.Trigger>
+
+      <!-- Quick Access Dropdown -->
+      <DropdownMenu.Root>
+        <DropdownMenu.Trigger
+          class="flex items-center gap-2 px-3 py-1.5 text-sm font-medium focus:outline-none"
+        >
+          <Flame class="h-4 w-4" />
+          <span>Quick Access forms</span>
+          <ChevronDown class="h-4 w-4 ml-1" />
+        </DropdownMenu.Trigger>
+        <DropdownMenu.Content class="w-48">
+          <DropdownMenu.Group>
+            <DropdownMenu.Item onSelect={() => (activeTab = 'favorites')}>
+              <Thermometer class="mr-2 h-4 w-4" />
+              <span>Temperature Logs</span>
+            </DropdownMenu.Item>
+            <DropdownMenu.Item onSelect={() => (activeTab = 'recipes')}>
+              <Droplets class="mr-2 h-4 w-4" />
+              <span>Sanitation Checks</span>
+            </DropdownMenu.Item>
+            <DropdownMenu.Item onSelect={() => (activeTab = 'cookbooks')}>
+              <ClipboardCheck class="mr-2 h-4 w-4" />
+              <span>HACCP Plans</span>
+            </DropdownMenu.Item>
+            <DropdownMenu.Separator />
+            <DropdownMenu.Item onSelect={() => (activeTab = 'analytics')}>
+              <Checkbox class="mr-2 h-4 w-4" />
+              <span>Self-Inspection Checklists</span>
+            </DropdownMenu.Item>
+            <DropdownMenu.Item onSelect={() => (activeTab = 'bookmarks')}>
+              <Droplet class="mr-2 h-4 w-4" />
+              <span>Sanitation & Cleaning Schedules</span>
+            </DropdownMenu.Item>
+            <DropdownMenu.Item onSelect={() => (activeTab = 'bookmarks')}>
+              <Contact class="mr-2 h-4 w-4" />
+              <span>Employee Training & Hygiene Records</span>
+            </DropdownMenu.Item>
+            <DropdownMenu.Item onSelect={() => (activeTab = 'bookmarks')}>
+              <Biohazard class="mr-2 h-4 w-4" />
+              <span>Waste Management & Traceability Records</span>
+            </DropdownMenu.Item>
+          </DropdownMenu.Group>
+        </DropdownMenu.Content>
+      </DropdownMenu.Root>
+
       <Tabs.Trigger value="cookbooks" class="flex items-center gap-2">
         <BookOpen class="h-4 w-4" />
         <span>Cookbooks</span>
       </Tabs.Trigger>
-      <Tabs.Trigger value="meal-plans" class="flex items-center gap-2 hidden md:flex">
+
+      <Tabs.Trigger value="meal-plans" class="flex items-center gap-2 md:flex">
         <Calendar class="h-4 w-4" />
-        <span>Meal Plans</span>
+        <span>Orders</span>
       </Tabs.Trigger>
-      <Tabs.Trigger value="shopping" class="flex items-center gap-2 hidden md:flex">
+
+      <Tabs.Trigger value="shopping" class="flex items-center gap-2  md:flex">
         <ShoppingCart class="h-4 w-4" />
-        <span>Shopping Lists</span>
+        <span>Vendors / suppliers</span>
       </Tabs.Trigger>
+
+      <!-- Settings Dropdown -->
+      <DropdownMenu.Root>
+        <DropdownMenu.Trigger
+          class="ml-auto flex items-center gap-2 px-3 py-1.5 text-sm font-medium focus:outline-none"
+        >
+          <Settings class="h-4 w-4" />
+          <ChevronDown class="h-4 w-4" />
+        </DropdownMenu.Trigger>
+        <DropdownMenu.Content class="w-48">
+          <DropdownMenu.Item>
+            <Users class="mr-2 h-4 w-4" />
+            <span>Team Settings</span>
+          </DropdownMenu.Item>
+          <DropdownMenu.Item>
+            <PlusCircle class="mr-2 h-4 w-4" />
+            <span>New Project</span>
+          </DropdownMenu.Item>
+          <DropdownMenu.Separator />
+          <DropdownMenu.Item>
+            <HelpCircle class="mr-2 h-4 w-4" />
+            <span>Support</span>
+          </DropdownMenu.Item>
+          <DropdownMenu.Separator />
+          <DropdownMenu.Item>
+            <LogOut class="mr-2 h-4 w-4" />
+            <span>Log Out</span>
+          </DropdownMenu.Item>
+        </DropdownMenu.Content>
+      </DropdownMenu.Root>
     </Tabs.List>
   </Tabs.Root>
 

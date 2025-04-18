@@ -18,7 +18,8 @@
     Star,
     BookOpen,
     History,
-    Share2
+    Share2,
+    Apple
   } from 'lucide-svelte';
   import { Button } from '$lib/components/ui/button';
   import { Badge } from '$lib/components/ui/badge';
@@ -49,6 +50,7 @@
   import { zodSchemas } from '@ckm/db';
 
   import RecipeHeader from '$lib/components/domain/recipes/recipe-header.svelte';
+  import { nice } from 'd3';
 
   // Initialize props
   let { form, data }: PageProps = $props();
@@ -404,10 +406,14 @@
             class="w-full"
             onValueChange={(value) => (recipe.activeTab = value)}
           >
-            <TabsList class="w-full grid grid-cols-2 md:grid-cols-5 mb-6">
+            <TabsList class="w-full grid grid-cols-2 md:grid-cols-6 mb-6">
               <TabsTrigger value="overview" class="flex items-center gap-1">
                 <ScrollText class="h-4 w-4 mr-1 hidden md:inline" />
                 Overview
+              </TabsTrigger>
+              <TabsTrigger value="nutrition" class="flex items-center gap-1">
+                <Apple class="h-4 w-4 mr-1 hidden md:inline" />
+                Nutrition
               </TabsTrigger>
               <TabsTrigger value="ingredients" class="flex items-center gap-1">
                 <BookOpen class="h-4 w-4 mr-1 hidden md:inline" />
@@ -434,7 +440,9 @@
                 {/if}
 
                 <Separator class="mb-4" />
+              </TabsContent>
 
+              <TabsContent value="nutrition" class="space-y-6 mt-0">
                 {#if recipe.nutritionalInfo}
                   <NutritionCard {dailyValues} {form} {usdaMatches} {ingredientToMatch} />
                 {/if}
