@@ -13,8 +13,8 @@ This monorepo provides a comprehensive development environment for building scal
 ├── apps                       # Application projects
 │   ├── api                    # NestJS backend API
 │   ├── docs                   # Documentation site
-│   ├── web                    # Main Svelte web application
-│   └── webapp                 # Admin/alternative web interface
+│   ├── webapp                 # Main Svelte web application
+│   └── web                    # Admin/alternative web interface *
 ├── packages                   # Shared packages and libraries
 │   ├── config-eslint          # Shared ESLint configuration
 │   ├── database               # Database access layer with Prisma
@@ -49,21 +49,24 @@ This monorepo provides a comprehensive development environment for building scal
 ### Installation
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/rayan147/ckm-monorepo.git
    cd ckm-monorepo
    ```
 
 2. Install dependencies:
+
    ```bash
    pnpm install
    ```
 
 3. Start the development environment:
+
    ```bash
    # Start the database and services with Docker
    docker-compose up -d
-   
+
    # Start the development servers
    pnpm dev
    ```

@@ -2,7 +2,7 @@ import { HttpModule } from '@nestjs/axios';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
-import { ThrottlerModule } from '@nestjs/throttler';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { AiassistantController } from './aiassistant/aiassistant.controller';
 import { AiassistantModule } from './aiassistant/aiassistant.module';
 import { AiassistantService } from './aiassistant/aiassistant.service';
@@ -73,23 +73,14 @@ import { RoleGuard } from './guards/role.guard';
       isGlobal: true,
       validate: env => envSchema.parse(env),
     }),
-    ThrottlerModule.forRoot([
-      {
-        name: 'short',
-        ttl: 1000,
-        limit: 3,
-      },
-      {
-        name: 'medium',
-        ttl: 10000,
-        limit: 20,
-      },
-      {
-        name: 'long',
-        ttl: 60000,
-        limit: 100,
-      },
-    ]),
+    ThrottlerModule.forRoot({
+      throttlers: [
+        {
+          ttl: 60_000,
+          limit: 10,
+        }
+      ]
+    }),
     TsRestModule.register({
       isGlobal: true,
       jsonQuery: true,
@@ -163,6 +154,10 @@ import { RoleGuard } from './guards/role.guard';
     {
       provide: APP_GUARD,
       useClass: RoleGuard
+    },
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard
     }
     // {
     //   provide: APP_GUARD,
@@ -172,6 +167,6 @@ import { RoleGuard } from './guards/role.guard';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(SessionInitMiddleware, CsrfMiddleware).forRoutes('*');
+    consumer.apply(SessionInitMiddleware).forRoutes('*');
   }
 }
